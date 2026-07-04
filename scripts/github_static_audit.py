@@ -195,6 +195,22 @@ def java_brace_audit() -> list[str]:
     return errors
 
 
+
+def compile_helper_presence_audit() -> list[str]:
+    errors: list[str] = []
+    text = JAVA_MAIN.read_text(encoding="utf-8")
+    required_helpers = [
+        "private static RegistryObject<Item> ttParityItem",
+        "private static RegistryObject<Item> tceParityItem",
+        "private static RegistryObject<Block> ttParityBlock",
+        "private static RegistryObject<Block> tceParityBlock",
+    ]
+    for helper in required_helpers:
+        if helper not in text:
+            errors.append(f"missing compile helper: {helper}")
+    return errors
+
+
 def main() -> None:
     checks = {
         "JSON": json_audit(),
@@ -203,6 +219,7 @@ def main() -> None:
         "Model references": model_reference_audit(),
         "GUI": gui_audit(),
         "Java braces": java_brace_audit(),
+        "Compile helpers": compile_helper_presence_audit(),
     }
 
     total_errors = 0

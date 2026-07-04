@@ -986,4 +986,26 @@ public class ThaumcraftMod {
                 .requiresCorrectToolForDrops()
                 .lightLevel(state -> light));
     }
+
+    private static RegistryObject<Item> ttParityItem(String name, ThaumicTinkererParityItem.Mode mode) {
+        return ITEMS.register(name, () -> new ThaumicTinkererParityItem(new Item.Properties().tab(THAUMCRAFT_TAB), mode));
+    }
+
+    private static RegistryObject<Item> tceParityItem(String name, ThaumcraftExtrasParityItem.Mode mode) {
+        return ITEMS.register(name, () -> new ThaumcraftExtrasParityItem(new Item.Properties().tab(THAUMCRAFT_TAB), mode));
+    }
+
+    private static RegistryObject<Block> ttParityBlock(String name, ThaumicTinkererParityBlock.Mode mode, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new ThaumicTinkererParityBlock(properties, mode));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> tceParityBlock(String name, ThaumcraftExtrasParityBlock.Mode mode, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new ThaumcraftExtrasParityBlock(properties, mode));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+
 }

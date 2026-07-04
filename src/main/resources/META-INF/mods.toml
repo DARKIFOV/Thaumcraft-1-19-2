@@ -9,7 +9,7 @@ displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 A clean Forge 1.19.2 rebuild scaffold inspired by Thaumcraft 4.
-Stage 86: Clean GitHub upload package; only build-required files are included.
+Stage 87: Compile helper fix for Thaumic Tinkerer and Thaumcraft Extras parity registries.
 '''
 
 [[dependencies.thaumcraft]]

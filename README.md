@@ -1,52 +1,29 @@
-# Thaumcraft Legacy Rebuild 1.19.2 — Clean GitHub Build Package
+# Thaumcraft Legacy Rebuild 1.19.2 — Stage 87 Compile Helpers Fix
 
-## Что это
+## Что исправлено
 
-Чистая версия проекта для загрузки на GitHub.
+GitHub Actions показал ошибку:
 
-В архиве оставлено только нужное для сборки:
-
-- `.github/workflows/main.yml`
-- `scripts/github_static_audit.py`
-- `src/`
-- `build.gradle`
-- `settings.gradle`
-- `.gitignore`
-- `README.md`
-
-Лишние папки и файлы удалены:
-
-- `docs`
-- `preview`
-- `tools`
-- `addon_compat_examples`
-- старые инструкции
-- старые changelog-файлы
-
-## Как проверить
-
-Открой файл:
-
-`.github/workflows/main.yml`
-
-Первая строка должна быть:
-
-```yml
-name: Forge 1.19.2 Build
+```text
+ThaumcraftMod.java: error: cannot find symbol
+symbol: method ttParityItem(String, Mode)
+symbol: method tceParityItem(String, Mode)
+symbol: method ttParityBlock(String, Mode, Properties)
+symbol: method tceParityBlock(String, Mode, Properties)
 ```
 
-Файл `.gitignore` должен лежать в корне проекта.
+В Stage 87 добавлены недостающие helper-методы регистрации:
 
-## Как загрузить на GitHub
+- `ttParityItem(...)`
+- `tceParityItem(...)`
+- `ttParityBlock(...)`
+- `tceParityBlock(...)`
 
-1. Распакуй архив.
-2. Открой распакованную папку.
-3. Выдели всё содержимое папки.
-4. На GitHub нажми `Add file → Upload files`.
-5. Перетащи файлы.
-6. Нажми `Commit changes`.
-7. Открой `Actions → Forge 1.19.2 Build`.
+## Как запускать
 
-## Если сборка упала
+1. Замени содержимое локального репозитория на содержимое этого архива.
+2. В GitHub Desktop сделай commit.
+3. Нажми `Push origin`.
+4. Открой `Actions → Forge 1.19.2 Build`.
 
-Скопируй ошибку из красного шага `Build Forge mod` и пришли её сюда.
+Если сборка снова упадёт, пришли первый блок ошибки из шага `Build and reobfuscate jar`.
