@@ -53,7 +53,7 @@ public class ResearchNoteItem extends Item {
     }
 
     private boolean requirementsMet(Player player, ResearchEntry entry) {
-        for (String parent : entry.parents()) {
+        for (String parent : entry.requirements()) {
             if (!PlayerThaumData.hasResearch(player, parent)) {
                 return false;
             }

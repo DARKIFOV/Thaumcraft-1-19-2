@@ -38,7 +38,7 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
 
         searchBox = new EditBox(font, leftPos + 8, topPos - 44, 198, 18, Component.literal("Search"));
         searchBox.setMaxLength(40);
-        searchBox.setHint(Component.literal("Search recipe..."));
+        searchBox.setSuggestion("Search recipe...");
         addRenderableWidget(searchBox);
 
         addRenderableWidget(new Button(leftPos + 6, topPos - 24, 50, 18, Component.literal("<"), button -> {

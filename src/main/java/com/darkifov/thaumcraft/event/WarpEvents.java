@@ -158,7 +158,7 @@ public final class WarpEvents {
     }
 
     private static void taintGround(ServerPlayer player) {
-        ServerLevel level = player.serverLevel();
+        ServerLevel level = (ServerLevel) player.level;
         BlockPos center = player.blockPosition();
 
         for (int i = 0; i < 10; i++) {

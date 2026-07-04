@@ -157,6 +157,10 @@ public final class InfusionProcessHelper {
                 - Math.max(0, report.stabilityScore()) / 5);
     }
 
+    public static int calculatedInstability(InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers) {
+        return Math.max(0, calculatedInstability(recipe, report) - Math.max(0, matrixStabilizers));
+    }
+
     public static void spawnProcessParticles(ServerLevel level, BlockPos matrixPos, InfusionStructureReport report, int progress, int duration) {
         double pct = duration <= 0 ? 0.0D : (double) progress / (double) duration;
 

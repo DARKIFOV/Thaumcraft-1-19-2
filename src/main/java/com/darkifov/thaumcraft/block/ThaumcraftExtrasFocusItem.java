@@ -8,6 +8,7 @@ import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -303,14 +304,14 @@ public class ThaumcraftExtrasFocusItem extends Item {
     }
 
     private void returnHome(Player player) {
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (player instanceof ServerPlayer serverPlayer && serverPlayer.level instanceof ServerLevel serverLevel) {
             BlockPos target = serverPlayer.getRespawnPosition();
 
             if (target == null) {
-                target = serverPlayer.serverLevel().getSharedSpawnPos();
+                target = serverLevel.getSharedSpawnPos();
             }
 
-            serverPlayer.teleportTo(serverPlayer.serverLevel(), target.getX() + 0.5D, target.getY() + 1.0D, target.getZ() + 0.5D, serverPlayer.getYRot(), serverPlayer.getXRot());
+            serverPlayer.teleportTo(serverLevel, target.getX() + 0.5D, target.getY() + 1.0D, target.getZ() + 0.5D, serverPlayer.getYRot(), serverPlayer.getXRot());
             PlayerThaumData.addWarp(player, 1);
             sync(player);
             player.displayClientMessage(Component.literal("Фокус возвращения тянет тебя домой.").withStyle(ChatFormatting.LIGHT_PURPLE), false);

@@ -63,7 +63,7 @@ public class ThaumicTinkererUtilityItem extends Item {
         tooltip.add(description().withStyle(ChatFormatting.GRAY));
     }
 
-    private Component description() {
+    private net.minecraft.network.chat.MutableComponent description() {
         return switch (mode) {
             case TOME_KNOWLEDGE -> Component.literal("Shares a Thaumic Tinkerer research unlock.");
             case INFUSED_SCRIBING_TOOLS -> Component.literal("Reusable magical scribing tools; research branch marker.");

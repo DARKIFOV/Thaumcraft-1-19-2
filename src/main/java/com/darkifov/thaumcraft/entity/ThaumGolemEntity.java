@@ -201,12 +201,12 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     @Override
-    protected boolean removeWhenFarAway(double distanceToClosestPlayer) {
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return false;
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
 
         if (ownerUuid != null) {
@@ -234,7 +234,7 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
 
         if (tag.hasUUID("Owner")) {

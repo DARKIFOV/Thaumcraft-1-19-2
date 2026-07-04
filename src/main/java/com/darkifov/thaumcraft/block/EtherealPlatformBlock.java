@@ -104,8 +104,8 @@ public class EtherealPlatformBlock extends Block {
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
                                   LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-        if (!level.isClientSide() && state.getValue(REDSTONE_LOCKED)) {
-            boolean powered = level.hasNeighborSignal(pos);
+        if (!level.isClientSide() && state.getValue(REDSTONE_LOCKED) && level instanceof Level realLevel) {
+            boolean powered = realLevel.hasNeighborSignal(pos);
             boolean shouldBeSolid = !powered;
 
             if (state.getValue(SOLID) != shouldBeSolid) {

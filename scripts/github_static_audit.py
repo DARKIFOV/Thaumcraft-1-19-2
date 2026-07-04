@@ -211,6 +211,26 @@ def compile_helper_presence_audit() -> list[str]:
     return errors
 
 
+
+def compile_api_risk_audit() -> list[str]:
+    errors: list[str] = []
+    forbidden_patterns = {
+        "Container.stillValidBlockEntity(": "1.19.2 has no Container.stillValidBlockEntity helper here",
+        ".serverLevel()": "ServerPlayer.serverLevel() was unavailable in the GitHub compile environment",
+        ".parents()": "ResearchEntry exposes requirements(), not parents()",
+        ".setHint(": "EditBox#setHint was unavailable in the GitHub compile environment",
+    }
+
+    for path in (ROOT / "src/main/java").rglob("*.java"):
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        rel = path.relative_to(ROOT).as_posix()
+        for pattern, reason in forbidden_patterns.items():
+            if pattern in text:
+                errors.append(f"{rel}: forbidden compile-risk pattern {pattern} — {reason}")
+
+    return errors
+
+
 def main() -> None:
     checks = {
         "JSON": json_audit(),
@@ -220,6 +240,7 @@ def main() -> None:
         "GUI": gui_audit(),
         "Java braces": java_brace_audit(),
         "Compile helpers": compile_helper_presence_audit(),
+        "Compile API risks": compile_api_risk_audit(),
     }
 
     total_errors = 0

@@ -216,7 +216,14 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
     @Override
     public boolean stillValid(Player player) {
-        return Container.stillValidBlockEntity(this, player);
+        return !isRemoved()
+                && level != null
+                && level.getBlockEntity(worldPosition) == this
+                && player.distanceToSqr(
+                        worldPosition.getX() + 0.5D,
+                        worldPosition.getY() + 0.5D,
+                        worldPosition.getZ() + 0.5D
+                ) <= 64.0D;
     }
 
     @Override
