@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "E": {
+      "item": "thaumcraft:eldritch_eye"
+    },
+    "S": {
+      "item": "thaumcraft:eldritch_stone"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:eldritch_obelisk",
+    "count": 1
+  }
+}

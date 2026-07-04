@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "BTB",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    },
+    "T": {
+      "item": "minecraft:book"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tome_of_knowledge_sharing",
+    "count": 1
+  }
+}

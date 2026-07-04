@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "CCC",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "C": {
+      "item": "thaumcraft:thaumic_channel_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumic_me_cable",
+    "count": 8
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "DTD",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "thaumcraft:coalescence_core"
+    },
+    "D": {
+      "item": "thaumcraft:diffusion_core"
+    },
+    "T": {
+      "item": "thaumcraft:essentia_terminal"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:essentia_level_emitter"
+  }
+}

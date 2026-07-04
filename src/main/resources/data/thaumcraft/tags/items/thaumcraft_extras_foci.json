@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:focus_blink",
+    "thaumcraft:focus_arrow",
+    "thaumcraft:focus_heal",
+    "thaumcraft:focus_speed",
+    "thaumcraft:focus_pech_summon",
+    "thaumcraft:focus_experience",
+    "thaumcraft:focus_return",
+    "thaumcraft:focus_exchange",
+    "thaumcraft:focus_smelting",
+    "thaumcraft:focus_dispel",
+    "thaumcraft:focus_destroy",
+    "thaumcraft:focus_freeze"
+  ]
+}

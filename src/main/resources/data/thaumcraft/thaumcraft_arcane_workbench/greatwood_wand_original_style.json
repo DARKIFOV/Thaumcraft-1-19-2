@@ -1,0 +1,13 @@
+{
+  "catalyst": "minecraft:stick",
+  "ingredients": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:thaumium_nugget",
+    "thaumcraft:thaumium_nugget"
+  ],
+  "research": "FIRST_STEPS",
+  "result": {
+    "item": "thaumcraft:greatwood_wand",
+    "count": 1
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " O ",
+    "OTO",
+    " O "
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "T": {
+      "item": "thaumcraft:obsidian_tile"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:obsidian_totem",
+    "count": 2
+  }
+}

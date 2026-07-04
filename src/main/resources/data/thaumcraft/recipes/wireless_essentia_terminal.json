@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EPE",
+    "TDT",
+    "EPE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "P": {
+      "item": "thaumcraft:potentia_shard"
+    },
+    "T": {
+      "item": "thaumcraft:essentia_terminal"
+    },
+    "D": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:wireless_essentia_terminal"
+  }
+}

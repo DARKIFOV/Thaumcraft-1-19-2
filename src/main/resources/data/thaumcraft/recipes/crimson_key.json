@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " V ",
+    "VEV",
+    " R "
+  ],
+  "key": {
+    "V": {
+      "item": "thaumcraft:void_metal_ingot"
+    },
+    "E": {
+      "item": "thaumcraft:eldritch_eye"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:crimson_key",
+    "count": 1
+  }
+}

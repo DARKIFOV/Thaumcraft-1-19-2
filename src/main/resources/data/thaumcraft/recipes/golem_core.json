@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TBT",
+    "BIB",
+    "TBT"
+  ],
+  "key": {
+    "T": {
+      "item": "thaumcraft:thaumium_ingot"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    },
+    "I": {
+      "item": "thaumcraft:infusion_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:golem_core",
+    "count": 1
+  }
+}

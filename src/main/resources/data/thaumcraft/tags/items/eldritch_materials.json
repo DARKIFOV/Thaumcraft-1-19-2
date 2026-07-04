@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:void_metal_ingot",
+    "thaumcraft:primordial_pearl",
+    "thaumcraft:eldritch_eye",
+    "thaumcraft:eldritch_relic",
+    "thaumcraft:eldritch_guardian_core"
+  ]
+}

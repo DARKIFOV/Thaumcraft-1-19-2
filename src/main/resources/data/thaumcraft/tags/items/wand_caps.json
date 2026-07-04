@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:iron_wand_cap",
+    "thaumcraft:gold_wand_cap",
+    "thaumcraft:thaumium_wand_cap"
+  ]
+}

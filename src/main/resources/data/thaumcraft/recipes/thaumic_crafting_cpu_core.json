@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "KCK",
+    "CDC",
+    "KCK"
+  ],
+  "key": {
+    "K": {
+      "item": "thaumcraft:knowledge_core"
+    },
+    "C": {
+      "item": "thaumcraft:thaumic_channel_core"
+    },
+    "D": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumic_crafting_cpu_core"
+  }
+}

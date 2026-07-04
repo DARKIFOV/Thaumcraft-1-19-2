@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:arcane_pattern_encoder",
+    "thaumcraft:arcane_pattern_provider",
+    "thaumcraft:essentia_export_bus",
+    "thaumcraft:essentia_import_bus",
+    "thaumcraft:essentia_interface",
+    "thaumcraft:essentia_storage_bus",
+    "thaumcraft:essentia_storage_monitor",
+    "thaumcraft:essentia_terminal",
+    "thaumcraft:ethereal_platform",
+    "thaumcraft:fume_dissipator",
+    "thaumcraft:nitor_light",
+    "thaumcraft:obsidian_tile",
+    "thaumcraft:obsidian_totem",
+    "thaumcraft:osmotic_enchanter",
+    "thaumcraft:transvector_interface"
+  ]
+}

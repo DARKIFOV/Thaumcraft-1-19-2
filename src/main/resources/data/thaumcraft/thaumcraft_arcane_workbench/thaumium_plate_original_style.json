@@ -1,0 +1,12 @@
+{
+  "catalyst": "thaumcraft:thaumium_ingot",
+  "ingredients": [
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:thaumium_ingot"
+  ],
+  "research": "THAUMIUM",
+  "result": {
+    "item": "thaumcraft:thaumium_plate",
+    "count": 1
+  }
+}

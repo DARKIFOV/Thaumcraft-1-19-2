@@ -1,0 +1,11 @@
+{
+  "catalyst": "minecraft:slime_ball",
+  "result": {
+    "item": "thaumcraft:tainted_slime",
+    "count": 1
+  },
+  "aspects": {
+    "PERDITIO": 4,
+    "VACUOS": 2
+  }
+}

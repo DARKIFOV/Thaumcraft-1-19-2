@@ -1,0 +1,11 @@
+{
+  "catalyst": "minecraft:paper",
+  "ingredients": [
+    "thaumcraft:alchemy_dust"
+  ],
+  "research": "FIRST_STEPS",
+  "result": {
+    "item": "thaumcraft:research_note",
+    "count": 1
+  }
+}

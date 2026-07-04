@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:arcane_pattern_encoder",
+    "thaumcraft:essentia_drive",
+    "thaumcraft:essentia_export_bus",
+    "thaumcraft:essentia_import_bus",
+    "thaumcraft:essentia_interface",
+    "thaumcraft:essentia_storage_bus",
+    "thaumcraft:essentia_storage_monitor",
+    "thaumcraft:essentia_terminal",
+    "thaumcraft:arcane_pattern_provider"
+  ]
+}

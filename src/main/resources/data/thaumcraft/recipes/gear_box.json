@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "GDG",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "thaumcraft:iron_gear"
+    },
+    "D": {
+      "item": "thaumcraft:diffusion_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:gear_box"
+  }
+}

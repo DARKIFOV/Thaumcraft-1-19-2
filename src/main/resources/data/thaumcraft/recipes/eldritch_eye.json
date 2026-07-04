@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VPV",
+    "PEP",
+    "VPV"
+  ],
+  "key": {
+    "V": {
+      "item": "thaumcraft:void_metal_ingot"
+    },
+    "P": {
+      "item": "thaumcraft:praecantatio_shard"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:eldritch_eye",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:eldritch_stone",
+    "thaumcraft:eldritch_obelisk",
+    "thaumcraft:eldritch_altar",
+    "thaumcraft:eldritch_portal"
+  ]
+}

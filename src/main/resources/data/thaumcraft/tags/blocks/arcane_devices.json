@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:arcane_workbench",
+    "thaumcraft:research_table",
+    "thaumcraft:infusion_matrix",
+    "thaumcraft:arcane_pedestal",
+    "thaumcraft:matrix_accelerator",
+    "thaumcraft:matrix_stabilizer"
+  ]
+}

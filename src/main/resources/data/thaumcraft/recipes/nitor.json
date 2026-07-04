@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "thaumcraft:ignis_shard"
+    },
+    {
+      "item": "thaumcraft:aer_shard"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:nitor",
+    "count": 1
+  }
+}

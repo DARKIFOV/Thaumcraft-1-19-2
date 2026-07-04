@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "thaumcraft:aqua_shard"
+    },
+    "C": {
+      "item": "minecraft:blue_ice"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:extras_water_block",
+    "count": 1
+  }
+}

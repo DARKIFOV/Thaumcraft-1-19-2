@@ -1,0 +1,12 @@
+{
+  "catalyst": "minecraft:glowstone_dust",
+  "result": {
+    "item": "thaumcraft:nitor",
+    "count": 1
+  },
+  "aspects": {
+    "IGNIS": 3,
+    "POTENTIA": 3,
+    "LUX": 3
+  }
+}

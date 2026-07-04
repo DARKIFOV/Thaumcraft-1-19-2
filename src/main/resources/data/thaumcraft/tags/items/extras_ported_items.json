@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:experience_extractor",
+    "thaumcraft:experience_shard",
+    "thaumcraft:focus_arrow",
+    "thaumcraft:focus_blink",
+    "thaumcraft:focus_destroy",
+    "thaumcraft:focus_dispel",
+    "thaumcraft:focus_exchange",
+    "thaumcraft:focus_experience",
+    "thaumcraft:focus_fire",
+    "thaumcraft:focus_freeze",
+    "thaumcraft:focus_frost",
+    "thaumcraft:focus_heal",
+    "thaumcraft:focus_pech_summon",
+    "thaumcraft:focus_return",
+    "thaumcraft:focus_shock",
+    "thaumcraft:focus_smelting",
+    "thaumcraft:focus_speed",
+    "thaumcraft:ignis_fuel",
+    "thaumcraft:pech_ledger",
+    "thaumcraft:pech_trade_tier_1",
+    "thaumcraft:pech_trade_tier_2",
+    "thaumcraft:pech_trade_tier_3",
+    "thaumcraft:pech_trade_tier_4",
+    "thaumcraft:pech_trade_tier_5"
+  ]
+}

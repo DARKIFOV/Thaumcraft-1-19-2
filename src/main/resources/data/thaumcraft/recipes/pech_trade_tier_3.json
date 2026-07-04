@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "TET",
+    " T "
+  ],
+  "key": {
+    "T": {
+      "item": "thaumcraft:pech_trade_tier_2"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:pech_trade_tier_3",
+    "count": 1
+  }
+}

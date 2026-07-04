@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GPG",
+    " B "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "P": {
+      "item": "thaumcraft:praecantatio_shard"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:helmet_of_revealing",
+    "count": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "catalyst": "minecraft:furnace",
+  "ingredients": [
+    "thaumcraft:ignis_shard",
+    "thaumcraft:ignis_shard",
+    "minecraft:coal"
+  ],
+  "research": "THAUMCRAFT_EXTRAS_FOCI",
+  "result": {
+    "item": "thaumcraft:focus_smelting",
+    "count": 1
+  }
+}

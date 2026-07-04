@@ -1,0 +1,10 @@
+{
+  "catalyst": "minecraft:iron_ingot",
+  "result": {
+    "item": "thaumcraft:thaumium_ingot",
+    "count": 1
+  },
+  "aspects": {
+    "PRAECANTATIO": 4
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "TCT",
+    " R "
+  ],
+  "key": {
+    "Q": {
+      "item": "thaumcraft:quicksilver_drop"
+    },
+    "T": {
+      "item": "thaumcraft:essentia_tube"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:essentia_valve",
+    "count": 1
+  }
+}

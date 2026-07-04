@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "BDB",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "thaumcraft:essentia_capacity_upgrade"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    },
+    "D": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumic_coprocessor_card",
+    "count": 1
+  }
+}

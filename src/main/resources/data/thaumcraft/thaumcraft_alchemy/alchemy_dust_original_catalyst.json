@@ -1,0 +1,12 @@
+{
+  "catalyst": "minecraft:redstone",
+  "result": {
+    "item": "thaumcraft:alchemy_dust",
+    "count": 2
+  },
+  "aspects": {
+    "PRAECANTATIO": 2,
+    "ORDO": 1,
+    "PERDITIO": 1
+  }
+}

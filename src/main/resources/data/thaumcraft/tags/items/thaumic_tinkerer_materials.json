@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:spellbinding_cloth",
+    "thaumcraft:osmotic_enchantment_focus",
+    "thaumcraft:transvector_binder",
+    "thaumcraft:tt_research_stamp"
+  ]
+}

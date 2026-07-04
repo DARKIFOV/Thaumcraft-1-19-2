@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:eldritch_guardian_core",
+    "thaumcraft:eldritch_relic",
+    "thaumcraft:experience_shard",
+    "thaumcraft:ignis_fuel",
+    "thaumcraft:pech_trade_tier_5",
+    "thaumcraft:primordial_pearl"
+  ]
+}

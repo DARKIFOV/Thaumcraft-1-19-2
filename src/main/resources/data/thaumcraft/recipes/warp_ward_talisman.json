@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OPO",
+    "PBP",
+    "OPO"
+  ],
+  "key": {
+    "O": {
+      "item": "thaumcraft:ordo_shard"
+    },
+    "P": {
+      "item": "thaumcraft:praecantatio_shard"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:warp_ward_talisman",
+    "count": 1
+  }
+}

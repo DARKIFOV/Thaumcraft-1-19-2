@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EWE",
+    "GCG",
+    "EWE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "W": {
+      "item": "thaumcraft:wireless_essentia_terminal"
+    },
+    "G": {
+      "item": "thaumcraft:golem_core"
+    },
+    "C": {
+      "item": "thaumcraft:diffusion_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:golem_wireless_backpack"
+  }
+}

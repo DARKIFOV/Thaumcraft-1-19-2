@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:thaumometer",
+    "thaumcraft:scribing_tools",
+    "thaumcraft:thaumonomicon"
+  ]
+}

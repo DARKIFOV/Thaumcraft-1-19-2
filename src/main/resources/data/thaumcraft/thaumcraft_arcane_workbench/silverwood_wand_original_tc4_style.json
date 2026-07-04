@@ -1,0 +1,12 @@
+{
+  "catalyst": "thaumcraft:silverwood_wand_core",
+  "ingredients": [
+    "thaumcraft:thaumium_wand_cap",
+    "thaumcraft:thaumium_wand_cap"
+  ],
+  "research": "ARCANE_WORKBENCH",
+  "result": {
+    "item": "thaumcraft:silverwood_wand",
+    "count": 1
+  }
+}

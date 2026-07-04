@@ -1,0 +1,13 @@
+{
+  "catalyst": "minecraft:iron_pickaxe",
+  "ingredients": [
+    "thaumcraft:perditio_shard",
+    "thaumcraft:terra_shard",
+    "thaumcraft:void_metal_ingot"
+  ],
+  "research": "THAUMCRAFT_EXTRAS_FOCI",
+  "result": {
+    "item": "thaumcraft:focus_destroy",
+    "count": 1
+  }
+}

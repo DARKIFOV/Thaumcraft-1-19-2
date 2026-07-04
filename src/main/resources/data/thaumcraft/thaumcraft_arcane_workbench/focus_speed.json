@@ -1,0 +1,13 @@
+{
+  "catalyst": "minecraft:sugar",
+  "ingredients": [
+    "thaumcraft:aer_shard",
+    "thaumcraft:ordo_shard",
+    "minecraft:rabbit_foot"
+  ],
+  "research": "THAUMCRAFT_EXTRAS_FOCI",
+  "result": {
+    "item": "thaumcraft:focus_speed",
+    "count": 1
+  }
+}

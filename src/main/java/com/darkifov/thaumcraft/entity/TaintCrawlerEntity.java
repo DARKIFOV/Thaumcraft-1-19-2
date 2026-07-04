@@ -1,0 +1,68 @@
+package com.darkifov.thaumcraft.entity;
+
+import com.darkifov.thaumcraft.ThaumcraftMod;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class TaintCrawlerEntity extends Monster {
+    public TaintCrawlerEntity(EntityType<? extends Monster> type, Level level) {
+        super(type, level);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 14.0D)
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.28D)
+                .add(Attributes.FOLLOW_RANGE, 20.0D)
+                .add(Attributes.ARMOR, 1.0D);
+    }
+
+    @Override
+    protected void registerGoals() {
+        goalSelector.addGoal(0, new FloatGoal(this));
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, true));
+        goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
+        goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        if (!level.isClientSide && tickCount % 60 == 0 && random.nextFloat() < 0.45F) {
+            BlockPos center = blockPosition().below();
+            BlockPos target = center.offset(random.nextInt(5) - 2, random.nextInt(2) - 1, random.nextInt(5) - 2);
+            BlockState state = level.getBlockState(target);
+
+            if (state.is(Blocks.DIRT)
+                    || state.is(Blocks.GRASS_BLOCK)
+                    || state.is(Blocks.COARSE_DIRT)
+                    || state.is(Blocks.ROOTED_DIRT)
+                    || state.is(Blocks.MUD)
+                    || state.is(Blocks.STONE)) {
+                level.setBlock(target, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
+            }
+        }
+    }
+
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return true;
+    }
+}

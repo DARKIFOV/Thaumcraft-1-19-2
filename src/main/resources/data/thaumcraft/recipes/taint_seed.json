@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:tainted_slime"
+    },
+    {
+      "item": "thaumcraft:flux_crystal"
+    },
+    {
+      "item": "thaumcraft:perditio_shard"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:taint_seed",
+    "count": 1
+  }
+}

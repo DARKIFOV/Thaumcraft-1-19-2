@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "redstone_locked=false,solid=true": {
+      "model": "thaumcraft:block/ethereal_platform"
+    },
+    "redstone_locked=false,solid=false": {
+      "model": "thaumcraft:block/ethereal_platform"
+    },
+    "redstone_locked=true,solid=true": {
+      "model": "thaumcraft:block/ethereal_platform"
+    },
+    "redstone_locked=true,solid=false": {
+      "model": "thaumcraft:block/ethereal_platform"
+    }
+  }
+}

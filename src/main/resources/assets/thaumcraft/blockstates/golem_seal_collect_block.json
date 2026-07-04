@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thaumcraft:block/golem_seal_collect_block"
+    }
+  }
+}

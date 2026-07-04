@@ -1,0 +1,15 @@
+{
+  "catalyst": "minecraft:leather_helmet",
+  "ingredients": [
+    "thaumcraft:thaumometer",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:aer_shard"
+  ],
+  "research": "PRIMAL_ASPECTS",
+  "result": {
+    "item": "thaumcraft:goggles_of_revealing",
+    "count": 1
+  }
+}

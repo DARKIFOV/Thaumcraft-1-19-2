@@ -1,0 +1,13 @@
+{
+  "catalyst": "minecraft:blue_ice",
+  "ingredients": [
+    "thaumcraft:aqua_shard",
+    "thaumcraft:ordo_shard",
+    "minecraft:snowball"
+  ],
+  "research": "THAUMCRAFT_EXTRAS_FOCI",
+  "result": {
+    "item": "thaumcraft:focus_freeze",
+    "count": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "catalyst": "thaumcraft:infusion_core",
+  "ingredients": [
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:balanced_shard",
+    "thaumcraft:ordo_shard"
+  ],
+  "research": "GOLEMS",
+  "result": {
+    "item": "thaumcraft:golem_core",
+    "count": 1
+  }
+}

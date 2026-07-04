@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:extras_fire_block",
+    "thaumcraft:extras_air_block",
+    "thaumcraft:extras_water_block",
+    "thaumcraft:extras_earth_block",
+    "thaumcraft:extras_light_block",
+    "thaumcraft:extras_ender_block"
+  ]
+}

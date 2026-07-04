@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CQC",
+    "QKQ",
+    "CQC"
+  ],
+  "key": {
+    "C": {
+      "item": "thaumcraft:thaumic_channel_core"
+    },
+    "Q": {
+      "item": "thaumcraft:quicksilver_drop"
+    },
+    "K": {
+      "item": "thaumcraft:knowledge_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumic_me_controller"
+  }
+}

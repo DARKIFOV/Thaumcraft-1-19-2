@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "QPQ",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "P": {
+      "item": "thaumcraft:praecantatio_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:transvector_binder",
+    "count": 1
+  }
+}

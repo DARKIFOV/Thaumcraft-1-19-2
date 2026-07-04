@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SRS",
+    "RBR",
+    "SRS"
+  ],
+  "key": {
+    "S": {
+      "item": "thaumcraft:essentia_speed_card"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:advanced_essentia_speed_card",
+    "count": 1
+  }
+}
