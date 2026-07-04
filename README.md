@@ -1,28 +1,80 @@
-# Thaumcraft Legacy Rebuild 1.19.2 — Stage 88 Forge 1.19.2 Compile API Fix
+# Thaumcraft Legacy Rebuild 1.19.2 — Stage 93 Original Backend Behavior Bridge Pass
 
-## Что исправлено
+## Что сделано
 
-Stage 88 сделан по GitHub Actions log `logs_77587792972.zip`.
+Stage 93 продолжает движение к оригинальному поведению, а не только картинкам.
 
-Исправлены 13 compile errors:
+Добавлены backend bridge-классы:
 
-- `Container.stillValidBlockEntity(...)` заменён на ручную проверку дистанции и block entity.
-- Добавлен overload `InfusionProcessHelper.calculatedInstability(..., int matrixStabilizers)`.
-- `ThaumGolemEntity` override-методы сделаны `public`, как требует `Mob`.
-- `ServerPlayer.serverLevel()` заменён на совместимый доступ через `player.level`.
-- `ResearchEntry.parents()` заменён на `ResearchEntry.requirements()`.
-- `LevelAccessor.hasNeighborSignal(...)` заменён на проверку через `Level`.
-- `ThaumicTinkererUtilityItem.description()` теперь возвращает `MutableComponent`.
-- `EditBox.setHint(...)` заменён на `EditBox.setSuggestion(...)`.
+- `OriginalAspectWallet`
+- `OriginalResearchBridge`
+- `OriginalArcaneCostBridge`
 
-## Как запускать
+## Что они делают
 
-1. Распакуй архив.
-2. В локальном репозитории удали всё, кроме скрытой папки `.git`.
-3. Скопируй внутрь содержимое Stage 88.
-4. В GitHub Desktop сделай commit:
-   `Stage 88 Forge 1.19.2 compile API fix`
-5. Нажми `Push origin`.
-6. Проверь `Actions → Forge 1.19.2 Build`.
+### OriginalAspectWallet
 
-Если сборка снова упадёт, скачай новый log archive и пришли сюда.
+Хранит primal research points у игрока:
+
+- aer
+- terra
+- ignis
+- aqua
+- ordo
+- perditio
+
+Данные сохраняются в persistent NBT игрока.
+
+### OriginalResearchBridge
+
+Даёт original-like research flow:
+
+- проверка parent requirements;
+- поиск первой доступной research-ноды;
+- unlock research;
+- aspect-cost based completion;
+- сообщение игроку при завершении исследования.
+
+### OriginalArcaneCostBridge
+
+Даёт bridge-логику для arcane costs:
+
+- vis cost по типу предмета;
+- primal aspect costs;
+- canCraft check.
+
+## Патчи экранов / предметов
+
+- `ResearchNoteItem` получил серверный bridge для завершения первой доступной research-ноды.
+- `ResearchTableScreen` теперь прямо показывает, что Research Note используется для завершения доступной ноды.
+- `ArcaneWorkbenchScreen` помечен как bridge-backed cost flow.
+
+## Визуальный bridge
+
+Добавлены texture variants:
+
+- aspect-filled jar textures;
+- aura node aspect variants;
+- completed research note texture.
+
+## Честный статус
+
+Это не финальный TC4 backend, но это уже слой настоящего поведения:
+
+- есть сохранение аспектов игрока;
+- есть проверка requirements;
+- есть unlock research;
+- есть aspect costs;
+- есть arcane cost bridge.
+
+Следующий этап для оригинала:
+
+1. packet из ThaumonomiconScreen на server для unlock конкретной выбранной ноды;
+2. настоящая research table minigame;
+3. привязка aspect wallet к реальному GUI;
+4. dynamic renderer банок;
+5. aura/node renderer pass.
+
+## GitHub commit
+
+`Stage 93 original backend behavior bridge pass`

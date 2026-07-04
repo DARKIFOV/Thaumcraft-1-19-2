@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "thaumcraft:block/essentia_jar"
+    "up": "thaumcraft:block/jar_top",
+    "down": "thaumcraft:block/jar_bottom",
+    "north": "thaumcraft:block/jar_side",
+    "south": "thaumcraft:block/jar_side",
+    "east": "thaumcraft:block/jar_side",
+    "west": "thaumcraft:block/jar_side",
+    "particle": "thaumcraft:block/jar_side"
   }
 }

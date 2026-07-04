@@ -1,8 +1,9 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.research.OriginalResearchBridge;
+import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
-import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -26,27 +27,22 @@ public class ResearchNoteItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!level.isClientSide) {
-            boolean unlocked = false;
+        if (!level.isClientSide()) {
+            ResearchEntry target = OriginalResearchBridge.firstAvailable(player).orElse(null);
 
-            for (ResearchEntry entry : ResearchRegistry.entries()) {
-                if (!PlayerThaumData.hasResearch(player, entry.key()) && requirementsMet(player, entry)) {
-                    unlocked = PlayerThaumData.unlockResearch(player, entry.key());
-                    player.displayClientMessage(Component.literal("Research note completed: " + entry.title()).withStyle(ChatFormatting.GOLD), false);
+            if (target == null) {
+                player.displayClientMessage(Component.literal("No research is currently available.").withStyle(ChatFormatting.GRAY), true);
+                return InteractionResultHolder.success(stack);
+            }
 
-                    if (player instanceof ServerPlayer serverPlayer) {
-                        ThaumcraftNetwork.syncResearch(serverPlayer);
-                    }
-
-                    break;
+            if (OriginalResearchBridge.completeWithAspectCost(player, target)) {
+                if (!player.getAbilities().instabuild) {
+                    stack.shrink(1);
                 }
+                return InteractionResultHolder.success(stack);
             }
 
-            if (!unlocked) {
-                player.displayClientMessage(Component.literal("No available research can be completed by this note yet.").withStyle(ChatFormatting.GRAY), false);
-            } else if (!player.getAbilities().instabuild) {
-                stack.shrink(1);
-            }
+            return InteractionResultHolder.fail(stack);
         }
 
         return InteractionResultHolder.success(stack);

@@ -1,21 +1,30 @@
 package com.darkifov.thaumcraft.client.screen;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.menu.EssentiaTerminalMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class EssentiaTerminalScreen extends AbstractContainerScreen<EssentiaTerminalMenu> {
+    private static final ResourceLocation ORIGINAL_TEXTURE =
+            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/essentia_terminal.png\");
+
     private int selectedAspectIndex = 0;
 
     public EssentiaTerminalScreen(EssentiaTerminalMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-        imageWidth = 176;
+        
+        this.imageWidth = 256;
+        this.imageHeight = 256;imageWidth = 176;
         imageHeight = 208;
         inventoryLabelY = 114;
     }
@@ -47,17 +56,9 @@ public class EssentiaTerminalScreen extends AbstractContainerScreen<EssentiaTerm
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        fill(poseStack, leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, 0xEE100F22);
-        fill(poseStack, leftPos + 4, topPos + 4, leftPos + imageWidth - 4, topPos + imageHeight - 4, 0xFF142236);
-        fill(poseStack, leftPos + 8, topPos + 18, leftPos + imageWidth - 8, topPos + 112, 0x8820B8FF);
-
-        Aspect aspect = Aspect.values()[Math.floorMod(selectedAspectIndex, Aspect.values().length)];
-
-        font.draw(poseStack, Component.literal("Essentia Terminal").withStyle(ChatFormatting.AQUA), leftPos + 12, topPos + 10, 0xBFEFFF);
-        font.draw(poseStack, "Drive / jar / cell scanner", leftPos + 12, topPos + 25, 0xE8D4A7);
-        font.draw(poseStack, "Filter:", leftPos + 12, topPos + 48, 0xF2DFB2);
-        font.draw(poseStack, aspect.displayName(), leftPos + 58, topPos + 48, 0xFFFFFF);
-        font.draw(poseStack, "Кнопки ниже сканируют выбранный aspect.", leftPos + 12, topPos + 59, 0xCFEAFF);
+        int x = leftPos + (imageWidth - 256) / 2;
+        int y = topPos + (imageHeight - 256) / 2;
+        OriginalGuiTextures.blitOriginal(poseStack, x, y, OriginalGuiTextures.ESSENTIA_TERMINAL, 256, 256);
     }
 
     @Override

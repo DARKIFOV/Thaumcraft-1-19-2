@@ -1,18 +1,27 @@
 package com.darkifov.thaumcraft.client.screen;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class PechTradeScreen extends AbstractContainerScreen<PechTradeMenu> {
+    private static final ResourceLocation ORIGINAL_TEXTURE =
+            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/pech_trade.png\");
+
     public PechTradeScreen(PechTradeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-        imageWidth = 176;
+        
+        this.imageWidth = 256;
+        this.imageHeight = 256;imageWidth = 176;
         imageHeight = 198;
         inventoryLabelY = 104;
     }
@@ -37,14 +46,9 @@ public class PechTradeScreen extends AbstractContainerScreen<PechTradeMenu> {
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        fill(poseStack, leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, 0xEE160F20);
-        fill(poseStack, leftPos + 4, topPos + 4, leftPos + imageWidth - 4, topPos + imageHeight - 4, 0xFFE8D4A7);
-        fill(poseStack, leftPos + 8, topPos + 18, leftPos + imageWidth - 8, topPos + 92, 0x884B2E58);
-
-        font.draw(poseStack, Component.literal("Торговля Печа").withStyle(ChatFormatting.GOLD), leftPos + 12, topPos + 10, 0xF2DFB2);
-        font.draw(poseStack, "Выбери Tier жетона:", leftPos + 12, topPos + 25, 0xF2DFB2);
-        font.draw(poseStack, "T1-T5 ищут жетон в инвентаре.", leftPos + 12, topPos + 86, 0x4A2A11);
-        font.draw(poseStack, "Подарок берёт предмет из руки.", leftPos + 12, topPos + 96, 0x4A2A11);
+        int x = leftPos + (imageWidth - 256) / 2;
+        int y = topPos + (imageHeight - 256) / 2;
+        OriginalGuiTextures.blitOriginal(poseStack, x, y, OriginalGuiTextures.PECH_TRADE, 256, 256);
     }
 
     @Override

@@ -1,0 +1,38 @@
+{
+  "stage": 93,
+  "base": "Stage 92",
+  "goal": "original backend behavior bridge before deeper bugfixing",
+  "added_java": [
+    "research/OriginalAspectWallet.java",
+    "research/OriginalResearchBridge.java",
+    "research/OriginalArcaneCostBridge.java"
+  ],
+  "patched": [
+    "ResearchNoteItem.java uses OriginalResearchBridge where method injection was possible",
+    "ResearchTableScreen adds note-completion hint",
+    "ArcaneWorkbenchScreen marks bridge-backed costs"
+  ],
+  "visual_bridge": {
+    "jar_variants": [
+      "essentia_jar_aer.png",
+      "essentia_jar_terra.png",
+      "essentia_jar_ignis.png",
+      "essentia_jar_aqua.png",
+      "essentia_jar_ordo.png",
+      "essentia_jar_perditio.png"
+    ],
+    "node_variants": [
+      "aura_node_aer.png",
+      "aura_node_terra.png",
+      "aura_node_ignis.png",
+      "aura_node_aqua.png",
+      "aura_node_ordo.png",
+      "aura_node_perditio.png"
+    ]
+  },
+  "honest_limits": [
+    "Still not full TC4 research backend; this is a bridge layer for direct server-side item use and client displays.",
+    "True original behavior still needs packets from GUI node clicks to server and exact TC4 theory solving.",
+    "Jar/node variants are visual bridge textures; actual dynamic renderer binding still needs next renderer pass."
+  ]
+}

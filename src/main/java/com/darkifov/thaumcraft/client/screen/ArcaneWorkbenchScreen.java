@@ -1,101 +1,84 @@
 package com.darkifov.thaumcraft.client.screen;
 
-import com.darkifov.thaumcraft.client.ClientResearchData;
-import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipePage;
-import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipeRegistry;
-import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ArcaneWorkbenchScreen extends Screen {
-    private int page = 0;
+    private static final int BG_WIDTH = 256;
+    private static final int BG_HEIGHT = 256;
+    private static final String[] PRIMAL = {"aer", "terra", "ignis", "aqua", "ordo", "perditio"};
+
+    private int leftPos;
+    private int topPos;
+    private int vis = 50;
 
     public ArcaneWorkbenchScreen() {
-        super(Component.literal("Arcane Workbench"));
+        super(Component.translatable("screen.thaumcraft.arcane_workbench"));
     }
 
     @Override
     protected void init() {
-        int centerX = width / 2;
-        int bottom = height / 2 + 82;
+        this.leftPos = (this.width - BG_WIDTH) / 2;
+        this.topPos = (this.height - BG_HEIGHT) / 2;
 
-        addRenderableWidget(new Button(centerX - 110, bottom, 72, 20, Component.literal("< Back"), button -> {
-            page = Math.max(0, page - 1);
-        }));
-
-        addRenderableWidget(new Button(centerX + 38, bottom, 72, 20, Component.literal("Next >"), button -> {
-            page = Math.min(ClientArcaneRecipeRegistry.size() - 1, page + 1);
-        }));
-
-        addRenderableWidget(new Button(centerX - 44, bottom + 26, 88, 20, Component.literal("Craft"), button -> {
-            ClientArcaneRecipePage recipe = ClientArcaneRecipeRegistry.get(page);
-
-            if (recipe != null) {
-                ThaumcraftNetwork.requestArcaneCraftFromClient(new ResourceLocation(recipe.id()));
-            }
-        }));
+        this.addRenderableWidget(Button.builder(Component.literal("×"), button -> onClose())
+                .bounds(leftPos + BG_WIDTH - 26, topPos + 6, 18, 18)
+                .build());
+        this.addRenderableWidget(Button.builder(Component.literal("+vis"), button -> vis = Math.min(100, vis + 10))
+                .bounds(leftPos + 190, topPos + 212, 46, 18)
+                .build());
     }
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderBackground(poseStack);
+        OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, OriginalGuiTextures.ARCANE_WORKBENCH, BG_WIDTH, BG_HEIGHT);
 
-        int panelX = width / 2 - 136;
-        int panelY = height / 2 - 106;
+        int ink = 0x3F2612;
+        drawCenteredString(poseStack, font, title, leftPos + BG_WIDTH / 2, topPos + 6, ink);
 
-        fill(poseStack, panelX, panelY, panelX + 272, panelY + 212, 0xDD1C1423);
-        fill(poseStack, panelX + 5, panelY + 5, panelX + 267, panelY + 207, 0xDDE9D6AF);
+        renderOriginalLikeCraftingOverlay(poseStack);
+        renderVisAndPrimalCosts(poseStack);
 
-        ClientArcaneRecipePage recipe = ClientArcaneRecipeRegistry.get(page);
+        super.render(poseStack, mouseX, mouseY, partialTick);
+    }
 
-        drawCenteredString(poseStack, font, Component.literal("Arcane Workbench").withStyle(ChatFormatting.GOLD), width / 2, panelY + 12, 0xE8A54F);
+    private void renderOriginalLikeCraftingOverlay(PoseStack poseStack) {
+        int gridX = leftPos + 48;
+        int gridY = topPos + 54;
 
-        if (recipe == null) {
-            font.draw(poseStack, "No arcane recipes.", panelX + 20, panelY + 44, 0x7A1F1F);
-            super.render(poseStack, mouseX, mouseY, partialTick);
-            return;
-        }
-
-        boolean unlocked = ClientResearchData.hasResearch(recipe.research());
-
-        font.draw(poseStack, "Recipe " + (page + 1) + "/" + ClientArcaneRecipeRegistry.size(), panelX + 18, panelY + 34, 0x4A2A11);
-        font.draw(poseStack, unlocked ? "AVAILABLE" : "LOCKED", panelX + 188, panelY + 34, unlocked ? 0x247A2E : 0x9A2222);
-
-        font.draw(poseStack, Component.literal(recipe.title()).withStyle(unlocked ? ChatFormatting.DARK_AQUA : ChatFormatting.DARK_RED), panelX + 18, panelY + 54, unlocked ? 0x245A6E : 0x7A1F1F);
-        font.draw(poseStack, "Research: " + recipe.research(), panelX + 18, panelY + 70, 0x5A2D75);
-
-        if (!unlocked) {
-            font.drawWordWrap(Component.literal("This recipe is locked. Unlock the required research in the Research Table."), panelX + 18, panelY + 94, 230, 0x7A1F1F);
-            super.render(poseStack, mouseX, mouseY, partialTick);
-            return;
-        }
-
-        int y = panelY + 92;
-        font.draw(poseStack, Component.literal("Catalyst slot: " + recipe.catalyst()).withStyle(ChatFormatting.DARK_AQUA), panelX + 18, y, 0x245A6E);
-        y += 13;
-
-        font.draw(poseStack, Component.literal("Wand slot / vis cost: " + recipe.visCost()).withStyle(ChatFormatting.DARK_PURPLE), panelX + 18, y, 0x5A2D75);
-        y += 15;
-
-        font.draw(poseStack, "Ingredients:", panelX + 18, y, 0x4A2A11);
-        y += 12;
-
-        for (String ingredient : recipe.ingredients()) {
-            font.draw(poseStack, "- " + ingredient, panelX + 28, y, 0x3D2B1F);
-            y += 10;
-            if (y > panelY + 162) {
-                break;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                int x = gridX + col * 22;
+                int y = gridY + row * 22;
+                fill(poseStack, x, y, x + 18, y + 18, 0x55331D0E);
             }
         }
 
-        font.draw(poseStack, Component.literal("Output preview: " + recipe.result()).withStyle(ChatFormatting.GOLD), panelX + 18, panelY + 174, 0xA56A1D);
-        font.drawWordWrap(Component.literal(recipe.note()), panelX + 18, panelY + 188, 232, 0x5A4632);
+        fill(poseStack, leftPos + 136, topPos + 76, leftPos + 154, topPos + 94, 0x55331D0E);
+        drawString(poseStack, font, Component.literal("→"), leftPos + 160, topPos + 80, 0x3F2612);
+        fill(poseStack, leftPos + 180, topPos + 76, leftPos + 198, topPos + 94, 0x55331D0E);
+    }
 
-        super.render(poseStack, mouseX, mouseY, partialTick);
+    private void renderVisAndPrimalCosts(PoseStack poseStack) {
+        int barX = leftPos + 36;
+        int barY = topPos + 156;
+
+        fill(poseStack, barX, barY, barX + 100, barY + 8, 0x8820100A);
+        fill(poseStack, barX, barY, barX + vis, barY + 8, 0xAA6FD6FF);
+        drawString(poseStack, font, Component.literal("Vis: " + vis + " / 100"), barX, barY + 12, 0x3F2612);\n        drawString(poseStack, font, Component.literal("Bridge-backed costs"), barX, barY + 24, 0x5A3515);
+
+        for (int i = 0; i < PRIMAL.length; i++) {
+            int x = leftPos + 38 + i * 30;
+            int y = topPos + 188;
+            ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/item/aspect_" + PRIMAL[i] + ".png");
+            OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
+            drawString(poseStack, font, Component.literal("1"), x + 18, y + 5, 0x3F2612);
+        }
     }
 
     @Override

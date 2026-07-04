@@ -1,19 +1,28 @@
 package com.darkifov.thaumcraft.client.screen;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.TransvectorInterfaceBlockEntity;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class TransvectorInterfaceScreen extends AbstractContainerScreen<TransvectorInterfaceMenu> {
+    private static final ResourceLocation ORIGINAL_TEXTURE =
+            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/transvector_interface.png\");
+
     public TransvectorInterfaceScreen(TransvectorInterfaceMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-        imageWidth = 176;
+        
+        this.imageWidth = 256;
+        this.imageHeight = 256;imageWidth = 176;
         imageHeight = 218;
         inventoryLabelY = 120;
     }
@@ -61,14 +70,9 @@ public class TransvectorInterfaceScreen extends AbstractContainerScreen<Transvec
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        fill(poseStack, leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, 0xEE100F22);
-        fill(poseStack, leftPos + 4, topPos + 4, leftPos + imageWidth - 4, topPos + imageHeight - 4, 0xFF20152F);
-        fill(poseStack, leftPos + 6, topPos + 18, leftPos + imageWidth - 6, topPos + 112, 0x884C2FA8);
-
-        font.draw(poseStack, Component.literal("Transvector Interface").withStyle(ChatFormatting.LIGHT_PURPLE), leftPos + 12, topPos + 9, 0xF2DFB2);
-        font.draw(poseStack, "Remote actions cost 4 Praecantatio vis.", leftPos + 12, topPos + 24, 0xE8D4A7);
-        font.draw(poseStack, "Для transfer держи Digital Cell в руке.", leftPos + 12, topPos + 36, 0xCFEAFF);
-        font.draw(poseStack, "Shift+ПКМ по блоку = быстрый inspect.", leftPos + 12, topPos + 112, 0xCFEAFF);
+        int x = leftPos + (imageWidth - 256) / 2;
+        int y = topPos + (imageHeight - 256) / 2;
+        OriginalGuiTextures.blitOriginal(poseStack, x, y, OriginalGuiTextures.TRANSVECTOR_INTERFACE, 256, 256);
     }
 
     @Override

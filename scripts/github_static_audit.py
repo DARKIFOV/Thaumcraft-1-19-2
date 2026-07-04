@@ -52,14 +52,16 @@ def png_audit() -> list[str]:
             errors.append(f"{rel}: {exc}")
             continue
 
+        is_original_bank = "/textures/original/" in rel
+
         if width <= 0 or height <= 0:
             errors.append(f"{rel}: zero dimensions {width}x{height}")
-        if width < 8 or height < 8:
+        if not is_original_bank and width < 8 or not is_original_bank and height < 8:
             errors.append(f"{rel}: too small {width}x{height}")
         if width > 4096 or height > 4096:
             errors.append(f"{rel}: too large {width}x{height}")
 
-        if ("/textures/item/" in rel or "/textures/block/" in rel) and (width % 16 != 0 or height % 16 != 0):
+        if not is_original_bank and ("/textures/item/" in rel or "/textures/block/" in rel) and (width % 16 != 0 or height % 16 != 0):
             errors.append(f"{rel}: item/block texture size is not multiple of 16: {width}x{height}")
 
     return errors
@@ -231,6 +233,169 @@ def compile_api_risk_audit() -> list[str]:
     return errors
 
 
+
+def original_asset_restoration_audit() -> list[str]:
+    errors: list[str] = []
+    required = [
+        "textures/gui/thaumonomicon.png",
+        "textures/gui/research_table.png",
+        "textures/gui/arcane_workbench.png",
+        "textures/gui/pech_trade.png",
+        "textures/item/iron_capped_wooden_wand.png",
+        "textures/item/greatwood_wand.png",
+        "textures/item/infused_scribing_tools.png",
+        "textures/item/goggles_of_revealing.png",
+        "textures/block/research_table.png",
+        "textures/block/arcane_workbench.png",
+        "textures/original/thaumcraft4/gui/gui_researchbook.png",
+        "textures/original/thaumcraft4/gui/guiresearchtable2.png",
+        "textures/original/thaumcraft4/gui/gui_arcaneworkbench.png",
+    ]
+    for rel in required:
+        path = ASSETS / rel
+        if not path.exists():
+            errors.append(f"missing restored original asset: {rel}")
+    return errors
+
+
+
+def stage90_deepening_audit() -> list[str]:
+    errors: list[str] = []
+    required_files = [
+        "sounds.json",
+        "sounds/wand1.ogg",
+        "sounds/page1.ogg",
+        "sounds/infuser.ogg",
+        "sounds/jar1.ogg",
+        "textures/item/tt_dark_quartz.png",
+        "textures/item/tce_info_book.png",
+        "textures/block/jar_top.png",
+        "textures/block/jar_bottom.png",
+        "textures/block/pedestal_top.png",
+        "lang/original_legacy/en_US.lang",
+    ]
+    for rel in required_files:
+        if not (ASSETS / rel).exists():
+            errors.append(f"missing Stage90 deepening file: {rel}")
+
+    # Make sure tuned item models use handheld where expected.
+    for model_id in ["iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand", "focus_fire"]:
+        path = ASSETS / "models" / "item" / f"{model_id}.json"
+        if path.exists():
+            try:
+                obj = json.loads(path.read_text(encoding="utf-8"))
+                if obj.get("parent") != "minecraft:item/handheld":
+                    errors.append(f"{model_id} item model is not handheld")
+            except Exception as exc:
+                errors.append(f"{model_id} model read failed: {exc}")
+    return errors
+
+
+
+def stage91_strict_gui_audit() -> list[str]:
+    errors: list[str] = []
+    required_java = [
+        "src/main/java/com/darkifov/thaumcraft/client/screen/OriginalGuiTextures.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumonomiconScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchScreen.java",
+    ]
+    for rel in required_java:
+        if not (ROOT / rel).exists():
+            errors.append(f"missing Stage91 Java file: {rel}")
+
+    # Reject the broken old pattern: stretched 256x arbitrary GUI blit on original backgrounds.
+    for path in (ROOT / "src/main/java/com/darkifov/thaumcraft/client/screen").glob("*.java"):
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        rel = path.relative_to(ROOT).as_posix()
+        if "blit(poseStack, panelX, panelY, 0, 0, 256, 212)" in text:
+            errors.append(f"{rel}: contains old stretched arcane GUI blit")
+        if "blit(poseStack, leftPos, topPos, 0, 0, Math.min(imageWidth, 256), Math.min(imageHeight, 256))" in text:
+            errors.append(f"{rel}: contains old generic min-size GUI blit")
+
+    # Check layered wand models.
+    for model_id in ["iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand"]:
+        path = ASSETS / "models" / "item" / f"{model_id}.json"
+        if not path.exists():
+            errors.append(f"missing wand model: {model_id}")
+            continue
+        try:
+            obj = json.loads(path.read_text(encoding="utf-8"))
+            textures = obj.get("textures", {})
+            if "layer0" not in textures or "layer1" not in textures:
+                errors.append(f"{model_id}: not a layered rod/cap model")
+        except Exception as exc:
+            errors.append(f"{model_id}: invalid json {exc}")
+
+    return errors
+
+
+
+def stage92_behavior_audit() -> list[str]:
+    errors: list[str] = []
+    required = [
+        "src/main/java/com/darkifov/thaumcraft/client/screen/OriginalResearchCategory.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/OriginalResearchLayout.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumonomiconScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchScreen.java",
+        "STAGE92_ORIGINAL_RESEARCH_BEHAVIOR_REPORT.json",
+    ]
+    for rel in required:
+        if not (ROOT / rel).exists():
+            errors.append(f"missing Stage92 behavior file: {rel}")
+
+    screen_checks = {
+        "ThaumonomiconScreen.java": ["OriginalResearchLayout.entriesFor", "mouseClicked", "renderResearchTree", "renderSelectedPage"],
+        "ResearchTableScreen.java": ["ASPECTS", "renderAspectWheel", "theoryProgress", "mouseClicked"],
+        "ArcaneWorkbenchScreen.java": ["renderOriginalLikeCraftingOverlay", "renderVisAndPrimalCosts", "PRIMAL"],
+    }
+
+    for file_name, tokens in screen_checks.items():
+        path = ROOT / "src/main/java/com/darkifov/thaumcraft/client/screen" / file_name
+        text = path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
+        for token in tokens:
+            if token not in text:
+                errors.append(f"{file_name}: missing behavior token {token}")
+
+    if (ROOT / ".github/ISSUE_TEMPLATE").exists():
+        errors.append("clean package regression: .github/ISSUE_TEMPLATE should not be present")
+
+    return errors
+
+
+
+def stage93_backend_bridge_audit() -> list[str]:
+    errors: list[str] = []
+    required = [
+        "src/main/java/com/darkifov/thaumcraft/research/OriginalAspectWallet.java",
+        "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java",
+        "src/main/java/com/darkifov/thaumcraft/research/OriginalArcaneCostBridge.java",
+        "STAGE93_ORIGINAL_BACKEND_BEHAVIOR_BRIDGE_REPORT.json",
+        "src/main/resources/assets/thaumcraft/textures/item/research_note_complete.png",
+        "src/main/resources/assets/thaumcraft/textures/block/essentia_jar_aer.png",
+        "src/main/resources/assets/thaumcraft/textures/block/aura_node_aer.png",
+    ]
+    for rel in required:
+        if not (ROOT / rel).exists():
+            errors.append(f"missing Stage93 backend bridge file: {rel}")
+
+    token_checks = {
+        "src/main/java/com/darkifov/thaumcraft/research/OriginalAspectWallet.java": ["getPersistentData", "seedIfEmpty", "consume"],
+        "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java": ["canUnlock", "completeWithAspectCost", "requirements"],
+        "src/main/java/com/darkifov/thaumcraft/research/OriginalArcaneCostBridge.java": ["visCostFor", "primalCostFor", "canCraft"],
+    }
+
+    for rel, tokens in token_checks.items():
+        path = ROOT / rel
+        text = path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
+        for token in tokens:
+            if token not in text:
+                errors.append(f"{rel}: missing token {token}")
+
+    return errors
+
+
 def main() -> None:
     checks = {
         "JSON": json_audit(),
@@ -241,6 +406,11 @@ def main() -> None:
         "Java braces": java_brace_audit(),
         "Compile helpers": compile_helper_presence_audit(),
         "Compile API risks": compile_api_risk_audit(),
+        "Original asset restoration": original_asset_restoration_audit(),
+        "Stage90 deepening": stage90_deepening_audit(),
+        "Stage91 strict GUI": stage91_strict_gui_audit(),
+        "Stage92 behavior": stage92_behavior_audit(),
+        "Stage93 backend bridge": stage93_backend_bridge_audit(),
     }
 
     total_errors = 0

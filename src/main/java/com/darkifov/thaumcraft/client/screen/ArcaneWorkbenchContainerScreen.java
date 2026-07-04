@@ -1,15 +1,18 @@
 package com.darkifov.thaumcraft.client.screen;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipePage;
 import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipeRegistry;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,6 +25,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
+    private static final ResourceLocation ORIGINAL_TEXTURE =
+            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/arcane_workbench.png\");
+
     private int page = 0;
     private EditBox searchBox;
 
@@ -99,50 +105,9 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        fill(poseStack, leftPos, topPos, leftPos + imageWidth, topPos + imageHeight, 0xEE160F20);
-        fill(poseStack, leftPos + 4, topPos + 4, leftPos + imageWidth - 4, topPos + imageHeight - 4, 0xFFE8D4A7);
-        fill(poseStack, leftPos + 8, topPos + 8, leftPos + imageWidth - 8, topPos + 70, 0x884B2E58);
-        fill(poseStack, leftPos + 8, topPos + 74, leftPos + imageWidth - 8, topPos + 116, 0x88FFF2D2);
-
-        drawSlot(poseStack, leftPos + 15, topPos + 35);
-        drawSlot(poseStack, leftPos + 43, topPos + 35);
-
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                drawSlot(poseStack, leftPos + 88 + col * 18, topPos + 17 + row * 18);
-            }
-        }
-
-        drawSlot(poseStack, leftPos + 166, topPos + 35);
-
-        font.draw(poseStack, "Wand", leftPos + 10, topPos + 16, 0xF2DFB2);
-        font.draw(poseStack, "Cat.", leftPos + 42, topPos + 16, 0xF2DFB2);
-        font.draw(poseStack, "Grid", leftPos + 103, topPos + 8, 0xF2DFB2);
-        font.draw(poseStack, "Out", leftPos + 165, topPos + 16, 0xF2DFB2);
-
-        ClientArcaneRecipePage recipe = currentRecipe();
-        List<ClientArcaneRecipePage> filtered = filteredRecipes();
-
-        if (recipe != null) {
-            boolean unlocked = ClientResearchData.hasResearch(recipe.research());
-            int textX = leftPos + 10;
-            int textY = topPos + 78;
-
-            font.draw(poseStack, recipe.title(), textX, textY, unlocked ? 0x245A6E : 0x8A1F1F);
-            font.draw(poseStack, (page + 1) + "/" + filtered.size(), leftPos + 176, textY, 0x5A4632);
-            font.draw(poseStack, unlocked ? "AVAILABLE" : "LOCKED", leftPos + 122, textY, unlocked ? 0x247A2E : 0x9A2222);
-            font.draw(poseStack, "Research: " + recipe.research(), textX, textY + 10, 0x5A2D75);
-            font.draw(poseStack, "Cost: " + recipe.visCost(), textX + 120, textY + 10, 0x5A2D75);
-            font.draw(poseStack, ClientArcaneRecipeRegistry.usingSyncedJson() ? "JSON synced" : "Fallback list", textX, textY + 20, ClientArcaneRecipeRegistry.usingSyncedJson() ? 0x247A2E : 0x9A6A1F);
-
-            if (unlocked) {
-                renderGhostItems(poseStack, recipe);
-            } else {
-                font.draw(poseStack, "Unlock research first.", textX, topPos + 104, 0x8A1F1F);
-            }
-        } else {
-            font.draw(poseStack, "No recipes found.", leftPos + 12, topPos + 82, 0x8A1F1F);
-        }
+        int x = leftPos + (imageWidth - 256) / 2;
+        int y = topPos + (imageHeight - 256) / 2;
+        OriginalGuiTextures.blitOriginal(poseStack, x, y, OriginalGuiTextures.ARCANE_WORKBENCH, 256, 256);
     }
 
     private void renderGhostItems(PoseStack poseStack, ClientArcaneRecipePage recipe) {

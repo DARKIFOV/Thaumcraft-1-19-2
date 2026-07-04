@@ -1,172 +1,207 @@
 package com.darkifov.thaumcraft.client.screen;
 
-import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.client.ClientResearchData;
-import com.darkifov.thaumcraft.client.book.ThaumonomiconRecipePage;
-import com.darkifov.thaumcraft.client.book.ThaumonomiconRecipeRegistry;
+import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ThaumonomiconScreen extends Screen {
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/thaumonomicon.png");
+    private static final int BG_WIDTH = 512;
+    private static final int BG_HEIGHT = 512;
 
-    private int researchPage = 0;
-    private int recipePage = 0;
-    private boolean recipeMode = false;
-
-    private final int imageWidth = 256;
-    private final int imageHeight = 256;
     private int leftPos;
     private int topPos;
+    private OriginalResearchCategory category = OriginalResearchCategory.BASICS;
+    private ResearchEntry selected;
 
     public ThaumonomiconScreen() {
-        super(Component.literal("Thaumonomicon"));
+        super(Component.translatable("item.thaumcraft.thaumonomicon"));
     }
 
     @Override
     protected void init() {
-        leftPos = (width - imageWidth) / 2;
-        topPos = (height - imageHeight) / 2;
+        this.leftPos = (this.width - BG_WIDTH) / 2;
+        this.topPos = (this.height - BG_HEIGHT) / 2;
+        this.clearWidgets();
 
-        addRenderableWidget(new Button(leftPos + 24, topPos + 232, 54, 16, Component.literal("< Back"), button -> {
-            if (recipeMode) {
-                recipePage = Math.max(0, recipePage - 1);
-            } else {
-                researchPage = Math.max(0, researchPage - 1);
-            }
-        }));
+        int tabX = leftPos + 18;
+        int tabY = topPos + 38;
 
-        addRenderableWidget(new Button(leftPos + 178, topPos + 232, 54, 16, Component.literal("Next >"), button -> {
-            if (recipeMode) {
-                recipePage = Math.min(ThaumonomiconRecipeRegistry.size() - 1, recipePage + 1);
-            } else {
-                researchPage = Math.min(ResearchRegistry.size() - 1, researchPage + 1);
-            }
-        }));
+        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
+            int y = tabY + value.ordinal() * 23;
+            this.addRenderableWidget(Button.builder(Component.literal(value.title().substring(0, 1)), button -> {
+                category = value;
+                selected = null;
+            }).bounds(tabX, y, 18, 18).build());
+        }
 
-        addRenderableWidget(new Button(leftPos + 92, topPos + 232, 70, 16, Component.literal("Recipes"), button -> {
-            recipeMode = !recipeMode;
-            button.setMessage(Component.literal(recipeMode ? "Research" : "Recipes"));
-        }));
+        this.addRenderableWidget(Button.builder(Component.literal("×"), button -> onClose())
+                .bounds(leftPos + BG_WIDTH - 26, topPos + 8, 18, 18)
+                .build());
+    }
+
+    private Set<String> unlockedResearch() {
+        if (minecraft == null || minecraft.player == null) {
+            Set<String> fallback = new HashSet<>();
+            fallback.add("FIRST_STEPS");
+            return fallback;
+        }
+
+        return PlayerThaumData.getResearchSet(minecraft.player);
     }
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderBackground(poseStack);
+        OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, OriginalGuiTextures.THAUMONOMICON, BG_WIDTH, BG_HEIGHT);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, TEXTURE);
-        blit(poseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        int ink = 0x2D1B0B;
+        drawCenteredString(poseStack, font, Component.translatable("item.thaumcraft.thaumonomicon"), leftPos + BG_WIDTH / 2, topPos + 15, ink);
 
-        drawCenteredString(poseStack, font, Component.literal("Thaumonomicon").withStyle(ChatFormatting.GOLD), width / 2, topPos + 16, 0xFFE8A54F);
-
-        if (recipeMode) {
-            renderRecipePage(poseStack);
-        } else {
-            renderResearchPage(poseStack);
-        }
+        renderCategoryTabs(poseStack);
+        renderResearchTree(poseStack, mouseX, mouseY);
+        renderSelectedPage(poseStack);
 
         super.render(poseStack, mouseX, mouseY, partialTick);
     }
 
-    private void renderResearchPage(PoseStack poseStack) {
-        ResearchEntry entry = ResearchRegistry.get(researchPage);
-        boolean unlocked = ClientResearchData.hasResearch(entry.key());
+    private void renderCategoryTabs(PoseStack poseStack) {
+        int x = leftPos + 40;
+        int y = topPos + 41;
 
-        font.draw(poseStack, Component.literal("Research " + (researchPage + 1) + "/" + ResearchRegistry.size()).withStyle(ChatFormatting.DARK_PURPLE), leftPos + 38, topPos + 38, 0x5A2D75);
-
-        int statusColor = unlocked ? 0x1F7A38 : 0x8A1F1F;
-        String statusText = unlocked ? "UNLOCKED" : "LOCKED";
-        font.draw(poseStack, Component.literal(statusText), leftPos + 158, topPos + 38, statusColor);
-
-        font.draw(poseStack, Component.literal(entry.title()).withStyle(unlocked ? ChatFormatting.DARK_AQUA : ChatFormatting.DARK_RED), leftPos + 38, topPos + 58, unlocked ? 0x245A6E : 0x7A1F1F);
-
-        if (unlocked) {
-            font.drawWordWrap(Component.literal(entry.description()), leftPos + 38, topPos + 78, 170, 0x3D2B1F);
-        } else {
-            font.drawWordWrap(Component.literal("This research is locked. Use the Research Table and Research Points to unlock new knowledge."), leftPos + 38, topPos + 78, 170, 0x6A2A2A);
+        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
+            int rowY = y + value.ordinal() * 23;
+            int color = value == category ? 0xFFD7AA46 : 0xFF6B5634;
+            fill(poseStack, leftPos + 18, rowY - 3, leftPos + 36, rowY + 15, color);
+            drawString(poseStack, font, value.title(), x, rowY, value == category ? 0x2D1B0B : 0x5A3A1A);
         }
-
-        int y = topPos + 142;
-        font.draw(poseStack, Component.literal("Requirements:").withStyle(ChatFormatting.DARK_PURPLE), leftPos + 38, y, 0x5A2D75);
-        y += 12;
-
-        if (entry.requirements().length == 0) {
-            font.draw(poseStack, Component.literal("- none").withStyle(ChatFormatting.GRAY), leftPos + 46, y, 0x555555);
-        } else {
-            for (String req : entry.requirements()) {
-                boolean reqUnlocked = ClientResearchData.hasResearch(req);
-                int color = reqUnlocked ? 0x3D7A35 : 0x9A2B2B;
-                font.draw(poseStack, Component.literal("- " + req + (reqUnlocked ? " ✓" : " ✗")), leftPos + 46, y, color);
-                y += 11;
-            }
-        }
-
-        font.draw(poseStack, Component.literal("Unlocked: " + ClientResearchData.research().size() + " | Warp: " + ClientResearchData.warp()).withStyle(ChatFormatting.DARK_GRAY), leftPos + 42, topPos + 210, 0x6E5A42);
     }
 
-    private void renderRecipePage(PoseStack poseStack) {
-        ThaumonomiconRecipePage page = ThaumonomiconRecipeRegistry.get(recipePage);
+    private void renderResearchTree(PoseStack poseStack, int mouseX, int mouseY) {
+        Set<String> unlocked = unlockedResearch();
+        List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
 
-        if (page == null) {
-            font.draw(poseStack, "No recipe pages.", leftPos + 38, topPos + 58, 0x6A2A2A);
-            return;
-        }
+        int treeLeft = leftPos + 40;
+        int treeTop = topPos + 185;
 
-        boolean unlocked = ClientResearchData.hasResearch(page.research());
+        drawString(poseStack, font, category.title(), treeLeft, treeTop - 16, 0x2D1B0B);
 
-        font.draw(poseStack, Component.literal("Recipe " + (recipePage + 1) + "/" + ThaumonomiconRecipeRegistry.size()).withStyle(ChatFormatting.DARK_PURPLE), leftPos + 38, topPos + 38, 0x5A2D75);
-        font.draw(poseStack, Component.literal(unlocked ? "AVAILABLE" : "LOCKED"), leftPos + 158, topPos + 38, unlocked ? 0x1F7A38 : 0x8A1F1F);
+        // Draw dependency lines first.
+        for (int i = 0; i < entries.size(); i++) {
+            ResearchEntry entry = entries.get(i);
+            int x1 = treeLeft + OriginalResearchLayout.xFor(i) + 8;
+            int y1 = treeTop + OriginalResearchLayout.yFor(i) + 8;
 
-        font.draw(poseStack, Component.literal(page.title()).withStyle(unlocked ? ChatFormatting.DARK_AQUA : ChatFormatting.DARK_RED), leftPos + 38, topPos + 56, unlocked ? 0x245A6E : 0x7A1F1F);
-        font.draw(poseStack, Component.literal(page.category()).withStyle(ChatFormatting.DARK_PURPLE), leftPos + 38, topPos + 70, 0x5A2D75);
-
-        if (!unlocked) {
-            font.drawWordWrap(Component.literal("Required research: " + page.research()), leftPos + 38, topPos + 90, 170, 0x8A1F1F);
-            font.drawWordWrap(Component.literal("Unlock the research to view the full recipe details."), leftPos + 38, topPos + 114, 170, 0x6A2A2A);
-            return;
-        }
-
-        int y = topPos + 88;
-        font.draw(poseStack, Component.literal("Catalyst: " + page.catalyst()).withStyle(ChatFormatting.DARK_AQUA), leftPos + 38, y, 0x245A6E);
-        y += 14;
-
-        font.draw(poseStack, Component.literal("Ingredients:").withStyle(ChatFormatting.DARK_PURPLE), leftPos + 38, y, 0x5A2D75);
-        y += 11;
-
-        for (String ingredient : page.ingredients()) {
-            font.draw(poseStack, Component.literal("- " + ingredient), leftPos + 46, y, 0x3D2B1F);
-            y += 10;
-            if (y > topPos + 158) {
-                break;
-            }
-        }
-
-        if (page.aspects().length > 0 && y < topPos + 174) {
-            y += 4;
-            font.draw(poseStack, Component.literal("Aspects:").withStyle(ChatFormatting.DARK_PURPLE), leftPos + 38, y, 0x5A2D75);
-            y += 11;
-
-            for (String aspect : page.aspects()) {
-                font.draw(poseStack, Component.literal("- " + aspect), leftPos + 46, y, 0x3D2B1F);
-                y += 10;
-                if (y > topPos + 188) {
-                    break;
+            for (String requirement : entry.requirements()) {
+                for (int j = 0; j < entries.size(); j++) {
+                    if (entries.get(j).key().equals(requirement)) {
+                        int x2 = treeLeft + OriginalResearchLayout.xFor(j) + 8;
+                        int y2 = treeTop + OriginalResearchLayout.yFor(j) + 8;
+                        int lineColor = unlocked.contains(requirement) ? 0xAA7A5A28 : 0x66554444;
+                        drawLine(poseStack, x1, y1, x2, y2, lineColor);
+                    }
                 }
             }
         }
 
-        font.draw(poseStack, Component.literal("Result: " + page.result()).withStyle(ChatFormatting.GOLD), leftPos + 38, topPos + 194, 0xA56A1D);
-        font.drawWordWrap(Component.literal(page.note()), leftPos + 38, topPos + 208, 174, 0x5A4632);
+        for (int i = 0; i < entries.size(); i++) {
+            ResearchEntry entry = entries.get(i);
+            int x = treeLeft + OriginalResearchLayout.xFor(i);
+            int y = treeTop + OriginalResearchLayout.yFor(i);
+
+            boolean isUnlocked = OriginalResearchLayout.unlocked(unlocked, entry);
+            boolean isAvailable = OriginalResearchLayout.available(unlocked, entry);
+            boolean isSelected = selected != null && selected.key().equals(entry.key());
+
+            int fillColor = isUnlocked ? 0xFFC9A45A : isAvailable ? 0xFF7D6A42 : 0xFF2B2520;
+            int borderColor = isSelected ? 0xFFFFE08A : isAvailable ? 0xFFB08A4D : 0xFF5A4A3A;
+
+            fill(poseStack, x - 2, y - 2, x + 30, y + 30, borderColor);
+            fill(poseStack, x, y, x + 28, y + 28, fillColor);
+            fill(poseStack, x + 7, y + 7, x + 21, y + 21, isUnlocked ? 0xFF3E2412 : 0xFF15100B);
+
+            drawString(poseStack, font, OriginalResearchLayout.shortTitle(entry.title()), x - 6, y + 32, isAvailable ? 0x2D1B0B : 0x6A5A4A);
+
+            if (mouseX >= x - 2 && mouseX <= x + 30 && mouseY >= y - 2 && mouseY <= y + 30) {
+                fill(poseStack, x - 3, y - 3, x + 31, y + 31, 0x33FFFFFF);
+            }
+        }
+    }
+
+    private void renderSelectedPage(PoseStack poseStack) {
+        int x = leftPos + 292;
+        int y = topPos + 58;
+        int ink = 0x2D1B0B;
+
+        ResearchEntry page = selected;
+        if (page == null) {
+            List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
+            if (!entries.isEmpty()) {
+                page = entries.get(0);
+            }
+        }
+
+        if (page == null) {
+            return;
+        }
+
+        Set<String> unlocked = unlockedResearch();
+        boolean isUnlocked = OriginalResearchLayout.unlocked(unlocked, page);
+        boolean isAvailable = OriginalResearchLayout.available(unlocked, page);
+
+        drawString(poseStack, font, page.title(), x, y, ink);
+        drawString(poseStack, font, isUnlocked ? "Research complete" : isAvailable ? "Research available" : "Research locked", x, y + 14,
+                isUnlocked ? 0x336622 : isAvailable ? 0x7A5A22 : 0x7A2222);
+
+        drawString(poseStack, font, OriginalResearchLayout.wrap(page.description(), 34), x, y + 38, ink);
+
+        int reqY = y + 74;
+        drawString(poseStack, font, "Parents:", x, reqY, ink);
+        if (page.requirements().length == 0) {
+            drawString(poseStack, font, "-", x + 48, reqY, ink);
+        } else {
+            for (int i = 0; i < page.requirements().length && i < 7; i++) {
+                String requirement = page.requirements()[i];
+                int color = unlocked.contains(requirement) ? 0x336622 : 0x7A2222;
+                drawString(poseStack, font, requirement, x + 8, reqY + 14 + i * 12, color);
+            }
+        }
+
+        drawString(poseStack, font, "Use Research Notes / Research Points", x, topPos + 420, 0x5A3515);
+        drawString(poseStack, font, "to unlock the next valid node.", x, topPos + 432, 0x5A3515);
+    }
+
+    private void drawLine(PoseStack poseStack, int x1, int y1, int x2, int y2, int color) {
+        int midX = x1 + (x2 - x1) / 2;
+        fill(poseStack, Math.min(x1, midX), y1, Math.max(x1, midX) + 1, y1 + 1, color);
+        fill(poseStack, midX, Math.min(y1, y2), midX + 1, Math.max(y1, y2) + 1, color);
+        fill(poseStack, Math.min(midX, x2), y2, Math.max(midX, x2) + 1, y2 + 1, color);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
+        int treeLeft = leftPos + 40;
+        int treeTop = topPos + 185;
+
+        for (int i = 0; i < entries.size(); i++) {
+            int x = treeLeft + OriginalResearchLayout.xFor(i);
+            int y = treeTop + OriginalResearchLayout.yFor(i);
+
+            if (mouseX >= x - 2 && mouseX <= x + 30 && mouseY >= y - 2 && mouseY <= y + 30) {
+                selected = entries.get(i);
+                return true;
+            }
+        }
+
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
