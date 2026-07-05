@@ -1331,6 +1331,53 @@ def stage109_compile_syntax_fix_audit() -> list[str]:
 
 
 
+def stage111_strict_tc4_source_mapping_audit() -> list[str]:
+    errors: list[str] = []
+    required = [
+        "README.md",
+        "docs/porting/STAGE111_STRICT_TC4_SOURCE_MAPPING.md",
+        "docs/porting/tc4_to_1192_class_map.csv",
+        "docs/porting/tc4_source_inventory_summary.json",
+        "src/main/java/com/darkifov/thaumcraft/porting/TC4AspectBridge.java",
+        "src/main/java/com/darkifov/thaumcraft/porting/TC4SourceMap.java",
+        "src/main/resources/data/thaumcraft/tc4_source_mapping/aspects_from_original_source.json",
+        "src/main/resources/data/thaumcraft/tc4_source_mapping/source_inventory_summary.json",
+        "src/main/resources/data/thaumcraft/tc4_source_mapping/tc4_to_1192_class_map.json",
+    ]
+    for rel in required:
+        if not (ROOT / rel).exists():
+            errors.append(f"missing Stage111 strict source mapping file: {rel}")
+
+    aspect_json = ROOT / "src/main/resources/data/thaumcraft/tc4_source_mapping/aspects_from_original_source.json"
+    if aspect_json.exists():
+        try:
+            data = json.loads(aspect_json.read_text(encoding="utf-8"))
+            if data.get("count") != 48:
+                errors.append("Stage111 aspect source map should contain exactly 48 TC4 aspects")
+            if data.get("primal_count") != 6:
+                errors.append("Stage111 aspect source map should contain exactly 6 primal aspects")
+            tags = {entry.get("tag") for entry in data.get("aspects", [])}
+            for tag in ["aer", "terra", "ignis", "aqua", "ordo", "perditio", "praecantatio", "vitium"]:
+                if tag not in tags:
+                    errors.append(f"Stage111 aspect source map missing TC4 tag {tag}")
+        except Exception as exc:
+            errors.append(f"Stage111 aspect source map invalid JSON: {exc}")
+
+    bridge = ROOT / "src/main/java/com/darkifov/thaumcraft/porting/TC4AspectBridge.java"
+    text = bridge.read_text(encoding="utf-8", errors="ignore") if bridge.exists() else ""
+    for token in [
+        "SOURCE_CLASS = \"thaumcraft/api/aspects/Aspect.java\"",
+        "new Definition(\"AIR\", \"aer\", 16777086",
+        "new Definition(\"ENTROPY\", \"perditio\", 4210752",
+        "new Definition(\"VOID\", \"vacuos\", 8947848",
+        "public static Definition forAspect(Aspect aspect)",
+    ]:
+        if token not in text:
+            errors.append(f"Stage111 TC4AspectBridge missing token {token}")
+
+    return errors
+
+
 def optional_clean_upload_doc_error(error: str) -> bool:
     optional_tokens = [
         "REPORT.json",
@@ -1372,6 +1419,7 @@ def main() -> None:
         "Stage107 directional essentia tubes": stage107_directional_essentia_tubes_audit(),
         "Stage108 tube suction backflow": stage108_tube_suction_backflow_audit(),
         "Stage109 compile syntax fix": stage109_compile_syntax_fix_audit(),
+        "Stage111 strict TC4 source mapping": stage111_strict_tc4_source_mapping_audit(),
     }
 
     total_errors = 0

@@ -1,0 +1,233 @@
+[
+  {
+    "tc4_class": "Aspect",
+    "tc4_path": "thaumcraft/api/aspects/Aspect.java",
+    "current_target": "com/darkifov/thaumcraft/Aspect.java",
+    "mapping_type": "exact_class_name",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "AspectList",
+    "tc4_path": "thaumcraft/api/aspects/AspectList.java",
+    "current_target": "com/darkifov/thaumcraft/AspectList.java",
+    "mapping_type": "exact_class_name",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "InfusionRecipe",
+    "tc4_path": "thaumcraft/api/crafting/InfusionRecipe.java",
+    "current_target": "com/darkifov/thaumcraft/infusion/InfusionRecipe.java",
+    "mapping_type": "exact_class_name",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "WarpEvents",
+    "tc4_path": "thaumcraft/common/lib/WarpEvents.java",
+    "current_target": "com/darkifov/thaumcraft/event/WarpEvents.java",
+    "mapping_type": "exact_class_name",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "Aspect",
+    "tc4_path": "thaumcraft/api/aspects/Aspect.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/Aspect.java",
+    "mapping_type": "strict_aspect_constants_colors_components",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "AspectList",
+    "tc4_path": "thaumcraft/api/aspects/AspectList.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/AspectList.java",
+    "mapping_type": "strict_aspect_list_semantics_nbt_sorting",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "CrucibleRecipe",
+    "tc4_path": "thaumcraft/api/crafting/CrucibleRecipe.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/alchemy/AlchemyRecipe.java",
+    "mapping_type": "crucible/alchemy_recipe_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ShapedArcaneRecipe",
+    "tc4_path": "thaumcraft/api/crafting/ShapedArcaneRecipe.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/arcane/ArcaneWorkbenchRecipe.java",
+    "mapping_type": "arcane_workbench_recipe_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "InfusionRecipe",
+    "tc4_path": "thaumcraft/api/crafting/InfusionRecipe.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/infusion/InfusionRecipe.java",
+    "mapping_type": "infusion_recipe_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockTable",
+    "tc4_path": "thaumcraft/common/blocks/BlockTable.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/TableBlock.java",
+    "mapping_type": "table/research_table_block_behavior",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockJar",
+    "tc4_path": "thaumcraft/common/blocks/BlockJar.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/EssentiaJarBlock.java",
+    "mapping_type": "warded_and_void_jar_behavior",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockTube",
+    "tc4_path": "thaumcraft/common/blocks/BlockTube.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/EssentiaTubeBlock.java",
+    "mapping_type": "essentia_tube_transport_behavior",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockMetalDevice",
+    "tc4_path": "thaumcraft/common/blocks/BlockMetalDevice.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/AlchemicalFurnaceBlock.java",
+    "mapping_type": "metal_device_subtypes_alchemical_furnace_alembic_thaumatorium",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockStoneDevice",
+    "tc4_path": "thaumcraft/common/blocks/BlockStoneDevice.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/InfusionMatrixBlock.java",
+    "mapping_type": "stone_device_subtypes_infusion_matrix_pedestal_arcane_workbench",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockCrystal",
+    "tc4_path": "thaumcraft/common/blocks/BlockCrystal.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/AspectCrystalItem.java",
+    "mapping_type": "crystal/shard_item_bridge",
+    "priority": "P1"
+  },
+  {
+    "tc4_class": "BlockCustomOre",
+    "tc4_path": "thaumcraft/common/blocks/BlockCustomOre.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/ShardItem.java",
+    "mapping_type": "ore_and_shard_generation_bridge",
+    "priority": "P1"
+  },
+  {
+    "tc4_class": "BlockAiry",
+    "tc4_path": "thaumcraft/common/blocks/BlockAiry.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/AuraNodeBlock.java",
+    "mapping_type": "aura_node_block_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "BlockTaint",
+    "tc4_path": "thaumcraft/common/blocks/BlockTaint.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/TaintedSoilBlock.java",
+    "mapping_type": "taint_block_behavior",
+    "priority": "P1"
+  },
+  {
+    "tc4_class": "BlockEldritchPortal",
+    "tc4_path": "thaumcraft/common/blocks/BlockEldritchPortal.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/EldritchPortalBlock.java",
+    "mapping_type": "eldritch_portal_behavior",
+    "priority": "P1"
+  },
+  {
+    "tc4_class": "ItemWandCasting",
+    "tc4_path": "thaumcraft/common/items/wands/ItemWandCasting.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/WandItem.java",
+    "mapping_type": "wand_vis_focus_casting_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ItemWandCap",
+    "tc4_path": "thaumcraft/common/items/wands/ItemWandCap.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java",
+    "mapping_type": "wand_cap_data_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "WandRod",
+    "tc4_path": "thaumcraft/api/wands/WandRod.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java",
+    "mapping_type": "wand_rod_data_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ItemThaumometer",
+    "tc4_path": "thaumcraft/common/items/tools/ItemThaumometer.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java",
+    "mapping_type": "scan_behavior_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ItemThaumonomicon",
+    "tc4_path": "thaumcraft/common/items/ItemThaumonomicon.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/block/ThaumonomiconItem.java",
+    "mapping_type": "research_book_open_behavior",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ContainerResearchTable",
+    "tc4_path": "thaumcraft/common/container/ContainerResearchTable.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/menu/ArcaneWorkbenchMenu.java",
+    "mapping_type": "menu_semantics_marker_recheck_exact_target",
+    "priority": "P1"
+  },
+  {
+    "tc4_class": "GuiResearchTable",
+    "tc4_path": "thaumcraft/client/gui/GuiResearchTable.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableScreen.java",
+    "mapping_type": "original_gui_behavior_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "GuiResearchBrowser",
+    "tc4_path": "thaumcraft/client/gui/GuiResearchBrowser.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumonomiconScreen.java",
+    "mapping_type": "original_thaumonomicon_gui_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "GuiArcaneWorkbench",
+    "tc4_path": "thaumcraft/client/gui/GuiArcaneWorkbench.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchScreen.java",
+    "mapping_type": "original_arcane_gui_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ResearchManager",
+    "tc4_path": "thaumcraft/common/lib/research/ResearchManager.java",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java",
+    "mapping_type": "research_progression_unlock_bridge",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ConfigResearch",
+    "tc4_path": "thaumcraft/common/config/ConfigResearch.java",
+    "current_target": "src/main/resources/data/thaumcraft/research/",
+    "mapping_type": "research_keys_pages_categories_unlocks",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "ConfigRecipes",
+    "tc4_path": "thaumcraft/common/config/ConfigRecipes.java",
+    "current_target": "src/main/resources/data/thaumcraft/recipes/",
+    "mapping_type": "recipe_registration_parity",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "en_US.lang",
+    "tc4_path": "assets/thaumcraft/lang/en_US.lang",
+    "current_target": "src/main/resources/assets/thaumcraft/lang/original_legacy/en_US.lang",
+    "mapping_type": "language_key_parity",
+    "priority": "P0"
+  },
+  {
+    "tc4_class": "",
+    "tc4_path": "assets/thaumcraft/textures/",
+    "current_target": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/",
+    "mapping_type": "original_texture_bank",
+    "priority": "P0"
+  }
+]

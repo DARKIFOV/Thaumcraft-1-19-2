@@ -9,10 +9,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: forge-1192-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   static-audit:
-    name: Static resource audit
+    name: Static source/resource audit
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -23,13 +28,20 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Run Java syntax guard
+        run: python scripts/java_syntax_guard.py
+
+      - name: Run GitHub CI guard
+        run: python scripts/github_ci_guard.py
+
       - name: Run static resource audit
         run: python scripts/github_static_audit.py
 
   build:
-    name: Build Forge mod
+    name: Build Forge mod jar
     runs-on: ubuntu-latest
     needs: static-audit
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repository
@@ -40,33 +52,35 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
+          cache: gradle
 
-      - name: Setup Gradle
+      - name: Setup Gradle cache and wrapper validation
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "7.5.1"
 
-      - name: Show Gradle version
-        run: gradle --version
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x ./gradlew
+
+      - name: Show Gradle wrapper version
+        run: ./gradlew --version
 
       - name: Build and reobfuscate jar
-        run: gradle --no-daemon clean build --stacktrace
+        run: ./gradlew --no-daemon clean build --stacktrace
 
       - name: Upload built jars
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: thaumcraft-legacy-rebuild-stage110-jars
+          name: thaumcraft-legacy-rebuild-stage112-jars
           path: |
             build/libs/*.jar
             build/reobfJar/output.jar
           if-no-files-found: warn
 
-      - name: Upload build reports
+      - name: Upload build reports on failure
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: build-reports
+          name: stage112-build-reports
           path: |
             build/reports/**
             build/tmp/**
