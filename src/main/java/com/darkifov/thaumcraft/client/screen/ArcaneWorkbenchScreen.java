@@ -70,7 +70,8 @@ public class ArcaneWorkbenchScreen extends Screen {
 
         fill(poseStack, barX, barY, barX + 100, barY + 8, 0x8820100A);
         fill(poseStack, barX, barY, barX + vis, barY + 8, 0xAA6FD6FF);
-        drawString(poseStack, font, Component.literal("Vis: " + vis + " / 100"), barX, barY + 12, 0x3F2612);\n        drawString(poseStack, font, Component.literal("Bridge-backed costs"), barX, barY + 24, 0x5A3515);
+        drawString(poseStack, font, Component.literal("Vis: " + vis + " / 100"), barX, barY + 12, 0x3F2612);
+        drawString(poseStack, font, Component.literal("Bridge-backed costs"), barX, barY + 24, 0x5A3515);
 
         for (int i = 0; i < PRIMAL.length; i++) {
             int x = leftPos + 38 + i * 30;

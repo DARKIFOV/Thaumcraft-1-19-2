@@ -8,6 +8,8 @@ import com.darkifov.thaumcraft.block.EssentiaJarBlock;
 import com.darkifov.thaumcraft.block.EssentiaValveBlock;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.essentia.EssentiaSuction;
+import com.darkifov.thaumcraft.essentia.EssentiaBackflowResult;
+import com.darkifov.thaumcraft.essentia.EssentiaSuctionResolver;
 import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +26,7 @@ import java.util.Set;
 public class EssentiaTubeBlockEntity extends BlockEntity {
     // Directional tube pass: traversal is prepared to respect EssentiaTubeConnections side checks.
     private boolean connectedTransportNeighbor(BlockPos origin, net.minecraft.core.Direction direction) {
-        return level != null && EssentiaTubeConnections.canConnect(level, origin, direction);
+        return level != null && EssentiaSuctionResolver.sideAllows(level, origin, direction);
     }
 
     public static final int MAX_NETWORK = 48;
@@ -38,6 +40,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     private int lastSourceCount;
     private int lastDestinationCount;
     private String lastMovedAspect = "";
+    private int lastConflictCount;
+    private int lastWinningSuction;
+    private int lastSourcePressure;
+    private boolean lastBackflowBlocked;
 
     public EssentiaTubeBlockEntity(BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         super(ThaumcraftMod.ESSENTIA_TUBE_BLOCK_ENTITY.get(), pos, state);
@@ -75,6 +81,22 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return lastMovedAspect;
     }
 
+    public int lastConflictCount() {
+        return lastConflictCount;
+    }
+
+    public int lastWinningSuction() {
+        return lastWinningSuction;
+    }
+
+    public int lastSourcePressure() {
+        return lastSourcePressure;
+    }
+
+    public boolean lastBackflowBlocked() {
+        return lastBackflowBlocked;
+    }
+
     private void tryMoveEssentia() {
         if (level == null || level.isClientSide) {
             return;
@@ -88,6 +110,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         if (source == null || source.aspect() == null) {
             lastMovedAspect = "";
+            lastWinningSuction = 0;
+            lastSourcePressure = 0;
+            lastConflictCount = 0;
+            lastBackflowBlocked = false;
             return;
         }
 
@@ -95,6 +121,32 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         lastDestinationCount = countDestinations(level, network, source.aspect());
 
         if (destination == null || destination.suction() <= EssentiaSuction.SOURCE_NONE) {
+            lastMovedAspect = "";
+            lastWinningSuction = 0;
+            lastSourcePressure = source.priority();
+            lastConflictCount = 0;
+            lastBackflowBlocked = true;
+            return;
+        }
+
+        lastWinningSuction = destination.suction();
+        lastSourcePressure = source.priority();
+        lastConflictCount = EssentiaSuctionResolver.competingDestinations(level, network, source.aspect(), destination.jar().getBlockPos());
+        lastBackflowBlocked = destination.suction() <= source.priority();
+
+        EssentiaBackflowResult backflowResult = new EssentiaBackflowResult(
+                source.aspect(),
+                worldPosition,
+                Direction.NORTH,
+                destination.jar().getBlockPos(),
+                Direction.SOUTH,
+                source.priority(),
+                destination.suction(),
+                lastConflictCount,
+                lastBackflowBlocked
+        );
+
+        if (!backflowResult.canMove()) {
             lastMovedAspect = "";
             return;
         }
@@ -164,7 +216,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                     continue;
                 }
 
-                if (isOpenTubeLike(level, next)) {
+                if (connectedTransportNeighbor(current, direction) && isOpenTubeLike(level, next)) {
                     visited.add(next.immutable());
                     queue.add(next.immutable());
                 }
@@ -175,15 +227,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     private boolean isOpenTubeLike(Level level, BlockPos pos) {
-        if (level.getBlockState(pos).is(ThaumcraftMod.ESSENTIA_TUBE.get())) {
-            return true;
-        }
-
-        if (level.getBlockState(pos).is(ThaumcraftMod.ESSENTIA_VALVE.get())) {
-            return EssentiaValveBlock.isOpen(level, pos);
-        }
-
-        return false;
+        return EssentiaSuctionResolver.isTubeLike(level, pos);
     }
 
     private Source findBestSource(Level level, Set<BlockPos> network) {
@@ -191,6 +235,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         for (BlockPos tubePos : network) {
             for (Direction direction : Direction.values()) {
+                if (!EssentiaSuctionResolver.sideAllows(level, tubePos, direction)) {
+                    continue;
+                }
+
                 BlockPos adjacent = tubePos.relative(direction);
                 BlockEntity blockEntity = level.getBlockEntity(adjacent);
                 Source source = sourceFrom(blockEntity);
@@ -233,7 +281,8 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         for (BlockPos tubePos : network) {
             for (Direction direction : Direction.values()) {
-                if (sourceFrom(level.getBlockEntity(tubePos.relative(direction))) != null) {
+                if (EssentiaSuctionResolver.sideAllows(level, tubePos, direction)
+                        && sourceFrom(level.getBlockEntity(tubePos.relative(direction))) != null) {
                     count++;
                 }
             }
@@ -247,6 +296,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         for (BlockPos tubePos : network) {
             for (Direction direction : Direction.values()) {
+                if (!EssentiaSuctionResolver.sideAllows(level, tubePos, direction)) {
+                    continue;
+                }
+
                 BlockPos jarPos = tubePos.relative(direction);
                 BlockEntity blockEntity = level.getBlockEntity(jarPos);
 
@@ -255,13 +308,12 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                 }
 
                 boolean voidJar = level.getBlockState(jarPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
-                boolean filteredJar = level.getBlockState(jarPos).is(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get());
 
-                if (!voidJar && jar.aspects().totalAmount() >= EssentiaJarBlock.CAPACITY) {
+                int suction = EssentiaSuctionResolver.destinationSuction(level, tubePos, direction, aspect);
+
+                if (suction <= EssentiaSuction.SOURCE_NONE) {
                     continue;
                 }
-
-                int suction = voidJar ? SUCTION_VOID_JAR : filteredJar ? SUCTION_FILTERED_JAR : SUCTION_NORMAL_JAR;
 
                 if (best == null || suction > best.suction()) {
                     best = new Destination(jar, suction, voidJar);
@@ -277,9 +329,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         for (BlockPos tubePos : network) {
             for (Direction direction : Direction.values()) {
-                BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
-
-                if (blockEntity instanceof EssentiaJarBlockEntity jar && jar.canAcceptAspect(aspect)) {
+                if (EssentiaSuctionResolver.destinationSuction(level, tubePos, direction, aspect) > EssentiaSuction.SOURCE_NONE) {
                     count++;
                 }
             }

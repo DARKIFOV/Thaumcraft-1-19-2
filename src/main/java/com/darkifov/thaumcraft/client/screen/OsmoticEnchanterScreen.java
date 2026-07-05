@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class OsmoticEnchanterScreen extends AbstractContainerScreen<OsmoticEnchanterMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/osmotic_enchanter.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/osmotic_enchanter.png");
 
     public OsmoticEnchanterScreen(OsmoticEnchanterMenu menu, Inventory inventory, Component title) { super(menu, inventory, title); 
         this.imageWidth = 256;

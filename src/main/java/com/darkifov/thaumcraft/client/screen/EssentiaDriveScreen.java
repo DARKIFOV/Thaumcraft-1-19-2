@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class EssentiaDriveScreen extends AbstractContainerScreen<EssentiaDriveMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/essentia_drive.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/essentia_drive.png");
 
     public EssentiaDriveScreen(EssentiaDriveMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

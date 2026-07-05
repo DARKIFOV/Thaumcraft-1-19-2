@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class BottomlessPouchScreen extends AbstractContainerScreen<BottomlessPouchMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/bottomless_pouch.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/bottomless_pouch.png");
 
     public BottomlessPouchScreen(BottomlessPouchMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

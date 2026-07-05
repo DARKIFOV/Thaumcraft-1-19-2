@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/arcane_workbench.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/arcane_workbench.png");
 
     private int page = 0;
     private EditBox searchBox;

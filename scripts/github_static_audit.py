@@ -1233,6 +1233,101 @@ def stage107_directional_essentia_tubes_audit() -> list[str]:
     return errors
 
 
+
+def stage108_tube_suction_backflow_audit() -> list[str]:
+    errors: list[str] = []
+    required = [
+        "STAGE108_TUBE_SUCTION_BACKFLOW_TEST_READY_REPORT.json",
+        "TEST_UPLOAD_CHECKLIST_STAGE108.md",
+        "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaSuctionResolver.java",
+        "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaBackflowResult.java",
+    ]
+
+    for rel in required:
+        if not (ROOT / rel).exists():
+            errors.append(f"missing Stage108 suction/backflow file: {rel}")
+
+    token_checks = {
+        "src/main/java/com/darkifov/thaumcraft/block/EssentiaTubeBlock.java": [
+            "public static final BooleanProperty NORTH",
+            "CORE_SHAPE",
+            "Block.box",
+            "connectedSidesDiagnostic",
+            "Winning suction",
+            "Backflow"
+        ],
+        "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaSuctionResolver.java": [
+            "sideAllows",
+            "sourcePressure",
+            "destinationSuction",
+            "competingDestinations",
+            "filteredJar"
+        ],
+        "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaBackflowResult.java": [
+            "canMove",
+            "netPull",
+            "backflowBlocked"
+        ],
+        "src/main/java/com/darkifov/thaumcraft/blockentity/EssentiaTubeBlockEntity.java": [
+            "EssentiaSuctionResolver.sideAllows",
+            "EssentiaBackflowResult",
+            "lastConflictCount",
+            "lastWinningSuction",
+            "lastBackflowBlocked"
+        ],
+    }
+
+    for rel, tokens in token_checks.items():
+        path = ROOT / rel
+        text = path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
+        for token in tokens:
+            if token not in text:
+                errors.append(f"{rel}: missing Stage108 token {token}")
+
+    return errors
+
+
+
+def stage109_compile_syntax_fix_audit() -> list[str]:
+    errors: list[str] = []
+    required = [
+        "STAGE109_COMPILE_SYNTAX_FIX_REPORT.json",
+        "scripts/java_syntax_guard.py",
+    ]
+
+    for rel in required:
+        if not (ROOT / rel).exists():
+            errors.append(f"missing Stage109 compile syntax file: {rel}")
+
+    for path in (ROOT / "src/main/java").rglob("*.java"):
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        rel = path.relative_to(ROOT)
+
+        if '\\"' in text:
+            errors.append(f"{rel}: contains escaped quote syntax leak")
+
+        if "\\n        " in text or "\\n    " in text:
+            errors.append(f"{rel}: contains literal backslash-n syntax leak")
+
+    fixed_targets = [
+        "src/main/java/com/darkifov/thaumcraft/client/screen/OsmoticEnchanterScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/EssentiaDriveScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/TransvectorInterfaceScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/PechTradeScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchContainerScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/EssentiaTerminalScreen.java",
+        "src/main/java/com/darkifov/thaumcraft/client/screen/BottomlessPouchScreen.java",
+    ]
+
+    for rel in fixed_targets:
+        path = ROOT / rel
+        if not path.exists():
+            errors.append(f"expected Stage109 fixed target missing: {rel}")
+
+    return errors
+
+
 def main() -> None:
     checks = {
         "JSON": json_audit(),
@@ -1262,6 +1357,8 @@ def main() -> None:
         "Stage105 essentia jar aura color": stage105_essentia_jar_aura_color_audit(),
         "Stage106 essentia transport": stage106_essentia_transport_audit(),
         "Stage107 directional essentia tubes": stage107_directional_essentia_tubes_audit(),
+        "Stage108 tube suction backflow": stage108_tube_suction_backflow_audit(),
+        "Stage109 compile syntax fix": stage109_compile_syntax_fix_audit(),
     }
 
     total_errors = 0

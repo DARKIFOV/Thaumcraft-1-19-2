@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class TransvectorInterfaceScreen extends AbstractContainerScreen<TransvectorInterfaceMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/transvector_interface.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/transvector_interface.png");
 
     public TransvectorInterfaceScreen(TransvectorInterfaceMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

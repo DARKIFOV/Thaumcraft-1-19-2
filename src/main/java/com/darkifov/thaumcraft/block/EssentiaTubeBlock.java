@@ -20,6 +20,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -29,6 +30,21 @@ import net.minecraft.world.phys.BlockHitResult;
 
 
 public class EssentiaTubeBlock extends BaseEntityBlock {
+    public static final BooleanProperty NORTH = BooleanProperty.create("north");
+    public static final BooleanProperty SOUTH = BooleanProperty.create("south");
+    public static final BooleanProperty WEST = BooleanProperty.create("west");
+    public static final BooleanProperty EAST = BooleanProperty.create("east");
+    public static final BooleanProperty UP = BooleanProperty.create("up");
+    public static final BooleanProperty DOWN = BooleanProperty.create("down");
+
+    private static final VoxelShape CORE_SHAPE = Block.box(6.0D, 6.0D, 6.0D, 10.0D, 10.0D, 10.0D);
+    private static final VoxelShape NORTH_SHAPE = Block.box(6.0D, 6.0D, 0.0D, 10.0D, 10.0D, 6.0D);
+    private static final VoxelShape SOUTH_SHAPE = Block.box(6.0D, 6.0D, 10.0D, 10.0D, 10.0D, 16.0D);
+    private static final VoxelShape WEST_SHAPE = Block.box(0.0D, 6.0D, 6.0D, 6.0D, 10.0D, 10.0D);
+    private static final VoxelShape EAST_SHAPE = Block.box(10.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D);
+    private static final VoxelShape UP_SHAPE = Block.box(6.0D, 10.0D, 6.0D, 10.0D, 16.0D, 10.0D);
+    private static final VoxelShape DOWN_SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 6.0D, 10.0D);
+
     public EssentiaTubeBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState()
@@ -131,6 +147,11 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
                                 + " | Sources: " + tube.lastSourceCount()
                                 + " | Destinations: " + tube.lastDestinationCount()
                                 + " | Last: " + (tube.lastMovedAspect().isBlank() ? "none" : tube.lastMovedAspect())
+                                + " | " + tube.connectedSidesDiagnostic(level, pos)
+                                + " | Winning suction: " + tube.lastWinningSuction()
+                                + " | Source pressure: " + tube.lastSourcePressure()
+                                + " | Conflicts: " + tube.lastConflictCount()
+                                + " | Backflow: " + (tube.lastBackflowBlocked() ? "blocked" : "clear")
                                 + " | Suction: normal 32, filtered 48, void 64.").withStyle(ChatFormatting.AQUA),
                         false
                 );

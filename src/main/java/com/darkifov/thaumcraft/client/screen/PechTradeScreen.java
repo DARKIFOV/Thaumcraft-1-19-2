@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class PechTradeScreen extends AbstractContainerScreen<PechTradeMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/pech_trade.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/pech_trade.png");
 
     public PechTradeScreen(PechTradeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);

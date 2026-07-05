@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class EssentiaTerminalScreen extends AbstractContainerScreen<EssentiaTerminalMenu> {
     private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, \"textures/gui/essentia_terminal.png\");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/essentia_terminal.png");
 
     private int selectedAspectIndex = 0;
 
