@@ -32,17 +32,15 @@ public class ResearchTableScreen extends Screen {
         this.leftPos = (this.width - BG_WIDTH) / 2;
         this.topPos = (this.height - BG_HEIGHT) / 2;
 
-        this.addRenderableWidget(Button.builder(Component.literal("←"), button -> onClose())
-                .bounds(leftPos + 8, topPos + BG_HEIGHT - 26, 22, 20)
-                .build());
+        this.addRenderableWidget(new Button(leftPos + 8, topPos + BG_HEIGHT - 26, 22, 20,
+                Component.literal("←"), button -> onClose()));
 
-        this.addRenderableWidget(Button.builder(Component.literal("Clear"), button -> {
+        this.addRenderableWidget(new Button(leftPos + 194, topPos + 214, 46, 18,
+                Component.literal("Clear"), button -> {
                     first = null;
                     second = null;
                     previewResult = null;
-                })
-                .bounds(leftPos + 194, topPos + 214, 46, 18)
-                .build());
+                }));
     }
 
     @Override

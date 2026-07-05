@@ -81,6 +81,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return lastMovedAspect;
     }
 
+    public String connectedSidesDiagnostic(Level level, BlockPos pos) {
+        return "Connected sides: " + EssentiaTubeConnections.summary(level, pos);
+    }
+
     public int lastConflictCount() {
         return lastConflictCount;
     }

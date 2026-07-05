@@ -25,12 +25,10 @@ public class ArcaneWorkbenchScreen extends Screen {
         this.leftPos = (this.width - BG_WIDTH) / 2;
         this.topPos = (this.height - BG_HEIGHT) / 2;
 
-        this.addRenderableWidget(Button.builder(Component.literal("×"), button -> onClose())
-                .bounds(leftPos + BG_WIDTH - 26, topPos + 6, 18, 18)
-                .build());
-        this.addRenderableWidget(Button.builder(Component.literal("+vis"), button -> vis = Math.min(100, vis + 10))
-                .bounds(leftPos + 190, topPos + 212, 46, 18)
-                .build());
+        this.addRenderableWidget(new Button(leftPos + BG_WIDTH - 26, topPos + 6, 18, 18,
+                Component.literal("×"), button -> onClose()));
+        this.addRenderableWidget(new Button(leftPos + 190, topPos + 212, 46, 18,
+                Component.literal("+vis"), button -> vis = Math.min(100, vis + 10)));
     }
 
     @Override

@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
-version = '1.09.0'
+version = '1.10.0'
 group = 'com.darkifov.thaumcraft'
 archivesBaseName = 'thaumcraft_legacy_rebuild_1.19.2'
 

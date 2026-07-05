@@ -38,20 +38,18 @@ public class ThaumonomiconScreen extends Screen {
 
         for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
             int y = tabY + value.ordinal() * 23;
-            this.addRenderableWidget(Button.builder(Component.literal(value.title().substring(0, 1)), button -> {
+            this.addRenderableWidget(new Button(tabX, y, 18, 18,
+                    Component.literal(value.title().substring(0, 1)), button -> {
                 category = value;
                 selected = null;
-            }).bounds(tabX, y, 18, 18).build());
+            }));
         }
 
-        this.addRenderableWidget(Button.builder(Component.literal("Complete Selected"), button ->
-                        ThaumcraftNetwork.requestCompleteSelectedResearchFromClient())
-                .bounds(leftPos + BG_WIDTH - 154, topPos + BG_HEIGHT - 30, 126, 18)
-                .build());
+        this.addRenderableWidget(new Button(leftPos + BG_WIDTH - 154, topPos + BG_HEIGHT - 30, 126, 18,
+                Component.literal("Complete Selected"), button -> ThaumcraftNetwork.requestCompleteSelectedResearchFromClient()));
 
-        this.addRenderableWidget(Button.builder(Component.literal("×"), button -> onClose())
-                .bounds(leftPos + BG_WIDTH - 26, topPos + 8, 18, 18)
-                .build());
+        this.addRenderableWidget(new Button(leftPos + BG_WIDTH - 26, topPos + 8, 18, 18,
+                Component.literal("×"), button -> onClose()));
     }
 
     private Set<String> unlockedResearch() {

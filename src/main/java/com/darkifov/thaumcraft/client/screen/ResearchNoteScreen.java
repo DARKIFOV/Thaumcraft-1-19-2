@@ -33,13 +33,11 @@ public class ResearchNoteScreen extends Screen {
         leftPos = (width - BG_WIDTH) / 2;
         topPos = (height - BG_HEIGHT) / 2;
 
-        addRenderableWidget(Button.builder(Component.literal("Solve"), button -> ThaumcraftNetwork.requestSolveResearchNoteFromClient())
-                .bounds(leftPos + BG_WIDTH - 74, topPos + BG_HEIGHT - 28, 56, 18)
-                .build());
+        addRenderableWidget(new Button(leftPos + BG_WIDTH - 74, topPos + BG_HEIGHT - 28, 56, 18,
+                Component.literal("Solve"), button -> ThaumcraftNetwork.requestSolveResearchNoteFromClient()));
 
-        addRenderableWidget(Button.builder(Component.literal("×"), button -> onClose())
-                .bounds(leftPos + 8, topPos + BG_HEIGHT - 28, 22, 18)
-                .build());
+        addRenderableWidget(new Button(leftPos + 8, topPos + BG_HEIGHT - 28, 22, 18,
+                Component.literal("×"), button -> onClose()));
     }
 
     @Override
