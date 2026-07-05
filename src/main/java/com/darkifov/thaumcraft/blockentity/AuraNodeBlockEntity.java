@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.blockentity;
 
+import com.darkifov.thaumcraft.aura.AuraNodeType;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
@@ -29,7 +30,9 @@ public class AuraNodeBlockEntity extends BlockEntity {
 
     private final AspectList aspects = new AspectList();
     private boolean initialized = false;
-    private String nodeType = "NORMAL";
+    private String nodeType = AuraNodeType.NORMAL.name();
+    private int stability = 100;
+    private boolean scanned;
 
     public AuraNodeBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), pos, state);
@@ -41,6 +44,32 @@ public class AuraNodeBlockEntity extends BlockEntity {
 
     public boolean initialized() {
         return initialized;
+    }
+
+
+    public AuraNodeType typedNodeType() {
+        return AuraNodeType.fromName(nodeType);
+    }
+
+    public int stability() {
+        return stability;
+    }
+
+    public boolean scanned() {
+        return scanned;
+    }
+
+    public void markScanned() {
+        scanned = true;
+        setChanged();
+
+        if (level != null) {
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+        }
+    }
+
+    public int visualSize() {
+        return Math.max(24, Math.min(96, aspects.totalAmount()));
     }
 
     public String nodeType() {
@@ -203,11 +232,35 @@ public class AuraNodeBlockEntity extends BlockEntity {
         node.tickNodeEffect(level);
     }
 
+
+    public static void pulseNode(AuraNodeBlockEntity node) {
+        if (node == null || node.level == null || node.level.isClientSide()) {
+            return;
+        }
+
+        long time = node.level.getGameTime();
+        if (time % 200L == 0L) {
+            int total = node.aspects.totalAmount();
+
+            if (total <= 0) {
+                node.stability = Math.max(0, node.stability - 1);
+            } else if (node.typedNodeType() == AuraNodeType.PURE) {
+                node.stability = Math.min(100, node.stability + 1);
+            } else if (node.typedNodeType() == AuraNodeType.UNSTABLE || node.typedNodeType() == AuraNodeType.HUNGRY) {
+                node.stability = Math.max(0, node.stability - 1);
+            }
+
+            node.setChanged();
+        }
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putBoolean("Initialized", initialized);
         tag.putString("NodeType", nodeType);
+        tag.putInt("Stability", stability);
+        tag.putBoolean("Scanned", scanned);
         tag.put("Aspects", aspects.save());
     }
 

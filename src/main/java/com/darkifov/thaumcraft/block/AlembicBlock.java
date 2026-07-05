@@ -98,7 +98,7 @@ public class AlembicBlock extends BaseEntityBlock {
             }
 
             player.displayClientMessage(
-                    Component.literal("Distilled ").append(Component.literal(first.displayName() + " x" + removed).withStyle(first.color()))
+                    Component.literal("Distilled ").append(Component.literal(first.displayName() + " x" + removed).withStyle(style -> style.withColor(first.textColor())))
                             .append(Component.literal(" from crucible.")),
                     false
             );
@@ -129,7 +129,7 @@ public class AlembicBlock extends BaseEntityBlock {
             EssentiaPhialItem.clear(held);
 
             player.displayClientMessage(
-                    Component.literal("Poured ").append(Component.literal(heldAspect.displayName() + " x" + added).withStyle(heldAspect.color()))
+                    Component.literal("Poured ").append(Component.literal(heldAspect.displayName() + " x" + added).withStyle(style -> style.withColor(heldAspect.textColor())))
                             .append(Component.literal(" into alembic.")),
                     false
             );
@@ -148,7 +148,7 @@ public class AlembicBlock extends BaseEntityBlock {
         EssentiaPhialItem.setEssentia(held, first, removed);
 
         player.displayClientMessage(
-                Component.literal("Filled phial with ").append(Component.literal(first.displayName() + " x" + removed).withStyle(first.color())),
+                Component.literal("Filled phial with ").append(Component.literal(first.displayName() + " x" + removed).withStyle(style -> style.withColor(first.textColor()))),
                 false
         );
 

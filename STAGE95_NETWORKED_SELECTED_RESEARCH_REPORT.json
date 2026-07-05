@@ -1,0 +1,28 @@
+{
+  "stage": 95,
+  "base": "Stage 94",
+  "goal": "actual client-to-server selected research flow",
+  "added_packets": [
+    "RequestSelectResearchPacket",
+    "RequestCompleteSelectedResearchPacket"
+  ],
+  "network_changes": [
+    "registered RequestSelectResearchPacket in ThaumcraftNetwork",
+    "registered RequestCompleteSelectedResearchPacket in ThaumcraftNetwork",
+    "added requestSelectResearchFromClient(String)",
+    "added requestCompleteSelectedResearchFromClient()"
+  ],
+  "screen_changes": [
+    "ThaumonomiconScreen now sends selected research key to server on node click",
+    "ThaumonomiconScreen uses ClientResearchData synced research instead of local-only PlayerThaumData",
+    "ThaumonomiconScreen adds Complete Selected button"
+  ],
+  "backend_changes": [
+    "RequestResearchUnlockPacket now uses OriginalResearchBridge.selectedOrFirstAvailable",
+    "ResearchNoteItem tooltip clarifies selected-research behavior"
+  ],
+  "honest_limits": [
+    "This wires selection and completion packets, but exact TC4 theory/minigame solving remains future work.",
+    "Dynamic renderers for jars/nodes are still represented through model/visual bridge assets, not full renderer replacement."
+  ]
+}

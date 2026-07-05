@@ -1,5 +1,9 @@
 package com.darkifov.thaumcraft.block;
 
+import com.mojang.math.Vector3f;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import com.darkifov.thaumcraft.aura.AuraNodeScan;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.data.NodeScanData;
@@ -13,6 +17,11 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,6 +32,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 
 public class AuraNodeBlock extends BaseEntityBlock {
+    private static final VoxelShape AURA_NODE_SELECTION_SHAPE = Block.box(4.0D, 4.0D, 4.0D, 12.0D, 12.0D, 12.0D);
+
     public AuraNodeBlock(Properties properties) {
         super(properties);
     }
@@ -34,7 +45,28 @@ public class AuraNodeBlock extends BaseEntityBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+        return RenderShape.INVISIBLE;
+    }
+
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return AURA_NODE_SELECTION_SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
+    }
+
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
+        return true;
+    }
+
+    @Override
+    public float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
+        return 1.0F;
     }
 
     @Override
@@ -60,45 +92,39 @@ public class AuraNodeBlock extends BaseEntityBlock {
         }
     }
 
+
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, net.minecraft.world.phys.BlockHitResult hit) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
         if (!(blockEntity instanceof AuraNodeBlockEntity node)) {
             return InteractionResult.PASS;
         }
 
-        ItemStack held = player.getItemInHand(hand);
+        ItemStack stack = player.getItemInHand(hand);
+        String itemId = stack.getItem().builtInRegistryHolder().key().location().toString();
 
-        if (held.getItem() instanceof WandItem wand) {
-            if (!level.isClientSide) {
-                int moved = wand.chargeFromNode(held, node);
-
-                if (moved > 0) {
-                    player.displayClientMessage(Component.literal("Wand charged from aura node: +" + moved + " vis").withStyle(ChatFormatting.AQUA), false);
-                } else {
-                    player.displayClientMessage(Component.literal("The wand is full or this node has no usable vis.").withStyle(ChatFormatting.GRAY), false);
-                }
-            }
-
-            return InteractionResult.sidedSuccess(level.isClientSide);
+        if (!itemId.contains("thaumometer") && !itemId.contains("goggles")) {
+            return InteractionResult.PASS;
         }
 
-        if (!level.isClientSide) {
-            if (!node.initialized()) {
-                node.initializeFromPosition();
-            }
+        if (!level.isClientSide()) {
+            node.markScanned();
+            AuraNodeScan.sendScan(player, node);
 
-            if (!NodeScanData.hasScanned(player, pos) && !player.getAbilities().instabuild) {
-                player.displayClientMessage(Component.literal("Unknown Aura Node. Scan it with a Thaumometer to reveal details.").withStyle(ChatFormatting.DARK_PURPLE), false);
-                return InteractionResult.CONSUME;
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(new DustParticleOptions(new Vector3f(0.75F, 0.55F, 1.0F), 1.2F),
+                        pos.getX() + 0.5D,
+                        pos.getY() + 0.5D,
+                        pos.getZ() + 0.5D,
+                        12,
+                        0.35D,
+                        0.35D,
+                        0.35D,
+                        0.01D);
             }
-
-            String stableText = node.isStabilized() ? " | Stabilized" : "";
-            player.displayClientMessage(Component.literal("Aura Node [" + node.nodeType() + stableText + "] aspects: ").append(node.aspects().toComponent()), false);
         }
 
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return InteractionResult.sidedSuccess(level.isClientSide());
     }
 }

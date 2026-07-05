@@ -21,6 +21,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,6 +34,8 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class ThaumicEnergisticsDeviceBlock extends Block {
+    private static final VoxelShape PART_LIKE_SHAPE = Block.box(3.0D, 3.0D, 0.0D, 13.0D, 13.0D, 5.0D);
+
     public enum Mode {
         TERMINAL,
         STORAGE_BUS,
@@ -65,6 +70,28 @@ public class ThaumicEnergisticsDeviceBlock extends Block {
     public ThaumicEnergisticsDeviceBlock(Properties properties, Mode mode) {
         super(properties);
         this.mode = mode;
+    }
+
+
+    private boolean isPartLike() {
+        return mode == Mode.STORAGE_BUS
+                || mode == Mode.IMPORT_BUS
+                || mode == Mode.EXPORT_BUS
+                || mode == Mode.STORAGE_MONITOR
+                || mode == Mode.TERMINAL
+                || mode == Mode.ARCANE_CRAFTING_TERMINAL
+                || mode == Mode.ESSENTIA_LEVEL_EMITTER
+                || mode == Mode.ESSENTIA_CONVERSION_MONITOR;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return isPartLike() ? PART_LIKE_SHAPE : super.getShape(state, level, pos, context);
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return isPartLike() ? PART_LIKE_SHAPE : super.getCollisionShape(state, level, pos, context);
     }
 
     @Override

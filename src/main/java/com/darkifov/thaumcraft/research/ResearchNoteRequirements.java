@@ -1,0 +1,60 @@
+package com.darkifov.thaumcraft.research;
+
+import com.darkifov.thaumcraft.Aspect;
+
+import java.util.LinkedHashSet;
+import java.util.Locale;
+import java.util.Set;
+
+public final class ResearchNoteRequirements {
+    private ResearchNoteRequirements() {
+    }
+
+    public static Set<Aspect> requiredFor(String researchKey) {
+        String key = researchKey == null ? "" : researchKey.toLowerCase(Locale.ROOT);
+        Set<Aspect> result = new LinkedHashSet<>();
+
+        if (key.contains("wand") || key.contains("focus")) {
+            add(result, Aspect.PRAECANTATIO, Aspect.POTENTIA, Aspect.INSTRUMENTUM, Aspect.AURAM);
+        } else if (key.contains("alchemy") || key.contains("crucible") || key.contains("essentia") || key.contains("jar")) {
+            add(result, Aspect.PRAECANTATIO, Aspect.AQUA, Aspect.VITREUS, Aspect.PERMUTATIO);
+        } else if (key.contains("golem")) {
+            add(result, Aspect.MACHINA, Aspect.MOTUS, Aspect.HUMANUS, Aspect.SPIRITUS);
+        } else if (key.contains("eldritch") || key.contains("void")) {
+            add(result, Aspect.ALIENIS, Aspect.TENEBRAE, Aspect.VACUOS, Aspect.PRAECANTATIO);
+        } else if (key.contains("infusion") || key.contains("matrix") || key.contains("altar")) {
+            add(result, Aspect.PRAECANTATIO, Aspect.AURAM, Aspect.POTENTIA, Aspect.ORDO);
+        } else if (key.contains("thaumometer") || key.contains("scan")) {
+            add(result, Aspect.SENSUS, Aspect.COGNITIO, Aspect.AURAM, Aspect.PRAECANTATIO);
+        } else if (key.contains("research")) {
+            add(result, Aspect.COGNITIO, Aspect.PRAECANTATIO, Aspect.SENSUS, Aspect.ORDO);
+        } else {
+            add(result, Aspect.COGNITIO, Aspect.PRAECANTATIO, Aspect.ORDO, Aspect.AURAM);
+        }
+
+        return result;
+    }
+
+    public static Aspect startFor(String researchKey) {
+        Set<Aspect> required = requiredFor(researchKey);
+        return required.stream().findFirst().orElse(Aspect.COGNITIO);
+    }
+
+    public static Aspect endFor(String researchKey) {
+        Aspect result = Aspect.PRAECANTATIO;
+
+        for (Aspect aspect : requiredFor(researchKey)) {
+            result = aspect;
+        }
+
+        return result;
+    }
+
+    private static void add(Set<Aspect> target, Aspect... aspects) {
+        for (Aspect aspect : aspects) {
+            if (aspect != null) {
+                target.add(aspect);
+            }
+        }
+    }
+}

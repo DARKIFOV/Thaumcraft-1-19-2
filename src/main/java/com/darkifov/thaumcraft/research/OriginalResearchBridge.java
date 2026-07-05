@@ -55,6 +55,25 @@ public final class OriginalResearchBridge {
         return Optional.empty();
     }
 
+    public static Optional<ResearchEntry> selectedOrFirstAvailable(Player player) {
+        Optional<ResearchEntry> selected = OriginalResearchSelection.getEntry(player);
+        if (selected.isPresent() && canUnlock(player, selected.get())) {
+            return selected;
+        }
+
+        return firstAvailable(player);
+    }
+
+    public static boolean select(Player player, String key) {
+        Optional<ResearchEntry> entry = byKey(key);
+        if (entry.isEmpty()) {
+            return false;
+        }
+
+        OriginalResearchSelection.set(player, key);
+        return true;
+    }
+
     public static Optional<ResearchEntry> byKey(String key) {
         for (ResearchEntry entry : ResearchRegistry.entries()) {
             if (entry.key().equals(key)) {
@@ -105,5 +124,23 @@ public final class OriginalResearchBridge {
         }
 
         return unlock(player, entry);
+    }
+
+    public static boolean completeSelectedOrFirst(Player player) {
+        return selectedOrFirstAvailable(player)
+                .map(entry -> completeWithAspectCost(player, entry))
+                .orElse(false);
+    }
+
+    public static String statusFor(Player player, ResearchEntry entry) {
+        if (entry == null) {
+            return "missing";
+        }
+
+        if (PlayerThaumData.hasResearch(player, entry.key())) {
+            return "complete";
+        }
+
+        return canUnlock(player, entry) ? "available" : "locked";
     }
 }

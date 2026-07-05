@@ -1,5 +1,12 @@
 package com.darkifov.thaumcraft.block;
 
+import java.util.function.Consumer;
+import com.darkifov.thaumcraft.client.render.WandItemRenderer;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import com.darkifov.thaumcraft.wand.WandRodType;
+import com.darkifov.thaumcraft.wand.WandComponentData;
+import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
@@ -22,29 +29,67 @@ import java.util.List;
 
 public class WandItem extends Item {
     private static final String TAG_VIS = "Vis";
+    public static final int INFINITE_VIS_DISPLAY = Integer.MAX_VALUE / 8;
 
     private final int visCapacity;
+    private final WandRodType defaultRod;
+    private final WandCapType defaultCap;
 
     public WandItem(Properties properties, int visCapacity) {
+        this(properties, visCapacity, WandRodType.WOOD, WandCapType.IRON);
+    }
+
+    public WandItem(Properties properties, int visCapacity, WandRodType defaultRod, WandCapType defaultCap) {
         super(properties);
         this.visCapacity = visCapacity;
+        this.defaultRod = defaultRod;
+        this.defaultCap = defaultCap;
     }
 
     public int visCapacity() {
-        return visCapacity;
+        return WandComponentData.from(new ItemStack(this)).capacity();
+    }
+
+    public WandRodType defaultRod() {
+        return defaultRod;
+    }
+
+    public WandCapType defaultCap() {
+        return defaultCap;
+    }
+
+    public int stackVisCapacity(ItemStack stack) {
+        return WandComponentData.from(stack).capacity();
+    }
+
+    public float stackVisCostModifier(ItemStack stack) {
+        return WandComponentData.from(stack).visCostModifier();
+    }
+
+    public boolean isInfiniteVis(ItemStack stack) {
+        return false;
+    }
+
+    public static boolean hasInfiniteVis(ItemStack stack) {
+        return stack.getItem() instanceof WandItem wandItem && wandItem.isInfiniteVis(stack);
     }
 
     public int chargeFromNode(ItemStack wandStack, AuraNodeBlockEntity node) {
+        if (hasInfiniteVis(wandStack)) {
+            return 0;
+        }
+
         int movedTotal = 0;
 
         for (Aspect aspect : Aspect.values()) {
             int current = getVis(wandStack, aspect);
 
-            if (current >= visCapacity) {
+            if (current >= stackVisCapacity(wandStack)) {
                 continue;
             }
 
-            int space = visCapacity - current;
+            int capacity = stackVisCapacity(wandStack);
+            int space = capacity - current;
             int maxDrain = node.isStabilized() ? 2 : 4;
             int drained = node.drainToWand(aspect, Math.min(maxDrain, space));
 
@@ -58,12 +103,16 @@ public class WandItem extends Item {
     }
 
     public static int getVis(ItemStack stack, Aspect aspect) {
+        if (hasInfiniteVis(stack)) {
+            return INFINITE_VIS_DISPLAY;
+        }
+
         CompoundTag vis = stack.getOrCreateTagElement(TAG_VIS);
         return vis.getInt(aspect.name());
     }
 
     public static void addVis(ItemStack stack, Aspect aspect, int amount) {
-        if (amount <= 0) {
+        if (amount <= 0 || hasInfiniteVis(stack)) {
             return;
         }
 
@@ -72,7 +121,7 @@ public class WandItem extends Item {
     }
 
     public static boolean consumeVis(ItemStack stack, Aspect aspect, int amount) {
-        if (amount <= 0) {
+        if (amount <= 0 || hasInfiniteVis(stack)) {
             return true;
         }
 
@@ -95,7 +144,7 @@ public class WandItem extends Item {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
 
-            if (stack.getItem() instanceof WandItem && getVis(stack, aspect) >= amount) {
+            if (stack.getItem() instanceof WandItem && (hasInfiniteVis(stack) || getVis(stack, aspect) >= amount)) {
                 return consumeVis(stack, aspect, amount);
             }
         }
@@ -121,6 +170,10 @@ public class WandItem extends Item {
     }
 
     public String visText(ItemStack stack) {
+        if (hasInfiniteVis(stack)) {
+            return "∞ infinite primal vis";
+        }
+
         StringBuilder builder = new StringBuilder();
         boolean first = true;
 
@@ -135,15 +188,33 @@ public class WandItem extends Item {
                 builder.append(", ");
             }
 
-            builder.append(aspect.displayName()).append(" ").append(amount).append("/").append(visCapacity);
+            builder.append(aspect.displayName()).append(" ").append(amount).append("/").append(stackVisCapacity(stack));
             first = false;
         }
 
         return first ? "empty" : builder.toString();
     }
 
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return WandItemRenderer.instance();
+            }
+        });
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
+        WandComponentData data = WandComponentData.from(stack);
+        tooltip.add(Component.literal("Rod: " + data.rod().id()).withStyle(ChatFormatting.DARK_AQUA));
+        tooltip.add(Component.literal("Caps: " + data.cap().id()).withStyle(ChatFormatting.GOLD));
+        tooltip.add(Component.literal("Capacity: " + stackVisCapacity(stack)).withStyle(ChatFormatting.GRAY));
+        if (hasInfiniteVis(stack)) {
+            tooltip.add(Component.literal("Infinite Vis").withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
         tooltip.add(Component.literal("Vis: " + visText(stack)).withStyle(ChatFormatting.GRAY));
     }
 

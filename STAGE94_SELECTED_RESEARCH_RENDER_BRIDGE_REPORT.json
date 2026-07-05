@@ -1,0 +1,24 @@
+{
+  "stage": 94,
+  "base": "Stage 93",
+  "goal": "selected research and renderer/model bridge toward original behavior",
+  "added_java": [
+    "research/OriginalResearchSelection.java",
+    "client/screen/OriginalClientResearchSelection.java",
+    "client/OriginalVisualStateBridge.java"
+  ],
+  "patched": [
+    "OriginalResearchBridge: selectedOrFirstAvailable, select, completeSelectedOrFirst, statusFor",
+    "ResearchNoteItem: completes selected research when possible",
+    "ThaumonomiconScreen: selected node key is tracked and displayed"
+  ],
+  "added_assets": [
+    "research_note_selected/locked/available/complete textures and models",
+    "jar/node aspect variant block/item models for renderer bridge"
+  ],
+  "honest_limits": [
+    "Client-side Thaumonomicon selection still needs real packet registration to persist selected key server-side from GUI.",
+    "Stage94 creates bridge/state/model resources so the next pass can wire networking and dynamic renderers more cleanly.",
+    "This avoids risky networking compile changes until bridge pieces are fully staged."
+  ]
+}

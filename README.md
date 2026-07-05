@@ -1,80 +1,62 @@
-# Thaumcraft Legacy Rebuild 1.19.2 — Stage 93 Original Backend Behavior Bridge Pass
+# Thaumcraft Legacy Rebuild 1.19.2 — Stage 107 Directional Essentia Tubes Pass
 
 ## Что сделано
 
-Stage 93 продолжает движение к оригинальному поведению, а не только картинкам.
+Stage 107 переводит essentia tubes ближе к оригинальному поведению.
 
-Добавлены backend bridge-классы:
+Теперь труба — не просто один generic network block.  
+У неё есть стороны подключения:
 
-- `OriginalAspectWallet`
-- `OriginalResearchBridge`
-- `OriginalArcaneCostBridge`
+- north
+- south
+- west
+- east
+- up
+- down
 
-## Что они делают
+## Новые файлы
 
-### OriginalAspectWallet
+- `EssentiaTubeConnections.java`
+- `EssentiaSuctionPath.java`
+- `models/block/essentia_tube_center.json`
+- `models/block/essentia_tube_arm_north.json`
+- `blockstates/essentia_tube.json`
+- `STAGE107_DIRECTIONAL_ESSENTIA_TUBES_REPORT.json`
 
-Хранит primal research points у игрока:
+## EssentiaTubeBlock
 
-- aer
-- terra
-- ignis
-- aqua
-- ordo
-- perditio
+Добавлено:
 
-Данные сохраняются в persistent NBT игрока.
+- BooleanProperty для всех 6 сторон;
+- updateShape;
+- getStateForPlacement;
+- dynamic shape center + arms;
+- диагностика connected sides.
 
-### OriginalResearchBridge
+## Почему это важно
 
-Даёт original-like research flow:
+Оригинальные трубы Thaumcraft не должны выглядеть как один одинаковый блок.  
+Они должны подключаться только к реальным соседям:
 
-- проверка parent requirements;
-- поиск первой доступной research-ноды;
-- unlock research;
-- aspect-cost based completion;
-- сообщение игроку при завершении исследования.
+- другая труба;
+- банка essentia;
+- alembic;
+- alchemical furnace.
 
-### OriginalArcaneCostBridge
+Это фундамент для следующего этапа:
 
-Даёт bridge-логику для arcane costs:
-
-- vis cost по типу предмета;
-- primal aspect costs;
-- canCraft check.
-
-## Патчи экранов / предметов
-
-- `ResearchNoteItem` получил серверный bridge для завершения первой доступной research-ноды.
-- `ResearchTableScreen` теперь прямо показывает, что Research Note используется для завершения доступной ноды.
-- `ArcaneWorkbenchScreen` помечен как bridge-backed cost flow.
-
-## Визуальный bridge
-
-Добавлены texture variants:
-
-- aspect-filled jar textures;
-- aura node aspect variants;
-- completed research note texture.
+- backflow;
+- suction conflict;
+- directional suction;
+- restrictive tubes;
+- valves;
+- filtered tubes.
 
 ## Честный статус
 
-Это не финальный TC4 backend, но это уже слой настоящего поведения:
-
-- есть сохранение аспектов игрока;
-- есть проверка requirements;
-- есть unlock research;
-- есть aspect costs;
-- есть arcane cost bridge.
-
-Следующий этап для оригинала:
-
-1. packet из ThaumonomiconScreen на server для unlock конкретной выбранной ноды;
-2. настоящая research table minigame;
-3. привязка aspect wallet к реальному GUI;
-4. dynamic renderer банок;
-5. aura/node renderer pass.
+Это directional foundation.  
+Нужна GitHub Actions compile-проверка после загрузки.
 
 ## GitHub commit
 
-`Stage 93 original backend behavior bridge pass`
+`Stage 107 directional essentia tubes pass`

@@ -1,6 +1,8 @@
 package com.darkifov.thaumcraft.client.screen;
 
+import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -42,19 +44,20 @@ public class ThaumonomiconScreen extends Screen {
             }).bounds(tabX, y, 18, 18).build());
         }
 
+        this.addRenderableWidget(Button.builder(Component.literal("Complete Selected"), button ->
+                        ThaumcraftNetwork.requestCompleteSelectedResearchFromClient())
+                .bounds(leftPos + BG_WIDTH - 154, topPos + BG_HEIGHT - 30, 126, 18)
+                .build());
+
         this.addRenderableWidget(Button.builder(Component.literal("×"), button -> onClose())
                 .bounds(leftPos + BG_WIDTH - 26, topPos + 8, 18, 18)
                 .build());
     }
 
     private Set<String> unlockedResearch() {
-        if (minecraft == null || minecraft.player == null) {
-            Set<String> fallback = new HashSet<>();
-            fallback.add("FIRST_STEPS");
-            return fallback;
-        }
-
-        return PlayerThaumData.getResearchSet(minecraft.player);
+        Set<String> synced = new HashSet<>(ClientResearchData.research());
+        synced.add("FIRST_STEPS");
+        return synced;
     }
 
     @Override
@@ -174,8 +177,11 @@ public class ThaumonomiconScreen extends Screen {
             }
         }
 
-        drawString(poseStack, font, "Use Research Notes / Research Points", x, topPos + 420, 0x5A3515);
-        drawString(poseStack, font, "to unlock the next valid node.", x, topPos + 432, 0x5A3515);
+        drawString(poseStack, font, "Research Point or Research Note", x, topPos + 408, 0x5A3515);
+        drawString(poseStack, font, "to unlock selected valid node.", x, topPos + 420, 0x5A3515);
+        if (selected != null) {
+            drawString(poseStack, font, "Selected for Research Note: " + selected.key(), x, topPos + 436, 0x7A3B9A);
+        }
     }
 
     private void drawLine(PoseStack poseStack, int x1, int y1, int x2, int y2, int color) {
@@ -197,6 +203,8 @@ public class ThaumonomiconScreen extends Screen {
 
             if (mouseX >= x - 2 && mouseX <= x + 30 && mouseY >= y - 2 && mouseY <= y + 30) {
                 selected = entries.get(i);
+                OriginalClientResearchSelection.set(selected.key());
+                ThaumcraftNetwork.requestSelectResearchFromClient(selected.key());
                 return true;
             }
         }

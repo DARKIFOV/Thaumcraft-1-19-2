@@ -1,12 +1,17 @@
 package com.darkifov.thaumcraft.blockentity;
 
+import com.darkifov.thaumcraft.essentia.EssentiaTubeConnections;
 import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.block.EssentiaJarBlock;
 import com.darkifov.thaumcraft.block.EssentiaValveBlock;
+import com.darkifov.thaumcraft.config.ThaumcraftConfig;
+import com.darkifov.thaumcraft.essentia.EssentiaSuction;
+import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -17,12 +22,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EssentiaTubeBlockEntity extends BlockEntity {
+    // Directional tube pass: traversal is prepared to respect EssentiaTubeConnections side checks.
+    private boolean connectedTransportNeighbor(BlockPos origin, net.minecraft.core.Direction direction) {
+        return level != null && EssentiaTubeConnections.canConnect(level, origin, direction);
+    }
+
     public static final int MAX_NETWORK = 48;
     public static final int TRANSFER_AMOUNT = 1;
 
-    public static final int SUCTION_NORMAL_JAR = 32;
-    public static final int SUCTION_FILTERED_JAR = 48;
-    public static final int SUCTION_VOID_JAR = 64;
+    public static final int SUCTION_NORMAL_JAR = EssentiaSuction.JAR_NORMAL;
+    public static final int SUCTION_FILTERED_JAR = EssentiaSuction.JAR_FILTERED;
+    public static final int SUCTION_VOID_JAR = EssentiaSuction.JAR_VOID;
+
+    private int lastNetworkSize;
+    private int lastSourceCount;
+    private int lastDestinationCount;
+    private String lastMovedAspect = "";
 
     public EssentiaTubeBlockEntity(BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
         super(ThaumcraftMod.ESSENTIA_TUBE_BLOCK_ENTITY.get(), pos, state);
@@ -44,65 +59,93 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return collectTubeNetwork(level, worldPosition).size();
     }
 
+    public int lastNetworkSize() {
+        return lastNetworkSize;
+    }
+
+    public int lastSourceCount() {
+        return lastSourceCount;
+    }
+
+    public int lastDestinationCount() {
+        return lastDestinationCount;
+    }
+
+    public String lastMovedAspect() {
+        return lastMovedAspect;
+    }
+
     private void tryMoveEssentia() {
         if (level == null || level.isClientSide) {
             return;
         }
 
         Set<BlockPos> network = collectTubeNetwork(level, worldPosition);
-        AlchemicalFurnaceBlockEntity source = findSourceFurnace(level, network);
+        lastNetworkSize = network.size();
 
-        if (source == null || source.aspects().isEmpty()) {
+        Source source = findBestSource(level, network);
+        lastSourceCount = countSources(level, network);
+
+        if (source == null || source.aspect() == null) {
+            lastMovedAspect = "";
             return;
         }
 
-        Aspect aspect = source.firstAspect();
+        Destination destination = findBestDestinationJar(level, network, source.aspect());
+        lastDestinationCount = countDestinations(level, network, source.aspect());
 
-        if (aspect == null) {
+        if (destination == null || destination.suction() <= EssentiaSuction.SOURCE_NONE) {
+            lastMovedAspect = "";
             return;
         }
 
-        Destination destination = findBestDestinationJar(level, network, aspect);
-
-        if (destination == null) {
-            return;
-        }
-
-        int removed = source.removeUpTo(aspect, TRANSFER_AMOUNT);
+        int removed = source.remove(TRANSFER_AMOUNT);
 
         if (removed <= 0) {
+            lastMovedAspect = "";
             return;
         }
 
-        int accepted = destination.jar.acceptFromTube(aspect, removed, destination.voidJar);
+        int accepted = destination.jar().acceptFromTube(source.aspect(), removed, destination.voidJar());
 
         if (accepted <= 0) {
-            source.aspects().add(aspect, removed);
-            source.setChangedAndSync();
+            source.restore(removed);
+            lastMovedAspect = "";
             return;
         }
 
-        if (level instanceof ServerLevel serverLevel) {
-            BlockPos to = destination.jar.getBlockPos();
-            serverLevel.sendParticles(ParticleTypes.PORTAL,
-                    worldPosition.getX() + 0.5D,
-                    worldPosition.getY() + 0.5D,
-                    worldPosition.getZ() + 0.5D,
-                    5,
-                    0.2D,
-                    0.2D,
-                    0.2D,
-                    0.02D);
-            serverLevel.sendParticles(destination.voidJar ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.WITCH,
-                    to.getX() + 0.5D,
-                    to.getY() + 0.95D,
-                    to.getZ() + 0.5D,
-                    3,
-                    0.15D,
-                    0.15D,
-                    0.15D,
-                    0.01D);
+        lastMovedAspect = source.aspect().id();
+        renderTransferParticles(source.aspect(), destination.jar().getBlockPos(), destination.voidJar());
+    }
+
+    private void renderTransferParticles(Aspect aspect, BlockPos destination, boolean voidJar) {
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
         }
+
+        int rgb = AspectColor.rgb(aspect);
+        float r = ((rgb >> 16) & 255) / 255.0F;
+        float g = ((rgb >> 8) & 255) / 255.0F;
+        float b = (rgb & 255) / 255.0F;
+
+        serverLevel.sendParticles(new DustParticleOptions(new Vector3f(r, g, b), 0.8F),
+                worldPosition.getX() + 0.5D,
+                worldPosition.getY() + 0.5D,
+                worldPosition.getZ() + 0.5D,
+                3,
+                0.18D,
+                0.18D,
+                0.18D,
+                0.01D);
+        serverLevel.sendParticles(voidJar ? ParticleTypes.REVERSE_PORTAL : ParticleTypes.WITCH,
+                destination.getX() + 0.5D,
+                destination.getY() + 0.95D,
+                destination.getZ() + 0.5D,
+                2,
+                0.12D,
+                0.12D,
+                0.12D,
+                0.01D);
     }
 
     private Set<BlockPos> collectTubeNetwork(Level level, BlockPos start) {
@@ -143,18 +186,60 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return false;
     }
 
-    private AlchemicalFurnaceBlockEntity findSourceFurnace(Level level, Set<BlockPos> network) {
+    private Source findBestSource(Level level, Set<BlockPos> network) {
+        Source best = null;
+
         for (BlockPos tubePos : network) {
             for (Direction direction : Direction.values()) {
-                BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
+                BlockPos adjacent = tubePos.relative(direction);
+                BlockEntity blockEntity = level.getBlockEntity(adjacent);
+                Source source = sourceFrom(blockEntity);
 
-                if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace && !furnace.aspects().isEmpty()) {
-                    return furnace;
+                if (source == null) {
+                    continue;
+                }
+
+                if (best == null || source.priority() > best.priority()) {
+                    best = source;
                 }
             }
         }
 
+        return best;
+    }
+
+    private Source sourceFrom(BlockEntity blockEntity) {
+        if (blockEntity instanceof AlembicBlockEntity alembic) {
+            Aspect aspect = alembic.aspects().firstAspect();
+
+            if (aspect != null) {
+                return new AlembicSource(alembic, aspect);
+            }
+        }
+
+        if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace) {
+            Aspect aspect = furnace.firstAspect();
+
+            if (aspect != null) {
+                return new FurnaceSource(furnace, aspect);
+            }
+        }
+
         return null;
+    }
+
+    private int countSources(Level level, Set<BlockPos> network) {
+        int count = 0;
+
+        for (BlockPos tubePos : network) {
+            for (Direction direction : Direction.values()) {
+                if (sourceFrom(level.getBlockEntity(tubePos.relative(direction))) != null) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     private Destination findBestDestinationJar(Level level, Set<BlockPos> network, Aspect aspect) {
@@ -178,13 +263,74 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
                 int suction = voidJar ? SUCTION_VOID_JAR : filteredJar ? SUCTION_FILTERED_JAR : SUCTION_NORMAL_JAR;
 
-                if (best == null || suction > best.suction) {
+                if (best == null || suction > best.suction()) {
                     best = new Destination(jar, suction, voidJar);
                 }
             }
         }
 
         return best;
+    }
+
+    private int countDestinations(Level level, Set<BlockPos> network, Aspect aspect) {
+        int count = 0;
+
+        for (BlockPos tubePos : network) {
+            for (Direction direction : Direction.values()) {
+                BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
+
+                if (blockEntity instanceof EssentiaJarBlockEntity jar && jar.canAcceptAspect(aspect)) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private interface Source {
+        Aspect aspect();
+
+        int priority();
+
+        int remove(int amount);
+
+        void restore(int amount);
+    }
+
+    private record AlembicSource(AlembicBlockEntity alembic, Aspect aspect) implements Source {
+        @Override
+        public int priority() {
+            return EssentiaSuction.ALEMBIC_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return alembic.removeEssentia(aspect, amount);
+        }
+
+        @Override
+        public void restore(int amount) {
+            alembic.addEssentia(aspect, amount);
+        }
+    }
+
+    private record FurnaceSource(AlchemicalFurnaceBlockEntity furnace, Aspect aspect) implements Source {
+        @Override
+        public int priority() {
+            return EssentiaSuction.FURNACE_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return furnace.removeUpTo(aspect, amount);
+        }
+
+        @Override
+        public void restore(int amount) {
+            furnace.aspects().add(aspect, amount);
+            furnace.setChangedAndSync();
+        }
     }
 
     private record Destination(EssentiaJarBlockEntity jar, int suction, boolean voidJar) {

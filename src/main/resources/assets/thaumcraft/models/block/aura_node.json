@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "thaumcraft:block/aura_node"
-  }
+    "particle": "thaumcraft:block/aura_node_sprite"
+  },
+  "elements": []
 }

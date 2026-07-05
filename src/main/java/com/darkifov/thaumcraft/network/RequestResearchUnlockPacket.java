@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.network;
 
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.research.OriginalResearchBridge;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
 import net.minecraft.ChatFormatting;
@@ -40,24 +41,18 @@ public class RequestResearchUnlockPacket {
                 return;
             }
 
-            for (ResearchEntry entry : ResearchRegistry.entries()) {
-                if (!PlayerThaumData.hasResearch(player, entry.key()) && requirementsMet(player, entry)) {
-                    if (!player.getAbilities().instabuild) {
-                        player.getInventory().getItem(pointSlot).shrink(1);
-                    }
+            ResearchEntry target = OriginalResearchBridge.selectedOrFirstAvailable(player).orElse(null);
 
-                    PlayerThaumData.unlockResearch(player, entry.key());
-                    player.displayClientMessage(
-                            Component.literal("Research unlocked: ").withStyle(ChatFormatting.GOLD)
-                                    .append(Component.literal(entry.title()).withStyle(ChatFormatting.LIGHT_PURPLE)),
-                            false
-                    );
-                    ThaumcraftNetwork.syncResearch(player);
-                    return;
+            if (target != null && OriginalResearchBridge.completeWithAspectCost(player, target)) {
+                if (!player.getAbilities().instabuild) {
+                    player.getInventory().getItem(pointSlot).shrink(1);
                 }
+
+                ThaumcraftNetwork.syncResearch(player);
+                return;
             }
 
-            player.displayClientMessage(Component.literal("No available research to unlock right now.").withStyle(ChatFormatting.GRAY), false);
+            player.displayClientMessage(Component.literal("No selected or available research to unlock right now.").withStyle(ChatFormatting.GRAY), false);
             ThaumcraftNetwork.syncResearch(player);
         });
 

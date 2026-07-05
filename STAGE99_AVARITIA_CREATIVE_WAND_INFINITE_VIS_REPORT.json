@@ -1,0 +1,32 @@
+{
+  "stage": 99,
+  "base": "Stage 98",
+  "goal": "add Avaritia Creative Wand as a proper addon extension with infinite vis, without fake placeholder behavior",
+  "implemented": [
+    "AvaritiaCreativeWandItem extends WandItem and explicitly overrides infinite-vis behavior.",
+    "WandItem core now supports hasInfiniteVis/getVis/consumeVis/addVis safely.",
+    "Creative rod/cap types added: WandRodType.CREATIVE and WandCapType.INFINITY.",
+    "Creative wand uses the same custom WandItemRenderer architecture from Stage98.",
+    "Creative wand item model uses minecraft:builtin/entity, not item/generated/2D.",
+    "Creative wand renderer textures added under textures/entity/wand/rod_creative_infinity.png and cap_infinity.png.",
+    "Creative wand icon added for inventory/creative tab/search only.",
+    "Language entries added for en_us and ru_ru."
+  ],
+  "no_costyl_notes": [
+    "This item is not claimed to be an original TC4 item.",
+    "It is an addon-extension requested for Avaritia/infinity-style gameplay.",
+    "It uses the same rod/cap data and custom renderer pipeline instead of a separate fake 2D item."
+  ],
+  "behavior": [
+    "Displays infinite vis.",
+    "Does not consume stored vis.",
+    "Does not drain aura nodes when charged.",
+    "Can satisfy WandItem.consumeVisFromInventory checks.",
+    "Uses Creative/Infinity rod-cap metadata architecture."
+  ],
+  "remaining": [
+    "Need exact Avaritia asset import if a real Avaritia source jar is provided.",
+    "Need optional integration with a separate Avaritia mod id if this project is split into multiple mods.",
+    "Need focus renderer and wand particle effects from Stage100+."
+  ]
+}

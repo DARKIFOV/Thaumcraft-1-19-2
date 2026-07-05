@@ -1,0 +1,23 @@
+{
+  "stage": 103,
+  "base": "Stage 102",
+  "goal": "make research notes target-aware and add TC4-like aspect relationship rules",
+  "implemented": [
+    "ResearchAspectGraph calculates aspect graph distance from TC4 aspect component relationships.",
+    "ResearchNoteRequirements derives required aspects for target research categories.",
+    "ResearchNoteState initializes anchors based on target research instead of static AER/PRAECANTATIO only.",
+    "ResearchNoteState stores required aspect ids in note NBT.",
+    "ResearchNoteState.hasAllRequired validates required aspects are placed.",
+    "ResearchNoteState.canLink now uses aspect graph distance <= 2.",
+    "ResearchNoteSolver refuses solve if required aspects are missing.",
+    "ResearchTableBlock creates notes for the selected/first available research target.",
+    "ResearchNoteItem tooltip shows target and required aspect count.",
+    "ResearchNoteScreen marks required aspects and colors links by relation distance."
+  ],
+  "not_yet_final": [
+    "Required aspects are heuristic by research key/category until exact TC4 research data mapping is imported.",
+    "Line rendering is still simplified rectangle lines, not exact original curved/glyph line rendering.",
+    "Exact TC4 research difficulty/complexity values are not imported yet.",
+    "Need full data-driven research pages and exact requirements per entry."
+  ]
+}

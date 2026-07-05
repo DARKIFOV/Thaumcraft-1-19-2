@@ -1,0 +1,37 @@
+{
+  "stage": 98,
+  "policy": "no temporary fake fallback objects for original TC4 renderer-driven systems",
+  "rules": [
+    "Do not use cube_all for non-cube TC4 objects.",
+    "Do not use item/generated or flat 2D model for systems that were custom rendered in TC4.",
+    "Do not invent textures when original textures exist in the source jar.",
+    "Do not mass-add objects without per-object parity decision.",
+    "Every converted object must state original intent, current implementation and remaining gaps."
+  ],
+  "stage98_focus": "wand system",
+  "implemented": [
+    "WandRodType enum",
+    "WandCapType enum",
+    "WandComponentData NBT bridge",
+    "WandItem default rod/cap components",
+    "WandItem client custom renderer extension",
+    "WandItemRenderer custom renderer using original TC4 rod/cap model textures",
+    "Wand item models now builtin/entity instead of item/generated/handheld/layered placeholders"
+  ],
+  "original_textures_used": [
+    "rod_wood.png",
+    "rod_greatwood.png",
+    "rod_silverwood.png",
+    "cap_iron.png",
+    "cap_gold.png",
+    "cap_thaumium.png",
+    "cap_void.png"
+  ],
+  "remaining_gaps": [
+    "Renderer is architecturally correct for 1.19.2 but still not exact TC4 OpenGL render math.",
+    "Need focus mounting/active focus renderer.",
+    "Need wand recharge/use particles.",
+    "Need exact TC4 vis cost modifiers across all rods/caps.",
+    "Need wand crafting table GUI parity."
+  ]
+}

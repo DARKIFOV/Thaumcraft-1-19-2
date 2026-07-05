@@ -7,6 +7,8 @@ import net.minecraft.network.chat.MutableComponent;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AspectList {
     private final EnumMap<Aspect, Integer> aspects = new EnumMap<>(Aspect.class);
@@ -83,6 +85,42 @@ public class AspectList {
         return Collections.unmodifiableMap(aspects);
     }
 
+    public List<AspectStack> all() {
+        List<AspectStack> result = new ArrayList<>();
+
+        for (Map.Entry<Aspect, Integer> entry : aspects.entrySet()) {
+            result.add(new AspectStack(entry.getKey(), entry.getValue()));
+        }
+
+        return result;
+    }
+
+    public boolean contains(Aspect aspect, int amount) {
+        return get(aspect) >= amount;
+    }
+
+    public boolean containsAll(AspectList other) {
+        for (Map.Entry<Aspect, Integer> entry : other.aspects.entrySet()) {
+            if (!contains(entry.getKey(), entry.getValue())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean removeAll(AspectList other) {
+        if (!containsAll(other)) {
+            return false;
+        }
+
+        for (Map.Entry<Aspect, Integer> entry : other.aspects.entrySet()) {
+            remove(entry.getKey(), entry.getValue());
+        }
+
+        return true;
+    }
+
     public void clear() {
         aspects.clear();
     }
@@ -140,7 +178,7 @@ public class AspectList {
             Aspect aspect = entry.getKey();
             int amount = entry.getValue();
 
-            result.append(Component.literal(aspect.displayName() + " " + amount).withStyle(aspect.color()));
+            result.append(Component.literal(aspect.displayName() + " " + amount).withStyle(style -> style.withColor(aspect.textColor())));
             first = false;
         }
 

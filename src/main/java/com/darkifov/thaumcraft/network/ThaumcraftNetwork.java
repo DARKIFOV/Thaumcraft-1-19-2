@@ -3,6 +3,9 @@ package com.darkifov.thaumcraft.network;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipes;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
+import com.darkifov.thaumcraft.research.ResearchNoteState;
+import com.darkifov.thaumcraft.Aspect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkRegistry;
@@ -34,6 +37,54 @@ public final class ThaumcraftNetwork {
 
         CHANNEL.registerMessage(
                 packetId++,
+                AspectKnowledgeSyncPacket.class,
+                AspectKnowledgeSyncPacket::encode,
+                AspectKnowledgeSyncPacket::decode,
+                AspectKnowledgeSyncPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestCombineAspectsPacket.class,
+                RequestCombineAspectsPacket::encode,
+                RequestCombineAspectsPacket::decode,
+                RequestCombineAspectsPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                ResearchNoteSyncPacket.class,
+                ResearchNoteSyncPacket::encode,
+                ResearchNoteSyncPacket::decode,
+                ResearchNoteSyncPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                OpenResearchNotePacket.class,
+                OpenResearchNotePacket::encode,
+                OpenResearchNotePacket::decode,
+                OpenResearchNotePacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestPlaceResearchNoteAspectPacket.class,
+                RequestPlaceResearchNoteAspectPacket::encode,
+                RequestPlaceResearchNoteAspectPacket::decode,
+                RequestPlaceResearchNoteAspectPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestSolveResearchNotePacket.class,
+                RequestSolveResearchNotePacket::encode,
+                RequestSolveResearchNotePacket::decode,
+                RequestSolveResearchNotePacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
                 OpenResearchTablePacket.class,
                 OpenResearchTablePacket::encode,
                 OpenResearchTablePacket::decode,
@@ -46,6 +97,22 @@ public final class ThaumcraftNetwork {
                 RequestResearchUnlockPacket::encode,
                 RequestResearchUnlockPacket::decode,
                 RequestResearchUnlockPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestSelectResearchPacket.class,
+                RequestSelectResearchPacket::encode,
+                RequestSelectResearchPacket::decode,
+                RequestSelectResearchPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestCompleteSelectedResearchPacket.class,
+                RequestCompleteSelectedResearchPacket::encode,
+                RequestCompleteSelectedResearchPacket::decode,
+                RequestCompleteSelectedResearchPacket::handle
         );
 
         CHANNEL.registerMessage(
@@ -184,6 +251,14 @@ public final class ThaumcraftNetwork {
         );
     }
 
+    public static void syncAspectKnowledge(ServerPlayer player) {
+        PlayerAspectKnowledge.seedPrimals(player);
+        CHANNEL.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new AspectKnowledgeSyncPacket(PlayerAspectKnowledge.knownAspectIds(player), PlayerAspectKnowledge.poolAmounts(player))
+        );
+    }
+
     public static void syncArcaneRecipes(ServerPlayer player) {
         CHANNEL.send(
                 PacketDistributor.PLAYER.with(() -> player),
@@ -193,6 +268,7 @@ public final class ThaumcraftNetwork {
 
     public static void openResearchTable(ServerPlayer player) {
         syncResearch(player);
+        syncAspectKnowledge(player);
         CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenResearchTablePacket());
     }
 
@@ -204,6 +280,51 @@ public final class ThaumcraftNetwork {
 
     public static void requestUnlockFromClient() {
         CHANNEL.sendToServer(new RequestResearchUnlockPacket());
+    }
+
+    public static void requestSelectResearchFromClient(String researchKey) {
+        CHANNEL.sendToServer(new RequestSelectResearchPacket(researchKey));
+    }
+
+    public static void requestCompleteSelectedResearchFromClient() {
+        CHANNEL.sendToServer(new RequestCompleteSelectedResearchPacket());
+    }
+
+    public static void requestCombineAspectsFromClient(String firstId, String secondId) {
+        CHANNEL.sendToServer(new RequestCombineAspectsPacket(firstId, secondId));
+    }
+
+    public static void syncResearchNote(ServerPlayer player, net.minecraft.world.item.ItemStack note) {
+        Map<Integer, String> slots = new LinkedHashMap<>();
+
+        for (Map.Entry<Integer, Aspect> entry : ResearchNoteState.slots(note).entrySet()) {
+            slots.put(entry.getKey(), entry.getValue().id());
+        }
+
+        CHANNEL.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new ResearchNoteSyncPacket(
+                        ResearchNoteState.target(note),
+                        ResearchNoteState.progress(note),
+                        ResearchNoteState.solved(note),
+                        slots
+                )
+        );
+    }
+
+    public static void openResearchNote(ServerPlayer player, net.minecraft.world.item.ItemStack note) {
+        syncAspectKnowledge(player);
+        syncResearch(player);
+        syncResearchNote(player, note);
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenResearchNotePacket());
+    }
+
+    public static void requestPlaceResearchNoteAspectFromClient(int slot, String aspectId) {
+        CHANNEL.sendToServer(new RequestPlaceResearchNoteAspectPacket(slot, aspectId));
+    }
+
+    public static void requestSolveResearchNoteFromClient() {
+        CHANNEL.sendToServer(new RequestSolveResearchNotePacket());
     }
 
     public static void requestArcaneCraftFromClient(ResourceLocation recipeId) {

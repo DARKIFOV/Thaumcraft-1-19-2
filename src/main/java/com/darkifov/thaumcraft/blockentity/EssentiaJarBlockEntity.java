@@ -85,6 +85,23 @@ public class EssentiaJarBlockEntity extends BlockEntity {
         return consumed;
     }
 
+
+    public Aspect storedAspect() {
+        return aspects.firstAspect();
+    }
+
+    public int amount() {
+        return aspects.totalAmount();
+    }
+
+    public int capacity() {
+        return EssentiaJarBlock.CAPACITY;
+    }
+
+    public float fillRatio() {
+        return Math.max(0.0F, Math.min(1.0F, aspects.totalAmount() / (float) EssentiaJarBlock.CAPACITY));
+    }
+
     public void setChangedAndSync() {
         setChanged();
 

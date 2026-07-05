@@ -11,6 +11,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,6 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class EssentiaJarBlock extends BaseEntityBlock {
+    private static final VoxelShape JAR_SHAPE = Block.box(3.5D, 0.0D, 3.5D, 12.5D, 15.0D, 12.5D);
+
     public static final int TRANSFER_AMOUNT = 8;
     public static final int CAPACITY = 64;
 
@@ -43,6 +48,17 @@ public class EssentiaJarBlock extends BaseEntityBlock {
         return state.is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
     }
 
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return JAR_SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return JAR_SHAPE;
+    }
+
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
@@ -62,7 +78,7 @@ public class EssentiaJarBlock extends BaseEntityBlock {
             String jarType = isVoidJar(state) ? "Void Jar" : isFilteredJar(state) ? "Filtered Jar" : "Essentia Jar";
             String filter = jar.filterAspect() == null ? "none" : jar.filterAspect().displayName();
             player.displayClientMessage(
-                    Component.literal(jarType + " | Filter: " + filter + " | Capacity: " + jar.aspects().totalAmount() + "/" + CAPACITY + " | Aspects: ")
+                    Component.literal(jarType + " | Filter: " + filter + " | Fill: " + jar.amount() + "/" + jar.capacity() + " | Aspects: ")
                             .append(jar.aspects().toComponent()),
                     false
             );
@@ -86,7 +102,7 @@ public class EssentiaJarBlock extends BaseEntityBlock {
                 jar.setChangedAndSync();
 
                 player.displayClientMessage(
-                        Component.literal("Filled phial with ").append(Component.literal(first.displayName() + " x" + removed).withStyle(first.color())),
+                        Component.literal("Filled phial with ").append(Component.literal(first.displayName() + " x" + removed).withStyle(style -> style.withColor(first.textColor()))),
                         false
                 );
 
@@ -95,7 +111,7 @@ public class EssentiaJarBlock extends BaseEntityBlock {
 
             if (isFilteredJar(state) && jar.filterAspect() == null) {
                 jar.setFilterAspect(heldAspect);
-                player.displayClientMessage(Component.literal("Filtered jar locked to ").append(Component.literal(heldAspect.displayName()).withStyle(heldAspect.color())), false);
+                player.displayClientMessage(Component.literal("Filtered jar locked to ").append(Component.literal(heldAspect.displayName()).withStyle(style -> style.withColor(heldAspect.textColor()))), false);
             }
 
             if (!jar.canAcceptAspect(heldAspect)) {
@@ -108,7 +124,7 @@ public class EssentiaJarBlock extends BaseEntityBlock {
 
             if (isVoidJar(state) && toAdd <= 0) {
                 EssentiaPhialItem.clear(held);
-                player.displayClientMessage(Component.literal("The void jar destroys excess ").append(Component.literal(heldAspect.displayName()).withStyle(heldAspect.color())), false);
+                player.displayClientMessage(Component.literal("The void jar destroys excess ").append(Component.literal(heldAspect.displayName()).withStyle(style -> style.withColor(heldAspect.textColor()))), false);
                 return InteractionResult.CONSUME;
             }
 
@@ -128,7 +144,7 @@ public class EssentiaJarBlock extends BaseEntityBlock {
             jar.setChangedAndSync();
 
             player.displayClientMessage(
-                    Component.literal("Poured ").append(Component.literal(heldAspect.displayName() + " x" + toAdd).withStyle(heldAspect.color()))
+                    Component.literal("Poured ").append(Component.literal(heldAspect.displayName() + " x" + toAdd).withStyle(style -> style.withColor(heldAspect.textColor())))
                             .append(Component.literal(" into jar.")),
                     false
             );

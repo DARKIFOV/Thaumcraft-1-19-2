@@ -1,5 +1,8 @@
 package com.darkifov.thaumcraft;
 
+import com.darkifov.thaumcraft.block.AvaritiaCreativeWandItem;
+import com.darkifov.thaumcraft.wand.WandRodType;
+import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipeManager;
 import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipeManager;
 import com.darkifov.thaumcraft.block.AddonCompletionLedgerItem;
@@ -162,13 +165,16 @@ public class ThaumcraftMod {
             () -> new PortingLedgerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
     public static final RegistryObject<Item> IRON_CAPPED_WOODEN_WAND = specialItem("iron_capped_wooden_wand",
-            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 50));
+            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 50, WandRodType.WOOD, WandCapType.IRON));
 
     public static final RegistryObject<Item> GREATWOOD_WAND = specialItem("greatwood_wand",
-            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 150));
+            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 150, WandRodType.GREATWOOD, WandCapType.GOLD));
 
     public static final RegistryObject<Item> SILVERWOOD_WAND = specialItem("silverwood_wand",
-            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 300));
+            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 300, WandRodType.SILVERWOOD, WandCapType.THAUMIUM));
+
+    public static final RegistryObject<Item> AVARITIA_CREATIVE_WAND = specialItem("avaritia_creative_wand",
+            () -> new AvaritiaCreativeWandItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> THAUMOMETER = specialItem("thaumometer",
             () -> new ThaumometerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
@@ -506,11 +512,11 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> ESSENTIA_TERMINAL = thaumicEnergisticsDeviceBlock("essentia_terminal", ThaumicEnergisticsDeviceBlock.Mode.TERMINAL,
             BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 5));
     public static final RegistryObject<Block> ESSENTIA_STORAGE_BUS = thaumicEnergisticsDeviceBlock("essentia_storage_bus", ThaumicEnergisticsDeviceBlock.Mode.STORAGE_BUS,
-            BlockBehaviour.Properties.of(Material.METAL).strength(2.5F, 6.0F).requiresCorrectToolForDrops());
+            BlockBehaviour.Properties.of(Material.METAL).strength(2.5F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
     public static final RegistryObject<Block> ESSENTIA_IMPORT_BUS = thaumicEnergisticsDeviceBlock("essentia_import_bus", ThaumicEnergisticsDeviceBlock.Mode.IMPORT_BUS,
-            BlockBehaviour.Properties.of(Material.METAL).strength(2.5F, 6.0F).requiresCorrectToolForDrops());
+            BlockBehaviour.Properties.of(Material.METAL).strength(2.5F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
     public static final RegistryObject<Block> ESSENTIA_EXPORT_BUS = thaumicEnergisticsDeviceBlock("essentia_export_bus", ThaumicEnergisticsDeviceBlock.Mode.EXPORT_BUS,
-            BlockBehaviour.Properties.of(Material.METAL).strength(2.5F, 6.0F).requiresCorrectToolForDrops());
+            BlockBehaviour.Properties.of(Material.METAL).strength(2.5F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
     public static final RegistryObject<Block> ESSENTIA_INTERFACE = thaumicEnergisticsDeviceBlock("essentia_interface", ThaumicEnergisticsDeviceBlock.Mode.INTERFACE,
             BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 3));
     public static final RegistryObject<Block> ARCANE_PATTERN_ENCODER = thaumicEnergisticsDeviceBlock("arcane_pattern_encoder", ThaumicEnergisticsDeviceBlock.Mode.PATTERN_ENCODER,
@@ -687,7 +693,7 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.STONE).strength(1.0F, 2.0F).lightLevel(state -> 5));
 
     public static final RegistryObject<Block> AURA_NODE = auraNodeBlock("aura_node",
-            BlockBehaviour.Properties.of(Material.GLASS).strength(1.0F, 1.0F).lightLevel(state -> 12).noOcclusion());
+            BlockBehaviour.Properties.of(Material.GLASS).strength(0.2F, 0.2F).lightLevel(state -> 12).noOcclusion().noCollission());
 
     public static final RegistryObject<Block> NODE_STABILIZER = nodeStabilizerBlock("node_stabilizer",
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 5));

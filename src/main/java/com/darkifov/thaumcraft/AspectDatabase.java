@@ -60,6 +60,18 @@ public final class AspectDatabase {
         if (key.contains("redstone") || key.contains("blaze_powder") || key.contains("coal") || key.contains("charcoal")) list.add(Aspect.POTENTIA, 4);
         if (key.contains("ender") || key.contains("pearl") || key.contains("star")) list.add(Aspect.VACUOS, 4);
 
+        if (key.contains("slime") || key.contains("honey")) list.add(Aspect.LIMUS, 3);
+        if (key.contains("poison") || key.contains("spider_eye")) list.add(Aspect.VENENUM, 3);
+        if (key.contains("soul") || key.contains("ghast")) list.add(Aspect.SPIRITUS, 3);
+        if (key.contains("bone") || key.contains("rotten") || key.contains("skull")) list.add(Aspect.MORTUUS, 3);
+        if (key.contains("wool") || key.contains("string") || key.contains("leather")) list.add(Aspect.PANNUS, 3);
+        if (key.contains("sword") || key.contains("arrow") || key.contains("bow")) list.add(Aspect.TELUM, 3);
+        if (key.contains("helmet") || key.contains("chestplate") || key.contains("leggings") || key.contains("boots") || key.contains("shield")) list.add(Aspect.TUTAMEN, 3);
+        if (key.contains("piston") || key.contains("rail") || key.contains("machine") || key.contains("gear")) list.add(Aspect.MACHINA, 3);
+        if (key.contains("villager") || key.contains("player") || key.contains("book")) list.add(Aspect.COGNITIO, 2);
+        if (key.contains("food") || key.contains("bread") || key.contains("apple") || key.contains("carrot") || key.contains("potato")) list.add(Aspect.FAMES, 3);
+        if (key.contains("emerald") || key.contains("diamond") || key.contains("coin")) list.add(Aspect.LUCRUM, 3);
+
         if (list.isEmpty()) {
             list.add(Aspect.VACUOS, 1);
         }

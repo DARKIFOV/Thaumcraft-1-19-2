@@ -1,0 +1,22 @@
+{
+  "stage": 105,
+  "base": "Stage 104",
+  "goal": "carry native aspect colors into world renderers for essentia jars and aura nodes",
+  "implemented": [
+    "AspectVisuals helper added for dominant and blended native aspect colors.",
+    "AspectList.toComponent now uses native TextColor.",
+    "AuraNodeRenderer now uses blended native color from node aspects instead of fixed purple only.",
+    "Special aura node types keep a secondary type tint overlay.",
+    "EssentiaJarBlockEntity exposes storedAspect, amount, capacity and fillRatio using its existing AspectList storage.",
+    "EssentiaJarRenderer added with translucent native-colored liquid fill.",
+    "essentia_fill.png added as neutral white fill mask tinted by native aspect color.",
+    "EssentiaJarRenderer registered for ESSENTIA_JAR_BLOCK_ENTITY.",
+    "Essentia jar chat messages now use native aspect TextColor."
+  ],
+  "not_yet_final": [
+    "The jar fill renderer is a 1.19.2 renderer bridge, not exact TC4 TESR liquid wobble.",
+    "Need exact glass transparency render layer setup for all jar block variants.",
+    "Need full essentia transport, alembic and tube behavior pass.",
+    "Aura node still needs exact TC4 nodes.png layer math and richer live client sync."
+  ]
+}

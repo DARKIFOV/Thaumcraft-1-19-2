@@ -1,5 +1,15 @@
 package com.darkifov.thaumcraft.block;
 
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.StateDefinition;
+import com.darkifov.thaumcraft.essentia.EssentiaTubeConnections;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import net.minecraft.ChatFormatting;
@@ -21,6 +31,74 @@ import net.minecraft.world.phys.BlockHitResult;
 public class EssentiaTubeBlock extends BaseEntityBlock {
     public EssentiaTubeBlock(Properties properties) {
         super(properties);
+        registerDefaultState(defaultBlockState()
+                .setValue(NORTH, false)
+                .setValue(SOUTH, false)
+                .setValue(WEST, false)
+                .setValue(EAST, false)
+                .setValue(UP, false)
+                .setValue(DOWN, false));
+    }
+
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(NORTH, SOUTH, WEST, EAST, UP, DOWN);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return updateConnections(defaultBlockState(), context.getLevel(), context.getClickedPos());
+    }
+
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
+                                  LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+        return updateConnections(state, level, pos);
+    }
+
+    private BlockState updateConnections(BlockState state, LevelAccessor level, BlockPos pos) {
+        if (!(level instanceof Level concreteLevel)) {
+            return state;
+        }
+
+        return state
+                .setValue(NORTH, EssentiaTubeConnections.canConnect(concreteLevel, pos, Direction.NORTH))
+                .setValue(SOUTH, EssentiaTubeConnections.canConnect(concreteLevel, pos, Direction.SOUTH))
+                .setValue(WEST, EssentiaTubeConnections.canConnect(concreteLevel, pos, Direction.WEST))
+                .setValue(EAST, EssentiaTubeConnections.canConnect(concreteLevel, pos, Direction.EAST))
+                .setValue(UP, EssentiaTubeConnections.canConnect(concreteLevel, pos, Direction.UP))
+                .setValue(DOWN, EssentiaTubeConnections.canConnect(concreteLevel, pos, Direction.DOWN));
+    }
+
+    public static BooleanProperty connectionProperty(Direction direction) {
+        return switch (direction) {
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case WEST -> WEST;
+            case EAST -> EAST;
+            case UP -> UP;
+            case DOWN -> DOWN;
+        };
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, net.minecraft.world.phys.shapes.CollisionContext context) {
+        VoxelShape shape = CORE_SHAPE;
+
+        if (state.getValue(NORTH)) shape = Shapes.joinUnoptimized(shape, NORTH_SHAPE, BooleanOp.OR);
+        if (state.getValue(SOUTH)) shape = Shapes.joinUnoptimized(shape, SOUTH_SHAPE, BooleanOp.OR);
+        if (state.getValue(WEST)) shape = Shapes.joinUnoptimized(shape, WEST_SHAPE, BooleanOp.OR);
+        if (state.getValue(EAST)) shape = Shapes.joinUnoptimized(shape, EAST_SHAPE, BooleanOp.OR);
+        if (state.getValue(UP)) shape = Shapes.joinUnoptimized(shape, UP_SHAPE, BooleanOp.OR);
+        if (state.getValue(DOWN)) shape = Shapes.joinUnoptimized(shape, DOWN_SHAPE, BooleanOp.OR);
+
+        return shape;
+    }
+
+
+    public String connectedSidesDiagnostic(Level level, BlockPos pos) {
+        return "Connected sides: " + EssentiaTubeConnections.summary(level, pos);
     }
 
     @Override
@@ -47,12 +125,18 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
                                  InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
-            int size = blockEntity instanceof EssentiaTubeBlockEntity tube ? tube.networkSize() : 0;
-
-            player.displayClientMessage(
-                    Component.literal("Essentia Tube | Network: " + size + " | Suction: normal 32, filtered 48, void 64.").withStyle(ChatFormatting.AQUA),
-                    false
-            );
+            if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+                player.displayClientMessage(
+                        Component.literal("Essentia Tube | Network: " + tube.networkSize()
+                                + " | Sources: " + tube.lastSourceCount()
+                                + " | Destinations: " + tube.lastDestinationCount()
+                                + " | Last: " + (tube.lastMovedAspect().isBlank() ? "none" : tube.lastMovedAspect())
+                                + " | Suction: normal 32, filtered 48, void 64.").withStyle(ChatFormatting.AQUA),
+                        false
+                );
+            } else {
+                player.displayClientMessage(Component.literal("Essentia Tube | No tube data.").withStyle(ChatFormatting.RED), false);
+            }
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide);
