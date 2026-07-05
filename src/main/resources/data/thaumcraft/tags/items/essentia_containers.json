@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "thaumcraft:essentia_phial",
-    "thaumcraft:essentia_jar",
-    "thaumcraft:filtered_essentia_jar",
-    "thaumcraft:void_essentia_jar"
-  ]
-}
