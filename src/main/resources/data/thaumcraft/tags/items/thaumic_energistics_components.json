@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:encoded_essentia_pattern",
+    "thaumcraft:essentia_capacity_upgrade",
+    "thaumcraft:essentia_digitizer_core",
+    "thaumcraft:essentia_partition_card",
+    "thaumcraft:essentia_storage_component_16k",
+    "thaumcraft:essentia_storage_component_1k",
+    "thaumcraft:essentia_storage_component_4k",
+    "thaumcraft:essentia_view_card",
+    "thaumcraft:essentia_speed_card",
+    "thaumcraft:advanced_essentia_speed_card",
+    "thaumcraft:essentia_acceleration_card",
+    "thaumcraft:thaumic_coprocessor_card",
+    "thaumcraft:essentia_fuzzy_card"
+  ]
+}

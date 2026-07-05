@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "LAL",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "thaumcraft:lux_shard"
+    },
+    "A": {
+      "item": "thaumcraft:aer_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:ethereal_platform",
+    "count": 4
+  }
+}

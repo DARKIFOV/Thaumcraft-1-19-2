@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tome_of_knowledge_sharing",
+    "thaumcraft:infused_scribing_tools",
+    "thaumcraft:bottomless_pouch",
+    "thaumcraft:helmet_of_revealing"
+  ]
+}

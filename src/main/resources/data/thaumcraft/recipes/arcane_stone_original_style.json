@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SQS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "Q": {
+      "item": "thaumcraft:balanced_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:arcane_stone",
+    "count": 8
+  }
+}

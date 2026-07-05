@@ -1,0 +1,51 @@
+{
+  "stage": "116",
+  "source": "thaumcraft/common/config/ConfigResearch.java",
+  "categories": 6,
+  "research_entries": 201,
+  "by_category": {
+    "ALCHEMY": 35,
+    "ARTIFICE": 50,
+    "BASICS": 19,
+    "ELDRITCH": 16,
+    "GOLEMANCY": 39,
+    "THAUMATURGY": 42
+  },
+  "entries_with_pages": 199,
+  "total_pages": 591,
+  "page_type_counts": {
+    "ARCANE_CRAFTING": 90,
+    "CRUCIBLE_CRAFTING": 49,
+    "INFUSION_CRAFTING": 63,
+    "INFUSION_ENCHANTMENT": 24,
+    "NORMAL_CRAFTING": 54,
+    "TEXT": 295,
+    "TEXT_CONCEALED": 15,
+    "UNKNOWN": 1
+  },
+  "entries_with_parents": 166,
+  "entries_with_hidden_parents": 16,
+  "entries_with_warp": 20,
+  "flag_counts": {
+    "auto_unlock": 22,
+    "concealed": 109,
+    "hidden": 27,
+    "lost": 2,
+    "round": 32,
+    "secondary": 87,
+    "special": 9,
+    "stub": 26
+  },
+  "localization_research_names": 199,
+  "localization_research_pages": 309,
+  "new_java_files": [
+    "TC4ResearchRuntimeBridge.java",
+    "TC4ResearchCategoryRegistry.java"
+  ],
+  "modified_java_files": [
+    "ResearchEntry.java",
+    "ResearchRegistry.java",
+    "OriginalResearchBridge.java",
+    "TC4OriginalResearchMap.java"
+  ]
+}

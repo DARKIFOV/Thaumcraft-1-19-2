@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ATR",
+    "OXP",
+    "RQA"
+  ],
+  "key": {
+    "A": {
+      "item": "thaumcraft:aer_shard"
+    },
+    "T": {
+      "item": "thaumcraft:terra_shard"
+    },
+    "R": {
+      "item": "thaumcraft:ignis_shard"
+    },
+    "Q": {
+      "item": "thaumcraft:aqua_shard"
+    },
+    "O": {
+      "item": "thaumcraft:ordo_shard"
+    },
+    "P": {
+      "item": "thaumcraft:perditio_shard"
+    },
+    "X": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:balanced_shard",
+    "count": 1
+  }
+}

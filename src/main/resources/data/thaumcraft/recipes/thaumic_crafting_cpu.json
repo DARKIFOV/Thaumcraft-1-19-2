@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "CMC",
+    "ICI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "thaumcraft:thaumic_channel_core"
+    },
+    "M": {
+      "item": "thaumcraft:thaumic_crafting_cpu_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumic_crafting_cpu"
+  }
+}

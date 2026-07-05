@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ETE",
+    "RBR",
+    "ETE"
+  ],
+  "key": {
+    "E": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    },
+    "T": {
+      "item": "thaumcraft:tt_research_stamp"
+    },
+    "R": {
+      "item": "thaumcraft:research_note"
+    },
+    "B": {
+      "item": "thaumcraft:thaumonomicon"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:addon_completion_ledger"
+  }
+}

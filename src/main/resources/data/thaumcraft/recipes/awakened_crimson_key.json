@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RPR",
+    "CKC",
+    "RGR"
+  ],
+  "key": {
+    "R": {
+      "item": "thaumcraft:eldritch_relic"
+    },
+    "P": {
+      "item": "thaumcraft:primordial_pearl"
+    },
+    "C": {
+      "item": "thaumcraft:void_metal_ingot"
+    },
+    "K": {
+      "item": "thaumcraft:crimson_key"
+    },
+    "G": {
+      "item": "thaumcraft:eldritch_guardian_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:awakened_crimson_key",
+    "count": 1
+  }
+}

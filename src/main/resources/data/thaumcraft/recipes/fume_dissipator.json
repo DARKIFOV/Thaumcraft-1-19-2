@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "AFA",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "thaumcraft:aer_shard"
+    },
+    "F": {
+      "item": "minecraft:brewing_stand"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:fume_dissipator",
+    "count": 1
+  }
+}

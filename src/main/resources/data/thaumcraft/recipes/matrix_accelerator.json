@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SRS",
+    "RMR",
+    "SRS"
+  ],
+  "key": {
+    "S": {
+      "item": "thaumcraft:thaumium_plate"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "M": {
+      "item": "thaumcraft:infusion_matrix"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:matrix_accelerator",
+    "count": 1
+  }
+}

@@ -1,0 +1,558 @@
+[
+  {
+    "entity_raw": "Zombie",
+    "aspects": {
+      "EXANIMIS": 2,
+      "HUMANUS": 1,
+      "TERRA": 1
+    }
+  },
+  {
+    "entity_raw": "Giant",
+    "aspects": {
+      "EXANIMIS": 4,
+      "HUMANUS": 3,
+      "TERRA": 3
+    }
+  },
+  {
+    "entity_raw": "Skeleton",
+    "aspects": {
+      "EXANIMIS": 3,
+      "HUMANUS": 1,
+      "TERRA": 1
+    }
+  },
+  {
+    "entity_raw": "Skeleton",
+    "aspects": {
+      "EXANIMIS": 4,
+      "HUMANUS": 1,
+      "IGNIS": 2
+    },
+    "nbt_conditions": [
+      {
+        "key": "SkeletonType",
+        "value": "Byte.valueOf(1"
+      }
+    ]
+  },
+  {
+    "entity_raw": "Creeper",
+    "aspects": {
+      "HERBA": 2,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "Creeper",
+    "aspects": {
+      "HERBA": 3,
+      "IGNIS": 3,
+      "POTENTIA": 3
+    },
+    "nbt_conditions": [
+      {
+        "key": "powered",
+        "value": "Byte.valueOf(1"
+      }
+    ]
+  },
+  {
+    "entity_raw": "EntityHorse",
+    "aspects": {
+      "BESTIA": 4,
+      "TERRA": 1,
+      "AER": 1
+    }
+  },
+  {
+    "entity_raw": "Pig",
+    "aspects": {
+      "BESTIA": 2,
+      "TERRA": 2
+    }
+  },
+  {
+    "entity_raw": "XPOrb",
+    "aspects": {
+      "COGNITIO": 5
+    }
+  },
+  {
+    "entity_raw": "Sheep",
+    "aspects": {
+      "BESTIA": 2,
+      "TERRA": 2
+    }
+  },
+  {
+    "entity_raw": "Cow",
+    "aspects": {
+      "BESTIA": 3,
+      "TERRA": 3
+    }
+  },
+  {
+    "entity_raw": "MushroomCow",
+    "aspects": {
+      "BESTIA": 3,
+      "HERBA": 1,
+      "TERRA": 2
+    }
+  },
+  {
+    "entity_raw": "SnowMan",
+    "aspects": {
+      "GELUM": 3,
+      "AQUA": 1
+    }
+  },
+  {
+    "entity_raw": "Ozelot",
+    "aspects": {
+      "BESTIA": 3,
+      "PERDITIO": 3
+    }
+  },
+  {
+    "entity_raw": "Chicken",
+    "aspects": {
+      "BESTIA": 2,
+      "VOLATUS": 2,
+      "AER": 1
+    }
+  },
+  {
+    "entity_raw": "Squid",
+    "aspects": {
+      "BESTIA": 2,
+      "AQUA": 2
+    }
+  },
+  {
+    "entity_raw": "Wolf",
+    "aspects": {
+      "BESTIA": 3,
+      "TERRA": 3
+    }
+  },
+  {
+    "entity_raw": "Bat",
+    "aspects": {
+      "BESTIA": 1,
+      "VOLATUS": 1,
+      "AER": 1
+    }
+  },
+  {
+    "entity_raw": "Boat",
+    "aspects": {
+      "MACHINA": 2,
+      "AQUA": 2
+    }
+  },
+  {
+    "entity_raw": "Spider",
+    "aspects": {
+      "BESTIA": 3,
+      "PERDITIO": 2
+    }
+  },
+  {
+    "entity_raw": "Slime",
+    "aspects": {
+      "LIMUS": 2,
+      "AQUA": 2
+    }
+  },
+  {
+    "entity_raw": "Ghast",
+    "aspects": {
+      "EXANIMIS": 3,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "PigZombie",
+    "aspects": {
+      "EXANIMIS": 4,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "Enderman",
+    "aspects": {
+      "ALIENIS": 4,
+      "ITER": 2,
+      "AER": 2
+    }
+  },
+  {
+    "entity_raw": "CaveSpider",
+    "aspects": {
+      "BESTIA": 2,
+      "VENENUM": 2,
+      "TERRA": 1
+    }
+  },
+  {
+    "entity_raw": "Silverfish",
+    "aspects": {
+      "BESTIA": 1,
+      "TERRA": 1
+    }
+  },
+  {
+    "entity_raw": "Blaze",
+    "aspects": {
+      "ALIENIS": 4,
+      "IGNIS": 1
+    }
+  },
+  {
+    "entity_raw": "LavaSlime",
+    "aspects": {
+      "LIMUS": 3,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "EnderDragon",
+    "aspects": {
+      "ALIENIS": 20,
+      "BESTIA": 20,
+      "PERDITIO": 20
+    }
+  },
+  {
+    "entity_raw": "WitherBoss",
+    "aspects": {
+      "EXANIMIS": 20,
+      "PERDITIO": 20,
+      "IGNIS": 15
+    }
+  },
+  {
+    "entity_raw": "Witch",
+    "aspects": {
+      "HUMANUS": 3,
+      "PRAECANTATIO": 2,
+      "IGNIS": 1
+    }
+  },
+  {
+    "entity_raw": "Villager",
+    "aspects": {
+      "HUMANUS": 3,
+      "AER": 2
+    }
+  },
+  {
+    "entity_raw": "VillagerGolem",
+    "aspects": {
+      "METALLUM": 4,
+      "TERRA": 3
+    }
+  },
+  {
+    "entity_raw": "MinecartRideable",
+    "aspects": {
+      "MACHINA": 3,
+      "AER": 2
+    }
+  },
+  {
+    "entity_raw": "MinecartChest",
+    "aspects": {
+      "MACHINA": 3,
+      "AER": 1,
+      "VACUOS": 1
+    }
+  },
+  {
+    "entity_raw": "MinecartFurnace",
+    "aspects": {
+      "MACHINA": 3,
+      "AER": 1,
+      "IGNIS": 1
+    }
+  },
+  {
+    "entity_raw": "MinecartTNT",
+    "aspects": {
+      "MACHINA": 3,
+      "AER": 1,
+      "IGNIS": 1
+    }
+  },
+  {
+    "entity_raw": "MinecartHopper",
+    "aspects": {
+      "MACHINA": 3,
+      "AER": 1,
+      "PERMUTATIO": 1
+    }
+  },
+  {
+    "entity_raw": "MinecartSpawner",
+    "aspects": {
+      "MACHINA": 3,
+      "AER": 1,
+      "PRAECANTATIO": 1
+    }
+  },
+  {
+    "entity_raw": "EnderCrystal",
+    "aspects": {
+      "ALIENIS": 3,
+      "PRAECANTATIO": 3,
+      "SANO": 3
+    }
+  },
+  {
+    "entity_raw": "ItemFrame",
+    "aspects": {
+      "SENSUS": 3,
+      "PANNUS": 1
+    }
+  },
+  {
+    "entity_raw": "Painting",
+    "aspects": {
+      "SENSUS": 5,
+      "PANNUS": 3
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.PrimalOrb",
+    "aspects": {
+      "AER": 5,
+      "PERDITIO": 10,
+      "PRAECANTATIO": 10,
+      "POTENTIA": 10
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.Firebat",
+    "aspects": {
+      "BESTIA": 2,
+      "VOLATUS": 1,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.Pech",
+    "aspects": {
+      "HUMANUS": 2,
+      "PRAECANTATIO": 2,
+      "PERMUTATIO": 2,
+      "LUCRUM": 2
+    },
+    "nbt_conditions": [
+      {
+        "key": "PechType",
+        "value": "Byte.valueOf(0"
+      }
+    ]
+  },
+  {
+    "entity_raw": "Thaumcraft.Pech",
+    "aspects": {
+      "HUMANUS": 2,
+      "PRAECANTATIO": 2,
+      "PERMUTATIO": 2,
+      "TELUM": 2
+    },
+    "nbt_conditions": [
+      {
+        "key": "PechType",
+        "value": "Byte.valueOf(1"
+      }
+    ]
+  },
+  {
+    "entity_raw": "Thaumcraft.Pech",
+    "aspects": {
+      "HUMANUS": 2,
+      "PRAECANTATIO": 4,
+      "PERMUTATIO": 2
+    },
+    "nbt_conditions": [
+      {
+        "key": "PechType",
+        "value": "Byte.valueOf(2"
+      }
+    ]
+  },
+  {
+    "entity_raw": "Thaumcraft.ThaumSlime",
+    "aspects": {
+      "LIMUS": 2,
+      "PRAECANTATIO": 1,
+      "AQUA": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.BrainyZombie",
+    "aspects": {
+      "EXANIMIS": 3,
+      "HUMANUS": 1,
+      "COGNITIO": 1,
+      "TERRA": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.GiantBrainyZombie",
+    "aspects": {
+      "EXANIMIS": 4,
+      "HUMANUS": 2,
+      "COGNITIO": 1,
+      "TERRA": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.Taintacle",
+    "aspects": {
+      "VITIUM": 3,
+      "AQUA": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintacleTiny",
+    "aspects": {
+      "VITIUM": 1,
+      "AQUA": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintSpider",
+    "aspects": {
+      "VITIUM": 1,
+      "TERRA": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintSpore",
+    "aspects": {
+      "VITIUM": 2,
+      "AER": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintSwarmer",
+    "aspects": {
+      "VITIUM": 2,
+      "AER": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintSwarm",
+    "aspects": {
+      "VITIUM": 3,
+      "AER": 3
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintedPig",
+    "aspects": {
+      "VITIUM": 2,
+      "TERRA": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintedSheep",
+    "aspects": {
+      "VITIUM": 2,
+      "TERRA": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintedCow",
+    "aspects": {
+      "VITIUM": 3,
+      "TERRA": 3
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintedChicken",
+    "aspects": {
+      "VITIUM": 2,
+      "VOLATUS": 2,
+      "AER": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintedVillager",
+    "aspects": {
+      "VITIUM": 3,
+      "AER": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.TaintedCreeper",
+    "aspects": {
+      "VITIUM": 2,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.MindSpider",
+    "aspects": {
+      "VITIUM": 2,
+      "IGNIS": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.EldritchGuardian",
+    "aspects": {
+      "ALIENIS": 4,
+      "MORTUUS": 2,
+      "EXANIMIS": 4
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.EldritchOrb",
+    "aspects": {
+      "ALIENIS": 2,
+      "MORTUUS": 2
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.CultistKnight",
+    "aspects": {
+      "ALIENIS": 1,
+      "HUMANUS": 2,
+      "PERDITIO": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.CultistCleric",
+    "aspects": {
+      "ALIENIS": 1,
+      "HUMANUS": 2,
+      "PERDITIO": 1
+    }
+  },
+  {
+    "entity_raw": "Thaumcraft.Wisp",
+    "aspects": {
+      "PRAECANTATIO": 1,
+      "AER": 1
+    },
+    "nbt_conditions": [
+      {
+        "key": "Type",
+        "value": "tag.getTag("
+      }
+    ]
+  },
+  {
+    "entity_raw": "Thaumcraft.Golem",
+    "aspects": {
+      "AER": 2,
+      "TERRA": 2,
+      "PRAECANTATIO": 2
+    }
+  }
+]

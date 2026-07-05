@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CQC",
+    "QDQ",
+    "CQC"
+  ],
+  "key": {
+    "C": {
+      "item": "thaumcraft:essentia_storage_component_1k"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "D": {
+      "item": "thaumcraft:balanced_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:essentia_storage_component_4k",
+    "count": 1
+  }
+}

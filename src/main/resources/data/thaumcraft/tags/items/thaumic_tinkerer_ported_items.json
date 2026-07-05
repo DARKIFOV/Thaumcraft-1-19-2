@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:bottomless_pouch",
+    "thaumcraft:helmet_of_revealing",
+    "thaumcraft:ichor",
+    "thaumcraft:ichor_pickaxe",
+    "thaumcraft:ichor_sword",
+    "thaumcraft:ichorcloth",
+    "thaumcraft:ichorcloth_boots",
+    "thaumcraft:ichorcloth_hood",
+    "thaumcraft:ichorcloth_leggings",
+    "thaumcraft:ichorcloth_robe",
+    "thaumcraft:ichorium_ingot",
+    "thaumcraft:infused_scribing_tools",
+    "thaumcraft:kami_research_core",
+    "thaumcraft:osmotic_enchantment_focus",
+    "thaumcraft:spellbinding_cloth",
+    "thaumcraft:tome_of_knowledge_sharing",
+    "thaumcraft:transvector_binder",
+    "thaumcraft:tt_research_stamp"
+  ]
+}

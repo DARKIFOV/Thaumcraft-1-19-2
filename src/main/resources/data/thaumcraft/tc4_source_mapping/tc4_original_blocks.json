@@ -1,0 +1,272 @@
+[
+  {
+    "field": "blockFluxGoo",
+    "registry_name": "blockFluxGoo",
+    "block_class": "BlockFluxGoo",
+    "item_class": "BlockFluxGooItem"
+  },
+  {
+    "field": "blockFluxGas",
+    "registry_name": "blockFluxGas",
+    "block_class": "BlockFluxGas",
+    "item_class": "BlockFluxGasItem"
+  },
+  {
+    "field": "blockFluidPure",
+    "registry_name": "blockFluidPure",
+    "block_class": "BlockFluidPure",
+    "item_class": ""
+  },
+  {
+    "field": "blockFluidDeath",
+    "registry_name": "blockFluidDeath",
+    "block_class": "BlockFluidDeath",
+    "item_class": ""
+  },
+  {
+    "field": "blockCustomOre",
+    "registry_name": "blockCustomOre",
+    "block_class": "BlockCustomOre",
+    "item_class": "BlockCustomOreItem"
+  },
+  {
+    "field": "blockMagicalLog",
+    "registry_name": "blockMagicalLog",
+    "block_class": "BlockMagicalLog",
+    "item_class": "BlockMagicalLogItem"
+  },
+  {
+    "field": "blockMagicalLeaves",
+    "registry_name": "blockMagicalLeaves",
+    "block_class": "BlockMagicalLeaves",
+    "item_class": "BlockMagicalLeavesItem"
+  },
+  {
+    "field": "blockCustomPlant",
+    "registry_name": "blockCustomPlant",
+    "block_class": "BlockCustomPlant",
+    "item_class": "BlockCustomPlantItem"
+  },
+  {
+    "field": "blockTaint",
+    "registry_name": "blockTaint",
+    "block_class": "BlockTaint",
+    "item_class": "BlockTaintItem"
+  },
+  {
+    "field": "blockTaintFibres",
+    "registry_name": "blockTaintFibres",
+    "block_class": "BlockTaintFibres",
+    "item_class": "BlockTaintFibresItem"
+  },
+  {
+    "field": "blockCosmeticOpaque",
+    "registry_name": "blockCosmeticOpaque",
+    "block_class": "BlockCosmeticOpaque",
+    "item_class": "BlockCosmeticOpaqueItem"
+  },
+  {
+    "field": "blockCosmeticSolid",
+    "registry_name": "blockCosmeticSolid",
+    "block_class": "BlockCosmeticSolid",
+    "item_class": "BlockCosmeticSolidItem"
+  },
+  {
+    "field": "blockCrystal",
+    "registry_name": "blockCrystal",
+    "block_class": "BlockCrystal",
+    "item_class": "BlockCrystalItem"
+  },
+  {
+    "field": "blockTube",
+    "registry_name": "blockTube",
+    "block_class": "BlockTube",
+    "item_class": "thaumcraft.common.blocks.BlockTubeItem"
+  },
+  {
+    "field": "blockMetalDevice",
+    "registry_name": "blockMetalDevice",
+    "block_class": "BlockMetalDevice",
+    "item_class": "BlockMetalDeviceItem"
+  },
+  {
+    "field": "blockWoodenDevice",
+    "registry_name": "blockWoodenDevice",
+    "block_class": "BlockWoodenDevice",
+    "item_class": "BlockWoodenDeviceItem"
+  },
+  {
+    "field": "blockStoneDevice",
+    "registry_name": "blockStoneDevice",
+    "block_class": "BlockStoneDevice",
+    "item_class": "BlockStoneDeviceItem"
+  },
+  {
+    "field": "blockMirror",
+    "registry_name": "blockMirror",
+    "block_class": "BlockMirror",
+    "item_class": "BlockMirrorItem"
+  },
+  {
+    "field": "blockTable",
+    "registry_name": "blockTable",
+    "block_class": "BlockTable",
+    "item_class": "BlockTableItem"
+  },
+  {
+    "field": "blockChestHungry",
+    "registry_name": "blockChestHungry",
+    "block_class": "BlockChestHungry",
+    "item_class": ""
+  },
+  {
+    "field": "blockArcaneDoor",
+    "registry_name": "blockArcaneDoor",
+    "block_class": "BlockArcaneDoor",
+    "item_class": ""
+  },
+  {
+    "field": "blockLifter",
+    "registry_name": "blockLifter",
+    "block_class": "BlockLifter",
+    "item_class": ""
+  },
+  {
+    "field": "blockMagicBox",
+    "registry_name": "blockMagicBox",
+    "block_class": "BlockMagicBox",
+    "item_class": ""
+  },
+  {
+    "field": "blockAlchemyFurnace",
+    "registry_name": "blockAlchemyFurnace",
+    "block_class": "BlockAlchemyFurnace",
+    "item_class": ""
+  },
+  {
+    "field": "blockJar",
+    "registry_name": "blockJar",
+    "block_class": "BlockJar",
+    "item_class": "BlockJarItem"
+  },
+  {
+    "field": "blockCandle",
+    "registry_name": "blockCandle",
+    "block_class": "BlockCandle",
+    "item_class": "BlockCandleItem"
+  },
+  {
+    "field": "blockEldritch",
+    "registry_name": "blockEldritch",
+    "block_class": "BlockEldritch",
+    "item_class": "BlockEldritchItem"
+  },
+  {
+    "field": "blockAiry",
+    "registry_name": "blockAiry",
+    "block_class": "BlockAiry",
+    "item_class": "BlockAiryItem"
+  },
+  {
+    "field": "blockManaPod",
+    "registry_name": "blockManaPod",
+    "block_class": "BlockManaPod",
+    "item_class": ""
+  },
+  {
+    "field": "blockArcaneFurnace",
+    "registry_name": "blockArcaneFurnace",
+    "block_class": "BlockArcaneFurnace",
+    "item_class": ""
+  },
+  {
+    "field": "blockWarded",
+    "registry_name": "blockWarded",
+    "block_class": "BlockWarded",
+    "item_class": ""
+  },
+  {
+    "field": "blockHole",
+    "registry_name": "blockHole",
+    "block_class": "BlockHole",
+    "item_class": ""
+  },
+  {
+    "field": "blockEldritchPortal",
+    "registry_name": "blockPortalEldritch",
+    "block_class": "BlockEldritchPortal",
+    "item_class": ""
+  },
+  {
+    "field": "blockEssentiaReservoir",
+    "registry_name": "blockEssentiaReservoir",
+    "block_class": "BlockEssentiaReservoir",
+    "item_class": "BlockEssentiaReservoirItem"
+  },
+  {
+    "field": "blockEldritchNothing",
+    "registry_name": "blockEldritchNothing",
+    "block_class": "BlockEldritchNothing",
+    "item_class": ""
+  },
+  {
+    "field": "blockStairsArcaneStone",
+    "registry_name": "blockStairsArcaneStone",
+    "block_class": "BlockCosmeticStairs",
+    "item_class": ""
+  },
+  {
+    "field": "blockStairsGreatwood",
+    "registry_name": "blockStairsGreatwood",
+    "block_class": "BlockCosmeticStairs",
+    "item_class": ""
+  },
+  {
+    "field": "blockStairsSilverwood",
+    "registry_name": "blockStairsSilverwood",
+    "block_class": "BlockCosmeticStairs",
+    "item_class": ""
+  },
+  {
+    "field": "blockStairsEldritch",
+    "registry_name": "blockStairsEldritch",
+    "block_class": "BlockCosmeticStairs",
+    "item_class": ""
+  },
+  {
+    "field": "blockSlabWood",
+    "registry_name": "blockCosmeticSlabWood",
+    "block_class": "BlockCosmeticWoodSlab",
+    "item_class": "BlockCosmeticWoodSlabItem"
+  },
+  {
+    "field": "blockSlabStone",
+    "registry_name": "blockCosmeticSlabStone",
+    "block_class": "BlockCosmeticStoneSlab",
+    "item_class": "BlockCosmeticStoneSlabItem"
+  },
+  {
+    "field": "blockDoubleSlabWood",
+    "registry_name": "blockCosmeticDoubleSlabWood",
+    "block_class": "BlockCosmeticWoodSlab",
+    "item_class": ""
+  },
+  {
+    "field": "blockDoubleSlabStone",
+    "registry_name": "blockCosmeticDoubleSlabStone",
+    "block_class": "BlockCosmeticStoneSlab",
+    "item_class": ""
+  },
+  {
+    "field": "blockLootUrn",
+    "registry_name": "blockLootUrn",
+    "block_class": "BlockLoot",
+    "item_class": "BlockLootItem"
+  },
+  {
+    "field": "blockLootCrate",
+    "registry_name": "blockLootCrate",
+    "block_class": "BlockLoot",
+    "item_class": "BlockLootItem"
+  }
+]

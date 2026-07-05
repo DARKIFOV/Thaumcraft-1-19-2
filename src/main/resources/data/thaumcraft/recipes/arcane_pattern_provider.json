@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IPI",
+    "RCR",
+    "IPI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "thaumcraft:encoded_essentia_pattern"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:arcane_pattern_provider",
+    "count": 1
+  }
+}

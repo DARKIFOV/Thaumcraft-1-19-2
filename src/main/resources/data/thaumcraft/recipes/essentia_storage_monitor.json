@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GCG",
+    "RDR",
+    "GCG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "C": {
+      "item": "thaumcraft:essentia_view_card"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:essentia_storage_monitor",
+    "count": 1
+  }
+}

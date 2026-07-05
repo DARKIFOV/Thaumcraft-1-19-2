@@ -1,0 +1,12 @@
+{
+  "catalyst": "thaumcraft:tainted_slime",
+  "result": {
+    "item": "thaumcraft:flux_crystal",
+    "count": 1
+  },
+  "aspects": {
+    "PERDITIO": 6,
+    "PRAECANTATIO": 2,
+    "VACUOS": 2
+  }
+}

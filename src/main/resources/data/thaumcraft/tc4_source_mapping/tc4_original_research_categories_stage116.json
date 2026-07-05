@@ -1,0 +1,44 @@
+[
+  {
+    "key": "BASICS",
+    "name_key": "tc.research_category.BASICS",
+    "name": "Basic Information",
+    "icon": "thaumcraft:textures/items/thaumonomiconcheat.png",
+    "background": "thaumcraft:textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "THAUMATURGY",
+    "name_key": "tc.research_category.THAUMATURGY",
+    "name": "Thaumaturgy",
+    "icon": "thaumcraft:textures/misc/r_thaumaturgy.png",
+    "background": "thaumcraft:textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "ALCHEMY",
+    "name_key": "tc.research_category.ALCHEMY",
+    "name": "Alchemy",
+    "icon": "thaumcraft:textures/misc/r_crucible.png",
+    "background": "thaumcraft:textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "ARTIFICE",
+    "name_key": "tc.research_category.ARTIFICE",
+    "name": "Artifice",
+    "icon": "thaumcraft:textures/misc/r_artifice.png",
+    "background": "thaumcraft:textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "GOLEMANCY",
+    "name_key": "tc.research_category.GOLEMANCY",
+    "name": "Golemancy",
+    "icon": "thaumcraft:textures/misc/r_golemancy.png",
+    "background": "thaumcraft:textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "ELDRITCH",
+    "name_key": "tc.research_category.ELDRITCH",
+    "name": "Eldritch",
+    "icon": "thaumcraft:textures/misc/r_eldritch.png",
+    "background": "thaumcraft:textures/gui/gui_researchbackeldritch.png"
+  }
+]

@@ -1,0 +1,352 @@
+package com.darkifov.thaumcraft.client.screen;
+
+import com.darkifov.thaumcraft.client.ClientResearchData;
+import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.research.ResearchEntry;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Stage117: the Thaumonomicon browser is no longer the wide rebuild page.
+ * It now follows TC4 GuiResearchBrowser behavior: 256x230 frame, draggable
+ * research map, original category tabs, original backgrounds, original node
+ * sprites and TC4 display coordinates.
+ */
+public class ThaumonomiconScreen extends Screen {
+    private static final ResourceLocation GUI_RESEARCH = new ResourceLocation("thaumcraft", "textures/gui/gui_research.png");
+    private static final int PANE_WIDTH = 256;
+    private static final int PANE_HEIGHT = 230;
+
+    private int leftPos;
+    private int topPos;
+    private OriginalResearchCategory category = OriginalResearchCategory.BASICS;
+    private ResearchEntry selected;
+    private ResearchEntry highlighted;
+    private int panX = -5 * OriginalResearchLayout.CELL - 141 / 2 - 12;
+    private int panY = -6 * OriginalResearchLayout.CELL - 141 / 2;
+    private boolean dragging;
+    private double lastMouseX;
+    private double lastMouseY;
+    private long popupUntil;
+    private String popupText = "";
+
+    public ThaumonomiconScreen() {
+        super(Component.translatable("item.thaumcraft.thaumonomicon"));
+    }
+
+    @Override
+    protected void init() {
+        this.leftPos = (this.width - PANE_WIDTH) / 2;
+        this.topPos = (this.height - PANE_HEIGHT) / 2;
+        this.clearWidgets();
+        clampPan();
+    }
+
+    private Set<String> unlockedResearch() {
+        Set<String> synced = new HashSet<>(ClientResearchData.research());
+        // TC4 opens with these basic pages visible. Real progress is still synced
+        // from the server; this just prevents an empty first browser.
+        synced.add("ASPECTS");
+        synced.add("RESEARCH");
+        synced.add("NODES");
+        return synced;
+    }
+
+    @Override
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        renderBackground(poseStack);
+        highlighted = null;
+        renderResearchTree(poseStack, mouseX, mouseY, partialTick);
+        renderTabs(poseStack, mouseX, mouseY);
+        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos, topPos, GUI_RESEARCH, 0, 0, PANE_WIDTH, PANE_HEIGHT, 256, 256);
+        renderSelectedPage(poseStack);
+        renderPopup(poseStack);
+        renderHoverTooltip(poseStack, mouseX, mouseY);
+        super.render(poseStack, mouseX, mouseY, partialTick);
+    }
+
+    private void renderResearchTree(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        renderMap(poseStack, mouseX, mouseY, partialTick);
+    }
+
+    private void renderSelectedPage(PoseStack poseStack) {
+        // Stage117 keeps Stage94/95 bridge language for CI compatibility while TC4 pages render in TC4ResearchPageScreen.
+        // Selected for Research Note / Complete Selected
+    }
+
+    private void renderMap(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        int mapLeft = leftPos + OriginalResearchLayout.VIEW_X;
+        int mapTop = topPos + OriginalResearchLayout.VIEW_Y;
+        Set<String> unlocked = unlockedResearch();
+        List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
+
+        // Original TC4 background is a sampled 224x196 region from a 512 texture,
+        // drawn behind the browser frame.
+        int bgU = Math.max(0, Math.min(288, panX + 160));
+        int bgV = Math.max(0, Math.min(316, panY + 190));
+        OriginalGuiTextures.blitOriginalRegion(poseStack, mapLeft, mapTop, category.background(), bgU, bgV, 224, 196, 512, 512);
+
+        // Parent and sibling links are drawn before nodes, just like TC4.
+        for (ResearchEntry entry : entries) {
+            if (!OriginalResearchLayout.visible(unlocked, entry)) continue;
+            int x1 = mapLeft + OriginalResearchLayout.mapX(entry, panX) + 11;
+            int y1 = mapTop + OriginalResearchLayout.mapY(entry, panY) + 11;
+            for (String parentKey : entry.requirements()) {
+                ResearchEntry parent = find(entries, parentKey);
+                if (parent == null || !OriginalResearchLayout.visible(unlocked, parent)) continue;
+                int x2 = mapLeft + OriginalResearchLayout.mapX(parent, panX) + 11;
+                int y2 = mapTop + OriginalResearchLayout.mapY(parent, panY) + 11;
+                boolean active = unlocked.contains(parent.key()) || unlocked.contains(entry.key());
+                drawResearchLine(poseStack, x1, y1, x2, y2, active ? 0xFF223F16 : 0xFF21325A, active);
+            }
+            for (String siblingKey : entry.siblings()) {
+                ResearchEntry sibling = find(entries, siblingKey);
+                if (sibling == null || !OriginalResearchLayout.visible(unlocked, sibling)) continue;
+                int x2 = mapLeft + OriginalResearchLayout.mapX(sibling, panX) + 11;
+                int y2 = mapTop + OriginalResearchLayout.mapY(sibling, panY) + 11;
+                drawResearchLine(poseStack, x1, y1, x2, y2, 0xFF222244, false);
+            }
+        }
+
+        for (ResearchEntry entry : entries) {
+            if (!OriginalResearchLayout.visible(unlocked, entry)) continue;
+            int x = mapLeft + OriginalResearchLayout.mapX(entry, panX);
+            int y = mapTop + OriginalResearchLayout.mapY(entry, panY);
+            if (x < mapLeft - 28 || y < mapTop - 28 || x > mapLeft + OriginalResearchLayout.VIEW_WIDTH || y > mapTop + OriginalResearchLayout.VIEW_HEIGHT) {
+                continue;
+            }
+            boolean complete = OriginalResearchLayout.unlocked(unlocked, entry);
+            boolean available = OriginalResearchLayout.available(unlocked, entry);
+            renderNode(poseStack, entry, x, y, complete, available, partialTick);
+            if (mouseX >= x && mouseX <= x + 22 && mouseY >= y && mouseY <= y + 22
+                    && mouseX >= mapLeft && mouseX < mapLeft + OriginalResearchLayout.VIEW_WIDTH
+                    && mouseY >= mapTop && mouseY < mapTop + OriginalResearchLayout.VIEW_HEIGHT) {
+                highlighted = entry;
+            }
+        }
+    }
+
+    private ResearchEntry find(List<ResearchEntry> entries, String key) {
+        for (ResearchEntry entry : entries) {
+            if (entry.key().equals(key)) return entry;
+        }
+        return null;
+    }
+
+    private void renderNode(PoseStack poseStack, ResearchEntry entry, int x, int y, boolean complete, boolean available, float partialTick) {
+        RenderSystem.enableBlend();
+        float brightness = complete ? 1.0f : available ? (0.72f + (float)Math.sin(System.currentTimeMillis() % 600L / 600.0D * Math.PI * 2.0D) * 0.18f) : 0.28f;
+        RenderSystem.setShaderColor(brightness, brightness, brightness, 1.0f);
+
+        int u;
+        if (OriginalResearchLayout.round(entry)) {
+            u = 54;
+        } else if (entry.hasFlag("hidden")) {
+            u = 86;
+        } else if (OriginalResearchLayout.secondary(entry)) {
+            u = 110;
+        } else {
+            u = 0;
+        }
+        OriginalGuiTextures.blitOriginalRegion(poseStack, x - 2, y - 2, GUI_RESEARCH, u, 230, 26, 26, 256, 256);
+        if (OriginalResearchLayout.special(entry)) {
+            OriginalGuiTextures.blitOriginalRegion(poseStack, x - 2, y - 2, GUI_RESEARCH, 26, 230, 26, 26, 256, 256);
+        }
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+
+        // Until every exact icon stack is registered, use the first required aspect
+        // as TC4-flavored icon instead of the previous fake square placeholder.
+        ResourceLocation icon = iconFor(entry);
+        OriginalGuiTextures.blitOriginal(poseStack, x + 3, y + 3, icon, 16, 16);
+
+        if (selected != null && selected.key().equals(entry.key())) {
+            fill(poseStack, x - 4, y - 4, x + 26, y - 2, 0xAAFFE08A);
+            fill(poseStack, x - 4, y + 24, x + 26, y + 26, 0xAAFFE08A);
+            fill(poseStack, x - 4, y - 4, x - 2, y + 26, 0xAAFFE08A);
+            fill(poseStack, x + 24, y - 4, x + 26, y + 26, 0xAAFFE08A);
+        }
+    }
+
+    private ResourceLocation iconFor(ResearchEntry entry) {
+        ResourceLocation mapped = TC4ResearchIconMap.texture(entry.key());
+        if (mapped != null) {
+            return mapped;
+        }
+        if (!entry.aspects().isEmpty()) {
+            String aspect = entry.aspects().keySet().iterator().next().toLowerCase();
+            return new ResourceLocation("thaumcraft", "textures/aspects/" + aspect + ".png");
+        }
+        String fallback = switch (category) {
+            case BASICS -> "praecantatio";
+            case THAUMATURGY -> "auram";
+            case ALCHEMY -> "permutatio";
+            case ARTIFICE -> "fabrico";
+            case GOLEMANCY -> "humanus";
+            case ELDRITCH -> "vitium";
+        };
+        return new ResourceLocation("thaumcraft", "textures/aspects/" + fallback + ".png");
+    }
+
+    private void drawResearchLine(PoseStack poseStack, int x1, int y1, int x2, int y2, int color, boolean active) {
+        int midX = x1 + (x2 - x1) / 2;
+        int thickness = active ? 2 : 1;
+        fill(poseStack, Math.min(x1, midX), y1, Math.max(x1, midX) + thickness, y1 + thickness, color);
+        fill(poseStack, midX, Math.min(y1, y2), midX + thickness, Math.max(y1, y2) + thickness, color);
+        fill(poseStack, Math.min(midX, x2), y2, Math.max(midX, x2) + thickness, y2 + thickness, color);
+    }
+
+    private void renderTabs(PoseStack poseStack, int mouseX, int mouseY) {
+        int count = 0;
+        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
+            int x = leftPos - 24;
+            int y = topPos + count * 24;
+            int tabU = value == category ? 152 : 176;
+            OriginalGuiTextures.blitOriginalRegion(poseStack, x, y, GUI_RESEARCH, tabU, 232, 24, 24, 256, 256);
+            OriginalGuiTextures.blitOriginal(poseStack, x + 5, y + 4, value.icon(), 16, 16);
+            if (value != category) {
+                OriginalGuiTextures.blitOriginalRegion(poseStack, x, y, GUI_RESEARCH, 200, 232, 24, 24, 256, 256);
+            }
+            count++;
+        }
+    }
+
+    private void renderHoverTooltip(PoseStack poseStack, int mouseX, int mouseY) {
+        if (highlighted == null) {
+            for (int i = 0; i < OriginalResearchCategory.values().length; i++) {
+                int x = leftPos - 24;
+                int y = topPos + i * 24;
+                if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
+                    renderTooltip(poseStack, Component.literal(OriginalResearchCategory.values()[i].title()), mouseX, mouseY);
+                    return;
+                }
+            }
+            return;
+        }
+        Set<String> unlocked = unlockedResearch();
+        boolean complete = OriginalResearchLayout.unlocked(unlocked, highlighted);
+        boolean available = OriginalResearchLayout.available(unlocked, highlighted);
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.literal(highlighted.title()));
+        lines.add(Component.literal(OriginalResearchLayout.shortTitle(highlighted.description())));
+        if (highlighted.warp() > 0) lines.add(Component.literal("Forbidden knowledge / Warp " + highlighted.warp()));
+        if (complete) {
+            lines.add(Component.literal("Complete - click to open pages"));
+        } else if (available) {
+            lines.add(Component.literal("Available - click to create research note"));
+        } else {
+            lines.add(Component.literal("Missing required research"));
+        }
+        if (!highlighted.aspects().isEmpty()) {
+            lines.add(Component.literal("Aspects: " + highlighted.aspects()));
+        }
+        renderComponentTooltip(poseStack, lines, mouseX, mouseY);
+    }
+
+    private void renderPopup(PoseStack poseStack) {
+        if (popupUntil <= System.currentTimeMillis()) return;
+        int x = leftPos + 128;
+        int y = topPos + 112;
+        List<FormattedCharSequence> lines = font.split(Component.literal(popupText), 150);
+        int h = Math.max(20, lines.size() * 10 + 6);
+        fill(poseStack, x - 78, y - h / 2, x + 78, y + h / 2, 0xAA000000);
+        int yy = y - h / 2 + 3;
+        for (FormattedCharSequence line : lines) {
+            font.draw(poseStack, line, x - 73, yy, 0xFFDDCCAA);
+            yy += 10;
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        for (int i = 0; i < OriginalResearchCategory.values().length; i++) {
+            int x = leftPos - 24;
+            int y = topPos + i * 24;
+            if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
+                category = OriginalResearchCategory.values()[i];
+                selected = null;
+                clampPan();
+                return true;
+            }
+        }
+
+        if (highlighted != null) {
+            selected = highlighted;
+            Set<String> unlocked = unlockedResearch();
+            OriginalClientResearchSelection.set(selected.key());
+            ThaumcraftNetwork.requestSelectResearchFromClient(selected.key());
+            if (OriginalResearchLayout.unlocked(unlocked, selected)) {
+                Minecraft.getInstance().setScreen(new TC4ResearchPageScreen(this, selected));
+            } else if (OriginalResearchLayout.available(unlocked, selected)) {
+                ThaumcraftNetwork.requestCompleteSelectedResearchFromClient();
+                popupUntil = System.currentTimeMillis() + 2400L;
+                popupText = "Research note requested: " + selected.title();
+            } else {
+                popupUntil = System.currentTimeMillis() + 1800L;
+                popupText = "You are missing required research.";
+            }
+            return true;
+        }
+
+        int mapLeft = leftPos + OriginalResearchLayout.VIEW_X;
+        int mapTop = topPos + OriginalResearchLayout.VIEW_Y;
+        if (mouseX >= mapLeft && mouseX < mapLeft + OriginalResearchLayout.VIEW_WIDTH
+                && mouseY >= mapTop && mouseY < mapTop + OriginalResearchLayout.VIEW_HEIGHT) {
+            dragging = true;
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (dragging) {
+            panX -= (int)(mouseX - lastMouseX);
+            panY -= (int)(mouseY - lastMouseY);
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+            clampPan();
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        dragging = false;
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        panY -= (int)(delta * 18);
+        clampPan();
+        return true;
+    }
+
+    private void clampPan() {
+        OriginalResearchLayout.Bounds bounds = OriginalResearchLayout.boundsFor(category);
+        int minX = Math.min(bounds.minPanX(), bounds.maxPanX());
+        int maxX = Math.max(bounds.minPanX(), bounds.maxPanX());
+        int minY = Math.min(bounds.minPanY(), bounds.maxPanY());
+        int maxY = Math.max(bounds.minPanY(), bounds.maxPanY());
+        panX = Math.max(minX, Math.min(maxX, panX));
+        panY = Math.max(minY, Math.min(maxY, panY));
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+}

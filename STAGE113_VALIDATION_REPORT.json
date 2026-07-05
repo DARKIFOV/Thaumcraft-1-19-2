@@ -1,0 +1,23 @@
+{
+  "stage": "113",
+  "name": "PROVIDED_1192_REBOOT_BASE_INTEGRATION",
+  "active_project": "Stage112 carried forward",
+  "primary_1192_base": "thaumcraftreboot-main",
+  "secondary_1192_skeleton": "thaumcraft-reboot-fbe41a6513a84f3e637778cc308fbc84b2aaeec0",
+  "strict_behavior_source": "Thaumcraft4-1.7.10-master",
+  "counts": {
+    "primary_1192_java": 4,
+    "primary_1192_resources": 27,
+    "secondary_1192_java": 2,
+    "secondary_1192_resources": 2,
+    "active_stage113_java": 229,
+    "active_stage113_resources": 3317
+  },
+  "decision": "Use provided 1.19.2 reboots as base/reference and keep active Stage112 as runtime because it contains substantially more ported files.",
+  "checks": [
+    "python scripts/java_syntax_guard.py \u2014 OK",
+    "python scripts/github_ci_guard.py \u2014 OK",
+    "python scripts/github_static_audit.py \u2014 OK",
+    "zip integrity test \u2014 OK"
+  ]
+}

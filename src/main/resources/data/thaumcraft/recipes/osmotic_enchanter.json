@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OTO",
+    "CEC",
+    "OSO"
+  ],
+  "key": {
+    "O": {
+      "item": "thaumcraft:obsidian_tile"
+    },
+    "T": {
+      "item": "thaumcraft:obsidian_totem"
+    },
+    "C": {
+      "item": "thaumcraft:spellbinding_cloth"
+    },
+    "E": {
+      "item": "minecraft:enchanting_table"
+    },
+    "S": {
+      "item": "thaumcraft:osmotic_enchantment_focus"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:osmotic_enchanter",
+    "count": 1
+  }
+}

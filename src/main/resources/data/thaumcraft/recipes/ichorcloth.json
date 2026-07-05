@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CSC",
+    "SIS",
+    "CSC"
+  ],
+  "key": {
+    "C": {
+      "item": "thaumcraft:spellbinding_cloth"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "I": {
+      "item": "thaumcraft:ichor"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:ichorcloth",
+    "count": 2
+  }
+}

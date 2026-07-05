@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "SBS",
+    " I "
+  ],
+  "key": {
+    "Q": {
+      "item": "thaumcraft:quicksilver_drop"
+    },
+    "S": {
+      "item": "thaumcraft:spellbinding_cloth"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:infused_scribing_tools",
+    "count": 1
+  }
+}

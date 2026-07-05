@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:wooden_wand_core",
+    "thaumcraft:greatwood_wand_core",
+    "thaumcraft:silverwood_wand_core"
+  ]
+}

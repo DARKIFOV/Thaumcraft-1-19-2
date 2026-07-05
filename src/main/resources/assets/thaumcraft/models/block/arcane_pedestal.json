@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "thaumcraft:block/pedestal_top",
+    "down": "thaumcraft:block/pedestal_top",
+    "north": "thaumcraft:block/pedestal_side",
+    "south": "thaumcraft:block/pedestal_side",
+    "east": "thaumcraft:block/pedestal_side",
+    "west": "thaumcraft:block/pedestal_side",
+    "particle": "thaumcraft:block/pedestal_side"
+  }
+}

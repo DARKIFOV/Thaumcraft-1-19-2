@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:ordo_crystal"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:ordo_shard",
+    "count": 2
+  }
+}

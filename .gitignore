@@ -1,0 +1,38 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# Forge run directories
+run/
+run-server/
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+crash-reports/
+
+# Local Gradle/Minecraft caches and generated files
+.gradle/
+build/
+out/
+run/
+run-server/
+logs/
+crash-reports/
+
+# Do not ignore Gradle wrapper files; GitHub Actions needs them
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+!gradlew
+!gradlew.bat

@@ -1,0 +1,13 @@
+{
+  "catalyst": "minecraft:golden_apple",
+  "ingredients": [
+    "thaumcraft:aqua_shard",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:balanced_shard"
+  ],
+  "research": "THAUMCRAFT_EXTRAS_FOCI",
+  "result": {
+    "item": "thaumcraft:focus_heal",
+    "count": 1
+  }
+}

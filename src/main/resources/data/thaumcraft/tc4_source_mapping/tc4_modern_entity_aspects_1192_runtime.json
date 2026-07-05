@@ -1,0 +1,210 @@
+{
+  "minecraft:zombie": {
+    "EXANIMIS": 2,
+    "HUMANUS": 1,
+    "TERRA": 1
+  },
+  "minecraft:giant": {
+    "EXANIMIS": 4,
+    "HUMANUS": 3,
+    "TERRA": 3
+  },
+  "minecraft:skeleton": {
+    "EXANIMIS": 3,
+    "HUMANUS": 1,
+    "TERRA": 1
+  },
+  "minecraft:creeper": {
+    "HERBA": 2,
+    "IGNIS": 2
+  },
+  "minecraft:horse": {
+    "BESTIA": 4,
+    "TERRA": 1,
+    "AER": 1
+  },
+  "minecraft:pig": {
+    "BESTIA": 2,
+    "TERRA": 2
+  },
+  "minecraft:experience_orb": {
+    "COGNITIO": 5
+  },
+  "minecraft:sheep": {
+    "BESTIA": 2,
+    "TERRA": 2
+  },
+  "minecraft:cow": {
+    "BESTIA": 3,
+    "TERRA": 3
+  },
+  "minecraft:mooshroom": {
+    "BESTIA": 3,
+    "HERBA": 1,
+    "TERRA": 2
+  },
+  "minecraft:snow_golem": {
+    "GELUM": 3,
+    "AQUA": 1
+  },
+  "minecraft:ocelot": {
+    "BESTIA": 3,
+    "PERDITIO": 3
+  },
+  "minecraft:chicken": {
+    "BESTIA": 2,
+    "VOLATUS": 2,
+    "AER": 1
+  },
+  "minecraft:squid": {
+    "BESTIA": 2,
+    "AQUA": 2
+  },
+  "minecraft:wolf": {
+    "BESTIA": 3,
+    "TERRA": 3
+  },
+  "minecraft:bat": {
+    "BESTIA": 1,
+    "VOLATUS": 1,
+    "AER": 1
+  },
+  "minecraft:boat": {
+    "MACHINA": 2,
+    "AQUA": 2
+  },
+  "minecraft:spider": {
+    "BESTIA": 3,
+    "PERDITIO": 2
+  },
+  "minecraft:slime": {
+    "LIMUS": 2,
+    "AQUA": 2
+  },
+  "minecraft:ghast": {
+    "EXANIMIS": 3,
+    "IGNIS": 2
+  },
+  "minecraft:zombified_piglin": {
+    "EXANIMIS": 4,
+    "IGNIS": 2
+  },
+  "minecraft:enderman": {
+    "ALIENIS": 4,
+    "ITER": 2,
+    "AER": 2
+  },
+  "minecraft:cave_spider": {
+    "BESTIA": 2,
+    "VENENUM": 2,
+    "TERRA": 1
+  },
+  "minecraft:silverfish": {
+    "BESTIA": 1,
+    "TERRA": 1
+  },
+  "minecraft:blaze": {
+    "ALIENIS": 4,
+    "IGNIS": 1
+  },
+  "minecraft:magma_cube": {
+    "LIMUS": 3,
+    "IGNIS": 2
+  },
+  "minecraft:ender_dragon": {
+    "ALIENIS": 20,
+    "BESTIA": 20,
+    "PERDITIO": 20
+  },
+  "minecraft:wither": {
+    "EXANIMIS": 20,
+    "PERDITIO": 20,
+    "IGNIS": 15
+  },
+  "minecraft:witch": {
+    "HUMANUS": 3,
+    "PRAECANTATIO": 2,
+    "IGNIS": 1
+  },
+  "minecraft:villager": {
+    "HUMANUS": 3,
+    "AER": 2
+  },
+  "minecraft:iron_golem": {
+    "METALLUM": 4,
+    "TERRA": 3
+  },
+  "minecraft:minecart": {
+    "MACHINA": 3,
+    "AER": 2
+  },
+  "minecraft:chest_minecart": {
+    "MACHINA": 3,
+    "AER": 1,
+    "VACUOS": 1
+  },
+  "minecraft:furnace_minecart": {
+    "MACHINA": 3,
+    "AER": 1,
+    "IGNIS": 1
+  },
+  "minecraft:tnt_minecart": {
+    "MACHINA": 3,
+    "AER": 1,
+    "IGNIS": 1
+  },
+  "minecraft:hopper_minecart": {
+    "MACHINA": 3,
+    "AER": 1,
+    "PERMUTATIO": 1
+  },
+  "minecraft:spawner_minecart": {
+    "MACHINA": 3,
+    "AER": 1,
+    "PRAECANTATIO": 1
+  },
+  "minecraft:end_crystal": {
+    "ALIENIS": 3,
+    "PRAECANTATIO": 3,
+    "SANO": 3
+  },
+  "minecraft:item_frame": {
+    "SENSUS": 3,
+    "PANNUS": 1
+  },
+  "minecraft:painting": {
+    "SENSUS": 5,
+    "PANNUS": 3
+  },
+  "thaumcraft:pech": {
+    "HUMANUS": 2,
+    "PRAECANTATIO": 2,
+    "PERMUTATIO": 2,
+    "LUCRUM": 2
+  },
+  "thaumcraft:taint_crawler": {
+    "LIMUS": 2,
+    "PRAECANTATIO": 1,
+    "AQUA": 1
+  },
+  "thaumcraft:brainy_zombie": {
+    "EXANIMIS": 3,
+    "HUMANUS": 1,
+    "COGNITIO": 1,
+    "TERRA": 1
+  },
+  "thaumcraft:taintacle": {
+    "VITIUM": 3,
+    "AQUA": 2
+  },
+  "thaumcraft:eldritch_guardian": {
+    "ALIENIS": 4,
+    "MORTUUS": 2,
+    "EXANIMIS": 4
+  },
+  "thaumcraft:thaum_golem": {
+    "AER": 2,
+    "TERRA": 2,
+    "PRAECANTATIO": 2
+  }
+}

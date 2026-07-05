@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:osmotic_enchanter",
+    "thaumcraft:ethereal_platform",
+    "thaumcraft:fume_dissipator",
+    "thaumcraft:transvector_interface"
+  ]
+}

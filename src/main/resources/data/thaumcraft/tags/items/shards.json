@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:aer_shard",
+    "thaumcraft:terra_shard",
+    "thaumcraft:ignis_shard",
+    "thaumcraft:aqua_shard",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:perditio_shard",
+    "thaumcraft:vitreus_shard",
+    "thaumcraft:metallum_shard",
+    "thaumcraft:praecantatio_shard",
+    "thaumcraft:vacuos_shard",
+    "thaumcraft:herba_shard",
+    "thaumcraft:lux_shard",
+    "thaumcraft:potentia_shard",
+    "thaumcraft:balanced_shard"
+  ]
+}

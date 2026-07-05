@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  C",
+    " R ",
+    "C  "
+  ],
+  "key": {
+    "C": {
+      "item": "thaumcraft:iron_wand_cap"
+    },
+    "R": {
+      "item": "thaumcraft:wooden_wand_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:iron_capped_wooden_wand",
+    "count": 1
+  }
+}

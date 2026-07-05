@@ -1,0 +1,14 @@
+{
+  "catalyst": "minecraft:glass_pane",
+  "ingredients": [
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "thaumcraft:aer_shard",
+    "thaumcraft:terra_shard"
+  ],
+  "research": "FIRST_STEPS",
+  "result": {
+    "item": "thaumcraft:thaumometer",
+    "count": 1
+  }
+}

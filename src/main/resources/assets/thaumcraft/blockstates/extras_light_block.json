@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thaumcraft:block/extras_light_block"
+    }
+  }
+}

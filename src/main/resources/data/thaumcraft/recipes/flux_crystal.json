@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:perditio_shard"
+    },
+    {
+      "item": "thaumcraft:tainted_slime"
+    },
+    {
+      "item": "thaumcraft:alchemy_dust"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:flux_crystal",
+    "count": 1
+  }
+}

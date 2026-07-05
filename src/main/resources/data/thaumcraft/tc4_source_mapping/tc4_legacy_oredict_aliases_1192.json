@@ -1,0 +1,110 @@
+{
+  "stone": [
+    "minecraft:stone",
+    "minecraft:granite",
+    "minecraft:diorite",
+    "minecraft:andesite",
+    "minecraft:deepslate"
+  ],
+  "cobblestone": [
+    "minecraft:cobblestone",
+    "minecraft:mossy_cobblestone",
+    "minecraft:cobbled_deepslate"
+  ],
+  "logWood": [
+    "*:_log",
+    "*:stripped_*_log",
+    "*:_stem",
+    "*:stripped_*_stem"
+  ],
+  "plankWood": [
+    "*:_planks"
+  ],
+  "slabWood": [
+    "*:_slab"
+  ],
+  "stairWood": [
+    "*:_stairs"
+  ],
+  "stickWood": [
+    "minecraft:stick"
+  ],
+  "treeSapling": [
+    "*:_sapling",
+    "*:_propagule",
+    "*:_fungus"
+  ],
+  "treeLeaves": [
+    "*:_leaves",
+    "*:_wart_block"
+  ],
+  "oreLapis": [
+    "minecraft:lapis_ore",
+    "minecraft:deepslate_lapis_ore"
+  ],
+  "oreDiamond": [
+    "minecraft:diamond_ore",
+    "minecraft:deepslate_diamond_ore"
+  ],
+  "gemDiamond": [
+    "minecraft:diamond"
+  ],
+  "oreRedstone": [
+    "minecraft:redstone_ore",
+    "minecraft:deepslate_redstone_ore"
+  ],
+  "oreEmerald": [
+    "minecraft:emerald_ore",
+    "minecraft:deepslate_emerald_ore"
+  ],
+  "gemEmerald": [
+    "minecraft:emerald"
+  ],
+  "oreQuartz": [
+    "minecraft:nether_quartz_ore"
+  ],
+  "nuggetIron": [
+    "minecraft:iron_nugget"
+  ],
+  "oreIron": [
+    "minecraft:iron_ore",
+    "minecraft:deepslate_iron_ore"
+  ],
+  "dustIron": [],
+  "oreGold": [
+    "minecraft:gold_ore",
+    "minecraft:deepslate_gold_ore",
+    "minecraft:nether_gold_ore"
+  ],
+  "dustGold": [],
+  "dustRedstone": [
+    "minecraft:redstone"
+  ],
+  "dustGlowstone": [
+    "minecraft:glowstone_dust"
+  ],
+  "glowstone": [
+    "minecraft:glowstone"
+  ],
+  "nuggetCopper": [],
+  "ingotCopper": [
+    "minecraft:copper_ingot"
+  ],
+  "dustCopper": [],
+  "oreCopper": [
+    "minecraft:copper_ore",
+    "minecraft:deepslate_copper_ore"
+  ],
+  "nuggetTin": [],
+  "ingotTin": [],
+  "dustTin": [],
+  "oreTin": [],
+  "nuggetSilver": [],
+  "ingotSilver": [],
+  "dustSilver": [],
+  "oreSilver": [],
+  "nuggetLead": [],
+  "ingotLead": [],
+  "dustLead": [],
+  "oreLead": []
+}

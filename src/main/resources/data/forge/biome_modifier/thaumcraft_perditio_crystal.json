@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "thaumcraft:perditio_crystal",
+  "step": "underground_ores"
+}

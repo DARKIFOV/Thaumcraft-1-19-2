@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "RDR",
+    " R "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:diffusion_core"
+  }
+}

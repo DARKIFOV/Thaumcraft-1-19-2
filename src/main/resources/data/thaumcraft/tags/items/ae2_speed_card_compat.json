@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:essentia_speed_card",
+    "thaumcraft:advanced_essentia_speed_card",
+    "thaumcraft:essentia_acceleration_card",
+    {
+      "id": "ae2:speed_card",
+      "required": false
+    },
+    {
+      "id": "ae2:acceleration_card",
+      "required": false
+    },
+    {
+      "id": "ae2:capacity_card",
+      "required": false
+    },
+    {
+      "id": "ae2:fuzzy_card",
+      "required": false
+    },
+    {
+      "id": "ae2:crafting_accelerator",
+      "required": false
+    }
+  ]
+}

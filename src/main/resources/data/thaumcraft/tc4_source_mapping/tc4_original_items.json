@@ -1,0 +1,557 @@
+[
+  {
+    "field": "itemWandCasting",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemWandCap",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemWandRod",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusPouch",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusFire",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusFrost",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusShock",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusTrade",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusExcavation",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusHellbat",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusWarding",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusPrimal",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemEssence",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemWispEssence",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemCrystalEssence",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemResource",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemShard",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemNugget",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemNuggetChicken",
+    "registry_name": "",
+    "item_class": "ItemNuggetEdible"
+  },
+  {
+    "field": "itemNuggetBeef",
+    "registry_name": "",
+    "item_class": "ItemNuggetEdible"
+  },
+  {
+    "field": "itemNuggetPork",
+    "registry_name": "",
+    "item_class": "ItemNuggetEdible"
+  },
+  {
+    "field": "itemNuggetFish",
+    "registry_name": "",
+    "item_class": "ItemNuggetEdible"
+  },
+  {
+    "field": "itemTripleMeatTreat",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemPhotoPlate",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemManaBean",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemZombieBrain",
+    "registry_name": "",
+    "item_class": "ItemZombieBrain"
+  },
+  {
+    "field": "itemResearchNotes",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemInkwell",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemThaumonomicon",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemSpawnerEgg",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusPortableHole",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFocusPech",
+    "registry_name": "",
+    "item_class": "ItemFocusPech"
+  },
+  {
+    "field": "itemThaumometer",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemFlyingCarpet",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemGolemPlacer",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemGolemBell",
+    "registry_name": "",
+    "item_class": "ItemGolemBell"
+  },
+  {
+    "field": "itemGolemDecoration",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemGolemCore",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemGolemUpgrade",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemArcaneDoor",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemJarFilled",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemJarNode",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemKey",
+    "registry_name": "",
+    "item_class": "ItemKey"
+  },
+  {
+    "field": "itemHandMirror",
+    "registry_name": "",
+    "item_class": "ItemHandMirror"
+  },
+  {
+    "field": "itemTrunkSpawner",
+    "registry_name": "",
+    "item_class": "ItemTrunkSpawner"
+  },
+  {
+    "field": "itemResonator",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBathSalts",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBucketDeath",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBucketPure",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemEldritchObject",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemSanitySoap",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemSanityChecker",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBottleTaint",
+    "registry_name": "",
+    "item_class": "ItemBottleTaint"
+  },
+  {
+    "field": "itemGoggles",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBootsTraveller",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHelmetThaumium",
+    "registry_name": "",
+    "item_class": "ItemThaumiumArmor"
+  },
+  {
+    "field": "itemChestThaumium",
+    "registry_name": "",
+    "item_class": "ItemThaumiumArmor"
+  },
+  {
+    "field": "itemBootsThaumium",
+    "registry_name": "",
+    "item_class": "ItemThaumiumArmor"
+  },
+  {
+    "field": "itemLegsThaumium",
+    "registry_name": "",
+    "item_class": "ItemThaumiumArmor"
+  },
+  {
+    "field": "itemShovelThaumium",
+    "registry_name": "",
+    "item_class": "ItemThaumiumShovel"
+  },
+  {
+    "field": "itemShovelElemental",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemPickThaumium",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemPickElemental",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemSwordThaumium",
+    "registry_name": "",
+    "item_class": "ItemThaumiumSword"
+  },
+  {
+    "field": "itemSwordElemental",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemAxeThaumium",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemAxeElemental",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHoeThaumium",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHoeElemental",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHelmetFortress",
+    "registry_name": "",
+    "item_class": "ItemFortressArmor"
+  },
+  {
+    "field": "itemChestFortress",
+    "registry_name": "",
+    "item_class": "ItemFortressArmor"
+  },
+  {
+    "field": "itemBootsFortress",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemLegsFortress",
+    "registry_name": "",
+    "item_class": "ItemFortressArmor"
+  },
+  {
+    "field": "itemHelmetVoid",
+    "registry_name": "",
+    "item_class": "ItemVoidArmor"
+  },
+  {
+    "field": "itemChestVoid",
+    "registry_name": "",
+    "item_class": "ItemVoidArmor"
+  },
+  {
+    "field": "itemBootsVoid",
+    "registry_name": "",
+    "item_class": "ItemVoidArmor"
+  },
+  {
+    "field": "itemLegsVoid",
+    "registry_name": "",
+    "item_class": "ItemVoidArmor"
+  },
+  {
+    "field": "itemShovelVoid",
+    "registry_name": "",
+    "item_class": "ItemVoidShovel"
+  },
+  {
+    "field": "itemPickVoid",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemSwordVoid",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemSwordCrimson",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemAxeVoid",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHoeVoid",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHelmetVoidRobe",
+    "registry_name": "",
+    "item_class": "ItemVoidRobeArmor"
+  },
+  {
+    "field": "itemChestVoidRobe",
+    "registry_name": "",
+    "item_class": "ItemVoidRobeArmor"
+  },
+  {
+    "field": "itemLegsVoidRobe",
+    "registry_name": "",
+    "item_class": "ItemVoidRobeArmor"
+  },
+  {
+    "field": "itemHelmetCultistRobe",
+    "registry_name": "",
+    "item_class": "ItemCultistRobeArmor"
+  },
+  {
+    "field": "itemChestCultistRobe",
+    "registry_name": "",
+    "item_class": "ItemCultistRobeArmor"
+  },
+  {
+    "field": "itemLegsCultistRobe",
+    "registry_name": "",
+    "item_class": "ItemCultistRobeArmor"
+  },
+  {
+    "field": "itemBootsCultist",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemHelmetCultistPlate",
+    "registry_name": "",
+    "item_class": "ItemCultistPlateArmor"
+  },
+  {
+    "field": "itemChestCultistPlate",
+    "registry_name": "",
+    "item_class": "ItemCultistPlateArmor"
+  },
+  {
+    "field": "itemLegsCultistPlate",
+    "registry_name": "",
+    "item_class": "ItemCultistPlateArmor"
+  },
+  {
+    "field": "itemHelmetCultistLeaderPlate",
+    "registry_name": "",
+    "item_class": "ItemCultistLeaderArmor"
+  },
+  {
+    "field": "itemChestCultistLeaderPlate",
+    "registry_name": "",
+    "item_class": "ItemCultistLeaderArmor"
+  },
+  {
+    "field": "itemLegsCultistLeaderPlate",
+    "registry_name": "",
+    "item_class": "ItemCultistLeaderArmor"
+  },
+  {
+    "field": "itemLootbag",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBaubleBlanks",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemAmuletRunic",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemRingRunic",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemGirdleRunic",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemGirdleHover",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemAmuletVis",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemLegsRobe",
+    "registry_name": "",
+    "item_class": "ItemRobeArmor"
+  },
+  {
+    "field": "itemChestRobe",
+    "registry_name": "",
+    "item_class": "ItemRobeArmor"
+  },
+  {
+    "field": "itemBootsRobe",
+    "registry_name": "",
+    "item_class": "ItemRobeArmor"
+  },
+  {
+    "field": "itemHoverHarness",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemBowBone",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemPrimalArrow",
+    "registry_name": "",
+    "item_class": "ItemPrimalArrow"
+  },
+  {
+    "field": "itemCompassStone",
+    "registry_name": "",
+    "item_class": ""
+  },
+  {
+    "field": "itemPrimalCrusher",
+    "registry_name": "",
+    "item_class": "ItemPrimalCrusher"
+  }
+]

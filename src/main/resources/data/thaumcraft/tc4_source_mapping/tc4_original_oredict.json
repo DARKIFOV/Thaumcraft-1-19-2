@@ -1,0 +1,170 @@
+[
+  {
+    "ore_key": "oreCinnabar",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 0)"
+  },
+  {
+    "ore_key": "oreInfusedAir",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 1)"
+  },
+  {
+    "ore_key": "oreInfusedFire",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 2)"
+  },
+  {
+    "ore_key": "oreInfusedWater",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 3)"
+  },
+  {
+    "ore_key": "oreInfusedEarth",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 4)"
+  },
+  {
+    "ore_key": "oreInfusedOrder",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 5)"
+  },
+  {
+    "ore_key": "oreInfusedEntropy",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 6)"
+  },
+  {
+    "ore_key": "shardAir",
+    "stack_expr": "new ItemStack(itemShard, 1, 0)"
+  },
+  {
+    "ore_key": "shardFire",
+    "stack_expr": "new ItemStack(itemShard, 1, 1)"
+  },
+  {
+    "ore_key": "shardWater",
+    "stack_expr": "new ItemStack(itemShard, 1, 2)"
+  },
+  {
+    "ore_key": "shardEarth",
+    "stack_expr": "new ItemStack(itemShard, 1, 3)"
+  },
+  {
+    "ore_key": "shardOrder",
+    "stack_expr": "new ItemStack(itemShard, 1, 4)"
+  },
+  {
+    "ore_key": "shardEntropy",
+    "stack_expr": "new ItemStack(itemShard, 1, 5)"
+  },
+  {
+    "ore_key": "oreAmber",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 7)"
+  },
+  {
+    "ore_key": "quicksilver",
+    "stack_expr": "new ItemStack(itemResource, 1, 3)"
+  },
+  {
+    "ore_key": "gemAmber",
+    "stack_expr": "new ItemStack(itemResource, 1, 6)"
+  },
+  {
+    "ore_key": "nuggetIron",
+    "stack_expr": "new ItemStack(itemNugget, 1, 0)"
+  },
+  {
+    "ore_key": "nuggetCopper",
+    "stack_expr": "new ItemStack(itemNugget, 1, 1)"
+  },
+  {
+    "ore_key": "nuggetTin",
+    "stack_expr": "new ItemStack(itemNugget, 1, 2)"
+  },
+  {
+    "ore_key": "nuggetSilver",
+    "stack_expr": "new ItemStack(itemNugget, 1, 3)"
+  },
+  {
+    "ore_key": "nuggetLead",
+    "stack_expr": "new ItemStack(itemNugget, 1, 4)"
+  },
+  {
+    "ore_key": "nuggetThaumium",
+    "stack_expr": "new ItemStack(itemNugget, 1, 6)"
+  },
+  {
+    "ore_key": "nuggetVoid",
+    "stack_expr": "new ItemStack(itemNugget, 1, 7)"
+  },
+  {
+    "ore_key": "nuggetQuicksilver",
+    "stack_expr": "new ItemStack(itemResource, 1, 3)"
+  },
+  {
+    "ore_key": "nuggetGold",
+    "stack_expr": "new ItemStack(itemResource, 1, 18)"
+  },
+  {
+    "ore_key": "ingotThaumium",
+    "stack_expr": "new ItemStack(itemResource, 1, 2)"
+  },
+  {
+    "ore_key": "ingotVoid",
+    "stack_expr": "new ItemStack(itemResource, 1, 16)"
+  },
+  {
+    "ore_key": "clusterIron",
+    "stack_expr": "new ItemStack(itemNugget, 1, 16)"
+  },
+  {
+    "ore_key": "clusterCopper",
+    "stack_expr": "new ItemStack(itemNugget, 1, 17)"
+  },
+  {
+    "ore_key": "clusterTin",
+    "stack_expr": "new ItemStack(itemNugget, 1, 18)"
+  },
+  {
+    "ore_key": "clusterSilver",
+    "stack_expr": "new ItemStack(itemNugget, 1, 19)"
+  },
+  {
+    "ore_key": "clusterLead",
+    "stack_expr": "new ItemStack(itemNugget, 1, 20)"
+  },
+  {
+    "ore_key": "clusterCinnabar",
+    "stack_expr": "new ItemStack(itemNugget, 1, 21)"
+  },
+  {
+    "ore_key": "clusterGold",
+    "stack_expr": "new ItemStack(itemNugget, 1, 31)"
+  },
+  {
+    "ore_key": "logWood",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)"
+  },
+  {
+    "ore_key": "logWood",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1)"
+  },
+  {
+    "ore_key": "plankWood",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)"
+  },
+  {
+    "ore_key": "plankWood",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7)"
+  },
+  {
+    "ore_key": "slabWood",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockSlabWood, 1, 0)"
+  },
+  {
+    "ore_key": "slabWood",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockSlabWood, 1, 1)"
+  },
+  {
+    "ore_key": "treeSapling",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomPlant, 1, 0)"
+  },
+  {
+    "ore_key": "treeSapling",
+    "stack_expr": "new ItemStack(ConfigBlocks.blockCustomPlant, 1, 1)"
+  }
+]

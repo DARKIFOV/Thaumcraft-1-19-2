@@ -1,0 +1,294 @@
+[
+  {
+    "tile_class": "TileHole",
+    "id": "TileHole"
+  },
+  {
+    "tile_class": "TileArcaneFurnace",
+    "id": "TileArcaneFurnace"
+  },
+  {
+    "tile_class": "TileArcaneFurnaceNozzle",
+    "id": "TileArcaneFurnaceNozzle"
+  },
+  {
+    "tile_class": "TileCrucible",
+    "id": "TileCrucible"
+  },
+  {
+    "tile_class": "TileAlembic",
+    "id": "TileSiphon"
+  },
+  {
+    "tile_class": "TileJarFillable",
+    "id": "TileJar"
+  },
+  {
+    "tile_class": "TileJarFillableVoid",
+    "id": "TileJarVoid"
+  },
+  {
+    "tile_class": "TileJarNode",
+    "id": "TileJarNode"
+  },
+  {
+    "tile_class": "TileJarBrain",
+    "id": "TileJarBrain"
+  },
+  {
+    "tile_class": "TileResearchTable",
+    "id": "TileResearchTable"
+  },
+  {
+    "tile_class": "TileTable",
+    "id": "TileTable"
+  },
+  {
+    "tile_class": "TileArcaneWorkbench",
+    "id": "TileArcaneWorkbench"
+  },
+  {
+    "tile_class": "TileChestHungry",
+    "id": "TileChestHungry"
+  },
+  {
+    "tile_class": "TileBellows",
+    "id": "TileBellows"
+  },
+  {
+    "tile_class": "TileSensor",
+    "id": "TileSensor"
+  },
+  {
+    "tile_class": "TileArcanePressurePlate",
+    "id": "TileArcanePressurePlate"
+  },
+  {
+    "tile_class": "TileArcaneBore",
+    "id": "TileArcaneBore"
+  },
+  {
+    "tile_class": "TileArcaneBoreBase",
+    "id": "TileArcaneBoreBase"
+  },
+  {
+    "tile_class": "TileArcaneLamp",
+    "id": "TileArcaneLamp"
+  },
+  {
+    "tile_class": "TileArcaneLampGrowth",
+    "id": "TileArcaneLampGrowth"
+  },
+  {
+    "tile_class": "TileArcaneLampFertility",
+    "id": "TileArcaneLampFertility"
+  },
+  {
+    "tile_class": "TileOwned",
+    "id": "TileOwned"
+  },
+  {
+    "tile_class": "TileLifter",
+    "id": "TileLifter"
+  },
+  {
+    "tile_class": "TileNitor",
+    "id": "TileNitor"
+  },
+  {
+    "tile_class": "TileNode",
+    "id": "TileNode"
+  },
+  {
+    "tile_class": "TileCrystal",
+    "id": "TileCrystal"
+  },
+  {
+    "tile_class": "TileEldritchCrystal",
+    "id": "TileEldritchCrystal"
+  },
+  {
+    "tile_class": "TileMirror",
+    "id": "TileMirror"
+  },
+  {
+    "tile_class": "TileMirrorEssentia",
+    "id": "TileMirrorEssentia"
+  },
+  {
+    "tile_class": "TilePedestal",
+    "id": "TilePedestal"
+  },
+  {
+    "tile_class": "TileWandPedestal",
+    "id": "TileWandPedestal"
+  },
+  {
+    "tile_class": "TileInfusionMatrix",
+    "id": "TileInfusionStone"
+  },
+  {
+    "tile_class": "TileInfusionPillar",
+    "id": "TileInfusionPillar"
+  },
+  {
+    "tile_class": "TileAlchemyFurnace",
+    "id": "TileAlchemyFurnace"
+  },
+  {
+    "tile_class": "TileAlchemyFurnaceAdvanced",
+    "id": "TileAlchemyFurnaceAdvanced"
+  },
+  {
+    "tile_class": "TileAlchemyFurnaceAdvancedNozzle",
+    "id": "TileAlchemyFurnaceAdvancedNozzle"
+  },
+  {
+    "tile_class": "TileDeconstructionTable",
+    "id": "TileDeconstructionTable"
+  },
+  {
+    "tile_class": "TileEtherealBloom",
+    "id": "TilePurifyTotem"
+  },
+  {
+    "tile_class": "TileTube",
+    "id": "TileTube"
+  },
+  {
+    "tile_class": "TileTubeValve",
+    "id": "TileTubeValve"
+  },
+  {
+    "tile_class": "TileCentrifuge",
+    "id": "TileCentrifuge"
+  },
+  {
+    "tile_class": "thaumcraft.common.tiles.TileTubeFilter",
+    "id": "TileTubeFilter"
+  },
+  {
+    "tile_class": "TileTubeBuffer",
+    "id": "TileTubeBuffer"
+  },
+  {
+    "tile_class": "TileTubeRestrict",
+    "id": "TileTubeRestrict"
+  },
+  {
+    "tile_class": "TileTubeOneway",
+    "id": "TileTubeOneway"
+  },
+  {
+    "tile_class": "TileThaumatorium",
+    "id": "TileThaumatorium"
+  },
+  {
+    "tile_class": "TileThaumatoriumTop",
+    "id": "TileThaumatoriumTop"
+  },
+  {
+    "tile_class": "TileBrainbox",
+    "id": "TileBrainbox"
+  },
+  {
+    "tile_class": "TileWarded",
+    "id": "TileWarded"
+  },
+  {
+    "tile_class": "TileGrate",
+    "id": "TileGrate"
+  },
+  {
+    "tile_class": "TileWardingStone",
+    "id": "TileWardingStone"
+  },
+  {
+    "tile_class": "TileWardingStoneFence",
+    "id": "TileWardingStoneFence"
+  },
+  {
+    "tile_class": "TileMagicBox",
+    "id": "TileMagicBox"
+  },
+  {
+    "tile_class": "TileNodeStabilizer",
+    "id": "TileNodeStabilizer"
+  },
+  {
+    "tile_class": "TileVisRelay",
+    "id": "TileVisRelay"
+  },
+  {
+    "tile_class": "TileNodeEnergized",
+    "id": "TileNodeEnergized"
+  },
+  {
+    "tile_class": "TileNodeConverter",
+    "id": "TileNodeConverter"
+  },
+  {
+    "tile_class": "TileMagicWorkbenchCharger",
+    "id": "TileMagicWorkbenchCharger"
+  },
+  {
+    "tile_class": "thaumcraft.common.tiles.TileManaPod",
+    "id": "TileManaPod"
+  },
+  {
+    "tile_class": "TileSpa",
+    "id": "TileSpa"
+  },
+  {
+    "tile_class": "TileEldritchAltar",
+    "id": "TileEldritchAltar"
+  },
+  {
+    "tile_class": "TileEldritchObelisk",
+    "id": "TileEldritchObelisk"
+  },
+  {
+    "tile_class": "TileEldritchCap",
+    "id": "TileEldritchCap"
+  },
+  {
+    "tile_class": "TileBanner",
+    "id": "TileBanner"
+  },
+  {
+    "tile_class": "TileEldritchPortal",
+    "id": "TileEldritchPortal"
+  },
+  {
+    "tile_class": "TileEssentiaReservoir",
+    "id": "TileEssentiaReservoir"
+  },
+  {
+    "tile_class": "TileEssentiaCrystalizer",
+    "id": "TileEssentiaCrystalizer"
+  },
+  {
+    "tile_class": "TileEldritchNothing",
+    "id": "TileEldritchNothing"
+  },
+  {
+    "tile_class": "TileEldritchLock",
+    "id": "TileEldritchLock"
+  },
+  {
+    "tile_class": "TileEldritchCrabSpawner",
+    "id": "TileEldritchCrabSpawner"
+  },
+  {
+    "tile_class": "TileFocalManipulator",
+    "id": "TileFocalManipulator"
+  },
+  {
+    "tile_class": "TileFluxScrubber",
+    "id": "TileFluxScrubber"
+  },
+  {
+    "tile_class": "TileEldritchTrap",
+    "id": "TileEldritchTrap"
+  }
+]

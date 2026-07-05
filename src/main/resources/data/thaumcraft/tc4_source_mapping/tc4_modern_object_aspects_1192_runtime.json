@@ -1,0 +1,867 @@
+{
+  "minecraft:stone": {
+    "TERRA": 2
+  },
+  "minecraft:granite": {
+    "TERRA": 2
+  },
+  "minecraft:diorite": {
+    "TERRA": 2
+  },
+  "minecraft:andesite": {
+    "TERRA": 2
+  },
+  "minecraft:deepslate": {
+    "TERRA": 2
+  },
+  "minecraft:cobblestone": {
+    "TERRA": 1,
+    "PERDITIO": 1
+  },
+  "minecraft:mossy_cobblestone": {
+    "TERRA": 1,
+    "PERDITIO": 1
+  },
+  "minecraft:cobbled_deepslate": {
+    "TERRA": 1,
+    "PERDITIO": 1
+  },
+  "minecraft:stick": {
+    "ARBOR": 1
+  },
+  "minecraft:lapis_ore": {
+    "TERRA": 1,
+    "SENSUS": 3
+  },
+  "minecraft:deepslate_lapis_ore": {
+    "TERRA": 1,
+    "SENSUS": 3
+  },
+  "minecraft:diamond_ore": {
+    "TERRA": 1,
+    "LUCRUM": 3,
+    "VITREUS": 3
+  },
+  "minecraft:deepslate_diamond_ore": {
+    "TERRA": 1,
+    "LUCRUM": 3,
+    "VITREUS": 3
+  },
+  "minecraft:diamond": {
+    "VITREUS": 4,
+    "LUCRUM": 4
+  },
+  "minecraft:redstone_ore": {
+    "TERRA": 1,
+    "POTENTIA": 2,
+    "MACHINA": 2
+  },
+  "minecraft:deepslate_redstone_ore": {
+    "TERRA": 1,
+    "POTENTIA": 2,
+    "MACHINA": 2
+  },
+  "minecraft:emerald_ore": {
+    "TERRA": 1,
+    "LUCRUM": 4,
+    "VITREUS": 3
+  },
+  "minecraft:deepslate_emerald_ore": {
+    "TERRA": 1,
+    "LUCRUM": 4,
+    "VITREUS": 3
+  },
+  "minecraft:emerald": {
+    "VITREUS": 4,
+    "LUCRUM": 5
+  },
+  "minecraft:nether_quartz_ore": {
+    "TERRA": 1,
+    "VITREUS": 3
+  },
+  "minecraft:iron_nugget": {
+    "METALLUM": 1
+  },
+  "minecraft:iron_ore": {
+    "TERRA": 1,
+    "METALLUM": 3
+  },
+  "minecraft:deepslate_iron_ore": {
+    "TERRA": 1,
+    "METALLUM": 3
+  },
+  "minecraft:gold_ore": {
+    "TERRA": 1,
+    "METALLUM": 2,
+    "LUCRUM": 1
+  },
+  "minecraft:deepslate_gold_ore": {
+    "TERRA": 1,
+    "METALLUM": 2,
+    "LUCRUM": 1
+  },
+  "minecraft:nether_gold_ore": {
+    "TERRA": 1,
+    "METALLUM": 2,
+    "LUCRUM": 1
+  },
+  "minecraft:redstone": {
+    "POTENTIA": 2,
+    "MACHINA": 1
+  },
+  "minecraft:glowstone_dust": {
+    "SENSUS": 1,
+    "LUX": 2
+  },
+  "minecraft:glowstone": {
+    "SENSUS": 3,
+    "LUX": 10
+  },
+  "minecraft:copper_ingot": {
+    "METALLUM": 3,
+    "PERMUTATIO": 1
+  },
+  "minecraft:copper_ore": {
+    "METALLUM": 2,
+    "TERRA": 1,
+    "PERMUTATIO": 1
+  },
+  "minecraft:deepslate_copper_ore": {
+    "METALLUM": 2,
+    "TERRA": 1,
+    "PERMUTATIO": 1
+  },
+  "minecraft:bedrock": {
+    "VACUOS": 16,
+    "PERDITIO": 16,
+    "TERRA": 16,
+    "TENEBRAE": 16
+  },
+  "minecraft:dirt": {
+    "TERRA": 2
+  },
+  "minecraft:grass_block": {
+    "TERRA": 1,
+    "HERBA": 1
+  },
+  "minecraft:farmland": {
+    "TERRA": 1,
+    "METO": 2
+  },
+  "minecraft:sand": {
+    "TERRA": 1,
+    "PERDITIO": 1
+  },
+  "minecraft:gravel": {
+    "TERRA": 2
+  },
+  "minecraft:clay": {
+    "TERRA": 1,
+    "HERBA": 1
+  },
+  "minecraft:clay_ball": {
+    "AQUA": 1,
+    "TERRA": 1
+  },
+  "minecraft:mycelium": {
+    "TERRA": 1,
+    "TENEBRAE": 1
+  },
+  "minecraft:sponge": {
+    "TERRA": 3,
+    "AQUA": 3
+  },
+  "minecraft:terracotta": {
+    "TERRA": 4,
+    "IGNIS": 1
+  },
+  "minecraft:white_terracotta": {
+    "TERRA": 3,
+    "IGNIS": 1,
+    "SENSUS": 1
+  },
+  "minecraft:netherrack": {
+    "TERRA": 2,
+    "IGNIS": 1
+  },
+  "minecraft:soul_sand": {
+    "TERRA": 1,
+    "VINCULUM": 1,
+    "SPIRITUS": 1
+  },
+  "minecraft:nether_bricks": {
+    "TERRA": 2,
+    "IGNIS": 1
+  },
+  "minecraft:glass": {
+    "VITREUS": 1
+  },
+  "minecraft:white_stained_glass": {
+    "VITREUS": 1
+  },
+  "minecraft:bookshelf": {
+    "COGNITIO": 8
+  },
+  "minecraft:book": {
+    "COGNITIO": 4
+  },
+  "minecraft:writable_book": {
+    "COGNITIO": 5
+  },
+  "minecraft:paper": {
+    "ARBOR": 1,
+    "COGNITIO": 1
+  },
+  "minecraft:leather": {
+    "BESTIA": 1,
+    "PANNUS": 1
+  },
+  "minecraft:string": {
+    "PANNUS": 1
+  },
+  "minecraft:white_wool": {
+    "PANNUS": 4,
+    "BESTIA": 1
+  },
+  "minecraft:feather": {
+    "VOLATUS": 2,
+    "AER": 1
+  },
+  "minecraft:bone": {
+    "MORTUUS": 2
+  },
+  "minecraft:rotten_flesh": {
+    "CORPUS": 4,
+    "MORTUUS": 1
+  },
+  "minecraft:spider_eye": {
+    "VENENUM": 2,
+    "BESTIA": 1
+  },
+  "minecraft:gunpowder": {
+    "IGNIS": 2,
+    "PERDITIO": 2
+  },
+  "minecraft:ender_pearl": {
+    "ALIENIS": 4,
+    "ITER": 4
+  },
+  "minecraft:blaze_rod": {
+    "IGNIS": 4,
+    "PRAECANTATIO": 1
+  },
+  "minecraft:blaze_powder": {
+    "IGNIS": 2,
+    "POTENTIA": 2
+  },
+  "minecraft:ghast_tear": {
+    "SPIRITUS": 4,
+    "SANO": 2
+  },
+  "minecraft:slime_ball": {
+    "LIMUS": 4
+  },
+  "minecraft:flint": {
+    "TELUM": 1,
+    "TERRA": 1
+  },
+  "minecraft:coal": {
+    "IGNIS": 2,
+    "POTENTIA": 2
+  },
+  "minecraft:charcoal": {
+    "IGNIS": 2,
+    "POTENTIA": 2,
+    "ARBOR": 1
+  },
+  "minecraft:iron_ingot": {
+    "METALLUM": 4
+  },
+  "minecraft:gold_ingot": {
+    "METALLUM": 3,
+    "LUCRUM": 2
+  },
+  "minecraft:netherite_ingot": {
+    "METALLUM": 8,
+    "PERDITIO": 4,
+    "TENEBRAE": 2
+  },
+  "minecraft:quartz": {
+    "VITREUS": 3,
+    "ORDO": 1
+  },
+  "minecraft:lapis_lazuli": {
+    "SENSUS": 3,
+    "VITREUS": 1
+  },
+  "minecraft:amethyst_shard": {
+    "VITREUS": 3,
+    "PRAECANTATIO": 1
+  },
+  "minecraft:apple": {
+    "VICTUS": 1,
+    "FAMES": 2,
+    "HERBA": 1
+  },
+  "minecraft:bread": {
+    "FAMES": 4,
+    "MESSIS": 2
+  },
+  "minecraft:wheat": {
+    "MESSIS": 3,
+    "HERBA": 1
+  },
+  "minecraft:carrot": {
+    "FAMES": 2,
+    "HERBA": 1
+  },
+  "minecraft:potato": {
+    "FAMES": 2,
+    "HERBA": 1
+  },
+  "minecraft:porkchop": {
+    "FAMES": 3,
+    "BESTIA": 1
+  },
+  "minecraft:beef": {
+    "FAMES": 3,
+    "BESTIA": 1
+  },
+  "minecraft:chicken": {
+    "FAMES": 3,
+    "BESTIA": 1
+  },
+  "minecraft:cod": {
+    "FAMES": 2,
+    "AQUA": 1,
+    "BESTIA": 1
+  },
+  "minecraft:bow": {
+    "TELUM": 3,
+    "ARBOR": 1,
+    "PANNUS": 1
+  },
+  "minecraft:arrow": {
+    "TELUM": 2,
+    "VOLATUS": 1
+  },
+  "minecraft:fishing_rod": {
+    "INSTRUMENTUM": 2,
+    "AQUA": 1,
+    "ARBOR": 1
+  },
+  "minecraft:shears": {
+    "INSTRUMENTUM": 2,
+    "METALLUM": 2,
+    "METO": 1
+  },
+  "minecraft:bucket": {
+    "VACUOS": 1,
+    "METALLUM": 3
+  },
+  "minecraft:water_bucket": {
+    "AQUA": 8,
+    "METALLUM": 3
+  },
+  "minecraft:lava_bucket": {
+    "IGNIS": 8,
+    "METALLUM": 3
+  },
+  "minecraft:clock": {
+    "MACHINA": 2,
+    "ORDO": 2,
+    "LUCRUM": 1
+  },
+  "minecraft:compass": {
+    "MACHINA": 2,
+    "ITER": 2,
+    "METALLUM": 1
+  },
+  "minecraft:piston": {
+    "MACHINA": 4,
+    "MOTUS": 2
+  },
+  "minecraft:sticky_piston": {
+    "MACHINA": 4,
+    "MOTUS": 2,
+    "LIMUS": 2
+  },
+  "minecraft:hopper": {
+    "MACHINA": 3,
+    "PERMUTATIO": 2,
+    "METALLUM": 2
+  },
+  "minecraft:tnt": {
+    "IGNIS": 4,
+    "PERDITIO": 4,
+    "VINCULUM": 1
+  },
+  "minecraft:minecart": {
+    "MACHINA": 3,
+    "ITER": 2,
+    "METALLUM": 3
+  },
+  "minecraft:chest_minecart": {
+    "MACHINA": 3,
+    "ITER": 2,
+    "VACUOS": 2
+  },
+  "minecraft:furnace_minecart": {
+    "MACHINA": 3,
+    "ITER": 2,
+    "IGNIS": 2
+  },
+  "minecraft:tnt_minecart": {
+    "MACHINA": 3,
+    "ITER": 2,
+    "IGNIS": 3,
+    "PERDITIO": 3
+  },
+  "minecraft:hopper_minecart": {
+    "MACHINA": 3,
+    "ITER": 2,
+    "PERMUTATIO": 2
+  },
+  "minecraft:painting": {
+    "SENSUS": 5,
+    "PANNUS": 3
+  },
+  "minecraft:item_frame": {
+    "SENSUS": 3,
+    "PANNUS": 1
+  },
+  "minecraft:torch": {
+    "LUX": 2,
+    "IGNIS": 1
+  },
+  "minecraft:lantern": {
+    "LUX": 3,
+    "METALLUM": 1
+  },
+  "minecraft:ender_eye": {
+    "ALIENIS": 4,
+    "SENSUS": 2,
+    "ITER": 2
+  },
+  "thaumcraft:thaumonomicon": {
+    "COGNITIO": 10,
+    "PRAECANTATIO": 2,
+    "ARBOR": 1
+  },
+  "thaumcraft:research_note": {
+    "COGNITIO": 4,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:research_point": {
+    "COGNITIO": 1
+  },
+  "thaumcraft:scribing_tools": {
+    "INSTRUMENTUM": 1,
+    "COGNITIO": 1
+  },
+  "thaumcraft:infused_scribing_tools": {
+    "INSTRUMENTUM": 2,
+    "COGNITIO": 2,
+    "PRAECANTATIO": 2
+  },
+  "thaumcraft:thaumometer": {
+    "SENSUS": 4,
+    "VITREUS": 2,
+    "PRAECANTATIO": 2,
+    "METALLUM": 2
+  },
+  "thaumcraft:goggles_of_revealing": {
+    "SENSUS": 4,
+    "VITREUS": 2,
+    "PRAECANTATIO": 2,
+    "METALLUM": 2
+  },
+  "thaumcraft:helmet_of_revealing": {
+    "SENSUS": 4,
+    "TUTAMEN": 3,
+    "METALLUM": 3,
+    "PRAECANTATIO": 2
+  },
+  "thaumcraft:arcane_workbench": {
+    "FABRICO": 4,
+    "PRAECANTATIO": 4,
+    "ARBOR": 2
+  },
+  "thaumcraft:research_table": {
+    "COGNITIO": 4,
+    "INSTRUMENTUM": 1,
+    "ARBOR": 2
+  },
+  "thaumcraft:crucible": {
+    "AQUA": 8,
+    "FABRICO": 4,
+    "PRAECANTATIO": 4,
+    "METALLUM": 4
+  },
+  "thaumcraft:alchemical_furnace": {
+    "PRAECANTATIO": 8,
+    "AQUA": 8,
+    "FABRICO": 8
+  },
+  "thaumcraft:arcane_pedestal": {
+    "ORDO": 4,
+    "PRAECANTATIO": 2,
+    "VITREUS": 2
+  },
+  "thaumcraft:infusion_matrix": {
+    "PRAECANTATIO": 16,
+    "ORDO": 8,
+    "ALIENIS": 4,
+    "MACHINA": 4
+  },
+  "thaumcraft:essentia_jar": {
+    "VACUOS": 4,
+    "VITREUS": 4,
+    "PRAECANTATIO": 2
+  },
+  "thaumcraft:filtered_essentia_jar": {
+    "VACUOS": 4,
+    "VITREUS": 4,
+    "PRAECANTATIO": 3,
+    "ORDO": 1
+  },
+  "thaumcraft:void_essentia_jar": {
+    "VACUOS": 8,
+    "VITREUS": 4,
+    "PRAECANTATIO": 4,
+    "ALIENIS": 2
+  },
+  "thaumcraft:essentia_tube": {
+    "VACUOS": 2,
+    "VITREUS": 2,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:essentia_valve": {
+    "VACUOS": 2,
+    "VITREUS": 2,
+    "PRAECANTATIO": 1,
+    "MACHINA": 1
+  },
+  "thaumcraft:arcane_stone": {
+    "TERRA": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:arcane_stone_bricks": {
+    "TERRA": 1,
+    "PRAECANTATIO": 1,
+    "ORDO": 1
+  },
+  "thaumcraft:obsidian_tile": {
+    "TERRA": 1,
+    "ALIENIS": 1
+  },
+  "thaumcraft:obsidian_totem": {
+    "TERRA": 1,
+    "ALIENIS": 1,
+    "TENEBRAE": 1
+  },
+  "thaumcraft:eldritch_stone": {
+    "VACUOS": 8,
+    "ALIENIS": 8,
+    "SENSUS": 4
+  },
+  "thaumcraft:eldritch_portal": {
+    "VACUOS": 8,
+    "ALIENIS": 8,
+    "ITER": 8
+  },
+  "thaumcraft:eldritch_altar": {
+    "ALIENIS": 8,
+    "PRAECANTATIO": 8,
+    "SPIRITUS": 4
+  },
+  "thaumcraft:eldritch_obelisk": {
+    "VACUOS": 4,
+    "ALIENIS": 4,
+    "TERRA": 4
+  },
+  "thaumcraft:amber_ore": {
+    "TERRA": 1,
+    "VINCULUM": 3,
+    "VITREUS": 2
+  },
+  "thaumcraft:cinnabar_ore": {
+    "TERRA": 1,
+    "METALLUM": 2,
+    "PERMUTATIO": 2,
+    "VENENUM": 1
+  },
+  "thaumcraft:tainted_soil": {
+    "TERRA": 1,
+    "VITIUM": 3
+  },
+  "thaumcraft:taint_seed": {
+    "VICTUS": 1,
+    "VITIUM": 3
+  },
+  "thaumcraft:greatwood_planks": {
+    "ARBOR": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:silverwood_planks": {
+    "ARBOR": 1,
+    "PRAECANTATIO": 1,
+    "ORDO": 1
+  },
+  "thaumcraft:aer_shard": {
+    "PRAECANTATIO": 1,
+    "AER": 2,
+    "VITREUS": 1
+  },
+  "thaumcraft:ignis_shard": {
+    "PRAECANTATIO": 1,
+    "IGNIS": 2,
+    "VITREUS": 1
+  },
+  "thaumcraft:aqua_shard": {
+    "PRAECANTATIO": 1,
+    "AQUA": 2,
+    "VITREUS": 1
+  },
+  "thaumcraft:terra_shard": {
+    "PRAECANTATIO": 1,
+    "TERRA": 2,
+    "VITREUS": 1
+  },
+  "thaumcraft:ordo_shard": {
+    "PRAECANTATIO": 1,
+    "ORDO": 2,
+    "VITREUS": 1
+  },
+  "thaumcraft:perditio_shard": {
+    "PRAECANTATIO": 1,
+    "PERDITIO": 2,
+    "VITREUS": 1
+  },
+  "thaumcraft:balanced_shard": {
+    "AER": 1,
+    "IGNIS": 1,
+    "AQUA": 1,
+    "TERRA": 1,
+    "ORDO": 1,
+    "PERDITIO": 1,
+    "PRAECANTATIO": 2
+  },
+  "thaumcraft:vacuos_shard": {
+    "VACUOS": 2,
+    "VITREUS": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:vitreus_shard": {
+    "VITREUS": 3,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:metallum_shard": {
+    "METALLUM": 2,
+    "VITREUS": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:praecantatio_shard": {
+    "PRAECANTATIO": 3,
+    "VITREUS": 1
+  },
+  "thaumcraft:herba_shard": {
+    "HERBA": 2,
+    "VITREUS": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:lux_shard": {
+    "LUX": 2,
+    "VITREUS": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:potentia_shard": {
+    "POTENTIA": 2,
+    "VITREUS": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:amber": {
+    "VINCULUM": 3,
+    "VITREUS": 2
+  },
+  "thaumcraft:quicksilver_drop": {
+    "METALLUM": 3,
+    "VENENUM": 1,
+    "PERMUTATIO": 2
+  },
+  "thaumcraft:thaumium_ingot": {
+    "ORDO": 1,
+    "METALLUM": 6,
+    "TERRA": 1
+  },
+  "thaumcraft:thaumium_nugget": {
+    "METALLUM": 1
+  },
+  "thaumcraft:thaumium_plate": {
+    "ORDO": 1,
+    "METALLUM": 6,
+    "TERRA": 1
+  },
+  "thaumcraft:void_metal_ingot": {
+    "ORDO": 1,
+    "METALLUM": 4,
+    "TERRA": 1,
+    "ALIENIS": 2
+  },
+  "thaumcraft:void_metal_nugget": {
+    "METALLUM": 1,
+    "ALIENIS": 1
+  },
+  "thaumcraft:primordial_pearl": {
+    "AER": 16,
+    "TERRA": 16,
+    "IGNIS": 16,
+    "AQUA": 16,
+    "ORDO": 16,
+    "PERDITIO": 16
+  },
+  "thaumcraft:nitor": {
+    "LUX": 2,
+    "IGNIS": 1,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:alchemy_dust": {
+    "PRAECANTATIO": 2,
+    "PERMUTATIO": 1
+  },
+  "thaumcraft:flux_crystal": {
+    "VITIUM": 3,
+    "LIMUS": 1
+  },
+  "thaumcraft:tainted_slime": {
+    "VITIUM": 3,
+    "LIMUS": 1
+  },
+  "thaumcraft:iron_wand_cap": {
+    "METALLUM": 3,
+    "INSTRUMENTUM": 1
+  },
+  "thaumcraft:gold_wand_cap": {
+    "METALLUM": 3,
+    "LUCRUM": 2,
+    "INSTRUMENTUM": 1
+  },
+  "thaumcraft:thaumium_wand_cap": {
+    "METALLUM": 6,
+    "ORDO": 1,
+    "PRAECANTATIO": 2,
+    "INSTRUMENTUM": 1
+  },
+  "thaumcraft:wooden_wand_core": {
+    "ARBOR": 2,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:greatwood_wand_core": {
+    "ARBOR": 3,
+    "PRAECANTATIO": 2
+  },
+  "thaumcraft:silverwood_wand_core": {
+    "ARBOR": 3,
+    "PRAECANTATIO": 2,
+    "ORDO": 1
+  },
+  "thaumcraft:iron_capped_wooden_wand": {
+    "ARBOR": 2,
+    "METALLUM": 3,
+    "PRAECANTATIO": 2,
+    "INSTRUMENTUM": 2
+  },
+  "thaumcraft:greatwood_wand": {
+    "ARBOR": 3,
+    "METALLUM": 3,
+    "PRAECANTATIO": 4,
+    "INSTRUMENTUM": 2
+  },
+  "thaumcraft:silverwood_wand": {
+    "ARBOR": 3,
+    "METALLUM": 6,
+    "ORDO": 2,
+    "PRAECANTATIO": 6,
+    "INSTRUMENTUM": 2
+  },
+  "thaumcraft:focus_fire": {
+    "PRAECANTATIO": 5,
+    "IGNIS": 5,
+    "TELUM": 2
+  },
+  "thaumcraft:focus_frost": {
+    "PRAECANTATIO": 5,
+    "GELUM": 5,
+    "TELUM": 2
+  },
+  "thaumcraft:focus_shock": {
+    "PRAECANTATIO": 5,
+    "POTENTIA": 5,
+    "TELUM": 2
+  },
+  "thaumcraft:focus_exchange": {
+    "PRAECANTATIO": 5,
+    "PERMUTATIO": 5,
+    "INSTRUMENTUM": 2
+  },
+  "thaumcraft:focus_heal": {
+    "PRAECANTATIO": 5,
+    "SANO": 5
+  },
+  "thaumcraft:focus_pech_summon": {
+    "PRAECANTATIO": 5,
+    "VENENUM": 5,
+    "PERDITIO": 5,
+    "ALIENIS": 5,
+    "TELUM": 5
+  },
+  "thaumcraft:golem_bell": {
+    "SENSUS": 2,
+    "MACHINA": 2,
+    "METALLUM": 2
+  },
+  "thaumcraft:golem_core": {
+    "MACHINA": 4,
+    "COGNITIO": 2,
+    "PRAECANTATIO": 2
+  },
+  "thaumcraft:eldritch_eye": {
+    "ALIENIS": 5,
+    "AURAM": 3,
+    "PRAECANTATIO": 3,
+    "SENSUS": 3,
+    "SPIRITUS": 3
+  },
+  "thaumcraft:crimson_key": {
+    "COGNITIO": 5,
+    "PRAECANTATIO": 3,
+    "ALIENIS": 3,
+    "SPIRITUS": 3
+  },
+  "thaumcraft:awakened_crimson_key": {
+    "COGNITIO": 5,
+    "PRAECANTATIO": 3,
+    "ALIENIS": 5,
+    "SPIRITUS": 5
+  },
+  "thaumcraft:bottomless_pouch": {
+    "VACUOS": 8,
+    "PANNUS": 4,
+    "PRAECANTATIO": 4
+  },
+  "thaumcraft:sanity_soap": {
+    "SANO": 2,
+    "ORDO": 2,
+    "PRAECANTATIO": 1
+  },
+  "thaumcraft:warp_charm": {
+    "ORDO": 4,
+    "SANO": 2,
+    "PRAECANTATIO": 4
+  },
+  "thaumcraft:warp_ward_talisman": {
+    "ORDO": 6,
+    "SANO": 4,
+    "PRAECANTATIO": 6
+  }
+}

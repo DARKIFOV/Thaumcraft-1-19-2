@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RBR",
+    "BDB",
+    "RBR"
+  ],
+  "key": {
+    "R": {
+      "item": "thaumcraft:research_note"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    },
+    "D": {
+      "item": "thaumcraft:essentia_digitizer_core"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:knowledge_core"
+  }
+}

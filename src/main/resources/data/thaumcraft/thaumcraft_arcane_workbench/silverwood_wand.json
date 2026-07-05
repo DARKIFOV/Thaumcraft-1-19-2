@@ -1,0 +1,14 @@
+{
+  "catalyst": "thaumcraft:greatwood_wand",
+  "ingredients": [
+    "thaumcraft:silverwood_planks",
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:aer_shard"
+  ],
+  "research": "ARCANE_STONE",
+  "result": {
+    "item": "thaumcraft:silverwood_wand",
+    "count": 1
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " Q ",
+    "RBR",
+    " P "
+  ],
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "B": {
+      "item": "thaumcraft:balanced_shard"
+    },
+    "P": {
+      "item": "thaumcraft:praecantatio_shard"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:essentia_fuzzy_card",
+    "count": 1
+  }
+}

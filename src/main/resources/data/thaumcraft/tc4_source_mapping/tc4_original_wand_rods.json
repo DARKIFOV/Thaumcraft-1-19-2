@@ -1,0 +1,182 @@
+[
+  {
+    "constant": "WAND_ROD_WOOD",
+    "type": "WandRod",
+    "tag": "wood",
+    "capacity": 25,
+    "craft_cost": 1,
+    "glowing": false,
+    "primal_update": "",
+    "source": "ConfigItems.java:WAND_ROD_WOOD"
+  },
+  {
+    "constant": "WAND_ROD_GREATWOOD",
+    "type": "WandRod",
+    "tag": "greatwood",
+    "capacity": 50,
+    "craft_cost": 3,
+    "glowing": false,
+    "primal_update": "",
+    "source": "ConfigItems.java:WAND_ROD_GREATWOOD"
+  },
+  {
+    "constant": "WAND_ROD_OBSIDIAN",
+    "type": "WandRod",
+    "tag": "obsidian",
+    "capacity": 75,
+    "craft_cost": 6,
+    "glowing": false,
+    "primal_update": "EARTH",
+    "source": "ConfigItems.java:WAND_ROD_OBSIDIAN"
+  },
+  {
+    "constant": "WAND_ROD_BLAZE",
+    "type": "WandRod",
+    "tag": "blaze",
+    "capacity": 75,
+    "craft_cost": 6,
+    "glowing": true,
+    "primal_update": "FIRE",
+    "source": "ConfigItems.java:WAND_ROD_BLAZE"
+  },
+  {
+    "constant": "WAND_ROD_ICE",
+    "type": "WandRod",
+    "tag": "ice",
+    "capacity": 75,
+    "craft_cost": 6,
+    "glowing": false,
+    "primal_update": "WATER",
+    "source": "ConfigItems.java:WAND_ROD_ICE"
+  },
+  {
+    "constant": "WAND_ROD_QUARTZ",
+    "type": "WandRod",
+    "tag": "quartz",
+    "capacity": 75,
+    "craft_cost": 6,
+    "glowing": false,
+    "primal_update": "ORDER",
+    "source": "ConfigItems.java:WAND_ROD_QUARTZ"
+  },
+  {
+    "constant": "WAND_ROD_BONE",
+    "type": "WandRod",
+    "tag": "bone",
+    "capacity": 75,
+    "craft_cost": 6,
+    "glowing": false,
+    "primal_update": "ENTROPY",
+    "source": "ConfigItems.java:WAND_ROD_BONE"
+  },
+  {
+    "constant": "WAND_ROD_REED",
+    "type": "WandRod",
+    "tag": "reed",
+    "capacity": 75,
+    "craft_cost": 6,
+    "glowing": false,
+    "primal_update": "AIR",
+    "source": "ConfigItems.java:WAND_ROD_REED"
+  },
+  {
+    "constant": "WAND_ROD_SILVERWOOD",
+    "type": "WandRod",
+    "tag": "silverwood",
+    "capacity": 100,
+    "craft_cost": 9,
+    "glowing": false,
+    "primal_update": "",
+    "source": "ConfigItems.java:WAND_ROD_SILVERWOOD"
+  },
+  {
+    "constant": "STAFF_ROD_GREATWOOD",
+    "type": "StaffRod",
+    "tag": "greatwood_staff",
+    "capacity": 125,
+    "craft_cost": 8,
+    "glowing": false,
+    "primal_update": "",
+    "source": "ConfigItems.java:STAFF_ROD_GREATWOOD"
+  },
+  {
+    "constant": "STAFF_ROD_OBSIDIAN",
+    "type": "StaffRod",
+    "tag": "obsidian_staff",
+    "capacity": 175,
+    "craft_cost": 14,
+    "glowing": false,
+    "primal_update": "EARTH",
+    "source": "ConfigItems.java:STAFF_ROD_OBSIDIAN"
+  },
+  {
+    "constant": "STAFF_ROD_BLAZE",
+    "type": "StaffRod",
+    "tag": "blaze_staff",
+    "capacity": 175,
+    "craft_cost": 14,
+    "glowing": true,
+    "primal_update": "FIRE",
+    "source": "ConfigItems.java:STAFF_ROD_BLAZE"
+  },
+  {
+    "constant": "STAFF_ROD_ICE",
+    "type": "StaffRod",
+    "tag": "ice_staff",
+    "capacity": 175,
+    "craft_cost": 14,
+    "glowing": false,
+    "primal_update": "WATER",
+    "source": "ConfigItems.java:STAFF_ROD_ICE"
+  },
+  {
+    "constant": "STAFF_ROD_QUARTZ",
+    "type": "StaffRod",
+    "tag": "quartz_staff",
+    "capacity": 175,
+    "craft_cost": 14,
+    "glowing": false,
+    "primal_update": "ORDER",
+    "source": "ConfigItems.java:STAFF_ROD_QUARTZ"
+  },
+  {
+    "constant": "STAFF_ROD_BONE",
+    "type": "StaffRod",
+    "tag": "bone_staff",
+    "capacity": 175,
+    "craft_cost": 14,
+    "glowing": false,
+    "primal_update": "ENTROPY",
+    "source": "ConfigItems.java:STAFF_ROD_BONE"
+  },
+  {
+    "constant": "STAFF_ROD_REED",
+    "type": "StaffRod",
+    "tag": "reed_staff",
+    "capacity": 175,
+    "craft_cost": 14,
+    "glowing": false,
+    "primal_update": "AIR",
+    "source": "ConfigItems.java:STAFF_ROD_REED"
+  },
+  {
+    "constant": "STAFF_ROD_SILVERWOOD",
+    "type": "StaffRod",
+    "tag": "silverwood_staff",
+    "capacity": 250,
+    "craft_cost": 24,
+    "glowing": false,
+    "primal_update": "",
+    "source": "ConfigItems.java:STAFF_ROD_SILVERWOOD"
+  },
+  {
+    "constant": "STAFF_ROD_PRIMAL",
+    "type": "StaffRod",
+    "tag": "primal_staff",
+    "capacity": 250,
+    "craft_cost": 32,
+    "glowing": true,
+    "primal_update": "ALL_PRIMAL",
+    "source": "ConfigItems.java:STAFF_ROD_PRIMAL"
+  }
+]

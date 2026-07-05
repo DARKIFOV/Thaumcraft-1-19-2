@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "thaumcraft:block/arcane_crafting_terminal"
+    }
+  }
+}

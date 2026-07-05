@@ -1,0 +1,19 @@
+{
+  "catalyst": "thaumcraft:balanced_shard",
+  "components": [
+    "thaumcraft:thaumium_plate",
+    "thaumcraft:nitor",
+    "thaumcraft:alchemy_dust"
+  ],
+  "aspects": {
+    "PRAECANTATIO": 6,
+    "ORDO": 4,
+    "AER": 2
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:infusion_core",
+    "count": 1
+  },
+  "research": "INFUSION"
+}

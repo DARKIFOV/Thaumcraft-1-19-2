@@ -1,0 +1,64 @@
+[
+  {
+    "constant": "WAND_CAP_IRON",
+    "tag": "iron",
+    "base_cost_modifier": 1.1,
+    "special_aspects": [],
+    "special_cost_modifier": null,
+    "craft_cost": 1,
+    "source": "ConfigItems.java:WAND_CAP_IRON"
+  },
+  {
+    "constant": "WAND_CAP_GOLD",
+    "tag": "gold",
+    "base_cost_modifier": 1.0,
+    "special_aspects": [],
+    "special_cost_modifier": null,
+    "craft_cost": 3,
+    "source": "ConfigItems.java:WAND_CAP_GOLD"
+  },
+  {
+    "constant": "WAND_CAP_THAUMIUM",
+    "tag": "thaumium",
+    "base_cost_modifier": 0.9,
+    "special_aspects": [],
+    "special_cost_modifier": null,
+    "craft_cost": 6,
+    "source": "ConfigItems.java:WAND_CAP_THAUMIUM"
+  },
+  {
+    "constant": "WAND_CAP_VOID",
+    "tag": "void",
+    "base_cost_modifier": 0.8,
+    "special_aspects": [],
+    "special_cost_modifier": null,
+    "craft_cost": 9,
+    "source": "ConfigItems.java:WAND_CAP_VOID"
+  },
+  {
+    "constant": "WAND_CAP_COPPER",
+    "tag": "copper",
+    "base_cost_modifier": 1.1,
+    "special_aspects": [
+      "ORDER",
+      "ENTROPY"
+    ],
+    "special_cost_modifier": 1.0,
+    "craft_cost": 2,
+    "source": "ConfigItems.java:WAND_CAP_COPPER"
+  },
+  {
+    "constant": "WAND_CAP_SILVER",
+    "tag": "silver",
+    "base_cost_modifier": 1.0,
+    "special_aspects": [
+      "AIR",
+      "EARTH",
+      "FIRE",
+      "WATER"
+    ],
+    "special_cost_modifier": 0.95,
+    "craft_cost": 4,
+    "source": "ConfigItems.java:WAND_CAP_SILVER"
+  }
+]

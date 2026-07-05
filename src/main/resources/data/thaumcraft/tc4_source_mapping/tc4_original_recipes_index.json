@@ -1,0 +1,1372 @@
+[
+  {
+    "key": "Thaumonomicon",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList(), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1), Arrays.asList(new ItemStack[] { basicWand, new ItemStack(Blocks.field_150342_X) }) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcTable",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList(), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1), Arrays.asList(new ItemStack[] { basicWand, new ItemStack(ConfigBlocks.blockTable) }) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ResTable",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList(), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(2), Arrays.asList(new ItemStack[] { null, new ItemStack(ConfigItems.itemInkwell), new ItemStack(ConfigBlocks.blockTable), new ItemStack(ConfigBlocks.blockTable) }) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Crucible",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList(), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1), Arrays.asList(new ItemStack[] { basicWand, new ItemStack(Items.field_151066_bu) }) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfernalFurnace",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList().add(Aspect.FIRE, 50).add(Aspect.EARTH, 50), Integer.valueOf(3), Integer.valueOf(3), Integer.valueOf(3), Arrays.asList(new ItemStack[] { new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), empty, new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new ItemStack(Blocks.field_150343_Z), new ItemStack(Blocks.field_150385_bj), new",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfusionAltar",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList().add(Aspect.FIRE, 25).add(Aspect.EARTH, 25).add(Aspect.ORDER, 25).add(Aspect.AIR, 25).add(Aspect.ENTROPY, 25).add(Aspect.WATER, 25), Integer.valueOf(3), Integer.valueOf(3), Integer.valueOf(3), Arrays.asList(new ItemStack[] { empty, null, empty, null, new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2), null, empty, null, empty, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), null, null, ",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "NodeJar",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList().add(Aspect.FIRE, 70).add(Aspect.EARTH, 70).add(Aspect.AIR, 70).add(Aspect.WATER, 70).add(Aspect.ORDER, 70).add(Aspect.ENTROPY, 70), Integer.valueOf(3), Integer.valueOf(4), Integer.valueOf(3), Arrays.asList(new Object[] { \"slabWood\", \"slabWood\", \"slabWood\", \"slabWood\", \"slabWood\", \"slabWood\", \"slabWood\", \"slabWood\", \"slabWood\", new ItemStack(Blocks.field_150359_w), new ItemStack(Blocks.field_150359_w), new ItemStack(Blocks.field_150359_w), new ItemSta",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Thaumatorium",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList().add(Aspect.FIRE, 15).add(Aspect.ORDER, 30).add(Aspect.WATER, 30), Integer.valueOf(1), Integer.valueOf(3), Integer.valueOf(1), Arrays.asList(new ItemStack[] { new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 0) }) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "AdvAlchemyFurnace",
+    "expr_prefix": "Arrays.asList(new Object[] { new AspectList().add(Aspect.FIRE, 50).add(Aspect.WATER, 50).add(Aspect.ORDER, 50), Integer.valueOf(3), Integer.valueOf(2), Integer.valueOf(3), Arrays.asList(new ItemStack[] { new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), empty, new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.bl",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Alumentum",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALUMENTUM\", new ItemStack(ConfigItems.itemResource, 1, 0), new ItemStack(Items.field_151044_h, 1, 32767), new AspectList().merge(Aspect.ENERGY, 3).merge(Aspect.FIRE, 3).merge(Aspect.ENTROPY, 3))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "Nitor",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"NITOR\", new ItemStack(ConfigItems.itemResource, 1, 1), \"dustGlowstone\", new AspectList().merge(Aspect.ENERGY, 3).merge(Aspect.FIRE, 3).merge(Aspect.LIGHT, 3))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "Thaumium",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"THAUMIUM\", new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151042_j), new AspectList().merge(Aspect.MAGIC, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "VoidMetal",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"VOIDMETAL\", new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigItems.itemResource, 1, 17), new AspectList().merge(Aspect.METAL, 8))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "VoidSeed",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"VOIDMETAL\", new ItemStack(ConfigItems.itemResource, 1, 17), new ItemStack(Items.field_151014_N), new AspectList().merge(Aspect.DARKNESS, 8).merge(Aspect.VOID, 8).merge(Aspect.ELDRITCH, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "Tallow",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TALLOW\", new ItemStack(ConfigItems.itemResource, 1, 4), new ItemStack(Items.field_151078_bh), new AspectList().merge(Aspect.MAGIC, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltGunpowder",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151016_H, 2, 0), new ItemStack(Items.field_151016_H), new AspectList().merge(Aspect.FIRE, 4).merge(Aspect.ENTROPY, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltSlime",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151123_aH, 2, 0), new ItemStack(Items.field_151123_aH), new AspectList().merge(Aspect.WATER, 2).merge(Aspect.LIFE, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltClay",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151119_aD, 2, 0), new ItemStack(Items.field_151119_aD), new AspectList().merge(Aspect.WATER, 1).merge(Aspect.EARTH, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltGlowstone",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151114_aO, 2, 0), \"dustGlowstone\", new AspectList().merge(Aspect.LIGHT, 3).merge(Aspect.SENSES, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltInk",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALDUPLICATION\", new ItemStack(Items.field_151100_aR, 2, 0), new ItemStack(Items.field_151100_aR, 1, 0), new AspectList().merge(Aspect.WATER, 2).merge(Aspect.SENSES, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltWeb",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALMANUFACTURE\", new ItemStack(Blocks.field_150321_G), new ItemStack(Items.field_151007_F), new AspectList().merge(Aspect.TRAP, 2).merge(Aspect.CLOTH, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltMossyCobble",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALMANUFACTURE\", new ItemStack(Blocks.field_150341_Y), new ItemStack(Blocks.field_150347_e), new AspectList().merge(Aspect.PLANT, 2).merge(Aspect.MAGIC, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltIce",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ALCHEMICALMANUFACTURE\", new ItemStack(Blocks.field_150432_aD), new ItemStack(Blocks.field_150433_aE), new AspectList().merge(Aspect.ORDER, 1).merge(Aspect.COLD, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltCrackedBrick",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ENTROPICPROCESSING\", new ItemStack(Blocks.field_150417_aV, 1, 2), new ItemStack(Blocks.field_150417_aV), new AspectList().merge(Aspect.ENTROPY, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "AltBonemeal",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ENTROPICPROCESSING\", new ItemStack(Items.field_151100_aR, 4, 15), new ItemStack(Items.field_151103_aS), new AspectList().merge(Aspect.ENTROPY, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PureIron",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"PUREIRON\", new ItemStack(ConfigItems.itemNugget, 1, 16), \"oreIron\", new AspectList().merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PureGold",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"PUREGOLD\", new ItemStack(ConfigItems.itemNugget, 1, 31), \"oreGold\", new AspectList().merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PureCopper",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"PURECOPPER\", new ItemStack(ConfigItems.itemNugget, 1, 17), \"oreCopper\", new AspectList().merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PureTin",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"PURETIN\", new ItemStack(ConfigItems.itemNugget, 1, 18), \"oreTin\", new AspectList().merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PureSilver",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"PURESILVER\", new ItemStack(ConfigItems.itemNugget, 1, 19), \"oreSilver\", new AspectList().merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PureLead",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"PURELEAD\", new ItemStack(ConfigItems.itemNugget, 1, 20), \"oreLead\", new AspectList().merge(Aspect.METAL, 1).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "TransIron",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TRANSIRON\", new ItemStack(ConfigItems.itemNugget, 3, 0), \"nuggetIron\", new AspectList().merge(Aspect.METAL, 2))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "TransGold",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TRANSGOLD\", new ItemStack(Items.field_151074_bl, 3, 0), new ItemStack(Items.field_151074_bl), new AspectList().merge(Aspect.METAL, 2).merge(Aspect.GREED, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "TransCopper",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TRANSCOPPER\", new ItemStack(ConfigItems.itemNugget, 3, 1), \"nuggetCopper\", new AspectList().merge(Aspect.METAL, 2).merge(Aspect.EXCHANGE, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "TransTin",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TRANSTIN\", new ItemStack(ConfigItems.itemNugget, 3, 2), \"nuggetTin\", new AspectList().merge(Aspect.METAL, 2).merge(Aspect.CRYSTAL, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "TransSilver",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TRANSSILVER\", new ItemStack(ConfigItems.itemNugget, 3, 3), \"nuggetSilver\", new AspectList().merge(Aspect.METAL, 2).merge(Aspect.GREED, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "TransLead",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"TRANSLEAD\", new ItemStack(ConfigItems.itemNugget, 3, 4), \"nuggetLead\", new AspectList().merge(Aspect.METAL, 2).merge(Aspect.ORDER, 1))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "EtherealBloom",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"ETHEREALBLOOM\", new ItemStack(ConfigBlocks.blockCustomPlant, 1, 4), new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2), new AspectList().add(Aspect.MAGIC, 16).add(Aspect.PLANT, 16).add(Aspect.HEAL, 16).add(Aspect.TAINT, 8))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "LiquidDeath",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"LIQUIDDEATH\", new ItemStack(ConfigItems.itemBucketDeath), new ItemStack(Items.field_151133_ar), new AspectList().add(Aspect.DEATH, 32).add(Aspect.POISON, 32).add(Aspect.ENTROPY, 32))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "BottleTaint",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"BOTTLETAINT\", new ItemStack(ConfigItems.itemBottleTaint), bt, new AspectList().add(Aspect.TAINT, 8).add(Aspect.MAGIC, 8))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemStraw",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMSTRAW\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 0), new ItemStack(Blocks.field_150407_cf), new AspectList().add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemWood",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMWOOD\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 1), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0), new AspectList().add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemTallow",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMTALLOW\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 2), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), new AspectList().add(Aspect.MAN, 8).add(Aspect.MOTION, 8).add(Aspect.SOUL, 8))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemClay",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMCLAY\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 3), new ItemStack(Blocks.field_150336_V), new AspectList().add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemFlesh",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMFLESH\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 4), new ItemStack(ConfigBlocks.blockTaint, 1, 2), new AspectList().add(Aspect.MAN, 8).add(Aspect.MOTION, 8).add(Aspect.SOUL, 8))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemStone",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMSTONE\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 5), new ItemStack(Blocks.field_150417_aV), new AspectList().add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemIron",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMIRON\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 6), new ItemStack(Blocks.field_150339_S), new AspectList().add(Aspect.MAN, 4).add(Aspect.MOTION, 4).add(Aspect.SOUL, 4))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "GolemThaumium",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"GOLEMTHAUMIUM\", new ItemStack(ConfigItems.itemGolemPlacer, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 4), new AspectList().add(Aspect.MAN, 8).add(Aspect.MOTION, 8).add(Aspect.SOUL, 8))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreGather",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"COREGATHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 2), new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.GREED, 5).add(Aspect.EARTH, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreFill",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"COREFILL\", new ItemStack(ConfigItems.itemGolemCore, 1, 0), new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.HUNGER, 5).add(Aspect.VOID, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreEmpty",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"COREEMPTY\", new ItemStack(ConfigItems.itemGolemCore, 1, 1), new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.GREED, 5).add(Aspect.VOID, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreHarvest",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"COREHARVEST\", new ItemStack(ConfigItems.itemGolemCore, 1, 3), new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.HARVEST, 5).add(Aspect.CROP, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreGuard",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"COREGUARD\", new ItemStack(ConfigItems.itemGolemCore, 1, 4), new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.WEAPON, 5).add(Aspect.TRAP, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreButcher",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"COREBUTCHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 9), new ItemStack(ConfigItems.itemGolemCore, 1, 4), new AspectList().add(Aspect.FLESH, 5).add(Aspect.BEAST, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "CoreLiquid",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"CORELIQUID\", new ItemStack(ConfigItems.itemGolemCore, 1, 5), new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.WATER, 5).add(Aspect.VOID, 5))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "BathSalts",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"BATHSALTS\", new ItemStack(ConfigItems.itemBathSalts), new ItemStack(ConfigItems.itemResource, 1, 14), new AspectList().add(Aspect.MIND, 6).add(Aspect.AURA, 6).add(Aspect.ORDER, 6).add(Aspect.HEAL, 6))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "SaneSoap",
+    "expr_prefix": "ThaumcraftApi.addCrucibleRecipe(\"SANESOAP\", new ItemStack(ConfigItems.itemSanitySoap), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), new AspectList().add(Aspect.MIND, 16).add(Aspect.ELDRITCH, 16).add(Aspect.ORDER, 16).add(Aspect.HEAL, 16))",
+    "recipe_type": "CrucibleRecipe"
+  },
+  {
+    "key": "PrimalCharm",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"BASICARTIFACE\", new ItemStack(ConfigItems.itemResource, 1, 15), new AspectList().add(Aspect.EARTH, 25).add(Aspect.FIRE, 25).add(Aspect.AIR, 25).add(Aspect.WATER, 25).add(Aspect.ORDER, 25).add(Aspect.ENTROPY, 25), new Object[] { \"123\", \"ISI\", \"456\", Character.valueOf('S'), new ItemStack(ConfigItems.itemShard, 1, 6), Character.valueOf('I'), Items.field_151043_k, Character.valueOf('1'), new ItemStack(ConfigItems.itemShard, 1, 0), Character.valueOf('2'), new It",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneDoor",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"WARDEDARCANA\", new ItemStack(ConfigItems.itemArcaneDoor), new AspectList().add(Aspect.WATER, 20).add(Aspect.ORDER, 10).add(Aspect.EARTH, 10).add(Aspect.FIRE, 5), new Object[] { \"TDT\", \"DBD\", \"TDT\", Character.valueOf('T'), \"ingotThaumium\", Character.valueOf('B'), new ItemStack(ConfigItems.itemZombieBrain), Character.valueOf('D'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WardedGlass",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"WARDEDARCANA\", new ItemStack(ConfigBlocks.blockCosmeticOpaque, 8, 2), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 10).add(Aspect.EARTH, 5).add(Aspect.FIRE, 5), new Object[] { \"GGG\", \"WBW\", \"GGG\", Character.valueOf('B'), new ItemStack(ConfigItems.itemZombieBrain), Character.valueOf('G'), new ItemStack(Blocks.field_150359_w), Character.valueOf('W'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "IronKey",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"WARDEDARCANA\", new ItemStack(ConfigItems.itemKey, 2, 0), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { \"NNI\", \"N \", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('N'), \"nuggetIron\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FluxScrubber",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FLUXSCRUB\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 14), new AspectList().add(Aspect.WATER, 16).add(Aspect.ORDER, 16).add(Aspect.AIR, 8), new Object[] { \" B \", \"GOG\", \"STS\", Character.valueOf('B'), new ItemStack(ConfigBlocks.blockWoodenDevice), Character.valueOf('G'), new ItemStack(Blocks.field_150411_aY), Character.valueOf('T'), new ItemStack(ConfigBlocks.blockTube), Character.valueOf('O'), new ItemStack(ConfigItems.itemResource, 1, 8), Character.v",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "GoldKey",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"WARDEDARCANA\", new ItemStack(ConfigItems.itemKey, 2, 1), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { \"NNI\", \"N \", Character.valueOf('I'), Items.field_151043_k, Character.valueOf('N'), Items.field_151074_bl })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcanePressurePlate",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"WARDEDARCANA\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 2), new AspectList().add(Aspect.WATER, 20).add(Aspect.ORDER, 10).add(Aspect.FIRE, 5).add(Aspect.EARTH, 10), new Object[] { \" B \", \"TDT\", Character.valueOf('T'), new ItemStack(ConfigItems.itemResource, 1, 2), Character.valueOf('B'), new ItemStack(ConfigItems.itemZombieBrain), Character.valueOf('D'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "NodeStabilizer",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"NODESTABILIZER\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), new AspectList().add(Aspect.WATER, 32).add(Aspect.EARTH, 32).add(Aspect.ORDER, 32), new Object[] { \" G \", \"QPQ\", \"SNS\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), Character.valueOf('G'), new ItemStack(Items.field_151043_k), Character.valueOf('P'), new ItemStack(Blocks.field_150331_J), Character.valueOf('Q'), new ItemStack(Blocks.field_150371_ca), Characte",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "NodeTransducer",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"VISPOWER\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11), new AspectList().add(Aspect.FIRE, 32).add(Aspect.AIR, 32).add(Aspect.ENTROPY, 32), new Object[] { \"RCR\", \"ISI\", \"RAR\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), Character.valueOf('C'), new ItemStack(Items.field_151132_bS), Character.valueOf('I'), new ItemStack(Items.field_151042_j), Character.valueOf('R'), new ItemStack(Blocks.field_150451_bX), Character.valueO",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "NodeRelay",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"VISPOWER\", new ItemStack(ConfigBlocks.blockMetalDevice, 2, 14), new AspectList().add(Aspect.FIRE, 8).add(Aspect.ORDER, 8), new Object[] { \" I \", \"ISI\", \" I \", Character.valueOf('I'), new ItemStack(Items.field_151042_j), Character.valueOf('S'), new ItemStack(ConfigItems.itemShard, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "NodeChargeRelay",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"VISCHARGERELAY\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 2), new AspectList().add(Aspect.FIRE, 16).add(Aspect.ORDER, 16).add(Aspect.AIR, 16), new Object[] { \" R \", \"W W\", \"I I\", Character.valueOf('I'), new ItemStack(Items.field_151042_j), Character.valueOf('R'), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 14), Character.valueOf('W'), new ItemStack(ConfigItems.itemWandRod, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocalManipulator",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCALMANIPULATION\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 13), new AspectList().add(Aspect.FIRE, 32).add(Aspect.AIR, 32).add(Aspect.ENTROPY, 32).add(Aspect.EARTH, 32).add(Aspect.WATER, 32).add(Aspect.ORDER, 32), new Object[] { \"IQI\", \"SPS\", \"GTG\", Character.valueOf('Q'), new ItemStack(ConfigBlocks.blockSlabStone, 1, 0), Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), Character.valueOf('T'), new ItemStack(ConfigBlocks.",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "GolemFetter",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"GOLEMFETTER\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 9), new AspectList().add(Aspect.EARTH, 5).add(Aspect.ORDER, 5), new Object[] { \"SSS\", \"IRI\", \"BBB\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), Character.valueOf('I'), new ItemStack(Items.field_151042_j), Character.valueOf('B'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), Character.valueOf('R'), new ItemStack(Blocks.field_150451_bX) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneStone1",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANESTONE\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 9, 6), new AspectList().add(Aspect.EARTH, 1).add(Aspect.FIRE, 1), new Object[] { \"SSS\", \"SCS\", \"SSS\", Character.valueOf('S'), \"stone\", Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneStone2",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 7), new Object[] { \"SS\", \"SS\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneStone3",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockStairsArcaneStone, 4, 0), new Object[] { \"K \", \"KK \", \"KKK\", Character.valueOf('K'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneStone4",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockSlabStone, 6, 0), new Object[] { \"KKK\", Character.valueOf('K'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "PaveTravel",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"PAVETRAVEL\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 2), new AspectList().add(Aspect.EARTH, 10).add(Aspect.AIR, 10), new Object[] { \"SAS\", \"SBS\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), Character.valueOf('A'), new ItemStack(ConfigItems.itemShard, 1, 0), Character.valueOf('B'), new ItemStack(ConfigItems.itemShard, 1, 3) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneLamp",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANELAMP\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7), new AspectList().add(Aspect.FIRE, 8).add(Aspect.AIR, 8).add(Aspect.WATER, 4).add(Aspect.ENTROPY, 4), new Object[] { \" S \", \"IAI\", \" N \", Character.valueOf('A'), new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 0), Character.valueOf('S'), new ItemStack(Blocks.field_150453_bW), Character.valueOf('N'), new ItemStack(ConfigItems.itemResource, 1, 1), Character.valueOf('I'), new ItemStack(Items.fi",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneSpa",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANESPA\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 12), new AspectList().add(Aspect.WATER, 16).add(Aspect.ORDER, 8).add(Aspect.EARTH, 4), new Object[] { \"QIQ\", \"SJS\", \"SPS\", Character.valueOf('P'), new ItemStack(Blocks.field_150331_J), Character.valueOf('J'), new ItemStack(ConfigBlocks.blockJar), Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), Character.valueOf('Q'), new ItemStack(Blocks.field_150371_ca), Character.val",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "PaveWard",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"PAVEWARD\", new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 3), new AspectList().add(Aspect.FIRE, 10).add(Aspect.ORDER, 10), new Object[] { \"SAS\", \"SBS\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), Character.valueOf('A'), new ItemStack(ConfigItems.itemShard, 1, 1), Character.valueOf('B'), new ItemStack(ConfigItems.itemShard, 1, 4) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Levitator",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"LEVITATOR\", new ItemStack(ConfigBlocks.blockLifter), new AspectList().add(Aspect.AIR, 10).add(Aspect.EARTH, 5), new Object[] { \"WEW\", \"BNB\", \"WAW\", Character.valueOf('W'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), Character.valueOf('E'), new ItemStack(ConfigItems.itemShard, 1, 3), Character.valueOf('A'), new ItemStack(ConfigItems.itemShard, 1, 0), Character.valueOf('N'), new ItemStack(ConfigItems.itemResource, 1, 1), Character.valueOf('B'), Items",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneEar",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANEEAR\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 1), new AspectList().add(Aspect.AIR, 10).add(Aspect.ORDER, 10), new Object[] { \"GIG\", \"GBG\", \"WRW\", Character.valueOf('W'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), Character.valueOf('R'), Items.field_151137_ax, Character.valueOf('I'), Items.field_151042_j, Character.valueOf('G'), Items.field_151043_k, Character.valueOf('B'), new ItemStack(ConfigItems.itemZombieBrain) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MirrorGlass",
+    "expr_prefix": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"BASICARTIFACE\", new ItemStack(ConfigItems.itemResource, 1, 10), new AspectList().add(Aspect.FIRE, 10).add(Aspect.EARTH, 10), new Object[] { new ItemStack(ConfigItems.itemResource, 1, 3), Blocks.field_150410_aZ })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "BoneBow",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"BONEBOW\", new ItemStack(ConfigItems.itemBowBone), new AspectList().add(Aspect.AIR, 16).add(Aspect.ENTROPY, 32), new Object[] { \"SB \", \"SEB\", \"SB \", Character.valueOf('E'), new ItemStack(ConfigItems.itemShard, 1, 5), Character.valueOf('B'), Items.field_151103_aS, Character.valueOf('S'), Items.field_151007_F })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfusionMatrix",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"INFUSION\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2), new AspectList().add(Aspect.ORDER, 40), new Object[] { \"SBS\", \"BEB\", \"SBS\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), Character.valueOf('E'), Items.field_151079_bi, Character.valueOf('B'), new ItemStack(ConfigItems.itemShard, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcanePedestal",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"INFUSION\", new ItemStack(ConfigBlocks.blockStoneDevice, 2, 1), new AspectList().add(Aspect.AIR, 5), new Object[] { \"SSS\", \" S \", \"SSS\", Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WardedJar",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockJar, 1, 0), new AspectList().add(Aspect.WATER, 1), new Object[] { \"GWG\", \"G G\", \"GGG\", Character.valueOf('W'), \"slabWood\", Character.valueOf('G'), Blocks.field_150410_aZ })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "JarVoid",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"JARVOID\", new ItemStack(ConfigBlocks.blockJar, 1, 3), new AspectList().add(Aspect.WATER, 5).add(Aspect.ENTROPY, 15), new Object[] { \"O\", \"J\", \"P\", Character.valueOf('O'), Blocks.field_150343_Z, Character.valueOf('P'), Items.field_151065_br, Character.valueOf('J'), new ItemStack(ConfigBlocks.blockJar, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapGold",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_gold\", new ItemStack(ConfigItems.itemWandCap, 1, 1), new AspectList().add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"gold\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"gold\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"gold\")).getCraftCost()), new Object[] { \"NNN\", \"N N\", Character.valueOf('N'), Items.field_151074_bl })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapCopper",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_copper\", new ItemStack(ConfigItems.itemWandCap, 1, 3), new AspectList().add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"copper\")).getCraftCost()), new Object[] { \"NNN\", \"N N\", Character.valueOf('N'), \"nuggetCopper\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapSilverInert",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_silver\", new ItemStack(ConfigItems.itemWandCap, 1, 5), new AspectList().add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()), new Object[] { \"NNN\", \"N N\", Character.valueOf('N'), \"nuggetSilver\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapThaumiumInert",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_thaumium\", new ItemStack(ConfigItems.itemWandCap, 1, 6), new AspectList().add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()), new Object[] { \"NNN\", \"N N\", Character.valueOf('N'), \"nuggetThaumium\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapVoidInert",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CAP_void\", new ItemStack(ConfigItems.itemWandCap, 1, 8), new AspectList().add(Aspect.ENTROPY, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 3).add(Aspect.ORDER, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 3).add(Aspect.FIRE, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.AIR, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2), new Object[] { \"NNN\", \"N N\", Character.valueOf('N'), \"nuggetVoid\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodGreatwood",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_greatwood\", new ItemStack(ConfigItems.itemWandRod, 1, 0), new AspectList().add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"greatwood\")).getCraftCost()), new Object[] { \" G\", \"G \", Character.valueOf('G'), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodGreatwoodStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_greatwood_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 50), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"greatwood_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodObsidianStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_obsidian_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 51), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"obsidian_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodSilverwoodStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_silverwood_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 52), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"silverwood_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 2) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodIceStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_ice_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 53), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"ice_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 3) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodQuartzStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_quartz_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 54), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"quartz_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 4) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodReedStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_reed_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 55), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"reed_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 5) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodBlazeStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_blaze_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 56), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"blaze_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodBoneStaff",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_bone_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 57), new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"bone_staff\")).getCraftCost()), new Object[] { \" S\", \" G \", \"G \", Character.valueOf('S'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('G'), new ItemStack(ConfigItems.itemWandRod, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusFire",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSFIRE\", new ItemStack(ConfigItems.itemFocusFire), new AspectList().add(Aspect.FIRE, 20).add(Aspect.ENTROPY, 10), new Object[] { \"CQC\", \"Q#Q\", \"CQC\", Character.valueOf('#'), Items.field_151059_bz, Character.valueOf('Q'), Items.field_151128_bU, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusFrost",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSFROST\", new ItemStack(ConfigItems.itemFocusFrost), new AspectList().add(Aspect.WATER, 10).add(Aspect.ORDER, 10).add(Aspect.ENTROPY, 10), new Object[] { \"CQC\", \"Q#Q\", \"CQC\", Character.valueOf('#'), Items.field_151045_i, Character.valueOf('Q'), Items.field_151128_bU, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 2) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusShock",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSSHOCK\", new ItemStack(ConfigItems.itemFocusShock), new AspectList().add(Aspect.AIR, 10).add(Aspect.ORDER, 10).add(Aspect.ENTROPY, 10), new Object[] { \"CQC\", \"Q#Q\", \"CQC\", Character.valueOf('#'), Items.field_151174_bG, Character.valueOf('Q'), Items.field_151128_bU, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusTrade",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSTRADE\", new ItemStack(ConfigItems.itemFocusTrade), new AspectList().add(Aspect.ORDER, 15).add(Aspect.ENTROPY, 15).add(Aspect.EARTH, 10), new Object[] { \"CQE\", \"Q#Q\", \"CQE\", Character.valueOf('#'), new ItemStack(ConfigItems.itemResource, 1, 3), Character.valueOf('Q'), Items.field_151128_bU, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 6), Character.valueOf('E'), new ItemStack(ConfigItems.itemShard, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusExcavation",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSEXCAVATION\", new ItemStack(ConfigItems.itemFocusExcavation), new AspectList().add(Aspect.EARTH, 20).add(Aspect.ENTROPY, 5).add(Aspect.ORDER, 5), new Object[] { \"CQC\", \"Q#Q\", \"CQC\", Character.valueOf('#'), \"gemEmerald\", Character.valueOf('Q'), Items.field_151128_bU, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 3) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusPrimal",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSPRIMAL\", new ItemStack(ConfigItems.itemFocusPrimal), new AspectList().add(Aspect.EARTH, 25).add(Aspect.ENTROPY, 25).add(Aspect.ORDER, 25).add(Aspect.AIR, 25).add(Aspect.FIRE, 25).add(Aspect.WATER, 25), new Object[] { \"CQC\", \"Q#Q\", \"CQC\", Character.valueOf('#'), new ItemStack(ConfigItems.itemResource, 1, 15), Character.valueOf('Q'), Items.field_151128_bU, Character.valueOf('C'), Items.field_151045_i })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusPouch",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"FOCUSPOUCH\", new ItemStack(ConfigItems.itemFocusPouch), new AspectList().add(Aspect.EARTH, 10).add(Aspect.ORDER, 10).add(Aspect.ENTROPY, 10), new Object[] { \"LGL\", \"LBL\", \"LLL\", Character.valueOf('B'), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), Character.valueOf('L'), Items.field_151116_aA, Character.valueOf('G'), Items.field_151043_k })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Deconstructor",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"DECONSTRUCTOR\", new ItemStack(ConfigBlocks.blockTable, 1, 14), new AspectList().add(Aspect.ENTROPY, 20), new Object[] { \" S \", \"ATP\", Character.valueOf('T'), new ItemStack(ConfigBlocks.blockTable, 1, 0), Character.valueOf('S'), new ItemStack(ConfigItems.itemThaumometer), Character.valueOf('P'), new ItemStack(Items.field_151005_D), Character.valueOf('A'), new ItemStack(Items.field_151006_E) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneBoreBase",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ARCANEBORE\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 4), new AspectList().add(Aspect.AIR, 10).add(Aspect.ORDER, 10), new Object[] { \"WIW\", \"IDI\", \"WIW\", Character.valueOf('W'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), Character.valueOf('I'), Items.field_151042_j, Character.valueOf('D'), Blocks.field_150367_z })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "EnchantedFabric",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemResource, 1, 7), new AspectList().add(Aspect.AIR, 1).add(Aspect.EARTH, 1).add(Aspect.FIRE, 1).add(Aspect.WATER, 1).add(Aspect.ORDER, 1).add(Aspect.ENTROPY, 1), new Object[] { \" S \", \"SCS\", \" S \", Character.valueOf('S'), new ItemStack(Items.field_151007_F, 1, 32767), Character.valueOf('C'), new ItemStack(Blocks.field_150325_L, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RobeChest",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemChestRobe, 1), new AspectList().add(Aspect.AIR, 5), new Object[] { \"I I\", \"III\", \"III\", Character.valueOf('I'), new ItemStack(ConfigItems.itemResource, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RobeLegs",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemLegsRobe, 1), new AspectList().add(Aspect.WATER, 5), new Object[] { \"III\", \"I I\", \"I I\", Character.valueOf('I'), new ItemStack(ConfigItems.itemResource, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RobeBoots",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ENCHFABRIC\", new ItemStack(ConfigItems.itemBootsRobe, 1), new AspectList().add(Aspect.EARTH, 3), new Object[] { \"I I\", \"I I\", Character.valueOf('I'), new ItemStack(ConfigItems.itemResource, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Goggles",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"GOGGLES\", new ItemStack(ConfigItems.itemGoggles), new AspectList().add(Aspect.AIR, 5).add(Aspect.FIRE, 5).add(Aspect.WATER, 5).add(Aspect.EARTH, 5).add(Aspect.ENTROPY, 3).add(Aspect.ORDER, 3), new Object[] { \"LGL\", \"L L\", \"TGT\", Character.valueOf('T'), ConfigItems.itemThaumometer, Character.valueOf('G'), Items.field_151043_k, Character.valueOf('L'), Items.field_151116_aA })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "HungryChest",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"HUNGRYCHEST\", new ItemStack(ConfigBlocks.blockChestHungry), new AspectList().add(Aspect.AIR, 5).add(Aspect.ORDER, 3).add(Aspect.ENTROPY, 3), new Object[] { \"WTW\", \"W W\", \"WWW\", Character.valueOf('W'), \"plankWood\", Character.valueOf('T'), Blocks.field_150415_aT })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "GolemBell",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"GOLEMBELL\", new ItemStack(ConfigItems.itemGolemBell), new AspectList().add(Aspect.ORDER, 5), new Object[] { \" QQ\", \" QQ\", \"S \", Character.valueOf('S'), \"stickWood\", Character.valueOf('Q'), Items.field_151128_bU })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "CoreBlank",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"COREGATHER\", new ItemStack(ConfigItems.itemGolemCore, 1, 100), new AspectList().add(Aspect.ORDER, 5).add(Aspect.FIRE, 5), new Object[] { \" C \", \"CNC\", \" C \", Character.valueOf('C'), Items.field_151118_aC, Character.valueOf('N'), new ItemStack(ConfigItems.itemResource, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "UpgradeAir",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEAIR\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 0), new AspectList().add(Aspect.AIR, 10), new Object[] { \"NNN\", \"NCN\", \"NNN\", Character.valueOf('N'), Items.field_151074_bl, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "UpgradeEarth",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEEARTH\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 1), new AspectList().add(Aspect.EARTH, 10), new Object[] { \"NNN\", \"NCN\", \"NNN\", Character.valueOf('N'), Items.field_151074_bl, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 3) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "UpgradeFire",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEFIRE\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 2), new AspectList().add(Aspect.FIRE, 10), new Object[] { \"NNN\", \"NCN\", \"NNN\", Character.valueOf('N'), Items.field_151074_bl, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "UpgradeWater",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEWATER\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 3), new AspectList().add(Aspect.WATER, 10), new Object[] { \"NNN\", \"NCN\", \"NNN\", Character.valueOf('N'), Items.field_151074_bl, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 2) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "UpgradeOrder",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEORDER\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 4), new AspectList().add(Aspect.ORDER, 10), new Object[] { \"NNN\", \"NCN\", \"NNN\", Character.valueOf('N'), Items.field_151074_bl, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 4) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "UpgradeEntropy",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"UPGRADEENTROPY\", new ItemStack(ConfigItems.itemGolemUpgrade, 1, 5), new AspectList().add(Aspect.ENTROPY, 10), new Object[] { \"NNN\", \"NCN\", \"NNN\", Character.valueOf('N'), Items.field_151074_bl, Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 5) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyHat",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYHAT\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 0), new AspectList().add(Aspect.ORDER, 8).add(Aspect.FIRE, 8), new Object[] { \" C \", \" G \", \"CCC\", Character.valueOf('C'), new ItemStack(Blocks.field_150325_L, 1, 15), Character.valueOf('G'), Items.field_151043_k })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyFez",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYFEZ\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 3), new AspectList().add(Aspect.WATER, 4).add(Aspect.EARTH, 4), new Object[] { \"CCS\", \"CCS\", \" S\", Character.valueOf('C'), new ItemStack(Blocks.field_150325_L, 1, 14), Character.valueOf('S'), Items.field_151007_F })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyBowtie",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYBOWTIE\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 2), new AspectList().add(Aspect.AIR, 4).add(Aspect.ORDER, 4), new Object[] { \"CSC\", \"C C\", Character.valueOf('C'), new ItemStack(Blocks.field_150325_L, 1, 15), Character.valueOf('S'), Items.field_151007_F })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyGlasses",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYGLASSES\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 1), new AspectList().add(Aspect.AIR, 4).add(Aspect.WATER, 4), new Object[] { \"GIG\", Character.valueOf('G'), Blocks.field_150359_w, Character.valueOf('I'), Items.field_151042_j })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyDart",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYDART\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 4), new AspectList().add(Aspect.AIR, 4).add(Aspect.FIRE, 4), new Object[] { \"AIA\", \"ADA\", \"AIA\", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('D'), Blocks.field_150367_z, Character.valueOf('A'), Items.field_151032_g })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyVisor",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYVISOR\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 5), new AspectList().add(Aspect.EARTH, 4).add(Aspect.WATER, 4), new Object[] { \"IHI\", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('H'), new ItemStack(Items.field_151028_Y, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyArmor",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYARMOR\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 6), new AspectList().add(Aspect.EARTH, 8), new Object[] { \"I I\", \"IAI\", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('A'), new ItemStack(Items.field_151030_Z, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TinyHammer",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TINYHAMMER\", new ItemStack(ConfigItems.itemGolemDecoration, 1, 7), new AspectList().add(Aspect.EARTH, 4).add(Aspect.FIRE, 4), new Object[] { \"III\", \"III\", \" I \", Character.valueOf('I'), Items.field_151042_j })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Filter",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigItems.itemResource, 2, 8), new AspectList().add(Aspect.ORDER, 5).add(Aspect.WATER, 5), new Object[] { \"GWG\", Character.valueOf('G'), Items.field_151043_k, Character.valueOf('W'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "AlchemyFurnace",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 0), new AspectList().add(Aspect.FIRE, 5).add(Aspect.WATER, 5), new Object[] { \"SCS\", \"SFS\", \"SSS\", Character.valueOf('C'), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 0), Character.valueOf('F'), Blocks.field_150460_al, Character.valueOf('S'), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Alembic",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1), new AspectList().add(Aspect.AIR, 5).add(Aspect.WATER, 5), new Object[] { \"FIG\", \"IBI\", \"I I\", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('B'), Items.field_151133_ar, Character.valueOf('G'), Items.field_151043_k, Character.valueOf('F'), new ItemStack(ConfigItems.itemResource, 1, 8), Character.valueOf('L'), new ItemStack(ConfigBlocks.blockMagicalLeaves, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Bellows",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"BELLOWS\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 0), new AspectList().add(Aspect.AIR, 10).add(Aspect.ORDER, 5), new Object[] { \"WW \", \"LCI\", \"WW \", Character.valueOf('W'), \"plankWood\", Character.valueOf('C'), new ItemStack(ConfigItems.itemShard, 1, 0), Character.valueOf('I'), Items.field_151042_j, Character.valueOf('L'), Items.field_151116_aA })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Tube",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TUBES\", new ItemStack(ConfigBlocks.blockTube, 8, 0), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { \" Q \", \"IGI\", \" B \", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('B'), Items.field_151074_bl, Character.valueOf('G'), Blocks.field_150359_w, Character.valueOf('Q'), new ItemStack(ConfigItems.itemNugget, 1, 5) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Resonator",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"TUBES\", new ItemStack(ConfigItems.itemResonator), new AspectList().add(Aspect.WATER, 5).add(Aspect.AIR, 5), new Object[] { \"I I\", \"INI\", \" S \", Character.valueOf('I'), Items.field_151042_j, Character.valueOf('N'), Items.field_151128_bU, Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TubeValve",
+    "expr_prefix": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBES\", new ItemStack(ConfigBlocks.blockTube, 1, 1), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { new ItemStack(ConfigBlocks.blockTube, 1, 0), new ItemStack(Blocks.field_150442_at) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TubeFilter",
+    "expr_prefix": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 3), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 16), new Object[] { new ItemStack(ConfigBlocks.blockTube, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 8) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TubeRestrict",
+    "expr_prefix": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 5), new AspectList().add(Aspect.WATER, 5).add(Aspect.EARTH, 16), new Object[] { new ItemStack(ConfigBlocks.blockTube, 1, 0), \"stone\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TubeOneway",
+    "expr_prefix": "ThaumcraftApi.addShapelessArcaneCraftingRecipe(\"TUBEFILTER\", new ItemStack(ConfigBlocks.blockTube, 1, 6), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8), new Object[] { new ItemStack(ConfigBlocks.blockTube, 1, 0), \"dyeBlue\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TubeBuffer",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CENTRIFUGE\", new ItemStack(ConfigBlocks.blockTube, 1, 4), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { \"PVP\", \"T T\", \"PRP\", Character.valueOf('T'), new ItemStack(ConfigBlocks.blockTube, 1, 0), Character.valueOf('V'), new ItemStack(ConfigBlocks.blockTube, 1, 1), Character.valueOf('R'), new ItemStack(ConfigBlocks.blockTube, 1, 5), Character.valueOf('P'), new ItemStack(ConfigItems.itemEssence, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "AlchemicalConstruct",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"DISTILESSENTIA\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { \"VTF\", \"TWT\", \"FTV\", Character.valueOf('W'), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), Character.valueOf('V'), new ItemStack(ConfigBlocks.blockTube, 1, 1), Character.valueOf('T'), new ItemStack(ConfigBlocks.blockTube, 1, 0), Character.valueOf('F'), new ItemStack(ConfigItems.itemResource, 1, 8) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "AdvAlchemyConstruct",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ADVALCHEMYFURNACE\", new ItemStack(ConfigBlocks.blockMetalDevice, 4, 3), new AspectList().add(Aspect.WATER, 10).add(Aspect.ORDER, 30).add(Aspect.EARTH, 10), new Object[] { \"VAV\", \"APA\", \"VAV\", Character.valueOf('A'), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), Character.valueOf('V'), new ItemStack(ConfigItems.itemResource, 1, 16), Character.valueOf('P'), new ItemStack(ConfigItems.itemEldritchObject, 1, 3) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Centrifuge",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"CENTRIFUGE\", new ItemStack(ConfigBlocks.blockTube, 1, 2), new AspectList().add(Aspect.WATER, 5).add(Aspect.ORDER, 5).add(Aspect.ENTROPY, 5), new Object[] { \" T \", \"ACP\", \" T \", Character.valueOf('T'), new ItemStack(ConfigBlocks.blockTube, 1, 0), Character.valueOf('P'), new ItemStack(Blocks.field_150331_J), Character.valueOf('A'), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1), Character.valueOf('C'), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "EssentiaCrystalizer",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"ESSENTIACRYSTAL\", new ItemStack(ConfigBlocks.blockTube, 1, 7), new AspectList().add(Aspect.WATER, 5).add(Aspect.EARTH, 15).add(Aspect.ORDER, 5), new Object[] { \"IDI\", \"QCQ\", \"WTW\", Character.valueOf('T'), new ItemStack(ConfigBlocks.blockTube, 1, 0), Character.valueOf('D'), new ItemStack(Blocks.field_150367_z), Character.valueOf('Q'), new ItemStack(ConfigItems.itemShard, 1, 6), Character.valueOf('I'), \"ingotIron\", Character.valueOf('W'), \"plankWood\", Charact",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MnemonicMatrix",
+    "expr_prefix": "ThaumcraftApi.addArcaneCraftingRecipe(\"THAUMATORIUM\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 12), new AspectList().add(Aspect.FIRE, 5).add(Aspect.WATER, 5).add(Aspect.ORDER, 5), new Object[] { \"IAI\", \"ABA\", \"IAI\", Character.valueOf('B'), new ItemStack(ConfigItems.itemZombieBrain), Character.valueOf('A'), new ItemStack(ConfigItems.itemResource, 1, 6), Character.valueOf('I'), new ItemStack(Items.field_151042_j) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnchRepair",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77331_b[ThaumcraftApi.enchantRepair], 4, new AspectList().add(Aspect.MAGIC, 8).add(Aspect.CRAFT, 10).add(Aspect.ORDER, 10), new ItemStack[] { new ItemStack(Blocks.field_150467_bQ), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnchHaste",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77331_b[ThaumcraftApi.enchantHaste], 3, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.TRAVEL, 8).add(Aspect.FLIGHT, 8), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch0",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77332_c, 1, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.ARMOR, 8), new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch1",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77329_d, 1, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.ARMOR, 4).add(Aspect.FIRE, 4), new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151064_bs), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch2",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77327_f, 1, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.ARMOR, 4).add(Aspect.ENTROPY, 4), new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151016_H), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch3",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77328_g, 1, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.ARMOR, 4).add(Aspect.FLIGHT, 4), new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch4",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77330_e, 1, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.AIR, 4).add(Aspect.FLIGHT, 4), new ItemStack[] { new ItemStack(Items.field_151008_G), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch5",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77340_h, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.AIR, 8).add(Aspect.WATER, 8), new ItemStack[] { new ItemStack(Items.field_151120_aE), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch6",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77341_i, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.MOTION, 8).add(Aspect.WATER, 8), new ItemStack[] { new ItemStack(Items.field_151120_aE), new ItemStack(Items.field_151123_aH), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch7",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_92091_k, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 8).add(Aspect.PLANT, 8), new ItemStack[] { new ItemStack(Blocks.field_150330_I), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch8",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77338_j, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 8), new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch9",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77339_k, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.UNDEAD, 4), new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(Items.field_151114_aO), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch10",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77336_l, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.BEAST, 4), new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch11",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77337_m, 1, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 3).add(Aspect.MOTION, 3), new ItemStack[] { new ItemStack(Blocks.field_150331_J), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch12",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77334_n, 3, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.FIRE, 8), new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(Items.field_151065_br), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch13",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77335_o, 3, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.GREED, 8), new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch14",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77349_p, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.TOOL, 4).add(Aspect.ORDER, 4), new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch15",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77348_q, 5, new AspectList().add(Aspect.MAGIC, 16).add(Aspect.TOOL, 16).add(Aspect.ORDER, 16).add(Aspect.HARVEST, 16).add(Aspect.MINE, 16), new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(Blocks.field_150321_G), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch16",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77347_r, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.TOOL, 4).add(Aspect.ORDER, 8), new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(Blocks.field_150343_Z), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch17",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77346_s, 3, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.TOOL, 4).add(Aspect.GREED, 8), new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch18",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77345_t, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 8), new ItemStack[] { new ItemStack(Items.field_151031_f), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch19",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77344_u, 2, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 3).add(Aspect.MOTION, 3), new ItemStack[] { new ItemStack(Blocks.field_150331_J), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch20",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77343_v, 3, new AspectList().add(Aspect.MAGIC, 4).add(Aspect.WEAPON, 4).add(Aspect.FIRE, 8), new ItemStack[] { new ItemStack(Items.field_151031_f), new ItemStack(Items.field_151065_br), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "InfEnch21",
+    "expr_prefix": "ThaumcraftApi.addInfusionEnchantmentRecipe(\"INFUSIONENCHANTMENT\", Enchantment.field_77342_w, 5, new AspectList().add(Aspect.MAGIC, 8).add(Aspect.WEAPON, 16).add(Aspect.VOID, 16).add(Aspect.EXCHANGE, 16), new ItemStack[] { new ItemStack(Items.field_151031_f), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapSilver",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_silver\", new ItemStack(ConfigItems.itemWandCap, 1, 4), 4, new AspectList().add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"silver\")).getCraftCost()), new ItemStack(ConfigItems.itemWandCap, 1, 5), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapThaumium",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_thaumium\", new ItemStack(ConfigItems.itemWandCap, 1, 2), 5, new AspectList().add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"thaumium\")).getCraftCost()), new ItemStack(ConfigItems.itemWandCap, 1, 6), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14), new ItemStack(ConfigItems.itemResource, 1, 14) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapVoid",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"CAP_void\", new ItemStack(ConfigItems.itemWandCap, 1, 7), 8, new AspectList().add(Aspect.ENERGY, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.VOID, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.ELDRITCH, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2).add(Aspect.AURA, ((WandCap)WandCap.caps.get(\"void\")).getCraftCost() * 2), new ItemStack(ConfigItems.itemWandCap, 1, 8), new ItemStack[] { new ItemStack(Confi",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodObsidian",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_obsidian\", new ItemStack(ConfigItems.itemWandRod, 1, 1), 3, new AspectList().add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"obsidian\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"obsidian\")).getCraftCost()).add(Aspect.DARKNESS, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150343_Z), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 3) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodIce",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_ice\", new ItemStack(ConfigItems.itemWandRod, 1, 3), 3, new AspectList().add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"ice\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"ice\")).getCraftCost()).add(Aspect.COLD, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150432_aD), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 2) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodQuartz",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_quartz\", new ItemStack(ConfigItems.itemWandRod, 1, 4), 3, new AspectList().add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"quartz\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"quartz\")).getCraftCost()).add(Aspect.CRYSTAL, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Blocks.field_150371_ca), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 4) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodReed",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_reed\", new ItemStack(ConfigItems.itemWandRod, 1, 5), 3, new AspectList().add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"reed\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"reed\")).getCraftCost()).add(Aspect.MOTION, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151120_aE), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodBlaze",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_blaze\", new ItemStack(ConfigItems.itemWandRod, 1, 6), 3, new AspectList().add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()).add(Aspect.BEAST, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151072_bj), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodBone",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_bone\", new ItemStack(ConfigItems.itemWandRod, 1, 7), 3, new AspectList().add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"bone\")).getCraftCost() * 2).add(Aspect.MAGIC, ((WandRod)WandRod.rods.get(\"bone\")).getCraftCost()).add(Aspect.UNDEAD, ((WandRod)WandRod.rods.get(\"blaze\")).getCraftCost()), new ItemStack(Items.field_151103_aS), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 5) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodSilverwood",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_silverwood\", new ItemStack(ConfigItems.itemWandRod, 1, 2), 5, new AspectList().add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"silverwood\")).getCraftCost())",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandRodPrimalStaff",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ROD_primal_staff\", new ItemStack(ConfigItems.itemWandRod, 1, 100), 8, new AspectList().add(Aspect.AIR, ((WandRod)WandRod.rods.get(\"primal_staff\")).getCraftCost()).add(Aspect.FIRE, ((WandRod)WandRod.rods.get(\"primal_staff\")).getCraftCost()).add(Aspect.WATER, ((WandRod)WandRod.rods.get(\"primal_staff\")).getCraftCost()).add(Aspect.EARTH, ((WandRod)WandRod.rods.get(\"primal_staff\")).getCraftCost()).add(Aspect.ORDER, ((WandRod)WandRod.rods.get(\"primal_staff\")).g",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusHellbat",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"FOCUSHELLBAT\", new ItemStack(ConfigItems.itemFocusHellbat), 3, new AspectList().add(Aspect.FIRE, 25).add(Aspect.AIR, 15).add(Aspect.BEAST, 15).add(Aspect.ENTROPY, 25), new ItemStack(Items.field_151064_bs), new ItemStack[] { new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemSha",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusPortableHole",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"FOCUSPORTABLEHOLE\", new ItemStack(ConfigItems.itemFocusPortableHole), 3, new AspectList().add(Aspect.TRAVEL, 25).add(Aspect.ELDRITCH, 10).add(Aspect.EXCHANGE, 10).add(Aspect.ENTROPY, 25), new ItemStack(Items.field_151079_bi), new ItemStack[] { new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151128_bU), new ItemStack",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "FocusWarding",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"FOCUSWARDING\", new ItemStack(ConfigItems.itemFocusWarding), 4, new AspectList().add(Aspect.EARTH, 25).add(Aspect.ARMOR, 25).add(Aspect.ORDER, 25).add(Aspect.MIND, 10), new ItemStack(Items.field_151156_bN), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemResource, 1, 3), new ItemStack(C",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandPed",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"WANDPED\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 5), 3, new AspectList().add(Aspect.AURA, 10).add(Aspect.MAGIC, 15).add(Aspect.EXCHANGE, 15), new ItemStack(ConfigBlocks.blockStoneDevice, 1, 1), new ItemStack[] { new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(Items.field_151045_i) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandPedFocus",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"WANDPEDFOC\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 8), 4, new AspectList().add(Aspect.ORDER, 10).add(Aspect.MAGIC, 15).add(Aspect.EXCHANGE, 10), new ItemStack(Items.field_151132_bS), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemResource, 1, 8), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigIt",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "NodeStabilizerAdv",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"NODESTABILIZERADV\", new ItemStack(ConfigBlocks.blockStoneDevice, 1, 10), 10, new AspectList().add(Aspect.AURA, 32).add(Aspect.MAGIC, 16).add(Aspect.ORDER, 16).add(Aspect.ENERGY, 16), new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(Blocks.field_150451_bX), new ItemStack(ConfigItems.itemResource, 1, 0), new ItemStack(Blocks.field_150451_bX), new ItemStack(ConfigItems.itemReso",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "JarBrain",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"JARBRAIN\", new ItemStack(ConfigBlocks.blockJar, 1, 1), 4, new AspectList().add(Aspect.MIND, 10).add(Aspect.SENSES, 10).add(Aspect.UNDEAD, 20), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack[] { new ItemStack(ConfigItems.itemZombieBrain), new ItemStack(Items.field_151070_bp), new ItemStack(Items.field_151131_as), new ItemStack(Items.field_151070_bp) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "AdvancedGolem",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ADVANCEDGOLEM\", new Object[] { \"advanced\", new NBTTagByte(1) }, 3, new AspectList().add(Aspect.MIND, 8).add(Aspect.SENSES, 8).add(Aspect.LIFE, 8), new ItemStack(ConfigItems.itemGolemPlacer, 1, 32767), new ItemStack[] { new ItemStack(Items.field_151137_ax), new ItemStack(Items.field_151114_aO), new ItemStack(Items.field_151016_H), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigItems.itemZombieBrain) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "HoverHarness",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"HOVERHARNESS\", new ItemStack(ConfigItems.itemHoverHarness), 6, new AspectList().add(Aspect.FLIGHT, 32).add(Aspect.ENERGY, 32).add(Aspect.MECHANISM, 32).add(Aspect.TRAVEL, 16), new ItemStack(Items.field_151027_R), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(Items.field_151132_b",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "HoverGirdle",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"HOVERGIRDLE\", new ItemStack(ConfigItems.itemGirdleHover), 8, new AspectList().add(Aspect.FLIGHT, 16).add(Aspect.ENERGY, 32).add(Aspect.AIR, 32).add(Aspect.TRAVEL, 16), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151008_G), new ItemStack(Items.field_151043_k), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151008_G), new ItemStack(Items.fie",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VisAmulet",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"VISAMULET\", new ItemStack(ConfigItems.itemAmuletVis, 1, 1), 6, new AspectList().add(Aspect.AURA, 24).add(Aspect.ENERGY, 64).add(Aspect.MAGIC, 64).add(Aspect.VOID, 24), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigBlocks.blockCrystal, 1, 6), new ItemStack(ConfigBlocks.blockCrystal, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigBlocks.blo",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicAmulet",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICARMOR\", new ItemStack(ConfigItems.itemAmuletRunic, 1, 0), 4, new AspectList().add(Aspect.ARMOR, 20).add(Aspect.MAGIC, 35).add(Aspect.ENERGY, 35), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 1), new",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicAmuletEmergency",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICEMERGENCY\", new ItemStack(ConfigItems.itemAmuletRunic, 1, 1), 7, new AspectList().add(Aspect.ARMOR, 20).add(Aspect.MAGIC, 35).add(Aspect.EARTH, 32).add(Aspect.VOID, 32), new ItemStack(ConfigItems.itemAmuletRunic, 1, 0), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151068_bn, 1, 8233), new ItemStack(ConfigItems.itemShard, ",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicRing",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICARMOR\", new ItemStack(ConfigItems.itemRingRunic, 1, 1), 3, new AspectList().add(Aspect.ARMOR, 10).add(Aspect.MAGIC, 25).add(Aspect.ENERGY, 25), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemInkwell) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicRingCharged",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICCHARGED\", new ItemStack(ConfigItems.itemRingRunic, 1, 2), 6, new AspectList().add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 16).add(Aspect.ENERGY, 64), new ItemStack(ConfigItems.itemRingRunic, 1, 1), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151068_bn, 1, 8226), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Confi",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicRingHealing",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICHEALING\", new ItemStack(ConfigItems.itemRingRunic, 1, 3), 6, new AspectList().add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 16).add(Aspect.WATER, 32).add(Aspect.HEAL, 32), new ItemStack(ConfigItems.itemRingRunic, 1, 1), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(Items.field_151068_bn, 1, 8257), new ItemStack(ConfigItems.itemShard, 1, 2),",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicGirdle",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICARMOR\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), 4, new AspectList().add(Aspect.ARMOR, 30).add(Aspect.MAGIC, 50).add(Aspect.ENERGY, 50), new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 1), new",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicGirdleKinetic",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICKINETIC\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 1), 7, new AspectList().add(Aspect.ARMOR, 33).add(Aspect.MAGIC, 55).add(Aspect.AIR, 64), new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151068_bn, 1, 16428), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Con",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "RunicGirdleKinetic_2",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"RUNICKINETIC\", new ItemStack(ConfigItems.itemGirdleRunic, 1, 1), 7, new AspectList().add(Aspect.ARMOR, 33).add(Aspect.MAGIC, 55).add(Aspect.AIR, 64), new ItemStack(ConfigItems.itemGirdleRunic, 1, 0), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 6), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151068_bn, 1, 24620), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Con",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Mirror",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"MIRROR\", new ItemStack(ConfigBlocks.blockMirror, 1, 0), 1, new AspectList().add(Aspect.TRAVEL, 8).add(Aspect.DARKNESS, 8).add(Aspect.EXCHANGE, 8), new ItemStack(ConfigItems.itemResource, 1, 10), new ItemStack[] { new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151079_bi) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MirrorHand",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"MIRRORHAND\", new ItemStack(ConfigItems.itemHandMirror), 5, new AspectList().add(Aspect.TOOL, 16).add(Aspect.TRAVEL, 16), new ItemStack(ConfigBlocks.blockMirror, 1, 0), new ItemStack[] { new ItemStack(Items.field_151055_y), new ItemStack(Items.field_151111_aL), new ItemStack(Items.field_151148_bJ) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MirrorEssentia",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"MIRRORESSENTIA\", new ItemStack(ConfigBlocks.blockMirror, 1, 6), 2, new AspectList().add(Aspect.TRAVEL, 8).add(Aspect.WATER, 8).add(Aspect.EXCHANGE, 8), new ItemStack(ConfigItems.itemResource, 1, 10), new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151079_bi) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ElementalAxe",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALAXE\", new ItemStack(ConfigItems.itemAxeElemental), 1, new AspectList().add(Aspect.WATER, 16).add(Aspect.TREE, 8), new ItemStack(ConfigItems.itemAxeThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ElementalPick",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALPICK\", new ItemStack(ConfigItems.itemPickElemental), 1, new AspectList().add(Aspect.FIRE, 8).add(Aspect.MINE, 8).add(Aspect.SENSES, 8), new ItemStack(ConfigItems.itemPickThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ElementalSword",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALSWORD\", new ItemStack(ConfigItems.itemSwordElemental), 1, new AspectList().add(Aspect.AIR, 8).add(Aspect.MOTION, 8).add(Aspect.ENERGY, 8), new ItemStack(ConfigItems.itemSwordThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ElementalShovel",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALSHOVEL\", new ItemStack(ConfigItems.itemShovelElemental), 1, new AspectList().add(Aspect.EARTH, 16).add(Aspect.CRAFT, 8), new ItemStack(ConfigItems.itemShovelThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ElementalHoe",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ELEMENTALHOE\", new ItemStack(ConfigItems.itemHoeElemental), 1, new AspectList().add(Aspect.HARVEST, 8).add(Aspect.PLANT, 8).add(Aspect.EARTH, 8), new ItemStack(ConfigItems.itemHoeThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemShard, 1, 5), new ItemStack(Items.field_151045_i), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "BootsTraveller",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"BOOTSTRAVELLER\", new ItemStack(ConfigItems.itemBootsTraveller), 1, new AspectList().add(Aspect.FLIGHT, 25).add(Aspect.TRAVEL, 25), new ItemStack(Items.field_151021_T), new ItemStack[] { new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Items.field_151008_G), new ItemStack(Items.field_151115_aP, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "CoreAlchemy",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"COREALCHEMY\", new ItemStack(ConfigItems.itemGolemCore, 1, 6), 2, new AspectList().add(Aspect.MAGIC, 15).add(Aspect.WATER, 15).add(Aspect.MOTION, 15), new ItemStack(ConfigItems.itemGolemCore, 1, 5), new ItemStack[] { new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(Items.field_151068_bn), new ItemStack(Items.field_151068_bn), new ItemStack(Items.field_151068_bn) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "CoreSorting",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"CORESORTING\", new ItemStack(ConfigItems.itemGolemCore, 1, 10), 3, new AspectList().add(Aspect.VOID, 16).add(Aspect.EXCHANGE, 16).add(Aspect.HUNGER, 16).add(Aspect.GREED, 16), new ItemStack(ConfigItems.itemZombieBrain), new ItemStack[] { new ItemStack(ConfigItems.itemGolemCore, 1, 0), new ItemStack(Items.field_151132_bS), new ItemStack(ConfigItems.itemGolemCore, 1, 1), new ItemStack(Items.field_151121_aF) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "CoreLumber",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"CORELUMBER\", new ItemStack(ConfigItems.itemGolemCore, 1, 7), 2, new AspectList().add(Aspect.TOOL, 16).add(Aspect.TREE, 16).add(Aspect.HARVEST, 16), new ItemStack(ConfigItems.itemGolemCore, 1, 3), new ItemStack[] { new ItemStack(ConfigItems.itemAxeElemental), new ItemStack(Items.field_151036_c), new ItemStack(Items.field_151036_c), new ItemStack(Items.field_151036_c) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "CoreFishing",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"COREFISHING\", new ItemStack(ConfigItems.itemGolemCore, 1, 11), 3, new AspectList().add(Aspect.WATER, 16).add(Aspect.HARVEST, 16).add(Aspect.BEAST, 16), new ItemStack(ConfigItems.itemGolemCore, 1, 3), new ItemStack[] { new ItemStack(Items.field_151112_aM), new ItemStack(Items.field_151115_aP, 1, 0), new ItemStack(Items.field_151115_aP, 1, 3), new ItemStack(Items.field_151115_aP, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "CoreUse",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"COREUSE\", new ItemStack(ConfigItems.itemGolemCore, 1, 8), 3, new AspectList().add(Aspect.TOOL, 20).add(Aspect.MECHANISM, 20).add(Aspect.MAN, 20), new ItemStack(ConfigItems.itemGolemCore, 1, 1), new ItemStack[] { new ItemStack(Items.field_151132_bS), new ItemStack(Items.field_151033_d), new ItemStack(Items.field_151097_aZ), new ItemStack(Blocks.field_150442_at) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ArcaneBore",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARCANEBORE\", new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 5), 4, new AspectList().add(Aspect.ENERGY, 16).add(Aspect.MINE, 32).add(Aspect.MECHANISM, 32).add(Aspect.VOID, 16).add(Aspect.MOTION, 16), new ItemStack(Blocks.field_150331_J), new ItemStack[] { new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151043_k), new ItemStack(Items.fi",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TravelTrunk",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"TRAVELTRUNK\", new ItemStack(ConfigItems.itemTrunkSpawner), 3, new AspectList().add(Aspect.MOTION, 4).add(Aspect.SOUL, 4).add(Aspect.TRAVEL, 4).add(Aspect.VOID, 16), new ItemStack(ConfigBlocks.blockChestHungry), new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigItems.itemGolemPlacer, 1, 1), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "LampGrowth",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"LAMPGROWTH\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 8), 4, new AspectList().add(Aspect.PLANT, 16).add(Aspect.LIGHT, 8).add(Aspect.LIFE, 16), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7), new ItemStack[] { new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151100_aR, 1, 15), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151100_aR, 1, 15), new ItemStack(ConfigItems.itemS",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "LampFertility",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"LAMPFERTILITY\", new ItemStack(ConfigBlocks.blockMetalDevice, 1, 13), 4, new AspectList().add(Aspect.BEAST, 16).add(Aspect.LIFE, 16).add(Aspect.LIGHT, 8), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7), new ItemStack[] { new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151015_O), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151172_bF), new ItemStack(ConfigItems.itemShard, 1, 1)",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumFortressHelm",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORFORTRESS\", new ItemStack(ConfigItems.itemHelmetFortress), 3, new AspectList().add(Aspect.METAL, 24).add(Aspect.ARMOR, 16).add(Aspect.MAGIC, 16), new ItemStack(ConfigItems.itemHelmetThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151166_bC) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumFortressChest",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORFORTRESS\", new ItemStack(ConfigItems.itemChestFortress), 3, new AspectList().add(Aspect.METAL, 24).add(Aspect.ARMOR, 24).add(Aspect.MAGIC, 16), new ItemStack(ConfigItems.itemChestThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151043_k), new ItemStack(Items.f",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumFortressLegs",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORFORTRESS\", new ItemStack(ConfigItems.itemLegsFortress), 3, new AspectList().add(Aspect.METAL, 24).add(Aspect.ARMOR, 20).add(Aspect.MAGIC, 16), new ItemStack(ConfigItems.itemLegsThaumium), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(Items.field_151043_k), new ItemStack(Items.field_151116_aA) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidRobeHelm",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORVOIDFORTRESS\", new ItemStack(ConfigItems.itemHelmetVoidRobe), 6, new AspectList().add(Aspect.METAL, 16).add(Aspect.SENSES, 16).add(Aspect.ARMOR, 16).add(Aspect.CLOTH, 16).add(Aspect.MAGIC, 16).add(Aspect.ELDRITCH, 16).add(Aspect.VOID, 16), new ItemStack(ConfigItems.itemHelmetVoid), new ItemStack[] { new ItemStack(ConfigItems.itemGoggles), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(ConfigItems.itemResource, 1, 7), new ItemStack(Confi",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidRobeChest",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORVOIDFORTRESS\", new ItemStack(ConfigItems.itemChestVoidRobe), 6, new AspectList().add(Aspect.METAL, 24).add(Aspect.ARMOR, 24).add(Aspect.CLOTH, 24).add(Aspect.MAGIC, 16).add(Aspect.ELDRITCH, 16).add(Aspect.VOID, 24), new ItemStack(ConfigItems.itemChestVoid), new ItemStack[] { new ItemStack(ConfigItems.itemChestRobe), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidRobeLegs",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ARMORVOIDFORTRESS\", new ItemStack(ConfigItems.itemLegsVoidRobe), 6, new AspectList().add(Aspect.METAL, 20).add(Aspect.ARMOR, 20).add(Aspect.CLOTH, 20).add(Aspect.MAGIC, 16).add(Aspect.ELDRITCH, 16).add(Aspect.VOID, 20), new ItemStack(ConfigItems.itemLegsVoid), new ItemStack[] { new ItemStack(ConfigItems.itemLegsRobe), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigItems.itemResource, 1, 2), new ItemStack(ConfigItems.itemResource, 1, 1",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "HelmGoggles",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"HELMGOGGLES\", new Object[] { \"goggles\", new NBTTagByte(1) }, 5, new AspectList().add(Aspect.SENSES, 32).add(Aspect.AURA, 16).add(Aspect.ARMOR, 16), new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767), new ItemStack[] { new ItemStack(Items.field_151123_aH), new ItemStack(ConfigItems.itemGoggles, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MaskGrinningDevil",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"MASKGRINNINGDEVIL\", new Object[] { \"mask\", new NBTTagInt(0) }, 8, new AspectList().add(Aspect.MIND, 64).add(Aspect.HEAL, 64).add(Aspect.ARMOR, 16), new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767), new ItemStack[] { new ItemStack(Items.field_151100_aR, 1, 0), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151116_aA), new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2), new ItemStack(ConfigItems.itemZombieBrain), new ItemStack(Items.f",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MaskAngryGhost",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"MASKANGRYGHOST\", new Object[] { \"mask\", new NBTTagInt(1) }, 8, new AspectList().add(Aspect.ENTROPY, 64).add(Aspect.DEATH, 64).add(Aspect.ARMOR, 16), new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767), new ItemStack[] { new ItemStack(Items.field_151100_aR, 1, 15), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151116_aA), new ItemStack(Items.field_151170_bI), new ItemStack(Items.field_151144_bL, 1, 1), new ItemStack(Items.field_151042_",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MaskSippingFiend",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"MASKSIPPINGFIEND\", new Object[] { \"mask\", new NBTTagInt(2) }, 8, new AspectList().add(Aspect.UNDEAD, 64).add(Aspect.LIFE, 64).add(Aspect.ARMOR, 16), new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767), new ItemStack[] { new ItemStack(Items.field_151100_aR, 1, 1), new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151116_aA), new ItemStack(Items.field_151073_bk), new ItemStack(Items.field_151117_aB), new ItemStack(Items.field_151042_j) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "SanityCheck",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"SANITYCHECK\", new ItemStack(ConfigItems.itemSanityChecker), 4, new AspectList().add(Aspect.MIND, 24).add(Aspect.SENSES, 24).add(Aspect.ELDRITCH, 8), new ItemStack(ConfigItems.itemThaumometer), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 10), new ItemStack(ConfigItems.itemZombieBrain), new ItemStack(Items.field_151045_i) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "EssentiaReservoir",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"ESSENTIARESERVOIR\", new ItemStack(ConfigBlocks.blockEssentiaReservoir), 6, new AspectList().add(Aspect.WATER, 8).add(Aspect.VOID, 8).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 8), new ItemStack(ConfigBlocks.blockTube, 1, 4), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigBlocks.blockJar, 1, 0), new ItemStack(ConfigItems.itemResource, 1, 16), new ItemStack(ConfigBlocks.blockJ",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "SinStone",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"SINSTONE\", new ItemStack(ConfigItems.itemCompassStone), 5, new AspectList().add(Aspect.SENSES, 8).add(Aspect.DARKNESS, 8).add(Aspect.ELDRITCH, 8).add(Aspect.AURA, 8), new ItemStack(Items.field_151145_ak), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemResource, 1, 9), new ItemStack(ConfigItems.itemShard, 1, 5) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "PrimalCrusher",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"PRIMALCRUSHER\", new ItemStack(ConfigItems.itemPrimalCrusher), 6, new AspectList().add(Aspect.MINE, 24).add(Aspect.TOOL, 24).add(Aspect.ENTROPY, 16).add(Aspect.VOID, 16).add(Aspect.WEAPON, 16).add(Aspect.ELDRITCH, 16).add(Aspect.GREED, 16), new ItemStack(ConfigItems.itemEldritchObject, 1, 3), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 15), new ItemStack(ConfigItems.itemPickVoid, 1, 32767), new ItemStack(ConfigItems.itemShovelVoid, 1, 3276",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "EldritchEye",
+    "expr_prefix": "ThaumcraftApi.addInfusionCraftingRecipe(\"OCULUS\", new ItemStack(ConfigItems.itemEldritchObject), 5, new AspectList().add(Aspect.ELDRITCH, 64).add(Aspect.VOID, 16).add(Aspect.DARKNESS, 16).add(Aspect.TRAVEL, 16), new ItemStack(Items.field_151061_bv), new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 17), new ItemStack(Items.field_151043_k) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MundaneAmulet",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0), new Object[] { \" S \", \"S S\", \" I \", Character.valueOf('S'), new ItemStack(Items.field_151007_F), Character.valueOf('I'), new ItemStack(Items.field_151043_k) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MundaneRing",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1), new Object[] { \" N \", \"N N\", \" N \", Character.valueOf('N'), new ItemStack(Items.field_151074_bl) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "MundaneBelt",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2), new Object[] { \" L \", \"L L\", \" I \", Character.valueOf('L'), new ItemStack(Items.field_151116_aA), Character.valueOf('I'), new ItemStack(Items.field_151043_k) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "JarLabel",
+    "expr_prefix": "shapelessOreDictRecipe(new ItemStack(ConfigItems.itemResource, 4, 13), new Object[] { \"dyeBlack\", Items.field_151123_aH, Items.field_151121_aF, Items.field_151121_aF, Items.field_151121_aF, Items.field_151121_aF })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "JarLabelNull",
+    "expr_prefix": "shapelessOreDictRecipe(new ItemStack(ConfigItems.itemResource, 1, 13), new Object[] { input })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandBasic",
+    "expr_prefix": "oreDictRecipe(basicWand, new Object[] { \" I\", \" S \", \"I \", Character.valueOf('I'), new ItemStack(ConfigItems.itemWandCap, 1, 0), Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "WandCapIron",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemWandCap, 1, 0), new Object[] { \"NNN\", \"N N\", Character.valueOf('N'), \"nuggetIron\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "KnowFrag",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigItems.itemResearchNotes, 1, 42), new Object[] { \"KKK\", \"KKK\", \"KKK\", Character.valueOf('K'), new ItemStack(ConfigItems.itemResource, 1, 9) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "PlankGreatwood",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockWoodenDevice, 4, 6), new Object[] { \"W\", Character.valueOf('W'), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "PlankSilverwood",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockWoodenDevice, 4, 7), new Object[] { \"W\", Character.valueOf('W'), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "BlockFlesh",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockTaint, 1, 2), new Object[] { \"KKK\", \"KKK\", \"KKK\", Character.valueOf('K'), Items.field_151078_bh })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "BlockThaumium",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 4), new Object[] { \"KKK\", \"KKK\", \"KKK\", Character.valueOf('K'), \"ingotThaumium\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "BlockTallow",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5), new Object[] { \"KKK\", \"KKK\", \"KKK\", Character.valueOf('K'), new ItemStack(ConfigItems.itemResource, 1, 4) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Clusters6",
+    "expr_prefix": "shapelessOreDictRecipe(new ItemStack(ConfigBlocks.blockCrystal, 1, 6), new Object[] { new ItemStack(ConfigItems.itemShard, 1, 0), new ItemStack(ConfigItems.itemShard, 1, 1), new ItemStack(ConfigItems.itemShard, 1, 2), new ItemStack(ConfigItems.itemShard, 1, 3), new ItemStack(ConfigItems.itemShard, 1, 4), new ItemStack(ConfigItems.itemShard, 1, 5) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Grate",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockMetalDevice, 1, 5), new Object[] { \"#\", \"T\", Character.valueOf('#'), new ItemStack(Blocks.field_150411_aY), Character.valueOf('T'), new ItemStack(Blocks.field_150415_aT) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Phial",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigItems.itemEssence, 8, 0), new Object[] { \" C \", \"G G\", \" G \", Character.valueOf('G'), Blocks.field_150359_w, Character.valueOf('C'), Items.field_151119_aD })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Table",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigBlocks.blockTable, 1, 0), new Object[] { \"SSS\", \"W W\", Character.valueOf('S'), \"slabWood\", Character.valueOf('W'), \"plankWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Scribe1",
+    "expr_prefix": "shapelessOreDictRecipe(new ItemStack(ConfigItems.itemInkwell), new Object[] { new ItemStack(ConfigItems.itemEssence, 1, 0), Items.field_151008_G, \"dyeBlack\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Scribe2",
+    "expr_prefix": "shapelessOreDictRecipe(new ItemStack(ConfigItems.itemInkwell), new Object[] { Items.field_151069_bo, Items.field_151008_G, \"dyeBlack\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Scribe3",
+    "expr_prefix": "shapelessOreDictRecipe(new ItemStack(ConfigItems.itemInkwell), new Object[] { new ItemStack(ConfigItems.itemInkwell, 1, 32767), \"dyeBlack\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "Thaumometer",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemThaumometer), new Object[] { \" 1 \", \"IGI\", \" 1 \", Character.valueOf('I'), Items.field_151043_k, Character.valueOf('G'), Blocks.field_150359_w, Character.valueOf('1'), new ItemStack(ConfigItems.itemShard, 1, 32767) })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumHelm",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemHelmetThaumium, 1), new Object[] { \"III\", \"I I\", Character.valueOf('I'), \"ingotThaumium\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumChest",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemChestThaumium, 1), new Object[] { \"I I\", \"III\", \"III\", Character.valueOf('I'), \"ingotThaumium\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumLegs",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemLegsThaumium, 1), new Object[] { \"III\", \"I I\", \"I I\", Character.valueOf('I'), \"ingotThaumium\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumBoots",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemBootsThaumium, 1), new Object[] { \"I I\", \"I I\", Character.valueOf('I'), \"ingotThaumium\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumShovel",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemShovelThaumium, 1), new Object[] { \"I\", \"S\", \"S\", Character.valueOf('I'), \"ingotThaumium\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumPick",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemPickThaumium, 1), new Object[] { \"III\", \" S \", \" S \", Character.valueOf('I'), \"ingotThaumium\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumAxe",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemAxeThaumium, 1), new Object[] { \"II\", \"SI\", \"S \", Character.valueOf('I'), \"ingotThaumium\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumHoe",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemHoeThaumium, 1), new Object[] { \"II\", \"S \", \"S \", Character.valueOf('I'), \"ingotThaumium\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "ThaumiumSword",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemSwordThaumium, 1), new Object[] { \"I\", \"I\", \"S\", Character.valueOf('I'), \"ingotThaumium\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidHelm",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemHelmetVoid, 1), new Object[] { \"III\", \"I I\", Character.valueOf('I'), \"ingotVoid\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidChest",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemChestVoid, 1), new Object[] { \"I I\", \"III\", \"III\", Character.valueOf('I'), \"ingotVoid\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidLegs",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemLegsVoid, 1), new Object[] { \"III\", \"I I\", \"I I\", Character.valueOf('I'), \"ingotVoid\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidBoots",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemBootsVoid, 1), new Object[] { \"I I\", \"I I\", Character.valueOf('I'), \"ingotVoid\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidShovel",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemShovelVoid, 1), new Object[] { \"I\", \"S\", \"S\", Character.valueOf('I'), \"ingotVoid\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidPick",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemPickVoid, 1), new Object[] { \"III\", \" S \", \" S \", Character.valueOf('I'), \"ingotVoid\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidAxe",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemAxeVoid, 1), new Object[] { \"II\", \"SI\", \"S \", Character.valueOf('I'), \"ingotVoid\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidHoe",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemHoeVoid, 1), new Object[] { \"II\", \"S \", \"S \", Character.valueOf('I'), \"ingotVoid\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "VoidSword",
+    "expr_prefix": "oreDictRecipe(new ItemStack(ConfigItems.itemSwordVoid, 1), new Object[] { \"I\", \"I\", \"S\", Character.valueOf('I'), \"ingotVoid\", Character.valueOf('S'), \"stickWood\" })",
+    "recipe_type": "IRecipe/Other"
+  },
+  {
+    "key": "TallowCandle",
+    "expr_prefix": "GameRegistry.addShapedRecipe(new ItemStack(ConfigBlocks.blockCandle, 3, 0), new Object[] { \" S \", \" T \", \" T \", Character.valueOf('S'), Items.field_151007_F, Character.valueOf('T'), new ItemStack(ConfigItems.itemResource, 1, 4) })",
+    "recipe_type": "IRecipe/Other"
+  }
+]

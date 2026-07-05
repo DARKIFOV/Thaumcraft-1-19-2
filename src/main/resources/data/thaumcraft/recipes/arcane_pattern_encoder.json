@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IRI",
+    "RCR",
+    "IRI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "thaumcraft:encoded_essentia_pattern"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:arcane_pattern_encoder",
+    "count": 1
+  }
+}

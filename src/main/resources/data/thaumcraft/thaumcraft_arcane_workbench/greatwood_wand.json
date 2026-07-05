@@ -1,0 +1,12 @@
+{
+  "catalyst": "thaumcraft:balanced_shard",
+  "ingredients": [
+    "thaumcraft:greatwood_planks",
+    "thaumcraft:thaumium_nugget"
+  ],
+  "research": "FIRST_STEPS",
+  "result": {
+    "item": "thaumcraft:greatwood_wand",
+    "count": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "catalyst": "minecraft:glass",
+  "ingredients": [
+    "thaumcraft:thaumium_plate",
+    "thaumcraft:thaumium_plate",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:aer_shard"
+  ],
+  "research": "PRIMAL_ASPECTS",
+  "result": {
+    "item": "thaumcraft:goggles_of_revealing",
+    "count": 1
+  }
+}

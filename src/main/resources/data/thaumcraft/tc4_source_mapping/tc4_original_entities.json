@@ -1,0 +1,152 @@
+[
+  {
+    "raw": "EntitySpecialItem.class, \"SpecialItem\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityPermanentItem.class, \"PermanentItem\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityFollowingItem.class, \"FollowItem\", id++, Thaumcraft.instance, 64, 20, false"
+  },
+  {
+    "raw": "EntityAspectOrb.class, \"AspectOrb\", id++, Thaumcraft.instance, 120, 20, true"
+  },
+  {
+    "raw": "EntityFallingTaint.class, \"FallingTaint\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityAlumentum.class, \"Alumentum\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityPrimalOrb.class, \"PrimalOrb\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityFrostShard.class, \"FrostShard\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityDart.class, \"Dart\", id++, Thaumcraft.instance, 64, 20, false"
+  },
+  {
+    "raw": "EntityPrimalArrow.class, \"PrimalArrow\", id++, Thaumcraft.instance, 64, 20, false"
+  },
+  {
+    "raw": "EntityPechBlast.class, \"PechBlast\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityEldritchOrb.class, \"EldritchOrb\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityBottleTaint.class, \"BottleTaint\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityGolemOrb.class, \"GolemOrb\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityShockOrb.class, \"ShockOrb\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityExplosiveOrb.class, \"ExplosiveOrb\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityEmber.class, \"Ember\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityGolemBase.class, \"Golem\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTravelingTrunk.class, \"TravelingTrunk\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityBrainyZombie.class, \"BrainyZombie\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityGiantBrainyZombie.class, \"GiantBrainyZombie\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityWisp.class, \"Wisp\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityFireBat.class, \"Firebat\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityPech.class, \"Pech\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityMindSpider.class, \"MindSpider\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityEldritchGuardian.class, \"EldritchGuardian\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityEldritchWarden.class, \"EldritchWarden\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityCultistKnight.class, \"CultistKnight\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityCultistCleric.class, \"CultistCleric\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityCultistLeader.class, \"CultistLeader\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityCultistPortal.class, \"CultistPortal\", id++, Thaumcraft.instance, 64, 20, false"
+  },
+  {
+    "raw": "EntityEldritchGolem.class, \"EldritchGolem\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityEldritchCrab.class, \"EldritchCrab\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityInhabitedZombie.class, \"InhabitedZombie\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "thaumcraft.common.entities.monster.EntityThaumicSlime.class, \"ThaumSlime\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintSpider.class, \"TaintSpider\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintacle.class, \"Taintacle\", id++, Thaumcraft.instance, 64, 3, false"
+  },
+  {
+    "raw": "EntityTaintacleSmall.class, \"TaintacleTiny\", id++, Thaumcraft.instance, 64, 3, false"
+  },
+  {
+    "raw": "EntityTaintSpore.class, \"TaintSpore\", id++, Thaumcraft.instance, 64, 20, false"
+  },
+  {
+    "raw": "EntityTaintSporeSwarmer.class, \"TaintSwarmer\", id++, Thaumcraft.instance, 64, 20, false"
+  },
+  {
+    "raw": "EntityTaintSwarm.class, \"TaintSwarm\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintChicken.class, \"TaintedChicken\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintCow.class, \"TaintedCow\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintCreeper.class, \"TaintedCreeper\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintPig.class, \"TaintedPig\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintSheep.class, \"TaintedSheep\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintVillager.class, \"TaintedVillager\", id++, Thaumcraft.instance, 64, 3, true"
+  },
+  {
+    "raw": "EntityTaintacleGiant.class, \"TaintacleGiant\", id++, Thaumcraft.instance, 64, 3, false"
+  },
+  {
+    "raw": "EntityItemGrate.class, \"SpecialItemGrate\", id++, Thaumcraft.instance, 64, 20, true"
+  },
+  {
+    "raw": "EntityGolemBobber.class, \"GolemBobber\", id++, Thaumcraft.instance, 64, 64, false"
+  }
+]

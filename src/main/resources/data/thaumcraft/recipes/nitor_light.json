@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "GNG",
+    " G "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "N": {
+      "item": "thaumcraft:nitor"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:nitor_light",
+    "count": 1
+  }
+}

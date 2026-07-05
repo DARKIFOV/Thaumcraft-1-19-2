@@ -1,0 +1,32 @@
+[
+  {
+    "key": "BASICS",
+    "icon": "textures/items/thaumonomiconcheat.png",
+    "background": "textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "THAUMATURGY",
+    "icon": "textures/misc/r_thaumaturgy.png",
+    "background": "textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "ALCHEMY",
+    "icon": "textures/misc/r_crucible.png",
+    "background": "textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "ARTIFICE",
+    "icon": "textures/misc/r_artifice.png",
+    "background": "textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "GOLEMANCY",
+    "icon": "textures/misc/r_golemancy.png",
+    "background": "textures/gui/gui_researchback.png"
+  },
+  {
+    "key": "ELDRITCH",
+    "icon": "textures/misc/r_eldritch.png",
+    "background": "textures/gui/gui_researchbackeldritch.png"
+  }
+]
