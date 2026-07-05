@@ -1,0 +1,23 @@
+{
+  "stage": 98,
+  "base": "Stage 97",
+  "goal": "represent wands as original rod and cap component assemblies",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java",
+    "src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java",
+    "src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java",
+    "src/main/java/com/darkifov/thaumcraft/block/WandItem.java",
+    "src/main/resources/assets/thaumcraft/models/item/iron_capped_wooden_wand.json",
+    "src/main/resources/assets/thaumcraft/models/item/greatwood_wand.json",
+    "src/main/resources/assets/thaumcraft/models/item/silverwood_wand.json"
+  ],
+  "component_channels": [
+    "rod",
+    "cap"
+  ],
+  "notes": [
+    "Current models use 3D JSON elements with original rod/cap texture channels.",
+    "A future custom item renderer can replace the JSON model path while keeping the same component data."
+  ]
+}

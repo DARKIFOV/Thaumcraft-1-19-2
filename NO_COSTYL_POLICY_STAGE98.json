@@ -1,0 +1,19 @@
+{
+  "stage": 98,
+  "policy": "no costylization",
+  "goal": "avoid invented fallback art or decorative reinterpretation for original wand rendering work",
+  "accepted_sources": [
+    "original Thaumcraft 4 rod textures",
+    "original Thaumcraft 4 cap textures",
+    "data-driven wand rod and cap component metadata"
+  ],
+  "rejected_sources": [
+    "new fantasy replacement textures",
+    "single flat placeholder wand sprites",
+    "unexplained generated art substitutions"
+  ],
+  "notes": [
+    "Stage98 should preserve original intent even when the 1.19.2 renderer implementation cannot be byte-for-byte identical.",
+    "Fallbacks must be explicit and documented rather than silently replacing source assets."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "stage": 107,
+  "base": "Stage 106",
+  "goal": "make essentia tube connections directional and visible through multipart tube models",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaTubeConnections.java",
+    "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaSuctionPath.java",
+    "src/main/java/com/darkifov/thaumcraft/block/EssentiaTubeBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/EssentiaTubeBlockEntity.java",
+    "src/main/resources/assets/thaumcraft/models/block/essentia_tube_center.json",
+    "src/main/resources/assets/thaumcraft/models/block/essentia_tube_arm_north.json",
+    "src/main/resources/assets/thaumcraft/blockstates/essentia_tube.json"
+  ],
+  "directional_features": [
+    "NORTH/SOUTH/EAST/WEST/UP/DOWN connection properties",
+    "multipart blockstate",
+    "connection diagnostics",
+    "transport neighbor filtering"
+  ],
+  "notes": [
+    "Directional state prevents the tube from behaving like a generic all-sided connector.",
+    "Stage108 adds suction conflict and backflow handling on top of this connection layer."
+  ]
+}

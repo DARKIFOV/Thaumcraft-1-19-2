@@ -1,0 +1,24 @@
+{
+  "stage": 108,
+  "base": "Stage 107",
+  "goal": "make tube suction conflict resolution and backflow blocking test-ready",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaSuctionResolver.java",
+    "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaBackflowResult.java",
+    "src/main/java/com/darkifov/thaumcraft/block/EssentiaTubeBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/EssentiaTubeBlockEntity.java"
+  ],
+  "test_targets": [
+    "sideAllows",
+    "sourcePressure",
+    "destinationSuction",
+    "competingDestinations",
+    "filteredJar",
+    "backflowBlocked"
+  ],
+  "notes": [
+    "The resolver separates movement permission, net pull, and backflow diagnostics.",
+    "Manual game testing should focus on competing jars, filtered jars, and reversed tube chains."
+  ]
+}

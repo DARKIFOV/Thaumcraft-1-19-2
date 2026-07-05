@@ -1,0 +1,25 @@
+{
+  "stage": 92,
+  "base": "Stage 91",
+  "goal": "restore original-like research screen behavior after strict GUI texture alignment",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/client/screen/OriginalResearchCategory.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/OriginalResearchLayout.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumonomiconScreen.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableScreen.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchScreen.java"
+  ],
+  "behavior_tokens_confirmed": [
+    "OriginalResearchLayout.entriesFor",
+    "renderResearchTree",
+    "renderSelectedPage",
+    "AspectCombinationRegistry.count",
+    "renderOriginalLikeCraftingOverlay",
+    "renderVisAndPrimalCosts"
+  ],
+  "notes": [
+    "This stage tracks client-side research tree selection, research table aspect interaction, and arcane workbench cost overlays.",
+    "Full TC4 parity still depends on later backend, networking, and minigame stages."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "stage": 100,
+  "base": "Stage 99",
+  "goal": "establish the original-style aspect and research foundation used by later table and note systems",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/Aspect.java",
+    "src/main/java/com/darkifov/thaumcraft/AspectList.java",
+    "src/main/java/com/darkifov/thaumcraft/AspectDatabase.java",
+    "src/main/java/com/darkifov/thaumcraft/AspectCombinationRegistry.java",
+    "src/main/java/com/darkifov/thaumcraft/research/ResearchRegistry.java",
+    "src/main/java/com/darkifov/thaumcraft/research/PlayerAspectKnowledge.java"
+  ],
+  "foundation_features": [
+    "aspect registry and native combinations",
+    "player aspect discovery state",
+    "research entries with requirements",
+    "server-side knowledge helpers"
+  ],
+  "notes": [
+    "This foundation is intentionally data-oriented so screens, packets, and minigame logic share one source of truth.",
+    "Later stages add networked interaction and research note target rules on top of this base."
+  ]
+}

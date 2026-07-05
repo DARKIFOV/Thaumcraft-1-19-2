@@ -1,0 +1,23 @@
+{
+  "stage": 93,
+  "base": "Stage 92",
+  "goal": "bridge original research and arcane behavior into persistent backend state",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalAspectWallet.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalArcaneCostBridge.java",
+    "src/main/resources/assets/thaumcraft/textures/item/research_note_complete.png",
+    "src/main/resources/assets/thaumcraft/textures/block/essentia_jar_aer.png",
+    "src/main/resources/assets/thaumcraft/textures/block/aura_node_aer.png"
+  ],
+  "backend_features": [
+    "persistent player aspect wallet",
+    "research unlock and completion cost bridge",
+    "arcane recipe vis and primal aspect cost checks"
+  ],
+  "notes": [
+    "The backend bridge keeps the Stage92 screens from being only visual shells.",
+    "Network synchronization is handled by Stage95 and later stages."
+  ]
+}

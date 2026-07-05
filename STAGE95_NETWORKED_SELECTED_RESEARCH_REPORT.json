@@ -1,0 +1,20 @@
+{
+  "stage": 95,
+  "base": "Stage 94",
+  "goal": "network selected research actions between client screens and server research state",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/network/RequestSelectResearchPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestCompleteSelectedResearchPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/ThaumcraftNetwork.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumonomiconScreen.java"
+  ],
+  "network_actions": [
+    "requestSelectResearchFromClient",
+    "requestCompleteSelectedResearchFromClient"
+  ],
+  "notes": [
+    "Client clicks are routed through explicit packets instead of only mutating local UI state.",
+    "Later stages reuse the same network style for research table and research note interactions."
+  ]
+}

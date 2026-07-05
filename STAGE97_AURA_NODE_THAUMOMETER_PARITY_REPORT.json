@@ -1,0 +1,21 @@
+{
+  "stage": 97,
+  "base": "Stage 96",
+  "goal": "bring aura node and thaumometer behavior closer to original Thaumcraft scanning parity",
+  "audit_status": "static audit ready",
+  "validated_files": [
+    "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+    "src/main/java/com/darkifov/thaumcraft/block/AuraNodeBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java",
+    "src/main/java/com/darkifov/thaumcraft/client/OriginalVisualStateBridge.java"
+  ],
+  "features": [
+    "renderer-backed aura node visuals",
+    "aspect-sensitive node display",
+    "thaumometer scan path tied to world target state"
+  ],
+  "notes": [
+    "This stage keeps aura nodes out of cube-model rendering and routes player inspection through thaumometer logic.",
+    "Exact TC4 shader and particle behavior remains a later visual polish target."
+  ]
+}
