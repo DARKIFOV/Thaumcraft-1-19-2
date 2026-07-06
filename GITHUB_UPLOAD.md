@@ -1,23 +1,46 @@
-# Thaumcraft Legacy Rebuild — Stage144 GitHub Upload
+# GitHub upload instructions — Stage144 Clean Package
 
-Stage144 continues the strict TC4 1.7.10 → Forge 1.19.2 port. This checkpoint adds Eldritch progression, split Warp buckets, Crimson cultists, Eldritch Guardian, portal/altar flow and taint runtime while preserving the Stage143 Golemancy work.
+This is the cleaned Stage144 GitHub package for Forge 1.19.2.
 
-GitHub loading fix: `github_ci_guard.py`, `mods.toml`, and `.github/workflows/main.yml` are now aligned to Stage144 / version `1.44.0`. The workflow also runs the new `tc4_stage144_eldritch_warp_taint_audit.py`, and artifact names no longer say Stage142.
+## Fixed from the latest GitHub log
 
-Validation in this package: Java syntax guard, GitHub CI guard, static resource audit, Stage140–144 focused audits, Stage143 whole golemancy audit, and book/table/workbench audit pass locally. Full Gradle build still needs GitHub/online runner because the local sandbox cannot resolve services.gradle.org.
+The failing GitHub build log showed:
 
-# Stage141 GitHub upload notes
+- duplicate `GOLEM_WIRELESS_BACKPACK` in `ThaumcraftMod.java`;
+- Crimson Cultist entity registrations inferred as `EntityType<Entity>` instead of `EntityType<CrimsonCultistEntity>`.
 
-Stage141 is still part of the local development chain toward the larger Stage140–159 checkpoint. It extends Stage140 Golemancy with controls, filters, marker assignment and upgrades.
+Both are fixed in this package.
 
-Recommended checks before upload later:
+## Removed as unnecessary
 
-- `python scripts/java_syntax_guard.py`
-- `python scripts/github_ci_guard.py`
-- `python scripts/github_static_audit.py`
-- `python scripts/tc4_texture_audit.py`
-- `python scripts/tc4_full_parity_audit.py`
-- `python scripts/tc4_stage140_golemancy_checkpoint_audit.py`
-- `python scripts/tc4_stage141_golemancy_controls_audit.py`
+The upload package no longer includes old generated Stage JSON reports, obsolete Stage137–143 audit scripts, or historical `docs/porting` files. This keeps the GitHub repo clean and prevents stale stage checks from breaking the current build.
 
-Do not call this a final release. It is a broad Golemancy parity step.
+## Correct upload layout
+
+Put the archive contents directly into the repository root:
+
+```text
+.github/
+gradle/
+scripts/
+src/
+build.gradle
+settings.gradle
+gradle.properties
+gradlew
+gradlew.bat
+README.md
+GITHUB_UPLOAD.md
+```
+
+Do not upload the extracted folder itself into GitHub.
+
+## Checks run by GitHub Actions
+
+```bash
+python scripts/java_syntax_guard.py
+python scripts/github_ci_guard.py
+python scripts/github_static_audit.py
+python scripts/tc4_stage144_eldritch_warp_taint_audit.py
+./gradlew --no-daemon clean build --stacktrace
+```

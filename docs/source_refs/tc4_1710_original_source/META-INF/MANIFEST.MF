@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-FMLCorePlugin: thaumcraft.codechicken.core.launch.DepLoader
-FMLCorePluginContainsFMLMod: true
-

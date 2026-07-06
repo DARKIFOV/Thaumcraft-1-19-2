@@ -494,8 +494,6 @@ public class ThaumcraftMod {
             () -> new ThaumicEnergisticsUtilityItem(new Item.Properties().tab(THAUMCRAFT_TAB), ThaumicEnergisticsUtilityItem.Mode.ESSENTIA_CELL_CASING));
     public static final RegistryObject<Item> FOCUS_AE_WRENCH = specialItem("focus_ae_wrench",
             () -> new ThaumicEnergisticsUtilityItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1), ThaumicEnergisticsUtilityItem.Mode.AE_WRENCH));
-    public static final RegistryObject<Item> GOLEM_WIRELESS_BACKPACK = specialItem("golem_wireless_backpack",
-            () -> new ThaumicEnergisticsUtilityItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1), ThaumicEnergisticsUtilityItem.Mode.GOLEM_WIRELESS_BACKPACK));
     public static final RegistryObject<Item> KNOWLEDGE_CORE = specialItem("knowledge_core",
             () -> new ThaumicEnergisticsUtilityItem(new Item.Properties().tab(THAUMCRAFT_TAB), ThaumicEnergisticsUtilityItem.Mode.KNOWLEDGE_CORE));
     public static final RegistryObject<Item> COALESCENCE_CORE = specialItem("coalescence_core",
@@ -878,25 +876,25 @@ public class ThaumcraftMod {
                     .build(MOD_ID + ":eldritch_guardian"));
 
     public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_CULTIST =
-            ENTITY_TYPES.register("crimson_cultist", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CULTIST), MobCategory.MONSTER)
+            ENTITY_TYPES.register("crimson_cultist", () -> EntityType.Builder.<CrimsonCultistEntity>of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CULTIST), MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8)
                     .build(MOD_ID + ":crimson_cultist"));
 
     public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_KNIGHT =
-            ENTITY_TYPES.register("crimson_knight", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.KNIGHT), MobCategory.MONSTER)
+            ENTITY_TYPES.register("crimson_knight", () -> EntityType.Builder.<CrimsonCultistEntity>of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.KNIGHT), MobCategory.MONSTER)
                     .sized(0.7F, 2.05F)
                     .clientTrackingRange(8)
                     .build(MOD_ID + ":crimson_knight"));
 
     public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_CLERIC =
-            ENTITY_TYPES.register("crimson_cleric", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CLERIC), MobCategory.MONSTER)
+            ENTITY_TYPES.register("crimson_cleric", () -> EntityType.Builder.<CrimsonCultistEntity>of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CLERIC), MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
                     .clientTrackingRange(8)
                     .build(MOD_ID + ":crimson_cleric"));
 
     public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_PRAETOR =
-            ENTITY_TYPES.register("crimson_praetor", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.LEADER), MobCategory.MONSTER)
+            ENTITY_TYPES.register("crimson_praetor", () -> EntityType.Builder.<CrimsonCultistEntity>of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.LEADER), MobCategory.MONSTER)
                     .sized(0.74F, 2.1F)
                     .clientTrackingRange(10)
                     .build(MOD_ID + ":crimson_praetor"));
