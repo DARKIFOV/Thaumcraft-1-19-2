@@ -100,7 +100,7 @@ public final class TC4Sounds {
         }
         for (String key : ORIGINAL_SOUND_KEYS) {
             ResourceLocation id = new ResourceLocation(ThaumcraftMod.MOD_ID, key);
-            REGISTERED.put(key, register.register(key, () -> SoundEvent.createVariableRangeEvent(id)));
+            REGISTERED.put(key, register.register(key, () -> new SoundEvent(id)));
         }
         return Collections.unmodifiableMap(REGISTERED);
     }

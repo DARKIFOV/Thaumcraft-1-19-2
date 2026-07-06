@@ -49,3 +49,7 @@ python scripts/tc4_stage144_eldritch_warp_taint_audit.py
 ```
 
 The full Gradle build should be run by GitHub Actions or another online environment because the local sandbox may not be able to download Gradle/Forge dependencies.
+
+## Stage144 hotfix: GitHub compile SoundEvent fix
+
+Fixed Forge 1.19.2 GitHub compile failure in `TC4Sounds`: replaced newer `SoundEvent.createVariableRangeEvent(id)` with the 1.19.2-compatible `new SoundEvent(id)`. Also added a static audit rule so this API mismatch does not return in later stages.

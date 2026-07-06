@@ -176,6 +176,7 @@ def compile_api_risk_audit() -> list[str]:
         ".parents()": "ResearchEntry exposes requirements(), not parents()",
         ".setHint(": "EditBox#setHint was unavailable in this Forge 1.19.2 environment",
         "Button.builder(": "Button.builder was unavailable in this Forge 1.19.2 environment",
+        "SoundEvent.createVariableRangeEvent(": "Forge 1.19.2/MC 1.19.2 compile target uses new SoundEvent(ResourceLocation); createVariableRangeEvent is newer API",
     }
     for path in (ROOT / "src/main/java").rglob("*.java"):
         text = path.read_text(encoding="utf-8", errors="ignore")
