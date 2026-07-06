@@ -88,6 +88,14 @@ public final class ThaumcraftNetwork {
 
         CHANNEL.registerMessage(
                 packetId++,
+                RequestClearResearchNoteSlotPacket.class,
+                RequestClearResearchNoteSlotPacket::encode,
+                RequestClearResearchNoteSlotPacket::decode,
+                RequestClearResearchNoteSlotPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
                 OpenResearchTablePacket.class,
                 OpenResearchTablePacket::encode,
                 OpenResearchTablePacket::decode,
@@ -328,6 +336,10 @@ public final class ThaumcraftNetwork {
 
     public static void requestSolveResearchNoteFromClient() {
         CHANNEL.sendToServer(new RequestSolveResearchNotePacket());
+    }
+
+    public static void requestClearResearchNoteSlotFromClient(int slot) {
+        CHANNEL.sendToServer(new RequestClearResearchNoteSlotPacket(slot));
     }
 
     public static void requestArcaneCraftFromClient(ResourceLocation recipeId) {

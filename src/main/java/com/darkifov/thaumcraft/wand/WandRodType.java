@@ -1,5 +1,7 @@
 package com.darkifov.thaumcraft.wand;
 
+import com.darkifov.thaumcraft.Aspect;
+
 import java.util.Locale;
 
 /**
@@ -51,6 +53,31 @@ public enum WandRodType {
     public String researchKey() { return researchKey; }
     public boolean glowing() { return glowing; }
     public boolean staff() { return staff; }
+
+    /**
+     * Original TC4 WandRodPrimalOnUpdate behavior: elemental rods slowly
+     * regenerate one matching primal aspect up to 10% capacity. The primal
+     * staff rod can regenerate any primal aspect up to that same threshold.
+     */
+    public Aspect regeneratedAspect() {
+        return switch (this) {
+            case OBSIDIAN, OBSIDIAN_STAFF -> Aspect.TERRA;
+            case BLAZE, BLAZE_STAFF -> Aspect.IGNIS;
+            case ICE, ICE_STAFF -> Aspect.AQUA;
+            case QUARTZ, QUARTZ_STAFF -> Aspect.ORDO;
+            case BONE, BONE_STAFF -> Aspect.PERDITIO;
+            case REED, REED_STAFF -> Aspect.AER;
+            default -> null;
+        };
+    }
+
+    public boolean regeneratesAllPrimals() {
+        return this == PRIMAL_STAFF;
+    }
+
+    public boolean hasRodRegen() {
+        return regeneratedAspect() != null || regeneratesAllPrimals();
+    }
 
     public static WandRodType fromId(String id) {
         if (id == null || id.isBlank()) return WOOD;

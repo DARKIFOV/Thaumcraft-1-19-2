@@ -1,0 +1,15 @@
+{
+  "tc4_key": "TransTin",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "TRANSTIN",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_nuggettin",
+  "result": {
+    "item": "thaumcraft:tc4_nuggettin",
+    "count": 3
+  },
+  "aspects": {
+    "METALLUM": 2,
+    "VITREUS": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "tc4_key": "AltBonemeal",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ENTROPICPROCESSING",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:bone",
+  "result": {
+    "item": "minecraft:black_dye",
+    "count": 4
+  },
+  "aspects": {
+    "PERDITIO": 1
+  }
+}

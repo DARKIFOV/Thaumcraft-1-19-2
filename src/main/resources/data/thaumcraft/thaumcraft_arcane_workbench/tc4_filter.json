@@ -1,0 +1,25 @@
+{
+  "tc4_key": "Filter",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "DISTILESSENTIA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:gold_ingot",
+  "ingredients": [
+    "thaumcraft:tc4_block_silverwood_planks"
+  ],
+  "aspects": {
+    "ORDO": 5,
+    "AQUA": 5
+  },
+  "pattern": [
+    "GWG"
+  ],
+  "key": {
+    "G": "thaumcraft:tc4_block_silverwood_planks",
+    "W": "minecraft:gold_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_filter",
+    "count": 2
+  }
+}

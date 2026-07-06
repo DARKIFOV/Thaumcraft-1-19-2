@@ -1,0 +1,15 @@
+{
+  "tc4_key": "CoreGuard",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "COREGUARD",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_golem_core_blank",
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_guard",
+    "count": 1
+  },
+  "aspects": {
+    "TELUM": 5,
+    "VINCULUM": 5
+  }
+}

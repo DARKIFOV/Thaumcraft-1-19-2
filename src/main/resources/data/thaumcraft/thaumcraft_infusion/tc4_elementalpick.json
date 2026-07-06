@@ -1,0 +1,23 @@
+{
+  "tc4_key": "ElementalPick",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ELEMENTALPICK",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_thaumiumpick",
+  "components": [
+    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:tc4_shard_ignis",
+    "minecraft:diamond",
+    "thaumcraft:tc4_block_greatwood_log"
+  ],
+  "aspects": {
+    "IGNIS": 8,
+    "PERFODIO": 8,
+    "SENSUS": 8
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_elementalpick",
+    "count": 1
+  }
+}

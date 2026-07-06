@@ -1,74 +1,75 @@
-# Thaumcraft Legacy Rebuild — Stage118 TC4 Research Runtime Port
+# Thaumcraft Legacy Rebuild — Stage143
 
-Stage118 ports the original TC4 `ConfigResearch.java` research graph into runtime-safe Forge 1.19.2 classes. The Thaumonomicon/progression registry now starts from the original TC4 categories, keys, coordinates, parents, aspects, pages and warp metadata.
+Stage143 continues the strict TC4 1.7.10 → Forge 1.19.2 port. This checkpoint focuses on Golemancy live configuration, bell status workflow, marker radius/priority metadata, NBT persistence and a multi-part TC4-like golem renderer.
 
-Strict source-driven port of **Thaumcraft 4** to **Minecraft Forge 1.19.2**. This repository is not a reimagining: original TC4 source/assets/research/recipes/GUI behavior/mechanics are treated as the source of truth and mapped into the modern Forge project stage by stage.
+Validation: Java syntax guard, GitHub CI guard, static audit, texture audit, whole parity audit, wand audit, book/table/workbench audit, Stage137–142 focused audits all pass. Full Gradle build still needs GitHub/online runner because the local sandbox cannot resolve services.gradle.org.
 
-Current stage: **Stage 112 — GitHub build hardening / base CI fixes**.
+# Thaumcraft Legacy Rebuild — Stage138 TC4 Arcane Exact Pattern Completion
 
-## GitHub build
+This package continues the strict Thaumcraft 4 port for Minecraft Forge 1.19.2. Stage138 focuses on the core progression loop and fixes exact TC4 shaped arcane recipe pattern handling.
 
-After pushing this folder to GitHub, Actions should run automatically on `main`/`master`, pull requests, or manual `workflow_dispatch`.
+Key Stage138 changes:
 
-The workflow does four things before producing jars:
+- Infers TC4 arcane pattern symbol maps from preserved pattern rows, catalyst and component lists.
+- Validates shaped Arcane Workbench recipes by actual pattern slots instead of loose one-of-each ingredient checks.
+- Consumes repeated pattern symbols correctly, for example `AAA / ASA / AAA` now requires all repeated `A` slots.
+- Keeps the compatibility catalyst slot, but only for the inferred catalyst symbol.
+- Uses the same inferred symbol map in the Arcane Workbench ghost layout and Thaumonomicon recipe pages.
+- Adds Stage138 audit coverage in GitHub Actions.
 
-1. Runs `scripts/java_syntax_guard.py`.
-2. Runs `scripts/github_ci_guard.py`.
-3. Runs `scripts/github_static_audit.py`.
-4. Builds through the checked-in Gradle wrapper: `./gradlew --no-daemon clean build --stacktrace`.
+Build target: Forge 1.19.2, Java 17.
 
-Built jars are uploaded as a GitHub Actions artifact named:
 
-`thaumcraft-legacy-rebuild-stage112-jars`
+Forge 1.19.2 strict Thaumcraft 4 porting branch.
 
-## Local commands
+## Stage136 — TC4 Core Research UX Finish Pass
+
+This stage continues the same core loop from Stage135: Arcane Workbench, Research Table, Research Notes and Thaumonomicon.
+
+### Main changes
+
+- Arcane Workbench recipe sync now sends exact recipe vis costs instead of showing `Ordo 2` for every synced recipe.
+- Arcane Workbench recipe sync now sends TC4 `tc4_key`, `tc4_kind` and shaped pattern rows.
+- Arcane Workbench screen renders shaped pattern previews when TC4 pattern data exists.
+- Research Table no longer grants starter primal research pool points every time it is clicked.
+- Research Notes no longer silently overwrite filled aspect slots and waste aspect pool points.
+- Research Note progress is recalculated from required aspects + connected path progress.
+- Research Note screen shows a required-aspect checklist.
+- Thaumonomicon recipe pages now show pattern/component/aspect-cost visuals instead of only text fields.
+
+### Validation
 
 ```bash
-chmod +x ./gradlew
 python scripts/java_syntax_guard.py
 python scripts/github_ci_guard.py
 python scripts/github_static_audit.py
-./gradlew --no-daemon clean build --stacktrace
+python scripts/tc4_texture_audit.py
+python scripts/tc4_full_parity_audit.py
+python scripts/tc4_wand_parity_audit.py
+python scripts/tc4_book_table_workbench_audit.py
 ```
 
-## Porting source map
-
-See:
-
-- `docs/porting/STAGE111_STRICT_TC4_SOURCE_MAPPING.md`
-- `docs/porting/tc4_to_1192_class_map.csv`
-- `docs/porting/tc4_source_inventory_summary.json`
-- `docs/porting/tc4_source_inventory_full.json`
-- `src/main/java/com/darkifov/thaumcraft/porting/TC4AspectBridge.java`
-- `src/main/resources/data/thaumcraft/tc4_source_mapping/aspects_from_original_source.json`
-
-## Source of truth
-
-The uploaded `Thaumcraft4-1.7.10-master` source is treated as the primary source of truth for tags, assets, research, recipes, GUI behavior, blocks, items, tile entities and progression. Placeholder or heuristic systems are to be replaced by source-mapped ports stage by stage.
+Gradle build still requires internet access for the Gradle wrapper and Forge dependencies.
 
 
-## Stage113 — Provided 1.19.2 reboot base integration
+## Stage137 — TC4 Core Loop Precision Pass
 
-This stage records and integrates the provided Minecraft 1.19.2 Thaumcraft reboot archives as the modern Forge base/reference layer.
-The active project is not blindly replaced because the provided 1.19.2 reboots are very small skeletons compared to the current working tree.
+Stage137 tightens the main TC4 progression loop instead of adding a new system:
 
-See: `docs/porting/STAGE113_PROVIDED_1192_REBOOT_BASE_INTEGRATION.md`.
+- Research Notes now support editable slot clearing with aspect refund.
+- Placement must connect to a compatible neighbouring aspect.
+- The note screen shows valid green placement slots and a TC4 aspect path hint.
+- Arcane Workbench now enforces exact shaped 3x3 layouts when the TC4 materialized recipe data supports it.
+- Versions are bumped to 1.37.0.
 
+## Stage140 — TC4 Golemancy checkpoint
 
-## Stage114 — TC4 1.7.10 mass source transfer
+Stage140 begins the broad original Thaumcraft 4 Golemancy parity pass. It adds TC4-style golem body materials, core modes, NBT profile storage, material-dependent stats, container dropoff, crop harvesting, lumber behavior, guard behavior and material-aware renderer feedback.
 
-Stage114 imports the original TC4 1.7.10 decompiled source and assets as the strict porting source-of-truth. The original Java is intentionally stored under `docs/source_refs/tc4_1710_original_source/` and not compiled directly, because 1.7.10 FML/MCP classes cannot compile on Forge 1.19.2 without explicit porting. Runtime-safe bridges now expose original block/item/wand/research/asset maps. Original TC4 language keys are merged into `assets/thaumcraft/lang/en_us.json`, and original TC4 assets are mirrored under `assets/thaumcraft/original_tc4_1710/` plus normalized texture mirrors under `textures/block/tc4`, `textures/item/tc4`, and `textures/original/thaumcraft4`.
-
-
-## Stage115 — TC4 ConfigAspects runtime port
-
-Stage115 connects original TC4 `ConfigAspects` data to the 1.19.2 runtime. Thaumometer, crucible, alchemical furnace and research table now check generated TC4 object-aspect mappings before falling back to the older temporary name-based logic. Raw TC4 object/entity aspect registrations are preserved under `data/thaumcraft/tc4_source_mapping/`.
-
-## Stage118
-
-TC4 Thaumonomicon browser port: original 256x230 research browser, original category tabs/backgrounds, original display coordinates, draggable map, TC4 node sprites, hidden parent visibility and TC4-style research page viewer.
+This is still a dev-stage, not a finished release. The next passes should continue exact seal/filter GUI, all upgrades, advanced core behavior and final TC4 model renderer parity.
 
 
-## Stage118 research parity
 
-This build continues the strict TC4 research port: original research icons, targeted research note creation from paper + scribing tools, original AspectList note requirements, and mixed text/recipe page rendering in the Thaumonomicon.
+## Stage141 — TC4 Golemancy controls / filters / upgrades
+
+Stage141 continues the Golemancy branch by adding TC4-style golem upgrades, filters, task markers and bell modes. Golems now store complete configuration in NBT, support input/output/guard/work markers, can be retasked with the bell, and include additional original core modes such as bodyguard, butcher, fish, liquid, essentia and patrol.

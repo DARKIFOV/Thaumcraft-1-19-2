@@ -1,0 +1,26 @@
+{
+  "tc4_key": "IronKey",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "WARDEDARCANA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [
+    "minecraft:iron_nugget"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 5
+  },
+  "pattern": [
+    "NNI",
+    "N"
+  ],
+  "key": {
+    "N": "minecraft:iron_nugget",
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_keyiron",
+    "count": 2
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "tc4_key": "CoreSorting",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "CORESORTING",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_brain",
+  "components": [
+    "thaumcraft:tc4_golem_core_fill",
+    "minecraft:quartz",
+    "thaumcraft:tc4_golem_core_empty",
+    "minecraft:cookie"
+  ],
+  "aspects": {
+    "VACUOS": 16,
+    "PERMUTATIO": 16,
+    "FAMES": 16,
+    "LUCRUM": 16
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_sorting",
+    "count": 1
+  }
+}

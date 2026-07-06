@@ -1,0 +1,19 @@
+{
+  "stage": 132,
+  "system": "Aura nodes / stabilizer / transducer / node jar",
+  "status": "runtime parity improved",
+  "tc4_reference_files": [
+    "TileNodeStabilizer.java",
+    "TileNodeConverter.java",
+    "BlockJar.java / node jar behavior references",
+    "RenderNode.java / node overlay textures"
+  ],
+  "port_status": {
+    "node_generation_types_modifiers": "runtime from Stage131",
+    "normal_stabilizer": "runtime",
+    "advanced_stabilizer": "runtime",
+    "node_transducer": "runtime powered energized state",
+    "node_jar": "runtime NBT capture/place with preservation loss",
+    "exact_renderer": "partial"
+  }
+}

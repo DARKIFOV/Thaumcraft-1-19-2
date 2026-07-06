@@ -1,9 +1,21 @@
 package com.darkifov.thaumcraft.event;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
+import com.darkifov.thaumcraft.aura.AuraNodeWorldRuntime;
+import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -11,6 +23,49 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = ThaumcraftMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class CommonEvents {
     private CommonEvents() {
+    }
+
+
+
+    @SubscribeEvent
+    public static void onLevelTick(TickEvent.LevelTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || event.level.isClientSide || !(event.level instanceof ServerLevel level)) {
+            return;
+        }
+        AuraNodeWorldRuntime.seedNearbyNaturalNodes(level);
+
+        if (level.getGameTime() % 5L != 0L) {
+            return;
+        }
+
+        for (ServerPlayer player : level.players()) {
+            AuraVisRelayNetwork.tickPlayerRecharge(level, player);
+            AABB scan = player.getBoundingBox().inflate(24.0D);
+            for (ItemEntity itemEntity : level.getEntitiesOfClass(ItemEntity.class, scan, ItemEntity::isAlive)) {
+                tryFeedCrucible(level, itemEntity);
+            }
+        }
+    }
+
+    private static void tryFeedCrucible(ServerLevel level, ItemEntity itemEntity) {
+        BlockPos itemPos = itemEntity.blockPosition();
+        for (BlockPos candidate : new BlockPos[] { itemPos, itemPos.below(), itemPos.below(2) }) {
+            BlockEntity blockEntity = level.getBlockEntity(candidate);
+            if (blockEntity instanceof CrucibleBlockEntity crucible && crucible.tryAcceptThrownItem(itemEntity)) {
+                return;
+            }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+        if (!(event.getPlayer() instanceof ServerPlayer player) || !(event.getLevel() instanceof Level level)) {
+            return;
+        }
+        if (WardedBlockRuntime.cancelIfProtected(level, event.getPos(), player)) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent

@@ -1,0 +1,31 @@
+{
+  "tc4_key": "Bellows",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "BELLOWS",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:oak_planks",
+  "ingredients": [
+    "thaumcraft:tc4_shard_aer",
+    "minecraft:iron_ingot",
+    "minecraft:sugar"
+  ],
+  "aspects": {
+    "AER": 10,
+    "ORDO": 5
+  },
+  "pattern": [
+    "WW",
+    "LCI",
+    "WW"
+  ],
+  "key": {
+    "W": "thaumcraft:tc4_shard_aer",
+    "L": "minecraft:iron_ingot",
+    "C": "minecraft:oak_planks",
+    "I": "minecraft:sugar"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_bellows",
+    "count": 1
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "stage": 134,
+  "goal": "repair all previously touched systems and complete wand runtime toward TC4 1.7.10 parity",
+  "checks": {
+    "thaumonomicon_browser": true,
+    "research_note": true,
+    "research_runtime_bridge": true,
+    "config_aspects_registry": true,
+    "arcane_workbench": true,
+    "crucible_renderer": true,
+    "crucible_flux_blocks": true,
+    "infusion_runtime": true,
+    "aura_node_types": true,
+    "node_jar": true,
+    "vis_relay": true,
+    "wand_runtime": true,
+    "textures_missing_zero": true,
+    "sounds_present": true
+  },
+  "passed": true,
+  "notes": [
+    "Wands now apply TC4 cap modifiers to focus and arcane costs.",
+    "Rod/staff NBT components can be installed from TC4 split metadata items.",
+    "Elemental and primal rod recharge behavior mirrors WandRodPrimalOnUpdate thresholds.",
+    "Texture audit remains at zero missing model/blockstate texture references.",
+    "This is still a development stage: exact focus upgrade GUI/projectile renderers and several full TC4 systems remain for later stages."
+  ],
+  "full_parity_summary": {
+    "java_files": 269,
+    "model_json_files": 786,
+    "blockstate_json_files": 133,
+    "png_textures": 2625,
+    "sound_files": 111
+  },
+  "wand_summary": {
+    "wand_rod_types": 19,
+    "wand_cap_types": 7,
+    "focus_types": 8
+  }
+}

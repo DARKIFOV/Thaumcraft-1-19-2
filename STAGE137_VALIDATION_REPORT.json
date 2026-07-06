@@ -1,0 +1,25 @@
+{
+  "stage": 137,
+  "name": "TC4_CORE_LOOP_PRECISION_PASS",
+  "version": "1.37.0",
+  "changes": [
+    "Research Note slot clearing/refund packet added",
+    "Research Note placement requires compatible neighbour",
+    "Research Note client shows green valid placements and aspect path hint",
+    "Research Aspect Graph exposes shortestPath/suggestedConnector",
+    "Arcane Workbench exact shaped grid enforcement when TC4 pattern data is complete",
+    "Arcane Workbench exact pattern slot consumption when shape data is complete",
+    "mods.toml/build.gradle version aligned to 1.37.0"
+  ],
+  "audits": [
+    "java_syntax_guard.py",
+    "tc4_stage137_core_loop_audit.py",
+    "github_ci_guard.py",
+    "github_static_audit.py",
+    "tc4_texture_audit.py",
+    "tc4_full_parity_audit.py",
+    "tc4_wand_parity_audit.py",
+    "tc4_book_table_workbench_audit.py"
+  ],
+  "gradle_build": "not run in sandbox because Gradle wrapper cannot download dependencies without external network"
+}

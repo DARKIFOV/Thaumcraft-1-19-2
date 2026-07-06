@@ -75,12 +75,12 @@ def collect_registry_ids() -> tuple[set[str], set[str]]:
     )
     block_pattern = re.compile(
         r'\b(?:block|crucibleBlock|arcaneWorkbenchBlock|researchTableBlock|auraNodeBlock|'
-        r'nodeStabilizerBlock|matrixAuxiliaryBlock|arcanePedestalBlock|infusionMatrixBlock|'
+        r'nodeStabilizerBlock|visRelayBlock|matrixAuxiliaryBlock|arcanePedestalBlock|infusionMatrixBlock|'
         r'thaumicEnergisticsDeviceBlock|thaumicTinkererDeviceBlock|transvectorInterfaceBlock|'
         r'etherealPlatformBlock|fumeDissipatorBlock|essentiaDriveBlock|pedestalBlock|'
         r'eldritchAltarBlock|eldritchPortalBlock|essentiaJarBlock|filteredEssentiaJarBlock|'
         r'voidEssentiaJarBlock|essentiaTubeBlock|essentiaValveBlock|alchemicalFurnaceBlock|'
-        r'extrasElementBlock|ttParityBlock|tceParityBlock)\("([a-z0-9_]+)"'
+        r'extrasElementBlock|fluxGooBlock|fluxGasBlock|ttParityBlock|tceParityBlock)\("([a-z0-9_]+)"'
     )
 
     return set(item_pattern.findall(text)), set(block_pattern.findall(text))

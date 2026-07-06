@@ -1,0 +1,15 @@
+{
+  "tc4_key": "CoreFill",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "COREFILL",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_golem_core_blank",
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_fill",
+    "count": 1
+  },
+  "aspects": {
+    "FAMES": 5,
+    "VACUOS": 5
+  }
+}

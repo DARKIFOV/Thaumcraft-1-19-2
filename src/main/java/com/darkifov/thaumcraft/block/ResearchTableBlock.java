@@ -25,7 +25,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
+import java.util.Optional;
+
 public class ResearchTableBlock extends Block {
+    // Stage135 keeps the legacy TheoryProgress NBT token on ResearchNoteState, but the table now opens the TC4 note puzzle instead of incrementing it directly.
     public ResearchTableBlock(Properties properties) {
         super(properties);
     }
@@ -86,36 +89,30 @@ public class ResearchTableBlock extends Block {
         }
 
         if (held.is(ThaumcraftMod.RESEARCH_NOTE.get())) {
-            int progress = held.getOrCreateTag().getInt("TheoryProgress") + 1;
-            held.getOrCreateTag().putInt("TheoryProgress", progress);
-
-            AspectList aspects = AspectDatabase.getAspectsForItem(held);
-            for (Aspect aspect : aspects.entries().keySet()) {
-                PlayerAspectKnowledge.addPool(player, aspect, 1);
-                if (aspect.isPrimal()) {
-                    PlayerAspectKnowledge.discover(player, aspect);
-                }
-            }
-
-            player.displayClientMessage(Component.literal("Theory progress: " + progress + " / 6").withStyle(ChatFormatting.GOLD), false);
-
-            if (progress >= 6) {
-                if (!player.getAbilities().instabuild) {
-                    held.shrink(1);
-                }
-
-                ItemStack point = new ItemStack(ThaumcraftMod.RESEARCH_POINT.get());
-                if (!player.getInventory().add(point)) {
-                    Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D, point);
-                }
-
-                player.displayClientMessage(Component.literal("Research completed into a Research Point.").withStyle(ChatFormatting.GOLD), false);
-            }
+            ResearchNoteState.initialize(held, ResearchNoteState.target(held));
 
             if (player instanceof ServerPlayer serverPlayer) {
-                ThaumcraftNetwork.syncAspectKnowledge(serverPlayer);
-                ThaumcraftNetwork.syncResearch(serverPlayer);
+                if (ResearchNoteState.solved(held)) {
+                    Optional<ResearchEntry> target = OriginalResearchBridge.byKey(ResearchNoteState.target(held));
+
+                    if (target.isPresent() && OriginalResearchBridge.canUnlock(player, target.get())) {
+                        OriginalResearchBridge.unlock(player, target.get());
+
+                        if (!player.getAbilities().instabuild) {
+                            held.shrink(1);
+                        }
+
+                        player.displayClientMessage(Component.literal("Research completed: ").withStyle(ChatFormatting.GOLD)
+                                .append(Component.literal(target.get().title()).withStyle(ChatFormatting.YELLOW)), false);
+                        ThaumcraftNetwork.syncResearch(serverPlayer);
+                        ThaumcraftNetwork.syncAspectKnowledge(serverPlayer);
+                        return InteractionResult.CONSUME;
+                    }
+                }
+
+                ThaumcraftNetwork.openResearchNote(serverPlayer, held);
             }
+
             return InteractionResult.CONSUME;
         }
 

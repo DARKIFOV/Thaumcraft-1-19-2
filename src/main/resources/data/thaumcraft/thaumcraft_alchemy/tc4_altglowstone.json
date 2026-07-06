@@ -1,0 +1,15 @@
+{
+  "tc4_key": "AltGlowstone",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALCHEMICALDUPLICATION",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:glowstone_dust",
+  "result": {
+    "item": "minecraft:glowstone_dust",
+    "count": 2
+  },
+  "aspects": {
+    "LUX": 3,
+    "SENSUS": 1
+  }
+}

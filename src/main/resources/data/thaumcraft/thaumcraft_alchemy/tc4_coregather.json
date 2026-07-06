@@ -1,0 +1,15 @@
+{
+  "tc4_key": "CoreGather",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "COREGATHER",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_golem_core_blank",
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_gather",
+    "count": 1
+  },
+  "aspects": {
+    "LUCRUM": 5,
+    "TERRA": 5
+  }
+}

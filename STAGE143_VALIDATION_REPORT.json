@@ -1,0 +1,28 @@
+{
+  "stage": 143,
+  "name": "TC4 Golemancy Whole System Sweep",
+  "added_java": [
+    "GolemDecorationType.java",
+    "GolemDecorationItem.java"
+  ],
+  "registered_items": [
+    "golem_deco_armor",
+    "golem_deco_tophat",
+    "golem_deco_fez",
+    "golem_deco_visor",
+    "golem_deco_glasses",
+    "golem_deco_bowtie",
+    "golem_deco_dart_launcher",
+    "golem_deco_mace",
+    "golem_wireless_backpack"
+  ],
+  "runtime_changes": [
+    "golem decorations persisted and rendered",
+    "use core block placement",
+    "liquid core bucket transport",
+    "essentia core phial/jar transfer",
+    "sorting/filter delivery tightening",
+    "status summary expanded"
+  ],
+  "goal": "broad TC4 golemancy coverage before future exact GUI/seal/model work"
+}

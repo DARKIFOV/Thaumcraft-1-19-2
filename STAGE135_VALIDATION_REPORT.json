@@ -1,0 +1,97 @@
+{
+  "stage": 135,
+  "name": "TC4 Workbench / Research Table / Thaumonomicon Completion Pass",
+  "version": "1.35.0",
+  "checks": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_texture_audit": {
+      "stage": 135,
+      "model_texture_refs": 685,
+      "missing_texture_refs": 0,
+      "original_tc4_png_textures": 820,
+      "modern_png_textures": 2625,
+      "original_sound_files": 111,
+      "modern_sound_files": 111,
+      "missing": []
+    },
+    "tc4_full_parity_audit": {
+      "stage": 135,
+      "goal": "whole Thaumcraft 4 parity tracking plus Stage135 workbench/research table/thaumonomicon completion pass",
+      "original_tc4": {
+        "java_files": 859,
+        "png_textures": 820,
+        "sound_files": 111,
+        "sound_events": 66,
+        "lang_files": 22
+      },
+      "current_port": {
+        "java_files": 269,
+        "model_json_files": 786,
+        "blockstate_json_files": 133,
+        "png_textures": 2625,
+        "sound_files": 111
+      },
+      "runtime_markers": {
+        "tc4_research_component_entries": 234,
+        "tc4_sound_registry_class": true,
+        "tc4_full_parity_index_class": true
+      },
+      "remaining_big_systems_to_finish": [
+        "Crucible exact heat/boil/spill/flux behavior",
+        "Full essentia suction/tube network parity",
+        "Aura node renderer/beam polish and exact biome/world generation distribution",
+        "Exact focus upgrade UI, focus animations and remaining TC4 focus edge cases",
+        "Every golem core/upgrade/AI/seal behavior",
+        "Taint/flux goo/gas spread and biome/worldgen behavior",
+        "Eldritch progression, cultists, bosses and structures",
+        "Exact renderers for jars, tubes, nodes, golems, wands, infusion matrix and special blocks"
+      ]
+    },
+    "tc4_wand_audit": {
+      "stage": 134,
+      "goal": "TC4 wand total repair audit",
+      "checks": {
+        "cap_base_modifiers": true,
+        "copper_silver_special_modifiers": true,
+        "rod_regen_mapping": true,
+        "primal_staff_regen": true,
+        "wand_cost_modifier_helper": true,
+        "focus_uses_cap_discount": true,
+        "arcane_uses_cap_discount": true,
+        "component_install_from_offhand": true,
+        "vis_clamped_to_capacity": true,
+        "focus_pouch_capacity": true,
+        "warded_focus_protection": true,
+        "staff_renderer_scaling": true
+      },
+      "passed": true,
+      "wand_rod_types": 19,
+      "wand_cap_types": 7,
+      "focus_types": 8
+    },
+    "tc4_book_table_workbench_audit": {
+      "stage": 135,
+      "goal": "finish current TC4 core UX: Arcane Workbench, Research Table, Thaumonomicon",
+      "arcane_recipe_json_files": 98,
+      "tc4_research_entries_json_present": true,
+      "checks": {
+        "tc4_arcane_slot_layout": true,
+        "grid_catalyst_compatibility": true,
+        "arcane_recipe_ghosts_visible": true,
+        "arcane_research_lock_visible": true,
+        "research_table_opens_note_puzzle": true,
+        "research_note_no_pool_loss_on_invalid_slot": true,
+        "thaumonomicon_category_progress_header": true,
+        "thaumonomicon_recipe_icons": true,
+        "original_gui_textures_present": true
+      },
+      "passed": true
+    }
+  },
+  "notes": [
+    "Gradle build is not executed in this sandbox because services.gradle.org is not reachable here.",
+    "The stage is intended to be continued locally until Stage140-159 before the next GitHub upload checkpoint."
+  ]
+}

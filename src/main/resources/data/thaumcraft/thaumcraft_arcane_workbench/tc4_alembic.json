@@ -1,0 +1,32 @@
+{
+  "tc4_key": "Alembic",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "DISTILESSENTIA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [
+    "minecraft:compass",
+    "minecraft:gold_ingot",
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_block_silverwood_leaves"
+  ],
+  "aspects": {
+    "AER": 5,
+    "AQUA": 5
+  },
+  "pattern": [
+    "FIG",
+    "IBI",
+    "I I"
+  ],
+  "key": {
+    "F": "minecraft:compass",
+    "I": "minecraft:gold_ingot",
+    "G": "thaumcraft:tc4_filter",
+    "B": "thaumcraft:tc4_block_silverwood_leaves"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_alembic",
+    "count": 1
+  }
+}

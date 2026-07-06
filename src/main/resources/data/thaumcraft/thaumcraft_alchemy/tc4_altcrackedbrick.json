@@ -1,0 +1,14 @@
+{
+  "tc4_key": "AltCrackedBrick",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ENTROPICPROCESSING",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:stone_bricks",
+  "result": {
+    "item": "minecraft:stone_bricks",
+    "count": 1
+  },
+  "aspects": {
+    "PERDITIO": 2
+  }
+}

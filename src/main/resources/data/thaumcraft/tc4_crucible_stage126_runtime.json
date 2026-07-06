@@ -1,0 +1,22 @@
+{
+  "stage": 126,
+  "name": "TC4 Crucible thrown items and flux world parity",
+  "new_blocks": [
+    "flux_goo",
+    "flux_gas"
+  ],
+  "original_textures_used": [
+    "textures/original/thaumcraft4/blocks/fluxgoo.png",
+    "textures/original/thaumcraft4/blocks/fluxgas.png"
+  ],
+  "crucible_runtime": {
+    "thrown_item_entity_processing": true,
+    "catalyst_autocraft_from_item_entity": true,
+    "aspect_dissolve_from_item_entity": true,
+    "boiling_required": true,
+    "water_per_dissolve": 25,
+    "water_per_craft": 50,
+    "evaporation_interval_ticks": 400,
+    "flux_world_spill": true
+  }
+}

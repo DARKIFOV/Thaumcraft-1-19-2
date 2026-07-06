@@ -1,0 +1,16 @@
+{
+  "catalyst": "thaumcraft:tc4_bauble_belt",
+  "ingredients": [
+    "minecraft:leather",
+    "minecraft:leather",
+    "minecraft:leather",
+    "minecraft:leather",
+    "minecraft:gold_ingot",
+    "minecraft:glass"
+  ],
+  "research": "FOCUSPOUCH",
+  "result": {
+    "item": "thaumcraft:focus_pouch",
+    "count": 1
+  }
+}

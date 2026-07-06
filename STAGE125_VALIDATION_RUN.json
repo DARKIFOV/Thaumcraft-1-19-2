@@ -1,0 +1,27 @@
+[
+  {
+    "cmd": "python scripts/java_syntax_guard.py",
+    "returncode": 0,
+    "output": "Java syntax guard: OK\n"
+  },
+  {
+    "cmd": "python scripts/github_ci_guard.py",
+    "returncode": 0,
+    "output": "GitHub CI guard: OK\n"
+  },
+  {
+    "cmd": "python scripts/github_static_audit.py",
+    "returncode": 0,
+    "output": "Registry ids: items=191, blocks=115\nJSON: OK\nPNG: OK\nRegistry resources: OK\nModel references: OK\nGUI: OK\nJava braces: OK\nCompile helpers: OK\nCompile API risks: OK\nOriginal asset restoration: OK\nStage90 deepening: OK\nStage91 strict GUI: OK\nStage92 behavior: OK\nStage93 backend bridge: OK\nStage94 selected/render bridge: OK\nStage95 networked research: OK\nStage96 real parity: OK\nStage97 aura thaumometer: OK\nStage98 wand renderer: OK\nStage99 Avaritia creative wand: OK\nStage100 aspect research foundation: OK\nStage101 networked research table: OK\nStage102 research note minigame: OK\nStage103 research note target rules: OK\nStage104 native aspect colors: OK\nStage105 essentia jar aura color: OK\nStage106 essentia transport: OK\nStage107 directional essentia tubes: OK\nStage108 tube suction backflow: OK\nStage109 compile syntax fix: OK\nStage111 strict TC4 source mapping: OK\nStage115 ConfigAspects runtime port: OK\n\nStatic audit passed successfully.\n"
+  },
+  {
+    "cmd": "python scripts/tc4_texture_audit.py",
+    "returncode": 0,
+    "output": "{\n  \"stage\": 124,\n  \"model_texture_refs\": 671,\n  \"missing_texture_refs\": 0,\n  \"original_tc4_png_textures\": 820,\n  \"modern_png_textures\": 2615,\n  \"original_sound_files\": 111,\n  \"modern_sound_files\": 111,\n  \"missing\": []\n}\n"
+  },
+  {
+    "cmd": "python scripts/tc4_full_parity_audit.py",
+    "returncode": 0,
+    "output": "{\n  \"stage\": 124,\n  \"goal\": \"whole Thaumcraft 4 parity tracking, texture verification, original sound event runtime registration\",\n  \"original_tc4\": {\n    \"java_files\": 859,\n    \"png_textures\": 820,\n    \"sound_files\": 111,\n    \"sound_events\": 66,\n    \"lang_files\": 22\n  },\n  \"current_port\": {\n    \"java_files\": 250,\n    \"model_json_files\": 766,\n    \"blockstate_json_files\": 126,\n    \"png_textures\": 2615,\n    \"sound_files\": 111\n  },\n  \"runtime_markers\": {\n    \"tc4_research_component_entries\": 234,\n    \"tc4_sound_registry_class\": true,\n    \"tc4_full_parity_index_class\": true\n  },\n  \"remaining_big_systems_to_finish\": [\n    \"Arcane Workbench exact TC4 GUI + vis/wand rules\",\n    \"Crucible exact heat/boil/spill/flux behavior\",\n    \"Full essentia suction/tube network parity\",\n    \"Aura node generation, stabilization, transduction and jar-node parity\",\n    \"Every wand focus behavior and animation\",\n    \"Every golem core/upgrade/AI/seal behavior\",\n    \"Taint/flux goo/gas spread and biome/worldgen behavior\",\n    \"Eldritch progression, cultists, bosses and structures\",\n    \"Exact renderers for jars, tubes, nodes, golems, wands, infusion matrix and special blocks\"\n  ]\n}\n"
+  }
+]

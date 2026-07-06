@@ -1,0 +1,15 @@
+{
+  "tc4_key": "InfEnchHaste",
+  "tc4_source": "addInfusionEnchantmentRecipe",
+  "research": "INFUSIONENCHANTMENT",
+  "tc4_kind": "INFUSION_ENCHANTMENT",
+  "result_expression": "Enchantment.field_77331_b[ThaumcraftApi.enchantHaste]",
+  "catalyst": "thaumcraft:tc4_nitor",
+  "components": [],
+  "aspects": {
+    "PRAECANTATIO": 4,
+    "ITER": 8,
+    "VOLATUS": 8
+  },
+  "instability": "3"
+}

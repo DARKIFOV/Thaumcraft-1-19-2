@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "thaumcraft:block/bellows" },
+    "facing=south": { "model": "thaumcraft:block/bellows", "y": 180 },
+    "facing=west": { "model": "thaumcraft:block/bellows", "y": 270 },
+    "facing=east": { "model": "thaumcraft:block/bellows", "y": 90 }
+  }
+}

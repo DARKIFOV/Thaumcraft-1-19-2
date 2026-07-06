@@ -1,0 +1,15 @@
+{
+  "tc4_key": "InfEnch6",
+  "tc4_source": "addInfusionEnchantmentRecipe",
+  "research": "INFUSIONENCHANTMENT",
+  "tc4_kind": "INFUSION_ENCHANTMENT",
+  "result_expression": "Enchantment.field_77341_i",
+  "catalyst": "thaumcraft:tc4_dust",
+  "components": [],
+  "aspects": {
+    "PRAECANTATIO": 4,
+    "MOTUS": 8,
+    "AQUA": 8
+  },
+  "instability": "2"
+}

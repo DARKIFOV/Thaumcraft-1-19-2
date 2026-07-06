@@ -10,17 +10,28 @@ import net.minecraft.world.entity.player.Player;
 import java.util.Optional;
 
 public final class ResearchTableFoundation {
+    private static final String FOUNDATION_POOL_SEEDED = "ThaumcraftResearchFoundationPoolSeeded";
+
     private ResearchTableFoundation() {
     }
 
     public static void seed(Player player) {
         PlayerAspectKnowledge.seedPrimals(player);
 
+        // Stage136: TC4 gives the player primal understanding as the foundation of research,
+        // but it must not duplicate free research pool points every time the table is clicked.
+        // The old Stage135 behavior could be spammed; now the starter pool is granted once per player.
+        if (player.getPersistentData().getBoolean(FOUNDATION_POOL_SEEDED)) {
+            return;
+        }
+
         for (Aspect aspect : Aspect.values()) {
             if (aspect.isPrimal()) {
                 PlayerAspectKnowledge.addPool(player, aspect, 3);
             }
         }
+
+        player.getPersistentData().putBoolean(FOUNDATION_POOL_SEEDED, true);
     }
 
     public static Optional<Aspect> combine(Player player, Aspect first, Aspect second) {

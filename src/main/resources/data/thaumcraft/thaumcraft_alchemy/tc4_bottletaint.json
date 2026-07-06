@@ -1,0 +1,15 @@
+{
+  "tc4_key": "BottleTaint",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "BOTTLETAINT",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tainted_soil",
+  "result": {
+    "item": "thaumcraft:tc4_bottle_taint",
+    "count": 1
+  },
+  "aspects": {
+    "VITIUM": 8,
+    "PRAECANTATIO": 8
+  }
+}

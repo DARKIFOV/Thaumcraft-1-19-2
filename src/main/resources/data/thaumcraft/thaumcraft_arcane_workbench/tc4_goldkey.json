@@ -1,0 +1,26 @@
+{
+  "tc4_key": "GoldKey",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "WARDEDARCANA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:gold_ingot",
+  "ingredients": [
+    "minecraft:gold_nugget"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 5
+  },
+  "pattern": [
+    "NNI",
+    "N"
+  ],
+  "key": {
+    "N": "minecraft:gold_nugget",
+    "I": "minecraft:gold_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_keyiron",
+    "count": 2
+  }
+}

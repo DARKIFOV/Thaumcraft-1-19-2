@@ -1,0 +1,16 @@
+{
+  "tc4_key": "VoidSeed",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "VOIDMETAL",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:ender_pearl",
+  "result": {
+    "item": "thaumcraft:tc4_voidseed",
+    "count": 1
+  },
+  "aspects": {
+    "TENEBRAE": 8,
+    "VACUOS": 8,
+    "ALIENIS": 2
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "tc4_key": "NodeStabilizer",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "NODESTABILIZER",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_paving_travel",
+  "ingredients": [
+    "minecraft:gold_ingot",
+    "minecraft:obsidian",
+    "minecraft:quartz_block",
+    "thaumcraft:tc4_nitor"
+  ],
+  "aspects": {
+    "AQUA": 32,
+    "TERRA": 32,
+    "ORDO": 32
+  },
+  "pattern": [
+    "G",
+    "QPQ",
+    "SNS"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "Q": "minecraft:obsidian",
+    "P": "thaumcraft:tc4_block_paving_travel",
+    "S": "minecraft:quartz_block",
+    "N": "thaumcraft:tc4_nitor"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_node_stabilizer",
+    "count": 1
+  }
+}

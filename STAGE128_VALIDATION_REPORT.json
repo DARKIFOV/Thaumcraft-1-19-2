@@ -1,0 +1,31 @@
+{
+  "stage": 128,
+  "name": "TC4 Bellows + Wand/Aura Node Repair",
+  "changes": [
+    "Added real bellows block with horizontal facing",
+    "Crucible counts adjacent bellows facing it and heats faster",
+    "Wand sneak-use spills crucible remnants like TC4 spillRemnants",
+    "Wands charge only primal vis from aura nodes",
+    "Aura nodes store base aspects and regenerate toward base primal values",
+    "Aura node stability/scanned state now loads from NBT"
+  ],
+  "created_files": [
+    "src/main/java/com/darkifov/thaumcraft/block/BellowsBlock.java",
+    "src/main/resources/assets/thaumcraft/blockstates/bellows.json",
+    "src/main/resources/assets/thaumcraft/models/block/bellows.json",
+    "src/main/resources/assets/thaumcraft/models/item/bellows.json",
+    "src/main/resources/assets/thaumcraft/textures/block/bellows.png",
+    "docs/porting/STAGE128_TC4_BELLOWS_WAND_AURA_NODE_REPAIR.md",
+    "STAGE128_TEXTURE_AUDIT.json",
+    "STAGE128_FULL_PARITY_AUDIT.json"
+  ],
+  "validation": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_texture_audit": "OK",
+    "tc4_full_parity_audit": "OK",
+    "gradle_build": "not run in sandbox because Gradle wrapper cannot download services.gradle.org without internet"
+  },
+  "timestamp": "2026-07-06T02:28:59Z"
+}

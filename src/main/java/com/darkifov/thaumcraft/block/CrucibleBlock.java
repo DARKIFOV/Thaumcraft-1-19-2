@@ -7,8 +7,14 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipe;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipes;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -41,6 +47,11 @@ public class CrucibleBlock extends BaseEntityBlock {
     }
 
     @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return level.isClientSide ? null : createTickerHelper(type, ThaumcraftMod.CRUCIBLE_BLOCK_ENTITY.get(), CrucibleBlockEntity::serverTick);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
         ItemStack held = player.getItemInHand(hand);
@@ -57,7 +68,7 @@ public class CrucibleBlock extends BaseEntityBlock {
 
         if (held.isEmpty()) {
             player.displayClientMessage(
-                    Component.literal("Crucible | Water: " + crucible.hasWater() + " | Flux: " + crucible.flux() + " | Aspects: ")
+                    Component.literal("Crucible | " + crucible.statusText())
                             .append(crucible.aspects().toComponent()),
                     false
             );
@@ -66,7 +77,8 @@ public class CrucibleBlock extends BaseEntityBlock {
 
         if (held.getItem() == Items.WATER_BUCKET) {
             if (!crucible.hasWater()) {
-                crucible.setWater(true);
+                crucible.fillWater();
+                level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.45F, 1.1F);
 
                 if (!player.getAbilities().instabuild) {
                     player.setItemInHand(hand, new ItemStack(Items.BUCKET));
@@ -82,9 +94,10 @@ public class CrucibleBlock extends BaseEntityBlock {
 
         if (held.getItem() == Items.BUCKET) {
             if (crucible.hasWater()) {
-                crucible.setWater(false);
+                crucible.drainWater();
                 crucible.clearAspects();
                 crucible.clearFlux();
+                level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.55F, 0.8F);
 
                 if (!player.getAbilities().instabuild) {
                     player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
@@ -105,6 +118,11 @@ public class CrucibleBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
 
+        if (!crucible.isBoiling()) {
+            player.displayClientMessage(Component.literal("The crucible needs boiling water. Put fire, lava, magma or a lit campfire below it.").withStyle(ChatFormatting.GOLD), false);
+            return InteractionResult.CONSUME;
+        }
+
         AlchemyRecipe catalystRecipe = AlchemyRecipes.findByCatalyst(held);
 
         if (catalystRecipe != null) {
@@ -115,8 +133,13 @@ public class CrucibleBlock extends BaseEntityBlock {
                     held.shrink(1);
                 }
 
+                crucible.consumeWater(CrucibleBlockEntity.WATER_PER_CRAFT);
                 giveOrDrop(level, pos, player, result);
                 crucible.setChangedAndSync();
+                level.playSound(null, pos, TC4Sounds.event("craftstart"), SoundSource.BLOCKS, 0.65F, 1.0F);
+                if (level instanceof ServerLevel serverLevel) {
+                    serverLevel.sendParticles(ParticleTypes.ENCHANT, pos.getX() + 0.5D, pos.getY() + 0.85D, pos.getZ() + 0.5D, 40, 0.35D, 0.25D, 0.35D, 0.06D);
+                }
                 maybeFluxBurst(level, pos, crucible, player);
 
                 player.displayClientMessage(
@@ -151,6 +174,12 @@ public class CrucibleBlock extends BaseEntityBlock {
         }
 
         crucible.addAspects(aspects);
+        crucible.consumeWater(CrucibleBlockEntity.WATER_PER_DISSOLVE);
+        level.playSound(null, pos, TC4Sounds.event("bubble"), SoundSource.BLOCKS, 0.35F, 0.95F + level.random.nextFloat() * 0.2F);
+        if (level instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.BUBBLE, pos.getX() + 0.5D, pos.getY() + 0.88D, pos.getZ() + 0.5D, 10, 0.22D, 0.05D, 0.22D, 0.02D);
+            serverLevel.sendParticles(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 0.90D, pos.getZ() + 0.5D, 5, 0.20D, 0.08D, 0.20D, 0.01D);
+        }
         maybeFluxBurst(level, pos, crucible, player);
 
         player.displayClientMessage(
@@ -214,9 +243,10 @@ public class CrucibleBlock extends BaseEntityBlock {
         BlockPos target = pos.offset(level.random.nextInt(5) - 2, -1, level.random.nextInt(5) - 2);
 
         if (!level.isOutsideBuildHeight(target) && !level.getBlockState(target).isAir()) {
-            level.setBlock(target, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
+            level.setBlock(target, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
             crucible.addFlux(-12);
-            player.displayClientMessage(Component.literal("Flux burst! Nearby ground was tainted.").withStyle(ChatFormatting.DARK_PURPLE), false);
+            crucible.maybeSpillFlux(true);
+            player.displayClientMessage(Component.literal("Flux burst! Flux goo spilled nearby.").withStyle(ChatFormatting.DARK_PURPLE), false);
         }
     }
 

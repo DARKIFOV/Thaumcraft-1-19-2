@@ -1,0 +1,15 @@
+{
+  "tc4_key": "InfEnch9",
+  "tc4_source": "addInfusionEnchantmentRecipe",
+  "research": "INFUSIONENCHANTMENT",
+  "tc4_kind": "INFUSION_ENCHANTMENT",
+  "result_expression": "Enchantment.field_77339_k",
+  "catalyst": "thaumcraft:tc4_dust",
+  "components": [],
+  "aspects": {
+    "PRAECANTATIO": 4,
+    "TELUM": 4,
+    "EXANIMIS": 4
+  },
+  "instability": "2"
+}

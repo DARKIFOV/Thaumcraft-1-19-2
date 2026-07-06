@@ -1,0 +1,24 @@
+{
+  "tc4_key": "BootsTraveller",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "BOOTSTRAVELLER",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:book",
+  "components": [
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_cloth",
+    "thaumcraft:tc4_cloth",
+    "minecraft:feather",
+    "minecraft:cod"
+  ],
+  "aspects": {
+    "VOLATUS": 25,
+    "ITER": 25
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_bootstraveler",
+    "count": 1
+  }
+}

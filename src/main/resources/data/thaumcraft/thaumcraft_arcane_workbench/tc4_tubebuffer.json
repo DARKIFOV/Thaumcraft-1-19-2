@@ -1,0 +1,28 @@
+{
+  "tc4_key": "TubeBuffer",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "CENTRIFUGE",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_essentia_tube",
+  "ingredients": [
+    "thaumcraft:tc4_block_essentia_tube",
+    "thaumcraft:tc4_essence"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 5
+  },
+  "pattern": [
+    "PVP",
+    "T T",
+    "PRP"
+  ],
+  "key": {
+    "P": "thaumcraft:tc4_block_essentia_tube",
+    "V": "thaumcraft:tc4_essence"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_essentia_tube",
+    "count": 1
+  }
+}

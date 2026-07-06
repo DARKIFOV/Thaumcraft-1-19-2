@@ -1,0 +1,296 @@
+key,kind,research,result,catalyst,instability,aspect_count,component_count,pattern
+Thaumonomicon,COMPOUND,,,,,0,0,
+ArcTable,COMPOUND,,,,,0,0,
+ResTable,COMPOUND,,,,,0,0,
+Crucible,COMPOUND,,,,,0,0,
+InfernalFurnace,COMPOUND,,,,,0,0,
+InfusionAltar,COMPOUND,,,,,0,0,
+NodeJar,COMPOUND,,,,,0,0,
+Thaumatorium,COMPOUND,,,,,0,0,
+AdvAlchemyFurnace,COMPOUND,,,,,0,0,
+"""BalancedShard_"" + a",CRUCIBLE,CRUCIBLE,"new ItemStack(ConfigItems.itemShard, 1, 6)","new ItemStack(ConfigItems.itemShard, 1, a)",,0,0,
+Alumentum,CRUCIBLE,ALUMENTUM,"new ItemStack(ConfigItems.itemResource, 1, 0)","new ItemStack(Items.field_151044_h, 1, 32767)",,3,0,
+Nitor,CRUCIBLE,NITOR,"new ItemStack(ConfigItems.itemResource, 1, 1)","""dustGlowstone""",,3,0,
+Thaumium,CRUCIBLE,THAUMIUM,"new ItemStack(ConfigItems.itemResource, 1, 2)",new ItemStack(Items.field_151042_j),,1,0,
+VoidMetal,CRUCIBLE,VOIDMETAL,"new ItemStack(ConfigItems.itemResource, 1, 16)","new ItemStack(ConfigItems.itemResource, 1, 17)",,1,0,
+VoidSeed,CRUCIBLE,VOIDMETAL,"new ItemStack(ConfigItems.itemResource, 1, 17)",new ItemStack(Items.field_151014_N),,3,0,
+Tallow,CRUCIBLE,TALLOW,"new ItemStack(ConfigItems.itemResource, 1, 4)",new ItemStack(Items.field_151078_bh),,1,0,
+AltGunpowder,CRUCIBLE,ALCHEMICALDUPLICATION,"new ItemStack(Items.field_151016_H, 2, 0)",new ItemStack(Items.field_151016_H),,2,0,
+AltSlime,CRUCIBLE,ALCHEMICALDUPLICATION,"new ItemStack(Items.field_151123_aH, 2, 0)",new ItemStack(Items.field_151123_aH),,2,0,
+AltClay,CRUCIBLE,ALCHEMICALDUPLICATION,"new ItemStack(Items.field_151119_aD, 2, 0)",new ItemStack(Items.field_151119_aD),,2,0,
+AltGlowstone,CRUCIBLE,ALCHEMICALDUPLICATION,"new ItemStack(Items.field_151114_aO, 2, 0)","""dustGlowstone""",,2,0,
+AltInk,CRUCIBLE,ALCHEMICALDUPLICATION,"new ItemStack(Items.field_151100_aR, 2, 0)","new ItemStack(Items.field_151100_aR, 1, 0)",,2,0,
+AltWeb,CRUCIBLE,ALCHEMICALMANUFACTURE,new ItemStack(Blocks.field_150321_G),new ItemStack(Items.field_151007_F),,2,0,
+AltMossyCobble,CRUCIBLE,ALCHEMICALMANUFACTURE,new ItemStack(Blocks.field_150341_Y),new ItemStack(Blocks.field_150347_e),,2,0,
+AltIce,CRUCIBLE,ALCHEMICALMANUFACTURE,new ItemStack(Blocks.field_150432_aD),new ItemStack(Blocks.field_150433_aE),,2,0,
+AltCrackedBrick,CRUCIBLE,ENTROPICPROCESSING,"new ItemStack(Blocks.field_150417_aV, 1, 2)",new ItemStack(Blocks.field_150417_aV),,1,0,
+AltBonemeal,CRUCIBLE,ENTROPICPROCESSING,"new ItemStack(Items.field_151100_aR, 4, 15)",new ItemStack(Items.field_151103_aS),,1,0,
+PureIron,CRUCIBLE,PUREIRON,"new ItemStack(ConfigItems.itemNugget, 1, 16)","""oreIron""",,2,0,
+PureGold,CRUCIBLE,PUREGOLD,"new ItemStack(ConfigItems.itemNugget, 1, 31)","""oreGold""",,2,0,
+PureCopper,CRUCIBLE,PURECOPPER,"new ItemStack(ConfigItems.itemNugget, 1, 17)","""oreCopper""",,2,0,
+PureTin,CRUCIBLE,PURETIN,"new ItemStack(ConfigItems.itemNugget, 1, 18)","""oreTin""",,2,0,
+PureSilver,CRUCIBLE,PURESILVER,"new ItemStack(ConfigItems.itemNugget, 1, 19)","""oreSilver""",,2,0,
+PureLead,CRUCIBLE,PURELEAD,"new ItemStack(ConfigItems.itemNugget, 1, 20)","""oreLead""",,2,0,
+TransIron,CRUCIBLE,TRANSIRON,"new ItemStack(ConfigItems.itemNugget, 3, 0)","""nuggetIron""",,1,0,
+TransGold,CRUCIBLE,TRANSGOLD,"new ItemStack(Items.field_151074_bl, 3, 0)",new ItemStack(Items.field_151074_bl),,2,0,
+TransCopper,CRUCIBLE,TRANSCOPPER,"new ItemStack(ConfigItems.itemNugget, 3, 1)","""nuggetCopper""",,2,0,
+TransTin,CRUCIBLE,TRANSTIN,"new ItemStack(ConfigItems.itemNugget, 3, 2)","""nuggetTin""",,2,0,
+TransSilver,CRUCIBLE,TRANSSILVER,"new ItemStack(ConfigItems.itemNugget, 3, 3)","""nuggetSilver""",,2,0,
+TransLead,CRUCIBLE,TRANSLEAD,"new ItemStack(ConfigItems.itemNugget, 3, 4)","""nuggetLead""",,2,0,
+EtherealBloom,CRUCIBLE,ETHEREALBLOOM,"new ItemStack(ConfigBlocks.blockCustomPlant, 1, 4)","new ItemStack(ConfigBlocks.blockCustomPlant, 1, 2)",,4,0,
+LiquidDeath,CRUCIBLE,LIQUIDDEATH,new ItemStack(ConfigItems.itemBucketDeath),new ItemStack(Items.field_151133_ar),,3,0,
+BottleTaint,CRUCIBLE,BOTTLETAINT,new ItemStack(ConfigItems.itemBottleTaint),bt,,2,0,
+GolemStraw,CRUCIBLE,GOLEMSTRAW,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 0)",new ItemStack(Blocks.field_150407_cf),,3,0,
+GolemWood,CRUCIBLE,GOLEMWOOD,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 1)","new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)",,3,0,
+GolemTallow,CRUCIBLE,GOLEMTALLOW,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 2)","new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5)",,3,0,
+GolemClay,CRUCIBLE,GOLEMCLAY,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 3)",new ItemStack(Blocks.field_150336_V),,3,0,
+GolemFlesh,CRUCIBLE,GOLEMFLESH,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 4)","new ItemStack(ConfigBlocks.blockTaint, 1, 2)",,3,0,
+GolemStone,CRUCIBLE,GOLEMSTONE,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 5)",new ItemStack(Blocks.field_150417_aV),,3,0,
+GolemIron,CRUCIBLE,GOLEMIRON,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 6)",new ItemStack(Blocks.field_150339_S),,3,0,
+GolemThaumium,CRUCIBLE,GOLEMTHAUMIUM,"new ItemStack(ConfigItems.itemGolemPlacer, 1, 7)","new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 4)",,3,0,
+CoreGather,CRUCIBLE,COREGATHER,"new ItemStack(ConfigItems.itemGolemCore, 1, 2)","new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,2,0,
+CoreFill,CRUCIBLE,COREFILL,"new ItemStack(ConfigItems.itemGolemCore, 1, 0)","new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,2,0,
+CoreEmpty,CRUCIBLE,COREEMPTY,"new ItemStack(ConfigItems.itemGolemCore, 1, 1)","new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,2,0,
+CoreHarvest,CRUCIBLE,COREHARVEST,"new ItemStack(ConfigItems.itemGolemCore, 1, 3)","new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,2,0,
+CoreGuard,CRUCIBLE,COREGUARD,"new ItemStack(ConfigItems.itemGolemCore, 1, 4)","new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,2,0,
+CoreButcher,CRUCIBLE,COREBUTCHER,"new ItemStack(ConfigItems.itemGolemCore, 1, 9)","new ItemStack(ConfigItems.itemGolemCore, 1, 4)",,2,0,
+CoreLiquid,CRUCIBLE,CORELIQUID,"new ItemStack(ConfigItems.itemGolemCore, 1, 5)","new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,2,0,
+BathSalts,CRUCIBLE,BATHSALTS,new ItemStack(ConfigItems.itemBathSalts),"new ItemStack(ConfigItems.itemResource, 1, 14)",,4,0,
+SaneSoap,CRUCIBLE,SANESOAP,new ItemStack(ConfigItems.itemSanitySoap),"new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 5)",,4,0,
+"""Banner_"" + a",ARCANE_SHAPED,BANNERS,banner,,,2,9,WS | WS | WB
+PrimalCharm,ARCANE_SHAPED,BASICARTIFACE,"new ItemStack(ConfigItems.itemResource, 1, 15)",,,6,19,123 | ISI | 456
+ArcaneDoor,ARCANE_SHAPED,WARDEDARCANA,new ItemStack(ConfigItems.itemArcaneDoor),,,4,9,TDT | DBD | TDT
+WardedGlass,ARCANE_SHAPED,WARDEDARCANA,"new ItemStack(ConfigBlocks.blockCosmeticOpaque, 8, 2)",,,4,9,GGG | WBW | GGG
+IronKey,ARCANE_SHAPED,WARDEDARCANA,"new ItemStack(ConfigItems.itemKey, 2, 0)",,,2,6,NNI | N 
+FluxScrubber,ARCANE_SHAPED,FLUXSCRUB,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 14)",,,3,13, B  | GOG | STS
+GoldKey,ARCANE_SHAPED,WARDEDARCANA,"new ItemStack(ConfigItems.itemKey, 2, 1)",,,2,6,NNI | N 
+ArcanePressurePlate,ARCANE_SHAPED,WARDEDARCANA,"new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 2)",,,4,8, B  | TDT
+NodeStabilizer,ARCANE_SHAPED,NODESTABILIZER,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9)",,,3,13, G  | QPQ | SNS
+NodeTransducer,ARCANE_SHAPED,VISPOWER,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11)",,,3,13,RCR | ISI | RAR
+NodeRelay,ARCANE_SHAPED,VISPOWER,"new ItemStack(ConfigBlocks.blockMetalDevice, 2, 14)",,,2,7, I  | ISI |  I 
+NodeChargeRelay,ARCANE_SHAPED,VISCHARGERELAY,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 2)",,,3,9, R  | W W | I I
+FocalManipulator,ARCANE_SHAPED,FOCALMANIPULATION,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 13)",,,6,15,IQI | SPS | GTG
+GolemFetter,ARCANE_SHAPED,GOLEMFETTER,"new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 9)",,,2,11,SSS | IRI | BBB
+ArcaneStone1,ARCANE_SHAPED,ARCANESTONE,"new ItemStack(ConfigBlocks.blockCosmeticSolid, 9, 6)",,,2,7,SSS | SCS | SSS
+ArcaneStone2,COMPOUND,,,,,0,0,
+ArcaneStone3,COMPOUND,,,,,0,0,
+ArcaneStone4,COMPOUND,,,,,0,0,
+PaveTravel,ARCANE_SHAPED,PAVETRAVEL,"new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 2)",,,2,8,SAS | SBS
+ArcaneLamp,ARCANE_SHAPED,ARCANELAMP,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7)",,,4,11, S  | IAI |  N 
+ArcaneSpa,ARCANE_SHAPED,ARCANESPA,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 12)",,,3,13,QIQ | SJS | SPS
+PaveWard,ARCANE_SHAPED,PAVEWARD,"new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 3)",,,2,8,SAS | SBS
+Levitator,ARCANE_SHAPED,LEVITATOR,new ItemStack(ConfigBlocks.blockLifter),,,2,13,WEW | BNB | WAW
+ArcaneEar,ARCANE_SHAPED,ARCANEEAR,"new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 1)",,,2,13,GIG | GBG | WRW
+MirrorGlass,ARCANE_SHAPELESS,BASICARTIFACE,"new ItemStack(ConfigItems.itemResource, 1, 10)",,,2,2,
+BoneBow,ARCANE_SHAPED,BONEBOW,new ItemStack(ConfigItems.itemBowBone),,,2,9,SB  | SEB | SB 
+"""PrimalArrow_"" + a",ARCANE_SHAPED,PRIMALARROW,"new ItemStack(ConfigItems.itemPrimalArrow, 8, a)",,,0,7,AAA | ASA | AAA
+InfusionMatrix,ARCANE_SHAPED,INFUSION,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2)",,,1,9,SBS | BEB | SBS
+ArcanePedestal,ARCANE_SHAPED,INFUSION,"new ItemStack(ConfigBlocks.blockStoneDevice, 2, 1)",,,1,5,SSS |  S  | SSS
+WardedJar,ARCANE_SHAPED,DISTILESSENTIA,"new ItemStack(ConfigBlocks.blockJar, 1, 0)",,,1,7,GWG | G G | GGG
+JarVoid,ARCANE_SHAPED,JARVOID,"new ItemStack(ConfigBlocks.blockJar, 1, 3)",,,2,9,O | J | P
+WandCapGold,ARCANE_SHAPED,CAP_gold,"new ItemStack(ConfigItems.itemWandCap, 1, 1)",,,3,4,NNN | N N
+WandCapCopper,ARCANE_SHAPED,CAP_copper,"new ItemStack(ConfigItems.itemWandCap, 1, 3)",,,3,4,NNN | N N
+WandCapSilverInert,ARCANE_SHAPED,CAP_silver,"new ItemStack(ConfigItems.itemWandCap, 1, 5)",,,3,4,NNN | N N
+WandCapThaumiumInert,ARCANE_SHAPED,CAP_thaumium,"new ItemStack(ConfigItems.itemWandCap, 1, 6)",,,3,4,NNN | N N
+WandCapVoidInert,ARCANE_SHAPED,CAP_void,"new ItemStack(ConfigItems.itemWandCap, 1, 8)",,,4,4,NNN | N N
+WandRodGreatwood,ARCANE_SHAPED,ROD_greatwood,"new ItemStack(ConfigItems.itemWandRod, 1, 0)",,,1,4, G | G 
+WandRodGreatwoodStaff,ARCANE_SHAPED,ROD_greatwood_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 50)",,,1,7, S |  G  | G 
+WandRodObsidianStaff,ARCANE_SHAPED,ROD_obsidian_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 51)",,,1,7, S |  G  | G 
+WandRodSilverwoodStaff,ARCANE_SHAPED,ROD_silverwood_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 52)",,,1,7, S |  G  | G 
+WandRodIceStaff,ARCANE_SHAPED,ROD_ice_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 53)",,,1,7, S |  G  | G 
+WandRodQuartzStaff,ARCANE_SHAPED,ROD_quartz_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 54)",,,1,7, S |  G  | G 
+WandRodReedStaff,ARCANE_SHAPED,ROD_reed_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 55)",,,1,7, S |  G  | G 
+WandRodBlazeStaff,ARCANE_SHAPED,ROD_blaze_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 56)",,,1,7, S |  G  | G 
+WandRodBoneStaff,ARCANE_SHAPED,ROD_bone_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 57)",,,1,7, S |  G  | G 
+FocusFire,ARCANE_SHAPED,FOCUSFIRE,new ItemStack(ConfigItems.itemFocusFire),,,2,9,CQC | Q#Q | CQC
+FocusFrost,ARCANE_SHAPED,FOCUSFROST,new ItemStack(ConfigItems.itemFocusFrost),,,3,9,CQC | Q#Q | CQC
+FocusShock,ARCANE_SHAPED,FOCUSSHOCK,new ItemStack(ConfigItems.itemFocusShock),,,3,9,CQC | Q#Q | CQC
+FocusTrade,ARCANE_SHAPED,FOCUSTRADE,new ItemStack(ConfigItems.itemFocusTrade),,,3,11,CQE | Q#Q | CQE
+FocusExcavation,ARCANE_SHAPED,FOCUSEXCAVATION,new ItemStack(ConfigItems.itemFocusExcavation),,,3,9,CQC | Q#Q | CQC
+FocusPrimal,ARCANE_SHAPED,FOCUSPRIMAL,new ItemStack(ConfigItems.itemFocusPrimal),,,6,9,CQC | Q#Q | CQC
+FocusPouch,ARCANE_SHAPED,FOCUSPOUCH,new ItemStack(ConfigItems.itemFocusPouch),,,3,9,LGL | LBL | LLL
+Deconstructor,ARCANE_SHAPED,DECONSTRUCTOR,"new ItemStack(ConfigBlocks.blockTable, 1, 14)",,,1,10, S  | ATP
+ArcaneBoreBase,ARCANE_SHAPED,ARCANEBORE,"new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 4)",,,2,9,WIW | IDI | WIW
+EnchantedFabric,ARCANE_SHAPED,ENCHFABRIC,"new ItemStack(ConfigItems.itemResource, 1, 7)",,,6,7, S  | SCS |  S 
+RobeChest,ARCANE_SHAPED,ENCHFABRIC,"new ItemStack(ConfigItems.itemChestRobe, 1)",,,1,5,I I | III | III
+RobeLegs,ARCANE_SHAPED,ENCHFABRIC,"new ItemStack(ConfigItems.itemLegsRobe, 1)",,,1,5,III | I I | I I
+RobeBoots,ARCANE_SHAPED,ENCHFABRIC,"new ItemStack(ConfigItems.itemBootsRobe, 1)",,,1,4,I I | I I
+Goggles,ARCANE_SHAPED,GOGGLES,new ItemStack(ConfigItems.itemGoggles),,,6,9,LGL | L L | TGT
+HungryChest,ARCANE_SHAPED,HUNGRYCHEST,new ItemStack(ConfigBlocks.blockChestHungry),,,3,7,WTW | W W | WWW
+GolemBell,ARCANE_SHAPED,GOLEMBELL,new ItemStack(ConfigItems.itemGolemBell),,,1,7, QQ |  QQ | S 
+CoreBlank,ARCANE_SHAPED,COREGATHER,"new ItemStack(ConfigItems.itemGolemCore, 1, 100)",,,2,7, C  | CNC |  C 
+UpgradeAir,ARCANE_SHAPED,UPGRADEAIR,"new ItemStack(ConfigItems.itemGolemUpgrade, 1, 0)",,,1,7,NNN | NCN | NNN
+UpgradeEarth,ARCANE_SHAPED,UPGRADEEARTH,"new ItemStack(ConfigItems.itemGolemUpgrade, 1, 1)",,,1,7,NNN | NCN | NNN
+UpgradeFire,ARCANE_SHAPED,UPGRADEFIRE,"new ItemStack(ConfigItems.itemGolemUpgrade, 1, 2)",,,1,7,NNN | NCN | NNN
+UpgradeWater,ARCANE_SHAPED,UPGRADEWATER,"new ItemStack(ConfigItems.itemGolemUpgrade, 1, 3)",,,1,7,NNN | NCN | NNN
+UpgradeOrder,ARCANE_SHAPED,UPGRADEORDER,"new ItemStack(ConfigItems.itemGolemUpgrade, 1, 4)",,,1,7,NNN | NCN | NNN
+UpgradeEntropy,ARCANE_SHAPED,UPGRADEENTROPY,"new ItemStack(ConfigItems.itemGolemUpgrade, 1, 5)",,,1,7,NNN | NCN | NNN
+TinyHat,ARCANE_SHAPED,TINYHAT,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 0)",,,2,7, C  |  G  | CCC
+TinyFez,ARCANE_SHAPED,TINYFEZ,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 3)",,,2,7,CCS | CCS |  S
+TinyBowtie,ARCANE_SHAPED,TINYBOWTIE,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 2)",,,2,6,CSC | C C
+TinyGlasses,ARCANE_SHAPED,TINYGLASSES,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 1)",,,2,5,GIG
+TinyDart,ARCANE_SHAPED,TINYDART,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 4)",,,2,9,AIA | ADA | AIA
+TinyVisor,ARCANE_SHAPED,TINYVISOR,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 5)",,,2,5,IHI
+TinyArmor,ARCANE_SHAPED,TINYARMOR,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 6)",,,1,6,I I | IAI
+TinyHammer,ARCANE_SHAPED,TINYHAMMER,"new ItemStack(ConfigItems.itemGolemDecoration, 1, 7)",,,2,5,III | III |  I 
+Filter,ARCANE_SHAPED,DISTILESSENTIA,"new ItemStack(ConfigItems.itemResource, 2, 8)",,,2,5,GWG
+AlchemyFurnace,ARCANE_SHAPED,DISTILESSENTIA,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 0)",,,2,9,SCS | SFS | SSS
+Alembic,ARCANE_SHAPED,DISTILESSENTIA,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1)",,,2,13,FIG | IBI | I I
+Bellows,ARCANE_SHAPED,BELLOWS,"new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 0)",,,2,11,WW  | LCI | WW 
+Tube,ARCANE_SHAPED,TUBES,"new ItemStack(ConfigBlocks.blockTube, 8, 0)",,,2,11, Q  | IGI |  B 
+Resonator,ARCANE_SHAPED,TUBES,new ItemStack(ConfigItems.itemResonator),,,2,9,I I | INI |  S 
+TubeValve,ARCANE_SHAPELESS,TUBES,"new ItemStack(ConfigBlocks.blockTube, 1, 1)",,,2,2,
+TubeFilter,ARCANE_SHAPELESS,TUBEFILTER,"new ItemStack(ConfigBlocks.blockTube, 1, 3)",,,2,2,
+TubeRestrict,ARCANE_SHAPELESS,TUBEFILTER,"new ItemStack(ConfigBlocks.blockTube, 1, 5)",,,2,2,
+TubeOneway,ARCANE_SHAPELESS,TUBEFILTER,"new ItemStack(ConfigBlocks.blockTube, 1, 6)",,,3,2,
+TubeBuffer,ARCANE_SHAPED,CENTRIFUGE,"new ItemStack(ConfigBlocks.blockTube, 1, 4)",,,2,11,PVP | T T | PRP
+AlchemicalConstruct,ARCANE_SHAPED,DISTILESSENTIA,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9)",,,2,11,VTF | TWT | FTV
+AdvAlchemyConstruct,ARCANE_SHAPED,ADVALCHEMYFURNACE,"new ItemStack(ConfigBlocks.blockMetalDevice, 4, 3)",,,3,9,VAV | APA | VAV
+Centrifuge,ARCANE_SHAPED,CENTRIFUGE,"new ItemStack(ConfigBlocks.blockTube, 1, 2)",,,3,11, T  | ACP |  T 
+EssentiaCrystalizer,ARCANE_SHAPED,ESSENTIACRYSTAL,"new ItemStack(ConfigBlocks.blockTube, 1, 7)",,,3,15,IDI | QCQ | WTW
+MnemonicMatrix,ARCANE_SHAPED,THAUMATORIUM,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 12)",,,3,9,IAI | ABA | IAI
+InfEnchRepair,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77331_b[ThaumcraftApi.enchantRepair],"new ItemStack[] { new ItemStack(Blocks.field_150467_bQ), new ItemStack(ConfigItems.itemResource, 1, 14) }",4,3,0,
+InfEnchHaste,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77331_b[ThaumcraftApi.enchantHaste],"new ItemStack[] { new ItemStack(ConfigItems.itemResource, 1, 1), new ItemStack(ConfigItems.itemResource, 1, 14) }",3,3,0,
+InfEnch0,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77332_c,"new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(ConfigItems.itemResource, 1, 14) }",1,2,0,
+InfEnch1,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77329_d,"new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151064_bs), new ItemStack(ConfigItems.itemResource, 1, 14) }",1,3,0,
+InfEnch2,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77327_f,"new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151016_H), new ItemStack(ConfigItems.itemResource, 1, 14) }",1,3,0,
+InfEnch3,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77328_g,"new ItemStack[] { new ItemStack(Items.field_151042_j), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14) }",1,3,0,
+InfEnch4,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77330_e,"new ItemStack[] { new ItemStack(Items.field_151008_G), new ItemStack(ConfigItems.itemResource, 1, 14) }",1,3,0,
+InfEnch5,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77340_h,"new ItemStack[] { new ItemStack(Items.field_151120_aE), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch6,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77341_i,"new ItemStack[] { new ItemStack(Items.field_151120_aE), new ItemStack(Items.field_151123_aH), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch7,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_92091_k,"new ItemStack[] { new ItemStack(Blocks.field_150330_I), new ItemStack(Items.field_151128_bU), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch8,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77338_j,"new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,2,0,
+InfEnch9,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77339_k,"new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(Items.field_151114_aO), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch10,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77336_l,"new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(ConfigItems.itemResource, 1, 6), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch11,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77337_m,"new ItemStack[] { new ItemStack(Blocks.field_150331_J), new ItemStack(ConfigItems.itemResource, 1, 14) }",1,3,0,
+InfEnch12,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77334_n,"new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(Items.field_151065_br), new ItemStack(ConfigItems.itemResource, 1, 14) }",3,3,0,
+InfEnch13,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77335_o,"new ItemStack[] { new ItemStack(Items.field_151040_l), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 14) }",3,3,0,
+InfEnch14,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77349_p,"new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch15,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77348_q,"new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(Blocks.field_150321_G), new ItemStack(ConfigItems.itemResource, 1, 14) }",5,5,0,
+InfEnch16,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77347_r,"new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(Blocks.field_150343_Z), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch17,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77346_s,"new ItemStack[] { new ItemStack(Items.field_151035_b), new ItemStack(Items.field_151045_i), new ItemStack(ConfigItems.itemResource, 1, 14) }",3,3,0,
+InfEnch18,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77345_t,"new ItemStack[] { new ItemStack(Items.field_151031_f), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,2,0,
+InfEnch19,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77344_u,"new ItemStack[] { new ItemStack(Blocks.field_150331_J), new ItemStack(ConfigItems.itemResource, 1, 14) }",2,3,0,
+InfEnch20,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77343_v,"new ItemStack[] { new ItemStack(Items.field_151031_f), new ItemStack(Items.field_151065_br), new ItemStack(ConfigItems.itemResource, 1, 14) }",3,3,0,
+InfEnch21,INFUSION_ENCHANTMENT,INFUSIONENCHANTMENT,Enchantment.field_77342_w,"new ItemStack[] { new ItemStack(Items.field_151031_f), new ItemStack(Items.field_151032_g), new ItemStack(ConfigItems.itemResource, 1, 14) }",5,4,0,
+WandCapSilver,INFUSION,CAP_silver,"new ItemStack(ConfigItems.itemWandCap, 1, 4)","new ItemStack(ConfigItems.itemWandCap, 1, 5)",4,2,2,
+WandCapThaumium,INFUSION,CAP_thaumium,"new ItemStack(ConfigItems.itemWandCap, 1, 2)","new ItemStack(ConfigItems.itemWandCap, 1, 6)",5,2,3,
+WandCapVoid,INFUSION,CAP_void,"new ItemStack(ConfigItems.itemWandCap, 1, 7)","new ItemStack(ConfigItems.itemWandCap, 1, 8)",8,4,4,
+WandRodObsidian,INFUSION,ROD_obsidian,"new ItemStack(ConfigItems.itemWandRod, 1, 1)",new ItemStack(Blocks.field_150343_Z),3,3,2,
+WandRodIce,INFUSION,ROD_ice,"new ItemStack(ConfigItems.itemWandRod, 1, 3)",new ItemStack(Blocks.field_150432_aD),3,3,2,
+WandRodQuartz,INFUSION,ROD_quartz,"new ItemStack(ConfigItems.itemWandRod, 1, 4)",new ItemStack(Blocks.field_150371_ca),3,3,2,
+WandRodReed,INFUSION,ROD_reed,"new ItemStack(ConfigItems.itemWandRod, 1, 5)",new ItemStack(Items.field_151120_aE),3,3,2,
+WandRodBlaze,INFUSION,ROD_blaze,"new ItemStack(ConfigItems.itemWandRod, 1, 6)",new ItemStack(Items.field_151072_bj),3,3,2,
+WandRodBone,INFUSION,ROD_bone,"new ItemStack(ConfigItems.itemWandRod, 1, 7)",new ItemStack(Items.field_151103_aS),3,3,2,
+WandRodSilverwood,INFUSION,ROD_silverwood,"new ItemStack(ConfigItems.itemWandRod, 1, 2)","new ItemStack(ConfigBlocks.blockMagicalLog, 1, 1)",5,7,7,
+WandRodPrimalStaff,INFUSION,ROD_primal_staff,"new ItemStack(ConfigItems.itemWandRod, 1, 100)","new ItemStack(ConfigItems.itemWandRod, 1, 2)",8,7,8,
+FocusHellbat,INFUSION,FOCUSHELLBAT,new ItemStack(ConfigItems.itemFocusHellbat),new ItemStack(Items.field_151064_bs),3,4,6,
+FocusPortableHole,INFUSION,FOCUSPORTABLEHOLE,new ItemStack(ConfigItems.itemFocusPortableHole),new ItemStack(Items.field_151079_bi),3,4,6,
+FocusWarding,INFUSION,FOCUSWARDING,new ItemStack(ConfigItems.itemFocusWarding),new ItemStack(Items.field_151156_bN),4,4,8,
+WandPed,INFUSION,WANDPED,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 5)","new ItemStack(ConfigBlocks.blockStoneDevice, 1, 1)",3,3,4,
+WandPedFocus,INFUSION,WANDPEDFOC,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 8)",new ItemStack(Items.field_151132_bS),4,3,8,
+NodeStabilizerAdv,INFUSION,NODESTABILIZERADV,"new ItemStack(ConfigBlocks.blockStoneDevice, 1, 10)","new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9)",10,4,8,
+JarBrain,INFUSION,JARBRAIN,"new ItemStack(ConfigBlocks.blockJar, 1, 1)","new ItemStack(ConfigBlocks.blockJar, 1, 0)",4,3,4,
+AdvancedGolem,INFUSION,ADVANCEDGOLEM,"new Object[] { ""advanced"", new NBTTagByte(1) }","new ItemStack(ConfigItems.itemGolemPlacer, 1, 32767)",3,3,5,
+HoverHarness,INFUSION,HOVERHARNESS,new ItemStack(ConfigItems.itemHoverHarness),new ItemStack(Items.field_151027_R),6,4,9,
+HoverGirdle,INFUSION,HOVERGIRDLE,new ItemStack(ConfigItems.itemGirdleHover),"new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2)",8,4,6,
+VisAmulet,INFUSION,VISAMULET,"new ItemStack(ConfigItems.itemAmuletVis, 1, 1)","new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0)",6,4,6,
+RunicAmulet,INFUSION,RUNICARMOR,"new ItemStack(ConfigItems.itemAmuletRunic, 1, 0)","new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0)",4,3,6,
+RunicAmuletEmergency,INFUSION,RUNICEMERGENCY,"new ItemStack(ConfigItems.itemAmuletRunic, 1, 1)","new ItemStack(ConfigItems.itemAmuletRunic, 1, 0)",7,4,6,
+RunicRing,INFUSION,RUNICARMOR,"new ItemStack(ConfigItems.itemRingRunic, 1, 1)","new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1)",3,3,5,
+RunicRingCharged,INFUSION,RUNICCHARGED,"new ItemStack(ConfigItems.itemRingRunic, 1, 2)","new ItemStack(ConfigItems.itemRingRunic, 1, 1)",6,3,6,
+RunicRingHealing,INFUSION,RUNICHEALING,"new ItemStack(ConfigItems.itemRingRunic, 1, 3)","new ItemStack(ConfigItems.itemRingRunic, 1, 1)",6,4,6,
+RunicGirdle,INFUSION,RUNICARMOR,"new ItemStack(ConfigItems.itemGirdleRunic, 1, 0)","new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2)",4,3,7,
+RunicGirdleKinetic,INFUSION,RUNICKINETIC,"new ItemStack(ConfigItems.itemGirdleRunic, 1, 1)","new ItemStack(ConfigItems.itemGirdleRunic, 1, 0)",7,3,6,
+RunicGirdleKinetic_2,INFUSION,RUNICKINETIC,"new ItemStack(ConfigItems.itemGirdleRunic, 1, 1)","new ItemStack(ConfigItems.itemGirdleRunic, 1, 0)",7,3,6,
+Mirror,INFUSION,MIRROR,"new ItemStack(ConfigBlocks.blockMirror, 1, 0)","new ItemStack(ConfigItems.itemResource, 1, 10)",1,3,4,
+MirrorHand,INFUSION,MIRRORHAND,new ItemStack(ConfigItems.itemHandMirror),"new ItemStack(ConfigBlocks.blockMirror, 1, 0)",5,2,3,
+MirrorEssentia,INFUSION,MIRRORESSENTIA,"new ItemStack(ConfigBlocks.blockMirror, 1, 6)","new ItemStack(ConfigItems.itemResource, 1, 10)",2,3,4,
+ElementalAxe,INFUSION,ELEMENTALAXE,new ItemStack(ConfigItems.itemAxeElemental),new ItemStack(ConfigItems.itemAxeThaumium),1,2,4,
+ElementalPick,INFUSION,ELEMENTALPICK,new ItemStack(ConfigItems.itemPickElemental),new ItemStack(ConfigItems.itemPickThaumium),1,3,4,
+ElementalSword,INFUSION,ELEMENTALSWORD,new ItemStack(ConfigItems.itemSwordElemental),new ItemStack(ConfigItems.itemSwordThaumium),1,3,4,
+ElementalShovel,INFUSION,ELEMENTALSHOVEL,new ItemStack(ConfigItems.itemShovelElemental),new ItemStack(ConfigItems.itemShovelThaumium),1,2,4,
+ElementalHoe,INFUSION,ELEMENTALHOE,new ItemStack(ConfigItems.itemHoeElemental),new ItemStack(ConfigItems.itemHoeThaumium),1,3,4,
+BootsTraveller,INFUSION,BOOTSTRAVELLER,new ItemStack(ConfigItems.itemBootsTraveller),new ItemStack(Items.field_151021_T),1,2,6,
+CoreAlchemy,INFUSION,COREALCHEMY,"new ItemStack(ConfigItems.itemGolemCore, 1, 6)","new ItemStack(ConfigItems.itemGolemCore, 1, 5)",2,3,4,
+CoreSorting,INFUSION,CORESORTING,"new ItemStack(ConfigItems.itemGolemCore, 1, 10)",new ItemStack(ConfigItems.itemZombieBrain),3,4,4,
+CoreLumber,INFUSION,CORELUMBER,"new ItemStack(ConfigItems.itemGolemCore, 1, 7)","new ItemStack(ConfigItems.itemGolemCore, 1, 3)",2,3,4,
+CoreFishing,INFUSION,COREFISHING,"new ItemStack(ConfigItems.itemGolemCore, 1, 11)","new ItemStack(ConfigItems.itemGolemCore, 1, 3)",3,3,4,
+CoreUse,INFUSION,COREUSE,"new ItemStack(ConfigItems.itemGolemCore, 1, 8)","new ItemStack(ConfigItems.itemGolemCore, 1, 1)",3,3,4,
+ArcaneBore,INFUSION,ARCANEBORE,"new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 5)",new ItemStack(Blocks.field_150331_J),4,5,8,
+TravelTrunk,INFUSION,TRAVELTRUNK,new ItemStack(ConfigItems.itemTrunkSpawner),new ItemStack(ConfigBlocks.blockChestHungry),3,4,4,
+LampGrowth,INFUSION,LAMPGROWTH,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 8)","new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7)",4,3,6,
+LampFertility,INFUSION,LAMPFERTILITY,"new ItemStack(ConfigBlocks.blockMetalDevice, 1, 13)","new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7)",4,3,6,
+ThaumiumFortressHelm,INFUSION,ARMORFORTRESS,new ItemStack(ConfigItems.itemHelmetFortress),new ItemStack(ConfigItems.itemHelmetThaumium),3,3,5,
+ThaumiumFortressChest,INFUSION,ARMORFORTRESS,new ItemStack(ConfigItems.itemChestFortress),new ItemStack(ConfigItems.itemChestThaumium),3,3,6,
+ThaumiumFortressLegs,INFUSION,ARMORFORTRESS,new ItemStack(ConfigItems.itemLegsFortress),new ItemStack(ConfigItems.itemLegsThaumium),3,3,5,
+VoidRobeHelm,INFUSION,ARMORVOIDFORTRESS,new ItemStack(ConfigItems.itemHelmetVoidRobe),new ItemStack(ConfigItems.itemHelmetVoid),6,7,6,
+VoidRobeChest,INFUSION,ARMORVOIDFORTRESS,new ItemStack(ConfigItems.itemChestVoidRobe),new ItemStack(ConfigItems.itemChestVoid),6,6,6,
+VoidRobeLegs,INFUSION,ARMORVOIDFORTRESS,new ItemStack(ConfigItems.itemLegsVoidRobe),new ItemStack(ConfigItems.itemLegsVoid),6,6,6,
+HelmGoggles,INFUSION,HELMGOGGLES,"new Object[] { ""goggles"", new NBTTagByte(1) }","new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767)",5,3,2,
+MaskGrinningDevil,INFUSION,MASKGRINNINGDEVIL,"new Object[] { ""mask"", new NBTTagInt(0) }","new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767)",8,3,6,
+MaskAngryGhost,INFUSION,MASKANGRYGHOST,"new Object[] { ""mask"", new NBTTagInt(1) }","new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767)",8,3,6,
+MaskSippingFiend,INFUSION,MASKSIPPINGFIEND,"new Object[] { ""mask"", new NBTTagInt(2) }","new ItemStack(ConfigItems.itemHelmetFortress, 1, 32767)",8,3,6,
+SanityCheck,INFUSION,SANITYCHECK,new ItemStack(ConfigItems.itemSanityChecker),new ItemStack(ConfigItems.itemThaumometer),4,3,3,
+EssentiaReservoir,INFUSION,ESSENTIARESERVOIR,new ItemStack(ConfigBlocks.blockEssentiaReservoir),"new ItemStack(ConfigBlocks.blockTube, 1, 4)",6,4,6,
+SinStone,INFUSION,SINSTONE,new ItemStack(ConfigItems.itemCompassStone),new ItemStack(Items.field_151145_ak),5,4,4,
+PrimalCrusher,INFUSION,PRIMALCRUSHER,new ItemStack(ConfigItems.itemPrimalCrusher),"new ItemStack(ConfigItems.itemEldritchObject, 1, 3)",6,7,6,
+EldritchEye,INFUSION,OCULUS,new ItemStack(ConfigItems.itemEldritchObject),new ItemStack(Items.field_151061_bv),5,4,2,
+MundaneAmulet,COMPOUND,,,,,0,0,
+MundaneRing,COMPOUND,,,,,0,0,
+MundaneBelt,COMPOUND,,,,,0,0,
+JarLabel,COMPOUND,,,,,0,0,
+"""JarLabel"" + count",COMPOUND,,,,,0,0,
+JarLabelNull,COMPOUND,,,,,0,0,
+WandBasic,COMPOUND,,,,,0,0,
+WandCapIron,COMPOUND,,,,,0,0,
+KnowFrag,COMPOUND,,,,,0,0,
+PlankGreatwood,COMPOUND,,,,,0,0,
+PlankSilverwood,COMPOUND,,,,,0,0,
+BlockFlesh,COMPOUND,,,,,0,0,
+BlockThaumium,COMPOUND,,,,,0,0,
+BlockTallow,COMPOUND,,,,,0,0,
+"""Clusters"" + a",COMPOUND,,,,,0,0,
+Clusters6,COMPOUND,,,,,0,0,
+Grate,COMPOUND,,,,,0,0,
+Phial,COMPOUND,,,,,0,0,
+Table,COMPOUND,,,,,0,0,
+Scribe1,COMPOUND,,,,,0,0,
+Scribe2,COMPOUND,,,,,0,0,
+Scribe3,COMPOUND,,,,,0,0,
+Thaumometer,COMPOUND,,,,,0,0,
+ThaumiumHelm,COMPOUND,,,,,0,0,
+ThaumiumChest,COMPOUND,,,,,0,0,
+ThaumiumLegs,COMPOUND,,,,,0,0,
+ThaumiumBoots,COMPOUND,,,,,0,0,
+ThaumiumShovel,COMPOUND,,,,,0,0,
+ThaumiumPick,COMPOUND,,,,,0,0,
+ThaumiumAxe,COMPOUND,,,,,0,0,
+ThaumiumHoe,COMPOUND,,,,,0,0,
+ThaumiumSword,COMPOUND,,,,,0,0,
+VoidHelm,COMPOUND,,,,,0,0,
+VoidChest,COMPOUND,,,,,0,0,
+VoidLegs,COMPOUND,,,,,0,0,
+VoidBoots,COMPOUND,,,,,0,0,
+VoidShovel,COMPOUND,,,,,0,0,
+VoidPick,COMPOUND,,,,,0,0,
+VoidAxe,COMPOUND,,,,,0,0,
+VoidHoe,COMPOUND,,,,,0,0,
+VoidSword,COMPOUND,,,,,0,0,
+TallowCandle,COMPOUND,,,,,0,0,
+Smelting_1,SMELTING,,"new ItemStack(Items.field_151044_h, 1, 1)",ConfigBlocks.blockMagicalLog,,0,0,
+Smelting_2,SMELTING,,"new ItemStack(ConfigItems.itemResource, 1, 3)","new ItemStack(ConfigBlocks.blockCustomOre, 1, 0)",,0,0,
+Smelting_3,SMELTING,,"new ItemStack(ConfigItems.itemResource, 1, 6)","new ItemStack(ConfigBlocks.blockCustomOre, 1, 7)",,0,0,
+Smelting_4,SMELTING,,"new ItemStack(Items.field_151042_j, 2, 0)","new ItemStack(ConfigItems.itemNugget, 1, 16)",,0,0,
+Smelting_5,SMELTING,,"new ItemStack(ConfigItems.itemResource, 2, 3)","new ItemStack(ConfigItems.itemNugget, 1, 21)",,0,0,
+Smelting_6,SMELTING,,"new ItemStack(Items.field_151043_k, 2, 0)","new ItemStack(ConfigItems.itemNugget, 1, 31)",,0,0,
+Smelting_7,SMELTING,,"new ItemStack(ConfigItems.itemResource, 1, 14)","new ItemStack(ConfigItems.itemShard, 1, 6)",,0,0,
+Smelting_8,SMELTING,,new ItemStack(Items.field_151074_bl),"new ItemStack(ConfigItems.itemResource, 1, 18)",,0,0,
+Normal_1,NORMAL_SHAPED,,new RecipesRobeArmorDyes(),,,0,0,
+Normal_2,NORMAL_SHAPED,,new RecipesVoidRobeArmorDyes(),,,0,0,
+Normal_3,NORMAL_SHAPED,,"new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 0)",,,0,1,
+Normal_4,NORMAL_SHAPED,,"new ItemStack(ConfigBlocks.blockCosmeticOpaque, 4, 1)",,,0,1,
+Normal_5,NORMAL_SHAPED,,"new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 1)",,,0,1,
+Normal_6,NORMAL_SHAPED,,"new ItemStack(ConfigItems.itemResource, 4, 6)",,,0,1,
+Normal_7,NORMAL_SHAPED,,"new ItemStack(ConfigItems.itemResource, 4, 6)",,,0,1,
+Normal_8,NORMAL_SHAPELESS,,"new ItemStack(ConfigBlocks.blockCandle, 1, 0)",,,0,1,

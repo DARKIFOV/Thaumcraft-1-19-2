@@ -1,0 +1,25 @@
+{
+  "tc4_key": "TinyArmor",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TINYARMOR",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [
+    "minecraft:porkchop"
+  ],
+  "aspects": {
+    "TERRA": 8
+  },
+  "pattern": [
+    "I I",
+    "IAI"
+  ],
+  "key": {
+    "I": "minecraft:porkchop",
+    "A": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golemdecoarmor",
+    "count": 1
+  }
+}

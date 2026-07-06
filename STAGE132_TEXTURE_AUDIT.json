@@ -1,0 +1,12 @@
+{
+  "stage": 132,
+  "added_textures": [
+    "textures/block/node_transducer.png",
+    "textures/block/node_transducer_over.png",
+    "textures/block/advanced_node_stabilizer.png",
+    "textures/item/node_jar.png"
+  ],
+  "source": "original TC4 1.7.10 model/block textures reused where available",
+  "model_texture_refs": "audit OK",
+  "missing_texture_refs": 0
+}

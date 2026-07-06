@@ -143,8 +143,11 @@ public final class ResearchRegistry {
     }
 
     public static Optional<ResearchEntry> byKey(String key) {
+        if (key == null) {
+            return Optional.empty();
+        }
         for (ResearchEntry entry : ENTRIES) {
-            if (entry.key().equals(key)) {
+            if (entry.key().equals(key) || entry.key().equalsIgnoreCase(key)) {
                 return Optional.of(entry);
             }
         }

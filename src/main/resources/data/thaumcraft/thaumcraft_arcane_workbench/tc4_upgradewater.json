@@ -1,0 +1,26 @@
+{
+  "tc4_key": "UpgradeWater",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "UPGRADEWATER",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:gold_nugget",
+  "ingredients": [
+    "thaumcraft:tc4_shard_aqua"
+  ],
+  "aspects": {
+    "AQUA": 10
+  },
+  "pattern": [
+    "NNN",
+    "NCN",
+    "NNN"
+  ],
+  "key": {
+    "N": "thaumcraft:tc4_shard_aqua",
+    "C": "minecraft:gold_nugget"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golem_upgrade_water",
+    "count": 1
+  }
+}

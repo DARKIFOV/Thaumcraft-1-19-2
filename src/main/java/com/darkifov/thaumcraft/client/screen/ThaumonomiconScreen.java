@@ -69,6 +69,7 @@ public class ThaumonomiconScreen extends Screen {
         renderResearchTree(poseStack, mouseX, mouseY, partialTick);
         renderTabs(poseStack, mouseX, mouseY);
         OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos, topPos, GUI_RESEARCH, 0, 0, PANE_WIDTH, PANE_HEIGHT, 256, 256);
+        renderBrowserHeader(poseStack);
         renderSelectedPage(poseStack);
         renderPopup(poseStack);
         renderHoverTooltip(poseStack, mouseX, mouseY);
@@ -77,6 +78,24 @@ public class ThaumonomiconScreen extends Screen {
 
     private void renderResearchTree(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderMap(poseStack, mouseX, mouseY, partialTick);
+    }
+
+    private void renderBrowserHeader(PoseStack poseStack) {
+        Set<String> unlocked = unlockedResearch();
+        List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
+        int complete = 0;
+        int available = 0;
+
+        for (ResearchEntry entry : entries) {
+            if (OriginalResearchLayout.unlocked(unlocked, entry)) {
+                complete++;
+            } else if (OriginalResearchLayout.available(unlocked, entry)) {
+                available++;
+            }
+        }
+
+        drawString(poseStack, font, Component.literal(category.title()), leftPos + 12, topPos + 8, 0x2D1B0B);
+        drawString(poseStack, font, Component.literal("Complete " + complete + " / " + entries.size() + "   Available " + available), leftPos + 12, topPos + PANE_HEIGHT - 18, 0x5A3515);
     }
 
     private void renderSelectedPage(PoseStack poseStack) {

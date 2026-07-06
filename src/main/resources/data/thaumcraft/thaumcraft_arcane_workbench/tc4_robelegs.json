@@ -1,0 +1,23 @@
+{
+  "tc4_key": "RobeLegs",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ENCHFABRIC",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_cloth",
+  "ingredients": [],
+  "aspects": {
+    "AQUA": 5
+  },
+  "pattern": [
+    "III",
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": "thaumcraft:tc4_cloth"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_clothlegs",
+    "count": 1
+  }
+}

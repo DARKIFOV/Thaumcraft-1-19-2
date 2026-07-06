@@ -1,0 +1,23 @@
+{
+  "tc4_key": "CoreAlchemy",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "COREALCHEMY",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_golem_core_liquid",
+  "components": [
+    "thaumcraft:tc4_block_essentia_jar",
+    "minecraft:emerald",
+    "minecraft:emerald",
+    "minecraft:emerald"
+  ],
+  "aspects": {
+    "PRAECANTATIO": 15,
+    "AQUA": 15,
+    "MOTUS": 15
+  },
+  "instability": 2,
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_essentia",
+    "count": 1
+  }
+}

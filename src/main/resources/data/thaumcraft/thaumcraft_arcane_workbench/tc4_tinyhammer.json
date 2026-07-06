@@ -1,0 +1,24 @@
+{
+  "tc4_key": "TinyHammer",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TINYHAMMER",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [],
+  "aspects": {
+    "TERRA": 4,
+    "IGNIS": 4
+  },
+  "pattern": [
+    "III",
+    "III",
+    "I"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golemdecoarmor",
+    "count": 1
+  }
+}

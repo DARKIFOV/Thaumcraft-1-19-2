@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "thaumcraft:tc4_shard_balanced"
+  },
+  "result": "thaumcraft:tc4_dust",
+  "experience": 0.1,
+  "cookingtime": 200
+}

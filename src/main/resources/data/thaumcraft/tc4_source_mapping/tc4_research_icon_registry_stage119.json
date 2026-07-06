@@ -1,0 +1,1208 @@
+[
+  {
+    "key": "BASICTHAUMATURGY",
+    "original_icon_expression": "wand",
+    "modern_texture": "textures/item/iron_capped_wooden_wand.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "FOCUSFIRE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusFire)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_fire.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_fire"
+  },
+  {
+    "key": "FOCUSFROST",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusFrost)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_frost.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_frost"
+  },
+  {
+    "key": "FOCUSHELLBAT",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusHellbat)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_hellbat.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_hellbat"
+  },
+  {
+    "key": "FOCUSEXCAVATION",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusExcavation)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus"
+  },
+  {
+    "key": "FOCUSWARDING",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusWarding)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_warding.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_warding"
+  },
+  {
+    "key": "FOCUSSHOCK",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusShock)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_shock.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_shock"
+  },
+  {
+    "key": "FOCUSTRADE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusTrade)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_trade.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_trade"
+  },
+  {
+    "key": "FOCUSPORTABLEHOLE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusPortableHole)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_portablehole.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_portablehole"
+  },
+  {
+    "key": "FOCUSPOUCH",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusPouch)",
+    "modern_texture": "textures/original/thaumcraft4/items/focuspouch.png",
+    "stage119_registry_item": "thaumcraft:tc4_focuspouch"
+  },
+  {
+    "key": "CAP_iron",
+    "original_icon_expression": "",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "CAP_gold",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandCap, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_cap_gold.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_cap_gold"
+  },
+  {
+    "key": "CAP_thaumium",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandCap, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_cap_thaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_cap_thaumium"
+  },
+  {
+    "key": "CAP_copper",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandCap, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_cap_copper.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_cap_copper"
+  },
+  {
+    "key": "CAP_silver",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandCap, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_cap_silver.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_cap_silver"
+  },
+  {
+    "key": "ROD_wood",
+    "original_icon_expression": "",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ROD_greatwood",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_reed",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 5)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_reed.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_reed"
+  },
+  {
+    "key": "ROD_blaze",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 6)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_blaze.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_blaze"
+  },
+  {
+    "key": "ROD_obsidian",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_obsidian.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_obsidian"
+  },
+  {
+    "key": "ROD_ice",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_quartz.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_quartz"
+  },
+  {
+    "key": "ROD_quartz",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_silverwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_silverwood"
+  },
+  {
+    "key": "ROD_bone",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 7)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_ice.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_ice"
+  },
+  {
+    "key": "ROD_silverwood",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_bone.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_bone"
+  },
+  {
+    "key": "SCEPTRE",
+    "original_icon_expression": "sceptre3",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ROD_greatwood_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 50)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_reed_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 55)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_blaze_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 56)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_obsidian_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 51)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_ice_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 53)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_quartz_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 54)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_bone_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 57)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "ROD_silverwood_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 52)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  },
+  {
+    "key": "WANDPED",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 5)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "VISAMULET",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemAmuletVis, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/vis_amulet.png",
+    "stage119_registry_item": "thaumcraft:tc4_vis_amulet"
+  },
+  {
+    "key": "WANDPEDFOC",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 8)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODESTABILIZER",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODESTABILIZERADV",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "VISPOWER",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 11)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "VISCHARGERELAY",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 2)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "FOCALMANIPULATION",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 13)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "VAMPBAT",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/foci/vampirebats.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "BASICARTIFACE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 15)",
+    "modern_texture": "textures/original/thaumcraft4/items/charm.png",
+    "stage119_registry_item": "thaumcraft:tc4_charm"
+  },
+  {
+    "key": "ARCANESTONE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)",
+    "modern_texture": "textures/original/thaumcraft4/blocks/arcane_stone.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "GRATE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 5)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "TABLE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTable)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ARCTABLE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTable, 1, 15)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RESTABLE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTable, 1, 1)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "THAUMOMETER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemThaumometer)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PAVETRAVEL",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/blocks/arcane_stone.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PAVEWARD",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/blocks/arcane_stone.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "GOGGLES",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGoggles)",
+    "modern_texture": "textures/original/thaumcraft4/items/gogglesrevealing.png",
+    "stage119_registry_item": "thaumcraft:tc4_gogglesrevealing"
+  },
+  {
+    "key": "ARCANEEAR",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 1)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "SINSTONE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemCompassStone, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/sinister_stone.png",
+    "stage119_registry_item": "thaumcraft:tc4_sinister_stone"
+  },
+  {
+    "key": "LEVITATOR",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockLifter)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "INFERNALFURNACE",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_infernalfurnace.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "BELLOWS",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 0)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ENCHFABRIC",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 7)",
+    "modern_texture": "textures/original/thaumcraft4/items/cloth.png",
+    "stage119_registry_item": "thaumcraft:tc4_cloth"
+  },
+  {
+    "key": "INFUSION",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "FLUXSCRUB",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 14)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RUNICARMOR",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemRingRunic, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/runic_ring.png",
+    "stage119_registry_item": "thaumcraft:tc4_runic_ring"
+  },
+  {
+    "key": "RUNICCHARGED",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemRingRunic, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/runic_ring.png",
+    "stage119_registry_item": "thaumcraft:tc4_runic_ring"
+  },
+  {
+    "key": "RUNICHEALING",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemRingRunic, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/runic_ring.png",
+    "stage119_registry_item": "thaumcraft:tc4_runic_ring"
+  },
+  {
+    "key": "RUNICKINETIC",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/runic_girdle.png",
+    "stage119_registry_item": "thaumcraft:tc4_runic_girdle"
+  },
+  {
+    "key": "RUNICEMERGENCY",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemAmuletRunic, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/runic_amulet.png",
+    "stage119_registry_item": "thaumcraft:tc4_runic_amulet"
+  },
+  {
+    "key": "BANNERS",
+    "original_icon_expression": "is",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RUNICAUGMENTATION",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_runicupg.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "BOOTSTRAVELLER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemBootsTraveller)",
+    "modern_texture": "textures/original/thaumcraft4/items/bootstraveler.png",
+    "stage119_registry_item": "thaumcraft:tc4_bootstraveler"
+  },
+  {
+    "key": "HOVERHARNESS",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemHoverHarness)",
+    "modern_texture": "textures/original/thaumcraft4/items/hoverharness.png",
+    "stage119_registry_item": "thaumcraft:tc4_hoverharness"
+  },
+  {
+    "key": "HOVERGIRDLE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGirdleHover)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "MIRROR",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMirror, 1, 0)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "MIRRORHAND",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemHandMirror)",
+    "modern_texture": "textures/original/thaumcraft4/items/mirrorhand.png",
+    "stage119_registry_item": "thaumcraft:tc4_mirrorhand"
+  },
+  {
+    "key": "MIRRORESSENTIA",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMirror, 1, 6)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ARCANEBORE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 5)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ARCANELAMP",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "LAMPGROWTH",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 8)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "LAMPFERTILITY",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 13)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "BONEBOW",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemBowBone)",
+    "modern_texture": "textures/original/thaumcraft4/items/bonebow.png",
+    "stage119_registry_item": "thaumcraft:tc4_bonebow"
+  },
+  {
+    "key": "PRIMALARROW",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemPrimalArrow, 1, 32767)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ELEMENTALAXE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemAxeElemental)",
+    "modern_texture": "textures/original/thaumcraft4/items/elementalaxe.png",
+    "stage119_registry_item": "thaumcraft:tc4_elementalaxe"
+  },
+  {
+    "key": "ELEMENTALPICK",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemPickElemental)",
+    "modern_texture": "textures/original/thaumcraft4/items/elementalpick.png",
+    "stage119_registry_item": "thaumcraft:tc4_elementalpick"
+  },
+  {
+    "key": "ELEMENTALSWORD",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemSwordElemental)",
+    "modern_texture": "textures/original/thaumcraft4/items/elementalsword.png",
+    "stage119_registry_item": "thaumcraft:tc4_elementalsword"
+  },
+  {
+    "key": "ELEMENTALSHOVEL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemShovelElemental)",
+    "modern_texture": "textures/original/thaumcraft4/items/elementalshovel.png",
+    "stage119_registry_item": "thaumcraft:tc4_elementalshovel"
+  },
+  {
+    "key": "ELEMENTALHOE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemHoeElemental)",
+    "modern_texture": "textures/original/thaumcraft4/items/elementalhoe.png",
+    "stage119_registry_item": "thaumcraft:tc4_elementalhoe"
+  },
+  {
+    "key": "WARDEDARCANA",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemArcaneDoor)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "JARBRAIN",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockJar, 1, 1)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "INFUSIONENCHANTMENT",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_enchant.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ARMORFORTRESS",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemHelmetFortress)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "HELMGOGGLES",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGoggles)",
+    "modern_texture": "textures/original/thaumcraft4/items/gogglesrevealing.png",
+    "stage119_registry_item": "thaumcraft:tc4_gogglesrevealing"
+  },
+  {
+    "key": "MASKGRINNINGDEVIL",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_mask0.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "MASKANGRYGHOST",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_mask1.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "MASKSIPPINGFIEND",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_mask2.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PHIAL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemEssence, 1, 0)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "CRUCIBLE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 0)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NITOR",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/nitor.png",
+    "stage119_registry_item": "thaumcraft:tc4_nitor"
+  },
+  {
+    "key": "ALUMENTUM",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/alumentum.png",
+    "stage119_registry_item": "thaumcraft:tc4_alumentum"
+  },
+  {
+    "key": "ALCHEMICALDUPLICATION",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_alchmult.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ALCHEMICALMANUFACTURE",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_alchman.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ENTROPICPROCESSING",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_alchent.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "LIQUIDDEATH",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemBucketDeath)",
+    "modern_texture": "textures/original/thaumcraft4/items/bucket_death.png",
+    "stage119_registry_item": "thaumcraft:tc4_bucket_death"
+  },
+  {
+    "key": "BOTTLETAINT",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemBottleTaint)",
+    "modern_texture": "textures/original/thaumcraft4/items/bottle_taint.png",
+    "stage119_registry_item": "thaumcraft:tc4_bottle_taint"
+  },
+  {
+    "key": "THAUMIUM",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/thaumiumingot.png",
+    "stage119_registry_item": "thaumcraft:tc4_thaumiumingot"
+  },
+  {
+    "key": "PUREIRON",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 16)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "PUREGOLD",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 31)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "PURECOPPER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 17)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "PURETIN",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 18)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "PURESILVER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 19)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "PURELEAD",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 20)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "TRANSIRON",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "TRANSGOLD",
+    "original_icon_expression": "new ItemStack(Items.field_151074_bl)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "TRANSCOPPER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "TRANSTIN",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "TRANSSILVER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "TRANSLEAD",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemNugget, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/nuggetthaumium.png",
+    "stage119_registry_item": "thaumcraft:tc4_nuggetthaumium"
+  },
+  {
+    "key": "TALLOW",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/tallow.png",
+    "stage119_registry_item": "thaumcraft:tc4_tallow"
+  },
+  {
+    "key": "ETHEREALBLOOM",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCustomPlant, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/blocks/cinderpearl.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "BATHSALTS",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemBathSalts)",
+    "modern_texture": "textures/original/thaumcraft4/items/bath_salts.png",
+    "stage119_registry_item": "thaumcraft:tc4_bath_salts"
+  },
+  {
+    "key": "SANESOAP",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemSanitySoap)",
+    "modern_texture": "textures/original/thaumcraft4/items/soap.png",
+    "stage119_registry_item": "thaumcraft:tc4_soap"
+  },
+  {
+    "key": "ARCANESPA",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 12)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "DISTILESSENTIA",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "JARLABEL",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockJar)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "JARVOID",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockJar, 1, 3)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "TUBES",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "TUBEFILTER",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTube, 1, 3)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ESSENTIACRYSTAL",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTube, 1, 7)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "CENTRIFUGE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTube, 1, 2)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "THAUMATORIUM",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/blocks/alchemyblock.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "HUNGRYCHEST",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockChestHungry)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "GOLEMFETTER",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 9)",
+    "modern_texture": "textures/original/thaumcraft4/blocks/arcane_stone.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "TRAVELTRUNK",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemTrunkSpawner)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "GOLEMSTRAW",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMWOOD",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMTALLOW",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMCLAY",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMFLESH",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMSTONE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 5)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMIRON",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 6)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMTHAUMIUM",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 7)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_wood.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_wood"
+  },
+  {
+    "key": "GOLEMBELL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemBell)",
+    "modern_texture": "textures/original/thaumcraft4/items/ironbell.png",
+    "stage119_registry_item": "thaumcraft:tc4_ironbell"
+  },
+  {
+    "key": "COREGATHER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREFILL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREEMPTY",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "CORESORTING",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 10)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREUSE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 8)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREHARVEST",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREFISHING",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 11)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "CORELUMBER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 7)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREGUARD",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREBUTCHER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 9)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "CORELIQUID",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 5)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "COREALCHEMY",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemCore, 1, 6)",
+    "modern_texture": "textures/original/thaumcraft4/items/golem_core_blank.png",
+    "stage119_registry_item": "thaumcraft:tc4_golem_core_blank"
+  },
+  {
+    "key": "UPGRADEAIR",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 0)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "UPGRADEEARTH",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 1)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "UPGRADEFIRE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 2)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "UPGRADEWATER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 3)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "UPGRADEORDER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 4)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "UPGRADEENTROPY",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 5)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ADVANCEDGOLEM",
+    "original_icon_expression": "ag",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "TINYHAT",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYGLASSES",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYBOWTIE",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 2)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYFEZ",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYDART",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 4)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYVISOR",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 5)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYARMOR",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 6)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "TINYHAMMER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 7)",
+    "modern_texture": "textures/original/thaumcraft4/items/golemdecotophat.png",
+    "stage119_registry_item": "thaumcraft:tc4_golemdecotophat"
+  },
+  {
+    "key": "ASPECTS",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_aspects.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PECH",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_pech.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODES",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_nodes.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "WARP",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_warp.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RESEARCH",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemInkwell)",
+    "modern_texture": "textures/original/thaumcraft4/items/inkwell.png",
+    "stage119_registry_item": "thaumcraft:tc4_inkwell"
+  },
+  {
+    "key": "KNOWFRAG",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 9)",
+    "modern_texture": "textures/original/thaumcraft4/items/knowledgefragment.png",
+    "stage119_registry_item": "thaumcraft:tc4_knowledgefragment"
+  },
+  {
+    "key": "THAUMONOMICON",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemThaumonomicon)",
+    "modern_texture": "textures/original/thaumcraft4/items/thaumonomicon.png",
+    "stage119_registry_item": "thaumcraft:tc4_thaumonomicon"
+  },
+  {
+    "key": "ORE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 32767)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PLANTS",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockCustomPlant, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/blocks/cinderpearl.png",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ENCHANT",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_enchant.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODETAPPER1",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_nodetap1.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODEPRESERVE",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_nodepreserve.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODEJAR",
+    "original_icon_expression": "jarIs",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "NODETAPPER2",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_nodetap2.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RESEARCHER1",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_researcher1.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "DECONSTRUCTOR",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockTable, 1, 14)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RESEARCHER2",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_researcher2.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "RESEARCHDUPE",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_resdupe.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "CRIMSON",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemEldritchObject, 1, 1)",
+    "modern_texture": "textures/original/thaumcraft4/items/eldritch_object.png",
+    "stage119_registry_item": "thaumcraft:tc4_eldritch_object"
+  },
+  {
+    "key": "ELDRITCHMINOR",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_eldritchminor.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ELDRITCHMAJOR",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_eldritchmajor.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "OCULUS",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemEldritchObject, 1, 0)",
+    "modern_texture": "textures/original/thaumcraft4/items/eldritch_object.png",
+    "stage119_registry_item": "thaumcraft:tc4_eldritch_object"
+  },
+  {
+    "key": "ENTEROUTER",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_outer.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "OUTERREV",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_outerrev.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PRIMPEARL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemEldritchObject, 1, 3)",
+    "modern_texture": "textures/original/thaumcraft4/items/eldritch_object.png",
+    "stage119_registry_item": "thaumcraft:tc4_eldritch_object"
+  },
+  {
+    "key": "PRIMNODE",
+    "original_icon_expression": "new ResourceLocation(\"thaumcraft\", \"textures/misc/r_nodes_2.png\")",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "ADVALCHEMYFURNACE",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "PRIMALCRUSHER",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemPrimalCrusher)",
+    "modern_texture": "textures/original/thaumcraft4/items/primal_crusher.png",
+    "stage119_registry_item": "thaumcraft:tc4_primal_crusher"
+  },
+  {
+    "key": "SANITYCHECK",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemSanityChecker)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "VOIDMETAL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemResource, 1, 16)",
+    "modern_texture": "textures/original/thaumcraft4/items/voidingot.png",
+    "stage119_registry_item": "thaumcraft:tc4_voidingot"
+  },
+  {
+    "key": "ESSENTIARESERVOIR",
+    "original_icon_expression": "new ItemStack(ConfigBlocks.blockEssentiaReservoir)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "CAP_void",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandCap, 1, 7)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_cap_iron.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_cap_iron"
+  },
+  {
+    "key": "ARMORVOIDFORTRESS",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemHelmetVoidRobe)",
+    "modern_texture": "",
+    "stage119_registry_item": ""
+  },
+  {
+    "key": "FOCUSPRIMAL",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemFocusPrimal)",
+    "modern_texture": "textures/original/thaumcraft4/items/focus_primal.png",
+    "stage119_registry_item": "thaumcraft:tc4_focus_primal"
+  },
+  {
+    "key": "ROD_primal_staff",
+    "original_icon_expression": "new ItemStack(ConfigItems.itemWandRod, 1, 100)",
+    "modern_texture": "textures/original/thaumcraft4/items/wand_rod_greatwood.png",
+    "stage119_registry_item": "thaumcraft:tc4_wand_rod_greatwood"
+  }
+]

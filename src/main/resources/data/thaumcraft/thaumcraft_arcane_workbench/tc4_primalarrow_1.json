@@ -1,0 +1,26 @@
+{
+  "tc4_key": "PrimalArrow_1",
+  "kind": "ARCANE_SHAPED",
+  "research": "PRIMALARROW",
+  "result": {
+    "item": "thaumcraft:tc4_el_arrow_fire",
+    "count": 8
+  },
+  "catalyst": "minecraft:arrow",
+  "ingredients": [
+    "thaumcraft:tc4_shard_ignis"
+  ],
+  "aspects": {
+    "IGNIS": 8
+  },
+  "pattern": [
+    "AAA",
+    "ASA",
+    "AAA"
+  ],
+  "key": {
+    "A": "thaumcraft:tc4_shard_ignis",
+    "S": "minecraft:arrow"
+  },
+  "source": "ConfigRecipes arcane loop lines 972-975"
+}

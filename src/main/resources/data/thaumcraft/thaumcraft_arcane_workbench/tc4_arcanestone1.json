@@ -1,0 +1,27 @@
+{
+  "tc4_key": "ArcaneStone1",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ARCANESTONE",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:stone",
+  "ingredients": [
+    "thaumcraft:tc4_shard_aer"
+  ],
+  "aspects": {
+    "TERRA": 1,
+    "IGNIS": 1
+  },
+  "pattern": [
+    "SSS",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "S": "thaumcraft:tc4_shard_aer",
+    "C": "minecraft:stone"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_arcane_stone",
+    "count": 9
+  }
+}

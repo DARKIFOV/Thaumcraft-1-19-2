@@ -7,10 +7,12 @@ import com.darkifov.thaumcraft.aura.AuraNodeScan;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.data.NodeScanData;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -103,6 +105,25 @@ public class AuraNodeBlock extends BaseEntityBlock {
         }
 
         ItemStack stack = player.getItemInHand(hand);
+
+        if (stack.getItem() instanceof WandItem wandItem) {
+            if (!level.isClientSide()) {
+                int moved = wandItem.chargeFromNode(stack, node);
+                if (moved > 0) {
+                    player.displayClientMessage(Component.literal("Absorbed " + moved + " primal vis from the node.").withStyle(ChatFormatting.AQUA), true);
+                    level.playSound(null, pos, TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.45F, 1.15F);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(new DustParticleOptions(new Vector3f(0.45F, 0.75F, 1.0F), 1.0F),
+                                pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+                                18, 0.35D, 0.35D, 0.35D, 0.015D);
+                    }
+                } else {
+                    player.displayClientMessage(Component.literal("The wand is full or the node has no primal vis left.").withStyle(ChatFormatting.GRAY), true);
+                }
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide());
+        }
+
         String itemId = stack.getItem().builtInRegistryHolder().key().location().toString();
 
         if (!itemId.contains("thaumometer") && !itemId.contains("goggles")) {

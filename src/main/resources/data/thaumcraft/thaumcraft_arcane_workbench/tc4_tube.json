@@ -1,0 +1,31 @@
+{
+  "tc4_key": "Tube",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TUBES",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [
+    "minecraft:gold_nugget",
+    "minecraft:glass",
+    "thaumcraft:tc4_nuggetquicksilver"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 5
+  },
+  "pattern": [
+    "Q",
+    "IGI",
+    "B"
+  ],
+  "key": {
+    "Q": "minecraft:gold_nugget",
+    "I": "minecraft:glass",
+    "G": "minecraft:iron_ingot",
+    "B": "thaumcraft:tc4_nuggetquicksilver"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_essentia_tube",
+    "count": 8
+  }
+}

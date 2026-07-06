@@ -1,0 +1,16 @@
+{
+  "tc4_key": "GolemStraw",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "GOLEMSTRAW",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:packed_ice",
+  "result": {
+    "item": "thaumcraft:tc4_golem_wood",
+    "count": 1
+  },
+  "aspects": {
+    "HUMANUS": 4,
+    "MOTUS": 4,
+    "SPIRITUS": 4
+  }
+}

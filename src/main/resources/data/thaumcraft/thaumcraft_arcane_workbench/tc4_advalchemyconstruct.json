@@ -1,0 +1,30 @@
+{
+  "tc4_key": "AdvAlchemyConstruct",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ADVALCHEMYFURNACE",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_alchemical_construct",
+  "ingredients": [
+    "thaumcraft:tc4_voidingot",
+    "thaumcraft:tc4_eldritch_object_3"
+  ],
+  "aspects": {
+    "AQUA": 10,
+    "ORDO": 30,
+    "TERRA": 10
+  },
+  "pattern": [
+    "VAV",
+    "APA",
+    "VAV"
+  ],
+  "key": {
+    "V": "thaumcraft:tc4_voidingot",
+    "A": "thaumcraft:tc4_eldritch_object_3",
+    "P": "thaumcraft:tc4_block_alchemical_construct"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_advanced_alchemical_furnace",
+    "count": 4
+  }
+}

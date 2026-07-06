@@ -1,0 +1,15 @@
+{
+  "tc4_key": "AltGunpowder",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALCHEMICALDUPLICATION",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:gunpowder",
+  "result": {
+    "item": "minecraft:gunpowder",
+    "count": 2
+  },
+  "aspects": {
+    "IGNIS": 4,
+    "PERDITIO": 4
+  }
+}

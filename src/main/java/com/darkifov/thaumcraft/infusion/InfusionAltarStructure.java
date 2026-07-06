@@ -6,6 +6,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -13,8 +15,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Stage123: closer TC4 1.7.10 infusion altar validation and symmetry model.
+ *
+ * TC4 validLocation requires a center pedestal exactly two blocks below the runic
+ * matrix and four infusion pillars at the diagonal corners. For 1.19.2 we support
+ * the newly registered tc4 infusion_pillar and keep arcane stone bricks as a
+ * temporary compatibility pillar while the exact tile renderer is still being
+ * ported.
+ */
 public final class InfusionAltarStructure {
-    public static final int RADIUS = 4;
+    public static final int PEDESTAL_RADIUS = 8;
+    public static final int STABILIZER_RADIUS = 12;
+    public static final int VERTICAL_SCAN_DOWN = 8;
+    public static final int VERTICAL_SCAN_UP = 1;
 
     private InfusionAltarStructure() {
     }
@@ -23,13 +37,22 @@ public final class InfusionAltarStructure {
         List<ArcanePedestalBlockEntity> allPedestals = new ArrayList<>();
         List<ArcanePedestalBlockEntity> componentPedestals = new ArrayList<>();
         Set<BlockPos> pedestalPositions = new HashSet<>();
+        Set<BlockPos> filledPedestalPositions = new HashSet<>();
+        List<BlockPos> stabilizerPositions = new ArrayList<>();
 
-        BlockPos center = catalystPedestal == null ? matrixPos.below(2) : catalystPedestal.getBlockPos();
+        BlockPos center = matrixPos.below(2);
+        boolean strictCenterPedestal = catalystPedestal != null && catalystPedestal.getBlockPos().equals(center);
+        int tc4PillarCount = countTc4Pillars(level, matrixPos);
+        boolean strictTc4Location = strictCenterPedestal && tc4PillarCount == 4;
 
-        for (BlockPos scan : BlockPos.betweenClosed(center.offset(-RADIUS, -2, -RADIUS), center.offset(RADIUS, 2, RADIUS))) {
+        for (BlockPos scan : BlockPos.betweenClosed(center.offset(-PEDESTAL_RADIUS, -VERTICAL_SCAN_DOWN, -PEDESTAL_RADIUS), center.offset(PEDESTAL_RADIUS, VERTICAL_SCAN_UP, PEDESTAL_RADIUS))) {
             if (level.getBlockEntity(scan) instanceof ArcanePedestalBlockEntity pedestal) {
                 allPedestals.add(pedestal);
                 pedestalPositions.add(pedestal.getBlockPos().immutable());
+
+                if (!pedestal.stored().isEmpty()) {
+                    filledPedestalPositions.add(pedestal.getBlockPos().immutable());
+                }
 
                 if (pedestal != catalystPedestal && !pedestal.stored().isEmpty()) {
                     componentPedestals.add(pedestal);
@@ -39,41 +62,57 @@ public final class InfusionAltarStructure {
 
         int symmetricalPairs = 0;
         int missingSymmetry = 0;
+        int tc4SymmetryPenalty = 0;
 
-        for (ArcanePedestalBlockEntity pedestal : componentPedestals) {
+        for (ArcanePedestalBlockEntity pedestal : allPedestals) {
             BlockPos p = pedestal.getBlockPos();
-            int dx = p.getX() - center.getX();
-            int dy = p.getY() - center.getY();
-            int dz = p.getZ() - center.getZ();
+
+            if (p.equals(center)) {
+                continue;
+            }
+
+            int dx = center.getX() - p.getX();
+            int dz = center.getZ() - p.getZ();
 
             if (dx == 0 && dz == 0) {
                 continue;
             }
 
-            BlockPos mirror = new BlockPos(center.getX() - dx, center.getY() + dy, center.getZ() - dz);
+            boolean hasItem = filledPedestalPositions.contains(p);
+            tc4SymmetryPenalty += hasItem ? 3 : 2;
+            BlockPos mirror = new BlockPos(center.getX() + dx, p.getY(), center.getZ() + dz);
 
             if (pedestalPositions.contains(mirror)) {
                 symmetricalPairs++;
+                tc4SymmetryPenalty -= 2;
+
+                if (hasItem && filledPedestalPositions.contains(mirror)) {
+                    tc4SymmetryPenalty -= 1;
+                }
             } else {
                 missingSymmetry++;
             }
         }
 
         symmetricalPairs = symmetricalPairs / 2;
+        missingSymmetry = missingSymmetry / 2;
 
         int stabilizingBlocks = 0;
         int matrixAccelerators = 0;
         int matrixStabilizers = 0;
+        double stabilizerSymmetry = 0.0D;
 
-        for (BlockPos scan : BlockPos.betweenClosed(center.offset(-RADIUS, -2, -RADIUS), center.offset(RADIUS, 2, RADIUS))) {
-            BlockState state = level.getBlockState(scan);
-
-            if (state.is(ThaumcraftMod.ARCANE_STONE_BRICKS.get())) {
-                stabilizingBlocks++;
+        for (BlockPos scan : BlockPos.betweenClosed(matrixPos.offset(-STABILIZER_RADIUS, -5, -STABILIZER_RADIUS), matrixPos.offset(STABILIZER_RADIUS, 10, STABILIZER_RADIUS))) {
+            if (scan.getX() == matrixPos.getX() && scan.getZ() == matrixPos.getZ()) {
+                continue;
             }
 
-            if (state.is(ThaumcraftMod.NODE_STABILIZER.get())) {
-                stabilizingBlocks += 2;
+            BlockState state = level.getBlockState(scan);
+
+            if (isStabilizer(state)) {
+                stabilizingBlocks++;
+                stabilizerPositions.add(scan.immutable());
+                stabilizerSymmetry += 0.1D;
             }
 
             if (state.is(ThaumcraftMod.MATRIX_ACCELERATOR.get())) {
@@ -86,36 +125,51 @@ public final class InfusionAltarStructure {
             }
         }
 
+        for (BlockPos p : stabilizerPositions) {
+            int dx = matrixPos.getX() - p.getX();
+            int dz = matrixPos.getZ() - p.getZ();
+            BlockPos mirror = new BlockPos(matrixPos.getX() + dx, p.getY(), matrixPos.getZ() + dz);
+
+            if (isStabilizer(level.getBlockState(mirror))) {
+                stabilizerSymmetry -= 0.2D;
+            }
+        }
+
         int cappedAccelerators = Math.min(4, matrixAccelerators);
         int cappedStabilizers = Math.min(4, matrixStabilizers);
         int speedMultiplier = 1 + cappedAccelerators;
         int durationModifierPercent = Math.max(20, 100 / speedMultiplier);
         int matrixStabilizationPercent = cappedStabilizers * 25;
 
-        int stabilityScore = stabilizingBlocks + symmetricalPairs * 3 - missingSymmetry * 2;
-        int instabilityPenalty = Math.max(0, missingSymmetry * 2 - stabilizingBlocks / 3 - cappedStabilizers * 2);
+        int tc4Penalty = Math.max(0, (int) Math.floor(tc4SymmetryPenalty + stabilizerSymmetry));
+        int stabilityScore = Math.max(0, stabilizingBlocks + symmetricalPairs * 2 - tc4Penalty * 2);
+        int instabilityPenalty = Math.max(0, tc4Penalty - cappedStabilizers * 2);
 
-        boolean valid = catalystPedestal != null && allPedestals.size() >= 2;
+        boolean valid = strictTc4Location && componentPedestals.size() > 0;
 
         Component summary = Component.literal("Infusion altar: ")
-                .append(Component.literal(valid ? "VALID" : "WEAK").withStyle(valid ? ChatFormatting.GREEN : ChatFormatting.RED))
+                .append(Component.literal(valid ? "TC4 VALID" : "TC4 INVALID").withStyle(valid ? ChatFormatting.GREEN : ChatFormatting.RED))
+                .append(Component.literal(" | Center: " + (strictCenterPedestal ? "OK" : "missing at matrix-2")))
+                .append(Component.literal(" | Pillars: " + tc4PillarCount + "/4"))
                 .append(Component.literal(" | Pedestals: " + allPedestals.size()))
                 .append(Component.literal(" | Components: " + componentPedestals.size()))
                 .append(Component.literal(" | Symmetry pairs: " + symmetricalPairs))
                 .append(Component.literal(" | Missing symmetry: " + missingSymmetry))
+                .append(Component.literal(" | TC4 penalty: " + tc4Penalty))
                 .append(Component.literal(" | Stabilizers: " + stabilizingBlocks))
                 .append(Component.literal(" | Matrix accelerators: " + matrixAccelerators))
                 .append(Component.literal(" | Matrix pylons: " + matrixStabilizers))
                 .append(Component.literal(" | Speed: x" + speedMultiplier))
-                .append(Component.literal(" | Stabilization: " + matrixStabilizationPercent + "%"))
-                .append(Component.literal(" | Stability score: " + stabilityScore));
+                .append(Component.literal(" | Stabilization: " + matrixStabilizationPercent + "%"));
 
         return new InfusionStructureReport(
                 valid,
+                strictTc4Location,
                 allPedestals.size(),
                 componentPedestals.size(),
                 symmetricalPairs,
                 missingSymmetry,
+                tc4PillarCount,
                 stabilizingBlocks,
                 matrixAccelerators,
                 matrixStabilizers,
@@ -127,5 +181,37 @@ public final class InfusionAltarStructure {
                 componentPedestals,
                 summary
         );
+    }
+
+    private static int countTc4Pillars(Level level, BlockPos matrixPos) {
+        int count = 0;
+        int y = matrixPos.getY() - 2;
+        int[][] offsets = new int[][]{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+
+        for (int[] offset : offsets) {
+            BlockPos pos = new BlockPos(matrixPos.getX() + offset[0], y, matrixPos.getZ() + offset[1]);
+            if (isInfusionPillar(level.getBlockState(pos))) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private static boolean isInfusionPillar(BlockState state) {
+        return state.is(ThaumcraftMod.INFUSION_PILLAR.get()) || state.is(ThaumcraftMod.ARCANE_STONE_BRICKS.get());
+    }
+
+    private static boolean isStabilizer(BlockState state) {
+        Block block = state.getBlock();
+        return block == Blocks.WITHER_SKELETON_SKULL
+                || block == Blocks.SKELETON_SKULL
+                || block == Blocks.ZOMBIE_HEAD
+                || block == Blocks.CREEPER_HEAD
+                || block == Blocks.DRAGON_HEAD
+                || state.is(ThaumcraftMod.NODE_STABILIZER.get())
+                || state.is(ThaumcraftMod.MATRIX_STABILIZER.get())
+                || state.is(ThaumcraftMod.ARCANE_STONE_BRICKS.get())
+                || state.is(ThaumcraftMod.INFUSION_PILLAR.get());
     }
 }

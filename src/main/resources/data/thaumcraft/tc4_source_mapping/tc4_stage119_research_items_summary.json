@@ -1,0 +1,17 @@
+{
+  "stage": "119",
+  "name": "TC4 Research Item Registry Port",
+  "tc4_research_component_items_registered": 234,
+  "metadata_groups_split": {
+    "itemResource": 19,
+    "itemNugget": 15,
+    "itemShard": 7,
+    "itemWandCap": 9,
+    "itemWandRod": 17,
+    "itemEldritchObject": 5,
+    "itemGolemCore": 13,
+    "itemGolemUpgrade": 7
+  },
+  "research_icon_registry_links": 108,
+  "source": "Thaumcraft4-1.7.10 ConfigItems.java + transferred original item sprites"
+}

@@ -7,10 +7,12 @@ import java.util.List;
 
 public record InfusionStructureReport(
         boolean valid,
+        boolean strictTc4Location,
         int pedestalCount,
         int componentPedestalCount,
         int symmetricalPairs,
         int missingSymmetry,
+        int tc4PillarCount,
         int stabilizingBlocks,
         int matrixAccelerators,
         int matrixStabilizers,

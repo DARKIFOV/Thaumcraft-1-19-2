@@ -1,0 +1,19 @@
+{
+  "tc4_key": "MirrorGlass",
+  "tc4_source": "addShapelessArcaneCraftingRecipe",
+  "research": "BASICARTIFACE",
+  "tc4_kind": "ARCANE_SHAPELESS",
+  "catalyst": "thaumcraft:tc4_quicksilver",
+  "ingredients": [
+    "minecraft:hopper"
+  ],
+  "aspects": {
+    "IGNIS": 10,
+    "TERRA": 10
+  },
+  "pattern": [],
+  "result": {
+    "item": "thaumcraft:tc4_mirrorglass",
+    "count": 1
+  }
+}

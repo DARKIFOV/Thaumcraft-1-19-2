@@ -1,0 +1,18 @@
+{
+  "tc4_key": "BalancedShard_2",
+  "kind": "CRUCIBLE",
+  "research": "CRUCIBLE",
+  "result": {
+    "item": "thaumcraft:tc4_shard_balanced",
+    "count": 1
+  },
+  "catalyst": "thaumcraft:tc4_shard_aqua",
+  "aspects": {
+    "AER": 2,
+    "IGNIS": 2,
+    "TERRA": 2,
+    "ORDO": 2,
+    "PERDITIO": 2
+  },
+  "source": "ConfigRecipes.initializeAlchemyRecipes loop lines 239-248"
+}

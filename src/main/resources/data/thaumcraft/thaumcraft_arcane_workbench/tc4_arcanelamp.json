@@ -1,0 +1,30 @@
+{
+  "tc4_key": "ArcaneLamp",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ARCANELAMP",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:glowstone",
+  "ingredients": [
+    "thaumcraft:tc4_nitor",
+    "minecraft:iron_ingot"
+  ],
+  "aspects": {
+    "IGNIS": 8,
+    "AER": 8,
+    "AQUA": 4,
+    "PERDITIO": 4
+  },
+  "pattern": [
+    "S",
+    "IAI",
+    "N"
+  ],
+  "key": {
+    "S": "thaumcraft:tc4_nitor",
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_arcane_lamp",
+    "count": 1
+  }
+}

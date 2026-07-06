@@ -1,0 +1,43 @@
+{
+  "tc4_key": "PrimalCharm",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "BASICARTIFACE",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_shard_balanced",
+  "ingredients": [
+    "minecraft:gold_ingot",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:tc4_shard_aqua",
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_shard_ordo",
+    "thaumcraft:tc4_shard_perditio"
+  ],
+  "aspects": {
+    "TERRA": 25,
+    "IGNIS": 25,
+    "AER": 25,
+    "AQUA": 25,
+    "ORDO": 25,
+    "PERDITIO": 25
+  },
+  "pattern": [
+    "123",
+    "ISI",
+    "456"
+  ],
+  "key": {
+    "1": "minecraft:gold_ingot",
+    "2": "thaumcraft:tc4_shard_aer",
+    "3": "thaumcraft:tc4_shard_ignis",
+    "I": "thaumcraft:tc4_shard_aqua",
+    "S": "thaumcraft:tc4_shard_balanced",
+    "4": "thaumcraft:tc4_shard_terra",
+    "5": "thaumcraft:tc4_shard_ordo",
+    "6": "thaumcraft:tc4_shard_perditio"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_charm",
+    "count": 1
+  }
+}

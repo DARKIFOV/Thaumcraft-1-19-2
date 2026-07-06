@@ -1,0 +1,14 @@
+{
+  "tc4_key": "TransIron",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "TRANSIRON",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:iron_nugget",
+  "result": {
+    "item": "thaumcraft:tc4_nuggetiron",
+    "count": 3
+  },
+  "aspects": {
+    "METALLUM": 2
+  }
+}

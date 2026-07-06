@@ -33,7 +33,11 @@ public class ArcaneRecipeSyncPacket {
                     recipe.catalystItemId(),
                     recipe.ingredients(),
                     recipe.resultItemId(),
-                    recipe.resultCount()
+                    recipe.resultCount(),
+                    recipe.aspectCostText(),
+                    recipe.pattern(),
+                    recipe.tc4Kind(),
+                    recipe.tc4Key()
             ));
         }
 
@@ -55,6 +59,13 @@ public class ArcaneRecipeSyncPacket {
 
             buffer.writeResourceLocation(entry.resultId);
             buffer.writeInt(entry.resultCount);
+            buffer.writeUtf(entry.visCost);
+            buffer.writeInt(entry.patternRows.size());
+            for (String row : entry.patternRows) {
+                buffer.writeUtf(row);
+            }
+            buffer.writeUtf(entry.tc4Kind);
+            buffer.writeUtf(entry.tc4Key);
         }
     }
 
@@ -75,8 +86,16 @@ public class ArcaneRecipeSyncPacket {
 
             ResourceLocation resultId = buffer.readResourceLocation();
             int resultCount = buffer.readInt();
+            String visCost = buffer.readUtf();
+            int patternCount = buffer.readInt();
+            List<String> patternRows = new ArrayList<>();
+            for (int j = 0; j < patternCount; j++) {
+                patternRows.add(buffer.readUtf());
+            }
+            String tc4Kind = buffer.readUtf();
+            String tc4Key = buffer.readUtf();
 
-            entries.add(new Entry(id, research, catalystId, ingredients, resultId, resultCount));
+            entries.add(new Entry(id, research, catalystId, ingredients, resultId, resultCount, visCost, patternRows, tc4Kind, tc4Key));
         }
 
         return new ArcaneRecipeSyncPacket(entries);
@@ -122,8 +141,11 @@ public class ArcaneRecipeSyncPacket {
                     ingredientIds,
                     result,
                     entry.resultId.toString(),
-                    "Ordo 2",
-                    "Synced from server JSON arcane recipe."
+                    entry.visCost,
+                    "Synced from server JSON arcane recipe" + (entry.tc4Key.isBlank() ? "." : ": " + entry.tc4Key),
+                    entry.patternRows.toArray(new String[0]),
+                    entry.tc4Kind,
+                    entry.tc4Key
             ));
         }
 
@@ -146,7 +168,11 @@ public class ArcaneRecipeSyncPacket {
             ResourceLocation catalystId,
             List<ResourceLocation> ingredients,
             ResourceLocation resultId,
-            int resultCount
+            int resultCount,
+            String visCost,
+            List<String> patternRows,
+            String tc4Kind,
+            String tc4Key
     ) {
     }
 }

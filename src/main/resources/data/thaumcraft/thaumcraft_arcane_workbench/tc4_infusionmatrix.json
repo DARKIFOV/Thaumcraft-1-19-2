@@ -1,0 +1,28 @@
+{
+  "tc4_key": "InfusionMatrix",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "INFUSION",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_arcane_stone",
+  "ingredients": [
+    "minecraft:ender_eye",
+    "thaumcraft:tc4_shard_aer"
+  ],
+  "aspects": {
+    "ORDO": 40
+  },
+  "pattern": [
+    "SBS",
+    "BEB",
+    "SBS"
+  ],
+  "key": {
+    "S": "minecraft:ender_eye",
+    "B": "thaumcraft:tc4_shard_aer",
+    "E": "thaumcraft:tc4_block_arcane_stone"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_infusion_matrix",
+    "count": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "tc4_key": "ElementalAxe",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ELEMENTALAXE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_thaumiumaxe",
+  "components": [
+    "thaumcraft:tc4_shard_aqua",
+    "thaumcraft:tc4_shard_aqua",
+    "minecraft:diamond",
+    "thaumcraft:tc4_block_greatwood_log"
+  ],
+  "aspects": {
+    "AQUA": 16,
+    "ARBOR": 8
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_elementalaxe",
+    "count": 1
+  }
+}

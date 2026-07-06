@@ -30,6 +30,11 @@ REQUIRED_WORKFLOW_SNIPPETS = [
     "actions/upload-artifact@v4",
     "python scripts/java_syntax_guard.py",
     "python scripts/github_static_audit.py",
+    "python scripts/tc4_stage139_whole_port_sweep_audit.py",
+    "python scripts/tc4_stage140_golemancy_checkpoint_audit.py",
+    "python scripts/tc4_stage141_golemancy_controls_audit.py",
+    "python scripts/tc4_stage142_golemancy_gui_render_audit.py",
+    "python scripts/tc4_stage143_golemancy_whole_sweep_audit.py",
 ]
 
 errors: list[str] = []
@@ -56,8 +61,8 @@ if build_gradle.exists():
         errors.append("ForgeGradle must be pinned to 5.1.76 instead of dynamic 5.1.+")
     if "1.19.2-43.5.2" not in build_text:
         errors.append("Forge dependency should stay pinned to 1.19.2-43.5.2")
-    if "version = '1.18.0'" not in build_text:
-        errors.append("Project version should be 1.18.0 for Stage118")
+    if "version = '1.43.0'" not in build_text:
+        errors.append("Project version should be 1.43.0 for Stage143")
 
 settings_gradle = ROOT / "settings.gradle"
 if settings_gradle.exists():

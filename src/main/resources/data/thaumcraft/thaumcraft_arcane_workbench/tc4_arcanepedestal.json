@@ -1,0 +1,23 @@
+{
+  "tc4_key": "ArcanePedestal",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "INFUSION",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_arcane_stone",
+  "ingredients": [],
+  "aspects": {
+    "AER": 5
+  },
+  "pattern": [
+    "SSS",
+    "S",
+    "SSS"
+  ],
+  "key": {
+    "S": "thaumcraft:tc4_block_arcane_stone"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_arcane_pedestal",
+    "count": 2
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "tc4_key": "PrimalArrow_0",
+  "kind": "ARCANE_SHAPED",
+  "research": "PRIMALARROW",
+  "result": {
+    "item": "thaumcraft:tc4_el_arrow_air",
+    "count": 8
+  },
+  "catalyst": "minecraft:arrow",
+  "ingredients": [
+    "thaumcraft:tc4_shard_aer"
+  ],
+  "aspects": {
+    "AER": 8
+  },
+  "pattern": [
+    "AAA",
+    "ASA",
+    "AAA"
+  ],
+  "key": {
+    "A": "thaumcraft:tc4_shard_aer",
+    "S": "minecraft:arrow"
+  },
+  "source": "ConfigRecipes arcane loop lines 972-975"
+}

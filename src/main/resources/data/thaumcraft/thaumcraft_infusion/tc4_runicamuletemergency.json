@@ -1,0 +1,26 @@
+{
+  "tc4_key": "RunicAmuletEmergency",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "RUNICEMERGENCY",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_runic_amulet",
+  "components": [
+    "thaumcraft:tc4_shard_balanced",
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_shard_terra",
+    "minecraft:emerald",
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_shard_terra"
+  ],
+  "aspects": {
+    "TUTAMEN": 20,
+    "PRAECANTATIO": 35,
+    "TERRA": 32,
+    "VACUOS": 32
+  },
+  "instability": 7,
+  "result": {
+    "item": "thaumcraft:tc4_runic_amulet",
+    "count": 1
+  }
+}

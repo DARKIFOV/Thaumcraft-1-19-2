@@ -1,0 +1,26 @@
+{
+  "tc4_key": "PrimalArrow_3",
+  "kind": "ARCANE_SHAPED",
+  "research": "PRIMALARROW",
+  "result": {
+    "item": "thaumcraft:tc4_el_arrow_earth",
+    "count": 8
+  },
+  "catalyst": "minecraft:arrow",
+  "ingredients": [
+    "thaumcraft:tc4_shard_terra"
+  ],
+  "aspects": {
+    "TERRA": 8
+  },
+  "pattern": [
+    "AAA",
+    "ASA",
+    "AAA"
+  ],
+  "key": {
+    "A": "thaumcraft:tc4_shard_terra",
+    "S": "minecraft:arrow"
+  },
+  "source": "ConfigRecipes arcane loop lines 972-975"
+}

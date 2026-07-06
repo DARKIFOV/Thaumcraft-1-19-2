@@ -20,11 +20,13 @@ public final class AuraNodeScan {
         }
 
         AuraNodeType type = AuraNodeType.fromName(node.nodeType());
+        AuraNodeModifier modifier = AuraNodeModifier.fromName(node.nodeModifier());
         int total = node.aspects().totalAmount();
+        int base = node.baseAspects().totalAmount();
 
         player.displayClientMessage(Component.literal("Aura Node").withStyle(ChatFormatting.AQUA)
-                .append(Component.literal(" [" + type.displayName() + "]").withStyle(ChatFormatting.LIGHT_PURPLE)), false);
-        player.displayClientMessage(Component.literal("Vis: " + total).withStyle(ChatFormatting.GOLD), false);
+                .append(Component.literal(" [" + modifier.displayName() + " " + type.displayName() + "]").withStyle(ChatFormatting.LIGHT_PURPLE)), false);
+        player.displayClientMessage(Component.literal("Vis: " + total + "/" + base + "  Stability: " + node.stability()).withStyle(ChatFormatting.GOLD), false);
 
         List<AspectStack> stacks = new ArrayList<>(node.aspects().all());
         stacks.sort(Comparator.comparing(stack -> stack.aspect().id()));

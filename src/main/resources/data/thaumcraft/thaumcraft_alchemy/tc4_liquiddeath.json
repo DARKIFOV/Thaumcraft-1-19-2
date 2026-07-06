@@ -1,0 +1,16 @@
+{
+  "tc4_key": "LiquidDeath",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "LIQUIDDEATH",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:compass",
+  "result": {
+    "item": "thaumcraft:tc4_bucket_death",
+    "count": 1
+  },
+  "aspects": {
+    "MORTUUS": 32,
+    "VENENUM": 32,
+    "PERDITIO": 32
+  }
+}

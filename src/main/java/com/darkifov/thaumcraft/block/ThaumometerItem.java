@@ -48,7 +48,9 @@ public class ThaumometerItem extends Item {
                                 .append(Component.literal(node.nodeType()).withStyle(ChatFormatting.LIGHT_PURPLE))
                                 .append(Component.literal(" | Aspects: "))
                                 .append(node.aspects().toComponent())
-                                .append(Component.literal(node.isStabilized() ? " | Stabilized" : "")),
+                                .append(Component.literal(node.isStabilized() ? " | Stabilized" : ""))
+                                .append(Component.literal(node.isEnergized() ? " | Energized" : ""))
+                                .append(Component.literal(" | Stability: " + node.stability() + "%")),
                         false
                 );
 

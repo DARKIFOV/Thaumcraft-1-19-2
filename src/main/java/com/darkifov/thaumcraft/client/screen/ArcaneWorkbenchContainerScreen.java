@@ -22,6 +22,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Locale;
 
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
@@ -33,9 +35,9 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
 
     public ArcaneWorkbenchContainerScreen(ArcaneWorkbenchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 214;
-        imageHeight = 214;
-        inventoryLabelY = 121;
+        imageWidth = 234;
+        imageHeight = 234;
+        inventoryLabelY = 151;
     }
 
     @Override
@@ -111,19 +113,125 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
     }
 
     private void renderGhostItems(PoseStack poseStack, ClientArcaneRecipePage recipe) {
-        font.draw(poseStack, "Ghost:", leftPos + 10, topPos + 104, 0x4A2A11);
+        boolean shaped = recipe.patternRows() != null && recipe.patternRows().length > 0;
+        font.draw(poseStack, shaped ? "TC4 shaped layout:" : "TC4 ghost layout:", leftPos + 10, topPos + 126, 0x4A2A11);
 
-        renderGhostStack(poseStack, recipe.catalystId(), leftPos + 50, topPos + 100);
+        if (shaped) {
+            renderPatternGhost(poseStack, recipe);
+        } else {
+            renderGhostStack(poseStack, recipe.catalystId(), leftPos + 16, topPos + 64);
 
-        String[] ids = recipe.ingredientIds();
+            String[] ids = recipe.ingredientIds();
 
-        for (int i = 0; i < Math.min(ids.length, 9); i++) {
-            int x = leftPos + 92 + (i % 3) * 18;
-            int y = topPos + 96 + (i / 3) * 18;
-            renderGhostStack(poseStack, ids[i], x, y);
+            for (int i = 0; i < Math.min(ids.length, 9); i++) {
+                int x = leftPos + 40 + (i % 3) * 24;
+                int y = topPos + 40 + (i / 3) * 24;
+                renderGhostStack(poseStack, ids[i], x, y);
+            }
         }
 
-        renderGhostStack(poseStack, recipe.resultId(), leftPos + 170, topPos + 100);
+        renderGhostStack(poseStack, recipe.resultId(), leftPos + 160, topPos + 64);
+    }
+
+    private void renderPatternGhost(PoseStack poseStack, ClientArcaneRecipePage recipe) {
+        String[] rows = recipe.patternRows();
+        Map<Character, String> symbolMap = inferredClientPatternMap(recipe);
+
+        for (int row = 0; row < Math.min(3, rows.length); row++) {
+            String line = rows[row];
+            for (int col = 0; col < Math.min(3, line.length()); col++) {
+                char symbol = line.charAt(col);
+                int x = leftPos + 40 + col * 24;
+                int y = topPos + 40 + row * 24;
+
+                if (symbol == ' ') {
+                    drawSlot(poseStack, x - 1, y - 1);
+                    continue;
+                }
+
+                String itemId = symbolMap.getOrDefault(symbol, recipe.catalystId());
+                renderGhostStack(poseStack, itemId, x, y);
+                font.draw(poseStack, String.valueOf(symbol), x + 12, y + 10, 0xFF2D1B0B);
+            }
+        }
+
+        if (!recipe.catalystId().isBlank()) {
+            font.draw(poseStack, "catalyst", leftPos + 10, topPos + 52, 0x4A2A11);
+            renderGhostStack(poseStack, recipe.catalystId(), leftPos + 16, topPos + 64);
+        }
+    }
+
+    private Map<Character, String> inferredClientPatternMap(ClientArcaneRecipePage recipe) {
+        Map<Character, String> map = new LinkedHashMap<>();
+        List<Character> symbols = new ArrayList<>();
+        String[] rows = recipe.patternRows();
+
+        for (String row : rows) {
+            for (int i = 0; i < row.length(); i++) {
+                char symbol = row.charAt(i);
+                if (symbol != ' ' && !symbols.contains(symbol)) {
+                    symbols.add(symbol);
+                }
+            }
+        }
+
+        Character catalystSymbol = inferredClientCatalystSymbol(rows, symbols, recipe.ingredientIds().length);
+        int ingredientIndex = 0;
+
+        for (Character symbol : symbols) {
+            if (catalystSymbol != null && symbol.equals(catalystSymbol)) {
+                map.put(symbol, recipe.catalystId());
+                continue;
+            }
+            String[] ingredients = recipe.ingredientIds();
+            if (ingredients.length == 1) {
+                map.put(symbol, ingredients[0]);
+            } else if (ingredientIndex < ingredients.length) {
+                map.put(symbol, ingredients[ingredientIndex++]);
+            }
+        }
+
+        return map;
+    }
+
+    private Character inferredClientCatalystSymbol(String[] rows, List<Character> symbols, int ingredientCount) {
+        if (symbols.isEmpty()) {
+            return null;
+        }
+        if (ingredientCount == 0 && symbols.size() == 1) {
+            return symbols.get(0);
+        }
+        if (symbols.size() == ingredientCount + 1 || (ingredientCount == 1 && symbols.size() == 2)) {
+            if (rows.length > 1 && rows[1].length() > 1) {
+                char center = rows[1].charAt(1);
+                if (center != ' ' && countClientSymbol(rows, center) == 1) {
+                    return center;
+                }
+            }
+            Character rarest = null;
+            int rarestCount = Integer.MAX_VALUE;
+            for (Character symbol : symbols) {
+                int count = countClientSymbol(rows, symbol);
+                if (count < rarestCount) {
+                    rarest = symbol;
+                    rarestCount = count;
+                }
+            }
+            return rarest;
+        }
+        return null;
+    }
+
+    private int countClientSymbol(String[] rows, char symbol) {
+        int count = 0;
+        for (String row : rows) {
+            for (int i = 0; i < row.length(); i++) {
+                if (row.charAt(i) == symbol) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     private void renderGhostStack(PoseStack poseStack, String itemId, int x, int y) {
@@ -143,6 +251,29 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
         fill(poseStack, x, y, x + 18, y + 18, 0xFF5C4631);
         fill(poseStack, x + 1, y + 1, x + 17, y + 17, 0xFFEEDDB9);
         fill(poseStack, x + 2, y + 2, x + 16, y + 16, 0x88FFFFFF);
+    }
+
+    private void renderRecipeInfo(PoseStack poseStack, ClientArcaneRecipePage recipe) {
+        boolean unlocked = ClientResearchData.hasResearch(recipe.research());
+        int ink = 0x3F2612;
+        int warning = 0x8A2D1B;
+
+        drawCenteredString(poseStack, font, Component.literal("Arcane Workbench"), leftPos + imageWidth / 2, topPos + 8, ink);
+        drawString(poseStack, font, Component.literal(recipe.title()), leftPos + 10, topPos + 18, ink);
+        drawString(poseStack, font, Component.literal("Research: " + (recipe.research().isBlank() ? "none" : recipe.research())), leftPos + 10, topPos + 30, unlocked ? 0x245A24 : warning);
+        drawString(poseStack, font, Component.literal("Vis: " + recipe.visCost()), leftPos + 10, topPos + 42, 0x4A2A88);
+        if (!recipe.tc4Kind().isBlank()) {
+            drawString(poseStack, font, Component.literal(recipe.tc4Kind()), leftPos + 10, topPos + 54, 0x6D4A22);
+        }
+        drawString(poseStack, font, Component.literal((page + 1) + " / " + Math.max(1, filteredRecipes().size())), leftPos + 168, topPos + 18, ink);
+
+        if (!unlocked) {
+            drawCenteredString(poseStack, font, Component.literal("Research locked"), leftPos + 168, topPos + 86, warning);
+        }
+
+        if (!recipe.note().isBlank()) {
+            drawString(poseStack, font, Component.literal(recipe.note()), leftPos + 10, topPos + 136, 0x5A3515);
+        }
     }
 
     @Override
@@ -178,13 +309,18 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTick);
+        ClientArcaneRecipePage recipe = currentRecipe();
+
+        if (recipe != null) {
+            renderRecipeInfo(poseStack, recipe);
+            renderGhostItems(poseStack, recipe);
+        }
+
         renderTooltip(poseStack, mouseX, mouseY);
 
         if (searchBox != null) {
             searchBox.render(poseStack, mouseX, mouseY, partialTick);
         }
-
-        ClientArcaneRecipePage recipe = currentRecipe();
 
         if (recipe != null && mouseY < topPos) {
             renderTooltip(poseStack,

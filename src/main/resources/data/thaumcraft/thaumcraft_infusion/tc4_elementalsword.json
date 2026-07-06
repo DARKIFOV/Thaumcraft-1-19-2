@@ -1,0 +1,23 @@
+{
+  "tc4_key": "ElementalSword",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ELEMENTALSWORD",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_thaumiumsword",
+  "components": [
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_aer",
+    "minecraft:diamond",
+    "thaumcraft:tc4_block_greatwood_log"
+  ],
+  "aspects": {
+    "AER": 8,
+    "MOTUS": 8,
+    "POTENTIA": 8
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_elementalsword",
+    "count": 1
+  }
+}

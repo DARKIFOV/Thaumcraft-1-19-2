@@ -1,0 +1,44 @@
+{
+  "stage": 133,
+  "name": "TC4 Energized Node / Vis Relay / Wand Recharge Parity",
+  "base_stage": 132,
+  "version": "1.33.0",
+  "added_java_files": [
+    "src/main/java/com/darkifov/thaumcraft/aura/AuraVisRelayNetwork.java",
+    "src/main/java/com/darkifov/thaumcraft/block/VisRelayBlock.java"
+  ],
+  "modified_files": [
+    "src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
+    "src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java",
+    "scripts/github_static_audit.py"
+  ],
+  "new_registry_ids": [
+    "thaumcraft:vis_relay"
+  ],
+  "implemented": [
+    "vis relay block registration",
+    "relay chain lookup",
+    "energized node source lookup",
+    "primal-only wand recharge through relay network",
+    "passive player wand recharge near relay",
+    "manual relay click recharge",
+    "relay models/blockstate/loot table/lang entry"
+  ],
+  "limitations": [
+    "beam renderer still particle based",
+    "full energized-node powered machines remain future work"
+  ],
+  "checks": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_texture_audit": "OK",
+    "tc4_full_parity_audit": "OK"
+  },
+  "audit_counts": {
+    "java_files": 269,
+    "blockstates": 133,
+    "textures_block": 168,
+    "textures_item": 262
+  }
+}

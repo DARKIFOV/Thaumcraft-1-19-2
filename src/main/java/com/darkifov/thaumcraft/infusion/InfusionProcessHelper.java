@@ -51,10 +51,9 @@ public final class InfusionProcessHelper {
     }
 
     public static ArcanePedestalBlockEntity findCatalystPedestal(Level level, BlockPos matrixPos) {
-        for (int dy = 1; dy <= 3; dy++) {
-            if (level.getBlockEntity(matrixPos.below(dy)) instanceof ArcanePedestalBlockEntity pedestal) {
-                return pedestal;
-            }
+        // TC4 validLocation checks the center pedestal exactly at matrixY - 2.
+        if (level.getBlockEntity(matrixPos.below(2)) instanceof ArcanePedestalBlockEntity pedestal) {
+            return pedestal;
         }
 
         return null;
@@ -150,6 +149,109 @@ public final class InfusionProcessHelper {
         }
     }
 
+
+    public static boolean consumeOneAspect(List<EssentiaJarBlockEntity> jars, Aspect aspect) {
+        if (aspect == null) {
+            return false;
+        }
+
+        for (EssentiaJarBlockEntity jar : jars) {
+            int removed = jar.aspects().removeUpTo(aspect, 1);
+
+            if (removed > 0) {
+                jar.setChangedAndSync();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
+        if (componentId == null) {
+            return null;
+        }
+
+        for (ArcanePedestalBlockEntity pedestal : pedestals) {
+            ResourceLocation id = ForgeRegistries.ITEMS.getKey(pedestal.stored().getItem());
+
+            if (componentId.equals(id)) {
+                return pedestal;
+            }
+        }
+
+        return null;
+    }
+
+    public static boolean consumeSingleComponent(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
+        ArcanePedestalBlockEntity pedestal = findComponentPedestal(pedestals, componentId);
+
+        if (pedestal == null) {
+            return false;
+        }
+
+        ItemStack stack = pedestal.stored();
+        ItemStack container = stack.getCraftingRemainingItem();
+
+        if (!container.isEmpty()) {
+            pedestal.setStored(container);
+        } else {
+            pedestal.setStored(ItemStack.EMPTY);
+        }
+
+        return true;
+    }
+
+    public static Aspect firstPendingAspect(Map<Aspect, Integer> pendingAspects) {
+        for (Map.Entry<Aspect, Integer> entry : pendingAspects.entrySet()) {
+            if (entry.getValue() > 0) {
+                return entry.getKey();
+            }
+        }
+
+        return null;
+    }
+
+    public static String pendingAspectText(Map<Aspect, Integer> pendingAspects) {
+        StringBuilder builder = new StringBuilder();
+
+        for (Map.Entry<Aspect, Integer> entry : pendingAspects.entrySet()) {
+            if (entry.getValue() <= 0) {
+                continue;
+            }
+
+            if (builder.length() > 0) {
+                builder.append(", ");
+            }
+
+            builder.append(entry.getKey().displayName()).append(" ").append(entry.getValue());
+        }
+
+        return builder.length() == 0 ? "none" : builder.toString();
+    }
+
+    public static String pendingComponentText(List<ResourceLocation> pendingComponents) {
+        StringBuilder builder = new StringBuilder();
+
+        for (ResourceLocation id : pendingComponents) {
+            if (builder.length() > 0) {
+                builder.append(", ");
+            }
+
+            builder.append(id);
+        }
+
+        return builder.length() == 0 ? "none" : builder.toString();
+    }
+
+    public static void spawnSourceParticles(ServerLevel level, BlockPos source, BlockPos matrixPos, boolean item) {
+        spawnParticleLine(level,
+                source.getX() + 0.5D, source.getY() + 1.15D, source.getZ() + 0.5D,
+                matrixPos.getX() + 0.5D, matrixPos.getY() + 0.7D, matrixPos.getZ() + 0.5D,
+                item ? ParticleTypes.WITCH : ParticleTypes.PORTAL,
+                item ? 14 : 10);
+    }
+
     public static int calculatedInstability(InfusionRecipe recipe, InfusionStructureReport report) {
         return Math.max(0, recipe.instability()
                 + report.instabilityPenalty()
@@ -216,109 +318,24 @@ public final class InfusionProcessHelper {
         }
     }
 
+    public static void spawnParticleBeam(ServerLevel level, double sx, double sy, double sz,
+                                         double ex, double ey, double ez,
+                                         net.minecraft.core.particles.ParticleOptions particle,
+                                         int points) {
+        spawnParticleLine(level, sx, sy, sz, ex, ey, ez, particle, points);
+    }
+
     public static void instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report) {
         instabilityEvent(level, matrixPos, player, recipe, report, 0);
     }
 
     public static void instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers) {
         int instability = calculatedInstability(recipe, report, matrixStabilizers);
+        instabilityEvent(level, matrixPos, player, recipe, report, matrixStabilizers, instability);
+    }
 
-        if (instability <= 0) {
-            return;
-        }
-
-        if (level.random.nextInt(18) >= instability) {
-            return;
-        }
-
-        if (player != null) {
-            PlayerThaumData.addWarp(player, 1);
-
-            if (player instanceof ServerPlayer serverPlayer) {
-                ThaumcraftNetwork.syncResearch(serverPlayer);
-            }
-        }
-
-        int roll = level.random.nextInt(6);
-
-        if (roll == 0 && !report.componentPedestals().isEmpty()) {
-            ArcanePedestalBlockEntity pedestal = report.componentPedestals().get(level.random.nextInt(report.componentPedestals().size()));
-            ItemStack stack = pedestal.stored();
-
-            if (!stack.isEmpty()) {
-                pedestal.setStored(ItemStack.EMPTY);
-                ItemEntity entity = new ItemEntity(level, pedestal.getBlockPos().getX() + 0.5D, pedestal.getBlockPos().getY() + 1.0D, pedestal.getBlockPos().getZ() + 0.5D, stack.copy());
-                entity.setDeltaMovement((level.random.nextDouble() - 0.5D) * 0.35D, 0.35D, (level.random.nextDouble() - 0.5D) * 0.35D);
-                level.addFreshEntity(entity);
-
-                if (player != null) {
-                    player.displayClientMessage(Component.literal("Infusion instability! A component was thrown away.").withStyle(ChatFormatting.DARK_PURPLE), false);
-                }
-            }
-
-            return;
-        }
-
-        if (roll == 1) {
-            BlockPos target = matrixPos.offset(level.random.nextInt(7) - 3, -2, level.random.nextInt(7) - 3);
-
-            if (!level.isOutsideBuildHeight(target) && !level.getBlockState(target).isAir()) {
-                level.setBlock(target, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
-
-                if (player != null) {
-                    player.displayClientMessage(Component.literal("Infusion instability! Nearby ground was tainted.").withStyle(ChatFormatting.DARK_PURPLE), false);
-                }
-            }
-
-            return;
-        }
-
-        if (roll == 2 && !report.componentPedestals().isEmpty()) {
-            ArcanePedestalBlockEntity pedestal = report.componentPedestals().get(level.random.nextInt(report.componentPedestals().size()));
-            BlockPos p = pedestal.getBlockPos();
-
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(ParticleTypes.LAVA, p.getX() + 0.5D, p.getY() + 1.2D, p.getZ() + 0.5D, 12, 0.2D, 0.2D, 0.2D, 0.02D);
-            }
-
-            if (player != null) {
-                player.displayClientMessage(Component.literal("Infusion instability! A pedestal flares violently.").withStyle(ChatFormatting.DARK_PURPLE), false);
-            }
-
-            return;
-        }
-
-        if (roll == 3) {
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, matrixPos.getX() + 0.5D, matrixPos.getY() + 0.75D, matrixPos.getZ() + 0.5D, 20, 1.1D, 0.4D, 1.1D, 0.03D);
-            }
-
-            if (player != null) {
-                player.displayClientMessage(Component.literal("Infusion instability! The aura burns with unnatural fire.").withStyle(ChatFormatting.DARK_PURPLE), false);
-            }
-
-            return;
-        }
-
-        if (roll == 4) {
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(ParticleTypes.REVERSE_PORTAL, matrixPos.getX() + 0.5D, matrixPos.getY() + 0.75D, matrixPos.getZ() + 0.5D, 35, 1.2D, 0.5D, 1.2D, 0.05D);
-            }
-
-            if (player != null) {
-                player.displayClientMessage(Component.literal("Infusion instability! Essentia flow destabilized.").withStyle(ChatFormatting.DARK_PURPLE), false);
-            }
-
-            return;
-        }
-
-        if (level instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.SMOKE, matrixPos.getX() + 0.5D, matrixPos.getY() + 0.75D, matrixPos.getZ() + 0.5D, 14, 1.0D, 0.35D, 1.0D, 0.03D);
-        }
-
-        if (player != null) {
-            player.displayClientMessage(Component.literal("Infusion instability surges around the altar.").withStyle(ChatFormatting.DARK_PURPLE), false);
-        }
+    public static void instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers, int explicitInstability) {
+        InfusionInstabilityEvents.maybeTrigger(level, matrixPos, player, recipe, report, explicitInstability);
     }
 
     public static String componentText(InfusionRecipe recipe) {

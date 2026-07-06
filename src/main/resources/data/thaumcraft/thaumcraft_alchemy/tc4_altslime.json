@@ -1,0 +1,15 @@
+{
+  "tc4_key": "AltSlime",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALCHEMICALDUPLICATION",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:slime_ball",
+  "result": {
+    "item": "minecraft:slime_ball",
+    "count": 2
+  },
+  "aspects": {
+    "AQUA": 2,
+    "VICTUS": 2
+  }
+}

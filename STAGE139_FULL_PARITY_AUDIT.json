@@ -1,0 +1,33 @@
+{
+  "stage": 139,
+  "goal": "whole Thaumcraft 4 parity tracking plus Stage139 broad original-parity sweep",
+  "original_tc4": {
+    "java_files": 859,
+    "png_textures": 820,
+    "sound_files": 111,
+    "sound_events": 66,
+    "lang_files": 22
+  },
+  "current_port": {
+    "java_files": 271,
+    "model_json_files": 786,
+    "blockstate_json_files": 133,
+    "png_textures": 2625,
+    "sound_files": 111
+  },
+  "runtime_markers": {
+    "tc4_research_component_entries": 234,
+    "tc4_sound_registry_class": true,
+    "tc4_full_parity_index_class": true
+  },
+  "remaining_big_systems_to_finish": [
+    "Crucible exact heat/boil/spill/flux behavior",
+    "Full essentia suction/tube network parity",
+    "Aura node renderer/beam polish and exact biome/world generation distribution",
+    "Exact focus upgrade UI, focus animations and remaining TC4 focus edge cases",
+    "Every golem core/upgrade/AI/seal behavior",
+    "Taint/flux goo/gas spread and biome/worldgen behavior",
+    "Eldritch progression, cultists, bosses and structures",
+    "Exact renderers for jars, tubes, nodes, golems, wands, infusion matrix and special blocks"
+  ]
+}

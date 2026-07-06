@@ -70,20 +70,24 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             return false;
         }
 
-        if (WandItem.getVis(wand, Aspect.ORDO) < ORDO_COST && !player.getAbilities().instabuild) {
-            player.displayClientMessage(Component.literal("Not enough Ordo vis in wand. Need Ordo " + ORDO_COST + ".").withStyle(ChatFormatting.RED), false);
+        if (!hasArcaneVisCost(wand, recipe, player)) {
             return false;
         }
 
-        ItemStack catalyst = getItem(SLOT_CATALYST);
+        int catalystSlot = findCatalystSlot(recipe);
 
-        if (!recipe.catalystMatches(catalyst)) {
-            player.displayClientMessage(Component.literal("Wrong or missing catalyst.").withStyle(ChatFormatting.RED), false);
+        if (catalystSlot < 0) {
+            player.displayClientMessage(Component.literal("Wrong or missing catalyst. Put it in the focus slot or into the 3x3 grid.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
-        if (!hasIngredients(recipe.ingredients())) {
-            player.displayClientMessage(Component.literal("Missing ingredient items in the 3x3 grid.").withStyle(ChatFormatting.RED), false);
+        if (!matchesRecipeGrid(recipe, catalystSlot)) {
+            player.displayClientMessage(Component.literal("The 3x3 arcane grid does not match the original TC4 recipe layout.").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+
+        if (!hasRequiredItems(recipe, catalystSlot)) {
+            player.displayClientMessage(Component.literal("Missing ingredient items in the 3x3 arcane grid.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
@@ -109,9 +113,11 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         }
 
         if (!player.getAbilities().instabuild) {
-            WandItem.consumeVis(wand, Aspect.ORDO, ORDO_COST);
-            getItem(SLOT_CATALYST).shrink(1);
-            consumeIngredients(recipe.ingredients());
+            consumeArcaneVisCost(wand, recipe);
+            getItem(catalystSlot).shrink(1);
+            if (!consumePatternIngredients(recipe, catalystSlot)) {
+                consumeIngredients(recipe.ingredients(), catalystSlot);
+            }
         }
 
         if (output.isEmpty()) {
@@ -125,19 +131,143 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return true;
     }
 
-    private boolean hasIngredients(List<ResourceLocation> ingredients) {
-        Map<ResourceLocation, Integer> needed = new HashMap<>();
 
-        for (ResourceLocation id : ingredients) {
-            needed.put(id, needed.getOrDefault(id, 0) + 1);
+    private boolean hasArcaneVisCost(ItemStack wand, ArcaneWorkbenchRecipe recipe, Player player) {
+        if (player.getAbilities().instabuild) {
+            return true;
+        }
+        if (recipe.aspectCost().isEmpty()) {
+            int needed = WandItem.modifiedVisCost(wand, Aspect.ORDO, ORDO_COST);
+            if (WandItem.getVis(wand, Aspect.ORDO) < needed) {
+                player.displayClientMessage(Component.literal("Not enough Ordo vis in wand. Need Ordo " + needed + " after cap modifier.").withStyle(ChatFormatting.RED), false);
+                return false;
+            }
+            return true;
+        }
+        for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
+            int needed = WandItem.modifiedVisCost(wand, entry.getKey(), entry.getValue());
+            if (WandItem.getVis(wand, entry.getKey()) < needed) {
+                player.displayClientMessage(Component.literal("Not enough vis in wand. Need " + entry.getKey().displayName() + " " + needed + " after cap modifier.").withStyle(ChatFormatting.RED), false);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void consumeArcaneVisCost(ItemStack wand, ArcaneWorkbenchRecipe recipe) {
+        if (recipe.aspectCost().isEmpty()) {
+            WandItem.consumeVisCost(wand, Aspect.ORDO, ORDO_COST);
+            return;
+        }
+        for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
+            WandItem.consumeVisCost(wand, entry.getKey(), entry.getValue());
+        }
+    }
+
+    private int findCatalystSlot(ArcaneWorkbenchRecipe recipe) {
+        if (recipe.catalystMatches(getItem(SLOT_CATALYST))) {
+            return SLOT_CATALYST;
+        }
+
+        // Stage135: TC4 did not have a separate catalyst slot. Keep the old slot
+        // for compatibility, but also allow the catalyst to live in the 3x3 grid.
+        for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
+            if (recipe.catalystMatches(getItem(slot))) {
+                return slot;
+            }
+        }
+
+        return -1;
+    }
+
+    private boolean matchesRecipeGrid(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
+        if (recipe.pattern().isEmpty()) {
+            return true;
+        }
+
+        Map<Character, ResourceLocation> symbolMap = recipe.inferredPatternMap();
+
+        if (symbolMap.isEmpty()) {
+            return true;
+        }
+
+        for (int row = 0; row < 3; row++) {
+            String patternRow = row < recipe.pattern().size() ? recipe.pattern().get(row) : "";
+            for (int col = 0; col < 3; col++) {
+                int slot = SLOT_INGREDIENT_START + row * 3 + col;
+                char symbol = col < patternRow.length() ? patternRow.charAt(col) : ' ';
+                ItemStack stack = getItem(slot);
+
+                if (symbol == ' ') {
+                    if (slot != catalystSlot && !stack.isEmpty()) {
+                        return false;
+                    }
+                    continue;
+                }
+
+                ResourceLocation needed = symbolMap.get(symbol);
+                if (needed == null) {
+                    return true;
+                }
+
+                // Stage138: keep the old optional catalyst slot, but only for the
+                // symbol inferred as the TC4 catalyst. If the catalyst is in the
+                // separate slot, the matching grid position may stay empty.
+                if (needed.equals(recipe.catalystItemId()) && catalystSlot == SLOT_CATALYST && stack.isEmpty()) {
+                    continue;
+                }
+
+                ResourceLocation actual = ForgeRegistries.ITEMS.getKey(stack.getItem());
+                if (actual == null || !actual.equals(needed)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean hasRequiredItems(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
+        if (!recipe.pattern().isEmpty() && !recipe.inferredPatternMap().isEmpty()) {
+            return hasPatternRequiredItems(recipe, catalystSlot);
+        }
+
+        return hasLooseIngredients(recipe.ingredients(), catalystSlot);
+    }
+
+    private boolean hasPatternRequiredItems(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
+        Map<ResourceLocation, Integer> needed = new HashMap<>();
+        Map<Character, ResourceLocation> symbolMap = recipe.inferredPatternMap();
+
+        for (int row = 0; row < 3; row++) {
+            String patternRow = row < recipe.pattern().size() ? recipe.pattern().get(row) : "";
+            for (int col = 0; col < 3; col++) {
+                int slot = SLOT_INGREDIENT_START + row * 3 + col;
+                char symbol = col < patternRow.length() ? patternRow.charAt(col) : ' ';
+                if (symbol == ' ') {
+                    continue;
+                }
+
+                ResourceLocation id = symbolMap.get(symbol);
+                if (id == null) {
+                    return hasLooseIngredients(recipe.ingredients(), catalystSlot);
+                }
+
+                if (id.equals(recipe.catalystItemId()) && (slot == catalystSlot || catalystSlot == SLOT_CATALYST)) {
+                    continue;
+                }
+
+                needed.put(id, needed.getOrDefault(id, 0) + 1);
+            }
         }
 
         Map<ResourceLocation, Integer> available = new HashMap<>();
-
         for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
+            if (slot == catalystSlot) {
+                continue;
+            }
             ItemStack stack = getItem(slot);
             ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-
             if (id != null && needed.containsKey(id)) {
                 available.put(id, available.getOrDefault(id, 0) + stack.getCount());
             }
@@ -152,9 +282,80 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return true;
     }
 
-    private void consumeIngredients(List<ResourceLocation> ingredients) {
+    private boolean hasLooseIngredients(List<ResourceLocation> ingredients, int catalystSlot) {
+        Map<ResourceLocation, Integer> needed = new HashMap<>();
+
+        for (ResourceLocation id : ingredients) {
+            needed.put(id, needed.getOrDefault(id, 0) + 1);
+        }
+
+        Map<ResourceLocation, Integer> available = new HashMap<>();
+
+        for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
+            ItemStack stack = getItem(slot);
+            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+
+            if (id != null && needed.containsKey(id)) {
+                int count = stack.getCount();
+
+                if (slot == catalystSlot) {
+                    count = Math.max(0, count - 1);
+                }
+
+                if (count > 0) {
+                    available.put(id, available.getOrDefault(id, 0) + count);
+                }
+            }
+        }
+
+        for (Map.Entry<ResourceLocation, Integer> entry : needed.entrySet()) {
+            if (available.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean consumePatternIngredients(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
+        if (recipe.pattern().isEmpty() || recipe.inferredPatternMap().isEmpty()) {
+            return false;
+        }
+
+        Map<Character, ResourceLocation> symbolMap = recipe.inferredPatternMap();
+
+        for (int row = 0; row < 3; row++) {
+            String patternRow = row < recipe.pattern().size() ? recipe.pattern().get(row) : "";
+            for (int col = 0; col < 3; col++) {
+                int slot = SLOT_INGREDIENT_START + row * 3 + col;
+                char symbol = col < patternRow.length() ? patternRow.charAt(col) : ' ';
+                if (symbol == ' ') {
+                    continue;
+                }
+
+                ResourceLocation id = symbolMap.get(symbol);
+                if (id == null) {
+                    return false;
+                }
+
+                if (id.equals(recipe.catalystItemId()) && (slot == catalystSlot || catalystSlot == SLOT_CATALYST)) {
+                    continue;
+                }
+
+                getItem(slot).shrink(1);
+            }
+        }
+
+        return true;
+    }
+
+    private void consumeIngredients(List<ResourceLocation> ingredients, int catalystSlot) {
         for (ResourceLocation needed : ingredients) {
             for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
+                if (slot == catalystSlot && getItem(slot).getCount() <= 0) {
+                    continue;
+                }
+
                 ItemStack stack = getItem(slot);
                 ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
 

@@ -1,0 +1,52 @@
+{
+  "stage": 137,
+  "name": "TC4 core loop precision pass",
+  "checks": [
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteState.java",
+      "needle": "clearSlot(ItemStack stack, int index)",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteState.java",
+      "needle": "touchesCompatibleNeighbor",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/research/ResearchAspectGraph.java",
+      "needle": "shortestPath(Aspect start, Aspect target)",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/network/RequestClearResearchNoteSlotPacket.java",
+      "needle": "class RequestClearResearchNoteSlotPacket",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchNoteScreen.java",
+      "needle": "requestClearResearchNoteSlotFromClient",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchNoteScreen.java",
+      "needle": "Path hint",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneWorkbenchBlockEntity.java",
+      "needle": "matchesRecipeGrid",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneWorkbenchBlockEntity.java",
+      "needle": "consumePatternIngredients",
+      "ok": true
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/network/ThaumcraftNetwork.java",
+      "needle": "RequestClearResearchNoteSlotPacket::handle",
+      "ok": true
+    }
+  ],
+  "ok": true
+}

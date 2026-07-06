@@ -1,0 +1,15 @@
+{
+  "tc4_key": "CoreButcher",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "COREBUTCHER",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_golem_core_guard",
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_butcher",
+    "count": 1
+  },
+  "aspects": {
+    "CORPUS": 5,
+    "BESTIA": 5
+  }
+}

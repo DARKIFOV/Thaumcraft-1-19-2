@@ -1,0 +1,19 @@
+{
+  "tc4_key": "TubeValve",
+  "tc4_source": "addShapelessArcaneCraftingRecipe",
+  "research": "TUBES",
+  "tc4_kind": "ARCANE_SHAPELESS",
+  "catalyst": "thaumcraft:tc4_block_essentia_tube",
+  "ingredients": [
+    "minecraft:mycelium"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 5
+  },
+  "pattern": [],
+  "result": {
+    "item": "thaumcraft:tc4_block_essentia_tube",
+    "count": 1
+  }
+}

@@ -1,5 +1,7 @@
 package com.darkifov.thaumcraft.wand;
 
+import com.darkifov.thaumcraft.Aspect;
+
 import java.util.Locale;
 
 /**
@@ -32,6 +34,22 @@ public enum WandCapType {
     public String id() { return id; }
     public String rendererTexture() { return rendererTexture; }
     public float visCostModifier() { return visCostModifier; }
+
+    /**
+     * TC4 caps can have a base discount and, for copper/silver, special
+     * aspect-specific modifiers. The values mirror ConfigItems:
+     * copper is less bad for Ordo/Perditio, silver is better for primal
+     * elemental aspects.
+     */
+    public float visCostModifier(Aspect aspect) {
+        if (this == COPPER && (aspect == Aspect.ORDO || aspect == Aspect.PERDITIO)) {
+            return 1.0F;
+        }
+        if (this == SILVER && (aspect == Aspect.AER || aspect == Aspect.TERRA || aspect == Aspect.IGNIS || aspect == Aspect.AQUA)) {
+            return 0.95F;
+        }
+        return visCostModifier;
+    }
     public int craftCost() { return craftCost; }
     public String researchKey() { return researchKey; }
 

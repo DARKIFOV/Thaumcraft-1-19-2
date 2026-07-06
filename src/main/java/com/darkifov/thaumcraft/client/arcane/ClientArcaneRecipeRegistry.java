@@ -63,7 +63,10 @@ public final class ClientArcaneRecipeRegistry {
                 entry.result(),
                 guessId(entry.result()),
                 entry.visCost(),
-                entry.note()
+                entry.note(),
+                new String[0],
+                "fallback",
+                entry.id().toString()
         );
     }
 

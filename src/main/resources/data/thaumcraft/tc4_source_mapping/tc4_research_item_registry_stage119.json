@@ -1,0 +1,1406 @@
+[
+  {
+    "id": "tc4_alumentum",
+    "texture": "alumentum",
+    "source": "ConfigItems.itemResource meta 0",
+    "legacy_texture": "alumentum"
+  },
+  {
+    "id": "tc4_amber",
+    "texture": "amber",
+    "source": "ConfigItems.itemResource meta 6",
+    "legacy_texture": "amber"
+  },
+  {
+    "id": "tc4_arcanedoor",
+    "texture": "arcanedoor",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "arcanedoor"
+  },
+  {
+    "id": "tc4_bath_salts",
+    "texture": "bath_salts",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bath_salts"
+  },
+  {
+    "id": "tc4_bauble_amulet",
+    "texture": "bauble_amulet",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bauble_amulet"
+  },
+  {
+    "id": "tc4_bauble_belt",
+    "texture": "bauble_belt",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bauble_belt"
+  },
+  {
+    "id": "tc4_bauble_ring",
+    "texture": "bauble_ring",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bauble_ring"
+  },
+  {
+    "id": "tc4_bauble_ring_iron",
+    "texture": "bauble_ring_iron",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bauble_ring_iron"
+  },
+  {
+    "id": "tc4_bonebow",
+    "texture": "bonebow",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bonebow"
+  },
+  {
+    "id": "tc4_bootstraveler",
+    "texture": "bootstraveler",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bootstraveler"
+  },
+  {
+    "id": "tc4_bottle_taint",
+    "texture": "bottle_taint",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bottle_taint"
+  },
+  {
+    "id": "tc4_brain",
+    "texture": "brain",
+    "source": "ConfigItems.itemResource meta 5",
+    "legacy_texture": "brain"
+  },
+  {
+    "id": "tc4_bucket_death",
+    "texture": "bucket_death",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bucket_death"
+  },
+  {
+    "id": "tc4_bucket_pure",
+    "texture": "bucket_pure",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "bucket_pure"
+  },
+  {
+    "id": "tc4_charm",
+    "texture": "charm",
+    "source": "ConfigItems.itemResource meta 15",
+    "legacy_texture": "charm"
+  },
+  {
+    "id": "tc4_cloth",
+    "texture": "cloth",
+    "source": "ConfigItems.itemResource meta 7",
+    "legacy_texture": "cloth"
+  },
+  {
+    "id": "tc4_clothboots",
+    "texture": "clothboots",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "clothboots"
+  },
+  {
+    "id": "tc4_clothbootsover",
+    "texture": "clothbootsover",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "clothbootsover"
+  },
+  {
+    "id": "tc4_clothchest",
+    "texture": "clothchest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "clothchest"
+  },
+  {
+    "id": "tc4_clothchestover",
+    "texture": "clothchestover",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "clothchestover"
+  },
+  {
+    "id": "tc4_clothlegs",
+    "texture": "clothlegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "clothlegs"
+  },
+  {
+    "id": "tc4_clothlegsover",
+    "texture": "clothlegsover",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "clothlegsover"
+  },
+  {
+    "id": "tc4_clustercinnabar",
+    "texture": "clustercinnabar",
+    "source": "ConfigItems.itemNugget meta 21",
+    "legacy_texture": "clustercinnabar"
+  },
+  {
+    "id": "tc4_clustercopper",
+    "texture": "clustercopper",
+    "source": "ConfigItems.itemNugget meta 17",
+    "legacy_texture": "clustercopper"
+  },
+  {
+    "id": "tc4_clustergold",
+    "texture": "clustergold",
+    "source": "ConfigItems.itemNugget meta 31",
+    "legacy_texture": "clustergold"
+  },
+  {
+    "id": "tc4_clusteriron",
+    "texture": "clusteriron",
+    "source": "ConfigItems.itemNugget meta 16",
+    "legacy_texture": "clusteriron"
+  },
+  {
+    "id": "tc4_clusterlead",
+    "texture": "clusterlead",
+    "source": "ConfigItems.itemNugget meta 20",
+    "legacy_texture": "clusterlead"
+  },
+  {
+    "id": "tc4_clustersilver",
+    "texture": "clustersilver",
+    "source": "ConfigItems.itemNugget meta 19",
+    "legacy_texture": "clustersilver"
+  },
+  {
+    "id": "tc4_clustertin",
+    "texture": "clustertin",
+    "source": "ConfigItems.itemNugget meta 18",
+    "legacy_texture": "clustertin"
+  },
+  {
+    "id": "tc4_coin",
+    "texture": "coin",
+    "source": "ConfigItems.itemResource meta 18",
+    "legacy_texture": "coin"
+  },
+  {
+    "id": "tc4_crimson_blade",
+    "texture": "crimson_blade",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "crimson_blade"
+  },
+  {
+    "id": "tc4_crimson_rites",
+    "texture": "crimson_rites",
+    "source": "ConfigItems.itemEldritchObject meta 1",
+    "legacy_texture": "crimson_rites"
+  },
+  {
+    "id": "tc4_crystalessence",
+    "texture": "crystalessence",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "crystalessence"
+  },
+  {
+    "id": "tc4_cultistboots",
+    "texture": "cultistboots",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistboots"
+  },
+  {
+    "id": "tc4_cultistplatechest",
+    "texture": "cultistplatechest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistplatechest"
+  },
+  {
+    "id": "tc4_cultistplatehelm",
+    "texture": "cultistplatehelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistplatehelm"
+  },
+  {
+    "id": "tc4_cultistplateleaderchest",
+    "texture": "cultistplateleaderchest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistplateleaderchest"
+  },
+  {
+    "id": "tc4_cultistplateleaderhelm",
+    "texture": "cultistplateleaderhelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistplateleaderhelm"
+  },
+  {
+    "id": "tc4_cultistplateleaderlegs",
+    "texture": "cultistplateleaderlegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistplateleaderlegs"
+  },
+  {
+    "id": "tc4_cultistplatelegs",
+    "texture": "cultistplatelegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistplatelegs"
+  },
+  {
+    "id": "tc4_cultistrobechest",
+    "texture": "cultistrobechest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistrobechest"
+  },
+  {
+    "id": "tc4_cultistrobehelm",
+    "texture": "cultistrobehelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistrobehelm"
+  },
+  {
+    "id": "tc4_cultistrobelegs",
+    "texture": "cultistrobelegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "cultistrobelegs"
+  },
+  {
+    "id": "tc4_discovery",
+    "texture": "discovery",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "discovery"
+  },
+  {
+    "id": "tc4_dust",
+    "texture": "dust",
+    "source": "ConfigItems.itemResource meta 14",
+    "legacy_texture": "dust"
+  },
+  {
+    "id": "tc4_el_arrow_air",
+    "texture": "el_arrow_air",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "el_arrow_air"
+  },
+  {
+    "id": "tc4_el_arrow_earth",
+    "texture": "el_arrow_earth",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "el_arrow_earth"
+  },
+  {
+    "id": "tc4_el_arrow_entropy",
+    "texture": "el_arrow_entropy",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "el_arrow_entropy"
+  },
+  {
+    "id": "tc4_el_arrow_fire",
+    "texture": "el_arrow_fire",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "el_arrow_fire"
+  },
+  {
+    "id": "tc4_el_arrow_order",
+    "texture": "el_arrow_order",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "el_arrow_order"
+  },
+  {
+    "id": "tc4_el_arrow_water",
+    "texture": "el_arrow_water",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "el_arrow_water"
+  },
+  {
+    "id": "tc4_eldritch_object",
+    "texture": "eldritch_object",
+    "source": "ConfigItems.itemEldritchObject meta 0",
+    "legacy_texture": "eldritch_object"
+  },
+  {
+    "id": "tc4_eldritch_object_2",
+    "texture": "eldritch_object_2",
+    "source": "ConfigItems.itemEldritchObject meta 2",
+    "legacy_texture": "eldritch_object_2"
+  },
+  {
+    "id": "tc4_eldritch_object_3",
+    "texture": "eldritch_object_3",
+    "source": "ConfigItems.itemEldritchObject meta 3",
+    "legacy_texture": "eldritch_object_3"
+  },
+  {
+    "id": "tc4_elementalaxe",
+    "texture": "elementalaxe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "elementalaxe"
+  },
+  {
+    "id": "tc4_elementalhoe",
+    "texture": "elementalhoe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "elementalhoe"
+  },
+  {
+    "id": "tc4_elementalpick",
+    "texture": "elementalpick",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "elementalpick"
+  },
+  {
+    "id": "tc4_elementalshovel",
+    "texture": "elementalshovel",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "elementalshovel"
+  },
+  {
+    "id": "tc4_elementalsword",
+    "texture": "elementalsword",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "elementalsword"
+  },
+  {
+    "id": "tc4_essence",
+    "texture": "essence",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "essence"
+  },
+  {
+    "id": "tc4_filter",
+    "texture": "filter",
+    "source": "ConfigItems.itemResource meta 8",
+    "legacy_texture": "filter"
+  },
+  {
+    "id": "tc4_focus",
+    "texture": "focus",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus"
+  },
+  {
+    "id": "tc4_focus_excavation",
+    "texture": "focus_excavation",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_excavation"
+  },
+  {
+    "id": "tc4_focus_fire",
+    "texture": "focus_fire",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_fire"
+  },
+  {
+    "id": "tc4_focus_frost",
+    "texture": "focus_frost",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_frost"
+  },
+  {
+    "id": "tc4_focus_hellbat",
+    "texture": "focus_hellbat",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_hellbat"
+  },
+  {
+    "id": "tc4_focus_pech",
+    "texture": "focus_pech",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_pech"
+  },
+  {
+    "id": "tc4_focus_portablehole",
+    "texture": "focus_portablehole",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_portablehole"
+  },
+  {
+    "id": "tc4_focus_primal",
+    "texture": "focus_primal",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_primal"
+  },
+  {
+    "id": "tc4_focus_reversal",
+    "texture": "focus_reversal",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_reversal"
+  },
+  {
+    "id": "tc4_focus_shock",
+    "texture": "focus_shock",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_shock"
+  },
+  {
+    "id": "tc4_focus_trade",
+    "texture": "focus_trade",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_trade"
+  },
+  {
+    "id": "tc4_focus_warding",
+    "texture": "focus_warding",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focus_warding"
+  },
+  {
+    "id": "tc4_focuspouch",
+    "texture": "focuspouch",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focuspouch"
+  },
+  {
+    "id": "tc4_focuspouchbauble",
+    "texture": "focuspouchbauble",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "focuspouchbauble"
+  },
+  {
+    "id": "tc4_gogglesrevealing",
+    "texture": "gogglesrevealing",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "gogglesrevealing"
+  },
+  {
+    "id": "tc4_golem_clay",
+    "texture": "golem_clay",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_clay"
+  },
+  {
+    "id": "tc4_golem_core_blank",
+    "texture": "golem_core_blank",
+    "source": "ConfigItems.itemGolemCore meta 100",
+    "legacy_texture": "golem_core_blank"
+  },
+  {
+    "id": "tc4_golem_core_bodyguard",
+    "texture": "golem_core_bodyguard",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_core_bodyguard"
+  },
+  {
+    "id": "tc4_golem_core_butcher",
+    "texture": "golem_core_butcher",
+    "source": "ConfigItems.itemGolemCore meta 9",
+    "legacy_texture": "golem_core_butcher"
+  },
+  {
+    "id": "tc4_golem_core_empty",
+    "texture": "golem_core_empty",
+    "source": "ConfigItems.itemGolemCore meta 1",
+    "legacy_texture": "golem_core_empty"
+  },
+  {
+    "id": "tc4_golem_core_essentia",
+    "texture": "golem_core_essentia",
+    "source": "ConfigItems.itemGolemCore meta 6",
+    "legacy_texture": "golem_core_essentia"
+  },
+  {
+    "id": "tc4_golem_core_fill",
+    "texture": "golem_core_fill",
+    "source": "ConfigItems.itemGolemCore meta 0",
+    "legacy_texture": "golem_core_fill"
+  },
+  {
+    "id": "tc4_golem_core_fish",
+    "texture": "golem_core_fish",
+    "source": "ConfigItems.itemGolemCore meta 11",
+    "legacy_texture": "golem_core_fish"
+  },
+  {
+    "id": "tc4_golem_core_gather",
+    "texture": "golem_core_gather",
+    "source": "ConfigItems.itemGolemCore meta 2",
+    "legacy_texture": "golem_core_gather"
+  },
+  {
+    "id": "tc4_golem_core_guard",
+    "texture": "golem_core_guard",
+    "source": "ConfigItems.itemGolemCore meta 4",
+    "legacy_texture": "golem_core_guard"
+  },
+  {
+    "id": "tc4_golem_core_harvest",
+    "texture": "golem_core_harvest",
+    "source": "ConfigItems.itemGolemCore meta 3",
+    "legacy_texture": "golem_core_harvest"
+  },
+  {
+    "id": "tc4_golem_core_liquid",
+    "texture": "golem_core_liquid",
+    "source": "ConfigItems.itemGolemCore meta 5",
+    "legacy_texture": "golem_core_liquid"
+  },
+  {
+    "id": "tc4_golem_core_lumber",
+    "texture": "golem_core_lumber",
+    "source": "ConfigItems.itemGolemCore meta 7",
+    "legacy_texture": "golem_core_lumber"
+  },
+  {
+    "id": "tc4_golem_core_patrol",
+    "texture": "golem_core_patrol",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_core_patrol"
+  },
+  {
+    "id": "tc4_golem_core_sorting",
+    "texture": "golem_core_sorting",
+    "source": "ConfigItems.itemGolemCore meta 10",
+    "legacy_texture": "golem_core_sorting"
+  },
+  {
+    "id": "tc4_golem_core_use",
+    "texture": "golem_core_use",
+    "source": "ConfigItems.itemGolemCore meta 8",
+    "legacy_texture": "golem_core_use"
+  },
+  {
+    "id": "tc4_golem_flesh",
+    "texture": "golem_flesh",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_flesh"
+  },
+  {
+    "id": "tc4_golem_iron",
+    "texture": "golem_iron",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_iron"
+  },
+  {
+    "id": "tc4_golem_stone",
+    "texture": "golem_stone",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_stone"
+  },
+  {
+    "id": "tc4_golem_straw",
+    "texture": "golem_straw",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_straw"
+  },
+  {
+    "id": "tc4_golem_tallow",
+    "texture": "golem_tallow",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_tallow"
+  },
+  {
+    "id": "tc4_golem_thaumium",
+    "texture": "golem_thaumium",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_thaumium"
+  },
+  {
+    "id": "tc4_golem_upgrade_air",
+    "texture": "golem_upgrade_air",
+    "source": "ConfigItems.itemGolemUpgrade meta 0",
+    "legacy_texture": "golem_upgrade_air"
+  },
+  {
+    "id": "tc4_golem_upgrade_earth",
+    "texture": "golem_upgrade_earth",
+    "source": "ConfigItems.itemGolemUpgrade meta 1",
+    "legacy_texture": "golem_upgrade_earth"
+  },
+  {
+    "id": "tc4_golem_upgrade_empty",
+    "texture": "golem_upgrade_empty",
+    "source": "ConfigItems.itemGolemUpgrade meta -1",
+    "legacy_texture": "golem_upgrade_empty"
+  },
+  {
+    "id": "tc4_golem_upgrade_entropy",
+    "texture": "golem_upgrade_entropy",
+    "source": "ConfigItems.itemGolemUpgrade meta 5",
+    "legacy_texture": "golem_upgrade_entropy"
+  },
+  {
+    "id": "tc4_golem_upgrade_fire",
+    "texture": "golem_upgrade_fire",
+    "source": "ConfigItems.itemGolemUpgrade meta 2",
+    "legacy_texture": "golem_upgrade_fire"
+  },
+  {
+    "id": "tc4_golem_upgrade_order",
+    "texture": "golem_upgrade_order",
+    "source": "ConfigItems.itemGolemUpgrade meta 4",
+    "legacy_texture": "golem_upgrade_order"
+  },
+  {
+    "id": "tc4_golem_upgrade_water",
+    "texture": "golem_upgrade_water",
+    "source": "ConfigItems.itemGolemUpgrade meta 3",
+    "legacy_texture": "golem_upgrade_water"
+  },
+  {
+    "id": "tc4_golem_wood",
+    "texture": "golem_wood",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golem_wood"
+  },
+  {
+    "id": "tc4_golemdecoarmor",
+    "texture": "golemdecoarmor",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecoarmor"
+  },
+  {
+    "id": "tc4_golemdecobowtie",
+    "texture": "golemdecobowtie",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecobowtie"
+  },
+  {
+    "id": "tc4_golemdecodart",
+    "texture": "golemdecodart",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecodart"
+  },
+  {
+    "id": "tc4_golemdecofez",
+    "texture": "golemdecofez",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecofez"
+  },
+  {
+    "id": "tc4_golemdecoglasses",
+    "texture": "golemdecoglasses",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecoglasses"
+  },
+  {
+    "id": "tc4_golemdecomace",
+    "texture": "golemdecomace",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecomace"
+  },
+  {
+    "id": "tc4_golemdecotophat",
+    "texture": "golemdecotophat",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecotophat"
+  },
+  {
+    "id": "tc4_golemdecovisor",
+    "texture": "golemdecovisor",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "golemdecovisor"
+  },
+  {
+    "id": "tc4_hovergirdle",
+    "texture": "hovergirdle",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "hovergirdle"
+  },
+  {
+    "id": "tc4_hoverharness",
+    "texture": "hoverharness",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "hoverharness"
+  },
+  {
+    "id": "tc4_inkwell",
+    "texture": "inkwell",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "inkwell"
+  },
+  {
+    "id": "tc4_ironbell",
+    "texture": "ironbell",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "ironbell"
+  },
+  {
+    "id": "tc4_keygold",
+    "texture": "keygold",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "keygold"
+  },
+  {
+    "id": "tc4_keyiron",
+    "texture": "keyiron",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "keyiron"
+  },
+  {
+    "id": "tc4_knowledgefragment",
+    "texture": "knowledgefragment",
+    "source": "ConfigItems.itemResource meta 9",
+    "legacy_texture": "knowledgefragment"
+  },
+  {
+    "id": "tc4_label",
+    "texture": "label",
+    "source": "ConfigItems.itemResource meta 13",
+    "legacy_texture": "label"
+  },
+  {
+    "id": "tc4_lightningring",
+    "texture": "lightningring",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "lightningring"
+  },
+  {
+    "id": "tc4_lootbag",
+    "texture": "lootbag",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "lootbag"
+  },
+  {
+    "id": "tc4_lootbagrare",
+    "texture": "lootbagrare",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "lootbagrare"
+  },
+  {
+    "id": "tc4_lootbagunc",
+    "texture": "lootbagunc",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "lootbagunc"
+  },
+  {
+    "id": "tc4_mana_bean",
+    "texture": "mana_bean",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "mana_bean"
+  },
+  {
+    "id": "tc4_mirrorframe",
+    "texture": "mirrorframe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "mirrorframe"
+  },
+  {
+    "id": "tc4_mirrorframe2",
+    "texture": "mirrorframe2",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "mirrorframe2"
+  },
+  {
+    "id": "tc4_mirrorglass",
+    "texture": "mirrorglass",
+    "source": "ConfigItems.itemResource meta 10",
+    "legacy_texture": "mirrorglass"
+  },
+  {
+    "id": "tc4_mirrorhand",
+    "texture": "mirrorhand",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "mirrorhand"
+  },
+  {
+    "id": "tc4_nitor",
+    "texture": "nitor",
+    "source": "ConfigItems.itemResource meta 1",
+    "legacy_texture": "nitor"
+  },
+  {
+    "id": "tc4_nuggetbeef",
+    "texture": "nuggetbeef",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "nuggetbeef"
+  },
+  {
+    "id": "tc4_nuggetchicken",
+    "texture": "nuggetchicken",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "nuggetchicken"
+  },
+  {
+    "id": "tc4_nuggetcopper",
+    "texture": "nuggetcopper",
+    "source": "ConfigItems.itemNugget meta 1",
+    "legacy_texture": "nuggetcopper"
+  },
+  {
+    "id": "tc4_nuggetfish",
+    "texture": "nuggetfish",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "nuggetfish"
+  },
+  {
+    "id": "tc4_nuggetiron",
+    "texture": "nuggetiron",
+    "source": "ConfigItems.itemNugget meta 0",
+    "legacy_texture": "nuggetiron"
+  },
+  {
+    "id": "tc4_nuggetlead",
+    "texture": "nuggetlead",
+    "source": "ConfigItems.itemNugget meta 4",
+    "legacy_texture": "nuggetlead"
+  },
+  {
+    "id": "tc4_nuggetpork",
+    "texture": "nuggetpork",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "nuggetpork"
+  },
+  {
+    "id": "tc4_nuggetquicksilver",
+    "texture": "nuggetquicksilver",
+    "source": "ConfigItems.itemNugget meta 5",
+    "legacy_texture": "nuggetquicksilver"
+  },
+  {
+    "id": "tc4_nuggetsilver",
+    "texture": "nuggetsilver",
+    "source": "ConfigItems.itemNugget meta 3",
+    "legacy_texture": "nuggetsilver"
+  },
+  {
+    "id": "tc4_nuggetthaumium",
+    "texture": "nuggetthaumium",
+    "source": "ConfigItems.itemNugget meta 6",
+    "legacy_texture": "nuggetthaumium"
+  },
+  {
+    "id": "tc4_nuggettin",
+    "texture": "nuggettin",
+    "source": "ConfigItems.itemNugget meta 2",
+    "legacy_texture": "nuggettin"
+  },
+  {
+    "id": "tc4_nuggetvoid",
+    "texture": "nuggetvoid",
+    "source": "ConfigItems.itemNugget meta 7",
+    "legacy_texture": "nuggetvoid"
+  },
+  {
+    "id": "tc4_ob_placer",
+    "texture": "ob_placer",
+    "source": "ConfigItems.itemEldritchObject meta 4",
+    "legacy_texture": "ob_placer"
+  },
+  {
+    "id": "tc4_phial",
+    "texture": "phial",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "phial"
+  },
+  {
+    "id": "tc4_primal_crusher",
+    "texture": "primal_crusher",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "primal_crusher"
+  },
+  {
+    "id": "tc4_quicksilver",
+    "texture": "quicksilver",
+    "source": "ConfigItems.itemResource meta 3",
+    "legacy_texture": "quicksilver"
+  },
+  {
+    "id": "tc4_researchnotes",
+    "texture": "researchnotes",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "researchnotes"
+  },
+  {
+    "id": "tc4_resonator",
+    "texture": "resonator",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "resonator"
+  },
+  {
+    "id": "tc4_runic_amulet",
+    "texture": "runic_amulet",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_amulet"
+  },
+  {
+    "id": "tc4_runic_amulet_emergency",
+    "texture": "runic_amulet_emergency",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_amulet_emergency"
+  },
+  {
+    "id": "tc4_runic_girdle",
+    "texture": "runic_girdle",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_girdle"
+  },
+  {
+    "id": "tc4_runic_girdle_kinetic",
+    "texture": "runic_girdle_kinetic",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_girdle_kinetic"
+  },
+  {
+    "id": "tc4_runic_ring",
+    "texture": "runic_ring",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_ring"
+  },
+  {
+    "id": "tc4_runic_ring_charged",
+    "texture": "runic_ring_charged",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_ring_charged"
+  },
+  {
+    "id": "tc4_runic_ring_lesser",
+    "texture": "runic_ring_lesser",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_ring_lesser"
+  },
+  {
+    "id": "tc4_runic_ring_regen",
+    "texture": "runic_ring_regen",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "runic_ring_regen"
+  },
+  {
+    "id": "tc4_sanitychecker",
+    "texture": "sanitychecker",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "sanitychecker"
+  },
+  {
+    "id": "tc4_shard",
+    "texture": "shard",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "shard"
+  },
+  {
+    "id": "tc4_shard_aer",
+    "texture": "shard",
+    "source": "ConfigItems.itemShard meta 0",
+    "legacy_texture": "shard_aer"
+  },
+  {
+    "id": "tc4_shard_aqua",
+    "texture": "shard",
+    "source": "ConfigItems.itemShard meta 2",
+    "legacy_texture": "shard_aqua"
+  },
+  {
+    "id": "tc4_shard_balanced",
+    "texture": "shard_balanced",
+    "source": "ConfigItems.itemShard meta 6",
+    "legacy_texture": "shard_balanced"
+  },
+  {
+    "id": "tc4_shard_ignis",
+    "texture": "shard",
+    "source": "ConfigItems.itemShard meta 1",
+    "legacy_texture": "shard_ignis"
+  },
+  {
+    "id": "tc4_shard_ordo",
+    "texture": "shard",
+    "source": "ConfigItems.itemShard meta 4",
+    "legacy_texture": "shard_ordo"
+  },
+  {
+    "id": "tc4_shard_perditio",
+    "texture": "shard",
+    "source": "ConfigItems.itemShard meta 5",
+    "legacy_texture": "shard_perditio"
+  },
+  {
+    "id": "tc4_shard_terra",
+    "texture": "shard",
+    "source": "ConfigItems.itemShard meta 3",
+    "legacy_texture": "shard_terra"
+  },
+  {
+    "id": "tc4_sinister_stone",
+    "texture": "sinister_stone",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "sinister_stone"
+  },
+  {
+    "id": "tc4_sinister_stone_active",
+    "texture": "sinister_stone_active",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "sinister_stone_active"
+  },
+  {
+    "id": "tc4_soap",
+    "texture": "soap",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "soap"
+  },
+  {
+    "id": "tc4_staff_rod_blaze",
+    "texture": "staff_rod_blaze",
+    "source": "ConfigItems.itemWandRod meta 56",
+    "legacy_texture": "staff_rod_blaze"
+  },
+  {
+    "id": "tc4_staff_rod_bone",
+    "texture": "staff_rod_bone",
+    "source": "ConfigItems.itemWandRod meta 57",
+    "legacy_texture": "staff_rod_bone"
+  },
+  {
+    "id": "tc4_staff_rod_greatwood",
+    "texture": "staff_rod_greatwood",
+    "source": "ConfigItems.itemWandRod meta 50",
+    "legacy_texture": "staff_rod_greatwood"
+  },
+  {
+    "id": "tc4_staff_rod_ice",
+    "texture": "staff_rod_ice",
+    "source": "ConfigItems.itemWandRod meta 53",
+    "legacy_texture": "staff_rod_ice"
+  },
+  {
+    "id": "tc4_staff_rod_obsidian",
+    "texture": "staff_rod_obsidian",
+    "source": "ConfigItems.itemWandRod meta 51",
+    "legacy_texture": "staff_rod_obsidian"
+  },
+  {
+    "id": "tc4_staff_rod_primal",
+    "texture": "staff_rod_primal",
+    "source": "ConfigItems.itemWandRod meta 100",
+    "legacy_texture": "staff_rod_primal"
+  },
+  {
+    "id": "tc4_staff_rod_quartz",
+    "texture": "staff_rod_quartz",
+    "source": "ConfigItems.itemWandRod meta 54",
+    "legacy_texture": "staff_rod_quartz"
+  },
+  {
+    "id": "tc4_staff_rod_reed",
+    "texture": "staff_rod_reed",
+    "source": "ConfigItems.itemWandRod meta 55",
+    "legacy_texture": "staff_rod_reed"
+  },
+  {
+    "id": "tc4_staff_rod_silverwood",
+    "texture": "staff_rod_silverwood",
+    "source": "ConfigItems.itemWandRod meta 52",
+    "legacy_texture": "staff_rod_silverwood"
+  },
+  {
+    "id": "tc4_taint_slime",
+    "texture": "taint_slime",
+    "source": "ConfigItems.itemResource meta 11",
+    "legacy_texture": "taint_slime"
+  },
+  {
+    "id": "tc4_taint_tendril",
+    "texture": "taint_tendril",
+    "source": "ConfigItems.itemResource meta 12",
+    "legacy_texture": "taint_tendril"
+  },
+  {
+    "id": "tc4_tallow",
+    "texture": "tallow",
+    "source": "ConfigItems.itemResource meta 4",
+    "legacy_texture": "tallow"
+  },
+  {
+    "id": "tc4_thaumiumaxe",
+    "texture": "thaumiumaxe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumaxe"
+  },
+  {
+    "id": "tc4_thaumiumboots",
+    "texture": "thaumiumboots",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumboots"
+  },
+  {
+    "id": "tc4_thaumiumchest",
+    "texture": "thaumiumchest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumchest"
+  },
+  {
+    "id": "tc4_thaumiumfortresschest",
+    "texture": "thaumiumfortresschest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumfortresschest"
+  },
+  {
+    "id": "tc4_thaumiumfortresshelm",
+    "texture": "thaumiumfortresshelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumfortresshelm"
+  },
+  {
+    "id": "tc4_thaumiumfortresslegs",
+    "texture": "thaumiumfortresslegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumfortresslegs"
+  },
+  {
+    "id": "tc4_thaumiumhelm",
+    "texture": "thaumiumhelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumhelm"
+  },
+  {
+    "id": "tc4_thaumiumhoe",
+    "texture": "thaumiumhoe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumhoe"
+  },
+  {
+    "id": "tc4_thaumiumingot",
+    "texture": "thaumiumingot",
+    "source": "ConfigItems.itemResource meta 2",
+    "legacy_texture": "thaumiumingot"
+  },
+  {
+    "id": "tc4_thaumiumlegs",
+    "texture": "thaumiumlegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumlegs"
+  },
+  {
+    "id": "tc4_thaumiumpick",
+    "texture": "thaumiumpick",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumpick"
+  },
+  {
+    "id": "tc4_thaumiumshovel",
+    "texture": "thaumiumshovel",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumshovel"
+  },
+  {
+    "id": "tc4_thaumiumsword",
+    "texture": "thaumiumsword",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumiumsword"
+  },
+  {
+    "id": "tc4_thaumonomicon",
+    "texture": "thaumonomicon",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumonomicon"
+  },
+  {
+    "id": "tc4_thaumonomiconcheat",
+    "texture": "thaumonomiconcheat",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "thaumonomiconcheat"
+  },
+  {
+    "id": "tc4_tripletreat",
+    "texture": "tripletreat",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "tripletreat"
+  },
+  {
+    "id": "tc4_vis_amulet",
+    "texture": "vis_amulet",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "vis_amulet"
+  },
+  {
+    "id": "tc4_vis_amulet_lesser",
+    "texture": "vis_amulet_lesser",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "vis_amulet_lesser"
+  },
+  {
+    "id": "tc4_voidaxe",
+    "texture": "voidaxe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidaxe"
+  },
+  {
+    "id": "tc4_voidboots",
+    "texture": "voidboots",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidboots"
+  },
+  {
+    "id": "tc4_voidchest",
+    "texture": "voidchest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidchest"
+  },
+  {
+    "id": "tc4_voidhelm",
+    "texture": "voidhelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidhelm"
+  },
+  {
+    "id": "tc4_voidhoe",
+    "texture": "voidhoe",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidhoe"
+  },
+  {
+    "id": "tc4_voidingot",
+    "texture": "voidingot",
+    "source": "ConfigItems.itemResource meta 16",
+    "legacy_texture": "voidingot"
+  },
+  {
+    "id": "tc4_voidlegs",
+    "texture": "voidlegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidlegs"
+  },
+  {
+    "id": "tc4_voidpick",
+    "texture": "voidpick",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidpick"
+  },
+  {
+    "id": "tc4_voidrobechest",
+    "texture": "voidrobechest",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidrobechest"
+  },
+  {
+    "id": "tc4_voidrobechestover",
+    "texture": "voidrobechestover",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidrobechestover"
+  },
+  {
+    "id": "tc4_voidrobehelm",
+    "texture": "voidrobehelm",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidrobehelm"
+  },
+  {
+    "id": "tc4_voidrobelegs",
+    "texture": "voidrobelegs",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidrobelegs"
+  },
+  {
+    "id": "tc4_voidrobelegsover",
+    "texture": "voidrobelegsover",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidrobelegsover"
+  },
+  {
+    "id": "tc4_voidseed",
+    "texture": "voidseed",
+    "source": "ConfigItems.itemResource meta 17",
+    "legacy_texture": "voidseed"
+  },
+  {
+    "id": "tc4_voidshovel",
+    "texture": "voidshovel",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidshovel"
+  },
+  {
+    "id": "tc4_voidsword",
+    "texture": "voidsword",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "voidsword"
+  },
+  {
+    "id": "tc4_wand_cap_copper",
+    "texture": "wand_cap_copper",
+    "source": "ConfigItems.itemWandCap meta 3",
+    "legacy_texture": "wand_cap_copper"
+  },
+  {
+    "id": "tc4_wand_cap_gold",
+    "texture": "wand_cap_gold",
+    "source": "ConfigItems.itemWandCap meta 1",
+    "legacy_texture": "wand_cap_gold"
+  },
+  {
+    "id": "tc4_wand_cap_iron",
+    "texture": "wand_cap_iron",
+    "source": "ConfigItems.itemWandCap meta 0",
+    "legacy_texture": "wand_cap_iron"
+  },
+  {
+    "id": "tc4_wand_cap_silver",
+    "texture": "wand_cap_silver",
+    "source": "ConfigItems.itemWandCap meta 4",
+    "legacy_texture": "wand_cap_silver"
+  },
+  {
+    "id": "tc4_wand_cap_silver_inert",
+    "texture": "wand_cap_silver_inert",
+    "source": "ConfigItems.itemWandCap meta 5",
+    "legacy_texture": "wand_cap_silver_inert"
+  },
+  {
+    "id": "tc4_wand_cap_thaumium",
+    "texture": "wand_cap_thaumium",
+    "source": "ConfigItems.itemWandCap meta 2",
+    "legacy_texture": "wand_cap_thaumium"
+  },
+  {
+    "id": "tc4_wand_cap_thaumium_inert",
+    "texture": "wand_cap_thaumium_inert",
+    "source": "ConfigItems.itemWandCap meta 6",
+    "legacy_texture": "wand_cap_thaumium_inert"
+  },
+  {
+    "id": "tc4_wand_cap_void",
+    "texture": "wand_cap_void",
+    "source": "ConfigItems.itemWandCap meta 7",
+    "legacy_texture": "wand_cap_void"
+  },
+  {
+    "id": "tc4_wand_cap_void_inert",
+    "texture": "wand_cap_void_inert",
+    "source": "ConfigItems.itemWandCap meta 8",
+    "legacy_texture": "wand_cap_void_inert"
+  },
+  {
+    "id": "tc4_wand_rod_blaze",
+    "texture": "wand_rod_blaze",
+    "source": "ConfigItems.itemWandRod meta 6",
+    "legacy_texture": "wand_rod_blaze"
+  },
+  {
+    "id": "tc4_wand_rod_bone",
+    "texture": "wand_rod_bone",
+    "source": "ConfigItems.itemWandRod meta 7",
+    "legacy_texture": "wand_rod_bone"
+  },
+  {
+    "id": "tc4_wand_rod_greatwood",
+    "texture": "wand_rod_greatwood",
+    "source": "ConfigItems.itemWandRod meta 0",
+    "legacy_texture": "wand_rod_greatwood"
+  },
+  {
+    "id": "tc4_wand_rod_ice",
+    "texture": "wand_rod_ice",
+    "source": "ConfigItems.itemWandRod meta 3",
+    "legacy_texture": "wand_rod_ice"
+  },
+  {
+    "id": "tc4_wand_rod_obsidian",
+    "texture": "wand_rod_obsidian",
+    "source": "ConfigItems.itemWandRod meta 1",
+    "legacy_texture": "wand_rod_obsidian"
+  },
+  {
+    "id": "tc4_wand_rod_quartz",
+    "texture": "wand_rod_quartz",
+    "source": "ConfigItems.itemWandRod meta 4",
+    "legacy_texture": "wand_rod_quartz"
+  },
+  {
+    "id": "tc4_wand_rod_reed",
+    "texture": "wand_rod_reed",
+    "source": "ConfigItems.itemWandRod meta 5",
+    "legacy_texture": "wand_rod_reed"
+  },
+  {
+    "id": "tc4_wand_rod_silverwood",
+    "texture": "wand_rod_silverwood",
+    "source": "ConfigItems.itemWandRod meta 2",
+    "legacy_texture": "wand_rod_silverwood"
+  },
+  {
+    "id": "tc4_wispessence",
+    "texture": "wispessence",
+    "source": "TC4 texture sprite from assets/thaumcraft/textures/items",
+    "legacy_texture": "wispessence"
+  }
+]

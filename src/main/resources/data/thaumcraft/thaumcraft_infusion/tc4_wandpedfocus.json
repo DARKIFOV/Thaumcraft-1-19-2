@@ -1,0 +1,27 @@
+{
+  "tc4_key": "WandPedFocus",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "WANDPEDFOC",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:quartz",
+  "components": [
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_filter"
+  ],
+  "aspects": {
+    "ORDO": 10,
+    "PRAECANTATIO": 15,
+    "PERMUTATIO": 10
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_block_wand_pedestal_focus",
+    "count": 1
+  }
+}

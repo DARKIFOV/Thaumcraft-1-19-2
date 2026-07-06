@@ -1,0 +1,15 @@
+{
+  "tc4_key": "CoreEmpty",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "COREEMPTY",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_golem_core_blank",
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_empty",
+    "count": 1
+  },
+  "aspects": {
+    "LUCRUM": 5,
+    "VACUOS": 5
+  }
+}

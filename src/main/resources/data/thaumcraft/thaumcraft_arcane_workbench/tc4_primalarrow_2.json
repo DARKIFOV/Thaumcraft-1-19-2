@@ -1,0 +1,26 @@
+{
+  "tc4_key": "PrimalArrow_2",
+  "kind": "ARCANE_SHAPED",
+  "research": "PRIMALARROW",
+  "result": {
+    "item": "thaumcraft:tc4_el_arrow_water",
+    "count": 8
+  },
+  "catalyst": "minecraft:arrow",
+  "ingredients": [
+    "thaumcraft:tc4_shard_aqua"
+  ],
+  "aspects": {
+    "AQUA": 8
+  },
+  "pattern": [
+    "AAA",
+    "ASA",
+    "AAA"
+  ],
+  "key": {
+    "A": "thaumcraft:tc4_shard_aqua",
+    "S": "minecraft:arrow"
+  },
+  "source": "ConfigRecipes arcane loop lines 972-975"
+}

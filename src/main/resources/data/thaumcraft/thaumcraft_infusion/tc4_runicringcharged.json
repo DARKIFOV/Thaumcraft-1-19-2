@@ -1,0 +1,25 @@
+{
+  "tc4_key": "RunicRingCharged",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "RUNICCHARGED",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_runic_ring",
+  "components": [
+    "thaumcraft:tc4_shard_balanced",
+    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:tc4_shard_ignis",
+    "minecraft:emerald",
+    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:tc4_shard_ignis"
+  ],
+  "aspects": {
+    "TUTAMEN": 16,
+    "PRAECANTATIO": 16,
+    "POTENTIA": 64
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_runic_ring",
+    "count": 1
+  }
+}

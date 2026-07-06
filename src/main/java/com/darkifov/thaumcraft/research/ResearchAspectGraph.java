@@ -4,6 +4,9 @@ import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectCombinationRegistry;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.LinkedHashSet;
@@ -88,11 +91,74 @@ public final class ResearchAspectGraph {
         return 999;
     }
 
+    public static List<Aspect> shortestPath(Aspect start, Aspect target) {
+        if (start == null || target == null) {
+            return List.of();
+        }
+
+        if (start == target) {
+            return List.of(start);
+        }
+
+        Queue<Aspect> queue = new ArrayDeque<>();
+        Map<Aspect, Aspect> previous = new EnumMap<>(Aspect.class);
+        Set<Aspect> seen = EnumSet.noneOf(Aspect.class);
+
+        queue.add(start);
+        seen.add(start);
+
+        while (!queue.isEmpty()) {
+            Aspect current = queue.remove();
+
+            for (Aspect next : LINKS.getOrDefault(current, Set.of())) {
+                if (!seen.add(next)) {
+                    continue;
+                }
+
+                previous.put(next, current);
+
+                if (next == target) {
+                    List<Aspect> path = new ArrayList<>();
+                    Aspect cursor = target;
+
+                    while (cursor != null) {
+                        path.add(cursor);
+                        if (cursor == start) {
+                            break;
+                        }
+                        cursor = previous.get(cursor);
+                    }
+
+                    Collections.reverse(path);
+                    return path;
+                }
+
+                queue.add(next);
+            }
+        }
+
+        return List.of();
+    }
+
+    public static Aspect suggestedConnector(Aspect start, Aspect target) {
+        List<Aspect> path = shortestPath(start, target);
+        return path.size() >= 2 ? path.get(1) : null;
+    }
+
+    /**
+     * Stage139: TC4 research notes link aspects only through an immediate
+     * parent/component relationship. Stage137 allowed distance <= 2, which made
+     * notes too forgiving and let paths skip one original TC4 aspect.
+     */
     public static boolean canConnect(Aspect first, Aspect second) {
-        return distance(first, second) <= 2;
+        return isDirect(first, second);
     }
 
     public static boolean isDirect(Aspect first, Aspect second) {
         return distance(first, second) <= 1;
+    }
+
+    public static boolean canHintThroughOneMissingAspect(Aspect first, Aspect second) {
+        return distance(first, second) <= 2;
     }
 }

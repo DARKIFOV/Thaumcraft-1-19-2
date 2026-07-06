@@ -1,0 +1,15 @@
+{
+  "tc4_key": "TransSilver",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "TRANSSILVER",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_nuggetsilver",
+  "result": {
+    "item": "thaumcraft:tc4_nuggetsilver",
+    "count": 3
+  },
+  "aspects": {
+    "METALLUM": 2,
+    "LUCRUM": 1
+  }
+}

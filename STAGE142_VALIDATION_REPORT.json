@@ -1,0 +1,30 @@
+{
+  "stage": 142,
+  "name": "TC4 Golemancy GUI / Live Configuration / Renderer Finish Pass",
+  "version": "1.42.0",
+  "base": "Stage141 TC4 Golemancy Controls / Filters / Upgrades",
+  "completed": [
+    "live golem right-click configuration",
+    "Golem Bell status mode",
+    "marker radius/priority metadata",
+    "task radius/priority NBT persistence",
+    "multi-part animated golem renderer",
+    "continued full-system static audits"
+  ],
+  "checks": [
+    "java_syntax_guard OK",
+    "github_ci_guard OK",
+    "github_static_audit OK",
+    "tc4_texture_audit OK",
+    "tc4_full_parity_audit OK",
+    "tc4_wand_parity_audit OK",
+    "tc4_book_table_workbench_audit OK",
+    "tc4_stage137_core_loop_audit OK",
+    "tc4_stage138_arcane_pattern_audit OK",
+    "tc4_stage139_whole_port_sweep_audit OK",
+    "tc4_stage140_golemancy_checkpoint_audit OK",
+    "tc4_stage141_golemancy_controls_audit OK",
+    "tc4_stage142_golemancy_gui_render_audit OK"
+  ],
+  "gradle_build": "not run in sandbox because Gradle wrapper cannot download dependencies without services.gradle.org DNS access"
+}

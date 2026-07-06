@@ -1,0 +1,34 @@
+{
+  "stage": 127,
+  "goal": "whole Thaumcraft 4 parity tracking plus Stage127 crucible renderer/liquid FX parity",
+  "original_tc4": {
+    "java_files": 859,
+    "png_textures": 820,
+    "sound_files": 111,
+    "sound_events": 66,
+    "lang_files": 22
+  },
+  "current_port": {
+    "java_files": 253,
+    "model_json_files": 770,
+    "blockstate_json_files": 128,
+    "png_textures": 2617,
+    "sound_files": 111
+  },
+  "runtime_markers": {
+    "tc4_research_component_entries": 234,
+    "tc4_sound_registry_class": true,
+    "tc4_full_parity_index_class": true
+  },
+  "remaining_big_systems_to_finish": [
+    "Arcane Workbench exact TC4 GUI + vis/wand rules",
+    "Crucible exact heat/boil/spill/flux behavior",
+    "Full essentia suction/tube network parity",
+    "Aura node generation, stabilization, transduction and jar-node parity",
+    "Every wand focus behavior and animation",
+    "Every golem core/upgrade/AI/seal behavior",
+    "Taint/flux goo/gas spread and biome/worldgen behavior",
+    "Eldritch progression, cultists, bosses and structures",
+    "Exact renderers for jars, tubes, nodes, golems, wands, infusion matrix and special blocks"
+  ]
+}

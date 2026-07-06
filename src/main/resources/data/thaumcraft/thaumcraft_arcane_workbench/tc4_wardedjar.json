@@ -1,0 +1,26 @@
+{
+  "tc4_key": "WardedJar",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "DISTILESSENTIA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:oak_slab",
+  "ingredients": [
+    "minecraft:hopper"
+  ],
+  "aspects": {
+    "AQUA": 1
+  },
+  "pattern": [
+    "GWG",
+    "G G",
+    "GGG"
+  ],
+  "key": {
+    "G": "minecraft:hopper",
+    "W": "minecraft:oak_slab"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_essentia_jar",
+    "count": 1
+  }
+}

@@ -3,15 +3,18 @@ package com.darkifov.thaumcraft;
 import com.darkifov.thaumcraft.block.AvaritiaCreativeWandItem;
 import com.darkifov.thaumcraft.wand.WandRodType;
 import com.darkifov.thaumcraft.wand.WandCapType;
+import com.darkifov.thaumcraft.wand.WandFocusType;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipeManager;
 import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipeManager;
 import com.darkifov.thaumcraft.block.AddonCompletionLedgerItem;
+import com.darkifov.thaumcraft.block.AdvancedNodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.AlchemicalFurnaceBlock;
 import com.darkifov.thaumcraft.block.AlembicBlock;
 import com.darkifov.thaumcraft.block.ArcanePedestalBlock;
 import com.darkifov.thaumcraft.block.AspectCrystalItem;
 import com.darkifov.thaumcraft.block.ArcaneWorkbenchBlock;
 import com.darkifov.thaumcraft.block.AuraNodeBlock;
+import com.darkifov.thaumcraft.block.BellowsBlock;
 import com.darkifov.thaumcraft.block.CrucibleBlock;
 import com.darkifov.thaumcraft.block.FilteredEssentiaJarBlock;
 import com.darkifov.thaumcraft.block.EldritchAltarBlock;
@@ -28,6 +31,9 @@ import com.darkifov.thaumcraft.block.EssentiaPartitionCardItem;
 import com.darkifov.thaumcraft.block.EncodedEssentiaPatternItem;
 import com.darkifov.thaumcraft.block.BottomlessPouchItem;
 import com.darkifov.thaumcraft.block.FumeDissipatorBlock;
+import com.darkifov.thaumcraft.block.FluxGasBlock;
+import com.darkifov.thaumcraft.block.FluxGooBlock;
+import com.darkifov.thaumcraft.block.FocusPouchItem;
 import com.darkifov.thaumcraft.block.HelmetOfRevealingItem;
 import com.darkifov.thaumcraft.block.IchorArmorItem;
 import com.darkifov.thaumcraft.block.IchorPickaxeItem;
@@ -43,11 +49,18 @@ import com.darkifov.thaumcraft.block.GolemBellItem;
 import com.darkifov.thaumcraft.block.JarLabelItem;
 import com.darkifov.thaumcraft.block.GolemSealCollectItem;
 import com.darkifov.thaumcraft.block.GolemCoreItem;
+import com.darkifov.thaumcraft.block.GolemFilterItem;
+import com.darkifov.thaumcraft.block.GolemDecorationItem;
+import com.darkifov.thaumcraft.block.GolemTaskMarkerItem;
+import com.darkifov.thaumcraft.block.GolemUpgradeItem;
 import com.darkifov.thaumcraft.block.InfusionMatrixBlock;
 import com.darkifov.thaumcraft.block.InfusionMatrixAuxiliaryBlock;
 import com.darkifov.thaumcraft.block.PechLedgerItem;
 import com.darkifov.thaumcraft.block.PechTradeTokenItem;
+import com.darkifov.thaumcraft.block.NodeJarItem;
 import com.darkifov.thaumcraft.block.NodeStabilizerBlock;
+import com.darkifov.thaumcraft.block.NodeTransducerBlock;
+import com.darkifov.thaumcraft.block.VisRelayBlock;
 import com.darkifov.thaumcraft.block.PortingLedgerItem;
 import com.darkifov.thaumcraft.block.TableBlock;
 import com.darkifov.thaumcraft.block.ShardItem;
@@ -76,7 +89,9 @@ import com.darkifov.thaumcraft.block.ThaumcraftExtrasFocusItem;
 import com.darkifov.thaumcraft.block.ThaumcraftExtrasElementalBlock;
 import com.darkifov.thaumcraft.block.ThaumometerItem;
 import com.darkifov.thaumcraft.block.ThaumonomiconItem;
+import com.darkifov.thaumcraft.block.TemporaryHoleBlock;
 import com.darkifov.thaumcraft.block.WandItem;
+import com.darkifov.thaumcraft.block.WandFocusItem;
 import com.darkifov.thaumcraft.block.WarpWardTalismanItem;
 import com.darkifov.thaumcraft.block.WarpCharmItem;
 import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
@@ -96,6 +111,8 @@ import com.darkifov.thaumcraft.entity.PechEntity;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
 import com.darkifov.thaumcraft.infusion.InfusionRecipeManager;
+import com.darkifov.thaumcraft.golem.GolemUpgradeType;
+import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import com.darkifov.thaumcraft.menu.EssentiaDriveMenu;
 import com.darkifov.thaumcraft.menu.EssentiaTerminalMenu;
 import com.darkifov.thaumcraft.menu.BottomlessPouchMenu;
@@ -104,6 +121,9 @@ import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.porting.TC4ResearchItems;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
@@ -128,6 +148,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import java.util.Map;
 
 @Mod(ThaumcraftMod.MOD_ID)
 public class ThaumcraftMod {
@@ -148,6 +169,9 @@ public class ThaumcraftMod {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, MOD_ID);
 
+    public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
+            DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);
+
     public static final CreativeModeTab THAUMCRAFT_TAB = new CreativeModeTab("thaumcraft") {
         @Override
         public ItemStack makeIcon() {
@@ -163,6 +187,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Item> PORTING_LEDGER = specialItem("porting_ledger",
             () -> new PortingLedgerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Item> NODE_JAR = specialItem("node_jar",
+            () -> new NodeJarItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> IRON_CAPPED_WOODEN_WAND = specialItem("iron_capped_wooden_wand",
             () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 50, WandRodType.WOOD, WandCapType.IRON));
@@ -188,6 +215,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Item> SCRIBING_TOOLS = specialItem("scribing_tools",
             () -> new ScribingToolsItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final Map<String, RegistryObject<Item>> TC4_RESEARCH_ITEMS = TC4ResearchItems.registerAll(ITEMS, THAUMCRAFT_TAB);
+    public static final Map<String, RegistryObject<SoundEvent>> TC4_SOUND_EVENTS = TC4Sounds.registerAll(SOUND_EVENTS);
 
     public static final RegistryObject<Item> IRON_WAND_CAP = item("iron_wand_cap");
     public static final RegistryObject<Item> GOLD_WAND_CAP = item("gold_wand_cap");
@@ -344,13 +374,55 @@ public class ThaumcraftMod {
             () -> new GolemBellItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> GOLEM_SEAL_COLLECT = specialItem("golem_seal_collect",
             () -> new GolemSealCollectItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Item> GOLEM_TASK_MARKER = specialItem("golem_task_marker",
+            () -> new GolemTaskMarkerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Item> GOLEM_FILTER = specialItem("golem_filter",
+            () -> new GolemFilterItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Item> GOLEM_UPGRADE_AIR = specialItem("golem_upgrade_air",
+            () -> new GolemUpgradeItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemUpgradeType.AIR));
+    public static final RegistryObject<Item> GOLEM_UPGRADE_FIRE = specialItem("golem_upgrade_fire",
+            () -> new GolemUpgradeItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemUpgradeType.FIRE));
+    public static final RegistryObject<Item> GOLEM_UPGRADE_WATER = specialItem("golem_upgrade_water",
+            () -> new GolemUpgradeItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemUpgradeType.WATER));
+    public static final RegistryObject<Item> GOLEM_UPGRADE_EARTH = specialItem("golem_upgrade_earth",
+            () -> new GolemUpgradeItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemUpgradeType.EARTH));
+    public static final RegistryObject<Item> GOLEM_UPGRADE_ORDER = specialItem("golem_upgrade_order",
+            () -> new GolemUpgradeItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemUpgradeType.ORDER));
+    public static final RegistryObject<Item> GOLEM_UPGRADE_ENTROPY = specialItem("golem_upgrade_entropy",
+            () -> new GolemUpgradeItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemUpgradeType.ENTROPY));
+
+    public static final RegistryObject<Item> GOLEM_DECO_ARMOR = specialItem("golem_deco_armor",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.ARMOR));
+    public static final RegistryObject<Item> GOLEM_DECO_TOP_HAT = specialItem("golem_deco_tophat",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.TOP_HAT));
+    public static final RegistryObject<Item> GOLEM_DECO_FEZ = specialItem("golem_deco_fez",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.FEZ));
+    public static final RegistryObject<Item> GOLEM_DECO_VISOR = specialItem("golem_deco_visor",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.VISOR));
+    public static final RegistryObject<Item> GOLEM_DECO_GLASSES = specialItem("golem_deco_glasses",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.GLASSES));
+    public static final RegistryObject<Item> GOLEM_DECO_BOWTIE = specialItem("golem_deco_bowtie",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.BOWTIE));
+    public static final RegistryObject<Item> GOLEM_DECO_DART_LAUNCHER = specialItem("golem_deco_dart_launcher",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.DART_LAUNCHER));
+    public static final RegistryObject<Item> GOLEM_DECO_MACE = specialItem("golem_deco_mace",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.MACE));
+    public static final RegistryObject<Item> GOLEM_WIRELESS_BACKPACK = specialItem("golem_wireless_backpack",
+            () -> new GolemDecorationItem(new Item.Properties().tab(THAUMCRAFT_TAB), GolemDecorationType.WIRELESS_BACKPACK));
     public static final RegistryObject<Item> JAR_LABEL = ITEMS.register("jar_label", () -> new JarLabelItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> TAINT_SEED = specialItem("taint_seed",
             () -> new TaintSeedItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
-    public static final RegistryObject<Item> FOCUS_FIRE = item("focus_fire");
-    public static final RegistryObject<Item> FOCUS_FROST = item("focus_frost");
-    public static final RegistryObject<Item> FOCUS_SHOCK = item("focus_shock");
+    public static final RegistryObject<Item> FOCUS_FIRE = focusItem("focus_fire", WandFocusType.FIRE);
+    public static final RegistryObject<Item> FOCUS_FROST = focusItem("focus_frost", WandFocusType.FROST);
+    public static final RegistryObject<Item> FOCUS_SHOCK = focusItem("focus_shock", WandFocusType.SHOCK);
+    public static final RegistryObject<Item> FOCUS_EXCAVATION = focusItem("focus_excavation", WandFocusType.EXCAVATION);
+    public static final RegistryObject<Item> FOCUS_PORTABLE_HOLE = focusItem("focus_portable_hole", WandFocusType.PORTABLE_HOLE);
+    public static final RegistryObject<Item> FOCUS_EQUAL_TRADE = focusItem("focus_equal_trade", WandFocusType.EQUAL_TRADE);
+    public static final RegistryObject<Item> FOCUS_WARDING = focusItem("focus_warding", WandFocusType.WARDING);
+    public static final RegistryObject<Item> FOCUS_PRIMAL = focusItem("focus_primal", WandFocusType.PRIMAL);
+    public static final RegistryObject<Item> FOCUS_POUCH = specialItem("focus_pouch",
+            () -> new FocusPouchItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
     public static final RegistryObject<Item> FOCUS_BLINK = extrasFocus("focus_blink", ThaumcraftExtrasFocusItem.Mode.BLINK);
     public static final RegistryObject<Item> FOCUS_ARROW = extrasFocus("focus_arrow", ThaumcraftExtrasFocusItem.Mode.ARROW);
@@ -441,6 +513,8 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> ARCANE_STONE_BRICKS = block("arcane_stone_bricks",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
+    public static final RegistryObject<Block> INFUSION_PILLAR = block("infusion_pillar",
+            BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
 
     public static final RegistryObject<Block> ELDRITCH_STONE = block("eldritch_stone",
             BlockBehaviour.Properties.of(Material.STONE).strength(5.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 2));
@@ -459,6 +533,12 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> TAINTED_SOIL = taintedSoilBlock("tainted_soil",
             BlockBehaviour.Properties.of(Material.DIRT).strength(0.8F, 0.8F).randomTicks());
+    public static final RegistryObject<Block> FLUX_GOO = fluxGooBlock("flux_goo",
+            BlockBehaviour.Properties.of(Material.CLAY).strength(0.2F).randomTicks().noOcclusion());
+    public static final RegistryObject<Block> FLUX_GAS = fluxGasBlock("flux_gas",
+            BlockBehaviour.Properties.of(Material.AIR).strength(0.0F).randomTicks().noCollission().noOcclusion().lightLevel(state -> 3));
+    public static final RegistryObject<Block> TEMPORARY_HOLE = temporaryHoleBlock("temporary_hole",
+            BlockBehaviour.Properties.of(Material.AIR).strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 10));
     public static final RegistryObject<Block> GREATWOOD_PLANKS = block("greatwood_planks",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
     public static final RegistryObject<Block> SILVERWOOD_PLANKS = block("silverwood_planks",
@@ -474,6 +554,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> CRUCIBLE = crucibleBlock("crucible",
             BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 6.0F).requiresCorrectToolForDrops());
+
+    public static final RegistryObject<Block> BELLOWS = bellowsBlock("bellows",
+            BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion());
     public static final RegistryObject<Block> ESSENTIA_JAR = essentiaJarBlock("essentia_jar",
             BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 4.0F).requiresCorrectToolForDrops().noOcclusion());
 
@@ -698,6 +781,15 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> NODE_STABILIZER = nodeStabilizerBlock("node_stabilizer",
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 5));
 
+    public static final RegistryObject<Block> ADVANCED_NODE_STABILIZER = advancedNodeStabilizerBlock("advanced_node_stabilizer",
+            BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 7));
+
+    public static final RegistryObject<Block> NODE_TRANSDUCER = nodeTransducerBlock("node_transducer",
+            BlockBehaviour.Properties.of(Material.METAL).strength(4.5F, 9.0F).requiresCorrectToolForDrops().lightLevel(state -> 6));
+
+    public static final RegistryObject<Block> VIS_RELAY = visRelayBlock("vis_relay",
+            BlockBehaviour.Properties.of(Material.GLASS).strength(1.5F, 4.0F).requiresCorrectToolForDrops().lightLevel(state -> 8).noOcclusion());
+
     public static final RegistryObject<Block> AER_CRYSTAL = crystalBlock("aer_crystal", 9);
     public static final RegistryObject<Block> TERRA_CRYSTAL = crystalBlock("terra_crystal", 7);
     public static final RegistryObject<Block> IGNIS_CRYSTAL = crystalBlock("ignis_crystal", 10);
@@ -785,6 +877,7 @@ public class ThaumcraftMod {
         BLOCK_ENTITIES.register(modBus);
         ENTITY_TYPES.register(modBus);
         MENUS.register(modBus);
+        SOUND_EVENTS.register(modBus);
         modBus.addListener(this::onEntityAttributeCreation);
         MinecraftForge.EVENT_BUS.addListener(this::onAddReloadListeners);
         ThaumcraftNetwork.register();
@@ -810,12 +903,20 @@ public class ThaumcraftMod {
         return ITEMS.register(name, item);
     }
 
+    private static RegistryObject<Item> focusItem(String name, WandFocusType type) {
+        return ITEMS.register(name, () -> new WandFocusItem(new Item.Properties().tab(THAUMCRAFT_TAB), type));
+    }
+
     private static RegistryObject<Item> extrasFocus(String name, ThaumcraftExtrasFocusItem.Mode mode) {
         return ITEMS.register(name, () -> new ThaumcraftExtrasFocusItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1), mode));
     }
 
     private static RegistryObject<Item> pechToken(String name, int tier) {
         return ITEMS.register(name, () -> new PechTradeTokenItem(new Item.Properties().tab(THAUMCRAFT_TAB), tier));
+    }
+
+    private static RegistryObject<Block> temporaryHoleBlock(String name, BlockBehaviour.Properties properties) {
+        return BLOCKS.register(name, () -> new TemporaryHoleBlock(properties));
     }
 
     private static RegistryObject<Block> block(String name, BlockBehaviour.Properties properties) {
@@ -866,6 +967,12 @@ public class ThaumcraftMod {
         return block;
     }
 
+    private static RegistryObject<Block> bellowsBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new BellowsBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
     private static RegistryObject<Block> tableBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new TableBlock(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
@@ -886,6 +993,19 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> taintedSoilBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new TaintedSoilBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+
+    private static RegistryObject<Block> fluxGooBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new FluxGooBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> fluxGasBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new FluxGasBlock(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
@@ -976,6 +1096,24 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> nodeStabilizerBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new NodeStabilizerBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> advancedNodeStabilizerBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new AdvancedNodeStabilizerBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> nodeTransducerBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new NodeTransducerBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> visRelayBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new VisRelayBlock(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }

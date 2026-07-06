@@ -1,0 +1,24 @@
+{
+  "tc4_key": "WandRodQuartzStaff",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ROD_quartz_staff",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_charm",
+  "ingredients": [
+    "thaumcraft:tc4_wand_rod_quartz"
+  ],
+  "aspects": {},
+  "pattern": [
+    "S",
+    "G",
+    "G"
+  ],
+  "key": {
+    "S": "thaumcraft:tc4_charm",
+    "G": "thaumcraft:tc4_wand_rod_quartz"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_staff_rod_quartz",
+    "count": 1
+  }
+}

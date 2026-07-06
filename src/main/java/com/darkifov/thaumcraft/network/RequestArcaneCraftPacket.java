@@ -10,6 +10,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -68,8 +69,9 @@ public class RequestArcaneCraftPacket {
                 return;
             }
 
-            if (!WandItem.consumeVisFromInventory(player, Aspect.ORDO, 2)) {
-                player.displayClientMessage(Component.literal("Arcane crafting needs Ordo 2 vis in any wand in your inventory.").withStyle(ChatFormatting.RED), false);
+            ItemStack costWand = findWandWithVisCost(player, recipe);
+            if (costWand.isEmpty()) {
+                player.displayClientMessage(Component.literal("Arcane crafting needs vis: " + recipe.aspectCostText()).withStyle(ChatFormatting.RED), false);
                 return;
             }
 
@@ -81,6 +83,7 @@ public class RequestArcaneCraftPacket {
             }
 
             if (!player.getAbilities().instabuild) {
+                consumeArcaneVisCost(costWand, recipe);
                 consumeCatalyst(player.getInventory(), recipe);
                 consumeIngredients(player.getInventory(), recipe.ingredients());
             }
@@ -93,6 +96,49 @@ public class RequestArcaneCraftPacket {
         });
 
         context.setPacketHandled(true);
+    }
+
+
+    private static ItemStack findWandWithVisCost(Player player, ArcaneWorkbenchRecipe recipe) {
+        if (player.getAbilities().instabuild) {
+            return ItemStack.EMPTY;
+        }
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (!(stack.getItem() instanceof WandItem)) {
+                continue;
+            }
+            if (recipe.aspectCost().isEmpty()) {
+                if (WandItem.hasInfiniteVis(stack) || WandItem.getVis(stack, Aspect.ORDO) >= 2) {
+                    return stack;
+                }
+                continue;
+            }
+            boolean enough = true;
+            for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
+                if (!WandItem.hasInfiniteVis(stack) && WandItem.getVis(stack, entry.getKey()) < entry.getValue()) {
+                    enough = false;
+                    break;
+                }
+            }
+            if (enough) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private static void consumeArcaneVisCost(ItemStack wand, ArcaneWorkbenchRecipe recipe) {
+        if (WandItem.hasInfiniteVis(wand)) {
+            return;
+        }
+        if (recipe.aspectCost().isEmpty()) {
+            WandItem.consumeVis(wand, Aspect.ORDO, 2);
+            return;
+        }
+        for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
+            WandItem.consumeVis(wand, entry.getKey(), entry.getValue());
+        }
     }
 
     private static boolean hasCatalyst(Inventory inventory, ArcaneWorkbenchRecipe recipe) {

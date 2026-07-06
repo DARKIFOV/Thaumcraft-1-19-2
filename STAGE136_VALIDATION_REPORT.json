@@ -1,0 +1,21 @@
+{
+  "stage": 136,
+  "version": "1.36.0",
+  "name": "TC4 Core Research UX Finish Pass",
+  "focus": [
+    "Arcane Workbench exact recipe sync",
+    "Research Table foundation exploit fix",
+    "Research Note safer puzzle behavior",
+    "Thaumonomicon richer TC4 recipe pages"
+  ],
+  "checks": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_texture_audit": "OK",
+    "tc4_full_parity_audit": "OK",
+    "tc4_wand_parity_audit": "OK",
+    "tc4_book_table_workbench_audit": "OK"
+  },
+  "gradle_build": "not run locally because sandbox has no DNS access to services.gradle.org"
+}

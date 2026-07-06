@@ -1,0 +1,26 @@
+{
+  "tc4_key": "PrimalArrow_4",
+  "kind": "ARCANE_SHAPED",
+  "research": "PRIMALARROW",
+  "result": {
+    "item": "thaumcraft:tc4_el_arrow_order",
+    "count": 8
+  },
+  "catalyst": "minecraft:arrow",
+  "ingredients": [
+    "thaumcraft:tc4_shard_ordo"
+  ],
+  "aspects": {
+    "ORDO": 8
+  },
+  "pattern": [
+    "AAA",
+    "ASA",
+    "AAA"
+  ],
+  "key": {
+    "A": "thaumcraft:tc4_shard_ordo",
+    "S": "minecraft:arrow"
+  },
+  "source": "ConfigRecipes arcane loop lines 972-975"
+}

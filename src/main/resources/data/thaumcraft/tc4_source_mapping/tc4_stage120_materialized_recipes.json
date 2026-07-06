@@ -1,0 +1,4265 @@
+[
+  {
+    "key": "Alumentum",
+    "kind": "CRUCIBLE",
+    "research": "ALUMENTUM",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 0)",
+    "catalyst": "new ItemStack(Items.field_151044_h, 1, 32767)",
+    "instability": "",
+    "aspects": [
+      "POTENTIA:3",
+      "IGNIS:3",
+      "PERDITIO:3"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_alumentum",
+    "resolved_catalyst": "minecraft:coal",
+    "resolved_components": []
+  },
+  {
+    "key": "Nitor",
+    "kind": "CRUCIBLE",
+    "research": "NITOR",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 1)",
+    "catalyst": "'dustGlowstone'",
+    "instability": "",
+    "aspects": [
+      "POTENTIA:3",
+      "IGNIS:3",
+      "LUX:3"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_nitor",
+    "resolved_catalyst": "minecraft:glowstone_dust",
+    "resolved_components": []
+  },
+  {
+    "key": "Thaumium",
+    "kind": "CRUCIBLE",
+    "research": "THAUMIUM",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 2)",
+    "catalyst": "new ItemStack(Items.field_151042_j)",
+    "instability": "",
+    "aspects": [
+      "PRAECANTATIO:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_thaumiumingot",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": []
+  },
+  {
+    "key": "VoidMetal",
+    "kind": "CRUCIBLE",
+    "research": "VOIDMETAL",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 16)",
+    "catalyst": "new ItemStack(ConfigItems.itemResource, 1, 17)",
+    "instability": "",
+    "aspects": [
+      "METALLUM:8"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_voidingot",
+    "resolved_catalyst": "thaumcraft:tc4_voidseed",
+    "resolved_components": []
+  },
+  {
+    "key": "VoidSeed",
+    "kind": "CRUCIBLE",
+    "research": "VOIDMETAL",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 17)",
+    "catalyst": "new ItemStack(Items.field_151014_N)",
+    "instability": "",
+    "aspects": [
+      "TENEBRAE:8",
+      "VACUOS:8",
+      "ALIENIS:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_voidseed",
+    "resolved_catalyst": "minecraft:ender_pearl",
+    "resolved_components": []
+  },
+  {
+    "key": "Tallow",
+    "kind": "CRUCIBLE",
+    "research": "TALLOW",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 4)",
+    "catalyst": "new ItemStack(Items.field_151078_bh)",
+    "instability": "",
+    "aspects": [
+      "PRAECANTATIO:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_tallow",
+    "resolved_catalyst": "minecraft:rotten_flesh",
+    "resolved_components": []
+  },
+  {
+    "key": "AltGunpowder",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALDUPLICATION",
+    "result": "new ItemStack(Items.field_151016_H, 2, 0)",
+    "catalyst": "new ItemStack(Items.field_151016_H)",
+    "instability": "",
+    "aspects": [
+      "IGNIS:4",
+      "PERDITIO:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:gunpowder",
+    "resolved_catalyst": "minecraft:gunpowder",
+    "resolved_components": []
+  },
+  {
+    "key": "AltSlime",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALDUPLICATION",
+    "result": "new ItemStack(Items.field_151123_aH, 2, 0)",
+    "catalyst": "new ItemStack(Items.field_151123_aH)",
+    "instability": "",
+    "aspects": [
+      "AQUA:2",
+      "VICTUS:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:slime_ball",
+    "resolved_catalyst": "minecraft:slime_ball",
+    "resolved_components": []
+  },
+  {
+    "key": "AltClay",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALDUPLICATION",
+    "result": "new ItemStack(Items.field_151119_aD, 2, 0)",
+    "catalyst": "new ItemStack(Items.field_151119_aD)",
+    "instability": "",
+    "aspects": [
+      "AQUA:1",
+      "TERRA:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:clay_ball",
+    "resolved_catalyst": "minecraft:clay_ball",
+    "resolved_components": []
+  },
+  {
+    "key": "AltGlowstone",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALDUPLICATION",
+    "result": "new ItemStack(Items.field_151114_aO, 2, 0)",
+    "catalyst": "'dustGlowstone'",
+    "instability": "",
+    "aspects": [
+      "LUX:3",
+      "SENSUS:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:glowstone_dust",
+    "resolved_catalyst": "minecraft:glowstone_dust",
+    "resolved_components": []
+  },
+  {
+    "key": "AltInk",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALDUPLICATION",
+    "result": "new ItemStack(Items.field_151100_aR, 2, 0)",
+    "catalyst": "new ItemStack(Items.field_151100_aR, 1, 0)",
+    "instability": "",
+    "aspects": [
+      "AQUA:2",
+      "SENSUS:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:black_dye",
+    "resolved_catalyst": "minecraft:black_dye",
+    "resolved_components": []
+  },
+  {
+    "key": "AltWeb",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALMANUFACTURE",
+    "result": "new ItemStack(Blocks.field_150321_G)",
+    "catalyst": "new ItemStack(Items.field_151007_F)",
+    "instability": "",
+    "aspects": [
+      "VINCULUM:2",
+      "PANNUS:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:cobweb",
+    "resolved_catalyst": "minecraft:string",
+    "resolved_components": []
+  },
+  {
+    "key": "AltMossyCobble",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALMANUFACTURE",
+    "result": "new ItemStack(Blocks.field_150341_Y)",
+    "catalyst": "new ItemStack(Blocks.field_150347_e)",
+    "instability": "",
+    "aspects": [
+      "HERBA:2",
+      "PRAECANTATIO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:mossy_cobblestone",
+    "resolved_catalyst": "minecraft:cobblestone",
+    "resolved_components": []
+  },
+  {
+    "key": "AltIce",
+    "kind": "CRUCIBLE",
+    "research": "ALCHEMICALMANUFACTURE",
+    "result": "new ItemStack(Blocks.field_150432_aD)",
+    "catalyst": "new ItemStack(Blocks.field_150433_aE)",
+    "instability": "",
+    "aspects": [
+      "ORDO:1",
+      "GELUM:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:ice",
+    "resolved_catalyst": "minecraft:snow",
+    "resolved_components": []
+  },
+  {
+    "key": "AltCrackedBrick",
+    "kind": "CRUCIBLE",
+    "research": "ENTROPICPROCESSING",
+    "result": "new ItemStack(Blocks.field_150417_aV, 1, 2)",
+    "catalyst": "new ItemStack(Blocks.field_150417_aV)",
+    "instability": "",
+    "aspects": [
+      "PERDITIO:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:stone_bricks",
+    "resolved_catalyst": "minecraft:stone_bricks",
+    "resolved_components": []
+  },
+  {
+    "key": "AltBonemeal",
+    "kind": "CRUCIBLE",
+    "research": "ENTROPICPROCESSING",
+    "result": "new ItemStack(Items.field_151100_aR, 4, 15)",
+    "catalyst": "new ItemStack(Items.field_151103_aS)",
+    "instability": "",
+    "aspects": [
+      "PERDITIO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:black_dye",
+    "resolved_catalyst": "minecraft:bone",
+    "resolved_components": []
+  },
+  {
+    "key": "PureIron",
+    "kind": "CRUCIBLE",
+    "research": "PUREIRON",
+    "result": "new ItemStack(ConfigItems.itemNugget, 1, 16)",
+    "catalyst": "'oreIron'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:1",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_clusteriron",
+    "resolved_catalyst": "minecraft:raw_iron",
+    "resolved_components": []
+  },
+  {
+    "key": "PureGold",
+    "kind": "CRUCIBLE",
+    "research": "PUREGOLD",
+    "result": "new ItemStack(ConfigItems.itemNugget, 1, 31)",
+    "catalyst": "'oreGold'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:1",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_clustergold",
+    "resolved_catalyst": "minecraft:raw_gold",
+    "resolved_components": []
+  },
+  {
+    "key": "PureCopper",
+    "kind": "CRUCIBLE",
+    "research": "PURECOPPER",
+    "result": "new ItemStack(ConfigItems.itemNugget, 1, 17)",
+    "catalyst": "'oreCopper'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:1",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_clustercopper",
+    "resolved_catalyst": "minecraft:raw_copper",
+    "resolved_components": []
+  },
+  {
+    "key": "PureTin",
+    "kind": "CRUCIBLE",
+    "research": "PURETIN",
+    "result": "new ItemStack(ConfigItems.itemNugget, 1, 18)",
+    "catalyst": "'oreTin'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:1",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_clustertin",
+    "resolved_catalyst": "thaumcraft:tc4_nuggettin",
+    "resolved_components": []
+  },
+  {
+    "key": "PureSilver",
+    "kind": "CRUCIBLE",
+    "research": "PURESILVER",
+    "result": "new ItemStack(ConfigItems.itemNugget, 1, 19)",
+    "catalyst": "'oreSilver'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:1",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_clustersilver",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetsilver",
+    "resolved_components": []
+  },
+  {
+    "key": "PureLead",
+    "kind": "CRUCIBLE",
+    "research": "PURELEAD",
+    "result": "new ItemStack(ConfigItems.itemNugget, 1, 20)",
+    "catalyst": "'oreLead'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:1",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_clusterlead",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetlead",
+    "resolved_components": []
+  },
+  {
+    "key": "TransIron",
+    "kind": "CRUCIBLE",
+    "research": "TRANSIRON",
+    "result": "new ItemStack(ConfigItems.itemNugget, 3, 0)",
+    "catalyst": "'nuggetIron'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:2"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_nuggetiron",
+    "resolved_catalyst": "minecraft:iron_nugget",
+    "resolved_components": []
+  },
+  {
+    "key": "TransGold",
+    "kind": "CRUCIBLE",
+    "research": "TRANSGOLD",
+    "result": "new ItemStack(Items.field_151074_bl, 3, 0)",
+    "catalyst": "new ItemStack(Items.field_151074_bl)",
+    "instability": "",
+    "aspects": [
+      "METALLUM:2",
+      "LUCRUM:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "minecraft:gold_nugget",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": []
+  },
+  {
+    "key": "TransCopper",
+    "kind": "CRUCIBLE",
+    "research": "TRANSCOPPER",
+    "result": "new ItemStack(ConfigItems.itemNugget, 3, 1)",
+    "catalyst": "'nuggetCopper'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:2",
+      "PERMUTATIO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_nuggetcopper",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetcopper",
+    "resolved_components": []
+  },
+  {
+    "key": "TransTin",
+    "kind": "CRUCIBLE",
+    "research": "TRANSTIN",
+    "result": "new ItemStack(ConfigItems.itemNugget, 3, 2)",
+    "catalyst": "'nuggetTin'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:2",
+      "VITREUS:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_nuggettin",
+    "resolved_catalyst": "thaumcraft:tc4_nuggettin",
+    "resolved_components": []
+  },
+  {
+    "key": "TransSilver",
+    "kind": "CRUCIBLE",
+    "research": "TRANSSILVER",
+    "result": "new ItemStack(ConfigItems.itemNugget, 3, 3)",
+    "catalyst": "'nuggetSilver'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:2",
+      "LUCRUM:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_nuggetsilver",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetsilver",
+    "resolved_components": []
+  },
+  {
+    "key": "TransLead",
+    "kind": "CRUCIBLE",
+    "research": "TRANSLEAD",
+    "result": "new ItemStack(ConfigItems.itemNugget, 3, 4)",
+    "catalyst": "'nuggetLead'",
+    "instability": "",
+    "aspects": [
+      "METALLUM:2",
+      "ORDO:1"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_nuggetlead",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetlead",
+    "resolved_components": []
+  },
+  {
+    "key": "GolemStraw",
+    "kind": "CRUCIBLE",
+    "research": "GOLEMSTRAW",
+    "result": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 0)",
+    "catalyst": "new ItemStack(Blocks.field_150407_cf)",
+    "instability": "",
+    "aspects": [
+      "HUMANUS:4",
+      "MOTUS:4",
+      "SPIRITUS:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "minecraft:packed_ice",
+    "resolved_components": []
+  },
+  {
+    "key": "GolemWood",
+    "kind": "CRUCIBLE",
+    "research": "GOLEMWOOD",
+    "result": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 1)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)",
+    "instability": "",
+    "aspects": [
+      "HUMANUS:4",
+      "MOTUS:4",
+      "SPIRITUS:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "minecraft:oak_log",
+    "resolved_components": []
+  },
+  {
+    "key": "GolemClay",
+    "kind": "CRUCIBLE",
+    "research": "GOLEMCLAY",
+    "result": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 3)",
+    "catalyst": "new ItemStack(Blocks.field_150336_V)",
+    "instability": "",
+    "aspects": [
+      "HUMANUS:4",
+      "MOTUS:4",
+      "SPIRITUS:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "minecraft:diamond_block",
+    "resolved_components": []
+  },
+  {
+    "key": "GolemFlesh",
+    "kind": "CRUCIBLE",
+    "research": "GOLEMFLESH",
+    "result": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 4)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockTaint, 1, 2)",
+    "instability": "",
+    "aspects": [
+      "HUMANUS:8",
+      "MOTUS:8",
+      "SPIRITUS:8"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "thaumcraft:tainted_soil",
+    "resolved_components": []
+  },
+  {
+    "key": "GolemStone",
+    "kind": "CRUCIBLE",
+    "research": "GOLEMSTONE",
+    "result": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 5)",
+    "catalyst": "new ItemStack(Blocks.field_150417_aV)",
+    "instability": "",
+    "aspects": [
+      "HUMANUS:4",
+      "MOTUS:4",
+      "SPIRITUS:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "minecraft:stone_bricks",
+    "resolved_components": []
+  },
+  {
+    "key": "GolemIron",
+    "kind": "CRUCIBLE",
+    "research": "GOLEMIRON",
+    "result": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 6)",
+    "catalyst": "new ItemStack(Blocks.field_150339_S)",
+    "instability": "",
+    "aspects": [
+      "HUMANUS:4",
+      "MOTUS:4",
+      "SPIRITUS:4"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "minecraft:glass",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreGather",
+    "kind": "CRUCIBLE",
+    "research": "COREGATHER",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 2)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "instability": "",
+    "aspects": [
+      "LUCRUM:5",
+      "TERRA:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_gather",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_blank",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreFill",
+    "kind": "CRUCIBLE",
+    "research": "COREFILL",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 0)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "instability": "",
+    "aspects": [
+      "FAMES:5",
+      "VACUOS:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_fill",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_blank",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreEmpty",
+    "kind": "CRUCIBLE",
+    "research": "COREEMPTY",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 1)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "instability": "",
+    "aspects": [
+      "LUCRUM:5",
+      "VACUOS:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_empty",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_blank",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreHarvest",
+    "kind": "CRUCIBLE",
+    "research": "COREHARVEST",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 3)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "instability": "",
+    "aspects": [
+      "METO:5",
+      "MESSIS:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_harvest",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_blank",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreGuard",
+    "kind": "CRUCIBLE",
+    "research": "COREGUARD",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 4)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "instability": "",
+    "aspects": [
+      "TELUM:5",
+      "VINCULUM:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_guard",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_blank",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreButcher",
+    "kind": "CRUCIBLE",
+    "research": "COREBUTCHER",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 9)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 4)",
+    "instability": "",
+    "aspects": [
+      "CORPUS:5",
+      "BESTIA:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_butcher",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_guard",
+    "resolved_components": []
+  },
+  {
+    "key": "CoreLiquid",
+    "kind": "CRUCIBLE",
+    "research": "CORELIQUID",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 5)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "VACUOS:5"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_liquid",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_blank",
+    "resolved_components": []
+  },
+  {
+    "key": "BathSalts",
+    "kind": "CRUCIBLE",
+    "research": "BATHSALTS",
+    "result": "new ItemStack(ConfigItems.itemBathSalts)",
+    "catalyst": "new ItemStack(ConfigItems.itemResource, 1, 14)",
+    "instability": "",
+    "aspects": [
+      "COGNITIO:6",
+      "AURAM:6",
+      "ORDO:6",
+      "SANO:6"
+    ],
+    "components_raw": [],
+    "pattern": [],
+    "source": "addCrucibleRecipe",
+    "resolved_result": "thaumcraft:tc4_bath_salts",
+    "resolved_catalyst": "thaumcraft:tc4_dust",
+    "resolved_components": []
+  },
+  {
+    "key": "'Banner_' + a",
+    "kind": "ARCANE_SHAPED",
+    "research": "BANNERS",
+    "result": "banner",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "TERRA:5"
+    ],
+    "components_raw": [
+      "'WS'",
+      "'WS'",
+      "'WB'",
+      "Character.valueOf('W')",
+      "new ItemStack(Blocks.field_150325_L, 1, a)",
+      "Character.valueOf('S')",
+      "'stickWood'",
+      "Character.valueOf('B')",
+      "'slabWood'"
+    ],
+    "pattern": [
+      "WS",
+      "WS",
+      "WB"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "minecraft:white_banner",
+    "resolved_catalyst": "minecraft:wool",
+    "resolved_components": [
+      "minecraft:stick",
+      "minecraft:oak_slab"
+    ]
+  },
+  {
+    "key": "PrimalCharm",
+    "kind": "ARCANE_SHAPED",
+    "research": "BASICARTIFACE",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 15)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:25",
+      "IGNIS:25",
+      "AER:25",
+      "AQUA:25",
+      "ORDO:25",
+      "PERDITIO:25"
+    ],
+    "components_raw": [
+      "'123'",
+      "'ISI'",
+      "'456'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "Character.valueOf('I')",
+      "Items.field_151043_k",
+      "Character.valueOf('1')",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "Character.valueOf('2')",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)",
+      "Character.valueOf('3')",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)",
+      "Character.valueOf('4')",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "Character.valueOf('5')",
+      "new ItemStack(ConfigItems.itemShard, 1, 4)",
+      "Character.valueOf('6')",
+      "new ItemStack(ConfigItems.itemShard, 1, 5)"
+    ],
+    "pattern": [
+      "123",
+      "ISI",
+      "456"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_charm",
+    "resolved_catalyst": "thaumcraft:tc4_shard_balanced",
+    "resolved_components": [
+      "minecraft:gold_ingot",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_ignis",
+      "thaumcraft:tc4_shard_aqua",
+      "thaumcraft:tc4_shard_terra",
+      "thaumcraft:tc4_shard_ordo",
+      "thaumcraft:tc4_shard_perditio"
+    ]
+  },
+  {
+    "key": "ArcaneDoor",
+    "kind": "ARCANE_SHAPED",
+    "research": "WARDEDARCANA",
+    "result": "new ItemStack(ConfigItems.itemArcaneDoor)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:20",
+      "ORDO:10",
+      "TERRA:10",
+      "IGNIS:5"
+    ],
+    "components_raw": [
+      "'TDT'",
+      "'DBD'",
+      "'TDT'",
+      "Character.valueOf('T')",
+      "'ingotThaumium'",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigItems.itemZombieBrain)",
+      "Character.valueOf('D')",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)"
+    ],
+    "pattern": [
+      "TDT",
+      "DBD",
+      "TDT"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_arcanedoor",
+    "resolved_catalyst": "thaumcraft:tc4_thaumiumingot",
+    "resolved_components": [
+      "thaumcraft:tc4_brain",
+      "thaumcraft:table"
+    ]
+  },
+  {
+    "key": "WardedGlass",
+    "kind": "ARCANE_SHAPED",
+    "research": "WARDEDARCANA",
+    "result": "new ItemStack(ConfigBlocks.blockCosmeticOpaque, 8, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:10",
+      "TERRA:5",
+      "IGNIS:5"
+    ],
+    "components_raw": [
+      "'GGG'",
+      "'WBW'",
+      "'GGG'",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigItems.itemZombieBrain)",
+      "Character.valueOf('G')",
+      "new ItemStack(Blocks.field_150359_w)",
+      "Character.valueOf('W')",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)"
+    ],
+    "pattern": [
+      "GGG",
+      "WBW",
+      "GGG"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "minecraft:glass",
+    "resolved_catalyst": "thaumcraft:tc4_brain",
+    "resolved_components": [
+      "minecraft:glass",
+      "thaumcraft:table"
+    ]
+  },
+  {
+    "key": "IronKey",
+    "kind": "ARCANE_SHAPED",
+    "research": "WARDEDARCANA",
+    "result": "new ItemStack(ConfigItems.itemKey, 2, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'NNI'",
+      "'N '",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('N')",
+      "'nuggetIron'"
+    ],
+    "pattern": [
+      "NNI",
+      "N"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_keyiron",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "minecraft:iron_nugget"
+    ]
+  },
+  {
+    "key": "FluxScrubber",
+    "kind": "ARCANE_SHAPED",
+    "research": "FLUXSCRUB",
+    "result": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 14)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:16",
+      "ORDO:16",
+      "AER:8"
+    ],
+    "components_raw": [
+      "' B '",
+      "'GOG'",
+      "'STS'",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice)",
+      "Character.valueOf('G')",
+      "new ItemStack(Blocks.field_150411_aY)",
+      "Character.valueOf('T')",
+      "new ItemStack(ConfigBlocks.blockTube)",
+      "Character.valueOf('O')",
+      "new ItemStack(ConfigItems.itemResource, 1, 8)",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)"
+    ],
+    "pattern": [
+      "B",
+      "GOG",
+      "STS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "minecraft:iron_bars",
+    "resolved_components": [
+      "thaumcraft:essentia_tube",
+      "thaumcraft:tc4_filter",
+      "thaumcraft:arcane_stone_bricks"
+    ]
+  },
+  {
+    "key": "GoldKey",
+    "kind": "ARCANE_SHAPED",
+    "research": "WARDEDARCANA",
+    "result": "new ItemStack(ConfigItems.itemKey, 2, 1)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'NNI'",
+      "'N '",
+      "Character.valueOf('I')",
+      "Items.field_151043_k",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl"
+    ],
+    "pattern": [
+      "NNI",
+      "N"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_keyiron",
+    "resolved_catalyst": "minecraft:gold_ingot",
+    "resolved_components": [
+      "minecraft:gold_nugget"
+    ]
+  },
+  {
+    "key": "NodeStabilizer",
+    "kind": "ARCANE_SHAPED",
+    "research": "NODESTABILIZER",
+    "result": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 9)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:32",
+      "TERRA:32",
+      "ORDO:32"
+    ],
+    "components_raw": [
+      "' G '",
+      "'QPQ'",
+      "'SNS'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)",
+      "Character.valueOf('G')",
+      "new ItemStack(Items.field_151043_k)",
+      "Character.valueOf('P')",
+      "new ItemStack(Blocks.field_150331_J)",
+      "Character.valueOf('Q')",
+      "new ItemStack(Blocks.field_150371_ca)",
+      "Character.valueOf('N')",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)"
+    ],
+    "pattern": [
+      "G",
+      "QPQ",
+      "SNS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:node_stabilizer",
+    "resolved_catalyst": "thaumcraft:arcane_stone_bricks",
+    "resolved_components": [
+      "minecraft:gold_ingot",
+      "minecraft:obsidian",
+      "minecraft:quartz_block",
+      "thaumcraft:tc4_nitor"
+    ]
+  },
+  {
+    "key": "NodeRelay",
+    "kind": "ARCANE_SHAPED",
+    "research": "VISPOWER",
+    "result": "new ItemStack(ConfigBlocks.blockMetalDevice, 2, 14)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:8",
+      "ORDO:8"
+    ],
+    "components_raw": [
+      "' I '",
+      "'ISI'",
+      "' I '",
+      "Character.valueOf('I')",
+      "new ItemStack(Items.field_151042_j)",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemShard, 1, 6)"
+    ],
+    "pattern": [
+      "I",
+      "ISI",
+      "I"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:aura_node",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_balanced"
+    ]
+  },
+  {
+    "key": "NodeChargeRelay",
+    "kind": "ARCANE_SHAPED",
+    "research": "VISCHARGERELAY",
+    "result": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:16",
+      "ORDO:16",
+      "AER:16"
+    ],
+    "components_raw": [
+      "' R '",
+      "'W W'",
+      "'I I'",
+      "Character.valueOf('I')",
+      "new ItemStack(Items.field_151042_j)",
+      "Character.valueOf('R')",
+      "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 14)",
+      "Character.valueOf('W')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 0)"
+    ],
+    "pattern": [
+      "R",
+      "W W",
+      "I I"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:vis_interface",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "thaumcraft:aura_node",
+      "thaumcraft:tc4_wand_rod_greatwood"
+    ]
+  },
+  {
+    "key": "GolemFetter",
+    "kind": "ARCANE_SHAPED",
+    "research": "GOLEMFETTER",
+    "result": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 9)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'SSS'",
+      "'IRI'",
+      "'BBB'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)",
+      "Character.valueOf('I')",
+      "new ItemStack(Items.field_151042_j)",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)",
+      "Character.valueOf('R')",
+      "new ItemStack(Blocks.field_150451_bX)"
+    ],
+    "pattern": [
+      "SSS",
+      "IRI",
+      "BBB"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:arcane_stone",
+    "resolved_catalyst": "thaumcraft:arcane_stone",
+    "resolved_components": [
+      "minecraft:iron_ingot",
+      "thaumcraft:arcane_stone_bricks",
+      "minecraft:redstone_block"
+    ]
+  },
+  {
+    "key": "ArcaneStone1",
+    "kind": "ARCANE_SHAPED",
+    "research": "ARCANESTONE",
+    "result": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 9, 6)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:1",
+      "IGNIS:1"
+    ],
+    "components_raw": [
+      "'SSS'",
+      "'SCS'",
+      "'SSS'",
+      "Character.valueOf('S')",
+      "'stone'",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 32767)"
+    ],
+    "pattern": [
+      "SSS",
+      "SCS",
+      "SSS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:arcane_stone",
+    "resolved_catalyst": "minecraft:stone",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer"
+    ]
+  },
+  {
+    "key": "PaveTravel",
+    "kind": "ARCANE_SHAPED",
+    "research": "PAVETRAVEL",
+    "result": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:10",
+      "AER:10"
+    ],
+    "components_raw": [
+      "'SAS'",
+      "'SBS'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)",
+      "Character.valueOf('A')",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)"
+    ],
+    "pattern": [
+      "SAS",
+      "SBS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:arcane_stone",
+    "resolved_catalyst": "thaumcraft:arcane_stone_bricks",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_terra"
+    ]
+  },
+  {
+    "key": "ArcaneLamp",
+    "kind": "ARCANE_SHAPED",
+    "research": "ARCANELAMP",
+    "result": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 7)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:8",
+      "AER:8",
+      "AQUA:4",
+      "PERDITIO:4"
+    ],
+    "components_raw": [
+      "' S '",
+      "'IAI'",
+      "' N '",
+      "Character.valueOf('A')",
+      "new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 0)",
+      "Character.valueOf('S')",
+      "new ItemStack(Blocks.field_150453_bW)",
+      "Character.valueOf('N')",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "Character.valueOf('I')",
+      "new ItemStack(Items.field_151042_j)"
+    ],
+    "pattern": [
+      "S",
+      "IAI",
+      "N"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:nitor_light",
+    "resolved_catalyst": "thaumcraft:amber_ore",
+    "resolved_components": [
+      "minecraft:glowstone",
+      "thaumcraft:tc4_nitor",
+      "minecraft:iron_ingot"
+    ]
+  },
+  {
+    "key": "ArcaneSpa",
+    "kind": "ARCANE_SHAPED",
+    "research": "ARCANESPA",
+    "result": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 12)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:16",
+      "ORDO:8",
+      "TERRA:4"
+    ],
+    "components_raw": [
+      "'QIQ'",
+      "'SJS'",
+      "'SPS'",
+      "Character.valueOf('P')",
+      "new ItemStack(Blocks.field_150331_J)",
+      "Character.valueOf('J')",
+      "new ItemStack(ConfigBlocks.blockJar)",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)",
+      "Character.valueOf('Q')",
+      "new ItemStack(Blocks.field_150371_ca)",
+      "Character.valueOf('I')",
+      "new ItemStack(Blocks.field_150411_aY)"
+    ],
+    "pattern": [
+      "QIQ",
+      "SJS",
+      "SPS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:crucible",
+    "resolved_catalyst": "minecraft:obsidian",
+    "resolved_components": [
+      "thaumcraft:essentia_jar",
+      "thaumcraft:arcane_stone",
+      "minecraft:quartz_block",
+      "minecraft:iron_bars"
+    ]
+  },
+  {
+    "key": "PaveWard",
+    "kind": "ARCANE_SHAPED",
+    "research": "PAVEWARD",
+    "result": "new ItemStack(ConfigBlocks.blockCosmeticSolid, 4, 3)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:10",
+      "ORDO:10"
+    ],
+    "components_raw": [
+      "'SAS'",
+      "'SBS'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)",
+      "Character.valueOf('A')",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigItems.itemShard, 1, 4)"
+    ],
+    "pattern": [
+      "SAS",
+      "SBS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:arcane_stone",
+    "resolved_catalyst": "thaumcraft:arcane_stone_bricks",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_ignis",
+      "thaumcraft:tc4_shard_ordo"
+    ]
+  },
+  {
+    "key": "MirrorGlass",
+    "kind": "ARCANE_SHAPELESS",
+    "research": "BASICARTIFACE",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 10)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:10",
+      "TERRA:10"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 3)",
+      "Blocks.field_150410_aZ"
+    ],
+    "pattern": [],
+    "source": "addShapelessArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_mirrorglass",
+    "resolved_catalyst": "thaumcraft:tc4_quicksilver",
+    "resolved_components": [
+      "minecraft:hopper"
+    ]
+  },
+  {
+    "key": "BoneBow",
+    "kind": "ARCANE_SHAPED",
+    "research": "BONEBOW",
+    "result": "new ItemStack(ConfigItems.itemBowBone)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:16",
+      "PERDITIO:32"
+    ],
+    "components_raw": [
+      "'SB '",
+      "'SEB'",
+      "'SB '",
+      "Character.valueOf('E')",
+      "new ItemStack(ConfigItems.itemShard, 1, 5)",
+      "Character.valueOf('B')",
+      "Items.field_151103_aS",
+      "Character.valueOf('S')",
+      "Items.field_151007_F"
+    ],
+    "pattern": [
+      "SB",
+      "SEB",
+      "SB"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_bonebow",
+    "resolved_catalyst": "thaumcraft:tc4_shard_perditio",
+    "resolved_components": [
+      "minecraft:bone",
+      "minecraft:string"
+    ]
+  },
+  {
+    "key": "InfusionMatrix",
+    "kind": "ARCANE_SHAPED",
+    "research": "INFUSION",
+    "result": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:40"
+    ],
+    "components_raw": [
+      "'SBS'",
+      "'BEB'",
+      "'SBS'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)",
+      "Character.valueOf('E')",
+      "Items.field_151079_bi",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigItems.itemShard, 1, 32767)"
+    ],
+    "pattern": [
+      "SBS",
+      "BEB",
+      "SBS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:research_table",
+    "resolved_catalyst": "thaumcraft:arcane_stone",
+    "resolved_components": [
+      "minecraft:ender_eye",
+      "thaumcraft:tc4_shard_aer"
+    ]
+  },
+  {
+    "key": "ArcanePedestal",
+    "kind": "ARCANE_SHAPED",
+    "research": "INFUSION",
+    "result": "new ItemStack(ConfigBlocks.blockStoneDevice, 2, 1)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:5"
+    ],
+    "components_raw": [
+      "'SSS'",
+      "' S '",
+      "'SSS'",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)"
+    ],
+    "pattern": [
+      "SSS",
+      "S",
+      "SSS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:arcane_workbench",
+    "resolved_catalyst": "thaumcraft:arcane_stone",
+    "resolved_components": []
+  },
+  {
+    "key": "WardedJar",
+    "kind": "ARCANE_SHAPED",
+    "research": "DISTILESSENTIA",
+    "result": "new ItemStack(ConfigBlocks.blockJar, 1, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:1"
+    ],
+    "components_raw": [
+      "'GWG'",
+      "'G G'",
+      "'GGG'",
+      "Character.valueOf('W')",
+      "'slabWood'",
+      "Character.valueOf('G')",
+      "Blocks.field_150410_aZ"
+    ],
+    "pattern": [
+      "GWG",
+      "G G",
+      "GGG"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_jar",
+    "resolved_catalyst": "minecraft:oak_slab",
+    "resolved_components": [
+      "minecraft:hopper"
+    ]
+  },
+  {
+    "key": "JarVoid",
+    "kind": "ARCANE_SHAPED",
+    "research": "JARVOID",
+    "result": "new ItemStack(ConfigBlocks.blockJar, 1, 3)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "PERDITIO:15"
+    ],
+    "components_raw": [
+      "'O'",
+      "'J'",
+      "'P'",
+      "Character.valueOf('O')",
+      "Blocks.field_150343_Z",
+      "Character.valueOf('P')",
+      "Items.field_151065_br",
+      "Character.valueOf('J')",
+      "new ItemStack(ConfigBlocks.blockJar, 1, 0)"
+    ],
+    "pattern": [
+      "O",
+      "J",
+      "P"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_jar",
+    "resolved_catalyst": "minecraft:stone",
+    "resolved_components": [
+      "minecraft:potato",
+      "thaumcraft:essentia_jar"
+    ]
+  },
+  {
+    "key": "WandCapGold",
+    "kind": "ARCANE_SHAPED",
+    "research": "CAP_gold",
+    "result": "new ItemStack(ConfigItems.itemWandCap, 1, 1)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandCap",
+      "IGNIS:((WandCap",
+      "AER:((WandCap"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'N N'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl"
+    ],
+    "pattern": [
+      "NNN",
+      "N N"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_wand_cap_gold",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": []
+  },
+  {
+    "key": "WandCapCopper",
+    "kind": "ARCANE_SHAPED",
+    "research": "CAP_copper",
+    "result": "new ItemStack(ConfigItems.itemWandCap, 1, 3)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandCap",
+      "IGNIS:((WandCap",
+      "AER:((WandCap"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'N N'",
+      "Character.valueOf('N')",
+      "'nuggetCopper'"
+    ],
+    "pattern": [
+      "NNN",
+      "N N"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_wand_cap_copper",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetcopper",
+    "resolved_components": []
+  },
+  {
+    "key": "WandCapSilverInert",
+    "kind": "ARCANE_SHAPED",
+    "research": "CAP_silver",
+    "result": "new ItemStack(ConfigItems.itemWandCap, 1, 5)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandCap",
+      "IGNIS:((WandCap",
+      "AER:((WandCap"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'N N'",
+      "Character.valueOf('N')",
+      "'nuggetSilver'"
+    ],
+    "pattern": [
+      "NNN",
+      "N N"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_wand_cap_silver_inert",
+    "resolved_catalyst": "thaumcraft:tc4_nuggetsilver",
+    "resolved_components": []
+  },
+  {
+    "key": "WandRodGreatwood",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_greatwood",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "PERDITIO:((WandRod"
+    ],
+    "components_raw": [
+      "' G'",
+      "'G '",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0)"
+    ],
+    "pattern": [
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_wand_rod_greatwood",
+    "resolved_catalyst": "minecraft:oak_log",
+    "resolved_components": []
+  },
+  {
+    "key": "WandRodGreatwoodStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_greatwood_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 50)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 0)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_greatwood",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_greatwood"
+    ]
+  },
+  {
+    "key": "WandRodObsidianStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_obsidian_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 51)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 1)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_obsidian",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_obsidian"
+    ]
+  },
+  {
+    "key": "WandRodSilverwoodStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_silverwood_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 52)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 2)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_silverwood",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_silverwood"
+    ]
+  },
+  {
+    "key": "WandRodIceStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_ice_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 53)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 3)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_ice",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_ice"
+    ]
+  },
+  {
+    "key": "WandRodQuartzStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_quartz_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 54)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 4)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_quartz",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_quartz"
+    ]
+  },
+  {
+    "key": "WandRodReedStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_reed_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 55)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 5)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_reed",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_reed"
+    ]
+  },
+  {
+    "key": "WandRodBlazeStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_blaze_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 56)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 6)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_blaze",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_blaze"
+    ]
+  },
+  {
+    "key": "WandRodBoneStaff",
+    "kind": "ARCANE_SHAPED",
+    "research": "ROD_bone_staff",
+    "result": "new ItemStack(ConfigItems.itemWandRod, 1, 57)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:((WandRod"
+    ],
+    "components_raw": [
+      "' S'",
+      "' G '",
+      "'G '",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('G')",
+      "new ItemStack(ConfigItems.itemWandRod, 1, 7)"
+    ],
+    "pattern": [
+      "S",
+      "G",
+      "G"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_staff_rod_bone",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "thaumcraft:tc4_wand_rod_bone"
+    ]
+  },
+  {
+    "key": "FocusFire",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSFIRE",
+    "result": "new ItemStack(ConfigItems.itemFocusFire)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:20",
+      "PERDITIO:10"
+    ],
+    "components_raw": [
+      "'CQC'",
+      "'Q#Q'",
+      "'CQC'",
+      "Character.valueOf('#')",
+      "Items.field_151059_bz",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)"
+    ],
+    "pattern": [
+      "CQC",
+      "Q#Q",
+      "CQC"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_fire",
+    "resolved_catalyst": "minecraft:quartz",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_ignis"
+    ]
+  },
+  {
+    "key": "FocusFrost",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSFROST",
+    "result": "new ItemStack(ConfigItems.itemFocusFrost)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:10",
+      "ORDO:10",
+      "PERDITIO:10"
+    ],
+    "components_raw": [
+      "'CQC'",
+      "'Q#Q'",
+      "'CQC'",
+      "Character.valueOf('#')",
+      "Items.field_151045_i",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)"
+    ],
+    "pattern": [
+      "CQC",
+      "Q#Q",
+      "CQC"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_frost",
+    "resolved_catalyst": "minecraft:diamond",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_aqua"
+    ]
+  },
+  {
+    "key": "FocusShock",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSSHOCK",
+    "result": "new ItemStack(ConfigItems.itemFocusShock)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:10",
+      "ORDO:10",
+      "PERDITIO:10"
+    ],
+    "components_raw": [
+      "'CQC'",
+      "'Q#Q'",
+      "'CQC'",
+      "Character.valueOf('#')",
+      "Items.field_151174_bG",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)"
+    ],
+    "pattern": [
+      "CQC",
+      "Q#Q",
+      "CQC"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_shock",
+    "resolved_catalyst": "minecraft:cauldron",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_aer"
+    ]
+  },
+  {
+    "key": "FocusTrade",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSTRADE",
+    "result": "new ItemStack(ConfigItems.itemFocusTrade)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:15",
+      "PERDITIO:15",
+      "TERRA:10"
+    ],
+    "components_raw": [
+      "'CQE'",
+      "'Q#Q'",
+      "'CQE'",
+      "Character.valueOf('#')",
+      "new ItemStack(ConfigItems.itemResource, 1, 3)",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "Character.valueOf('E')",
+      "new ItemStack(ConfigItems.itemShard, 1, 6)"
+    ],
+    "pattern": [
+      "CQE",
+      "Q#Q",
+      "CQE"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_trade",
+    "resolved_catalyst": "thaumcraft:tc4_quicksilver",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_balanced",
+      "thaumcraft:tc4_shard_balanced"
+    ]
+  },
+  {
+    "key": "FocusExcavation",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSEXCAVATION",
+    "result": "new ItemStack(ConfigItems.itemFocusExcavation)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:20",
+      "PERDITIO:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'CQC'",
+      "'Q#Q'",
+      "'CQC'",
+      "Character.valueOf('#')",
+      "'gemEmerald'",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)"
+    ],
+    "pattern": [
+      "CQC",
+      "Q#Q",
+      "CQC"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_excavation",
+    "resolved_catalyst": "minecraft:nether_wart",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_terra"
+    ]
+  },
+  {
+    "key": "FocusPrimal",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSPRIMAL",
+    "result": "new ItemStack(ConfigItems.itemFocusPrimal)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:25",
+      "PERDITIO:25",
+      "ORDO:25",
+      "AER:25",
+      "IGNIS:25",
+      "AQUA:25"
+    ],
+    "components_raw": [
+      "'CQC'",
+      "'Q#Q'",
+      "'CQC'",
+      "Character.valueOf('#')",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU",
+      "Character.valueOf('C')",
+      "Items.field_151045_i"
+    ],
+    "pattern": [
+      "CQC",
+      "Q#Q",
+      "CQC"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_primal",
+    "resolved_catalyst": "thaumcraft:tc4_charm",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "minecraft:diamond"
+    ]
+  },
+  {
+    "key": "FocusPouch",
+    "kind": "ARCANE_SHAPED",
+    "research": "FOCUSPOUCH",
+    "result": "new ItemStack(ConfigItems.itemFocusPouch)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:10",
+      "ORDO:10",
+      "PERDITIO:10"
+    ],
+    "components_raw": [
+      "'LGL'",
+      "'LBL'",
+      "'LLL'",
+      "Character.valueOf('B')",
+      "new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2)",
+      "Character.valueOf('L')",
+      "Items.field_151116_aA",
+      "Character.valueOf('G')",
+      "Items.field_151043_k"
+    ],
+    "pattern": [
+      "LGL",
+      "LBL",
+      "LLL"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focuspouch",
+    "resolved_catalyst": "thaumcraft:tc4_baubleblankamulet",
+    "resolved_components": [
+      "minecraft:sugar",
+      "minecraft:gold_ingot"
+    ]
+  },
+  {
+    "key": "Deconstructor",
+    "kind": "ARCANE_SHAPED",
+    "research": "DECONSTRUCTOR",
+    "result": "new ItemStack(ConfigBlocks.blockTable, 1, 14)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "PERDITIO:20"
+    ],
+    "components_raw": [
+      "' S '",
+      "'ATP'",
+      "Character.valueOf('T')",
+      "new ItemStack(ConfigBlocks.blockTable, 1, 0)",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigItems.itemThaumometer)",
+      "Character.valueOf('P')",
+      "new ItemStack(Items.field_151005_D)",
+      "Character.valueOf('A')",
+      "new ItemStack(Items.field_151006_E)"
+    ],
+    "pattern": [
+      "S",
+      "ATP"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:table",
+    "resolved_catalyst": "thaumcraft:table",
+    "resolved_components": [
+      "thaumcraft:thaumometer",
+      "minecraft:flint_and_steel",
+      "minecraft:apple"
+    ]
+  },
+  {
+    "key": "EnchantedFabric",
+    "kind": "ARCANE_SHAPED",
+    "research": "ENCHFABRIC",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 7)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:1",
+      "TERRA:1",
+      "IGNIS:1",
+      "AQUA:1",
+      "ORDO:1",
+      "PERDITIO:1"
+    ],
+    "components_raw": [
+      "' S '",
+      "'SCS'",
+      "' S '",
+      "Character.valueOf('S')",
+      "new ItemStack(Items.field_151007_F, 1, 32767)",
+      "Character.valueOf('C')",
+      "new ItemStack(Blocks.field_150325_L, 1, 32767)"
+    ],
+    "pattern": [
+      "S",
+      "SCS",
+      "S"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_cloth",
+    "resolved_catalyst": "minecraft:string",
+    "resolved_components": [
+      "minecraft:wool"
+    ]
+  },
+  {
+    "key": "Goggles",
+    "kind": "ARCANE_SHAPED",
+    "research": "GOGGLES",
+    "result": "new ItemStack(ConfigItems.itemGoggles)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:5",
+      "IGNIS:5",
+      "AQUA:5",
+      "TERRA:5",
+      "PERDITIO:3",
+      "ORDO:3"
+    ],
+    "components_raw": [
+      "'LGL'",
+      "'L L'",
+      "'TGT'",
+      "Character.valueOf('T')",
+      "ConfigItems.itemThaumometer",
+      "Character.valueOf('G')",
+      "Items.field_151043_k",
+      "Character.valueOf('L')",
+      "Items.field_151116_aA"
+    ],
+    "pattern": [
+      "LGL",
+      "L L",
+      "TGT"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_gogglesrevealing",
+    "resolved_catalyst": "thaumcraft:thaumometer",
+    "resolved_components": [
+      "minecraft:gold_ingot",
+      "minecraft:sugar"
+    ]
+  },
+  {
+    "key": "HungryChest",
+    "kind": "ARCANE_SHAPED",
+    "research": "HUNGRYCHEST",
+    "result": "new ItemStack(ConfigBlocks.blockChestHungry)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:5",
+      "ORDO:3",
+      "PERDITIO:3"
+    ],
+    "components_raw": [
+      "'WTW'",
+      "'W W'",
+      "'WWW'",
+      "Character.valueOf('W')",
+      "'plankWood'",
+      "Character.valueOf('T')",
+      "Blocks.field_150415_aT"
+    ],
+    "pattern": [
+      "WTW",
+      "W W",
+      "WWW"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "minecraft:chest",
+    "resolved_catalyst": "minecraft:oak_planks",
+    "resolved_components": [
+      "minecraft:enchanting_table"
+    ]
+  },
+  {
+    "key": "GolemBell",
+    "kind": "ARCANE_SHAPED",
+    "research": "GOLEMBELL",
+    "result": "new ItemStack(ConfigItems.itemGolemBell)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "' QQ'",
+      "' QQ'",
+      "'S '",
+      "Character.valueOf('S')",
+      "'stickWood'",
+      "Character.valueOf('Q')",
+      "Items.field_151128_bU"
+    ],
+    "pattern": [
+      "QQ",
+      "QQ",
+      "S"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_ironbell",
+    "resolved_catalyst": "minecraft:stick",
+    "resolved_components": [
+      "minecraft:nether_wart"
+    ]
+  },
+  {
+    "key": "CoreBlank",
+    "kind": "ARCANE_SHAPED",
+    "research": "COREGATHER",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 100)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:5",
+      "IGNIS:5"
+    ],
+    "components_raw": [
+      "' C '",
+      "'CNC'",
+      "' C '",
+      "Character.valueOf('C')",
+      "Items.field_151118_aC",
+      "Character.valueOf('N')",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)"
+    ],
+    "pattern": [
+      "C",
+      "CNC",
+      "C"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_blank",
+    "resolved_catalyst": "minecraft:bed",
+    "resolved_components": [
+      "thaumcraft:tc4_nitor"
+    ]
+  },
+  {
+    "key": "UpgradeAir",
+    "kind": "ARCANE_SHAPED",
+    "research": "UPGRADEAIR",
+    "result": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:10"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'NCN'",
+      "'NNN'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)"
+    ],
+    "pattern": [
+      "NNN",
+      "NCN",
+      "NNN"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_upgrade_air",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer"
+    ]
+  },
+  {
+    "key": "UpgradeEarth",
+    "kind": "ARCANE_SHAPED",
+    "research": "UPGRADEEARTH",
+    "result": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 1)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:10"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'NCN'",
+      "'NNN'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)"
+    ],
+    "pattern": [
+      "NNN",
+      "NCN",
+      "NNN"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_upgrade_earth",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_terra"
+    ]
+  },
+  {
+    "key": "UpgradeFire",
+    "kind": "ARCANE_SHAPED",
+    "research": "UPGRADEFIRE",
+    "result": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:10"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'NCN'",
+      "'NNN'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)"
+    ],
+    "pattern": [
+      "NNN",
+      "NCN",
+      "NNN"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_upgrade_fire",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_ignis"
+    ]
+  },
+  {
+    "key": "UpgradeWater",
+    "kind": "ARCANE_SHAPED",
+    "research": "UPGRADEWATER",
+    "result": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 3)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:10"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'NCN'",
+      "'NNN'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)"
+    ],
+    "pattern": [
+      "NNN",
+      "NCN",
+      "NNN"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_upgrade_water",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aqua"
+    ]
+  },
+  {
+    "key": "UpgradeOrder",
+    "kind": "ARCANE_SHAPED",
+    "research": "UPGRADEORDER",
+    "result": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 4)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:10"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'NCN'",
+      "'NNN'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 4)"
+    ],
+    "pattern": [
+      "NNN",
+      "NCN",
+      "NNN"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_upgrade_order",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_ordo"
+    ]
+  },
+  {
+    "key": "UpgradeEntropy",
+    "kind": "ARCANE_SHAPED",
+    "research": "UPGRADEENTROPY",
+    "result": "new ItemStack(ConfigItems.itemGolemUpgrade, 1, 5)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "PERDITIO:10"
+    ],
+    "components_raw": [
+      "'NNN'",
+      "'NCN'",
+      "'NNN'",
+      "Character.valueOf('N')",
+      "Items.field_151074_bl",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 5)"
+    ],
+    "pattern": [
+      "NNN",
+      "NCN",
+      "NNN"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_upgrade_entropy",
+    "resolved_catalyst": "minecraft:gold_nugget",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_perditio"
+    ]
+  },
+  {
+    "key": "TinyHat",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYHAT",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:8",
+      "IGNIS:8"
+    ],
+    "components_raw": [
+      "' C '",
+      "' G '",
+      "'CCC'",
+      "Character.valueOf('C')",
+      "new ItemStack(Blocks.field_150325_L, 1, 15)",
+      "Character.valueOf('G')",
+      "Items.field_151043_k"
+    ],
+    "pattern": [
+      "C",
+      "G",
+      "CCC"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:wool",
+    "resolved_components": [
+      "minecraft:gold_ingot"
+    ]
+  },
+  {
+    "key": "TinyFez",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYFEZ",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 3)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:4",
+      "TERRA:4"
+    ],
+    "components_raw": [
+      "'CCS'",
+      "'CCS'",
+      "' S'",
+      "Character.valueOf('C')",
+      "new ItemStack(Blocks.field_150325_L, 1, 14)",
+      "Character.valueOf('S')",
+      "Items.field_151007_F"
+    ],
+    "pattern": [
+      "CCS",
+      "CCS",
+      "S"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:wool",
+    "resolved_components": [
+      "minecraft:string"
+    ]
+  },
+  {
+    "key": "TinyBowtie",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYBOWTIE",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:4",
+      "ORDO:4"
+    ],
+    "components_raw": [
+      "'CSC'",
+      "'C C'",
+      "Character.valueOf('C')",
+      "new ItemStack(Blocks.field_150325_L, 1, 15)",
+      "Character.valueOf('S')",
+      "Items.field_151007_F"
+    ],
+    "pattern": [
+      "CSC",
+      "C C"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:wool",
+    "resolved_components": [
+      "minecraft:string"
+    ]
+  },
+  {
+    "key": "TinyGlasses",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYGLASSES",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 1)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:4",
+      "AQUA:4"
+    ],
+    "components_raw": [
+      "'GIG'",
+      "Character.valueOf('G')",
+      "Blocks.field_150359_w",
+      "Character.valueOf('I')",
+      "Items.field_151042_j"
+    ],
+    "pattern": [
+      "GIG"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:glass",
+    "resolved_components": [
+      "minecraft:iron_ingot"
+    ]
+  },
+  {
+    "key": "TinyDart",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYDART",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 4)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:4",
+      "IGNIS:4"
+    ],
+    "components_raw": [
+      "'AIA'",
+      "'ADA'",
+      "'AIA'",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('D')",
+      "Blocks.field_150367_z",
+      "Character.valueOf('A')",
+      "Items.field_151032_g"
+    ],
+    "pattern": [
+      "AIA",
+      "ADA",
+      "AIA"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "minecraft:oak_log",
+      "minecraft:iron_pickaxe"
+    ]
+  },
+  {
+    "key": "TinyVisor",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYVISOR",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 5)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:4",
+      "AQUA:4"
+    ],
+    "components_raw": [
+      "'IHI'",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('H')",
+      "new ItemStack(Items.field_151028_Y, 1, 32767)"
+    ],
+    "pattern": [
+      "IHI"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "minecraft:flint"
+    ]
+  },
+  {
+    "key": "TinyArmor",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYARMOR",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 6)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:8"
+    ],
+    "components_raw": [
+      "'I I'",
+      "'IAI'",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('A')",
+      "new ItemStack(Items.field_151030_Z, 1, 32767)"
+    ],
+    "pattern": [
+      "I I",
+      "IAI"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "minecraft:porkchop"
+    ]
+  },
+  {
+    "key": "TinyHammer",
+    "kind": "ARCANE_SHAPED",
+    "research": "TINYHAMMER",
+    "result": "new ItemStack(ConfigItems.itemGolemDecoration, 1, 7)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "TERRA:4",
+      "IGNIS:4"
+    ],
+    "components_raw": [
+      "'III'",
+      "'III'",
+      "' I '",
+      "Character.valueOf('I')",
+      "Items.field_151042_j"
+    ],
+    "pattern": [
+      "III",
+      "III",
+      "I"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golemdecoarmor",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": []
+  },
+  {
+    "key": "Filter",
+    "kind": "ARCANE_SHAPED",
+    "research": "DISTILESSENTIA",
+    "result": "new ItemStack(ConfigItems.itemResource, 2, 8)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "ORDO:5",
+      "AQUA:5"
+    ],
+    "components_raw": [
+      "'GWG'",
+      "Character.valueOf('G')",
+      "Items.field_151043_k",
+      "Character.valueOf('W')",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 7)"
+    ],
+    "pattern": [
+      "GWG"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_filter",
+    "resolved_catalyst": "minecraft:gold_ingot",
+    "resolved_components": []
+  },
+  {
+    "key": "AlchemyFurnace",
+    "kind": "ARCANE_SHAPED",
+    "research": "DISTILESSENTIA",
+    "result": "new ItemStack(ConfigBlocks.blockStoneDevice, 1, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "IGNIS:5",
+      "AQUA:5"
+    ],
+    "components_raw": [
+      "'SCS'",
+      "'SFS'",
+      "'SSS'",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 0)",
+      "Character.valueOf('F')",
+      "Blocks.field_150460_al",
+      "Character.valueOf('S')",
+      "new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6)"
+    ],
+    "pattern": [
+      "SCS",
+      "SFS",
+      "SSS"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:crucible",
+    "resolved_catalyst": "minecraft:netherrack",
+    "resolved_components": [
+      "thaumcraft:arcane_stone"
+    ]
+  },
+  {
+    "key": "Bellows",
+    "kind": "ARCANE_SHAPED",
+    "research": "BELLOWS",
+    "result": "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AER:10",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'WW '",
+      "'LCI'",
+      "'WW '",
+      "Character.valueOf('W')",
+      "'plankWood'",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('L')",
+      "Items.field_151116_aA"
+    ],
+    "pattern": [
+      "WW",
+      "LCI",
+      "WW"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:table",
+    "resolved_catalyst": "minecraft:oak_planks",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer",
+      "minecraft:iron_ingot",
+      "minecraft:sugar"
+    ]
+  },
+  {
+    "key": "Tube",
+    "kind": "ARCANE_SHAPED",
+    "research": "TUBES",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 8, 0)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "' Q '",
+      "'IGI'",
+      "' B '",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('B')",
+      "Items.field_151074_bl",
+      "Character.valueOf('G')",
+      "Blocks.field_150359_w",
+      "Character.valueOf('Q')",
+      "new ItemStack(ConfigItems.itemNugget, 1, 5)"
+    ],
+    "pattern": [
+      "Q",
+      "IGI",
+      "B"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "minecraft:gold_nugget",
+      "minecraft:glass",
+      "thaumcraft:tc4_nuggetquicksilver"
+    ]
+  },
+  {
+    "key": "Resonator",
+    "kind": "ARCANE_SHAPED",
+    "research": "TUBES",
+    "result": "new ItemStack(ConfigItems.itemResonator)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "AER:5"
+    ],
+    "components_raw": [
+      "'I I'",
+      "'INI'",
+      "' S '",
+      "Character.valueOf('I')",
+      "Items.field_151042_j",
+      "Character.valueOf('N')",
+      "Items.field_151128_bU",
+      "Character.valueOf('S')",
+      "'stickWood'"
+    ],
+    "pattern": [
+      "I I",
+      "INI",
+      "S"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_resonator",
+    "resolved_catalyst": "minecraft:iron_ingot",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "minecraft:stick"
+    ]
+  },
+  {
+    "key": "TubeValve",
+    "kind": "ARCANE_SHAPELESS",
+    "research": "TUBES",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 1)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "new ItemStack(Blocks.field_150442_at)"
+    ],
+    "pattern": [],
+    "source": "addShapelessArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "minecraft:mycelium"
+    ]
+  },
+  {
+    "key": "TubeFilter",
+    "kind": "ARCANE_SHAPELESS",
+    "research": "TUBEFILTER",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 3)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "new ItemStack(ConfigItems.itemResource, 1, 8)"
+    ],
+    "pattern": [],
+    "source": "addShapelessArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "thaumcraft:tc4_filter"
+    ]
+  },
+  {
+    "key": "TubeRestrict",
+    "kind": "ARCANE_SHAPELESS",
+    "research": "TUBEFILTER",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 5)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "TERRA:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "'stone'"
+    ],
+    "pattern": [],
+    "source": "addShapelessArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "minecraft:stone"
+    ]
+  },
+  {
+    "key": "TubeOneway",
+    "kind": "ARCANE_SHAPELESS",
+    "research": "TUBEFILTER",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 6)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:8",
+      "PERDITIO:8"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "'dyeBlue'"
+    ],
+    "pattern": [],
+    "source": "addShapelessArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "minecraft:blue_dye"
+    ]
+  },
+  {
+    "key": "TubeBuffer",
+    "kind": "ARCANE_SHAPED",
+    "research": "CENTRIFUGE",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 4)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'PVP'",
+      "'T T'",
+      "'PRP'",
+      "Character.valueOf('T')",
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "Character.valueOf('V')",
+      "new ItemStack(ConfigBlocks.blockTube, 1, 1)",
+      "Character.valueOf('R')",
+      "new ItemStack(ConfigBlocks.blockTube, 1, 5)",
+      "Character.valueOf('P')",
+      "new ItemStack(ConfigItems.itemEssence, 1, 0)"
+    ],
+    "pattern": [
+      "PVP",
+      "T T",
+      "PRP"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "thaumcraft:essentia_tube",
+      "thaumcraft:essentia_tube",
+      "thaumcraft:tc4_essence"
+    ]
+  },
+  {
+    "key": "Centrifuge",
+    "kind": "ARCANE_SHAPED",
+    "research": "CENTRIFUGE",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 2)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "ORDO:5",
+      "PERDITIO:5"
+    ],
+    "components_raw": [
+      "' T '",
+      "'ACP'",
+      "' T '",
+      "Character.valueOf('T')",
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "Character.valueOf('P')",
+      "new ItemStack(Blocks.field_150331_J)",
+      "Character.valueOf('A')",
+      "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1)",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9)"
+    ],
+    "pattern": [
+      "T",
+      "ACP",
+      "T"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "minecraft:obsidian"
+    ]
+  },
+  {
+    "key": "EssentiaCrystalizer",
+    "kind": "ARCANE_SHAPED",
+    "research": "ESSENTIACRYSTAL",
+    "result": "new ItemStack(ConfigBlocks.blockTube, 1, 7)",
+    "catalyst": "",
+    "instability": "",
+    "aspects": [
+      "AQUA:5",
+      "TERRA:15",
+      "ORDO:5"
+    ],
+    "components_raw": [
+      "'IDI'",
+      "'QCQ'",
+      "'WTW'",
+      "Character.valueOf('T')",
+      "new ItemStack(ConfigBlocks.blockTube, 1, 0)",
+      "Character.valueOf('D')",
+      "new ItemStack(Blocks.field_150367_z)",
+      "Character.valueOf('Q')",
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "Character.valueOf('I')",
+      "'ingotIron'",
+      "Character.valueOf('W')",
+      "'plankWood'",
+      "Character.valueOf('C')",
+      "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9)"
+    ],
+    "pattern": [
+      "IDI",
+      "QCQ",
+      "WTW"
+    ],
+    "source": "addArcaneCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_tube",
+    "resolved_catalyst": "thaumcraft:essentia_tube",
+    "resolved_components": [
+      "minecraft:oak_log",
+      "thaumcraft:tc4_shard_balanced",
+      "minecraft:oak_planks"
+    ]
+  },
+  {
+    "key": "FocusHellbat",
+    "kind": "INFUSION",
+    "research": "FOCUSHELLBAT",
+    "result": "new ItemStack(ConfigItems.itemFocusHellbat)",
+    "catalyst": "new ItemStack(Items.field_151064_bs)",
+    "instability": "3",
+    "aspects": [
+      "IGNIS:25",
+      "AER:15",
+      "BESTIA:15",
+      "PERDITIO:25"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)",
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 5)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_hellbat",
+    "resolved_catalyst": "minecraft:carrot",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_ignis",
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_aer",
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_perditio"
+    ]
+  },
+  {
+    "key": "FocusPortableHole",
+    "kind": "INFUSION",
+    "research": "FOCUSPORTABLEHOLE",
+    "result": "new ItemStack(ConfigItems.itemFocusPortableHole)",
+    "catalyst": "new ItemStack(Items.field_151079_bi)",
+    "instability": "3",
+    "aspects": [
+      "ITER:25",
+      "ALIENIS:10",
+      "PERMUTATIO:10",
+      "PERDITIO:25"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 5)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_portablehole",
+    "resolved_catalyst": "minecraft:ender_eye",
+    "resolved_components": [
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_terra",
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_aer",
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_perditio"
+    ]
+  },
+  {
+    "key": "FocusWarding",
+    "kind": "INFUSION",
+    "research": "FOCUSWARDING",
+    "result": "new ItemStack(ConfigItems.itemFocusWarding)",
+    "catalyst": "new ItemStack(Items.field_151156_bN)",
+    "instability": "4",
+    "aspects": [
+      "TERRA:25",
+      "TUTAMEN:25",
+      "ORDO:25",
+      "COGNITIO:10"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 3)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 4)",
+      "new ItemStack(ConfigItems.itemResource, 1, 3)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(Items.field_151128_bU)",
+      "new ItemStack(ConfigItems.itemShard, 1, 4)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_focus_warding",
+    "resolved_catalyst": "minecraft:fire_charge",
+    "resolved_components": [
+      "thaumcraft:tc4_quicksilver",
+      "thaumcraft:tc4_shard_terra",
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_ordo",
+      "thaumcraft:tc4_quicksilver",
+      "thaumcraft:tc4_shard_terra",
+      "minecraft:nether_wart",
+      "thaumcraft:tc4_shard_ordo"
+    ]
+  },
+  {
+    "key": "JarBrain",
+    "kind": "INFUSION",
+    "research": "JARBRAIN",
+    "result": "new ItemStack(ConfigBlocks.blockJar, 1, 1)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockJar, 1, 0)",
+    "instability": "4",
+    "aspects": [
+      "COGNITIO:10",
+      "SENSUS:10",
+      "EXANIMIS:20"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemZombieBrain)",
+      "new ItemStack(Items.field_151070_bp)",
+      "new ItemStack(Items.field_151131_as)",
+      "new ItemStack(Items.field_151070_bp)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:essentia_jar",
+    "resolved_catalyst": "thaumcraft:essentia_jar",
+    "resolved_components": [
+      "thaumcraft:tc4_brain",
+      "minecraft:skull",
+      "minecraft:clock",
+      "minecraft:skull"
+    ]
+  },
+  {
+    "key": "HoverHarness",
+    "kind": "INFUSION",
+    "research": "HOVERHARNESS",
+    "result": "new ItemStack(ConfigItems.itemHoverHarness)",
+    "catalyst": "new ItemStack(Items.field_151027_R)",
+    "instability": "6",
+    "aspects": [
+      "VOLATUS:32",
+      "POTENTIA:32",
+      "MACHINA:32",
+      "ITER:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)",
+      "new ItemStack(Items.field_151132_bS)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151042_j)",
+      "new ItemStack(Items.field_151042_j)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_hoverharness",
+    "resolved_catalyst": "minecraft:bow",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:table",
+      "thaumcraft:table",
+      "minecraft:nether_quartz",
+      "minecraft:gold_ingot",
+      "minecraft:gold_ingot",
+      "minecraft:iron_ingot",
+      "minecraft:iron_ingot"
+    ]
+  },
+  {
+    "key": "HoverGirdle",
+    "kind": "INFUSION",
+    "research": "HOVERGIRDLE",
+    "result": "new ItemStack(ConfigItems.itemGirdleHover)",
+    "catalyst": "new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2)",
+    "instability": "8",
+    "aspects": [
+      "VOLATUS:16",
+      "POTENTIA:32",
+      "AER:32",
+      "ITER:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(Items.field_151008_G)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(Items.field_151008_G)",
+      "new ItemStack(Items.field_151043_k)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_hovergirdle",
+    "resolved_catalyst": "thaumcraft:tc4_baubleblankamulet",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer",
+      "minecraft:feather",
+      "minecraft:gold_ingot",
+      "thaumcraft:tc4_shard_terra",
+      "minecraft:feather",
+      "minecraft:gold_ingot"
+    ]
+  },
+  {
+    "key": "RunicAmulet",
+    "kind": "INFUSION",
+    "research": "RUNICARMOR",
+    "result": "new ItemStack(ConfigItems.itemAmuletRunic, 1, 0)",
+    "catalyst": "new ItemStack(ConfigItems.itemBaubleBlanks, 1, 0)",
+    "instability": "4",
+    "aspects": [
+      "TUTAMEN:20",
+      "PRAECANTATIO:35",
+      "POTENTIA:35"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "new ItemStack(ConfigItems.itemResource, 1, 6)",
+      "new ItemStack(ConfigItems.itemResource, 1, 7)",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemInkwell)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_amulet",
+    "resolved_catalyst": "thaumcraft:tc4_baubleblankamulet",
+    "resolved_components": [
+      "thaumcraft:tc4_charm",
+      "thaumcraft:tc4_amber",
+      "thaumcraft:tc4_cloth",
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_inkwell"
+    ]
+  },
+  {
+    "key": "RunicAmuletEmergency",
+    "kind": "INFUSION",
+    "research": "RUNICEMERGENCY",
+    "result": "new ItemStack(ConfigItems.itemAmuletRunic, 1, 1)",
+    "catalyst": "new ItemStack(ConfigItems.itemAmuletRunic, 1, 0)",
+    "instability": "7",
+    "aspects": [
+      "TUTAMEN:20",
+      "PRAECANTATIO:35",
+      "TERRA:32",
+      "VACUOS:32"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(Items.field_151068_bn, 1, 8233)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)",
+      "new ItemStack(ConfigItems.itemShard, 1, 3)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_amulet",
+    "resolved_catalyst": "thaumcraft:tc4_runic_amulet",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_balanced",
+      "thaumcraft:tc4_shard_terra",
+      "thaumcraft:tc4_shard_terra",
+      "minecraft:emerald",
+      "thaumcraft:tc4_shard_terra",
+      "thaumcraft:tc4_shard_terra"
+    ]
+  },
+  {
+    "key": "RunicRing",
+    "kind": "INFUSION",
+    "research": "RUNICARMOR",
+    "result": "new ItemStack(ConfigItems.itemRingRunic, 1, 1)",
+    "catalyst": "new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1)",
+    "instability": "3",
+    "aspects": [
+      "TUTAMEN:10",
+      "PRAECANTATIO:25",
+      "POTENTIA:25"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "new ItemStack(ConfigItems.itemResource, 1, 6)",
+      "new ItemStack(ConfigItems.itemResource, 1, 7)",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemInkwell)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_ring",
+    "resolved_catalyst": "thaumcraft:tc4_baubleblankamulet",
+    "resolved_components": [
+      "thaumcraft:tc4_charm",
+      "thaumcraft:tc4_amber",
+      "thaumcraft:tc4_cloth",
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_inkwell"
+    ]
+  },
+  {
+    "key": "RunicRingCharged",
+    "kind": "INFUSION",
+    "research": "RUNICCHARGED",
+    "result": "new ItemStack(ConfigItems.itemRingRunic, 1, 2)",
+    "catalyst": "new ItemStack(ConfigItems.itemRingRunic, 1, 1)",
+    "instability": "6",
+    "aspects": [
+      "TUTAMEN:16",
+      "PRAECANTATIO:16",
+      "POTENTIA:64"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)",
+      "new ItemStack(Items.field_151068_bn, 1, 8226)",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)",
+      "new ItemStack(ConfigItems.itemShard, 1, 1)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_ring",
+    "resolved_catalyst": "thaumcraft:tc4_runic_ring",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_balanced",
+      "thaumcraft:tc4_shard_ignis",
+      "thaumcraft:tc4_shard_ignis",
+      "minecraft:emerald",
+      "thaumcraft:tc4_shard_ignis",
+      "thaumcraft:tc4_shard_ignis"
+    ]
+  },
+  {
+    "key": "RunicRingHealing",
+    "kind": "INFUSION",
+    "research": "RUNICHEALING",
+    "result": "new ItemStack(ConfigItems.itemRingRunic, 1, 3)",
+    "catalyst": "new ItemStack(ConfigItems.itemRingRunic, 1, 1)",
+    "instability": "6",
+    "aspects": [
+      "TUTAMEN:16",
+      "PRAECANTATIO:16",
+      "AQUA:32",
+      "SANO:32"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)",
+      "new ItemStack(Items.field_151068_bn, 1, 8257)",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)",
+      "new ItemStack(ConfigItems.itemShard, 1, 2)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_ring",
+    "resolved_catalyst": "thaumcraft:tc4_runic_ring",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_balanced",
+      "thaumcraft:tc4_shard_aqua",
+      "thaumcraft:tc4_shard_aqua",
+      "minecraft:emerald",
+      "thaumcraft:tc4_shard_aqua",
+      "thaumcraft:tc4_shard_aqua"
+    ]
+  },
+  {
+    "key": "RunicGirdle",
+    "kind": "INFUSION",
+    "research": "RUNICARMOR",
+    "result": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 0)",
+    "catalyst": "new ItemStack(ConfigItems.itemBaubleBlanks, 1, 2)",
+    "instability": "4",
+    "aspects": [
+      "TUTAMEN:30",
+      "PRAECANTATIO:50",
+      "POTENTIA:50"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "new ItemStack(ConfigItems.itemResource, 1, 6)",
+      "new ItemStack(ConfigItems.itemResource, 1, 7)",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemInkwell)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_girdle",
+    "resolved_catalyst": "thaumcraft:tc4_baubleblankamulet",
+    "resolved_components": [
+      "thaumcraft:tc4_charm",
+      "thaumcraft:tc4_amber",
+      "thaumcraft:tc4_cloth",
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_inkwell"
+    ]
+  },
+  {
+    "key": "RunicGirdleKinetic",
+    "kind": "INFUSION",
+    "research": "RUNICKINETIC",
+    "result": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 1)",
+    "catalyst": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 0)",
+    "instability": "7",
+    "aspects": [
+      "TUTAMEN:33",
+      "PRAECANTATIO:55",
+      "AER:64"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(Items.field_151068_bn, 1, 16428)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_girdle",
+    "resolved_catalyst": "thaumcraft:tc4_runic_girdle",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_balanced",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_aer",
+      "minecraft:emerald",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_aer"
+    ]
+  },
+  {
+    "key": "RunicGirdleKinetic_2",
+    "kind": "INFUSION",
+    "research": "RUNICKINETIC",
+    "result": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 1)",
+    "catalyst": "new ItemStack(ConfigItems.itemGirdleRunic, 1, 0)",
+    "instability": "7",
+    "aspects": [
+      "TUTAMEN:33",
+      "PRAECANTATIO:55",
+      "AER:64"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(Items.field_151068_bn, 1, 24620)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_runic_girdle",
+    "resolved_catalyst": "thaumcraft:tc4_runic_girdle",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_balanced",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_aer",
+      "minecraft:emerald",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_aer"
+    ]
+  },
+  {
+    "key": "Mirror",
+    "kind": "INFUSION",
+    "research": "MIRROR",
+    "result": "new ItemStack(ConfigBlocks.blockMirror, 1, 0)",
+    "catalyst": "new ItemStack(ConfigItems.itemResource, 1, 10)",
+    "instability": "1",
+    "aspects": [
+      "ITER:8",
+      "TENEBRAE:8",
+      "PERMUTATIO:8"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151079_bi)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_mirrorframe",
+    "resolved_catalyst": "thaumcraft:tc4_mirrorglass",
+    "resolved_components": [
+      "minecraft:gold_ingot",
+      "minecraft:gold_ingot",
+      "minecraft:gold_ingot",
+      "minecraft:ender_eye"
+    ]
+  },
+  {
+    "key": "MirrorHand",
+    "kind": "INFUSION",
+    "research": "MIRRORHAND",
+    "result": "new ItemStack(ConfigItems.itemHandMirror)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockMirror, 1, 0)",
+    "instability": "5",
+    "aspects": [
+      "INSTRUMENTUM:16",
+      "ITER:16"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151055_y)",
+      "new ItemStack(Items.field_151111_aL)",
+      "new ItemStack(Items.field_151148_bJ)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_mirrorhand",
+    "resolved_catalyst": "thaumcraft:tc4_mirrorframe",
+    "resolved_components": [
+      "minecraft:redstone",
+      "minecraft:glass_bottle",
+      "minecraft:experience_bottle"
+    ]
+  },
+  {
+    "key": "MirrorEssentia",
+    "kind": "INFUSION",
+    "research": "MIRRORESSENTIA",
+    "result": "new ItemStack(ConfigBlocks.blockMirror, 1, 6)",
+    "catalyst": "new ItemStack(ConfigItems.itemResource, 1, 10)",
+    "instability": "2",
+    "aspects": [
+      "ITER:8",
+      "AQUA:8",
+      "PERMUTATIO:8"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151042_j)",
+      "new ItemStack(Items.field_151042_j)",
+      "new ItemStack(Items.field_151042_j)",
+      "new ItemStack(Items.field_151079_bi)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_mirrorframe",
+    "resolved_catalyst": "thaumcraft:tc4_mirrorglass",
+    "resolved_components": [
+      "minecraft:iron_ingot",
+      "minecraft:iron_ingot",
+      "minecraft:iron_ingot",
+      "minecraft:ender_eye"
+    ]
+  },
+  {
+    "key": "BootsTraveller",
+    "kind": "INFUSION",
+    "research": "BOOTSTRAVELLER",
+    "result": "new ItemStack(ConfigItems.itemBootsTraveller)",
+    "catalyst": "new ItemStack(Items.field_151021_T)",
+    "instability": "1",
+    "aspects": [
+      "VOLATUS:25",
+      "ITER:25"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemShard, 1, 0)",
+      "new ItemStack(ConfigItems.itemResource, 1, 7)",
+      "new ItemStack(ConfigItems.itemResource, 1, 7)",
+      "new ItemStack(Items.field_151008_G)",
+      "new ItemStack(Items.field_151115_aP, 1, 32767)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_bootstraveler",
+    "resolved_catalyst": "minecraft:book",
+    "resolved_components": [
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_shard_aer",
+      "thaumcraft:tc4_cloth",
+      "thaumcraft:tc4_cloth",
+      "minecraft:feather",
+      "minecraft:fish"
+    ]
+  },
+  {
+    "key": "CoreAlchemy",
+    "kind": "INFUSION",
+    "research": "COREALCHEMY",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 6)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 5)",
+    "instability": "2",
+    "aspects": [
+      "PRAECANTATIO:15",
+      "AQUA:15",
+      "MOTUS:15"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigBlocks.blockJar, 1, 0)",
+      "new ItemStack(Items.field_151068_bn)",
+      "new ItemStack(Items.field_151068_bn)",
+      "new ItemStack(Items.field_151068_bn)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_essentia",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_liquid",
+    "resolved_components": [
+      "thaumcraft:essentia_jar",
+      "minecraft:emerald",
+      "minecraft:emerald",
+      "minecraft:emerald"
+    ]
+  },
+  {
+    "key": "CoreSorting",
+    "kind": "INFUSION",
+    "research": "CORESORTING",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 10)",
+    "catalyst": "new ItemStack(ConfigItems.itemZombieBrain)",
+    "instability": "3",
+    "aspects": [
+      "VACUOS:16",
+      "PERMUTATIO:16",
+      "FAMES:16",
+      "LUCRUM:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemGolemCore, 1, 0)",
+      "new ItemStack(Items.field_151132_bS)",
+      "new ItemStack(ConfigItems.itemGolemCore, 1, 1)",
+      "new ItemStack(Items.field_151121_aF)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_sorting",
+    "resolved_catalyst": "thaumcraft:tc4_brain",
+    "resolved_components": [
+      "thaumcraft:tc4_golem_core_fill",
+      "minecraft:nether_quartz",
+      "thaumcraft:tc4_golem_core_empty",
+      "minecraft:cookie"
+    ]
+  },
+  {
+    "key": "CoreLumber",
+    "kind": "INFUSION",
+    "research": "CORELUMBER",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 7)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 3)",
+    "instability": "2",
+    "aspects": [
+      "INSTRUMENTUM:16",
+      "ARBOR:16",
+      "METO:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemAxeElemental)",
+      "new ItemStack(Items.field_151036_c)",
+      "new ItemStack(Items.field_151036_c)",
+      "new ItemStack(Items.field_151036_c)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_lumber",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_harvest",
+    "resolved_components": [
+      "minecraft:wooden_sword",
+      "minecraft:wooden_sword",
+      "minecraft:wooden_sword"
+    ]
+  },
+  {
+    "key": "CoreFishing",
+    "kind": "INFUSION",
+    "research": "COREFISHING",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 11)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 3)",
+    "instability": "3",
+    "aspects": [
+      "AQUA:16",
+      "METO:16",
+      "BESTIA:16"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151112_aM)",
+      "new ItemStack(Items.field_151115_aP, 1, 0)",
+      "new ItemStack(Items.field_151115_aP, 1, 3)",
+      "new ItemStack(Items.field_151115_aP, 1, 1)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_fish",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_harvest",
+    "resolved_components": [
+      "minecraft:spider_eye",
+      "minecraft:fish",
+      "minecraft:fish",
+      "minecraft:fish"
+    ]
+  },
+  {
+    "key": "CoreUse",
+    "kind": "INFUSION",
+    "research": "COREUSE",
+    "result": "new ItemStack(ConfigItems.itemGolemCore, 1, 8)",
+    "catalyst": "new ItemStack(ConfigItems.itemGolemCore, 1, 1)",
+    "instability": "3",
+    "aspects": [
+      "INSTRUMENTUM:20",
+      "MACHINA:20",
+      "HUMANUS:20"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151132_bS)",
+      "new ItemStack(Items.field_151033_d)",
+      "new ItemStack(Items.field_151097_aZ)",
+      "new ItemStack(Blocks.field_150442_at)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_core_use",
+    "resolved_catalyst": "thaumcraft:tc4_golem_core_empty",
+    "resolved_components": [
+      "minecraft:nether_quartz",
+      "minecraft:iron_axe",
+      "minecraft:fish",
+      "minecraft:mycelium"
+    ]
+  },
+  {
+    "key": "TravelTrunk",
+    "kind": "INFUSION",
+    "research": "TRAVELTRUNK",
+    "result": "new ItemStack(ConfigItems.itemTrunkSpawner)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockChestHungry)",
+    "instability": "3",
+    "aspects": [
+      "MOTUS:4",
+      "SPIRITUS:4",
+      "ITER:4",
+      "VACUOS:16"
+    ],
+    "components_raw": [
+      "new ItemStack(Items.field_151042_j)",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)",
+      "new ItemStack(ConfigItems.itemGolemPlacer, 1, 1)",
+      "new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_golem_wood",
+    "resolved_catalyst": "minecraft:chest",
+    "resolved_components": [
+      "minecraft:iron_ingot",
+      "thaumcraft:table",
+      "thaumcraft:tc4_golem_wood",
+      "thaumcraft:table"
+    ]
+  },
+  {
+    "key": "ThaumiumFortressHelm",
+    "kind": "INFUSION",
+    "research": "ARMORFORTRESS",
+    "result": "new ItemStack(ConfigItems.itemHelmetFortress)",
+    "catalyst": "new ItemStack(ConfigItems.itemHelmetThaumium)",
+    "instability": "3",
+    "aspects": [
+      "METALLUM:24",
+      "TUTAMEN:16",
+      "PRAECANTATIO:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151166_bC)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_thaumiumfortresshelm",
+    "resolved_catalyst": "thaumcraft:tc4_thaumiumhelm",
+    "resolved_components": [
+      "thaumcraft:tc4_thaumiumingot",
+      "thaumcraft:tc4_thaumiumingot",
+      "minecraft:gold_ingot",
+      "minecraft:gold_ingot",
+      "minecraft:writable_book"
+    ]
+  },
+  {
+    "key": "ThaumiumFortressChest",
+    "kind": "INFUSION",
+    "research": "ARMORFORTRESS",
+    "result": "new ItemStack(ConfigItems.itemChestFortress)",
+    "catalyst": "new ItemStack(ConfigItems.itemChestThaumium)",
+    "instability": "3",
+    "aspects": [
+      "METALLUM:24",
+      "TUTAMEN:24",
+      "PRAECANTATIO:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151116_aA)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_thaumiumfortresschest",
+    "resolved_catalyst": "thaumcraft:tc4_thaumiumchest",
+    "resolved_components": [
+      "thaumcraft:tc4_thaumiumingot",
+      "thaumcraft:tc4_thaumiumingot",
+      "thaumcraft:tc4_thaumiumingot",
+      "thaumcraft:tc4_thaumiumingot",
+      "minecraft:gold_ingot",
+      "minecraft:sugar"
+    ]
+  },
+  {
+    "key": "ThaumiumFortressLegs",
+    "kind": "INFUSION",
+    "research": "ARMORFORTRESS",
+    "result": "new ItemStack(ConfigItems.itemLegsFortress)",
+    "catalyst": "new ItemStack(ConfigItems.itemLegsThaumium)",
+    "instability": "3",
+    "aspects": [
+      "METALLUM:24",
+      "TUTAMEN:20",
+      "PRAECANTATIO:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(ConfigItems.itemResource, 1, 2)",
+      "new ItemStack(Items.field_151043_k)",
+      "new ItemStack(Items.field_151116_aA)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_thaumiumfortresslegs",
+    "resolved_catalyst": "thaumcraft:tc4_thaumiumlegs",
+    "resolved_components": [
+      "thaumcraft:tc4_thaumiumingot",
+      "thaumcraft:tc4_thaumiumingot",
+      "thaumcraft:tc4_thaumiumingot",
+      "minecraft:gold_ingot",
+      "minecraft:sugar"
+    ]
+  },
+  {
+    "key": "SanityCheck",
+    "kind": "INFUSION",
+    "research": "SANITYCHECK",
+    "result": "new ItemStack(ConfigItems.itemSanityChecker)",
+    "catalyst": "new ItemStack(ConfigItems.itemThaumometer)",
+    "instability": "4",
+    "aspects": [
+      "COGNITIO:24",
+      "SENSUS:24",
+      "ALIENIS:8"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 10)",
+      "new ItemStack(ConfigItems.itemZombieBrain)",
+      "new ItemStack(Items.field_151045_i)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_sanitychecker",
+    "resolved_catalyst": "thaumcraft:thaumometer",
+    "resolved_components": [
+      "thaumcraft:tc4_mirrorglass",
+      "thaumcraft:tc4_brain",
+      "minecraft:diamond"
+    ]
+  },
+  {
+    "key": "SinStone",
+    "kind": "INFUSION",
+    "research": "SINSTONE",
+    "result": "new ItemStack(ConfigItems.itemCompassStone)",
+    "catalyst": "new ItemStack(Items.field_151145_ak)",
+    "instability": "5",
+    "aspects": [
+      "SENSUS:8",
+      "TENEBRAE:8",
+      "ALIENIS:8",
+      "AURAM:8"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 1)",
+      "new ItemStack(ConfigItems.itemShard, 1, 4)",
+      "new ItemStack(ConfigItems.itemResource, 1, 9)",
+      "new ItemStack(ConfigItems.itemShard, 1, 5)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_compassstone",
+    "resolved_catalyst": "minecraft:paper",
+    "resolved_components": [
+      "thaumcraft:tc4_nitor",
+      "thaumcraft:tc4_shard_ordo",
+      "thaumcraft:tc4_knowledgefragment",
+      "thaumcraft:tc4_shard_perditio"
+    ]
+  },
+  {
+    "key": "PrimalCrusher",
+    "kind": "INFUSION",
+    "research": "PRIMALCRUSHER",
+    "result": "new ItemStack(ConfigItems.itemPrimalCrusher)",
+    "catalyst": "new ItemStack(ConfigItems.itemEldritchObject, 1, 3)",
+    "instability": "6",
+    "aspects": [
+      "PERFODIO:24",
+      "INSTRUMENTUM:24",
+      "PERDITIO:16",
+      "VACUOS:16",
+      "TELUM:16",
+      "ALIENIS:16",
+      "LUCRUM:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "new ItemStack(ConfigItems.itemPickVoid, 1, 32767)",
+      "new ItemStack(ConfigItems.itemShovelVoid, 1, 32767)",
+      "new ItemStack(ConfigItems.itemResource, 1, 15)",
+      "new ItemStack(ConfigItems.itemPickElemental, 1, 32767)",
+      "new ItemStack(ConfigItems.itemShovelElemental, 1, 32767)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_primal_crusher",
+    "resolved_catalyst": "thaumcraft:tc4_eldritch_object_3",
+    "resolved_components": [
+      "thaumcraft:tc4_charm",
+      "thaumcraft:tc4_voidpick",
+      "thaumcraft:tc4_voidshovel",
+      "thaumcraft:tc4_charm"
+    ]
+  },
+  {
+    "key": "EldritchEye",
+    "kind": "INFUSION",
+    "research": "OCULUS",
+    "result": "new ItemStack(ConfigItems.itemEldritchObject)",
+    "catalyst": "new ItemStack(Items.field_151061_bv)",
+    "instability": "5",
+    "aspects": [
+      "ALIENIS:64",
+      "VACUOS:16",
+      "TENEBRAE:16",
+      "ITER:16"
+    ],
+    "components_raw": [
+      "new ItemStack(ConfigItems.itemResource, 1, 17)",
+      "new ItemStack(Items.field_151043_k)"
+    ],
+    "pattern": [],
+    "source": "addInfusionCraftingRecipe",
+    "resolved_result": "thaumcraft:tc4_eldritch_object",
+    "resolved_catalyst": "minecraft:nether_star",
+    "resolved_components": [
+      "thaumcraft:tc4_voidseed",
+      "minecraft:gold_ingot"
+    ]
+  },
+  {
+    "key": "Smelting_1",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(Items.field_151044_h, 1, 1)",
+    "catalyst": "ConfigBlocks.blockMagicalLog",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "GameRegistry.addSmelting",
+    "resolved_result": "minecraft:coal",
+    "resolved_catalyst": "minecraft:oak_log",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_2",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 3)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 0)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "thaumcraft:tc4_quicksilver",
+    "resolved_catalyst": "thaumcraft:cinnabar_ore",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_3",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 6)",
+    "catalyst": "new ItemStack(ConfigBlocks.blockCustomOre, 1, 7)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "thaumcraft:tc4_amber",
+    "resolved_catalyst": "thaumcraft:amber_ore",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_4",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(Items.field_151042_j, 2, 0)",
+    "catalyst": "new ItemStack(ConfigItems.itemNugget, 1, 16)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "minecraft:iron_ingot",
+    "resolved_catalyst": "thaumcraft:tc4_clusteriron",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_5",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(ConfigItems.itemResource, 2, 3)",
+    "catalyst": "new ItemStack(ConfigItems.itemNugget, 1, 21)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "thaumcraft:tc4_quicksilver",
+    "resolved_catalyst": "thaumcraft:tc4_clustercinnabar",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_6",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(Items.field_151043_k, 2, 0)",
+    "catalyst": "new ItemStack(ConfigItems.itemNugget, 1, 31)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "minecraft:gold_ingot",
+    "resolved_catalyst": "thaumcraft:tc4_clustergold",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_7",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(ConfigItems.itemResource, 1, 14)",
+    "catalyst": "new ItemStack(ConfigItems.itemShard, 1, 6)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "thaumcraft:tc4_dust",
+    "resolved_catalyst": "thaumcraft:tc4_shard_balanced",
+    "resolved_components": []
+  },
+  {
+    "key": "Smelting_8",
+    "kind": "SMELTING",
+    "research": "",
+    "result": "new ItemStack(Items.field_151074_bl)",
+    "catalyst": "new ItemStack(ConfigItems.itemResource, 1, 18)",
+    "instability": "",
+    "aspects": [],
+    "components_raw": [],
+    "pattern": [],
+    "source": "FurnaceRecipes.func_77602_a().func_151394_a",
+    "resolved_result": "minecraft:gold_nugget",
+    "resolved_catalyst": "thaumcraft:tc4_coin",
+    "resolved_components": []
+  }
+]

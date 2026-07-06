@@ -1,0 +1,16 @@
+{
+  "tc4_key": "GolemClay",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "GOLEMCLAY",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:diamond_block",
+  "result": {
+    "item": "thaumcraft:tc4_golem_wood",
+    "count": 1
+  },
+  "aspects": {
+    "HUMANUS": 4,
+    "MOTUS": 4,
+    "SPIRITUS": 4
+  }
+}

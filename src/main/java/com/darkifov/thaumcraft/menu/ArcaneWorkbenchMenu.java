@@ -28,23 +28,23 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         this.blockPos = workbench instanceof BlockEntity blockEntity ? blockEntity.getBlockPos() : BlockPos.ZERO;
         workbench.startOpen(playerInventory.player);
 
-        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_WAND, 16, 36) {
+        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_WAND, 160, 24) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof WandItem;
             }
         });
 
-        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_CATALYST, 44, 36));
+        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_CATALYST, 16, 64));
 
         int index = ArcaneWorkbenchBlockEntity.SLOT_INGREDIENT_START;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                addSlot(new Slot(workbench, index++, 80 + col * 18, 18 + row * 18));
+                addSlot(new Slot(workbench, index++, 40 + col * 24, 40 + row * 24));
             }
         }
 
-        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_OUTPUT, 152, 36) {
+        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_OUTPUT, 160, 64) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
@@ -53,12 +53,12 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 103 + row * 18));
+                addSlot(new Slot(playerInventory, col + row * 9 + 9, 16 + col * 18, 151 + row * 18));
             }
         }
 
         for (int col = 0; col < 9; col++) {
-            addSlot(new Slot(playerInventory, col, 8 + col * 18, 161));
+            addSlot(new Slot(playerInventory, col, 16 + col * 18, 209));
         }
     }
 

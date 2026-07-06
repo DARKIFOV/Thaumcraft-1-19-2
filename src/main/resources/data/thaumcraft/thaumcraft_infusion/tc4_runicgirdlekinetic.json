@@ -1,0 +1,25 @@
+{
+  "tc4_key": "RunicGirdleKinetic",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "RUNICKINETIC",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_runic_girdle",
+  "components": [
+    "thaumcraft:tc4_shard_balanced",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_aer",
+    "minecraft:emerald",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_aer"
+  ],
+  "aspects": {
+    "TUTAMEN": 33,
+    "PRAECANTATIO": 55,
+    "AER": 64
+  },
+  "instability": 7,
+  "result": {
+    "item": "thaumcraft:tc4_runic_girdle",
+    "count": 1
+  }
+}

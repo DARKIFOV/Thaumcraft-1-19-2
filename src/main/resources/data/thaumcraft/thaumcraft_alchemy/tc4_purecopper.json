@@ -1,0 +1,15 @@
+{
+  "tc4_key": "PureCopper",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "PURECOPPER",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:raw_copper",
+  "result": {
+    "item": "thaumcraft:tc4_clustercopper",
+    "count": 1
+  },
+  "aspects": {
+    "METALLUM": 1,
+    "ORDO": 1
+  }
+}

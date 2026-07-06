@@ -1,0 +1,16 @@
+{
+  "tc4_key": "InfEnch21",
+  "tc4_source": "addInfusionEnchantmentRecipe",
+  "research": "INFUSIONENCHANTMENT",
+  "tc4_kind": "INFUSION_ENCHANTMENT",
+  "result_expression": "Enchantment.field_77342_w",
+  "catalyst": "thaumcraft:tc4_dust",
+  "components": [],
+  "aspects": {
+    "PRAECANTATIO": 8,
+    "TELUM": 16,
+    "VACUOS": 16,
+    "PERMUTATIO": 16
+  },
+  "instability": "5"
+}

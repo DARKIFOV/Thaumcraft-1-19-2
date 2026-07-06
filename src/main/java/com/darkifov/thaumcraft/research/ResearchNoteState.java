@@ -125,10 +125,122 @@ public final class ResearchNoteState {
 
         CompoundTag root = root(stack);
         CompoundTag slots = root.getCompound(TAG_SLOTS);
+        String existing = slots.getString(String.valueOf(index));
+
+        // Stage136: do not silently overwrite a placed aspect. TC4 research notes are
+        // meant to be solved as a deliberate path puzzle; the previous implementation
+        // could consume a new aspect and erase the old one with no refund.
+        if (existing != null && !existing.isBlank()) {
+            return false;
+        }
+
+        if (!touchesCompatibleNeighbor(stack, index, aspect)) {
+            return false;
+        }
+
         slots.putString(String.valueOf(index), aspect.id());
         root.put(TAG_SLOTS, slots);
-        root.putInt(TAG_PROGRESS, Math.min(100, root.getInt(TAG_PROGRESS) + 1));
+        root.putInt(TAG_PROGRESS, completionPercent(stack));
         return true;
+    }
+
+    public static boolean isLockedSlot(int index) {
+        return index == ResearchNoteGrid.defaultStartSlot() || index == ResearchNoteGrid.defaultEndSlot();
+    }
+
+    public static boolean touchesCompatibleNeighbor(ItemStack stack, int index, Aspect aspect) {
+        if (aspect == null || index < 0 || index >= ResearchNoteGrid.SLOT_COUNT) {
+            return false;
+        }
+
+        if (isLockedSlot(index)) {
+            return false;
+        }
+
+        for (int neighbor : ResearchNoteGrid.neighbors(index)) {
+            Aspect other = slot(stack, neighbor).orElse(null);
+
+            if (canLink(aspect, other)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static Optional<Aspect> clearSlot(ItemStack stack, int index) {
+        if (index < 0 || index >= ResearchNoteGrid.SLOT_COUNT || isLockedSlot(index)) {
+            return Optional.empty();
+        }
+
+        CompoundTag root = root(stack);
+        CompoundTag slots = root.getCompound(TAG_SLOTS);
+        Aspect existing = Aspect.byId(slots.getString(String.valueOf(index)));
+
+        if (existing == null) {
+            return Optional.empty();
+        }
+
+        slots.remove(String.valueOf(index));
+        root.put(TAG_SLOTS, slots);
+        root.putBoolean(TAG_SOLVED, false);
+        root.putInt(TAG_PROGRESS, completionPercent(stack));
+        return Optional.of(existing);
+    }
+
+    public static Set<Aspect> missingRequired(ItemStack stack) {
+        Set<Aspect> missing = new LinkedHashSet<>(requiredAspects(stack));
+        missing.removeAll(slots(stack).values());
+        return missing;
+    }
+
+    public static int completionPercent(ItemStack stack) {
+        Set<Aspect> required = requiredAspects(stack);
+        Map<Integer, Aspect> slots = slots(stack);
+        Set<Aspect> placed = new LinkedHashSet<>(slots.values());
+
+        int requiredScore = required.isEmpty() ? 50 : (int) Math.round(50.0D * coveredRequiredCount(placed, required) / required.size());
+        int linkScore = partialConnectionScore(stack, slots);
+        int score = Math.max(0, Math.min(99, requiredScore + linkScore));
+        return isSolved(stack) ? 100 : score;
+    }
+
+    private static int coveredRequiredCount(Set<Aspect> placed, Set<Aspect> required) {
+        int count = 0;
+        for (Aspect aspect : required) {
+            if (placed.contains(aspect)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static int partialConnectionScore(ItemStack stack, Map<Integer, Aspect> slots) {
+        if (!slots.containsKey(ResearchNoteGrid.defaultStartSlot())) {
+            return 0;
+        }
+        boolean[] seen = new boolean[ResearchNoteGrid.SLOT_COUNT];
+        int reachable = reachableCount(stack, ResearchNoteGrid.defaultStartSlot(), seen);
+        return Math.min(49, reachable * 49 / Math.max(1, slots.size()));
+    }
+
+    private static int reachableCount(ItemStack stack, int current, boolean[] seen) {
+        if (seen[current]) {
+            return 0;
+        }
+        seen[current] = true;
+        int total = 1;
+        Aspect currentAspect = slot(stack, current).orElse(null);
+        for (int next : ResearchNoteGrid.neighbors(current)) {
+            if (seen[next]) {
+                continue;
+            }
+            Aspect nextAspect = slot(stack, next).orElse(null);
+            if (canLink(currentAspect, nextAspect)) {
+                total += reachableCount(stack, next, seen);
+            }
+        }
+        return total;
     }
 
     public static boolean canLink(Aspect first, Aspect second) {

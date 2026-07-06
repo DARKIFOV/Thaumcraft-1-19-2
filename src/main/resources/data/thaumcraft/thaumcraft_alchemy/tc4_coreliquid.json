@@ -1,0 +1,15 @@
+{
+  "tc4_key": "CoreLiquid",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "CORELIQUID",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_golem_core_blank",
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_liquid",
+    "count": 1
+  },
+  "aspects": {
+    "AQUA": 5,
+    "VACUOS": 5
+  }
+}

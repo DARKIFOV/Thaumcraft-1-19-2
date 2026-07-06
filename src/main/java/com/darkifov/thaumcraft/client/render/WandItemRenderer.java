@@ -58,10 +58,16 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         VertexConsumer rodConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(rodTexture));
         VertexConsumer capConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(capTexture));
 
-        // TC4 intent: one rod core plus two separate caps. Rendered as 3D components, not a flat 2D sprite.
-        renderBox(poseStack, rodConsumer, -0.055F, -0.60F, -0.055F, 0.055F, 0.60F, 0.055F, packedLight, 255);
-        renderBox(poseStack, capConsumer, -0.095F, -0.72F, -0.095F, 0.095F, -0.58F, 0.095F, packedLight, 255);
-        renderBox(poseStack, capConsumer, -0.095F, 0.58F, -0.095F, 0.095F, 0.72F, 0.095F, packedLight, 255);
+        int light = data.rod().glowing() ? Math.max(packedLight, 15728880) : packedLight;
+        float rodHalf = data.rod().staff() ? 0.78F : 0.60F;
+        float capInner = data.rod().staff() ? 0.76F : 0.58F;
+        float capOuter = data.rod().staff() ? 0.92F : 0.72F;
+        float thickness = data.rod().staff() ? 0.065F : 0.055F;
+
+        // TC4 intent: one rod core plus two separate caps. Staff rods are longer and thicker.
+        renderBox(poseStack, rodConsumer, -thickness, -rodHalf, -thickness, thickness, rodHalf, thickness, light, 255);
+        renderBox(poseStack, capConsumer, -0.095F, -capOuter, -0.095F, 0.095F, -capInner, 0.095F, light, 255);
+        renderBox(poseStack, capConsumer, -0.095F, capInner, -0.095F, 0.095F, capOuter, 0.095F, light, 255);
 
         poseStack.popPose();
     }

@@ -1,0 +1,17 @@
+{
+  "tc4_key": "EtherealBloom",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ETHEREALBLOOM",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_block_shimmerleaf",
+  "result": {
+    "item": "thaumcraft:tc4_block_ethereal_bloom",
+    "count": 1
+  },
+  "aspects": {
+    "PRAECANTATIO": 16,
+    "HERBA": 16,
+    "SANO": 16,
+    "VITIUM": 8
+  }
+}

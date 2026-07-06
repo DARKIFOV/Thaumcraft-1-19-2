@@ -1,0 +1,16 @@
+{
+  "tc4_key": "Alumentum",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALUMENTUM",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:coal",
+  "result": {
+    "item": "thaumcraft:tc4_alumentum",
+    "count": 1
+  },
+  "aspects": {
+    "POTENTIA": 3,
+    "IGNIS": 3,
+    "PERDITIO": 3
+  }
+}

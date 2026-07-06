@@ -1,0 +1,15 @@
+{
+  "tc4_key": "AltWeb",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALCHEMICALMANUFACTURE",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:string",
+  "result": {
+    "item": "minecraft:cobweb",
+    "count": 1
+  },
+  "aspects": {
+    "VINCULUM": 2,
+    "PANNUS": 2
+  }
+}

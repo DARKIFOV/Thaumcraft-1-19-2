@@ -22,20 +22,49 @@ public final class ResearchNoteSolver {
             return false;
         }
 
-        if (!player.getAbilities().instabuild && !PlayerAspectKnowledge.consumePool(player, aspect, 1)) {
+        if (!player.getAbilities().instabuild && !PlayerAspectKnowledge.pool(player).contains(aspect, 1)) {
             player.displayClientMessage(Component.literal("You do not have that aspect in your research pool.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         boolean placed = ResearchNoteState.place(note, slot, aspect);
 
-        if (placed) {
-            player.displayClientMessage(Component.literal("Aspect placed: ")
-                    .withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal(aspect.displayName()).withStyle(style -> style.withColor(aspect.textColor()))), false);
+        if (!placed) {
+            player.displayClientMessage(Component.literal("That position is locked, already filled or not connected to a compatible neighbouring aspect.").withStyle(ChatFormatting.RED), false);
+            return false;
         }
 
-        return placed;
+        if (!player.getAbilities().instabuild) {
+            PlayerAspectKnowledge.consumePool(player, aspect, 1);
+        }
+
+        player.displayClientMessage(Component.literal("Aspect placed: ")
+                .withStyle(ChatFormatting.GRAY)
+                .append(Component.literal(aspect.displayName()).withStyle(style -> style.withColor(aspect.textColor()))), false);
+
+        return true;
+    }
+
+    public static boolean clearSlot(Player player, ItemStack note, int slot) {
+        if (player == null || note.isEmpty()) {
+            return false;
+        }
+
+        java.util.Optional<Aspect> removed = ResearchNoteState.clearSlot(note, slot);
+
+        if (removed.isEmpty()) {
+            player.displayClientMessage(Component.literal("That research position cannot be cleared.").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+
+        if (!player.getAbilities().instabuild) {
+            PlayerAspectKnowledge.addPool(player, removed.get(), 1);
+        }
+
+        player.displayClientMessage(Component.literal("Aspect returned: ")
+                .withStyle(ChatFormatting.GRAY)
+                .append(Component.literal(removed.get().displayName()).withStyle(style -> style.withColor(removed.get().textColor()))), false);
+        return true;
     }
 
     public static boolean solve(Player player, ItemStack note) {

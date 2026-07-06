@@ -11,6 +11,9 @@ public record ClientArcaneRecipePage(
         String result,
         String resultId,
         String visCost,
-        String note
+        String note,
+        String[] patternRows,
+        String tc4Kind,
+        String tc4Key
 ) {
 }

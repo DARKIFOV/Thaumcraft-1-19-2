@@ -1,0 +1,28 @@
+{
+  "tc4_key": "NodeStabilizerAdv",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "NODESTABILIZERADV",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_block_node_stabilizer",
+  "components": [
+    "thaumcraft:tc4_nitor",
+    "minecraft:redstone_block",
+    "thaumcraft:tc4_alumentum",
+    "minecraft:redstone_block",
+    "thaumcraft:tc4_nitor",
+    "minecraft:redstone_block",
+    "thaumcraft:tc4_alumentum",
+    "minecraft:redstone_block"
+  ],
+  "aspects": {
+    "AURAM": 32,
+    "PRAECANTATIO": 16,
+    "ORDO": 16,
+    "POTENTIA": 16
+  },
+  "instability": 10,
+  "result": {
+    "item": "thaumcraft:tc4_block_node_stabilizer_advanced",
+    "count": 1
+  }
+}

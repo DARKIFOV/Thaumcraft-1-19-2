@@ -1,0 +1,34 @@
+{
+  "tc4_key": "NodeTransducer",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "VISPOWER",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_node_stabilizer",
+  "ingredients": [
+    "minecraft:quartz",
+    "minecraft:iron_ingot",
+    "minecraft:redstone_block",
+    "thaumcraft:tc4_nitor"
+  ],
+  "aspects": {
+    "IGNIS": 32,
+    "AER": 32,
+    "PERDITIO": 32
+  },
+  "pattern": [
+    "RCR",
+    "ISI",
+    "RAR"
+  ],
+  "key": {
+    "R": "minecraft:quartz",
+    "C": "minecraft:iron_ingot",
+    "I": "minecraft:redstone_block",
+    "S": "thaumcraft:tc4_block_node_stabilizer",
+    "A": "thaumcraft:tc4_nitor"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_node_transducer",
+    "count": 1
+  }
+}

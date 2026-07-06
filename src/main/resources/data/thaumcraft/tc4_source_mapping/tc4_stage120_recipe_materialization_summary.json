@@ -1,0 +1,13 @@
+{
+  "stage": "120",
+  "name": "TC4 ConfigRecipes Materialization Pass 1",
+  "source": "Thaumcraft4-1.7.10 ConfigRecipes.java via Stage119 TC4RecipeRuntimeBridge",
+  "tc4_recipe_records_seen": 295,
+  "generated_custom_alchemy_crucible_json": 42,
+  "generated_custom_arcane_workbench_json": 73,
+  "generated_custom_infusion_json": 31,
+  "generated_vanilla_smelting_json": 8,
+  "materialized_total": 154,
+  "unresolved_or_deferred_total": 79,
+  "arcane_now_uses_original_aspect_costs": true
+}

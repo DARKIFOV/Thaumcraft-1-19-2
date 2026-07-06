@@ -1,0 +1,14 @@
+{
+  "stage": "121",
+  "name": "TC4 Recipe Metadata Resolver Pass",
+  "extra_tc4_item_block_carriers_registered": 58,
+  "recipe_records_seen": 295,
+  "generated_alchemy": 50,
+  "generated_arcane": 71,
+  "generated_infusion": 39,
+  "generated_smelting": 5,
+  "loop_expanded_recipes": 12,
+  "materialized_or_preserved_total": 189,
+  "still_unresolved_total": 54,
+  "github_upload_planned": "not yet; continue until roughly Stage140-159"
+}

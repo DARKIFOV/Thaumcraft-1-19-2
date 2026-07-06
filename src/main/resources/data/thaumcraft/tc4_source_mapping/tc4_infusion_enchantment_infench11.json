@@ -1,0 +1,15 @@
+{
+  "tc4_key": "InfEnch11",
+  "tc4_source": "addInfusionEnchantmentRecipe",
+  "research": "INFUSIONENCHANTMENT",
+  "tc4_kind": "INFUSION_ENCHANTMENT",
+  "result_expression": "Enchantment.field_77337_m",
+  "catalyst": "thaumcraft:tc4_dust",
+  "components": [],
+  "aspects": {
+    "PRAECANTATIO": 4,
+    "TELUM": 3,
+    "MOTUS": 3
+  },
+  "instability": "1"
+}

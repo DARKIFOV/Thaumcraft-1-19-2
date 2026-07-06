@@ -1,0 +1,16 @@
+{
+  "tc4_key": "GolemThaumium",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "GOLEMTHAUMIUM",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_block_obsidian_totem_3",
+  "result": {
+    "item": "thaumcraft:tc4_golem_thaumium",
+    "count": 1
+  },
+  "aspects": {
+    "HUMANUS": 8,
+    "MOTUS": 8,
+    "SPIRITUS": 8
+  }
+}

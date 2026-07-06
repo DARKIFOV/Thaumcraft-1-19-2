@@ -1,0 +1,30 @@
+{
+  "tc4_key": "ArcanePressurePlate",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "WARDEDARCANA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_thaumiumingot",
+  "ingredients": [
+    "thaumcraft:tc4_brain",
+    "thaumcraft:tc4_block_greatwood_planks"
+  ],
+  "aspects": {
+    "AQUA": 20,
+    "ORDO": 10,
+    "IGNIS": 5,
+    "TERRA": 10
+  },
+  "pattern": [
+    "B",
+    "TDT"
+  ],
+  "key": {
+    "B": "thaumcraft:tc4_brain",
+    "T": "thaumcraft:tc4_block_greatwood_planks",
+    "D": "thaumcraft:tc4_thaumiumingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_arcane_pressure_plate",
+    "count": 1
+  }
+}

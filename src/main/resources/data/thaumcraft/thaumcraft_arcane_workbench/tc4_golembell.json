@@ -1,0 +1,26 @@
+{
+  "tc4_key": "GolemBell",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "GOLEMBELL",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:stick",
+  "ingredients": [
+    "minecraft:nether_wart"
+  ],
+  "aspects": {
+    "ORDO": 5
+  },
+  "pattern": [
+    "QQ",
+    "QQ",
+    "S"
+  ],
+  "key": {
+    "Q": "minecraft:nether_wart",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_ironbell",
+    "count": 1
+  }
+}

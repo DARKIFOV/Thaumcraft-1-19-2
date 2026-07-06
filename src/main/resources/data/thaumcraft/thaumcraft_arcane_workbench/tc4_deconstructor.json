@@ -1,0 +1,29 @@
+{
+  "tc4_key": "Deconstructor",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "DECONSTRUCTOR",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:table",
+  "ingredients": [
+    "thaumcraft:thaumometer",
+    "minecraft:flint_and_steel",
+    "minecraft:apple"
+  ],
+  "aspects": {
+    "PERDITIO": 20
+  },
+  "pattern": [
+    "S",
+    "ATP"
+  ],
+  "key": {
+    "S": "thaumcraft:thaumometer",
+    "A": "minecraft:flint_and_steel",
+    "T": "thaumcraft:table",
+    "P": "minecraft:apple"
+  },
+  "result": {
+    "item": "thaumcraft:table",
+    "count": 1
+  }
+}

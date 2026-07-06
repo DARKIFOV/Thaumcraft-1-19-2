@@ -1,0 +1,17 @@
+{
+  "tc4_key": "BathSalts",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "BATHSALTS",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_dust",
+  "result": {
+    "item": "thaumcraft:tc4_bath_salts",
+    "count": 1
+  },
+  "aspects": {
+    "COGNITIO": 6,
+    "AURAM": 6,
+    "ORDO": 6,
+    "SANO": 6
+  }
+}

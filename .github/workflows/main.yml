@@ -37,6 +37,27 @@ jobs:
       - name: Run static resource audit
         run: python scripts/github_static_audit.py
 
+      - name: Run Stage138 arcane pattern audit
+        run: python scripts/tc4_stage138_arcane_pattern_audit.py
+
+      - name: Run Stage139 whole port sweep audit
+        run: python scripts/tc4_stage139_whole_port_sweep_audit.py
+
+      - name: Run Stage140 golemancy checkpoint audit
+        run: python scripts/tc4_stage140_golemancy_checkpoint_audit.py
+
+      - name: Run Stage141 golemancy controls audit
+        run: python scripts/tc4_stage141_golemancy_controls_audit.py
+
+      - name: Run Stage142 golemancy GUI/render audit
+        run: python scripts/tc4_stage142_golemancy_gui_render_audit.py
+
+      - name: Run Stage143 golemancy whole sweep audit
+        run: python scripts/tc4_stage143_golemancy_whole_sweep_audit.py
+
+      - name: Run TC4 book/table/workbench audit
+        run: python scripts/tc4_book_table_workbench_audit.py
+
   build:
     name: Build Forge mod jar
     runs-on: ubuntu-latest
@@ -70,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: thaumcraft-legacy-rebuild-stage112-jars
+          name: thaumcraft-legacy-rebuild-stage142-jars
           path: |
             build/libs/*.jar
             build/reobfJar/output.jar
@@ -80,7 +101,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: stage112-build-reports
+          name: stage142-build-reports
           path: |
             build/reports/**
             build/tmp/**

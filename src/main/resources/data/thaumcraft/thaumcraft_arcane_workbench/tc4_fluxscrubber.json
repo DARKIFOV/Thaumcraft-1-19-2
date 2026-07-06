@@ -1,0 +1,29 @@
+{
+  "tc4_key": "FluxScrubber",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "FLUXSCRUB",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_bars",
+  "ingredients": [
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_block_paving_travel"
+  ],
+  "aspects": {
+    "AQUA": 16,
+    "ORDO": 16,
+    "AER": 8
+  },
+  "pattern": [
+    "B",
+    "GOG",
+    "STS"
+  ],
+  "key": {
+    "B": "thaumcraft:tc4_filter",
+    "G": "thaumcraft:tc4_block_paving_travel"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_flux_scrubber",
+    "count": 1
+  }
+}

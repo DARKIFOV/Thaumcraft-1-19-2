@@ -1,0 +1,29 @@
+{
+  "tc4_key": "TinyDart",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TINYDART",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [
+    "minecraft:oak_log",
+    "minecraft:arrow"
+  ],
+  "aspects": {
+    "AER": 4,
+    "IGNIS": 4
+  },
+  "pattern": [
+    "AIA",
+    "ADA",
+    "AIA"
+  ],
+  "key": {
+    "A": "minecraft:oak_log",
+    "I": "minecraft:arrow",
+    "D": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golemdecoarmor",
+    "count": 1
+  }
+}

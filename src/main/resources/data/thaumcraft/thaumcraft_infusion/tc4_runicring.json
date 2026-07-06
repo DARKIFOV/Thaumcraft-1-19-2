@@ -1,0 +1,24 @@
+{
+  "tc4_key": "RunicRing",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "RUNICARMOR",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_bauble_amulet",
+  "components": [
+    "thaumcraft:tc4_charm",
+    "thaumcraft:tc4_amber",
+    "thaumcraft:tc4_cloth",
+    "thaumcraft:tc4_nitor",
+    "thaumcraft:tc4_inkwell"
+  ],
+  "aspects": {
+    "TUTAMEN": 10,
+    "PRAECANTATIO": 25,
+    "POTENTIA": 25
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_runic_ring",
+    "count": 1
+  }
+}

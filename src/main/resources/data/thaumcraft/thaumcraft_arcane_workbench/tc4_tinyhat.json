@@ -1,0 +1,27 @@
+{
+  "tc4_key": "TinyHat",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TINYHAT",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:white_wool",
+  "ingredients": [
+    "minecraft:gold_ingot"
+  ],
+  "aspects": {
+    "ORDO": 8,
+    "IGNIS": 8
+  },
+  "pattern": [
+    "C",
+    "G",
+    "CCC"
+  ],
+  "key": {
+    "C": "minecraft:gold_ingot",
+    "G": "minecraft:white_wool"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golemdecoarmor",
+    "count": 1
+  }
+}

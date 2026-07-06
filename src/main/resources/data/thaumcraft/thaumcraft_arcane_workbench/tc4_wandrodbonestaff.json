@@ -1,0 +1,24 @@
+{
+  "tc4_key": "WandRodBoneStaff",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ROD_bone_staff",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_charm",
+  "ingredients": [
+    "thaumcraft:tc4_wand_rod_bone"
+  ],
+  "aspects": {},
+  "pattern": [
+    "S",
+    "G",
+    "G"
+  ],
+  "key": {
+    "S": "thaumcraft:tc4_charm",
+    "G": "thaumcraft:tc4_wand_rod_bone"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_staff_rod_bone",
+    "count": 1
+  }
+}

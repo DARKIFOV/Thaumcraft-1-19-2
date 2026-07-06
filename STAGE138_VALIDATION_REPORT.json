@@ -1,0 +1,25 @@
+{
+  "stage": 138,
+  "name": "TC4 Arcane Exact Pattern Completion Pass",
+  "base_stage": 137,
+  "focus": [
+    "Arcane Workbench exact TC4 shaped pattern validation",
+    "Arcane Workbench repeated symbol consumption",
+    "Thaumonomicon recipe-page symbol rendering",
+    "Workbench ghost preview symbol rendering",
+    "Core loop audits kept green"
+  ],
+  "local_checks": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_stage138_arcane_pattern_audit": "OK",
+    "tc4_stage137_core_loop_audit": "OK",
+    "tc4_book_table_workbench_audit": "OK",
+    "tc4_texture_audit": "OK",
+    "tc4_full_parity_audit": "OK",
+    "tc4_wand_parity_audit": "OK",
+    "zip_integrity": "OK"
+  },
+  "gradle_build": "not_run_in_sandbox_services_gradle_org_dns_unavailable"
+}

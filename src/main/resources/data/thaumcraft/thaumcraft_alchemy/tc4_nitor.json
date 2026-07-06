@@ -1,0 +1,16 @@
+{
+  "tc4_key": "Nitor",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "NITOR",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:glowstone_dust",
+  "result": {
+    "item": "thaumcraft:tc4_nitor",
+    "count": 1
+  },
+  "aspects": {
+    "POTENTIA": 3,
+    "IGNIS": 3,
+    "LUX": 3
+  }
+}

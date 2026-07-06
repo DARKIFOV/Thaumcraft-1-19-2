@@ -1,0 +1,15 @@
+{
+  "tc4_key": "InfEnch14",
+  "tc4_source": "addInfusionEnchantmentRecipe",
+  "research": "INFUSIONENCHANTMENT",
+  "tc4_kind": "INFUSION_ENCHANTMENT",
+  "result_expression": "Enchantment.field_77349_p",
+  "catalyst": "thaumcraft:tc4_dust",
+  "components": [],
+  "aspects": {
+    "PRAECANTATIO": 4,
+    "INSTRUMENTUM": 4,
+    "ORDO": 4
+  },
+  "instability": "2"
+}

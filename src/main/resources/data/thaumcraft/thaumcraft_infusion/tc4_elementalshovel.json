@@ -1,0 +1,22 @@
+{
+  "tc4_key": "ElementalShovel",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ELEMENTALSHOVEL",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_thaumiumshovel",
+  "components": [
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_shard_terra",
+    "minecraft:diamond",
+    "thaumcraft:tc4_block_greatwood_log"
+  ],
+  "aspects": {
+    "TERRA": 16,
+    "FABRICO": 8
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_elementalshovel",
+    "count": 1
+  }
+}

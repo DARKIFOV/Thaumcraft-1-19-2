@@ -1,0 +1,26 @@
+{
+  "tc4_key": "HoverGirdle",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "HOVERGIRDLE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_bauble_amulet",
+  "components": [
+    "thaumcraft:tc4_shard_aer",
+    "minecraft:feather",
+    "minecraft:gold_ingot",
+    "thaumcraft:tc4_shard_terra",
+    "minecraft:feather",
+    "minecraft:gold_ingot"
+  ],
+  "aspects": {
+    "VOLATUS": 16,
+    "POTENTIA": 32,
+    "AER": 32,
+    "ITER": 16
+  },
+  "instability": 8,
+  "result": {
+    "item": "thaumcraft:tc4_hovergirdle",
+    "count": 1
+  }
+}

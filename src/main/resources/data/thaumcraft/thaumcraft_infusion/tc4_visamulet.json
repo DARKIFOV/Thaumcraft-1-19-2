@@ -1,0 +1,26 @@
+{
+  "tc4_key": "VisAmulet",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "VISAMULET",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_bauble_amulet",
+  "components": [
+    "thaumcraft:tc4_charm",
+    "thaumcraft:tc4_block_crystal_cluster",
+    "thaumcraft:tc4_block_crystal_cluster",
+    "thaumcraft:tc4_charm",
+    "thaumcraft:tc4_block_crystal_cluster",
+    "thaumcraft:tc4_block_crystal_cluster"
+  ],
+  "aspects": {
+    "AURAM": 24,
+    "POTENTIA": 64,
+    "PRAECANTATIO": 64,
+    "VACUOS": 24
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_vis_amulet",
+    "count": 1
+  }
+}

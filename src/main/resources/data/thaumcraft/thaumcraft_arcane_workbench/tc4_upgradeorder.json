@@ -1,0 +1,26 @@
+{
+  "tc4_key": "UpgradeOrder",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "UPGRADEORDER",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:gold_nugget",
+  "ingredients": [
+    "thaumcraft:tc4_shard_ordo"
+  ],
+  "aspects": {
+    "ORDO": 10
+  },
+  "pattern": [
+    "NNN",
+    "NCN",
+    "NNN"
+  ],
+  "key": {
+    "N": "thaumcraft:tc4_shard_ordo",
+    "C": "minecraft:gold_nugget"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golem_upgrade_order",
+    "count": 1
+  }
+}

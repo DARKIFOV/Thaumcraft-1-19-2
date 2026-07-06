@@ -1,0 +1,15 @@
+{
+  "tc4_key": "TransGold",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "TRANSGOLD",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:gold_nugget",
+  "result": {
+    "item": "minecraft:gold_nugget",
+    "count": 3
+  },
+  "aspects": {
+    "METALLUM": 2,
+    "LUCRUM": 1
+  }
+}

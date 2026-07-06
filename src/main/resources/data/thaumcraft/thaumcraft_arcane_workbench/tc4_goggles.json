@@ -1,0 +1,33 @@
+{
+  "tc4_key": "Goggles",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "GOGGLES",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:thaumometer",
+  "ingredients": [
+    "minecraft:gold_ingot",
+    "minecraft:sugar"
+  ],
+  "aspects": {
+    "AER": 5,
+    "IGNIS": 5,
+    "AQUA": 5,
+    "TERRA": 5,
+    "PERDITIO": 3,
+    "ORDO": 3
+  },
+  "pattern": [
+    "LGL",
+    "L L",
+    "TGT"
+  ],
+  "key": {
+    "L": "minecraft:gold_ingot",
+    "G": "thaumcraft:thaumometer",
+    "T": "minecraft:sugar"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_gogglesrevealing",
+    "count": 1
+  }
+}

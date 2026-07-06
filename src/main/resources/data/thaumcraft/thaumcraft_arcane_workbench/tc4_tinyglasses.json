@@ -1,0 +1,25 @@
+{
+  "tc4_key": "TinyGlasses",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TINYGLASSES",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:glass",
+  "ingredients": [
+    "minecraft:iron_ingot"
+  ],
+  "aspects": {
+    "AER": 4,
+    "AQUA": 4
+  },
+  "pattern": [
+    "GIG"
+  ],
+  "key": {
+    "G": "minecraft:iron_ingot",
+    "I": "minecraft:glass"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golemdecoarmor",
+    "count": 1
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "stage": 127,
+  "name": "TC4 Crucible Renderer / Liquid / FX Parity",
+  "base": "Stage126 TC4 Crucible Thrown Items + Flux World Parity",
+  "version": "1.27.0",
+  "original_tc4_sources_referenced": [
+    "docs/source_refs/tc4_1710_original_source/thaumcraft/common/tiles/TileCrucible.java",
+    "docs/source_refs/tc4_1710_original_source/thaumcraft/client/renderers/tile/TileCrucibleRenderer.java"
+  ],
+  "implemented": [
+    "client BlockEntityRenderer for crucible liquid surface",
+    "renderer registration in ClientModEvents",
+    "client update packet/tag sync for CrucibleBlockEntity NBT",
+    "TC4-like fluid height formula from water amount and aspect total",
+    "aspect-weighted liquid tint and boiling alpha/pulse",
+    "froth overlay using original textures/misc/r_crucible.png",
+    "TC4-style heat threshold 151 and max heat 200",
+    "boiling aspect degradation: compound aspects split, primal breakdown adds flux/spill pressure"
+  ],
+  "changed_files": [
+    "build.gradle",
+    "GITHUB_UPLOAD.md",
+    "README.md",
+    "scripts/github_ci_guard.py",
+    "scripts/tc4_texture_audit.py",
+    "scripts/tc4_full_parity_audit.py",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/CrucibleBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/CrucibleRenderer.java",
+    "docs/porting/STAGE127_TC4_CRUCIBLE_RENDERER_LIQUID_FX_PARITY.md",
+    "STAGE127_TEXTURE_AUDIT.json",
+    "STAGE127_FULL_PARITY_AUDIT.json"
+  ],
+  "checks": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_texture_audit": "OK",
+    "tc4_full_parity_audit": "OK",
+    "gradle_tasks": "Not run to completion: sandbox DNS cannot resolve services.gradle.org for wrapper download"
+  },
+  "not_final": [
+    "custom TC4 particle classes are approximated with 1.19.2 particles",
+    "bellows heat acceleration is not fully ported yet",
+    "wand spillRemnants interaction is still not fully connected",
+    "dedicated original crucible TESR/model pipeline is not fully ported yet"
+  ]
+}

@@ -1,0 +1,350 @@
+[
+  {
+    "id": "tc4_block_greatwood_sapling",
+    "texture": "greatwoodsapling",
+    "source": "ConfigBlocks.blockCustomPlant meta 0",
+    "legacy_texture": "greatwoodsapling"
+  },
+  {
+    "id": "tc4_block_silverwood_sapling",
+    "texture": "silverwoodsapling",
+    "source": "ConfigBlocks.blockCustomPlant meta 1",
+    "legacy_texture": "silverwoodsapling"
+  },
+  {
+    "id": "tc4_block_shimmerleaf",
+    "texture": "shimmerleaf",
+    "source": "ConfigBlocks.blockCustomPlant meta 2",
+    "legacy_texture": "shimmerleaf"
+  },
+  {
+    "id": "tc4_block_cinderpearl",
+    "texture": "cinderpearl",
+    "source": "ConfigBlocks.blockCustomPlant meta 3",
+    "legacy_texture": "cinderpearl"
+  },
+  {
+    "id": "tc4_block_ethereal_bloom",
+    "texture": "purifier_seed",
+    "source": "ConfigBlocks.blockCustomPlant meta 4",
+    "legacy_texture": "purifier_seed"
+  },
+  {
+    "id": "tc4_block_vishroom",
+    "texture": "manashroom",
+    "source": "ConfigBlocks.blockCustomPlant meta 5",
+    "legacy_texture": "manashroom"
+  },
+  {
+    "id": "tc4_block_obsidian_tile",
+    "texture": "obsidiantile",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 0",
+    "legacy_texture": "obsidiantile"
+  },
+  {
+    "id": "tc4_block_obsidian_totem_base",
+    "texture": "obsidiantotembase",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 1",
+    "legacy_texture": "obsidiantotembase"
+  },
+  {
+    "id": "tc4_block_obsidian_totem_1",
+    "texture": "obsidiantotem1",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 2",
+    "legacy_texture": "obsidiantotem1"
+  },
+  {
+    "id": "tc4_block_obsidian_totem_2",
+    "texture": "obsidiantotem2",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 3",
+    "legacy_texture": "obsidiantotem2"
+  },
+  {
+    "id": "tc4_block_obsidian_totem_3",
+    "texture": "obsidiantotem3",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 4",
+    "legacy_texture": "obsidiantotem3"
+  },
+  {
+    "id": "tc4_block_obsidian_totem_4",
+    "texture": "obsidiantotem4",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 5",
+    "legacy_texture": "obsidiantotem4"
+  },
+  {
+    "id": "tc4_block_obsidian_totem_shaded",
+    "texture": "obsidiantotembaseshaded",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 6",
+    "legacy_texture": "obsidiantotembaseshaded"
+  },
+  {
+    "id": "tc4_block_paving_travel",
+    "texture": "paving_stone_travel",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 7",
+    "legacy_texture": "paving_stone_travel"
+  },
+  {
+    "id": "tc4_block_paving_warding",
+    "texture": "paving_stone_warding",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 8",
+    "legacy_texture": "paving_stone_warding"
+  },
+  {
+    "id": "tc4_block_thaumium",
+    "texture": "thaumiumblock",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 9",
+    "legacy_texture": "thaumiumblock"
+  },
+  {
+    "id": "tc4_block_tallow",
+    "texture": "tallowblock",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 10",
+    "legacy_texture": "tallowblock"
+  },
+  {
+    "id": "tc4_block_arcane_stone",
+    "texture": "arcane_stone",
+    "source": "ConfigBlocks.blockCosmeticSolid meta 6/13 alias",
+    "legacy_texture": "arcane_stone"
+  },
+  {
+    "id": "tc4_block_arcane_stone_slab",
+    "texture": "arcane_stone",
+    "source": "ConfigBlocks.blockSlabStone meta 0",
+    "legacy_texture": "arcane_stone"
+  },
+  {
+    "id": "tc4_block_bellows",
+    "texture": "woodplain",
+    "source": "ConfigBlocks.blockWoodenDevice meta 0",
+    "legacy_texture": "woodplain"
+  },
+  {
+    "id": "tc4_block_arcane_ear",
+    "texture": "arcaneearsideoff",
+    "source": "ConfigBlocks.blockWoodenDevice meta 1",
+    "legacy_texture": "arcaneearsideoff"
+  },
+  {
+    "id": "tc4_block_arcane_pressure_plate",
+    "texture": "applate1",
+    "source": "ConfigBlocks.blockWoodenDevice meta 2",
+    "legacy_texture": "applate1"
+  },
+  {
+    "id": "tc4_block_arcane_bore_base",
+    "texture": "woodplain",
+    "source": "ConfigBlocks.blockWoodenDevice meta 4",
+    "legacy_texture": "woodplain"
+  },
+  {
+    "id": "tc4_block_arcane_bore",
+    "texture": "woodplain",
+    "source": "ConfigBlocks.blockWoodenDevice meta 5",
+    "legacy_texture": "woodplain"
+  },
+  {
+    "id": "tc4_block_greatwood_planks",
+    "texture": "planks_greatwood",
+    "source": "ConfigBlocks.blockWoodenDevice meta 6",
+    "legacy_texture": "planks_greatwood"
+  },
+  {
+    "id": "tc4_block_silverwood_planks",
+    "texture": "planks_silverwood",
+    "source": "ConfigBlocks.blockWoodenDevice meta 7",
+    "legacy_texture": "planks_silverwood"
+  },
+  {
+    "id": "tc4_block_banner",
+    "texture": "banner_blank",
+    "source": "ConfigBlocks.blockWoodenDevice meta 8",
+    "legacy_texture": "banner_blank"
+  },
+  {
+    "id": "tc4_block_metal_base",
+    "texture": "metalbase",
+    "source": "ConfigBlocks.blockMetalDevice meta 0",
+    "legacy_texture": "metalbase"
+  },
+  {
+    "id": "tc4_block_alembic",
+    "texture": "alembic",
+    "source": "ConfigBlocks.blockMetalDevice meta 1",
+    "legacy_texture": "alembic"
+  },
+  {
+    "id": "tc4_block_advanced_alchemical_furnace",
+    "texture": "alchemyblockadv",
+    "source": "ConfigBlocks.blockMetalDevice meta 3",
+    "legacy_texture": "alchemyblockadv"
+  },
+  {
+    "id": "tc4_block_arcane_lamp",
+    "texture": "lamp_side",
+    "source": "ConfigBlocks.blockMetalDevice meta 7",
+    "legacy_texture": "lamp_side"
+  },
+  {
+    "id": "tc4_block_lamp_growth",
+    "texture": "lamp_grow_side",
+    "source": "ConfigBlocks.blockMetalDevice meta 8",
+    "legacy_texture": "lamp_grow_side"
+  },
+  {
+    "id": "tc4_block_alchemical_construct",
+    "texture": "alchemyblock",
+    "source": "ConfigBlocks.blockMetalDevice meta 9",
+    "legacy_texture": "alchemyblock"
+  },
+  {
+    "id": "tc4_block_mnemonic_matrix",
+    "texture": "brainbox",
+    "source": "ConfigBlocks.blockMetalDevice meta 12",
+    "legacy_texture": "brainbox"
+  },
+  {
+    "id": "tc4_block_lamp_fertility",
+    "texture": "lamp_fert_side",
+    "source": "ConfigBlocks.blockMetalDevice meta 13",
+    "legacy_texture": "lamp_fert_side"
+  },
+  {
+    "id": "tc4_block_arcane_pedestal",
+    "texture": "pedestal_top",
+    "source": "ConfigBlocks.blockStoneDevice meta 1",
+    "legacy_texture": "pedestal_top"
+  },
+  {
+    "id": "tc4_block_infusion_matrix",
+    "texture": "pedestal_top",
+    "source": "ConfigBlocks.blockStoneDevice meta 2",
+    "legacy_texture": "pedestal_top"
+  },
+  {
+    "id": "tc4_block_wand_pedestal",
+    "texture": "wandpedestal_top",
+    "source": "ConfigBlocks.blockStoneDevice meta 5",
+    "legacy_texture": "wandpedestal_top"
+  },
+  {
+    "id": "tc4_block_wand_pedestal_focus",
+    "texture": "wandpedestal_focus_top",
+    "source": "ConfigBlocks.blockStoneDevice meta 8",
+    "legacy_texture": "wandpedestal_focus_top"
+  },
+  {
+    "id": "tc4_block_node_stabilizer",
+    "texture": "redstone_ring",
+    "source": "ConfigBlocks.blockStoneDevice meta 9",
+    "legacy_texture": "redstone_ring"
+  },
+  {
+    "id": "tc4_block_node_stabilizer_advanced",
+    "texture": "redstone_ring",
+    "source": "ConfigBlocks.blockStoneDevice meta 10",
+    "legacy_texture": "redstone_ring"
+  },
+  {
+    "id": "tc4_block_node_transducer",
+    "texture": "redstone_ring",
+    "source": "ConfigBlocks.blockStoneDevice meta 11",
+    "legacy_texture": "redstone_ring"
+  },
+  {
+    "id": "tc4_block_arcane_spa",
+    "texture": "spa_top",
+    "source": "ConfigBlocks.blockStoneDevice meta 12",
+    "legacy_texture": "spa_top"
+  },
+  {
+    "id": "tc4_block_focal_manipulator",
+    "texture": "arcane_stone",
+    "source": "ConfigBlocks.blockStoneDevice meta 13",
+    "legacy_texture": "arcane_stone"
+  },
+  {
+    "id": "tc4_block_flux_scrubber",
+    "texture": "redstone_ring",
+    "source": "ConfigBlocks.blockStoneDevice meta 14",
+    "legacy_texture": "redstone_ring"
+  },
+  {
+    "id": "tc4_block_levitator",
+    "texture": "liftertop",
+    "source": "ConfigBlocks.blockLifter",
+    "legacy_texture": "liftertop"
+  },
+  {
+    "id": "tc4_block_essentia_reservoir",
+    "texture": "jar_top",
+    "source": "ConfigBlocks.blockEssentiaReservoir",
+    "legacy_texture": "jar_top"
+  },
+  {
+    "id": "tc4_block_greatwood_log",
+    "texture": "greatwoodside",
+    "source": "ConfigBlocks.blockMagicalLog meta 0",
+    "legacy_texture": "greatwoodside"
+  },
+  {
+    "id": "tc4_block_silverwood_log",
+    "texture": "silverwoodside",
+    "source": "ConfigBlocks.blockMagicalLog meta 1",
+    "legacy_texture": "silverwoodside"
+  },
+  {
+    "id": "tc4_block_greatwood_leaves",
+    "texture": "greatwoodleaves",
+    "source": "ConfigBlocks.blockMagicalLeaves meta 0",
+    "legacy_texture": "greatwoodleaves"
+  },
+  {
+    "id": "tc4_block_silverwood_leaves",
+    "texture": "silverwoodleaves",
+    "source": "ConfigBlocks.blockMagicalLeaves meta 1",
+    "legacy_texture": "silverwoodleaves"
+  },
+  {
+    "id": "tc4_block_essentia_tube",
+    "texture": "metalbase",
+    "source": "ConfigBlocks.blockTube meta 0/1/4",
+    "legacy_texture": "metalbase"
+  },
+  {
+    "id": "tc4_block_essentia_jar",
+    "texture": "jar",
+    "source": "ConfigBlocks.blockJar meta 0",
+    "legacy_texture": "jar"
+  },
+  {
+    "id": "tc4_block_crystal_cluster",
+    "texture": "shard",
+    "source": "ConfigBlocks.blockCrystal meta 6",
+    "legacy_texture": "shard"
+  },
+  {
+    "id": "tc4_voidrobeboots",
+    "texture": "voidrobeboots",
+    "source": "ConfigItems.itemBootsVoidRobe",
+    "legacy_texture": "voidrobeboots"
+  },
+  {
+    "id": "tc4_mask_grinning_devil",
+    "texture": "thaumiumfortressmaskgrinning",
+    "source": "ConfigItems.itemHelmetFortress mask 0",
+    "legacy_texture": "thaumiumfortressmaskgrinning"
+  },
+  {
+    "id": "tc4_mask_angry_ghost",
+    "texture": "thaumiumfortressmaskangry",
+    "source": "ConfigItems.itemHelmetFortress mask 1",
+    "legacy_texture": "thaumiumfortressmaskangry"
+  },
+  {
+    "id": "tc4_mask_sipping_fiend",
+    "texture": "thaumiumfortressmasksipping",
+    "source": "ConfigItems.itemHelmetFortress mask 2",
+    "legacy_texture": "thaumiumfortressmasksipping"
+  }
+]

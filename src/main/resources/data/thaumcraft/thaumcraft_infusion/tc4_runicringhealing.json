@@ -1,0 +1,26 @@
+{
+  "tc4_key": "RunicRingHealing",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "RUNICHEALING",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_runic_ring",
+  "components": [
+    "thaumcraft:tc4_shard_balanced",
+    "thaumcraft:tc4_shard_aqua",
+    "thaumcraft:tc4_shard_aqua",
+    "minecraft:emerald",
+    "thaumcraft:tc4_shard_aqua",
+    "thaumcraft:tc4_shard_aqua"
+  ],
+  "aspects": {
+    "TUTAMEN": 16,
+    "PRAECANTATIO": 16,
+    "AQUA": 32,
+    "SANO": 32
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_runic_ring",
+    "count": 1
+  }
+}

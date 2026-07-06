@@ -1,0 +1,17 @@
+{
+  "tc4_key": "SaneSoap",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "SANESOAP",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_block_obsidian_totem_4",
+  "result": {
+    "item": "thaumcraft:tc4_soap",
+    "count": 1
+  },
+  "aspects": {
+    "COGNITIO": 16,
+    "ALIENIS": 16,
+    "ORDO": 16,
+    "SANO": 16
+  }
+}

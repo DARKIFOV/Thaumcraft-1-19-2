@@ -1,0 +1,15 @@
+{
+  "tc4_key": "AltIce",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALCHEMICALMANUFACTURE",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:snow",
+  "result": {
+    "item": "minecraft:ice",
+    "count": 1
+  },
+  "aspects": {
+    "ORDO": 1,
+    "GELUM": 1
+  }
+}

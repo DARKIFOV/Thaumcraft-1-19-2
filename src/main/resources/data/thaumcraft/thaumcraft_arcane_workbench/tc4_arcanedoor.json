@@ -1,0 +1,31 @@
+{
+  "tc4_key": "ArcaneDoor",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "WARDEDARCANA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_thaumiumingot",
+  "ingredients": [
+    "thaumcraft:tc4_brain",
+    "thaumcraft:tc4_block_greatwood_planks"
+  ],
+  "aspects": {
+    "AQUA": 20,
+    "ORDO": 10,
+    "TERRA": 10,
+    "IGNIS": 5
+  },
+  "pattern": [
+    "TDT",
+    "DBD",
+    "TDT"
+  ],
+  "key": {
+    "T": "thaumcraft:tc4_brain",
+    "D": "thaumcraft:tc4_block_greatwood_planks",
+    "B": "thaumcraft:tc4_thaumiumingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_arcanedoor",
+    "count": 1
+  }
+}

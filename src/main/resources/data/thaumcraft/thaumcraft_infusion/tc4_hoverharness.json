@@ -1,0 +1,29 @@
+{
+  "tc4_key": "HoverHarness",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "HOVERHARNESS",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:bow",
+  "components": [
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_block_greatwood_planks",
+    "thaumcraft:tc4_block_greatwood_planks",
+    "minecraft:quartz",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot"
+  ],
+  "aspects": {
+    "VOLATUS": 32,
+    "POTENTIA": 32,
+    "MACHINA": 32,
+    "ITER": 16
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_hoverharness",
+    "count": 1
+  }
+}

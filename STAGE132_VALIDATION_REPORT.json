@@ -1,0 +1,45 @@
+{
+  "stage": 132,
+  "name": "TC4 Node Stabilizer / Transducer / Node Jar Parity",
+  "base_stage": 131,
+  "version": "1.32.0",
+  "added_runtime_classes": [
+    "AdvancedNodeStabilizerBlock.java",
+    "NodeTransducerBlock.java",
+    "NodeJarItem.java",
+    "TC4NodeJarRuntime.java"
+  ],
+  "modified_runtime_classes": [
+    "AuraNodeBlockEntity.java",
+    "AuraNodeRenderer.java",
+    "NodeStabilizerBlock.java",
+    "ThaumcraftMod.java",
+    "ThaumometerItem.java",
+    "TC4FullParityIndex.java"
+  ],
+  "added_registry_ids": [
+    "thaumcraft:node_jar",
+    "thaumcraft:advanced_node_stabilizer",
+    "thaumcraft:node_transducer"
+  ],
+  "parity_features": [
+    "normal and advanced stabilizer strengths affect dangerous node stability and regeneration",
+    "powered node transducer energizes stabilized aura nodes",
+    "energized nodes receive visual boost and controlled primal vis regeneration",
+    "Node in a Jar stores node type, modifier, aspects, base aspects, stability and scanned state in NBT",
+    "jarring applies TC4-like preservation loss unless an advanced stabilizer is present",
+    "Thaumometer displays energized/stability state in node scan text"
+  ],
+  "known_remaining": [
+    "exact TC4 OBJ renderer for stabilizer/transducer is still approximated by cube models",
+    "full energized node relay network and vis relay rendering still needs deeper TC4 parity",
+    "exact TC4 node jarring multiblock glass ritual is represented as item interaction for now"
+  ],
+  "checks": {
+    "java_syntax_guard": "OK",
+    "github_ci_guard": "OK",
+    "github_static_audit": "OK",
+    "tc4_texture_audit": "OK",
+    "tc4_full_parity_audit": "OK"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "tc4_key": "ElementalHoe",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ELEMENTALHOE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_thaumiumhoe",
+  "components": [
+    "thaumcraft:tc4_shard_ordo",
+    "thaumcraft:tc4_shard_perditio",
+    "minecraft:diamond",
+    "thaumcraft:tc4_block_greatwood_log"
+  ],
+  "aspects": {
+    "METO": 8,
+    "HERBA": 8,
+    "TERRA": 8
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_elementalhoe",
+    "count": 1
+  }
+}

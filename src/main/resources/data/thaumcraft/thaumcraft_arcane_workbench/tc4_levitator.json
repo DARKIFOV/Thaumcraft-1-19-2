@@ -1,0 +1,33 @@
+{
+  "tc4_key": "Levitator",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "LEVITATOR",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_greatwood_planks",
+  "ingredients": [
+    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_nitor",
+    "minecraft:iron_ingot"
+  ],
+  "aspects": {
+    "AER": 10,
+    "TERRA": 5
+  },
+  "pattern": [
+    "WEW",
+    "BNB",
+    "WAW"
+  ],
+  "key": {
+    "W": "thaumcraft:tc4_shard_terra",
+    "E": "thaumcraft:tc4_shard_aer",
+    "B": "thaumcraft:tc4_nitor",
+    "N": "thaumcraft:tc4_block_greatwood_planks",
+    "A": "minecraft:iron_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_levitator",
+    "count": 1
+  }
+}

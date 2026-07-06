@@ -1,7 +1,0 @@
-{
-  "java_syntax_guard": "OK",
-  "github_ci_guard": "OK",
-  "github_static_audit": "OK",
-  "zip_integrity": "OK",
-  "gradle_build": "not_run_in_sandbox_no_services_gradle_org_network"
-}

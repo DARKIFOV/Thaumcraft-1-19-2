@@ -1,0 +1,26 @@
+{
+  "tc4_key": "TinyBowtie",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TINYBOWTIE",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:white_wool",
+  "ingredients": [
+    "minecraft:string"
+  ],
+  "aspects": {
+    "AER": 4,
+    "ORDO": 4
+  },
+  "pattern": [
+    "CSC",
+    "C C"
+  ],
+  "key": {
+    "C": "minecraft:string",
+    "S": "minecraft:white_wool"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_golemdecoarmor",
+    "count": 1
+  }
+}

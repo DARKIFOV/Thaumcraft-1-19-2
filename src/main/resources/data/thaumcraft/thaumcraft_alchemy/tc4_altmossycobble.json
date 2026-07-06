@@ -1,0 +1,15 @@
+{
+  "tc4_key": "AltMossyCobble",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "ALCHEMICALMANUFACTURE",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:cobblestone",
+  "result": {
+    "item": "minecraft:mossy_cobblestone",
+    "count": 1
+  },
+  "aspects": {
+    "HERBA": 2,
+    "PRAECANTATIO": 1
+  }
+}

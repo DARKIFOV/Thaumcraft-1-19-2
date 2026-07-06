@@ -1,0 +1,14 @@
+{
+  "tc4_key": "Thaumium",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "THAUMIUM",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:iron_ingot",
+  "result": {
+    "item": "thaumcraft:tc4_thaumiumingot",
+    "count": 1
+  },
+  "aspects": {
+    "PRAECANTATIO": 4
+  }
+}

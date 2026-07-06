@@ -1,0 +1,29 @@
+{
+  "tc4_key": "Resonator",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "TUBES",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:iron_ingot",
+  "ingredients": [
+    "minecraft:nether_wart",
+    "minecraft:stick"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "AER": 5
+  },
+  "pattern": [
+    "I I",
+    "INI",
+    "S"
+  ],
+  "key": {
+    "I": "minecraft:nether_wart",
+    "N": "minecraft:iron_ingot",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_resonator",
+    "count": 1
+  }
+}

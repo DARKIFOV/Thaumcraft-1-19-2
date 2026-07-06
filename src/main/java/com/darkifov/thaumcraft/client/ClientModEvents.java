@@ -9,6 +9,7 @@ import com.darkifov.thaumcraft.client.screen.OsmoticEnchanterScreen;
 import com.darkifov.thaumcraft.client.screen.PechTradeScreen;
 import com.darkifov.thaumcraft.client.screen.TransvectorInterfaceScreen;
 import com.darkifov.thaumcraft.client.render.ArcanePedestalRenderer;
+import com.darkifov.thaumcraft.client.render.CrucibleRenderer;
 import com.darkifov.thaumcraft.client.render.AlembicRenderer;
 import com.darkifov.thaumcraft.client.render.AuraNodeRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaJarRenderer;
@@ -35,6 +36,7 @@ public final class ClientModEvents {
             BlockEntityRenderers.register(ThaumcraftMod.ALEMBIC_BLOCK_ENTITY.get(), AlembicRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), AuraNodeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), EssentiaJarRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.CRUCIBLE_BLOCK_ENTITY.get(), CrucibleRenderer::new);
             EntityRenderers.register(ThaumcraftMod.THAUM_GOLEM.get(), ThaumGolemRenderer::new);
             EntityRenderers.register(ThaumcraftMod.TAINT_CRAWLER.get(), TaintCrawlerRenderer::new);
             EntityRenderers.register(ThaumcraftMod.PECH.get(), PechRenderer::new);

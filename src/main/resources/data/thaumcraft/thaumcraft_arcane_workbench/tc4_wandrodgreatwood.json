@@ -1,0 +1,20 @@
+{
+  "tc4_key": "WandRodGreatwood",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ROD_greatwood",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_greatwood_log",
+  "ingredients": [],
+  "aspects": {},
+  "pattern": [
+    "G",
+    "G"
+  ],
+  "key": {
+    "G": "thaumcraft:tc4_block_greatwood_log"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_greatwood",
+    "count": 1
+  }
+}

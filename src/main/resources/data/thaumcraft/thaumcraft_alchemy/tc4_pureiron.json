@@ -1,0 +1,15 @@
+{
+  "tc4_key": "PureIron",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "PUREIRON",
+  "kind": "CRUCIBLE",
+  "catalyst": "minecraft:raw_iron",
+  "result": {
+    "item": "thaumcraft:tc4_clusteriron",
+    "count": 1
+  },
+  "aspects": {
+    "METALLUM": 1,
+    "ORDO": 1
+  }
+}

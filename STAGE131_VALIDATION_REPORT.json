@@ -1,0 +1,23 @@
+{
+  "stage": 131,
+  "name": "TC4 Aura Node Generation / Type / Modifier Parity",
+  "base_stage": 130,
+  "implemented": [
+    "AuraNodeModifier enum",
+    "AuraNodeProfile",
+    "AuraNodeWorldRuntime deterministic profile generation and natural seeding",
+    "AuraNodeBlockEntity type/modifier persistence and effects",
+    "Hungry node item/entity attraction and aspect absorption",
+    "Pure/Tainted/Dark/Unstable behavior pass",
+    "AuraNodeRenderer type texture and modifier scaling",
+    "AuraNodeScan modifier/stability/base vis display"
+  ],
+  "checks_planned": [
+    "java_syntax_guard",
+    "github_ci_guard",
+    "github_static_audit",
+    "tc4_texture_audit",
+    "tc4_full_parity_audit",
+    "zip_integrity"
+  ]
+}

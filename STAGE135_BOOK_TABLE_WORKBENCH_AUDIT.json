@@ -1,0 +1,18 @@
+{
+  "stage": 135,
+  "goal": "finish current TC4 core UX: Arcane Workbench, Research Table, Thaumonomicon",
+  "arcane_recipe_json_files": 98,
+  "tc4_research_entries_json_present": true,
+  "checks": {
+    "tc4_arcane_slot_layout": true,
+    "grid_catalyst_compatibility": true,
+    "arcane_recipe_ghosts_visible": true,
+    "arcane_research_lock_visible": true,
+    "research_table_opens_note_puzzle": true,
+    "research_note_no_pool_loss_on_invalid_slot": true,
+    "thaumonomicon_category_progress_header": true,
+    "thaumonomicon_recipe_icons": true,
+    "original_gui_textures_present": true
+  },
+  "passed": true
+}

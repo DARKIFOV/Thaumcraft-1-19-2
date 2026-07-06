@@ -1,0 +1,23 @@
+{
+  "tc4_key": "WandPed",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "WANDPED",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_block_arcane_pedestal",
+  "components": [
+    "minecraft:gold_ingot",
+    "minecraft:diamond",
+    "thaumcraft:tc4_charm",
+    "minecraft:diamond"
+  ],
+  "aspects": {
+    "AURAM": 10,
+    "PRAECANTATIO": 15,
+    "PERMUTATIO": 15
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_block_wand_pedestal",
+    "count": 1
+  }
+}

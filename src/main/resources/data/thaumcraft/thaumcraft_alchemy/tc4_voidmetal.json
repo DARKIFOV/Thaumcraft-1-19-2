@@ -1,0 +1,14 @@
+{
+  "tc4_key": "VoidMetal",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "VOIDMETAL",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_voidseed",
+  "result": {
+    "item": "thaumcraft:tc4_voidingot",
+    "count": 1
+  },
+  "aspects": {
+    "METALLUM": 8
+  }
+}

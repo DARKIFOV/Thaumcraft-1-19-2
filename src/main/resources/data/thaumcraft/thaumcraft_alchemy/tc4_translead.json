@@ -1,0 +1,15 @@
+{
+  "tc4_key": "TransLead",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "TRANSLEAD",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:tc4_nuggetlead",
+  "result": {
+    "item": "thaumcraft:tc4_nuggetlead",
+    "count": 3
+  },
+  "aspects": {
+    "METALLUM": 2,
+    "ORDO": 1
+  }
+}

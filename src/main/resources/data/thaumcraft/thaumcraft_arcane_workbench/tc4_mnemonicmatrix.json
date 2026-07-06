@@ -1,0 +1,30 @@
+{
+  "tc4_key": "MnemonicMatrix",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "THAUMATORIUM",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_brain",
+  "ingredients": [
+    "thaumcraft:tc4_amber",
+    "minecraft:iron_ingot"
+  ],
+  "aspects": {
+    "IGNIS": 5,
+    "AQUA": 5,
+    "ORDO": 5
+  },
+  "pattern": [
+    "IAI",
+    "ABA",
+    "IAI"
+  ],
+  "key": {
+    "I": "thaumcraft:tc4_amber",
+    "A": "minecraft:iron_ingot",
+    "B": "thaumcraft:tc4_brain"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_mnemonic_matrix",
+    "count": 1
+  }
+}
