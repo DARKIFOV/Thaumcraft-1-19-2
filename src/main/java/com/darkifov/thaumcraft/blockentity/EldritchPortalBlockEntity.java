@@ -3,6 +3,9 @@ package com.darkifov.thaumcraft.blockentity;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
+import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
+import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -19,8 +22,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -88,11 +89,16 @@ public class EldritchPortalBlockEntity extends BlockEntity {
             return false;
         }
 
-        int warp = PlayerThaumData.getWarp(player);
+        int actualWarp = PlayerThaumData.getActualWarp(player);
         int attunement = PlayerThaumData.getEldritchAttunement(player);
 
-        if (warp < ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_WARP.get() || attunement < ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_ATTUNEMENT.get()) {
-            player.displayClientMessage(Component.literal("The portal rejects you. Need " + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_WARP.get() + "+ Warp and " + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_ATTUNEMENT.get() + "+ Eldritch Attunement.").withStyle(ChatFormatting.RED), false);
+        if (!TC4EldritchProgression.canStartGuardianTrial(player)) {
+            player.displayClientMessage(Component.literal("The portal rejects you. TC4 Eldritch major/start research is missing.").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+
+        if (actualWarp < ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_WARP.get() || attunement < ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_ATTUNEMENT.get()) {
+            player.displayClientMessage(Component.literal("The portal rejects you. Need " + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_WARP.get() + "+ actual Warp and " + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_ATTUNEMENT.get() + "+ Eldritch Attunement.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
@@ -104,11 +110,14 @@ public class EldritchPortalBlockEntity extends BlockEntity {
         ownerId = player.getUUID();
         ownerName = player.getName().getString();
 
-        PlayerThaumData.addWarp(player, awakenedKey ? 1 : 2);
+        PlayerThaumData.addWarpSticky(player, awakenedKey ? 1 : 2);
+        PlayerThaumData.addWarpTemporary(player, awakenedKey ? 1 : 2);
         PlayerThaumData.addEldritchAttunement(player, awakenedKey ? 10 : 5);
         PlayerThaumData.unlockResearch(player, "ELDRITCH_ARENA");
+        PlayerThaumData.unlockResearch(player, "ENTEROUTER");
 
         if (player instanceof ServerPlayer serverPlayer) {
+            TC4EldritchProgression.syncFromWarp(serverPlayer);
             ThaumcraftNetwork.syncResearch(serverPlayer);
         }
 
@@ -117,7 +126,7 @@ public class EldritchPortalBlockEntity extends BlockEntity {
             serverLevel.playSound(null, worldPosition, SoundEvents.WITHER_AMBIENT, SoundSource.HOSTILE, 0.9F, 0.6F);
         }
 
-        player.displayClientMessage(Component.literal("The Eldritch arena awakens. Survive the guardian waves.").withStyle(ChatFormatting.DARK_PURPLE), false);
+        player.displayClientMessage(Component.literal("The Eldritch arena awakens. Survive the Crimson cultists and guardian waves.").withStyle(ChatFormatting.DARK_PURPLE), false);
         setChangedAndSync();
         return true;
     }
@@ -184,16 +193,48 @@ public class EldritchPortalBlockEntity extends BlockEntity {
             owner.displayClientMessage(Component.literal("Eldritch wave " + wave + " begins.").withStyle(ChatFormatting.DARK_PURPLE), false);
         }
 
-        for (int i = 0; i < wave + 1; i++) {
-            EnderMan guardian = EntityType.ENDERMAN.create(serverLevel);
+        if (wave == 1) {
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_CULTIST.get(), owner, 2);
+        } else if (wave == 2) {
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_CULTIST.get(), owner, 2);
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_KNIGHT.get(), owner, 1);
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_CLERIC.get(), owner, 1);
+        } else {
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_KNIGHT.get(), owner, 2);
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_CLERIC.get(), owner, 1);
+            spawnCultist(serverLevel, ThaumcraftMod.CRIMSON_PRAETOR.get(), owner, 1);
+            spawnGuardian(serverLevel, owner, wave >= 4 ? 2 : 1);
+        }
+
+        serverLevel.playSound(null, worldPosition, SoundEvents.AMBIENT_CAVE, SoundSource.HOSTILE, 0.8F, 0.65F);
+    }
+
+    private void spawnCultist(ServerLevel serverLevel, EntityType<CrimsonCultistEntity> type, Player owner, int count) {
+        for (int i = 0; i < count; i++) {
+            CrimsonCultistEntity cultist = type.create(serverLevel);
+
+            if (cultist != null) {
+                BlockPos spawn = worldPosition.offset(level.random.nextInt(9) - 4, 1, level.random.nextInt(9) - 4);
+                cultist.moveTo(spawn.getX() + 0.5D, spawn.getY(), spawn.getZ() + 0.5D, level.random.nextFloat() * 360.0F, 0.0F);
+                cultist.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
+
+                if (owner != null) {
+                    cultist.setTarget(owner);
+                }
+
+                serverLevel.addFreshEntity(cultist);
+            }
+        }
+    }
+
+    private void spawnGuardian(ServerLevel serverLevel, Player owner, int count) {
+        for (int i = 0; i < count; i++) {
+            EldritchGuardianEntity guardian = ThaumcraftMod.ELDRITCH_GUARDIAN.get().create(serverLevel);
 
             if (guardian != null) {
                 BlockPos spawn = worldPosition.offset(level.random.nextInt(9) - 4, 1, level.random.nextInt(9) - 4);
                 guardian.moveTo(spawn.getX() + 0.5D, spawn.getY(), spawn.getZ() + 0.5D, level.random.nextFloat() * 360.0F, 0.0F);
-                guardian.setCustomName(Component.literal(wave >= 3 ? "Eldritch Guardian" : "Eldritch Sentinel").withStyle(ChatFormatting.DARK_PURPLE));
-                guardian.setCustomNameVisible(true);
                 guardian.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 20 * 60, Math.min(2, wave)));
-                guardian.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20 * 60, 0));
 
                 if (owner != null) {
                     guardian.setTarget(owner);
@@ -202,24 +243,6 @@ public class EldritchPortalBlockEntity extends BlockEntity {
                 serverLevel.addFreshEntity(guardian);
             }
         }
-
-        if (wave >= 2) {
-            Vex vex = EntityType.VEX.create(serverLevel);
-
-            if (vex != null) {
-                vex.moveTo(worldPosition.getX() + 0.5D, worldPosition.getY() + 2.2D, worldPosition.getZ() + 0.5D, 0.0F, 0.0F);
-                vex.setCustomName(Component.literal("Eldritch Wisp").withStyle(ChatFormatting.LIGHT_PURPLE));
-                vex.setCustomNameVisible(true);
-
-                if (owner != null) {
-                    vex.setTarget(owner);
-                }
-
-                serverLevel.addFreshEntity(vex);
-            }
-        }
-
-        serverLevel.playSound(null, worldPosition, SoundEvents.AMBIENT_CAVE, SoundSource.HOSTILE, 0.8F, 0.65F);
     }
 
     private void completeEncounter() {
@@ -232,9 +255,14 @@ public class EldritchPortalBlockEntity extends BlockEntity {
         if (owner != null) {
             PlayerThaumData.unlockResearch(owner, "ELDRITCH_GUARDIAN");
             PlayerThaumData.unlockResearch(owner, "AWAKENED_CRIMSON_KEY");
+            PlayerThaumData.unlockResearch(owner, "ENTEROUTER");
+            PlayerThaumData.unlockResearch(owner, "OUTERREV");
+            PlayerThaumData.unlockResearch(owner, "PRIMPEARL");
             PlayerThaumData.addEldritchAttunement(owner, 15);
+            PlayerThaumData.addWarpSticky(owner, 1);
 
             if (owner instanceof ServerPlayer serverPlayer) {
+                TC4EldritchProgression.syncFromWarp(serverPlayer);
                 ThaumcraftNetwork.syncResearch(serverPlayer);
             }
 
@@ -266,10 +294,12 @@ public class EldritchPortalBlockEntity extends BlockEntity {
         Player owner = getOwner();
 
         if (owner != null) {
-            PlayerThaumData.addWarp(owner, 3);
+            PlayerThaumData.addWarpTemporary(owner, 3);
+            PlayerThaumData.addWarpSticky(owner, 1);
             owner.displayClientMessage(Component.literal("Eldritch encounter failed: " + reason).withStyle(ChatFormatting.RED), false);
 
             if (owner instanceof ServerPlayer serverPlayer) {
+                TC4EldritchProgression.syncFromWarp(serverPlayer);
                 ThaumcraftNetwork.syncResearch(serverPlayer);
             }
         }

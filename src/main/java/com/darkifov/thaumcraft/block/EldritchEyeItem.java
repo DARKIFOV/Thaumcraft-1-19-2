@@ -1,10 +1,6 @@
 package com.darkifov.thaumcraft.block;
 
-import com.darkifov.thaumcraft.data.PlayerThaumData;
-import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
+import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -22,29 +18,10 @@ public class EldritchEyeItem extends Item {
         ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide) {
-            int warp = PlayerThaumData.getWarp(player);
+            boolean attuned = TC4EldritchProgression.attuneWithEldritchEye(player, true);
 
-            if (warp < 12) {
-                player.displayClientMessage(Component.literal("The eye remains shut. More Warp is required.").withStyle(ChatFormatting.DARK_PURPLE), false);
-                return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
-            }
-
-            PlayerThaumData.addWarp(player, 2);
-            PlayerThaumData.addEldritchAttunement(player, 10);
-            PlayerThaumData.unlockResearch(player, "ELDRITCH_WHISPERS");
-
-            if (PlayerThaumData.getEldritchAttunement(player) >= 30) {
-                PlayerThaumData.unlockResearch(player, "ELDRITCH_START");
-            }
-
-            player.displayClientMessage(Component.literal("The eye opens. Something notices you.").withStyle(ChatFormatting.DARK_PURPLE), false);
-
-            if (!player.getAbilities().instabuild) {
+            if (attuned && !player.getAbilities().instabuild) {
                 stack.shrink(1);
-            }
-
-            if (player instanceof ServerPlayer serverPlayer) {
-                ThaumcraftNetwork.syncResearch(serverPlayer);
             }
         }
 

@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.entity;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,8 +15,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class TaintCrawlerEntity extends Monster {
     public TaintCrawlerEntity(EntityType<? extends Monster> type, Level level) {
@@ -47,17 +46,7 @@ public class TaintCrawlerEntity extends Monster {
 
         if (!level.isClientSide && tickCount % 60 == 0 && random.nextFloat() < 0.45F) {
             BlockPos center = blockPosition().below();
-            BlockPos target = center.offset(random.nextInt(5) - 2, random.nextInt(2) - 1, random.nextInt(5) - 2);
-            BlockState state = level.getBlockState(target);
-
-            if (state.is(Blocks.DIRT)
-                    || state.is(Blocks.GRASS_BLOCK)
-                    || state.is(Blocks.COARSE_DIRT)
-                    || state.is(Blocks.ROOTED_DIRT)
-                    || state.is(Blocks.MUD)
-                    || state.is(Blocks.STONE)) {
-                level.setBlock(target, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
-            }
+            TaintSpreadRuntime.trySpreadNear(level, center, random, 2, true);
         }
     }
 

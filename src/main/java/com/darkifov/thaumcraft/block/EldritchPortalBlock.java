@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EldritchPortalBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -89,10 +90,12 @@ public class EldritchPortalBlock extends BaseEntityBlock {
         ItemStack held = player.getItemInHand(hand);
 
         if (held.isEmpty()) {
-            int warp = PlayerThaumData.getWarp(player);
+            int actualWarp = PlayerThaumData.getActualWarp(player);
+            int totalWarp = PlayerThaumData.getWarpTotal(player);
+            int tempWarp = PlayerThaumData.getWarpTemporary(player);
             int attunement = PlayerThaumData.getEldritchAttunement(player);
             player.displayClientMessage(portal.status(), false);
-            player.displayClientMessage(Component.literal("Warp: " + warp + "/" + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_WARP.get() + " | Eldritch Attunement: " + attunement + "/" + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_ATTUNEMENT.get() + " | Use Crimson Key to start arena.").withStyle(ChatFormatting.DARK_PURPLE), false);
+            player.displayClientMessage(Component.literal("Actual Warp: " + actualWarp + " | Temporary Warp: " + tempWarp + " | Total: " + totalWarp + " | Attunement: " + attunement + "/" + ThaumcraftConfig.ELDRITCH_PORTAL_REQUIRED_ATTUNEMENT.get() + " | Use Crimson Key to start arena.").withStyle(ChatFormatting.DARK_PURPLE), false);
             return InteractionResult.CONSUME;
         }
 
@@ -104,8 +107,8 @@ public class EldritchPortalBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
 
-        if (!PlayerThaumData.hasResearch(player, "ELDRITCH_START")) {
-            player.displayClientMessage(Component.literal("Research locked: ELDRITCH_START").withStyle(ChatFormatting.RED), false);
+        if (!TC4EldritchProgression.canStartGuardianTrial(player)) {
+            player.displayClientMessage(Component.literal("Research locked: TC4 Eldritch major/start progression is required.").withStyle(ChatFormatting.RED), false);
             return InteractionResult.CONSUME;
         }
 

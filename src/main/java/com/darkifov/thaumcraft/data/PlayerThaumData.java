@@ -10,7 +10,11 @@ import java.util.Set;
 
 public final class PlayerThaumData {
     private static final String ROOT = "ThaumcraftLegacy";
+    /** Legacy Stage1-143 permanent warp field. Kept for save compatibility. */
     private static final String WARP = "Warp";
+    private static final String WARP_STICKY = "WarpSticky";
+    private static final String WARP_TEMPORARY = "WarpTemporary";
+    private static final String WARP_COUNTER = "WarpCounter";
     private static final String RESEARCH = "Research";
     private static final String WARP_WARD_TICKS = "WarpWardTicks";
     private static final String WARP_EVENT_COOLDOWN = "WarpEventCooldown";
@@ -35,17 +39,68 @@ public final class PlayerThaumData {
         to.getPersistentData().put(ROOT, fromRoot.copy());
     }
 
+    /**
+     * TC4 total warp: permanent + sticky + temporary.  Old saves stored only
+     * the permanent value in Warp, so that field remains the permanent bucket.
+     */
     public static int getWarp(Player player) {
+        return getWarpTotal(player);
+    }
+
+    public static int getWarpTotal(Player player) {
+        return Math.max(0, getWarpPerm(player) + getWarpSticky(player) + getWarpTemporary(player));
+    }
+
+    /** TC4 actual warp excludes temporary warp. */
+    public static int getActualWarp(Player player) {
+        return Math.max(0, getWarpPerm(player) + getWarpSticky(player));
+    }
+
+    public static int getWarpPerm(Player player) {
         return root(player).getInt(WARP);
     }
 
+    public static int getWarpSticky(Player player) {
+        return root(player).getInt(WARP_STICKY);
+    }
+
+    public static int getWarpTemporary(Player player) {
+        return root(player).getInt(WARP_TEMPORARY);
+    }
+
+    /** Legacy call site: treat generic warp gain as permanent, matching older stages. */
     public static void addWarp(Player player, int amount) {
-        if (amount <= 0) {
+        addWarpPermanent(player, amount);
+    }
+
+    public static void addWarpPermanent(Player player, int amount) {
+        if (amount == 0) {
             return;
         }
 
         CompoundTag root = root(player);
         root.putInt(WARP, Math.max(0, root.getInt(WARP) + amount));
+        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount) * 3));
+    }
+
+    public static void addWarpSticky(Player player, int amount) {
+        if (amount == 0) {
+            return;
+        }
+
+        CompoundTag root = root(player);
+        root.putInt(WARP_STICKY, Math.max(0, root.getInt(WARP_STICKY) + amount));
+        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount) * 2));
+    }
+
+    public static void addWarpTemporary(Player player, int amount) {
+        if (amount == 0) {
+            return;
+        }
+
+        CompoundTag root = root(player);
+        root.putInt(WARP_TEMPORARY, Math.max(0, root.getInt(WARP_TEMPORARY) + amount));
+        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount)));
     }
 
     public static void removeWarp(Player player, int amount) {
@@ -53,8 +108,47 @@ public final class PlayerThaumData {
             return;
         }
 
+        int left = amount;
         CompoundTag root = root(player);
-        root.putInt(WARP, Math.max(0, root.getInt(WARP) - amount));
+        int temp = root.getInt(WARP_TEMPORARY);
+        int removeTemp = Math.min(temp, left);
+        root.putInt(WARP_TEMPORARY, temp - removeTemp);
+        left -= removeTemp;
+
+        int sticky = root.getInt(WARP_STICKY);
+        int removeSticky = Math.min(sticky, left);
+        root.putInt(WARP_STICKY, sticky - removeSticky);
+        left -= removeSticky;
+
+        if (left > 0) {
+            root.putInt(WARP, Math.max(0, root.getInt(WARP) - left));
+        }
+    }
+
+    public static void decayTemporaryWarp(Player player, int amount) {
+        if (amount <= 0) {
+            return;
+        }
+
+        CompoundTag root = root(player);
+        root.putInt(WARP_TEMPORARY, Math.max(0, root.getInt(WARP_TEMPORARY) - amount));
+    }
+
+    public static int getWarpCounter(Player player) {
+        return root(player).getInt(WARP_COUNTER);
+    }
+
+    public static void setWarpCounter(Player player, int counter) {
+        root(player).putInt(WARP_COUNTER, Math.max(0, counter));
+    }
+
+    public static void addWarpCounter(Player player, int amount) {
+        if (amount == 0) {
+            return;
+        }
+
+        CompoundTag root = root(player);
+        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + amount));
     }
 
     public static int getWarpWardTicks(Player player) {

@@ -107,6 +107,8 @@ import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.darkifov.thaumcraft.blockentity.TransvectorInterfaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
+import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
+import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.entity.PechEntity;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
@@ -532,7 +534,7 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> CINNABAR_ORE = block("cinnabar_ore",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> TAINTED_SOIL = taintedSoilBlock("tainted_soil",
-            BlockBehaviour.Properties.of(Material.DIRT).strength(0.8F, 0.8F).randomTicks());
+            BlockBehaviour.Properties.of(Material.DIRT).strength(2.0F, 10.0F).randomTicks());
     public static final RegistryObject<Block> FLUX_GOO = fluxGooBlock("flux_goo",
             BlockBehaviour.Properties.of(Material.CLAY).strength(0.2F).randomTicks().noOcclusion());
     public static final RegistryObject<Block> FLUX_GAS = fluxGasBlock("flux_gas",
@@ -869,6 +871,36 @@ public class ThaumcraftMod {
                     .clientTrackingRange(8)
                     .build(MOD_ID + ":pech"));
 
+    public static final RegistryObject<EntityType<EldritchGuardianEntity>> ELDRITCH_GUARDIAN =
+            ENTITY_TYPES.register("eldritch_guardian", () -> EntityType.Builder.of(EldritchGuardianEntity::new, MobCategory.MONSTER)
+                    .sized(0.72F, 2.2F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":eldritch_guardian"));
+
+    public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_CULTIST =
+            ENTITY_TYPES.register("crimson_cultist", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CULTIST), MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":crimson_cultist"));
+
+    public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_KNIGHT =
+            ENTITY_TYPES.register("crimson_knight", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.KNIGHT), MobCategory.MONSTER)
+                    .sized(0.7F, 2.05F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":crimson_knight"));
+
+    public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_CLERIC =
+            ENTITY_TYPES.register("crimson_cleric", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CLERIC), MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":crimson_cleric"));
+
+    public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_PRAETOR =
+            ENTITY_TYPES.register("crimson_praetor", () -> EntityType.Builder.of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.LEADER), MobCategory.MONSTER)
+                    .sized(0.74F, 2.1F)
+                    .clientTrackingRange(10)
+                    .build(MOD_ID + ":crimson_praetor"));
+
     public ThaumcraftMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ThaumcraftConfig.SPEC);
@@ -887,6 +919,11 @@ public class ThaumcraftMod {
         event.put(THAUM_GOLEM.get(), ThaumGolemEntity.createAttributes().build());
         event.put(TAINT_CRAWLER.get(), TaintCrawlerEntity.createAttributes().build());
         event.put(PECH.get(), PechEntity.createAttributes().build());
+        event.put(ELDRITCH_GUARDIAN.get(), EldritchGuardianEntity.createAttributes().build());
+        event.put(CRIMSON_CULTIST.get(), CrimsonCultistEntity.createCultistAttributes().build());
+        event.put(CRIMSON_KNIGHT.get(), CrimsonCultistEntity.createKnightAttributes().build());
+        event.put(CRIMSON_CLERIC.get(), CrimsonCultistEntity.createClericAttributes().build());
+        event.put(CRIMSON_PRAETOR.get(), CrimsonCultistEntity.createLeaderAttributes().build());
     }
 
     private void onAddReloadListeners(AddReloadListenerEvent event) {

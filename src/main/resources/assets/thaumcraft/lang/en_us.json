@@ -3868,5 +3868,10 @@
   "item.thaumcraft.golem_deco_glasses": "Golem Glasses",
   "item.thaumcraft.golem_deco_bowtie": "Golem Bowtie",
   "item.thaumcraft.golem_deco_dart_launcher": "Golem Dart Launcher",
-  "item.thaumcraft.golem_deco_mace": "Golem Mace"
+  "item.thaumcraft.golem_deco_mace": "Golem Mace",
+  "entity.thaumcraft.eldritch_guardian": "Eldritch Guardian",
+  "entity.thaumcraft.crimson_cultist": "Crimson Cultist",
+  "entity.thaumcraft.crimson_knight": "Crimson Knight",
+  "entity.thaumcraft.crimson_cleric": "Crimson Cleric",
+  "entity.thaumcraft.crimson_praetor": "Crimson Praetor"
 }

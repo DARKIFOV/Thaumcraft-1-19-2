@@ -2,6 +2,8 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
+import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -14,7 +16,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -38,11 +39,13 @@ public class EldritchAltarBlock extends Block {
 
         if (held.isEmpty()) {
             player.displayClientMessage(structureReport(level, pos), false);
-            player.displayClientMessage(Component.literal("Use Eldritch Eye or Crimson Key to open the first portal.").withStyle(ChatFormatting.GRAY), false);
+            player.displayClientMessage(Component.literal("Use an Eldritch Eye or Crimson Key after the TC4 Eldritch gate is unlocked.").withStyle(ChatFormatting.GRAY), false);
             return InteractionResult.CONSUME;
         }
 
-        boolean validItem = held.is(ThaumcraftMod.ELDRITCH_EYE.get()) || held.is(ThaumcraftMod.CRIMSON_KEY.get());
+        boolean validItem = held.is(ThaumcraftMod.ELDRITCH_EYE.get())
+                || held.is(ThaumcraftMod.CRIMSON_KEY.get())
+                || held.is(ThaumcraftMod.AWAKENED_CRIMSON_KEY.get());
 
         if (!validItem) {
             player.displayClientMessage(Component.literal("The altar waits for an Eldritch Eye or Crimson Key.").withStyle(ChatFormatting.DARK_PURPLE), false);
@@ -55,13 +58,8 @@ public class EldritchAltarBlock extends Block {
             return InteractionResult.CONSUME;
         }
 
-        if (!PlayerThaumData.hasResearch(player, "ELDRITCH_WHISPERS")) {
-            player.displayClientMessage(Component.literal("Research locked: ELDRITCH_WHISPERS").withStyle(ChatFormatting.RED), false);
-            return InteractionResult.CONSUME;
-        }
-
-        if (PlayerThaumData.getWarp(player) < 12) {
-            player.displayClientMessage(Component.literal("Your mind is not warped enough to open this door.").withStyle(ChatFormatting.RED), false);
+        if (!TC4EldritchProgression.canOpenOuterLands(player)) {
+            player.displayClientMessage(Component.literal("Research locked: TC4 Eldritch minor/major progression is required.").withStyle(ChatFormatting.RED), false);
             return InteractionResult.CONSUME;
         }
 
@@ -71,11 +69,15 @@ public class EldritchAltarBlock extends Block {
             held.shrink(1);
         }
 
-        PlayerThaumData.addWarp(player, 3);
+        PlayerThaumData.addWarpSticky(player, 2);
+        PlayerThaumData.addWarpTemporary(player, 1);
         PlayerThaumData.addEldritchAttunement(player, 15);
+        PlayerThaumData.unlockResearch(player, "ELDRITCHMINOR");
         PlayerThaumData.unlockResearch(player, "ELDRITCH_START");
+        PlayerThaumData.unlockResearch(player, "ELDRITCH_ALTAR");
 
         if (player instanceof ServerPlayer serverPlayer) {
+            TC4EldritchProgression.syncFromWarp(serverPlayer);
             ThaumcraftNetwork.syncResearch(serverPlayer);
         }
 
@@ -131,15 +133,20 @@ public class EldritchAltarBlock extends Block {
             serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, portalPos.getX() + 0.5D, portalPos.getY() + 0.5D, portalPos.getZ() + 0.5D, 40, 0.7D, 0.5D, 0.7D, 0.03D);
             serverLevel.playSound(null, pos, SoundEvents.AMBIENT_CAVE, SoundSource.BLOCKS, 1.0F, 0.6F);
 
-            EnderMan sentinel = EntityType.ENDERMAN.create(serverLevel);
-
-            if (sentinel != null) {
-                sentinel.moveTo(pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 2.5D, 180.0F, 0.0F);
-                sentinel.setTarget(player);
-                serverLevel.addFreshEntity(sentinel);
-            }
+            spawnCrimsonSentinel(serverLevel, pos.offset(0, 1, 3), player, ThaumcraftMod.CRIMSON_CULTIST.get());
+            spawnCrimsonSentinel(serverLevel, pos.offset(0, 1, -3), player, ThaumcraftMod.CRIMSON_KNIGHT.get());
         }
 
         player.displayClientMessage(Component.literal("The first Eldritch door opens.").withStyle(ChatFormatting.DARK_PURPLE), false);
+    }
+
+    private void spawnCrimsonSentinel(ServerLevel serverLevel, BlockPos pos, Player target, EntityType<CrimsonCultistEntity> type) {
+        CrimsonCultistEntity sentinel = type.create(serverLevel);
+
+        if (sentinel != null) {
+            sentinel.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, serverLevel.random.nextFloat() * 360.0F, 0.0F);
+            sentinel.setTarget(target);
+            serverLevel.addFreshEntity(sentinel);
+        }
     }
 }

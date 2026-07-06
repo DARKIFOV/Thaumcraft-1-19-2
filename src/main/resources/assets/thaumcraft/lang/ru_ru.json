@@ -790,5 +790,10 @@
   "item.thaumcraft.node_jar": "Узел в банке",
   "block.thaumcraft.advanced_node_stabilizer": "Улучшенный стабилизатор узла",
   "block.thaumcraft.node_transducer": "Преобразователь узла",
-  "block.thaumcraft.vis_relay": "Vis Relay / Реле виз"
+  "block.thaumcraft.vis_relay": "Vis Relay / Реле виз",
+  "entity.thaumcraft.eldritch_guardian": "Древний страж",
+  "entity.thaumcraft.crimson_cultist": "Багровый культист",
+  "entity.thaumcraft.crimson_knight": "Багровый рыцарь",
+  "entity.thaumcraft.crimson_cleric": "Багровый клирик",
+  "entity.thaumcraft.crimson_praetor": "Багровый претор"
 }

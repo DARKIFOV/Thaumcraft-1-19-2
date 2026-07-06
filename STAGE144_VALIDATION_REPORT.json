@@ -1,0 +1,30 @@
+{
+  "stage": 144,
+  "name": "TC4 Eldritch Warp Taint Cultists",
+  "base": "Stage143 TC4 Golemancy whole-system sweep",
+  "changed_systems": [
+    "TC4 split warp buckets",
+    "warp counter and threshold events",
+    "Eldritch progression gates",
+    "Crimson Rites / Eldritch object item-use bridge",
+    "custom Crimson cultists and Eldritch guardian",
+    "Eldritch altar and portal flow",
+    "taint spread runtime"
+  ],
+  "vanilla_placeholder_mobs_removed_from_eldritch_flow": true,
+  "static_validation": {
+    "java_syntax_guard": "passed",
+    "github_static_audit": "passed",
+    "stage143_golemancy_audit": "passed",
+    "wand_parity_audit": "passed",
+    "book_table_workbench_audit": "passed",
+    "full_parity_audit": "passed",
+    "texture_audit": "passed",
+    "stage144_eldritch_warp_taint_audit": "passed"
+  },
+  "gradle_build": {
+    "attempted": true,
+    "passed": false,
+    "reason": "Offline sandbox cannot resolve services.gradle.org to download Gradle 7.5.1."
+  }
+}

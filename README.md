@@ -1,8 +1,8 @@
-# Thaumcraft Legacy Rebuild — Stage143
+# Thaumcraft Legacy Rebuild — Stage144
 
-Stage143 continues the strict TC4 1.7.10 → Forge 1.19.2 port. This checkpoint focuses on Golemancy live configuration, bell status workflow, marker radius/priority metadata, NBT persistence and a multi-part TC4-like golem renderer.
+Stage144 continues the strict TC4 1.7.10 → Forge 1.19.2 port. This checkpoint moves into Eldritch progression, Crimson cultists, split Warp buckets, portal/altar flow and taint spread while preserving the Stage143 Golemancy, research, wand, node, Crucible and Infusion work.
 
-Validation: Java syntax guard, GitHub CI guard, static audit, texture audit, whole parity audit, wand audit, book/table/workbench audit, Stage137–142 focused audits all pass. Full Gradle build still needs GitHub/online runner because the local sandbox cannot resolve services.gradle.org.
+Validation: Java syntax guard, GitHub static audit, Stage143 golemancy audit, wand audit, book/table/workbench audit, full parity audit, texture audit and Stage144 Eldritch/Warp/Taint audit pass. Full Gradle build was attempted, but the local sandbox cannot resolve services.gradle.org for Gradle wrapper download.
 
 # Thaumcraft Legacy Rebuild — Stage138 TC4 Arcane Exact Pattern Completion
 
