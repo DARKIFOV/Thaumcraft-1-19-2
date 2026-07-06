@@ -46,8 +46,8 @@ required_tokens = {
         'right leg',
         'Math.sin',
     ],
-    'build.gradle': ["version = '1.43.0'"],
-    'src/main/resources/META-INF/mods.toml': ['version="1.43.0"'],
+    'build.gradle': ["version = '1.44.0'"],
+    'src/main/resources/META-INF/mods.toml': ['version="1.44.0"'],
 }
 errors: list[str] = []
 for name, path in checks.items():
@@ -74,10 +74,10 @@ report = {
     'checked_files': {name: str(path.relative_to(ROOT)) for name, path in checks.items()},
     'errors': errors,
 }
-(ROOT / 'STAGE143_GOLEMANCY_GUI_RENDER_AUDIT.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+(ROOT / 'STAGE142_GOLEMANCY_GUI_RENDER_AUDIT.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
 
 if errors:
     for error in errors:
-        print(f'::error::Stage143 audit failed: {error}')
+        print(f'::error::Stage142 audit failed: {error}')
     sys.exit(1)
-print('Stage143 golemancy GUI/render audit: OK')
+print('Stage142 golemancy GUI/render audit: OK')

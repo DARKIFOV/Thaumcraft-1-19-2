@@ -15,5 +15,7 @@
     "golem_marker": "src/main/java/com/darkifov/thaumcraft/block/GolemTaskMarkerItem.java",
     "golem_bell_mode": "src/main/java/com/darkifov/thaumcraft/golem/GolemBellMode.java"
   },
-  "errors": []
+  "errors": [
+    "build.gradle missing token version = '1.43.0'"
+  ]
 }

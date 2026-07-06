@@ -55,6 +55,9 @@ jobs:
       - name: Run Stage143 golemancy whole sweep audit
         run: python scripts/tc4_stage143_golemancy_whole_sweep_audit.py
 
+      - name: Run Stage144 eldritch/warp/taint audit
+        run: python scripts/tc4_stage144_eldritch_warp_taint_audit.py
+
       - name: Run TC4 book/table/workbench audit
         run: python scripts/tc4_book_table_workbench_audit.py
 
@@ -91,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: thaumcraft-legacy-rebuild-stage142-jars
+          name: thaumcraft-legacy-rebuild-stage144-jars
           path: |
             build/libs/*.jar
             build/reobfJar/output.jar
@@ -101,7 +104,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: stage142-build-reports
+          name: stage144-build-reports
           path: |
             build/reports/**
             build/tmp/**

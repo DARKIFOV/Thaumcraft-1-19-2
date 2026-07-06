@@ -4,12 +4,12 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="1.43.0"
+version="1.44.0"
 displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 Strict Forge 1.19.2 source-driven port of Thaumcraft 4.
-Stage 122: TC4 infusion runtime parity; matrix now drains essentia and components step-by-step like Thaumcraft 4.
+Stage 144: TC4 Eldritch/Warp/Taint/Cultist pass with split warp buckets, Eldritch progression gates, custom cultist entities and taint runtime.
 '''
 
 [[dependencies.thaumcraft]]

@@ -2,7 +2,7 @@
 
 Stage144 continues the strict TC4 1.7.10 → Forge 1.19.2 port. This checkpoint moves into Eldritch progression, Crimson cultists, split Warp buckets, portal/altar flow and taint spread while preserving the Stage143 Golemancy, research, wand, node, Crucible and Infusion work.
 
-Validation: Java syntax guard, GitHub static audit, Stage143 golemancy audit, wand audit, book/table/workbench audit, full parity audit, texture audit and Stage144 Eldritch/Warp/Taint audit pass. Full Gradle build was attempted, but the local sandbox cannot resolve services.gradle.org for Gradle wrapper download.
+Validation: Java syntax guard, GitHub CI guard, GitHub static audit, Stage140–144 focused audits, Stage143 golemancy audit, wand audit, book/table/workbench audit, full parity audit, texture audit and Stage144 Eldritch/Warp/Taint audit pass. Full Gradle build was attempted, but the local sandbox cannot resolve services.gradle.org for Gradle wrapper download.
 
 # Thaumcraft Legacy Rebuild — Stage138 TC4 Arcane Exact Pattern Completion
 

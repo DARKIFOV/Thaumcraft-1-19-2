@@ -1,0 +1,30 @@
+{
+  "stage": 144,
+  "fix": "GitHub Actions / repository loading alignment",
+  "problem_from_logs": "scripts/github_ci_guard.py still required Stage143 project version 1.43.0 while Stage144 build.gradle uses 1.44.0; Stage142 focused audit also required old version; workflow artifact names were stale.",
+  "changes": [
+    "scripts/github_ci_guard.py now requires version 1.44.0 and Stage144 audit step",
+    ".github/workflows/main.yml now runs tc4_stage144_eldritch_warp_taint_audit.py",
+    ".github/workflows/main.yml artifact/report names updated to stage144",
+    "src/main/resources/META-INF/mods.toml updated to version 1.44.0 and Stage144 description",
+    "scripts/tc4_stage142_golemancy_gui_render_audit.py updated so it passes on Stage144 version 1.44.0",
+    "GITHUB_UPLOAD.md updated with Stage144 GitHub upload notes"
+  ],
+  "local_checks_passed": [
+    "python scripts/java_syntax_guard.py",
+    "python scripts/github_ci_guard.py",
+    "python scripts/github_static_audit.py",
+    "python scripts/tc4_stage138_arcane_pattern_audit.py",
+    "python scripts/tc4_stage139_whole_port_sweep_audit.py",
+    "python scripts/tc4_stage140_golemancy_checkpoint_audit.py",
+    "python scripts/tc4_stage141_golemancy_controls_audit.py",
+    "python scripts/tc4_stage142_golemancy_gui_render_audit.py",
+    "python scripts/tc4_stage143_golemancy_whole_sweep_audit.py",
+    "python scripts/tc4_stage144_eldritch_warp_taint_audit.py",
+    "python scripts/tc4_book_table_workbench_audit.py",
+    "python scripts/tc4_wand_parity_audit.py",
+    "python scripts/tc4_full_parity_audit.py",
+    "python scripts/tc4_texture_audit.py"
+  ],
+  "gradle_build_note": "Full Gradle wrapper build cannot complete in this sandbox because services.gradle.org DNS/network is unavailable. GitHub Actions runner should be able to download Gradle 7.5.1 and Forge dependencies online."
+}

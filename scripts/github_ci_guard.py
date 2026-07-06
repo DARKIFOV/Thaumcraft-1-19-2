@@ -35,6 +35,7 @@ REQUIRED_WORKFLOW_SNIPPETS = [
     "python scripts/tc4_stage141_golemancy_controls_audit.py",
     "python scripts/tc4_stage142_golemancy_gui_render_audit.py",
     "python scripts/tc4_stage143_golemancy_whole_sweep_audit.py",
+    "python scripts/tc4_stage144_eldritch_warp_taint_audit.py",
 ]
 
 errors: list[str] = []
@@ -61,8 +62,8 @@ if build_gradle.exists():
         errors.append("ForgeGradle must be pinned to 5.1.76 instead of dynamic 5.1.+")
     if "1.19.2-43.5.2" not in build_text:
         errors.append("Forge dependency should stay pinned to 1.19.2-43.5.2")
-    if "version = '1.43.0'" not in build_text:
-        errors.append("Project version should be 1.43.0 for Stage143")
+    if "version = '1.44.0'" not in build_text:
+        errors.append("Project version should be 1.44.0 for Stage144")
 
 settings_gradle = ROOT / "settings.gradle"
 if settings_gradle.exists():
