@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import sys
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,8 +64,15 @@ if 'tc4_stage161_research_note_grid_parity_audit.py' not in workflow or 'tc4_sta
     errors.append('Stage161 workflow/guard missing audit')
 if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage204-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
     errors.append('Stage161 workflow missing current jar artifact')
-if "version = '1.98.0'" not in read('build.gradle') and "version = '2.00.0'" not in read('build.gradle'):
-    errors.append('Stage161 build.gradle missing current Stage161+ version')
+build_text = read('build.gradle')
+match = re.search(r"version\s*=\s*['\"]([0-9]+)\.([0-9]+)\.([0-9]+)['\"]", build_text)
+if not match:
+    errors.append('Stage161 build.gradle missing project version')
+else:
+    major, minor, patch = map(int, match.groups())
+    # Stage161 introduced the axial hex research note grid. Any later port version must keep this audit valid.
+    if (major, minor, patch) < (1, 61, 0):
+        errors.append(f'Stage161 build.gradle version too old for Stage161+ audit: {match.group(1)}.{match.group(2)}.{match.group(3)}')
 
 if errors:
     for error in errors:

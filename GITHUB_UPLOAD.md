@@ -17,3 +17,7 @@ python scripts/tc4_stage204_jar_tube_edge_cases_audit.py
 ```
 
 Stage204 keeps the Stage198/Stage200 resource-pack fix. `pack.mcmeta` must remain present with `pack_format: 9` for Minecraft 1.19.2.
+
+## Stage204 GitHub audit hotfix
+
+Fixed GitHub Actions `Static source/resource audit` failure from the stale Stage161 version guard. The Stage161 research-note audit now accepts current Stage204 version `2.04.0` via semantic version parsing instead of old hard-coded version literals.

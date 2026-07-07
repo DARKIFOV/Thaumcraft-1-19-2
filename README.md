@@ -39,3 +39,7 @@ python3 scripts/tc4_stage204_jar_tube_edge_cases_audit.py
 ```
 
 If Minecraft still shows missing textures, remove old jars such as `1.94.0` from the `mods` folder and install only the jar built from this Stage204 source.
+
+## Stage204 GitHub audit hotfix
+
+Fixed GitHub Actions `Static source/resource audit` failure from the stale Stage161 version guard. The Stage161 research-note audit now accepts current Stage204 version `2.04.0` via semantic version parsing instead of old hard-coded version literals.
