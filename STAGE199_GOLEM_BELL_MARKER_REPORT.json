@@ -1,0 +1,20 @@
+{
+  "stage": 199,
+  "version": "2.00.0",
+  "goal": "golem bell/marker UI parity batch",
+  "source_truth": [
+    "ItemGolemBell",
+    "EntityGolemBase markers",
+    "Marker{x,y,z,dim,side,color}"
+  ],
+  "implemented": [
+    "original bell NBT keys golemid/golemhomex/golemhomey/golemhomez/golemhomeface/markers",
+    "marker toggle/cycle semantics",
+    "bell-to-golem binding",
+    "entity save/load marker snapshot adapter"
+  ],
+  "forge_1192_adapters": [
+    "dimension id mapping for overworld/nether/end",
+    "owned-golem sync in current 1.19.2 runtime"
+  ]
+}

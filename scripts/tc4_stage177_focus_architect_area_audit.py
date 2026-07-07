@@ -66,13 +66,12 @@ for token in [
 if 'equalTradeTargets(' in focus:
     errors.append('old square equalTradeTargets helper must be removed in favor of original linked/architect logic')
 
-for token in ['version = \'1.94.0\'', 'version="1.94.0"']:
-    if token.startswith('version =') and token not in build:
-        errors.append('build.gradle must be version 1.94.0')
-    if token.startswith('version="') and token not in mods:
-        errors.append('mods.toml must be version 1.94.0')
+if not any(f"version = '{v}'" in build for v in ['2.04.0', '2.00.0']):
+    errors.append('build.gradle must be version 2.04.0 or compatible')
+if not any(f'version="{v}"' in mods for v in ['2.04.0', '2.00.0']):
+    errors.append('mods.toml must be version 2.04.0 or compatible')
 
-for token in ['tc4_stage177_focus_architect_area_audit.py', 'python scripts/tc4_stage177_focus_architect_area_audit.py', 'thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage177_focus_architect_area_audit.py', 'python scripts/tc4_stage177_focus_architect_area_audit.py', 'thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing {token}')
 

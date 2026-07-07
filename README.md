@@ -1,59 +1,41 @@
-# Thaumcraft Legacy Rebuild — Stage194
+# Thaumcraft Legacy Rebuild — Stage204
 
-Strict original Thaumcraft 4 parity-port to Forge Minecraft 1.19.2.
+Version: `2.04.0`  
+Minecraft/Forge: `1.19.2 / Forge 43.5.2`
 
-Version: `1.94.0`.
+## Current Stage204 focus
 
-This archive continues directly from Stage192 and adds Stage193 + Stage194 without adding new mechanics, GUI progression, non-original textures or invented behavior.
+Stage203 + Stage204 were applied on top of Stage202. This remains a strict original Thaumcraft 4 parity-port pass. No new mechanics, progression, recipes, GUI concepts, or textures were invented.
 
-## Stage193
+### Stage203 — Golem ghost-slot parity
 
-Arcane Workbench legacy packet/browser cleanup:
+- Restored original `ContainerGolem` / `ContainerGhostSlots` behavior for golem GUI slots.
+- Golem inventory slots are now copy-only ghost slots, not real storage transfer slots.
+- Implemented `SlotGhost` semantics: no pickup, no player item consumption, copied filter stacks stored in golem `Inventory` NBT.
+- Implemented `SlotGhostFluid` adapter with Forge fluid-handler validation for liquid-core golems.
+- Preserved original limits: fill core ghost slots can hold count `256`; all other ghost slots use count `1`.
+- Restored click semantics: empty-hand count +/-1, shift-left clear, shift-right +16, throw clears, clone copies.
+- Preserved scroll `66/67`, toggle `50..57`, color cycling and original `guigolem.png` rendering path.
 
-- Removed old browser-era runtime packet/screen files:
-  - `RequestArcaneCraftPacket`
-  - `RequestArcaneMenuCraftPacket`
-  - `OpenArcaneWorkbenchPacket`
-  - standalone `ArcaneWorkbenchScreen`
-- Removed client helper methods for fake recipe-button crafting.
-- Kept Arcane Workbench opening on the strict container path:
-  - `NetworkHooks.openScreen(serverPlayer, workbench)`
-  - `ArcaneWorkbenchMenu`
-  - `ArcaneWorkbenchContainerScreen`
-- Updated the TC4 class mapping so `GuiArcaneWorkbench` now points to `ArcaneWorkbenchContainerScreen`, not the deleted standalone screen.
-- Preserved `ArcaneRecipeSyncPacket` only for client-side display/vis cost lookup; it no longer provides a craft button path.
-- Kept `SLOT_LEGACY_CATALYST = 11` only as a clearly marked Stage135–188 save-migration adapter.
+### Stage204 — Jar/tube transfer edge cases
 
-## Stage194
+- Added original-style `TileJarFillable.addToContainer` / `takeFromContainer` helpers.
+- Void jar overflow now consumes excess essentia while storing only up to capacity, like `TileJarFillableVoid`.
+- Restored original suction edge cases: normal jar `32`, labelled jar `64`, void jar `32`, labelled void jar `48`.
+- Phial pour/take and tube transfer now share the original jar add/take helpers.
+- Tube destination lookup now uses jar original suction instead of a fixed generic table.
+- Added one-way tube direction gates: input from opposite facing, output through facing, network traversal constrained to those sides.
+- Kept filter/restrict/buffer subtype checks and original NBT names: `AspectFilter`, `Aspect`, `Amount`, `facing`, `open`, `choke`, `buffer`.
+- Kept the Stage198/Stage200 resource pack and texture hardening: `pack.mcmeta` stays valid and model texture references are audited.
 
-Consolidated full-port drift ledger:
+## Verification
 
-- Added `TC4FullPortDriftLedger` runtime guard class.
-- Added JSON ledger resource: `data/thaumcraft/tc4_drift/full_port_drift_ledger_stage194.json`.
-- Added human-readable ledger: `docs/TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md`.
-- Covered major systems:
-  - golems;
-  - wands/foci;
-  - aura/nodes;
-  - crucible;
-  - infusion;
-  - taint;
-  - eldritch;
-  - worldgen;
-  - Thaumonomicon/research;
-  - research table;
-  - Arcane Workbench.
+```bash
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/github_ci_guard.py
+python3 scripts/tc4_stage203_golem_ghost_slot_audit.py
+python3 scripts/tc4_stage204_jar_tube_edge_cases_audit.py
+```
 
-## New audits
-
-- `scripts/tc4_stage193_arcane_cleanup_audit.py`
-- `scripts/tc4_stage194_full_port_drift_ledger_audit.py`
-
-## Notes
-
-The only remaining Arcane Workbench non-original compatibility surface is the hidden save-migration slot for older Stage135–188 worlds. It is explicitly marked as a Forge 1.19.2 migration adapter and is not part of the strict original TC4 crafting flow.
-
-
-## Stage194 GitHub compile hotfix 2
-
-Fixed the second GitHub compile failure from `logs_78043955500(1).zip`: dummy `quickMoveStack`, `ProjectileUtil.getHitResult` adapter, `this.onGround` field access, and `BonemealableBlock` `BlockGetter` signature. Added audit hardening for these API risks.
+If Minecraft still shows missing textures, remove old jars such as `1.94.0` from the `mods` folder and install only the jar built from this Stage204 source.

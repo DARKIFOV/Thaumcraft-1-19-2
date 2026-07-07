@@ -1,6 +1,6 @@
 {
   "stage": 194,
-  "version": "1.94.0",
+  "version": "1.96.0",
   "source_of_truth": "Original Thaumcraft 4 for Minecraft 1.7.10 source/assets/configs/research/recipes/textures/sounds",
   "policy": "No invented mechanics, recipes, progression, GUI, textures, sounds, particles, or behavior. Forge 1.19.2 adapters must be named explicitly and must preserve original TC4 data/keys/NBT/flow where direct porting is impossible.",
   "systems": [

@@ -36,7 +36,7 @@ if not errors:
     if data.get('parity_contract',{}).get('slot_0') is None: errors.append('stage165 json missing slot contract')
 workflow=read(Path('.github/workflows/main.yml'))
 guard=read(Path('scripts/github_ci_guard.py'))
-for token in ['tc4_stage165_research_table_block_entity_audit.py','python scripts/tc4_stage165_research_table_block_entity_audit.py','thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage165_research_table_block_entity_audit.py','python scripts/tc4_stage165_research_table_block_entity_audit.py','thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow and token not in guard: errors.append(f'missing workflow/guard token {token}')
 if errors:
     for e in errors: print('::error::'+e)

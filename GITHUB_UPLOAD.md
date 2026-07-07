@@ -1,23 +1,19 @@
-# GitHub upload notes — Stage194
+# GitHub upload notes — Stage204
 
-Stage194 version: `1.94.0`.
+Stage204 version: `2.04.0`.
+
+Expected GitHub artifact name:
+
+`thaumcraft_legacy_rebuild_1.19.2-2.04.0-github.jar`
 
 Run before upload:
 
-- `python scripts/java_syntax_guard.py`
-- `python scripts/github_static_audit.py`
-- `python scripts/tc4_stage193_arcane_cleanup_audit.py`
-- `python scripts/tc4_stage194_full_port_drift_ledger_audit.py`
-- `python scripts/github_ci_guard.py`
+```bash
+python scripts/java_syntax_guard.py
+python scripts/github_static_audit.py
+python scripts/github_ci_guard.py
+python scripts/tc4_stage203_golem_ghost_slot_audit.py
+python scripts/tc4_stage204_jar_tube_edge_cases_audit.py
+```
 
-Expected GitHub artifact names:
-
-- `thaumcraft-legacy-rebuild-stage194-jars`
-- `stage194-build-reports` on failure
-
-Gradle remains pinned to Forge 1.19.2 / ForgeGradle 5.1.76 / Gradle 7.5.1.
-
-
-## Stage194 GitHub compile hotfix 2
-
-Fixed the second GitHub compile failure from `logs_78043955500(1).zip`: dummy `quickMoveStack`, `ProjectileUtil.getHitResult` adapter, `this.onGround` field access, and `BonemealableBlock` `BlockGetter` signature. Added audit hardening for these API risks.
+Stage204 keeps the Stage198/Stage200 resource-pack fix. `pack.mcmeta` must remain present with `pack_format: 9` for Minecraft 1.19.2.

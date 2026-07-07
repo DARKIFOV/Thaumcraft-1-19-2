@@ -17,6 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlockEntity> {
     private static final ResourceLocation FILL_TEXTURE =
             new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/block/essentia_fill.png");
+    private static final ResourceLocation ORIGINAL_LABEL_TEXTURE =
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/label.png");
 
     public EssentiaJarRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -26,21 +28,49 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
         Aspect aspect = jar.storedAspect();
 
-        if (aspect == null || jar.amount() <= 0) {
-            return;
+        if (aspect != null && jar.amount() > 0) {
+            float fill = jar.fillRatio();
+            int color = AspectColor.argb(aspect, 170);
+            float minY = 0.12F;
+            float maxY = 0.12F + 0.68F * fill;
+
+            poseStack.pushPose();
+            poseStack.translate(0.5D, 0.0D, 0.5D);
+            renderLiquidBox(poseStack, buffer.getBuffer(RenderType.entityTranslucent(FILL_TEXTURE)),
+                    -0.31F, minY, -0.31F,
+                    0.31F, maxY, 0.31F,
+                    color, packedLight);
+            poseStack.popPose();
         }
 
-        float fill = jar.fillRatio();
-        int color = AspectColor.argb(aspect, 170);
-        float minY = 0.12F;
-        float maxY = 0.12F + 0.68F * fill;
+        if (jar.hasFilter()) {
+            renderJarLabel(jar.filterAspect(), poseStack, buffer, packedLight);
+        }
+    }
 
+
+    private void renderJarLabel(Aspect filter, PoseStack poseStack, MultiBufferSource buffer, int light) {
+        if (filter == null) {
+            return;
+        }
+        int color = AspectColor.argb(filter, 235);
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.0D, 0.5D);
-        renderLiquidBox(poseStack, buffer.getBuffer(RenderType.entityTranslucent(FILL_TEXTURE)),
-                -0.31F, minY, -0.31F,
-                0.31F, maxY, 0.31F,
-                color, packedLight);
+        poseStack.translate(0.5D, 0.40D, 0.185D);
+        VertexConsumer label = buffer.getBuffer(RenderType.entityTranslucent(ORIGINAL_LABEL_TEXTURE));
+        Matrix4f matrix = poseStack.last().pose();
+        quad(matrix, label,
+                -0.25F, -0.18F, 0.0F,
+                 0.25F, -0.18F, 0.0F,
+                 0.25F,  0.18F, 0.0F,
+                -0.25F,  0.18F, 0.0F,
+                255, 255, 255, 230, light);
+        VertexConsumer fill = buffer.getBuffer(RenderType.entityTranslucent(FILL_TEXTURE));
+        quad(matrix, fill,
+                -0.09F, -0.09F, 0.002F,
+                 0.09F, -0.09F, 0.002F,
+                 0.09F,  0.09F, 0.002F,
+                -0.09F,  0.09F, 0.002F,
+                (color >> 16) & 255, (color >> 8) & 255, color & 255, (color >> 24) & 255, light);
         poseStack.popPose();
     }
 

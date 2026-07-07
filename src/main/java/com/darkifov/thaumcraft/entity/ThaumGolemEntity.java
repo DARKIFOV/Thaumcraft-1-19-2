@@ -15,8 +15,12 @@ import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import com.darkifov.thaumcraft.golem.GolemMarkerMode;
 import com.darkifov.thaumcraft.golem.GolemMaterial;
 import com.darkifov.thaumcraft.golem.GolemUpgradeType;
+import com.darkifov.thaumcraft.golem.GolemOriginalRuntime;
+import com.darkifov.thaumcraft.golem.GolemBellMarkerRuntime;
+import com.darkifov.thaumcraft.golem.GolemTaskAIRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -46,6 +50,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import com.darkifov.thaumcraft.menu.GolemMenu;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -68,9 +78,19 @@ public class ThaumGolemEntity extends PathfinderMob {
     private BlockPos workPos = null;
     private GolemMaterial material = GolemMaterial.WOOD;
     private GolemCoreType coreType = GolemCoreType.GATHER;
+    private boolean advanced = false;
+    private int homeFacing = 0;
+    private byte[] originalUpgradeSlots = GolemOriginalRuntime.defaultUpgrades(GolemMaterial.WOOD, false);
+    private byte[] colors = GolemOriginalRuntime.defaultColors(6);
+    private byte[] originalToggles = new byte[]{0, 0, 0, 0, 0, 0, 0, 0};
+    private boolean pausedByGolemGui = false;
+    private String decorationCode = "";
     private final Set<GolemUpgradeType> upgrades = EnumSet.noneOf(GolemUpgradeType.class);
     private final Set<GolemDecorationType> decorations = EnumSet.noneOf(GolemDecorationType.class);
     private final NonNullList<ItemStack> inventory = NonNullList.withSize(36, ItemStack.EMPTY);
+    private ItemStack itemCarried = ItemStack.EMPTY;
+    private int originalChestInteractTicks = 0;
+    private String lastOriginalTask = "none";
     private ItemStack filterStack = ItemStack.EMPTY;
     private boolean filterAllowList = false;
     private boolean waiting = false;
@@ -112,6 +132,24 @@ public class ThaumGolemEntity extends PathfinderMob {
         this.homePos = homePos == null ? BlockPos.ZERO : homePos.immutable();
     }
 
+    public void setHomeFacing(int homeFacing) {
+        this.homeFacing = Math.max(0, Math.min(5, homeFacing));
+    }
+
+    public int getHomeFacing() {
+        return homeFacing;
+    }
+
+    public boolean isAdvancedGolem() {
+        return advanced;
+    }
+
+    public void setAdvancedGolem(boolean advanced) {
+        this.advanced = advanced;
+        syncOriginalUpgradeSlotsFromSet();
+        applyProfileAttributes();
+    }
+
     public BlockPos getHomePos() {
         return homePos;
     }
@@ -147,6 +185,8 @@ public class ThaumGolemEntity extends PathfinderMob {
     public void setGolemProfile(GolemMaterial material, GolemCoreType coreType) {
         this.material = material == null ? GolemMaterial.WOOD : material;
         this.coreType = coreType == null ? GolemCoreType.GATHER : coreType;
+        syncOriginalUpgradeSlotsFromSet();
+        syncColorsLength();
         applyProfileAttributes();
     }
 
@@ -160,11 +200,15 @@ public class ThaumGolemEntity extends PathfinderMob {
 
     public void setCoreType(GolemCoreType coreType) {
         this.coreType = coreType == null ? GolemCoreType.GATHER : coreType;
+        syncColorsLength();
+        applyProfileAttributes();
     }
 
     public void addUpgrade(GolemUpgradeType upgrade) {
         if (upgrade != null) {
             upgrades.add(upgrade);
+            syncOriginalUpgradeSlotsFromSet();
+            syncColorsLength();
             applyProfileAttributes();
         }
     }
@@ -176,6 +220,7 @@ public class ThaumGolemEntity extends PathfinderMob {
     public void addDecoration(GolemDecorationType decoration) {
         if (decoration != null) {
             decorations.add(decoration);
+            decorationCode = decorationCodeFromSet();
             applyProfileAttributes();
         }
     }
@@ -232,38 +277,14 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     private void applyProfileAttributes() {
-        double health = material.maxHealth();
-        double speed = material.movementSpeed();
-        double armor = material.armor();
-        double attack = material == GolemMaterial.STRAW ? 1.0D : 2.0D + material.armor() * 0.25D;
+        decorationCode = decorationCodeFromSet();
+        double health = material.health();
+        double speed = GolemOriginalRuntime.movementSpeed(material, upgrades, decorationCode, advanced, isInWater());
+        double armor = material.armorValue();
+        double attack = GolemOriginalRuntime.attackDamage(material, upgrades, decorationCode);
 
-        if (hasUpgrade(GolemUpgradeType.EARTH)) {
-            health += 8.0D;
-            armor += 2.0D;
-            speed -= 0.015D;
-        }
-        if (hasUpgrade(GolemUpgradeType.AIR)) {
-            speed += 0.06D;
-        }
-        if (hasDecoration(GolemDecorationType.WIRELESS_BACKPACK)) {
-            speed += 0.015D;
-        }
-        if (hasUpgrade(GolemUpgradeType.FIRE)) {
-            attack += 2.0D;
-        }
-        if (hasDecoration(GolemDecorationType.MACE)) {
-            attack += 1.5D;
-        }
-        if (hasDecoration(GolemDecorationType.ARMOR)) {
-            armor += 1.5D;
-        }
-        if (hasUpgrade(GolemUpgradeType.ENTROPY)) {
-            attack += 1.0D;
-            armor -= 1.0D;
-        }
-
-        applyAttribute(Attributes.MAX_HEALTH, Math.max(6.0D, health));
-        applyAttribute(Attributes.MOVEMENT_SPEED, Math.max(0.08D, speed));
+        applyAttribute(Attributes.MAX_HEALTH, Math.max(1.0D, health));
+        applyAttribute(Attributes.MOVEMENT_SPEED, Math.max(0.01D, speed));
         applyAttribute(Attributes.ARMOR, Math.max(0.0D, armor));
         applyAttribute(Attributes.ATTACK_DAMAGE, Math.max(1.0D, attack));
 
@@ -272,6 +293,40 @@ public class ThaumGolemEntity extends PathfinderMob {
         } else if (getHealth() <= 1.0F) {
             setHealth(getMaxHealth());
         }
+    }
+
+    private void syncOriginalUpgradeSlotsFromSet() {
+        this.originalUpgradeSlots = GolemOriginalRuntime.slotsFromUpgrades(upgrades, material, advanced);
+    }
+
+    private void syncUpgradesFromOriginalSlots() {
+        upgrades.clear();
+        upgrades.addAll(GolemOriginalRuntime.upgradesFromSlots(originalUpgradeSlots));
+    }
+
+    private void syncColorsLength() {
+        int slots = activeSlots();
+        byte[] next = GolemOriginalRuntime.defaultColors(slots);
+        if (colors != null) {
+            for (int i = 0; i < Math.min(colors.length, next.length); i++) {
+                next[i] = colors[i];
+            }
+        }
+        colors = next;
+    }
+
+    private String decorationCodeFromSet() {
+        StringBuilder builder = new StringBuilder();
+        if (decorations.contains(GolemDecorationType.TOP_HAT)) builder.append('H');
+        if (decorations.contains(GolemDecorationType.ARMOR)) builder.append('P');
+        if (decorations.contains(GolemDecorationType.BOWTIE)) builder.append('B');
+        if (decorations.contains(GolemDecorationType.MACE)) builder.append('M');
+        if (decorations.contains(GolemDecorationType.FEZ)) builder.append('F');
+        if (decorations.contains(GolemDecorationType.VISOR)) builder.append('V');
+        if (decorations.contains(GolemDecorationType.GLASSES)) builder.append('G');
+        if (decorations.contains(GolemDecorationType.DART_LAUNCHER)) builder.append('D');
+        if (decorations.contains(GolemDecorationType.WIRELESS_BACKPACK)) builder.append('W');
+        return builder.toString();
     }
 
     private void applyAttribute(Attribute attribute, double value) {
@@ -290,6 +345,13 @@ public class ThaumGolemEntity extends PathfinderMob {
 
         if (ownerUuid != null && !player.getUUID().equals(ownerUuid) && !player.getAbilities().instabuild) {
             player.displayClientMessage(Component.literal("This golem is bound to another thaumaturge.").withStyle(ChatFormatting.RED), true);
+            return InteractionResult.CONSUME;
+        }
+
+        if (held.getItem() instanceof GolemBellItem) {
+            GolemBellMarkerRuntime.bindGolem(held, this);
+            applyOriginalMarkerList(GolemBellMarkerRuntime.getMarkersTag(held));
+            player.displayClientMessage(Component.literal("Bound golem bell to golem id " + getId()).withStyle(ChatFormatting.GOLD), false);
             return InteractionResult.CONSUME;
         }
 
@@ -339,10 +401,25 @@ public class ThaumGolemEntity extends PathfinderMob {
             return InteractionResult.CONSUME;
         }
 
-        if (held.getItem() instanceof GolemBellItem || held.isEmpty()) {
+        if (held.isEmpty()) {
             if (player.isShiftKeyDown()) {
                 setWaiting(!waiting);
+                player.displayClientMessage(statusSummary(), false);
+                return InteractionResult.CONSUME;
             }
+            if (player instanceof ServerPlayer serverPlayer && coreType.hasGui()) {
+                MenuProvider provider = new SimpleMenuProvider(
+                        (containerId, inventory, opener) -> new GolemMenu(containerId, inventory, this),
+                        Component.literal("Golem")
+                );
+                NetworkHooks.openScreen(serverPlayer, provider, buffer -> buffer.writeVarInt(getId()));
+            } else {
+                player.displayClientMessage(statusSummary(), false);
+            }
+            return InteractionResult.CONSUME;
+        }
+
+        if (held.getItem() instanceof GolemBellItem) {
             player.displayClientMessage(statusSummary(), false);
             return InteractionResult.CONSUME;
         }
@@ -355,9 +432,13 @@ public class ThaumGolemEntity extends PathfinderMob {
                 .append(material.displayName())
                 .append(Component.literal(" / "))
                 .append(coreType.displayName())
+                .append(Component.literal(" | coreMeta " + coreType.originalId()))
+                .append(Component.literal(" | carry " + GolemOriginalRuntime.carryLimit(material, upgrades)))
                 .append(Component.literal(" | slots " + activeSlots()))
                 .append(Component.literal(" | range " + workRange()))
                 .append(Component.literal(" | priority " + taskPriority))
+                .append(Component.literal(" | ai " + lastOriginalTask))
+                .append(Component.literal(itemCarried.isEmpty() ? " | carried none" : " | carried " + itemCarried.getCount()))
                 .append(Component.literal(" | upgrades " + upgrades.size()))
                 .append(Component.literal(" | deco " + decorations.size()))
                 .append(Component.literal(waiting ? " | waiting" : " | active"));
@@ -367,6 +448,9 @@ public class ThaumGolemEntity extends PathfinderMob {
     public void aiStep() {
         super.aiStep();
 
+        if (!level.isClientSide && originalChestInteractTicks > 0) {
+            originalChestInteractTicks--;
+        }
         if (!level.isClientSide && tickCount % 10 == 0) {
             if (!waiting) {
                 runCoreBehavior();
@@ -377,20 +461,199 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     private void runCoreBehavior() {
+        if (!GolemTaskAIRuntime.originalDelayReady(tickCount)) {
+            return;
+        }
+        lastOriginalTask = GolemTaskAIRuntime.diagnostic(coreType);
         switch (coreType) {
-            case GATHER, SORTING -> pickupNearbyItems();
-            case FILL -> fillOutputContainer();
-            case EMPTY -> emptyInputContainer();
+            case GATHER -> runOriginalItemPickupAndHomeDrop();
+            case SORTING -> runOriginalSortingPlace();
+            case FILL -> runOriginalFillGotoTake();
+            case EMPTY -> runOriginalEmptyGotoPlace();
             case GUARD, BODYGUARD -> guardOwnerArea();
             case HARVEST -> harvestNearbyCrops();
             case LUMBER -> lumberNearbyLogs();
-            case USE -> useWorkTarget();
+            case USE -> runOriginalUseHomeTakeReplace();
             case BUTCHER -> butcherNearbyAnimals();
             case FISH -> fishAtWaterMarker();
             case LIQUID -> handleLiquidCore();
             case ESSENTIA -> handleEssentiaCore();
             case PATROL -> patrolBetweenMarkers();
         }
+    }
+
+    private void runOriginalItemPickupAndHomeDrop() {
+        if (!itemCarried.isEmpty()) {
+            runOriginalHomeDrop();
+            return;
+        }
+        runOriginalItemPickup();
+    }
+
+    private void runOriginalFillGotoTake() {
+        if (!itemCarried.isEmpty()) {
+            runOriginalHomeDrop();
+            return;
+        }
+        if (!runOriginalHomeTake()) {
+            runOriginalItemPickup();
+        }
+    }
+
+    private void runOriginalEmptyGotoPlace() {
+        if (!itemCarried.isEmpty()) {
+            runOriginalHomeDrop();
+            return;
+        }
+        if (!runOriginalInputTake()) {
+            emptyInputContainer();
+        }
+    }
+
+    private void runOriginalSortingPlace() {
+        if (!itemCarried.isEmpty()) {
+            if (!runOriginalHomeDrop()) {
+                runOriginalHomeReplace();
+            }
+            return;
+        }
+        runOriginalItemPickup();
+    }
+
+    private void runOriginalUseHomeTakeReplace() {
+        if (!itemCarried.isEmpty()) {
+            runOriginalHomeReplace();
+            return;
+        }
+        if (!runOriginalHomeTake()) {
+            useWorkTarget();
+        }
+    }
+
+    private boolean runOriginalHomeTake() {
+        if (!itemCarried.isEmpty() || !nearOriginalHome()) {
+            moveTowardHomeIfNeeded();
+            return false;
+        }
+        Container container = originalHomeContainer();
+        return container != null && takeOneAcceptedStackFromContainer(container);
+    }
+
+    private boolean runOriginalInputTake() {
+        if (!itemCarried.isEmpty()) {
+            return false;
+        }
+        Container container = findNearbyContainer(inputPos == null ? homePos : inputPos, 1);
+        return container != null && takeOneAcceptedStackFromContainer(container);
+    }
+
+    private boolean runOriginalHomeDrop() {
+        if (itemCarried.isEmpty()) {
+            return false;
+        }
+        Container container = outputPos == null ? originalHomeContainer() : findNearbyContainer(outputPos, 1);
+        if (container == null) {
+            moveTowardHomeIfNeeded();
+            return false;
+        }
+        ItemStack remainder = insertIntoContainer(container, itemCarried.copy());
+        if (remainder.getCount() != itemCarried.getCount()) {
+            itemCarried = remainder;
+            originalChestInteractTicks = GolemTaskAIRuntime.ORIGINAL_CHEST_INTERACT_TICKS;
+            if (itemCarried.isEmpty()) {
+                itemCarried = ItemStack.EMPTY;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean runOriginalHomeReplace() {
+        if (itemCarried.isEmpty()) {
+            return false;
+        }
+        if (runOriginalHomeDrop()) {
+            return true;
+        }
+        ItemStack remainder = addToInventory(itemCarried.copy());
+        if (remainder.getCount() != itemCarried.getCount()) {
+            itemCarried = remainder;
+            if (itemCarried.isEmpty()) {
+                itemCarried = ItemStack.EMPTY;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private void runOriginalItemPickup() {
+        if (!itemCarried.isEmpty()) {
+            return;
+        }
+        int radius = workRange();
+        List<ItemEntity> items = level.getEntitiesOfClass(
+                ItemEntity.class,
+                getBoundingBox().inflate(radius),
+                item -> item.isAlive() && !item.getItem().isEmpty() && acceptsItem(item.getItem())
+        );
+        if (items.isEmpty()) {
+            return;
+        }
+        items.sort(Comparator.comparingDouble(this::distanceToSqr));
+        ItemEntity target = items.get(0);
+        if (distanceToSqr(target) > 2.25D) {
+            getNavigation().moveTo(target, hasUpgrade(GolemUpgradeType.AIR) ? 1.25D : 1.1D);
+            return;
+        }
+        ItemStack stack = target.getItem();
+        int move = Math.min(stack.getCount(), Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades)));
+        itemCarried = stack.copy();
+        itemCarried.setCount(move);
+        stack.shrink(move);
+        if (stack.isEmpty()) {
+            target.discard();
+        } else {
+            target.setItem(stack);
+        }
+    }
+
+    private boolean takeOneAcceptedStackFromContainer(Container container) {
+        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+            ItemStack stored = container.getItem(slot);
+            if (!stored.isEmpty() && acceptsItem(stored)) {
+                int move = Math.min(stored.getCount(), Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades)));
+                itemCarried = stored.copy();
+                itemCarried.setCount(move);
+                stored.shrink(move);
+                container.setChanged();
+                originalChestInteractTicks = GolemTaskAIRuntime.ORIGINAL_CHEST_INTERACT_TICKS;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean nearOriginalHome() {
+        if (homePos == null || homePos.equals(BlockPos.ZERO)) {
+            return false;
+        }
+        return distanceToSqr(homePos.getX() + 0.5D, homePos.getY() + 0.5D, homePos.getZ() + 0.5D) <= GolemTaskAIRuntime.ORIGINAL_HOME_INTERACT_DISTANCE_SQ;
+    }
+
+    private void moveTowardHomeIfNeeded() {
+        if (homePos != null && !homePos.equals(BlockPos.ZERO)) {
+            getNavigation().moveTo(homePos.getX() + 0.5D, homePos.getY(), homePos.getZ() + 0.5D, 0.8D);
+        }
+    }
+
+    private Container originalHomeContainer() {
+        if (homePos == null || homePos.equals(BlockPos.ZERO)) {
+            return null;
+        }
+        Direction facing = Direction.from3DDataValue(homeFacing);
+        BlockPos chestPos = homePos.subtract(new net.minecraft.core.Vec3i(facing.getStepX(), facing.getStepY(), facing.getStepZ()));
+        BlockEntity be = level.getBlockEntity(chestPos);
+        return be instanceof Container container ? container : null;
     }
 
     private int workRange() {
@@ -736,17 +999,12 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     private int activeSlots() {
-        int slots = material.inventorySlots();
-        if (hasUpgrade(GolemUpgradeType.EARTH)) {
-            slots += 6;
-        }
+        int slots = GolemOriginalRuntime.inventorySlotCount(material, coreType, upgrades);
         if (hasDecoration(GolemDecorationType.WIRELESS_BACKPACK)) {
+            // Forge 1.19.2 adapter for pre-Stage195 wireless backpack behavior; original TC4 stores this as decoration render data.
             slots += 9;
         }
-        if (hasUpgrade(GolemUpgradeType.ORDER)) {
-            slots += 3;
-        }
-        return Math.min(inventory.size(), slots);
+        return Math.min(inventory.size(), Math.max(0, slots));
     }
 
 
@@ -1008,6 +1266,20 @@ public class ThaumGolemEntity extends PathfinderMob {
         tag.putInt("HomeX", homePos.getX());
         tag.putInt("HomeY", homePos.getY());
         tag.putInt("HomeZ", homePos.getZ());
+        tag.putByte(GolemOriginalRuntime.NBT_HOME_FACING, (byte) homeFacing);
+        tag.putByte(GolemOriginalRuntime.NBT_GOLEM_TYPE, (byte) material.ordinal());
+        tag.putByte(GolemOriginalRuntime.NBT_CORE, (byte) coreType.originalId());
+        tag.putString(GolemOriginalRuntime.NBT_DECORATION, decorationCodeFromSet());
+        tag.putBoolean(GolemOriginalRuntime.NBT_ADVANCED, advanced);
+        tag.putByteArray(GolemOriginalRuntime.NBT_UPGRADES, originalUpgradeSlots);
+        tag.putByteArray(GolemOriginalRuntime.NBT_COLORS, colors);
+        tag.putByteArray(GolemOriginalRuntime.NBT_TOGGLES, originalToggles);
+        tag.put(GolemOriginalRuntime.NBT_MARKERS, originalMarkerListSnapshot());
+        CompoundTag carriedTag = new CompoundTag();
+        if (!itemCarried.isEmpty()) {
+            itemCarried.save(carriedTag);
+        }
+        tag.put(GolemOriginalRuntime.NBT_ITEM_CARRIED, carriedTag);
         writeNullablePos(tag, "Input", inputPos);
         writeNullablePos(tag, "Output", outputPos);
         writeNullablePos(tag, "Guard", guardPos);
@@ -1045,8 +1317,20 @@ public class ThaumGolemEntity extends PathfinderMob {
             ownerUuid = tag.getUUID("Owner");
         }
 
-        material = GolemMaterial.byName(tag.getString("GolemMaterial"));
-        coreType = GolemCoreType.byName(tag.getString("GolemCore"));
+        if (tag.contains("GolemMaterial")) {
+            material = GolemMaterial.byName(tag.getString("GolemMaterial"));
+        } else if (tag.contains(GolemOriginalRuntime.NBT_GOLEM_TYPE)) {
+            int ordinal = tag.getByte(GolemOriginalRuntime.NBT_GOLEM_TYPE) & 255;
+            material = ordinal >= 0 && ordinal < GolemMaterial.values().length ? GolemMaterial.values()[ordinal] : GolemMaterial.WOOD;
+        }
+        if (tag.contains("GolemCore")) {
+            coreType = GolemCoreType.byName(tag.getString("GolemCore"));
+        } else if (tag.contains(GolemOriginalRuntime.NBT_CORE)) {
+            coreType = GolemCoreType.byOriginalId(tag.getByte(GolemOriginalRuntime.NBT_CORE));
+        }
+        advanced = tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED);
+        homeFacing = tag.contains(GolemOriginalRuntime.NBT_HOME_FACING) ? tag.getByte(GolemOriginalRuntime.NBT_HOME_FACING) & 255 : 0;
+        decorationCode = tag.getString(GolemOriginalRuntime.NBT_DECORATION);
         waiting = tag.getBoolean("Waiting");
         taskRadius = tag.contains("TaskRadius") ? Math.max(1, Math.min(32, tag.getInt("TaskRadius"))) : 8;
         taskPriority = tag.contains("TaskPriority") ? Math.max(0, Math.min(9, tag.getInt("TaskPriority"))) : 0;
@@ -1056,11 +1340,16 @@ public class ThaumGolemEntity extends PathfinderMob {
         guardPos = readNullablePos(tag, "Guard");
         workPos = readNullablePos(tag, "Work");
         upgrades.clear();
+        if (tag.contains(GolemOriginalRuntime.NBT_UPGRADES)) {
+            originalUpgradeSlots = tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES);
+            syncUpgradesFromOriginalSlots();
+        }
         for (String part : tag.getString("GolemUpgrades").split(",")) {
             if (!part.isBlank()) {
                 upgrades.add(GolemUpgradeType.byName(part));
             }
         }
+        syncOriginalUpgradeSlotsFromSet();
         decorations.clear();
         for (String part : tag.getString("GolemDecorations").split(",")) {
             if (!part.isBlank()) {
@@ -1069,9 +1358,29 @@ public class ThaumGolemEntity extends PathfinderMob {
         }
         filterAllowList = tag.getBoolean("FilterAllow");
         filterStack = tag.contains("FilterStack") ? ItemStack.of(tag.getCompound("FilterStack")) : ItemStack.EMPTY;
+        if (tag.contains(GolemOriginalRuntime.NBT_COLORS)) {
+            colors = tag.getByteArray(GolemOriginalRuntime.NBT_COLORS);
+        }
+        if (tag.contains(GolemOriginalRuntime.NBT_TOGGLES)) {
+            originalToggles = tag.getByteArray(GolemOriginalRuntime.NBT_TOGGLES);
+            if (originalToggles.length < 8) {
+                byte[] extended = new byte[]{0, 0, 0, 0, 0, 0, 0, 0};
+                System.arraycopy(originalToggles, 0, extended, 0, originalToggles.length);
+                originalToggles = extended;
+            }
+        }
+        if (tag.contains(GolemOriginalRuntime.NBT_ITEM_CARRIED)) {
+            itemCarried = ItemStack.of(tag.getCompound(GolemOriginalRuntime.NBT_ITEM_CARRIED));
+        }
+        if (tag.contains(GolemOriginalRuntime.NBT_MARKERS)) {
+            applyOriginalMarkerList(tag.getList(GolemOriginalRuntime.NBT_MARKERS, 10));
+        }
+        syncColorsLength();
         applyProfileAttributes();
 
-        inventory.clear();
+        for (int slot = 0; slot < inventory.size(); slot++) {
+            inventory.set(slot, ItemStack.EMPTY);
+        }
 
         ListTag list = tag.getList("Inventory", 10);
 
@@ -1121,6 +1430,112 @@ public class ThaumGolemEntity extends PathfinderMob {
             return null;
         }
         return new BlockPos(tag.getInt(key + "X"), tag.getInt(key + "Y"), tag.getInt(key + "Z"));
+    }
+
+
+    public ListTag originalMarkerListSnapshot() {
+        return GolemBellMarkerRuntime.markerListFromTaskPositions(homePos, inputPos, outputPos, guardPos, workPos, homeFacing, level);
+    }
+
+    public void applyOriginalMarkerList(ListTag markers) {
+        if (markers == null) {
+            return;
+        }
+        for (GolemBellMarkerRuntime.Marker marker : GolemBellMarkerRuntime.readMarkers(markers)) {
+            BlockPos pos = new BlockPos(marker.x(), marker.y(), marker.z());
+            switch (marker.color()) {
+                case 0 -> inputPos = pos;
+                case 1 -> outputPos = pos;
+                case 2 -> guardPos = pos;
+                case 3 -> setHomePos(pos);
+                default -> workPos = pos;
+            }
+            homeFacing = marker.side() & 255;
+        }
+    }
+
+    public int activeSlotCount() {
+        return activeSlots();
+    }
+
+    public ItemStack getGolemInventoryStack(int slot) {
+        if (slot < 0 || slot >= inventory.size() || slot >= activeSlots()) {
+            return ItemStack.EMPTY;
+        }
+        return inventory.get(slot);
+    }
+
+    public void setGolemInventoryStack(int slot, ItemStack stack) {
+        if (slot < 0 || slot >= inventory.size() || slot >= activeSlots()) {
+            return;
+        }
+        inventory.set(slot, stack == null ? ItemStack.EMPTY : stack.copy());
+    }
+
+    public void markGolemInventoryChanged() {
+        if (!level.isClientSide) {
+            this.hasImpulse = true;
+        }
+    }
+
+    public int getGolemColor(int slot) {
+        if (slot < 0 || colors == null || slot >= colors.length) {
+            return -1;
+        }
+        return colors[slot];
+    }
+
+    public void setGolemColor(int slot, int color) {
+        if (slot < 0) {
+            return;
+        }
+        syncColorsLength();
+        if (slot >= colors.length) {
+            return;
+        }
+        colors[slot] = (byte) Math.max(-1, Math.min(15, color));
+    }
+
+    public void cycleGolemColor(int slot, boolean forward) {
+        int color = getGolemColor(slot);
+        if (forward) {
+            color++;
+            if (color > 15) color = -1;
+        } else {
+            color--;
+            if (color < -1) color = 15;
+        }
+        setGolemColor(slot, color);
+    }
+
+    public byte getGolemToggle(int index) {
+        if (index < 0 || index >= originalToggles.length) {
+            return 0;
+        }
+        return originalToggles[index];
+    }
+
+    public void toggleGolemFlag(int index) {
+        if (index < 0 || index >= originalToggles.length) {
+            return;
+        }
+        originalToggles[index] = (byte) (originalToggles[index] == 0 ? 1 : 0);
+    }
+
+    public void setPausedByGolemGui(boolean pausedByGolemGui) {
+        this.pausedByGolemGui = pausedByGolemGui;
+        if (pausedByGolemGui) {
+            getNavigation().stop();
+        }
+    }
+
+    public boolean isPausedByGolemGui() {
+        return pausedByGolemGui;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return material.fireResist() || super.fireImmune();
     }
 
     @Override

@@ -32,7 +32,7 @@ files = {
 }
 
 checks = {
-    'version_192': "version = '1.94.0'" in files['build'] and 'version="1.94.0"' in files['mods'],
+    'version_192': ("version = '2.04.0'" in files['build'] or "version = '1.98.0'" in files['build'] or "version = '2.00.0'" in files['build']) and ('version="2.04.0"' in files['mods'] or 'version="1.98.0"' in files['mods'] or 'version="2.00.0"' in files['mods'] or 'version="2.02.0"' in files['mods']),
     'focus_original_stack_nbt': all(token in files['focus_runtime'] for token in ['TAG_ORIGINAL_FOCUS_STACK = "focus"', 'saveFocusStack', 'ItemStack.of']),
     'focus_upgrades_original_nbt': all(token in files['focus_upgrade'] + files['focus_upgrade_type'] for token in ['TAG_UPGRADE = "upgrade"', 'MAX_RANK = 5', 'POTENCY', 'FRUGAL', 'ENLARGE', 'EXTEND', 'TREASURE', 'SILK_TOUCH']),
     'continuous_focus_hooks_survived': all(token in files['focus_runtime'] for token in ['onUsingFocusTick', 'onPlayerStoppedUsingFocus', 'TC4EmberEntity', 'fireloop', 'EXCAVATION_BREAKCOUNT']),

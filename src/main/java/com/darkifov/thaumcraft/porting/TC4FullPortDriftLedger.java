@@ -15,7 +15,7 @@ public final class TC4FullPortDriftLedger {
     public record DriftEntry(String system, String status, List<String> tc4Source, List<String> parityLocked, List<String> remainingDrift, List<String> adapterNotes) {}
 
     public static final int STAGE = 194;
-    public static final String VERSION = "1.94.0";
+    public static final String VERSION = "1.96.0";
     public static final String POLICY = "Strict original TC4 parity; Forge 1.19.2 adapters must be explicit and must not invent mechanics.";
 
     public static final List<DriftEntry> ENTRIES = List.of(

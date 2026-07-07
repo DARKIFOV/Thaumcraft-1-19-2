@@ -4,12 +4,12 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="1.94.0"
+version="2.04.0"
 displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
-Strict Forge 1.19.2 source-driven port of Thaumcraft 4.
-Stage 149: strict original TC4 research page parity. Completes exact ConfigResearch icon coverage for all 201 original research keys and guards those resources in GitHub/JAR output.
+Strict Forge 1.19.2 source-driven parity port of original Thaumcraft 4.
+Stage200: golem bell marker NBT parity, tube/jar renderer visual parity, and resource-pack texture metadata hardening.
 '''
 
 [[dependencies.thaumcraft]]

@@ -35,7 +35,7 @@ forbidden_runtime_tokens = [
 ]
 
 checks = {
-    'version_194': "version = '1.94.0'" in build and 'version="1.94.0"' in mods,
+    'version_194': ("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build or "version = '2.02.0'" in build or "version = '2.02.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' or 'version="2.02.0"' in mods),
     'legacy_arcane_packet_files_removed': all(not exists(path) for path in [
         'src/main/java/com/darkifov/thaumcraft/network/RequestArcaneCraftPacket.java',
         'src/main/java/com/darkifov/thaumcraft/network/RequestArcaneMenuCraftPacket.java',

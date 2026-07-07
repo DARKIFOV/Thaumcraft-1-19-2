@@ -1,0 +1,25 @@
+{
+  "stage": 195,
+  "version": "1.96.0",
+  "title": "TC4 golem core/AI parity batch 1",
+  "source_truth": [
+    "thaumcraft.common.entities.golems.EntityGolemBase",
+    "thaumcraft.common.entities.golems.EnumGolemType",
+    "thaumcraft.common.entities.golems.ItemGolemCore",
+    "thaumcraft.common.entities.golems.ItemGolemUpgrade",
+    "thaumcraft.common.entities.golems.ItemGolemBell"
+  ],
+  "completed": [
+    "Restored original EnumGolemType constants for health, armor, speed, fireResist, upgrade slots, carry, regenDelay and strength.",
+    "Restored original itemGolemCore metadata order and capability flags hasGUI/canSort/hasInventory.",
+    "Restored original itemGolemUpgrade metadata order 0..5.",
+    "Added original EntityGolemBase NBT keys and migration bridge.",
+    "Adjusted golem attributes, carry limit and inventory slot calculations toward original EntityGolemBase formulas.",
+    "Marked pre-existing non-original bodyguard/patrol core names as migration adapters only."
+  ],
+  "forge_1_19_2_adapters": [
+    "ThaumGolemEntity remains a PathfinderMob instead of the original EntityGolem inheritance chain.",
+    "Task execution remains adapted to 1.19.2 goals/ticks until the later full AI task-class pass.",
+    "Wireless backpack/decorations still use itemized Forge adapter representation."
+  ]
+}

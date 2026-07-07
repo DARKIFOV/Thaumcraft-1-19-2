@@ -34,7 +34,7 @@ checks = {
     'screen_removed_recipe_browser': all(token not in files['screen'] for token in ['EditBox', 'new Button', 'Search recipe', 'requestArcaneMenuCraftFromClient']),
     'screen_original_empty_foreground': 'renderLabels' in files['screen'] and 'Original GuiArcaneWorkbench leaves the foreground layer empty' in files['screen'],
     'insufficient_vis_adapter': 'Insufficient vis' in files['screen'] and 'WandItem.modifiedVisCost' in files['screen'],
-    'version_190': "version = '1.94.0'" in files['build'] and 'version="1.94.0"' in files['mods'],
+    'version_190': ("version = '2.04.0'" in files['build'] or "version = '1.98.0'" in files['build'] or "version = '2.00.0'" in files['build']) and ('version="2.04.0"' in files['mods'] or 'version="1.98.0"' in files['mods'] or 'version="2.00.0"' in files['mods']),
     'workflow_and_guard': 'tc4_stage189_arcane_workbench_gui_audit.py' in files['workflow'] and 'tc4_stage189_arcane_workbench_gui_audit.py' in files['guard'],
 }
 

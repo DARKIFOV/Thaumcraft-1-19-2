@@ -44,11 +44,11 @@ if 'ProjectileUtil.getHitResult(this, this::canHitEntity)' not in base:
     errors.append('base projectile missing Forge 1.19.2 official hit-result adapter ProjectileUtil.getHitResult')
 if 'TC4 focus projectile visual adapter' not in renderer and 'minimal projectile renderer placeholder' not in renderer:
     errors.append('projectile renderer must document either Stage174 placeholder or later TC4 visual adapter')
-for token in ['tc4_stage174_focus_projectile_entity_audit.py','python scripts/tc4_stage174_focus_projectile_entity_audit.py','thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage174_focus_projectile_entity_audit.py','python scripts/tc4_stage174_focus_projectile_entity_audit.py','thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing {token}')
-if "version = '1.94.0'" not in build or 'version="1.94.0"' not in mods:
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' in mods)):
+    errors.append('project version must be 1.98.0 or 2.00.0')
 if errors:
     for e in errors:
         print('::error::'+e)

@@ -58,12 +58,12 @@ if 'WandComponentData.from(stack).capacity(stack)' not in wand:
 if 'visCostModifier(wandStack, aspect)' not in focus:
     errors.append('WandFocusRuntime focus vis cost is not using Stage185 sceptre cost adapter')
 
-for token in ['tc4_stage185_wand_component_renderer_audit.py', 'python scripts/tc4_stage185_wand_component_renderer_audit.py', 'thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage185_wand_component_renderer_audit.py', 'python scripts/tc4_stage185_wand_component_renderer_audit.py', 'thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing Stage185 token {token}')
 
-if "version = '1.94.0'" not in build or 'version="1.94.0"' not in mods:
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' in mods)):
+    errors.append('project version must be 1.98.0 or 2.00.0')
 
 if errors:
     for e in errors:

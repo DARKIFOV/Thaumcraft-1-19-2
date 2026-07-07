@@ -153,7 +153,7 @@ for e in source_items:
                 missing_trigger_literals.append({'key': e['key'], 'field': field, 'trigger': trigger})
 
 checks = {
-    'version_stage150_or_later': any((f"version = '{v}'" in build and f'version="{v}"' in mods) for v in ['1.94.0', '1.78.0', '1.76.0', '1.70.0', '1.65.0', '1.64.0', '1.63.0', '1.62.0', '1.61.0', '1.60.0', '1.59.0', '1.58.0', '1.57.0', '1.56.0', '1.55.0', '1.54.0', '1.51.0', '1.53.0', '1.52.0']),
+    'version_stage150_or_later': any((f"version = '{v}'" in build and f'version="{v}"' in mods) for v in ['2.04.0', '2.02.0', '2.00.0', '1.98.0', '1.78.0', '1.76.0', '1.70.0', '1.65.0', '1.64.0', '1.63.0', '1.62.0', '1.61.0', '1.60.0', '1.59.0', '1.58.0', '1.57.0', '1.56.0', '1.55.0', '1.54.0', '1.51.0', '1.53.0', '1.52.0']),
     'stage150_metadata_spec_present': len(expected_items) == 201,
     'stage150_metadata_matches_original_source': expected_items == [{k:e.get(k) for k in ['key','category','display_column','display_row','complexity','aspects','parents','parents_hidden','siblings','flags','warp','item_triggers_raw','entity_triggers','aspect_triggers']} for e in source_items],
     'runtime_key_count_201': len(current) == 201,

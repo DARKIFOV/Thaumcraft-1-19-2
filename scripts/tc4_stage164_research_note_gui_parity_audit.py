@@ -41,7 +41,7 @@ workflow = read('.github/workflows/main.yml') if (ROOT / '.github/workflows/main
 guard = read('scripts/github_ci_guard.py') if (ROOT / 'scripts/github_ci_guard.py').exists() else ''
 if 'tc4_stage164_research_note_gui_parity_audit.py' not in workflow or 'tc4_stage164_research_note_gui_parity_audit.py' not in guard:
     errors.append('Stage164 workflow/guard missing audit')
-if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage194-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
+if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage204-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
     errors.append('Stage164 workflow missing current jar artifact')
 if errors:
     for error in errors:

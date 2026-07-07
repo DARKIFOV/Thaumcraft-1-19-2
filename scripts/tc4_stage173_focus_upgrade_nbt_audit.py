@@ -44,11 +44,11 @@ for token in ['WandFocusRuntime.setFocusStack', 'WandFocusRuntime.getFocusStack'
         errors.append(f'WandItem missing focus-stack preservation {token}')
 if 'FocusUpgradeRuntime.getAppliedUpgrades' not in focus_item:
     errors.append('WandFocusItem tooltip must expose original upgrade NBT')
-for token in ['tc4_stage173_focus_upgrade_nbt_audit.py','python scripts/tc4_stage173_focus_upgrade_nbt_audit.py','thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage173_focus_upgrade_nbt_audit.py','python scripts/tc4_stage173_focus_upgrade_nbt_audit.py','thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing {token}')
-if "version = '1.94.0'" not in build or 'version="1.94.0"' not in mods:
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' in mods)):
+    errors.append('project version must be 1.98.0 or 2.00.0')
 if errors:
     for e in errors:
         print('::error::'+e)

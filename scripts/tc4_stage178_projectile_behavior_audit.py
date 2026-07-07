@@ -77,7 +77,7 @@ for forbidden in ['applyPrimal(', 'primalBlock(']:
     if forbidden in base:
         errors.append(f'base projectile still contains non-original Stage174/176 primal adapter {forbidden}')
 
-for token in ['tc4_stage178_projectile_behavior_audit.py', 'python scripts/tc4_stage178_projectile_behavior_audit.py', 'thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage178_projectile_behavior_audit.py', 'python scripts/tc4_stage178_projectile_behavior_audit.py', 'thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing {token}')
 

@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.block;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.jar.JarTubeInteractionRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -75,6 +76,12 @@ public class EssentiaJarBlock extends BaseEntityBlock {
             return InteractionResult.PASS;
         }
 
+        if (held.getItem() instanceof JarLabelItem) {
+            JarTubeInteractionRuntime.applyLabelToJar(jar, player, held,
+                    player.getItemInHand(hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND));
+            return InteractionResult.CONSUME;
+        }
+
         if (held.isEmpty()) {
             String jarType = isVoidJar(state) ? "Void Jar" : isFilteredJar(state) ? "Filtered Jar" : "Essentia Jar";
             String filter = jar.filterAspect() == null ? "none" : jar.filterAspect().displayName();
@@ -98,9 +105,12 @@ public class EssentiaJarBlock extends BaseEntityBlock {
                     return InteractionResult.CONSUME;
                 }
 
-                int removed = jar.aspects().removeUpTo(first, TRANSFER_AMOUNT);
-                EssentiaPhialItem.setEssentia(held, first, removed);
-                jar.setChangedAndSync();
+                int removed = Math.min(TRANSFER_AMOUNT, jar.aspects().get(first));
+                if (jar.takeFromContainerOriginal(first, removed)) {
+                    EssentiaPhialItem.setEssentia(held, first, removed);
+                } else {
+                    removed = 0;
+                }
 
                 player.displayClientMessage(
                         Component.literal("Filled phial with ").append(Component.literal(first.displayName() + " x" + removed).withStyle(style -> style.withColor(first.textColor()))),
@@ -120,29 +130,20 @@ public class EssentiaJarBlock extends BaseEntityBlock {
                 return InteractionResult.CONSUME;
             }
 
-            int space = Math.max(0, CAPACITY - jar.aspects().totalAmount());
-            int toAdd = Math.min(space, heldAmount);
-
-            if (isVoidJar(state) && toAdd <= 0) {
-                EssentiaPhialItem.clear(held);
-                player.displayClientMessage(Component.literal("The void jar destroys excess ").append(Component.literal(heldAspect.displayName()).withStyle(style -> style.withColor(heldAspect.textColor()))), false);
-                return InteractionResult.CONSUME;
-            }
+            boolean voidJar = isVoidJar(state);
+            int remainder = jar.addToContainerOriginal(heldAspect, heldAmount, voidJar);
+            int toAdd = Math.max(0, heldAmount - remainder);
 
             if (toAdd <= 0) {
-                player.displayClientMessage(Component.literal("The jar is full.").withStyle(ChatFormatting.RED), false);
+                player.displayClientMessage(Component.literal(voidJar ? "The void jar rejects that aspect." : "The jar is full.").withStyle(ChatFormatting.RED), false);
                 return InteractionResult.CONSUME;
             }
 
-            jar.aspects().add(heldAspect, toAdd);
-
-            if (toAdd >= heldAmount) {
+            if (remainder <= 0) {
                 EssentiaPhialItem.clear(held);
             } else {
-                EssentiaPhialItem.setEssentia(held, heldAspect, heldAmount - toAdd);
+                EssentiaPhialItem.setEssentia(held, heldAspect, remainder);
             }
-
-            jar.setChangedAndSync();
 
             player.displayClientMessage(
                     Component.literal("Poured ").append(Component.literal(heldAspect.displayName() + " x" + toAdd).withStyle(style -> style.withColor(heldAspect.textColor())))

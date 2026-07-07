@@ -126,15 +126,15 @@ if "InfusionRecipes.find(catalystPedestal.stored())" in matrix_text:
 build_text = (ROOT / "build.gradle").read_text(encoding="utf-8")
 mods_text = (ROOT / "src/main/resources/META-INF/mods.toml").read_text(encoding="utf-8")
 workflow_text = (ROOT / ".github/workflows/main.yml").read_text(encoding="utf-8")
-if not any(f"version = '{v}'" in build_text for v in ["1.94.0", "1.78.0", "1.76.0", "1.70.0", "1.65.0", "1.64.0", "1.63.0", "1.62.0", "1.61.0", "1.60.0", "1.59.0", "1.58.0", "1.57.0", "1.56.0", "1.55.0", "1.54.0", "1.53.0"]):
+if not any(f"version = '{v}'" in build_text for v in ["2.04.0", "2.02.0", "2.00.0", "1.98.0", "1.78.0", "1.76.0", "1.70.0", "1.65.0", "1.64.0", "1.63.0", "1.62.0", "1.61.0", "1.60.0", "1.59.0", "1.58.0", "1.57.0", "1.56.0", "1.55.0", "1.54.0", "1.53.0"]):
     errors.append("build.gradle must be Stage153 or later")
-if not any(f'version="{v}"' in mods_text for v in ["1.94.0", "1.78.0", "1.76.0", "1.70.0", "1.65.0", "1.64.0", "1.63.0", "1.62.0", "1.61.0", "1.60.0", "1.59.0", "1.58.0", "1.57.0", "1.56.0", "1.55.0", "1.54.0", "1.53.0"]):
+if not any(f'version="{v}"' in mods_text for v in ["2.04.0", "2.02.0", "2.00.0", "1.98.0", "1.78.0", "1.76.0", "1.70.0", "1.65.0", "1.64.0", "1.63.0", "1.62.0", "1.61.0", "1.60.0", "1.59.0", "1.58.0", "1.57.0", "1.56.0", "1.55.0", "1.54.0", "1.53.0"]):
     errors.append("mods.toml must be Stage153 or later")
 if "tc4_original_recipe_materialization_stage153.json" not in build_text:
     errors.append("verifyJarResources must include the Stage153 materialization manifest")
 if "tc4_stage153_recipe_materialization_parity_audit.py" not in workflow_text:
     errors.append("GitHub workflow must run Stage153 recipe materialization audit")
-if not any(name in workflow_text for name in ["thaumcraft-legacy-rebuild-stage194-jars", "thaumcraft-legacy-rebuild-stage165-jars", "thaumcraft-legacy-rebuild-stage164-jars", "thaumcraft-legacy-rebuild-stage163-jars", "thaumcraft-legacy-rebuild-stage194-jars", "thaumcraft-legacy-rebuild-stage165-jars", "thaumcraft-legacy-rebuild-stage164-jars", "thaumcraft-legacy-rebuild-stage161-jars", "thaumcraft-legacy-rebuild-stage160-jars", "thaumcraft-legacy-rebuild-stage159-jars", "thaumcraft-legacy-rebuild-stage158-jars", "thaumcraft-legacy-rebuild-stage155-jars", "thaumcraft-legacy-rebuild-stage154-jars", "thaumcraft-legacy-rebuild-stage153-jars"]):
+if not any(name in workflow_text for name in ["thaumcraft-legacy-rebuild-stage204-jars", "thaumcraft-legacy-rebuild-stage165-jars", "thaumcraft-legacy-rebuild-stage164-jars", "thaumcraft-legacy-rebuild-stage163-jars", "thaumcraft-legacy-rebuild-stage204-jars", "thaumcraft-legacy-rebuild-stage165-jars", "thaumcraft-legacy-rebuild-stage164-jars", "thaumcraft-legacy-rebuild-stage161-jars", "thaumcraft-legacy-rebuild-stage160-jars", "thaumcraft-legacy-rebuild-stage159-jars", "thaumcraft-legacy-rebuild-stage158-jars", "thaumcraft-legacy-rebuild-stage155-jars", "thaumcraft-legacy-rebuild-stage154-jars", "thaumcraft-legacy-rebuild-stage153-jars"]):
     errors.append("GitHub workflow artifact name must be Stage153 or later")
 
 report = {

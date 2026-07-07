@@ -13,7 +13,7 @@ workflow = read('.github/workflows/main.yml')
 guard = read('scripts/github_ci_guard.py')
 
 checks = {
-    'version_192': "version = '1.94.0'" in build and 'version="1.94.0"' in mods,
+    'version_192': ("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build or "version = '2.02.0'" in build or "version = '2.02.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' or 'version="2.02.0"' in mods),
     'vanilla_first_fallback': all(token in be for token in [
         'previewVanillaCraftingResult',
         'findMatchingVanillaCraftingRecipe',

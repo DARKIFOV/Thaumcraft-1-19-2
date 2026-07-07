@@ -1,0 +1,62 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_center_oneway"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_arm_north_oneway"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_arm_north_oneway",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_arm_north_oneway",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_arm_north_oneway",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_arm_north_oneway",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/essentia_tube_arm_north_oneway",
+        "x": 90
+      }
+    }
+  ]
+}

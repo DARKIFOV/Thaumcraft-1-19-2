@@ -1,0 +1,31 @@
+{
+  "stage": 204,
+  "version": "2.04.0",
+  "name": "TC4 jar/tube exact transfer edge-case parity",
+  "source_of_truth": [
+    "thaumcraft.common.tiles.TileJarFillable",
+    "thaumcraft.common.tiles.TileJarFillableVoid",
+    "thaumcraft.common.tiles.TileTube",
+    "thaumcraft.common.tiles.TileTubeFilter",
+    "thaumcraft.common.tiles.TileTubeRestrict",
+    "thaumcraft.common.tiles.TileTubeOneway",
+    "thaumcraft.common.tiles.TileTubeBuffer"
+  ],
+  "implemented": [
+    "EssentiaJarBlockEntity now has addToContainerOriginal and takeFromContainerOriginal adapters using original return semantics.",
+    "Void jar overflow now consumes excess essentia while storing only up to 64, matching TileJarFillableVoid.addToContainer.",
+    "Normal jar suction stops at full; void jar keeps baseline suction, and labelled void jar uses 48 while normal labelled jar uses 64.",
+    "Phial pour/take interactions now use the same original jar add/take helpers as tube transfer.",
+    "Tube transfer destination lookup uses jar.originalSuctionAmount instead of a generic fixed resolver table.",
+    "TileTubeOneway directional behavior is now split into allowsInputFrom, allowsOutputTo and allowsNetworkTraversal adapters.",
+    "Tube source/destination scans now respect one-way input/output direction gates and subtype aspect filters.",
+    "pack.mcmeta/resource-pack metadata fix from Stage198/200 remains preserved."
+  ],
+  "forge_1192_adapters": [
+    "Forge block-entity ticks route TileJarFillable.fillJar edge cases through tube transfer snapshots rather than direct IEssentiaTransport calls.",
+    "Direction/facing adapters replace ForgeDirection ordinal side usage."
+  ],
+  "drift_notes": [
+    "Exact CodeChicken RayTracer subHit cuboid selection for tubes is still represented by BlockHitResult direction until final renderer/shape pass."
+  ]
+}

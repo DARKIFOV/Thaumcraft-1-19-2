@@ -1,36 +1,49 @@
 package com.darkifov.thaumcraft.golem;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 /**
- * TC4-style golem body materials. Original TC4 used itemGolemPlacer metadata;
- * the 1.19.2 port stores the selected material on the placer/core NBT and then
- * copies it to the entity.
+ * Strict TC4 1.7.10 EnumGolemType parity table.
+ *
+ * Source of truth: thaumcraft.common.entities.golems.EnumGolemType
+ * STRAW(10,0,0.38,false,1,1,75,0), WOOD(20,6,0.35,false,1,4,75,1),
+ * TALLOW(20,9,0.33,false,2,8,75,2), CLAY(25,9,0.33,true,1,8,100,2),
+ * FLESH(15,6,0.35,false,2,4,40,1), STONE(30,12,0.32,true,1,16,100,3),
+ * IRON(35,15,0.31,true,1,32,125,4), THAUMIUM(40,15,0.32,true,2,32,100,4).
  */
 public enum GolemMaterial {
-    STRAW("straw", 12.0D, 0.30D, 0.0D, 9, ChatFormatting.YELLOW),
-    WOOD("wood", 20.0D, 0.25D, 1.0D, 12, ChatFormatting.GOLD),
-    TALLOW("tallow", 16.0D, 0.27D, 0.0D, 12, ChatFormatting.WHITE),
-    CLAY("clay", 24.0D, 0.22D, 2.0D, 15, ChatFormatting.GRAY),
-    FLESH("flesh", 28.0D, 0.24D, 1.5D, 15, ChatFormatting.LIGHT_PURPLE),
-    STONE("stone", 34.0D, 0.19D, 5.0D, 18, ChatFormatting.DARK_GRAY),
-    IRON("iron", 42.0D, 0.17D, 8.0D, 21, ChatFormatting.AQUA),
-    THAUMIUM("thaumium", 48.0D, 0.21D, 6.0D, 27, ChatFormatting.DARK_PURPLE);
+    STRAW("straw", 10, 0, 0.38F, false, 1, 1, 75, 0, ChatFormatting.YELLOW),
+    WOOD("wood", 20, 6, 0.35F, false, 1, 4, 75, 1, ChatFormatting.GOLD),
+    TALLOW("tallow", 20, 9, 0.33F, false, 2, 8, 75, 2, ChatFormatting.WHITE),
+    CLAY("clay", 25, 9, 0.33F, true, 1, 8, 100, 2, ChatFormatting.GRAY),
+    FLESH("flesh", 15, 6, 0.35F, false, 2, 4, 40, 1, ChatFormatting.LIGHT_PURPLE),
+    STONE("stone", 30, 12, 0.32F, true, 1, 16, 100, 3, ChatFormatting.DARK_GRAY),
+    IRON("iron", 35, 15, 0.31F, true, 1, 32, 125, 4, ChatFormatting.AQUA),
+    THAUMIUM("thaumium", 40, 15, 0.32F, true, 2, 32, 100, 4, ChatFormatting.DARK_PURPLE);
 
     private final String id;
-    private final double maxHealth;
-    private final double movementSpeed;
-    private final double armor;
-    private final int inventorySlots;
+    private final int health;
+    private final int armor;
+    private final float speed;
+    private final boolean fireResist;
+    private final int upgradeSlots;
+    private final int carry;
+    private final int regenDelay;
+    private final int strength;
     private final ChatFormatting color;
 
-    GolemMaterial(String id, double maxHealth, double movementSpeed, double armor, int inventorySlots, ChatFormatting color) {
+    GolemMaterial(String id, int health, int armor, float speed, boolean fireResist, int upgradeSlots,
+                  int carry, int regenDelay, int strength, ChatFormatting color) {
         this.id = id;
-        this.maxHealth = maxHealth;
-        this.movementSpeed = movementSpeed;
+        this.health = health;
         this.armor = armor;
-        this.inventorySlots = inventorySlots;
+        this.speed = speed;
+        this.fireResist = fireResist;
+        this.upgradeSlots = upgradeSlots;
+        this.carry = carry;
+        this.regenDelay = regenDelay;
+        this.strength = strength;
         this.color = color;
     }
 
@@ -38,20 +51,60 @@ public enum GolemMaterial {
         return id;
     }
 
-    public double maxHealth() {
-        return maxHealth;
+    public int health() {
+        return health;
     }
 
-    public double movementSpeed() {
-        return movementSpeed;
+    public double maxHealth() {
+        return health;
+    }
+
+    public int armorValue() {
+        return armor;
     }
 
     public double armor() {
         return armor;
     }
 
+    public float speed() {
+        return speed;
+    }
+
+    public double movementSpeed() {
+        return speed;
+    }
+
+    public boolean fireResist() {
+        return fireResist;
+    }
+
+    public int upgradeSlots(boolean advanced) {
+        return upgradeSlots + (advanced ? 1 : 0);
+    }
+
+    public int baseCarry() {
+        return carry;
+    }
+
+    public int regenDelay() {
+        return regenDelay;
+    }
+
+    public int strength() {
+        return strength;
+    }
+
+    /** TC4 carry capacity after earth-upgrade metadata 1. */
+    public int carryLimit(int earthUpgradeAmount) {
+        int base = carry;
+        base += Math.min(16, Math.max(4, base)) * Math.max(0, earthUpgradeAmount);
+        return base;
+    }
+
+    /** Forge adapter name kept for older stage code. TC4 does not size inventory by body material directly. */
     public int inventorySlots() {
-        return inventorySlots;
+        return carry;
     }
 
     public Component displayName() {

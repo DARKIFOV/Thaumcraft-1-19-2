@@ -123,12 +123,14 @@ import com.darkifov.thaumcraft.entity.projectile.TC4FrostShardEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PrimalOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ShockOrbEntity;
 import com.darkifov.thaumcraft.infusion.InfusionRecipeManager;
+import com.darkifov.thaumcraft.essentia.EssentiaTubeSubtype;
 import com.darkifov.thaumcraft.golem.GolemUpgradeType;
 import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import com.darkifov.thaumcraft.menu.EssentiaDriveMenu;
 import com.darkifov.thaumcraft.menu.EssentiaTerminalMenu;
 import com.darkifov.thaumcraft.menu.BottomlessPouchMenu;
 import com.darkifov.thaumcraft.menu.FocusPouchMenu;
+import com.darkifov.thaumcraft.menu.GolemMenu;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
 import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
@@ -613,6 +615,18 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> ESSENTIA_TUBE = essentiaTubeBlock("essentia_tube",
             BlockBehaviour.Properties.of(Material.GLASS).strength(1.0F, 2.0F).requiresCorrectToolForDrops().noOcclusion());
 
+    public static final RegistryObject<Block> ESSENTIA_TUBE_FILTER = essentiaTubeBlock("essentia_tube_filter", EssentiaTubeSubtype.FILTER,
+            BlockBehaviour.Properties.of(Material.GLASS).strength(1.0F, 2.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    public static final RegistryObject<Block> ESSENTIA_TUBE_RESTRICT = essentiaTubeBlock("essentia_tube_restrict", EssentiaTubeSubtype.RESTRICT,
+            BlockBehaviour.Properties.of(Material.GLASS).strength(1.0F, 2.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    public static final RegistryObject<Block> ESSENTIA_TUBE_ONEWAY = essentiaTubeBlock("essentia_tube_oneway", EssentiaTubeSubtype.ONEWAY,
+            BlockBehaviour.Properties.of(Material.GLASS).strength(1.0F, 2.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    public static final RegistryObject<Block> ESSENTIA_TUBE_BUFFER = essentiaTubeBlock("essentia_tube_buffer", EssentiaTubeSubtype.BUFFER,
+            BlockBehaviour.Properties.of(Material.GLASS).strength(1.2F, 2.5F).requiresCorrectToolForDrops().noOcclusion());
+
     public static final RegistryObject<Block> ESSENTIA_VALVE = essentiaValveBlock("essentia_valve",
             BlockBehaviour.Properties.of(Material.GLASS).strength(1.2F, 2.5F).requiresCorrectToolForDrops().noOcclusion());
 
@@ -853,7 +867,13 @@ public class ThaumcraftMod {
             BLOCK_ENTITIES.register("alembic", () -> BlockEntityType.Builder.of(AlembicBlockEntity::new, ALEMBIC.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<EssentiaTubeBlockEntity>> ESSENTIA_TUBE_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("essentia_tube", () -> BlockEntityType.Builder.of(EssentiaTubeBlockEntity::new, ESSENTIA_TUBE.get(), ESSENTIA_VALVE.get()).build(null));
+            BLOCK_ENTITIES.register("essentia_tube", () -> BlockEntityType.Builder.of(EssentiaTubeBlockEntity::new,
+                    ESSENTIA_TUBE.get(),
+                    ESSENTIA_TUBE_FILTER.get(),
+                    ESSENTIA_TUBE_RESTRICT.get(),
+                    ESSENTIA_TUBE_ONEWAY.get(),
+                    ESSENTIA_TUBE_BUFFER.get(),
+                    ESSENTIA_VALVE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<AlchemicalFurnaceBlockEntity>> ALCHEMICAL_FURNACE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("alchemical_furnace", () -> BlockEntityType.Builder.of(AlchemicalFurnaceBlockEntity::new, ALCHEMICAL_FURNACE.get()).build(null));
@@ -901,6 +921,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<MenuType<FocusPouchMenu>> FOCUS_POUCH_MENU =
             MENUS.register("focus_pouch", () -> IForgeMenuType.create((windowId, inv, data) -> new FocusPouchMenu(windowId, inv, data)));
+
+    public static final RegistryObject<MenuType<GolemMenu>> GOLEM_MENU =
+            MENUS.register("golem", () -> IForgeMenuType.create((windowId, inv, data) -> new GolemMenu(windowId, inv, data)));
 
     public static final RegistryObject<EntityType<ThaumGolemEntity>> THAUM_GOLEM =
             ENTITY_TYPES.register("thaum_golem", () -> EntityType.Builder.of(ThaumGolemEntity::new, MobCategory.CREATURE)
@@ -1164,7 +1187,11 @@ public class ThaumcraftMod {
     }
 
     private static RegistryObject<Block> essentiaTubeBlock(String name, BlockBehaviour.Properties properties) {
-        RegistryObject<Block> block = BLOCKS.register(name, () -> new EssentiaTubeBlock(properties));
+        return essentiaTubeBlock(name, EssentiaTubeSubtype.NORMAL, properties);
+    }
+
+    private static RegistryObject<Block> essentiaTubeBlock(String name, EssentiaTubeSubtype subtype, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new EssentiaTubeBlock(properties, subtype));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }

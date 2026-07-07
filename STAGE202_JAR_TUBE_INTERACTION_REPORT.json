@@ -1,0 +1,23 @@
+{
+  "stage": 202,
+  "version": "2.02.0",
+  "title": "TC4 jar/tube interaction parity batch",
+  "source_of_truth": [
+    "TileJarFillable",
+    "TileJarFillableVoid",
+    "TileTubeFilter",
+    "TileTubeBuffer",
+    "BlockJar/ItemJarFilled AspectFilter NBT"
+  ],
+  "implemented": [
+    "JarTubeInteractionRuntime keeps original NBT names AspectFilter/Aspect/Amount/facing explicit",
+    "JarLabelItem and EssentiaJarBlock now set/clear jar AspectFilter from stored aspect or filled phial",
+    "EssentiaTubeBlock accepts jar-label/phial interactions to set or clear tube AspectFilter",
+    "Tube filter interactions use existing EssentiaTubeBlockEntity.setAspectFilter and subtype renderer state",
+    "Void jar behavior remains preserving overflow destruction semantics from earlier stages"
+  ],
+  "forge_1_19_2_adapters": [
+    "Label aspect selection uses filled phial/offhand context because 1.19.2 has no original 1.7.10 metadata label item UI path",
+    "Tube filter set/clear is a block-use adapter until exact wand/label packet flow is finalized"
+  ]
+}

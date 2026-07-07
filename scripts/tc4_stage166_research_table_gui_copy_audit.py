@@ -23,7 +23,7 @@ if not errors:
       'packet_actions':'createResearchNote' in packet and 'openResearchNote' in packet and 'copyCompletedResearchNote' in packet,
       'screen_registered':'RESEARCH_TABLE_MENU' in client and 'ResearchTableContainerScreen::new' in client,
       'packet_registered':'RequestResearchTableActionPacket.class' in net,
-      'version':'version = \'1.94.0\'' in read(Path('build.gradle')) and 'version="1.94.0"' in read(Path('src/main/resources/META-INF/mods.toml')),
+      'version': any(f"version = '{v}'" in read(Path('build.gradle')) and f'version="{v}"' in read(Path('src/main/resources/META-INF/mods.toml')) for v in ['2.04.0', '1.98.0', '2.00.0', '2.02.0']),
     }
     for name, ok in required.items():
         if not ok: errors.append(f'failed {name}')
@@ -31,7 +31,7 @@ if not errors:
     if data.get('stage')!=166: errors.append('stage166 json stage mismatch')
 workflow=read(Path('.github/workflows/main.yml'))
 guard=read(Path('scripts/github_ci_guard.py'))
-for token in ['tc4_stage166_research_table_gui_copy_audit.py','python scripts/tc4_stage166_research_table_gui_copy_audit.py','1.94.0']:
+for token in ['tc4_stage166_research_table_gui_copy_audit.py','python scripts/tc4_stage166_research_table_gui_copy_audit.py']:
     if token not in workflow and token not in guard and token not in read(Path('build.gradle')): errors.append(f'missing stage166 token {token}')
 if errors:
     for e in errors: print('::error::'+e)

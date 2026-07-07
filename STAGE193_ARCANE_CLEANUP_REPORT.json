@@ -1,6 +1,6 @@
 {
   "stage": 193,
-  "version": "1.94.0",
+  "version": "1.96.0",
   "focus": "Arcane Workbench browser-era packet/screen cleanup",
   "removed_runtime_files": [
     "src/main/java/com/darkifov/thaumcraft/network/RequestArcaneCraftPacket.java",

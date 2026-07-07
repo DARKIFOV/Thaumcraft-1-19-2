@@ -53,7 +53,7 @@ else:
 
 if 'tc4_stage162_research_note_completion_parity_audit.py' not in workflow or 'tc4_stage162_research_note_completion_parity_audit.py' not in guard:
     errors.append('Stage162 workflow/guard missing audit')
-if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage194-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
+if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage204-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
     errors.append('Stage162 workflow missing current jar artifact')
 
 if errors:

@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
 import com.darkifov.thaumcraft.golem.GolemBellMode;
 import com.darkifov.thaumcraft.golem.GolemCoreType;
 import com.darkifov.thaumcraft.golem.GolemMarkerMode;
+import com.darkifov.thaumcraft.golem.GolemBellMarkerRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -45,6 +46,7 @@ public class GolemBellItem extends Item {
         ItemStack bell = context.getItemInHand();
         GolemBellMode mode = getMode(bell);
         BlockPos target = context.getClickedPos().relative(context.getClickedFace());
+        BlockPos markerTarget = context.getClickedPos();
         List<ThaumGolemEntity> owned = ownedGolems(serverLevel, player, 32.0D);
 
         if (owned.isEmpty()) {
@@ -63,15 +65,19 @@ public class GolemBellItem extends Item {
                 player.displayClientMessage(Component.literal("Set home position for owned golems: " + changed).withStyle(ChatFormatting.GOLD), false);
             }
             case MARKER -> {
+                ThaumGolemEntity bound = GolemBellMarkerRuntime.boundGolem(bell, level);
+                boolean multiColor = bound != null && bound.hasUpgrade(com.darkifov.thaumcraft.golem.GolemUpgradeType.ORDER);
+                GolemBellMarkerRuntime.ToggleResult result = GolemBellMarkerRuntime.changeMarkers(bell, player, level, markerTarget, context.getClickedFace(), multiColor);
                 ItemStack offhand = player.getOffhandItem();
                 GolemMarkerMode markerMode = offhand.getItem() instanceof GolemTaskMarkerItem ? GolemTaskMarkerItem.getMode(offhand) : GolemMarkerMode.WORK;
-                BlockPos markerPos = offhand.getItem() instanceof GolemTaskMarkerItem && GolemTaskMarkerItem.getPosition(offhand) != null ? GolemTaskMarkerItem.getPosition(offhand) : target;
+                BlockPos markerPos = offhand.getItem() instanceof GolemTaskMarkerItem && GolemTaskMarkerItem.getPosition(offhand) != null ? GolemTaskMarkerItem.getPosition(offhand) : markerTarget;
                 int changed = 0;
                 for (ThaumGolemEntity golem : owned) {
                     golem.setTaskMarker(markerMode, markerPos);
+                    golem.applyOriginalMarkerList(GolemBellMarkerRuntime.getMarkersTag(bell));
                     changed++;
                 }
-                player.displayClientMessage(Component.literal("Assigned ").append(markerMode.displayName()).append(Component.literal(" marker to golems: " + changed)).withStyle(ChatFormatting.YELLOW), false);
+                player.displayClientMessage(Component.literal("TC4 marker " + result.action() + " | markers=" + result.count() + " | synced golems=" + changed).withStyle(ChatFormatting.YELLOW), false);
             }
             case RETASK -> {
                 GolemCoreType next = null;
@@ -162,6 +168,7 @@ public class GolemBellItem extends Item {
         tooltip.add(Component.literal("Mode: ").append(mode.displayName()));
         tooltip.add(Component.literal("Shift + right-click: cycle mode.").withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.literal("Right-click air recalls/toggles wait/status. Right-click block assigns mode target.").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("Right-click a golem directly for live status/config feedback.").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(GolemBellMarkerRuntime.markerSummary(stack).withStyle(ChatFormatting.DARK_AQUA));
+        tooltip.add(Component.literal("Right-click a golem binds original golemid/home/markers NBT.").withStyle(ChatFormatting.DARK_GRAY));
     }
 }

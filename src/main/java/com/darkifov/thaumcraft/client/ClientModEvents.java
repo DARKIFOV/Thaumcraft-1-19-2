@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.screen.ArcaneWorkbenchContainerScreen;
 import com.darkifov.thaumcraft.client.screen.BottomlessPouchScreen;
 import com.darkifov.thaumcraft.client.screen.FocusPouchScreen;
+import com.darkifov.thaumcraft.client.screen.GolemScreen;
 import com.darkifov.thaumcraft.client.screen.EssentiaDriveScreen;
 import com.darkifov.thaumcraft.client.screen.EssentiaTerminalScreen;
 import com.darkifov.thaumcraft.client.screen.OsmoticEnchanterScreen;
@@ -15,6 +16,7 @@ import com.darkifov.thaumcraft.client.render.CrucibleRenderer;
 import com.darkifov.thaumcraft.client.render.AlembicRenderer;
 import com.darkifov.thaumcraft.client.render.AuraNodeRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaJarRenderer;
+import com.darkifov.thaumcraft.client.render.EssentiaTubeRenderer;
 import com.darkifov.thaumcraft.client.render.PechRenderer;
 import com.darkifov.thaumcraft.client.render.TaintCrawlerRenderer;
 import com.darkifov.thaumcraft.client.render.TC4BlockMobRenderer;
@@ -40,6 +42,7 @@ public final class ClientModEvents {
             BlockEntityRenderers.register(ThaumcraftMod.ALEMBIC_BLOCK_ENTITY.get(), AlembicRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), AuraNodeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), EssentiaJarRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_TUBE_BLOCK_ENTITY.get(), EssentiaTubeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.CRUCIBLE_BLOCK_ENTITY.get(), CrucibleRenderer::new);
             EntityRenderers.register(ThaumcraftMod.THAUM_GOLEM.get(), ThaumGolemRenderer::new);
             EntityRenderers.register(ThaumcraftMod.TAINT_CRAWLER.get(), TaintCrawlerRenderer::new);
@@ -63,6 +66,7 @@ public final class ClientModEvents {
             MenuScreens.register(ThaumcraftMod.TRANSVECTOR_INTERFACE_MENU.get(), TransvectorInterfaceScreen::new);
             MenuScreens.register(ThaumcraftMod.BOTTOMLESS_POUCH_MENU.get(), BottomlessPouchScreen::new);
             MenuScreens.register(ThaumcraftMod.FOCUS_POUCH_MENU.get(), FocusPouchScreen::new);
+            MenuScreens.register(ThaumcraftMod.GOLEM_MENU.get(), GolemScreen::new);
         });
     }
 }

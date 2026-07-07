@@ -10,7 +10,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import com.darkifov.thaumcraft.essentia.EssentiaTubeConnections;
+import com.darkifov.thaumcraft.essentia.EssentiaTubeSubtype;
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.jar.JarTubeInteractionRuntime;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,6 +32,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 
 public class EssentiaTubeBlock extends BaseEntityBlock {
+    private final EssentiaTubeSubtype subtype;
     public static final BooleanProperty NORTH = BooleanProperty.create("north");
     public static final BooleanProperty SOUTH = BooleanProperty.create("south");
     public static final BooleanProperty WEST = BooleanProperty.create("west");
@@ -46,7 +49,12 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
     private static final VoxelShape DOWN_SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 6.0D, 10.0D);
 
     public EssentiaTubeBlock(Properties properties) {
+        this(properties, EssentiaTubeSubtype.NORMAL);
+    }
+
+    public EssentiaTubeBlock(Properties properties, EssentiaTubeSubtype subtype) {
         super(properties);
+        this.subtype = subtype == null ? EssentiaTubeSubtype.NORMAL : subtype;
         registerDefaultState(defaultBlockState()
                 .setValue(NORTH, false)
                 .setValue(SOUTH, false)
@@ -119,7 +127,13 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new EssentiaTubeBlockEntity(pos, state);
+        EssentiaTubeBlockEntity tube = new EssentiaTubeBlockEntity(pos, state);
+        tube.setSubtype(subtype);
+        return tube;
+    }
+
+    public EssentiaTubeSubtype subtype() {
+        return subtype;
     }
 
     @Override
@@ -139,25 +153,51 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
-        if (!level.isClientSide) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
-                player.displayClientMessage(
-                        Component.literal("Essentia Tube | Network: " + tube.networkSize()
-                                + " | Sources: " + tube.lastSourceCount()
-                                + " | Destinations: " + tube.lastDestinationCount()
-                                + " | Last: " + (tube.lastMovedAspect().isBlank() ? "none" : tube.lastMovedAspect())
-                                + " | " + tube.connectedSidesDiagnostic(level, pos)
-                                + " | Winning suction: " + tube.lastWinningSuction()
-                                + " | Source pressure: " + tube.lastSourcePressure()
-                                + " | Conflicts: " + tube.lastConflictCount()
-                                + " | Backflow: " + (tube.lastBackflowBlocked() ? "blocked" : "clear")
-                                + " | Suction: normal 32, filtered 48, void 64.").withStyle(ChatFormatting.AQUA),
-                        false
-                );
-            } else {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (!(blockEntity instanceof EssentiaTubeBlockEntity tube)) {
+            if (!level.isClientSide) {
                 player.displayClientMessage(Component.literal("Essentia Tube | No tube data.").withStyle(ChatFormatting.RED), false);
             }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (!level.isClientSide && (player.getItemInHand(hand).getItem() instanceof JarLabelItem
+                || player.getItemInHand(hand).getItem() instanceof EssentiaPhialItem)) {
+            JarTubeInteractionRuntime.applyFilterToTube(tube, player, player.getItemInHand(hand),
+                    player.getItemInHand(hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND));
+            return InteractionResult.CONSUME;
+        }
+
+        if (!level.isClientSide && player.getItemInHand(hand).getItem() instanceof WandItem) {
+            if (player.isShiftKeyDown()) {
+                tube.cycleChoke(hit.getDirection());
+            } else {
+                tube.toggleSideWithNeighbour(hit.getDirection());
+            }
+            player.displayClientMessage(Component.literal("Essentia Tube | " + tube.subtype().originalClassName()
+                    + " | side " + hit.getDirection().getName()
+                    + " open=" + tube.isSideOpen(hit.getDirection())
+                    + " choke=" + tube.chokeState(hit.getDirection()))
+                    .withStyle(ChatFormatting.GOLD), false);
+            return InteractionResult.CONSUME;
+        }
+
+        if (!level.isClientSide) {
+            player.displayClientMessage(
+                    Component.literal("Essentia Tube | " + tube.subtype().originalClassName()
+                            + " | Network: " + tube.networkSize()
+                            + " | Sources: " + tube.lastSourceCount()
+                            + " | Destinations: " + tube.lastDestinationCount()
+                            + " | Last: " + (tube.lastMovedAspect().isBlank() ? "none" : tube.lastMovedAspect())
+                            + " | " + tube.connectedSidesDiagnostic(level, pos)
+                            + " | Winning suction: " + tube.lastWinningSuction()
+                            + " | Source pressure: " + tube.lastSourcePressure()
+                            + " | Conflicts: " + tube.lastConflictCount()
+                            + " | Backflow: " + (tube.lastBackflowBlocked() ? "blocked" : "clear")
+                            + " | Filter: " + tube.aspectFilterId()
+                            + " | Suction: jar 32, labelled 64, void 32, labelled void 48.").withStyle(ChatFormatting.AQUA),
+                    false
+            );
         }
 
         return InteractionResult.sidedSuccess(level.isClientSide);

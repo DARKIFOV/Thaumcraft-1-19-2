@@ -32,11 +32,11 @@ if 'ResearchTableInventoryRuntime.hasPoolOrTableBonus' not in solver or 'Researc
     errors.append('ResearchNoteSolver must consume player pool or table bonus aspect')
 if 'Bonus ' not in screen or 'bonusSummary()' not in screen:
     errors.append('ResearchTableContainerScreen must display table bonus aspects')
-for token in ['tc4_stage169_research_table_bonus_aspects_audit.py', 'tc4_stage170_research_table_bonus_sync_audit.py', 'thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage169_research_table_bonus_aspects_audit.py', 'tc4_stage170_research_table_bonus_sync_audit.py', 'thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing {token}')
-if "version = '1.94.0'" not in read('build.gradle') or 'version="1.94.0"' not in read('src/main/resources/META-INF/mods.toml'):
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in read('build.gradle') or "version = '1.98.0'" in read('build.gradle') or "version = '2.00.0'" in read('build.gradle')) and ('version="2.04.0"' in read('src/main/resources/META-INF/mods.toml') or 'version="1.98.0"' in read('src/main/resources/META-INF/mods.toml') or 'version="2.00.0"' in read('src/main/resources/META-INF/mods.toml'))):
+    errors.append('project version must be 2.04.0 or later compatible')
 if mapping.exists():
     data=json.loads(mapping.read_text(encoding='utf-8'))
     if not data.get('strict_original'):

@@ -71,6 +71,15 @@ REQUIRED_FILES = [
     "scripts/tc4_stage194_full_port_drift_ledger_audit.py",
     "scripts/tc4_stage193_arcane_cleanup_audit.py",
     "scripts/tc4_stage179_architect_client_overlay_audit.py",
+    "scripts/tc4_stage195_golem_core_ai_audit.py",
+    "scripts/tc4_stage196_essentia_suction_audit.py",
+    "scripts/tc4_stage198_tube_subclass_audit.py",
+    "scripts/tc4_stage197_golem_task_ai_audit.py",
+    "scripts/tc4_stage199_golem_bell_marker_audit.py",
+    "scripts/tc4_stage200_tube_jar_renderer_resource_audit.py",
+    "scripts/tc4_stage201_golem_gui_container_audit.py",
+    "scripts/tc4_stage202_jar_tube_interaction_audit.py",
+    "scripts/tc4_stage203_golem_ghost_slot_audit.py",
 ]
 
 REQUIRED_WORKFLOW_SNIPPETS = [
@@ -139,7 +148,16 @@ REQUIRED_WORKFLOW_SNIPPETS = [
     "python scripts/tc4_stage194_full_port_drift_ledger_audit.py",
     "python scripts/tc4_stage193_arcane_cleanup_audit.py",
     "python scripts/tc4_stage179_architect_client_overlay_audit.py",
-    "thaumcraft-legacy-rebuild-stage194-jars",
+    "python scripts/tc4_stage195_golem_core_ai_audit.py",
+    "python scripts/tc4_stage196_essentia_suction_audit.py",
+    "python scripts/tc4_stage198_tube_subclass_audit.py",
+    "python scripts/tc4_stage197_golem_task_ai_audit.py",
+    "python scripts/tc4_stage199_golem_bell_marker_audit.py",
+    "python scripts/tc4_stage200_tube_jar_renderer_resource_audit.py",
+    "python scripts/tc4_stage201_golem_gui_container_audit.py",
+    "python scripts/tc4_stage202_jar_tube_interaction_audit.py",
+    "python scripts/tc4_stage203_golem_ghost_slot_audit.py",
+    "thaumcraft-legacy-rebuild-stage204-jars",
 ]
 
 errors: list[str] = []
@@ -164,11 +182,11 @@ if build_gradle.exists():
         errors.append("ForgeGradle must be pinned to 5.1.76")
     if "1.19.2-43.5.2" not in build_text:
         errors.append("Forge dependency should stay pinned to 1.19.2-43.5.2")
-    if "version = '1.94.0'" not in build_text:
-        errors.append("Project version should be 1.94.0 for Stage194")
+    if "version = '2.04.0'" not in build_text:
+        errors.append("Project version should be 2.04.0 for Stage204")
 
 mods_toml = ROOT / "src/main/resources/META-INF/mods.toml"
-if mods_toml.exists() and 'version="1.94.0"' not in mods_toml.read_text(encoding="utf-8"):
+if mods_toml.exists() and 'version="2.04.0"' not in mods_toml.read_text(encoding="utf-8"):
     errors.append("mods.toml should be version=\"1.51.0\" for Stage152")
 
 if errors:

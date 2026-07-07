@@ -144,6 +144,27 @@ def gui_audit() -> list[str]:
     return errors
 
 
+def pack_metadata_audit() -> list[str]:
+    errors: list[str] = []
+    path = ROOT / "src/main/resources/pack.mcmeta"
+    if not path.exists():
+        return ["missing src/main/resources/pack.mcmeta; Minecraft/Forge may warn that the mod jar failed to load correct resource pack info"]
+    try:
+        obj = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return [f"invalid pack.mcmeta JSON: {exc}"]
+    pack = obj.get("pack")
+    if not isinstance(pack, dict):
+        errors.append("pack.mcmeta missing top-level pack object")
+        return errors
+    if pack.get("pack_format") != 9:
+        errors.append(f"pack.mcmeta pack_format must be 9 for Minecraft 1.19.2, got {pack.get('pack_format')!r}")
+    description = pack.get("description")
+    if not isinstance(description, str) or not description.strip():
+        errors.append("pack.mcmeta missing non-empty pack.description")
+    return errors
+
+
 def java_brace_audit() -> list[str]:
     errors: list[str] = []
     for path in (ROOT / "src/main/java").rglob("*.java"):
@@ -196,6 +217,7 @@ checks = {
     "Registry resources": registry_resource_audit(),
     "Model references": model_reference_audit(),
     "GUI": gui_audit(),
+    "Pack metadata": pack_metadata_audit(),
     "Java braces": java_brace_audit(),
     "Duplicate registry fields": duplicate_registry_field_audit(),
     "Compile API risks": compile_api_risk_audit(),

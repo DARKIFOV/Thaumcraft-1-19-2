@@ -26,6 +26,10 @@ public final class EssentiaSuctionResolver {
             return false;
         }
 
+        if (level.getBlockEntity(tubePos) instanceof EssentiaTubeBlockEntity tube && !tube.isSideOpen(direction)) {
+            return false;
+        }
+
         return EssentiaTubeConnections.canConnect(level, tubePos, direction);
     }
 
@@ -60,19 +64,10 @@ public final class EssentiaSuctionResolver {
         }
 
         boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
-        boolean filteredJar = level.getBlockState(destinationPos).is(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get());
 
-        if (!voidJar && jar.aspects().totalAmount() >= EssentiaJarBlock.CAPACITY) {
-            return EssentiaSuction.SOURCE_NONE;
-        }
-
-        int base = voidJar ? EssentiaSuction.JAR_VOID : filteredJar ? EssentiaSuction.JAR_FILTERED : EssentiaSuction.JAR_NORMAL;
-
-        if (jar.filterAspect() == aspect) {
-            base += 8;
-        }
-
-        return base;
+        // Stage204 exact TileJarFillable/TileJarFillableVoid suction edge cases.
+        // Normal jars stop pulling when full; void jars keep a baseline suction even while full.
+        return jar.originalSuctionAmount(voidJar);
     }
 
     public static boolean isTubeLike(Level level, BlockPos pos) {

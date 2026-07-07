@@ -88,12 +88,12 @@ if 'new FocusPouchBaubleItem' not in mod or 'FOCUS_POUCH_MENU' not in mod:
 if 'MenuScreens.register(ThaumcraftMod.FOCUS_POUCH_MENU.get(), FocusPouchScreen::new)' not in client:
     errors.append('ClientModEvents missing FocusPouchScreen registration')
 
-for token in ['tc4_stage186_focus_pouch_gui_audit.py', 'python scripts/tc4_stage186_focus_pouch_gui_audit.py', 'thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage186_focus_pouch_gui_audit.py', 'python scripts/tc4_stage186_focus_pouch_gui_audit.py', 'thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing Stage186 token {token}')
 
-if "version = '1.94.0'" not in build or 'version="1.94.0"' not in mods:
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' in mods)):
+    errors.append('project version must be 1.98.0 or 2.00.0')
 
 if errors:
     for e in errors:

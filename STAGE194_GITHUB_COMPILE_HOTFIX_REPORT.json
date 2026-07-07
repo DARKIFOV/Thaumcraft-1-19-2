@@ -1,6 +1,6 @@
 {
   "stage": 194,
-  "version": "1.94.0",
+  "version": "1.96.0",
   "hotfix": "github_compile_illegal_escape",
   "source": "GitHub Actions logs_78040595578(1).zip",
   "fixed_files": [

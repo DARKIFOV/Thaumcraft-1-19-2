@@ -1,9 +1,9 @@
 # Original TC4 Porting Status
 
-- Current archive: Stage194.
-- Version: `1.94.0`.
+- Current archive: Stage204.
+- Version: `2.04.0`.
 - Strict parity rule remains active: do not invent new mechanics, items, recipes, GUI, progression, textures or behavior while original TC4 content remains unported.
-- Remaining estimate after Stage194: 1–21 stages.
+- Remaining estimate after Stage204: 1–11 stages.
 - Historical audit estimate tokens retained: 1–23; 2–25; 4–27; legacy Stage147 token: 8–31.
 - Current consolidated drift ledger: `docs/TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md`.
 
@@ -70,3 +70,39 @@ Stage195 + Stage196 should use the Stage194 drift ledger to attack remaining hig
 - Stage166/Stage168 Drift check retained: persistent ResearchTableBlockEntity is the primary path and compatibility fallback is only allowed where explicitly marked as a Forge 1.19.2 adapter.
 - Stage189 drift guard retained: Arcane Workbench must not reintroduce recipe browser/search/Craft button because original `GuiArcaneWorkbench` renders only the workbench texture, output preview and aspect costs.
 - Stage194 drift ledger guard: remaining differences must be fixed by original TC4 porting or explicitly marked as Forge 1.19.2 adapters.
+
+## Stage195 + Stage196
+
+- Stage195 restored strict TC4 golem metadata foundations: original `EnumGolemType`, `ItemGolemCore` metadata, `ItemGolemUpgrade` metadata, core capability flags, original golem NBT names, carry/inventory/attribute formula adapters.
+- Stage196 restored strict TC4 essentia suction foundations: original `TileTube` state/NBT keys, open side tracking, suction snapshot cadence, jar suction values and `TileJarFillable` NBT compatibility.
+- Remaining golem drift: full original AI task classes are still adapted through `ThaumGolemEntity` tick methods and need Stage197 task-table parity.
+- Remaining essentia drift: exact tube renderer animation/filter GUI polish remains; Stage198 added subclass state and registered block variants.
+
+
+## Stage198 resource pack metadata adapter
+
+Added Forge 1.19.2 `pack.mcmeta` with pack_format 9 to stop resource-pack metadata load warnings. This is packaging-only; no TC4 behavior drift introduced.
+
+
+## Stage199-200 status
+
+- Stage199: added original `ItemGolemBell` marker NBT parity adapter (`golemid`, `golemhomex/y/z`, `golemhomeface`, `markers`). Bell can bind to a golem and sync original marker lists into the Forge 1.19.2 golem task runtime.
+- Stage200: added tube/jar renderer and visual label/filter parity batch. Tube subtype models/items now use subtype-specific textures, jar filter labels render with original TC4 `label.png`, and resource-pack texture audits now guard `pack.mcmeta` plus model texture references.
+- Texture warning note: old Stage194/1.94.0 builds could show broken textures because Minecraft could not load valid mod resource-pack metadata. Current Stage200 keeps `pack.mcmeta` with `pack_format: 9` for MC 1.19.2 and verifies it in audits.
+
+Remaining estimate after Stage200: roughly 1-15 stages, depending on how deep the final golem GUI, jar/tube interaction, renderer polish, and full regression sweep go.
+
+## Stage201–Stage202
+
+- Stage201: `GuiGolem` / `ContainerGolem` parity adapter added with original texture, slots, scroll, toggles, color semantics and golem pause behavior.
+- Stage202: jar/tube `AspectFilter` interaction parity adapter added for labels/phials and original NBT names.
+- Resource pack metadata and texture audit from Stage198/200 remains enforced.
+
+
+## Stage203–Stage204
+
+- Stage203: `ContainerGolem` ghost-slot parity restored. Golem GUI inventory slots now behave like original `SlotGhost`/`SlotGhostFluid`: copy-only filter stacks, no real item consumption, fill-core stack limit 256, liquid-core fluid-container validation, shift-click/empty-hand count semantics and color/toggle behavior preserved.
+- Stage204: jar/tube transfer edge cases tightened against original `TileJarFillable`, `TileJarFillableVoid`, `TileTubeFilter`, `TileTubeRestrict`, `TileTubeOneway` and `TileTubeBuffer`: original add/take return semantics, void jar overflow consumption, jar suction values, one-way direction gates and subtype filter/restrict/buffer flow checks.
+- Resource-pack metadata remains enforced through `pack.mcmeta` with `pack_format: 9`; jar/tube/golem GUI texture audits remain active.
+
+Remaining estimate after Stage204: roughly 1–11 stages, mostly final golem AI/renderer polish, exact tube raytrace/subHit side interaction, remaining jar/tube renderer details and full regression sweep.

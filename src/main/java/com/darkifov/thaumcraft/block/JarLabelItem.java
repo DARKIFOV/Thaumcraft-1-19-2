@@ -3,6 +3,8 @@ package com.darkifov.thaumcraft.block;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.jar.JarTubeInteractionRuntime;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -42,6 +44,11 @@ public class JarLabelItem extends Item {
 
         if (!(blockEntity instanceof EssentiaJarBlockEntity jar)) {
             return InteractionResult.PASS;
+        }
+
+        if (JarTubeInteractionRuntime.applyLabelToJar(jar, context.getPlayer(), context.getItemInHand(),
+                context.getPlayer().getItemInHand(context.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND))) {
+            return InteractionResult.CONSUME;
         }
 
         if (!state.is(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get())) {

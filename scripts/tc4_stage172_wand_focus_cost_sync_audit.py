@@ -33,11 +33,11 @@ for token in ['cooldownTicks()', 'isVisCostPerTick()', 'FROST("frost", "Focus: F
 for token in ['primalCost(RandomSource random)', '50 + random.nextInt(5) * 50', 'player.getCooldowns().addCooldown', 'TC4Sounds.event("wandfail")', 'soundFor(type)', 'pitchFor(type)']:
     if token not in runtime:
         errors.append(f'WandFocusRuntime missing Stage172 token {token}')
-for token in ['tc4_stage172_wand_focus_cost_sync_audit.py','python scripts/tc4_stage172_wand_focus_cost_sync_audit.py','thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage172_wand_focus_cost_sync_audit.py','python scripts/tc4_stage172_wand_focus_cost_sync_audit.py','thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing {token}')
-if "version = '1.94.0'" not in build or 'version="1.94.0"' not in mods:
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' in mods)):
+    errors.append('project version must be 1.98.0 or 2.00.0')
 if errors:
     for e in errors:
         print('::error::'+e)

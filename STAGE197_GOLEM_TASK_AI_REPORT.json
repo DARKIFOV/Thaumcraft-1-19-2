@@ -1,0 +1,27 @@
+{
+  "stage": 197,
+  "version": "1.98.0",
+  "base": "Stage196 TC4 golem/essentia parity",
+  "title": "Golem task AI parity batch 2",
+  "original_sources": [
+    "EntityGolemBase",
+    "AIHomeReplace",
+    "AIHomeTake",
+    "AIHomeDrop",
+    "AIItemPickup",
+    "AIFillGoto",
+    "AIFillTake",
+    "AIEmptyGoto",
+    "AIEmptyPlace",
+    "AISortingPlace"
+  ],
+  "changes": [
+    "Added GolemTaskAIRuntime with original AI class names and core task mapping",
+    "Added original carried ItemStack flow via NBT itemCarried",
+    "Added home-facing container adapter and home take/drop/replace flows",
+    "Added fill/empty/sorting/use adapters without new cores"
+  ],
+  "forge_1192_adapters": [
+    "PathfinderMob navigation and Container APIs replace 1.7.10 IInventory/EntityAI execution while preserving original task names and core order"
+  ]
+}

@@ -38,12 +38,12 @@ if 'level.playSound(null, player.blockPosition(), soundFor(type)' not in focus:
 if 'if (!playsOwnActivationSound(wandStack, type))' not in focus:
     errors.append('generic focus sound fallback is not gated by original own-sound logic')
 
-for token in ['tc4_stage184_remaining_focus_behavior_audit.py', 'python scripts/tc4_stage184_remaining_focus_behavior_audit.py', 'thaumcraft-legacy-rebuild-stage194-jars']:
+for token in ['tc4_stage184_remaining_focus_behavior_audit.py', 'python scripts/tc4_stage184_remaining_focus_behavior_audit.py', 'thaumcraft-legacy-rebuild-stage204-jars']:
     if token not in workflow or token not in guard:
         errors.append(f'workflow/guard missing Stage184 token {token}')
 
-if "version = '1.94.0'" not in build or 'version="1.94.0"' not in mods:
-    errors.append('project version must be 1.94.0')
+if not (("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' in mods)):
+    errors.append('project version must be 1.98.0 or 2.00.0')
 
 if errors:
     for e in errors:

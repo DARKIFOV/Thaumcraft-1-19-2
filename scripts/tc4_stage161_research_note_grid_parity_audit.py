@@ -61,10 +61,10 @@ else:
 
 if 'tc4_stage161_research_note_grid_parity_audit.py' not in workflow or 'tc4_stage161_research_note_grid_parity_audit.py' not in guard:
     errors.append('Stage161 workflow/guard missing audit')
-if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage194-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
+if not any(name in workflow for name in ['thaumcraft-legacy-rebuild-stage204-jars', 'thaumcraft-legacy-rebuild-stage165-jars', 'thaumcraft-legacy-rebuild-stage164-jars']):
     errors.append('Stage161 workflow missing current jar artifact')
-if "version = '1.94.0'" not in read('build.gradle'):
-    errors.append('Stage161 build.gradle missing current Stage168 version')
+if "version = '1.98.0'" not in read('build.gradle') and "version = '2.00.0'" not in read('build.gradle'):
+    errors.append('Stage161 build.gradle missing current Stage161+ version')
 
 if errors:
     for error in errors:

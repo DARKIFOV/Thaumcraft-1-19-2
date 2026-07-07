@@ -1,6 +1,6 @@
 {
   "stage": 194,
-  "version": "1.94.0",
+  "version": "1.96.0",
   "focus": "Consolidated full-port drift ledger",
   "ledger_files": [
     "docs/TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md",

@@ -38,7 +38,7 @@ status = read('docs/ORIGINAL_TC4_PORTING_STATUS.md') if exists('docs/ORIGINAL_TC
 prompt = read('docs/NEXT_CHAT_PROMPT_STAGE151.md') if exists('docs/NEXT_CHAT_PROMPT_STAGE151.md') else ''
 
 checks = {
-    'version_stage151_or_later': any((f"version = '{v}'" in build and f'version="{v}"' in mods) for v in ['1.94.0', '1.78.0', '1.76.0', '1.70.0', '1.65.0', '1.64.0', '1.63.0', '1.62.0', '1.61.0', '1.60.0', '1.59.0', '1.58.0', '1.57.0', '1.56.0', '1.55.0', '1.54.0', '1.51.0', '1.53.0', '1.52.0']),
+    'version_stage151_or_later': any((f"version = '{v}'" in build and f'version="{v}"' in mods) for v in ['2.04.0', '2.02.0', '2.00.0', '1.98.0', '1.78.0', '1.76.0', '1.70.0', '1.65.0', '1.64.0', '1.63.0', '1.62.0', '1.61.0', '1.60.0', '1.59.0', '1.58.0', '1.57.0', '1.56.0', '1.55.0', '1.54.0', '1.51.0', '1.53.0', '1.52.0']),
     'progression_spec_present_and_exact': progression_items == expected_progression and len(progression_items) == 46,
     'progression_runtime_class_present': 'class OriginalResearchProgression' in progression,
     'auto_unlock_runtime_uses_original_index': 'seedAutoUnlocks' in progression and 'TC4ResearchMetadataIndex.autoUnlockKeys()' in progression,

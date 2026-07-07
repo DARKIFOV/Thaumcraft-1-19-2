@@ -193,6 +193,36 @@ jobs:
       - name: Run Stage194 full-port drift ledger audit
         run: python scripts/tc4_stage194_full_port_drift_ledger_audit.py
 
+      - name: Run Stage195 golem core/AI audit
+        run: python scripts/tc4_stage195_golem_core_ai_audit.py
+
+      - name: Run Stage196 essentia suction audit
+        run: python scripts/tc4_stage196_essentia_suction_audit.py
+
+      - name: Run Stage197 golem task AI audit
+        run: python scripts/tc4_stage197_golem_task_ai_audit.py
+
+      - name: Run Stage198 tube subclass audit
+        run: python scripts/tc4_stage198_tube_subclass_audit.py
+
+      - name: Run Stage199 golem bell/marker audit
+        run: python scripts/tc4_stage199_golem_bell_marker_audit.py
+
+      - name: Run Stage200 tube/jar renderer/resource audit
+        run: python scripts/tc4_stage200_tube_jar_renderer_resource_audit.py
+
+      - name: TC4 Stage201 golem GUI/container audit
+        run: python scripts/tc4_stage201_golem_gui_container_audit.py
+
+      - name: TC4 Stage202 jar/tube interaction audit
+        run: python scripts/tc4_stage202_jar_tube_interaction_audit.py
+
+      - name: TC4 Stage203 golem ghost-slot audit
+        run: python scripts/tc4_stage203_golem_ghost_slot_audit.py
+
+      - name: TC4 Stage204 jar/tube edge-case audit
+        run: python scripts/tc4_stage204_jar_tube_edge_cases_audit.py
+
   build:
     name: Build Forge mod jar
     runs-on: ubuntu-latest
@@ -226,7 +256,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: thaumcraft-legacy-rebuild-stage194-jars
+          name: thaumcraft-legacy-rebuild-stage204-jars
           path: |
             build/libs/*.jar
           if-no-files-found: warn
@@ -235,7 +265,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: stage194-build-reports
+          name: stage204-build-reports
           path: |
             build/reports/**
             build/tmp/**

@@ -30,9 +30,9 @@ checks = {
     'scan_order_adapter': all(token in files['manager'] for token in ['Baubles', 'off-hand pouch', 'inventory pouches', 'pouchcount*1000']),
     'pouch_exact_stack_helpers': all(token in files['pouch'] for token in ['addExactFocusStack', 'removeFocusAt', 'sortingHelper']),
     'camera_tick_sound': 'cameraticks' in files['manager'] and '0.3F' in files['manager'] and '0.9F' in files['manager'] and '1.0F' in files['manager'],
-    'version_188': "version = '1.94.0'" in files['build'] and 'version="1.94.0"' in files['mods'],
+    'version_188': ("version = '2.04.0'" in files['build'] or "version = '1.98.0'" in files['build'] or "version = '2.00.0'" in files['build']) and ('version="2.04.0"' in files['mods'] or 'version="1.98.0"' in files['mods'] or 'version="2.00.0"' in files['mods']),
     'workflow_and_guard': 'tc4_stage188_focus_selection_packet_audit.py' in files['workflow'] and 'tc4_stage188_focus_selection_packet_audit.py' in files['guard'],
-    'stage188_artifact': 'thaumcraft-legacy-rebuild-stage194-jars' in files['workflow'] and 'thaumcraft-legacy-rebuild-stage194-jars' in files['guard'],
+    'stage188_artifact': 'thaumcraft-legacy-rebuild-stage204-jars' in files['workflow'] and 'thaumcraft-legacy-rebuild-stage204-jars' in files['guard'],
 }
 
 errors = [name for name, ok in checks.items() if not ok]

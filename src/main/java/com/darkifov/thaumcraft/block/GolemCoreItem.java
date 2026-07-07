@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.golem.GolemCoreType;
 import com.darkifov.thaumcraft.golem.GolemMarkerMode;
 import com.darkifov.thaumcraft.golem.GolemMaterial;
 import com.darkifov.thaumcraft.golem.GolemUpgradeType;
+import com.darkifov.thaumcraft.golem.GolemOriginalRuntime;
 import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -74,11 +75,13 @@ public class GolemCoreItem extends Item {
                 if (player.getOffhandItem() == stack || hand == InteractionHand.OFF_HAND) {
                     GolemCoreType next = GolemCoreType.byName(tag.getString(TAG_CORE)).next();
                     tag.putString(TAG_CORE, next.id());
-                    player.displayClientMessage(Component.literal("Golem core: ").append(next.displayName()), true);
+                    tag.putByte(GolemOriginalRuntime.NBT_CORE, (byte) next.originalId());
+                    player.displayClientMessage(Component.literal("Golem core: ").append(next.displayName()).append(Component.literal(" [TC4 meta " + next.originalId() + "]")), true);
                 } else {
                     GolemMaterial next = GolemMaterial.byName(tag.getString(TAG_MATERIAL)).next();
                     tag.putString(TAG_MATERIAL, next.id());
-                    player.displayClientMessage(Component.literal("Golem body: ").append(next.displayName()), true);
+                    tag.putByte(GolemOriginalRuntime.NBT_GOLEM_TYPE, (byte) next.ordinal());
+                    player.displayClientMessage(Component.literal("Golem body: ").append(next.displayName()).append(Component.literal(" [TC4 type " + next.ordinal() + "]")), true);
                 }
             }
         }
@@ -109,8 +112,12 @@ public class GolemCoreItem extends Item {
 
         ItemStack stack = context.getItemInHand();
         CompoundTag tag = stack.getOrCreateTag();
-        GolemMaterial material = GolemMaterial.byName(tag.getString(TAG_MATERIAL));
-        GolemCoreType core = GolemCoreType.byName(tag.getString(TAG_CORE));
+        GolemMaterial material = tag.contains(GolemOriginalRuntime.NBT_GOLEM_TYPE)
+                ? GolemMaterial.values()[Math.max(0, Math.min(GolemMaterial.values().length - 1, tag.getByte(GolemOriginalRuntime.NBT_GOLEM_TYPE) & 255))]
+                : GolemMaterial.byName(tag.getString(TAG_MATERIAL));
+        GolemCoreType core = tag.contains(GolemOriginalRuntime.NBT_CORE)
+                ? GolemCoreType.byOriginalId(tag.getByte(GolemOriginalRuntime.NBT_CORE))
+                : GolemCoreType.byName(tag.getString(TAG_CORE));
 
         BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
         ThaumGolemEntity golem = ThaumcraftMod.THAUM_GOLEM.get().create(level);
@@ -121,6 +128,8 @@ public class GolemCoreItem extends Item {
 
         golem.setOwnerUuid(context.getPlayer().getUUID());
         golem.setHomePos(pos);
+        golem.setHomeFacing(context.getClickedFace().ordinal());
+        golem.setAdvancedGolem(tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED));
         golem.setGolemProfile(material, core);
         golem.loadGolemConfiguration(tag);
         golem.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, context.getPlayer().getYRot(), 0.0F);
@@ -145,8 +154,12 @@ public class GolemCoreItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         CompoundTag tag = stack.getOrCreateTag();
-        GolemMaterial material = GolemMaterial.byName(tag.getString(TAG_MATERIAL));
-        GolemCoreType core = GolemCoreType.byName(tag.getString(TAG_CORE));
+        GolemMaterial material = tag.contains(GolemOriginalRuntime.NBT_GOLEM_TYPE)
+                ? GolemMaterial.values()[Math.max(0, Math.min(GolemMaterial.values().length - 1, tag.getByte(GolemOriginalRuntime.NBT_GOLEM_TYPE) & 255))]
+                : GolemMaterial.byName(tag.getString(TAG_MATERIAL));
+        GolemCoreType core = tag.contains(GolemOriginalRuntime.NBT_CORE)
+                ? GolemCoreType.byOriginalId(tag.getByte(GolemOriginalRuntime.NBT_CORE))
+                : GolemCoreType.byName(tag.getString(TAG_CORE));
         tooltip.add(Component.literal("Body: ").append(material.displayName()));
         tooltip.add(Component.literal("Core: ").append(core.displayName()));
         tooltip.add(Component.literal("Upgrades: " + describeUpgrades(tag)).withStyle(ChatFormatting.AQUA));
@@ -169,6 +182,20 @@ public class GolemCoreItem extends Item {
             }
         }
         tag.putString(TAG_UPGRADES, current == null || current.isBlank() ? id : current + "," + id);
+        byte[] slots = tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES);
+        if (slots.length == 0) {
+            GolemMaterial material = tag.contains(GolemOriginalRuntime.NBT_GOLEM_TYPE)
+                    ? GolemMaterial.values()[Math.max(0, Math.min(GolemMaterial.values().length - 1, tag.getByte(GolemOriginalRuntime.NBT_GOLEM_TYPE) & 255))]
+                    : GolemMaterial.byName(tag.getString(TAG_MATERIAL));
+            slots = GolemOriginalRuntime.defaultUpgrades(material, tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED));
+        }
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i] == -1) {
+                slots[i] = upgradeType.originalId();
+                break;
+            }
+        }
+        tag.putByteArray(GolemOriginalRuntime.NBT_UPGRADES, slots);
     }
 
     private static void addDecoration(CompoundTag tag, GolemDecorationType decorationType) {

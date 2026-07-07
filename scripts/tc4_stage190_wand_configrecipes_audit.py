@@ -34,9 +34,9 @@ checks = {
     'assembly_result_uses_root_nbt': all(token in files['crafting'] + files['components'] for token in ['ORIGINAL_TAG_ROD', 'ORIGINAL_TAG_CAP', 'ORIGINAL_TAG_SCEPTRE', 'root.putString']),
     'prebuilt_shortcuts_marked_drift': 'PREBUILT_WAND_SHORTCUTS_ARE_DRIFT_ADAPTER' in files['index'] and 'compatibility shortcuts' in files['index'],
     'generated_assembly_preview_used': 'WandCraftingRuntime.resultFor(recipe, this)' in files['be'],
-    'version_190': "version = '1.94.0'" in files['build'] and 'version="1.94.0"' in files['mods'],
+    'version_190': ("version = '2.04.0'" in files['build'] or "version = '1.98.0'" in files['build'] or "version = '2.00.0'" in files['build']) and ('version="2.04.0"' in files['mods'] or 'version="1.98.0"' in files['mods'] or 'version="2.00.0"' in files['mods'] or 'version="2.02.0"' in files['mods']),
     'workflow_and_guard': 'tc4_stage190_wand_configrecipes_audit.py' in files['workflow'] and 'tc4_stage190_wand_configrecipes_audit.py' in files['guard'],
-    'stage190_artifact': 'thaumcraft-legacy-rebuild-stage194-jars' in files['workflow'] and 'thaumcraft-legacy-rebuild-stage194-jars' in files['guard'],
+    'stage190_artifact': 'thaumcraft-legacy-rebuild-stage204-jars' in files['workflow'] and 'thaumcraft-legacy-rebuild-stage204-jars' in files['guard'],
 }
 
 errors = [name for name, ok in checks.items() if not ok]

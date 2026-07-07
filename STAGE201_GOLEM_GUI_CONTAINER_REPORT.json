@@ -1,0 +1,22 @@
+{
+  "stage": 201,
+  "version": "2.02.0",
+  "title": "TC4 golem GUI/container parity batch",
+  "source_of_truth": [
+    "thaumcraft.client.gui.GuiGolem",
+    "thaumcraft.common.entities.golems.ContainerGolem",
+    "EntityGolemBase InventoryMob"
+  ],
+  "implemented": [
+    "GolemMenu original ContainerGolem slot layout adapter: visible 6 slots, scroll buttons 66/67, player inventory 8/84, hotbar 8/142",
+    "GolemScreen uses original guigolem.png texture and original toggle/color button semantics",
+    "GolemInventoryContainer exposes golem Inventory NBT slots without changing storage model",
+    "ThaumGolemEntity opens GolemMenu through NetworkHooks with entity-id buffer",
+    "Original NBT toggles/colors are persisted through toggles/colors arrays",
+    "GUI pauses golem AI while open, matching original paused behavior"
+  ],
+  "forge_1_19_2_adapters": [
+    "ContainerGolem refreshInventory is represented by dynamic visible slots that remap through currentScroll",
+    "Original SlotGhost/SlotGhostFluid are approximated as slot limit/filter adapters until full ghost-slot pass"
+  ]
+}

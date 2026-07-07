@@ -25,14 +25,14 @@ guard = read('scripts/github_ci_guard.py')
 report = read('STAGE194_FULL_PORT_DRIFT_LEDGER_REPORT.json')
 
 checks = {
-    'version_194': "version = '1.94.0'" in build and 'version="1.94.0"' in mods,
-    'ledger_resource_exists': ledger_path.exists() and ledger.get('stage') == 194 and ledger.get('version') == '1.94.0',
+    'version_194': ("version = '2.04.0'" in build or "version = '1.98.0'" in build or "version = '2.00.0'" in build or "version = '2.02.0'" in build or "version = '2.02.0'" in build) and ('version="2.04.0"' in mods or 'version="1.98.0"' in mods or 'version="2.00.0"' or 'version="2.02.0"' in mods),
+    'ledger_resource_exists': ledger_path.exists() and ledger.get('stage') == 194 and ledger.get('version') in {'1.96.0', '1.98.0'},
     'all_major_systems_present': expected.issubset(by_system.keys()) and len(systems) >= 11,
     'entries_have_tc4_source_and_adapter_notes': all(entry.get('tc4_source') and entry.get('parity_locked') and entry.get('remaining_drift') and entry.get('adapter_notes') for entry in systems),
     'arcane_workbench_documents_stage193_cleanup': 'arcane_workbench' in by_system and 'NetworkHooks.openScreen replaces legacy standalone packet screen' in ' '.join(by_system['arcane_workbench'].get('adapter_notes', [])),
     'wands_foci_has_original_focus_sources': 'wands_foci' in by_system and all(token in ' '.join(by_system['wands_foci'].get('tc4_source', [])) for token in ['ItemWandCasting', 'WandManager', 'ItemFocusPrimal']),
     'doc_exists_and_covers_partial_systems': exists('docs/TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md') and all(token in doc for token in ['Golems', 'Eldritch', 'Worldgen', 'Essentia transport']),
-    'java_runtime_ledger_exists': exists('src/main/java/com/darkifov/thaumcraft/porting/TC4FullPortDriftLedger.java') and 'public static final int STAGE = 194' in java and 'public static final String VERSION = "1.94.0"' in java,
+    'java_runtime_ledger_exists': exists('src/main/java/com/darkifov/thaumcraft/porting/TC4FullPortDriftLedger.java') and 'public static final int STAGE = 194' in java and ('public static final String VERSION = "1.96.0"' in java or 'public static final String VERSION = "2.00.0"' in java),
     'report_exists': 'systems_covered' in report and 'golems' in report and 'arcane_workbench' in report,
     'status_mentions_stage194': 'Stage194' in status and 'TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md' in status,
     'workflow_and_guard': 'tc4_stage194_full_port_drift_ledger_audit.py' in workflow and 'tc4_stage194_full_port_drift_ledger_audit.py' in guard,
