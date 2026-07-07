@@ -50,7 +50,7 @@ public abstract class TC4FocusProjectileEntity extends Projectile {
     public void tick() {
         super.tick();
         life++;
-        HitResult hit = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+        HitResult hit = ProjectileUtil.getHitResult(this, this::canHitEntity);
         if (hit.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hit)) {
             onHit(hit);
         }

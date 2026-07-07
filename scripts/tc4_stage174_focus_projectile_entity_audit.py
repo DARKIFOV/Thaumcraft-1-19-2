@@ -37,9 +37,11 @@ for token in ['FOCUS_FROST_SHARD', 'FOCUS_EXPLOSIVE_ORB', 'FOCUS_SHOCK_ORB', 'FO
 for token in ['TC4FrostShardEntity', 'TC4ExplosiveOrbEntity', 'TC4ShockOrbEntity', 'TC4PrimalOrbEntity', 'shootProjectile']:
     if token not in runtime:
         errors.append(f'WandFocusRuntime missing projectile use {token}')
-for token in ['ProjectileUtil.getHitResultOnMoveVector', 'NetworkHooks.getEntitySpawningPacket', 'onHitLiving', 'onHitBlockTC4']:
+for token in ['NetworkHooks.getEntitySpawningPacket', 'onHitLiving', 'onHitBlockTC4']:
     if token not in base:
         errors.append(f'base projectile missing {token}')
+if 'ProjectileUtil.getHitResult(this, this::canHitEntity)' not in base:
+    errors.append('base projectile missing Forge 1.19.2 official hit-result adapter ProjectileUtil.getHitResult')
 if 'TC4 focus projectile visual adapter' not in renderer and 'minimal projectile renderer placeholder' not in renderer:
     errors.append('projectile renderer must document either Stage174 placeholder or later TC4 visual adapter')
 for token in ['tc4_stage174_focus_projectile_entity_audit.py','python scripts/tc4_stage174_focus_projectile_entity_audit.py','thaumcraft-legacy-rebuild-stage194-jars']:

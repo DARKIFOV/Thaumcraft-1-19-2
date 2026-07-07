@@ -16,3 +16,8 @@ Expected GitHub artifact names:
 - `stage194-build-reports` on failure
 
 Gradle remains pinned to Forge 1.19.2 / ForgeGradle 5.1.76 / Gradle 7.5.1.
+
+
+## Stage194 GitHub compile hotfix 2
+
+Fixed the second GitHub compile failure from `logs_78043955500(1).zip`: dummy `quickMoveStack`, `ProjectileUtil.getHitResult` adapter, `this.onGround` field access, and `BonemealableBlock` `BlockGetter` signature. Added audit hardening for these API risks.

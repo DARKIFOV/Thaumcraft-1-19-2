@@ -725,6 +725,11 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         }
 
         @Override
+        public ItemStack quickMoveStack(Player player, int index) {
+            return ItemStack.EMPTY;
+        }
+
+        @Override
         public boolean stillValid(Player player) {
             return false;
         }

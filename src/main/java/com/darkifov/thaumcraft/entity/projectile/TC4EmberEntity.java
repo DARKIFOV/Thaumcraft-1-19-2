@@ -64,7 +64,7 @@ public class TC4EmberEntity extends TC4FocusProjectileEntity {
         }
         super.tick();
         double drag = duration <= 20 ? 0.95D : 0.975D;
-        setDeltaMovement(getDeltaMovement().scale(onGround() ? 0.66D : drag));
+        setDeltaMovement(getDeltaMovement().scale(this.onGround ? 0.66D : drag));
         if (level.isClientSide) {
             level.addParticle(net.minecraft.core.particles.ParticleTypes.FLAME, getX(), getY(), getZ(), 0.0D, 0.0D, 0.0D);
             level.addParticle(net.minecraft.core.particles.ParticleTypes.SMOKE, getX(), getY(), getZ(), random.nextGaussian() * 0.005D, random.nextGaussian() * 0.005D, random.nextGaussian() * 0.005D);

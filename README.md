@@ -52,3 +52,8 @@ Consolidated full-port drift ledger:
 ## Notes
 
 The only remaining Arcane Workbench non-original compatibility surface is the hidden save-migration slot for older Stage135–188 worlds. It is explicitly marked as a Forge 1.19.2 migration adapter and is not part of the strict original TC4 crafting flow.
+
+
+## Stage194 GitHub compile hotfix 2
+
+Fixed the second GitHub compile failure from `logs_78043955500(1).zip`: dummy `quickMoveStack`, `ProjectileUtil.getHitResult` adapter, `this.onGround` field access, and `BonemealableBlock` `BlockGetter` signature. Added audit hardening for these API risks.

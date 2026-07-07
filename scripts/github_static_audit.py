@@ -177,6 +177,9 @@ def compile_api_risk_audit() -> list[str]:
         ".setHint(": "EditBox#setHint was unavailable in this Forge 1.19.2 environment",
         "Button.builder(": "Button.builder was unavailable in this Forge 1.19.2 environment",
         "SoundEvent.createVariableRangeEvent(": "Forge 1.19.2/MC 1.19.2 compile target uses new SoundEvent(ResourceLocation); createVariableRangeEvent is newer API",
+        "ProjectileUtil.getHitResultOnMoveVector(": "GitHub Forge 1.19.2 official mappings expose ProjectileUtil.getHitResult for this projectile path",
+        "onGround()": "GitHub Forge 1.19.2 official mappings expose Entity.onGround as a field in this target",
+        "isValidBonemealTarget(LevelReader": "BonemealableBlock in this 1.19.2 target requires BlockGetter for isValidBonemealTarget",
     }
     for path in (ROOT / "src/main/java").rglob("*.java"):
         text = path.read_text(encoding="utf-8", errors="ignore")

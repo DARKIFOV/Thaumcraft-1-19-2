@@ -67,7 +67,7 @@ for token in [
     'private int firey = 0',
     'setNoGravity(true)',
     'duration <= 20 ? 0.95D : 0.975D',
-    'onGround() ? 0.66D : drag',
+    'this.onGround ? 0.66D : drag',
     'return 0.0D',
     'DamageSource.ON_FIRE',
     'living.setSecondsOnFire(3 + firey)',
