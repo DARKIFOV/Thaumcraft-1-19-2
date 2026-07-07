@@ -388,7 +388,7 @@ public final class TC4RecipeItemResolver {
     public static String resolveLegacyRecipeExpression(String expression) {
         if (expression == null || expression.isBlank()) return "";
         String compact = expression.replace(" ", "");
-        java.util.regex.Matcher itemMatcher = java.util.regex.Pattern.compile("ConfigItems\.(item[A-Za-z0-9_]+)(?:,1,(-?\d+))?").matcher(compact);
+        java.util.regex.Matcher itemMatcher = java.util.regex.Pattern.compile("ConfigItems\\.(item[A-Za-z0-9_]+)(?:,1,(-?\\d+))?").matcher(compact);
         if (itemMatcher.find()) {
             String field = itemMatcher.group(1);
             int meta = 0;
@@ -398,7 +398,7 @@ public final class TC4RecipeItemResolver {
             String resolved = resolveConfigItem(field, meta);
             if (!resolved.isBlank()) return resolved;
         }
-        java.util.regex.Matcher blockMatcher = java.util.regex.Pattern.compile("ConfigBlocks\.(block[A-Za-z0-9_]+)(?:,1,(-?\d+))?").matcher(compact);
+        java.util.regex.Matcher blockMatcher = java.util.regex.Pattern.compile("ConfigBlocks\\.(block[A-Za-z0-9_]+)(?:,1,(-?\\d+))?").matcher(compact);
         if (blockMatcher.find()) {
             String field = blockMatcher.group(1);
             int meta = 0;
@@ -408,12 +408,12 @@ public final class TC4RecipeItemResolver {
             String resolved = resolveConfigBlock(field, meta);
             if (!resolved.isBlank()) return resolved;
         }
-        java.util.regex.Matcher vanillaItemMatcher = java.util.regex.Pattern.compile("Items\.(field_[0-9]+_[A-Za-z0-9]+)").matcher(compact);
+        java.util.regex.Matcher vanillaItemMatcher = java.util.regex.Pattern.compile("Items\\.(field_[0-9]+_[A-Za-z0-9]+)").matcher(compact);
         if (vanillaItemMatcher.find()) {
             String resolved = resolveVanillaItemField(vanillaItemMatcher.group(1));
             if (!resolved.isBlank()) return resolved;
         }
-        java.util.regex.Matcher vanillaBlockMatcher = java.util.regex.Pattern.compile("Blocks\.(field_[0-9]+_[A-Za-z0-9]+)").matcher(compact);
+        java.util.regex.Matcher vanillaBlockMatcher = java.util.regex.Pattern.compile("Blocks\\.(field_[0-9]+_[A-Za-z0-9]+)").matcher(compact);
         if (vanillaBlockMatcher.find()) {
             String resolved = resolveVanillaBlockField(vanillaBlockMatcher.group(1));
             if (!resolved.isBlank()) return resolved;
