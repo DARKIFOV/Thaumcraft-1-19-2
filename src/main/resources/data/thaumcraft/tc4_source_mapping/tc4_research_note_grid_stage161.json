@@ -1,0 +1,24 @@
+{
+  "stage": 161,
+  "source": "Thaumcraft4-1.7.10 ResearchManager.createNote + HexUtils",
+  "parity": "research note hex grid/layout",
+  "radius_rule": "radius = 1 + min(3, research.complexity)",
+  "radius_by_complexity": {
+    "1": 2,
+    "2": 3,
+    "3": 4
+  },
+  "hex_counts_before_blanks": {
+    "radius_2": 19,
+    "radius_3": 37,
+    "radius_4": 61
+  },
+  "blank_removal_rule": "complexity > 1 removes complexity*2 non-anchor blank hexes if safe for anchor connectivity",
+  "slot_types": {
+    "0": "empty active hex",
+    "1": "original research aspect anchor",
+    "2": "player placed aspect"
+  },
+  "anchor_rule": "all original ResearchItem tags are distributed on the outer ring, not two fake start/end anchors",
+  "coordinate_model": "axial q/r with TC4 neighbour directions [[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]]"
+}

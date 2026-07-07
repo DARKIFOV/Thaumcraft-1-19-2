@@ -3,7 +3,7 @@ package com.darkifov.thaumcraft.porting;
 import java.util.List;
 
 /**
- * Stage134 whole-Thaumcraft parity index.
+ * Stage194 whole-Thaumcraft parity index.
  * This is an explicit runtime-visible ledger of the port, not a substitute for
  * actual porting. It prevents us from losing systems while moving stage by
  * stage toward TC4 1.7.10 behavior on Forge 1.19.2.
@@ -14,11 +14,11 @@ public final class TC4FullParityIndex {
     public record SystemStatus(String system, String status, String note) {}
 
     public static final int ORIGINAL_TC4_SOURCE_FILES = 859;
-    public static final int CURRENT_PORT_JAVA_FILES = 269;
+    public static final int CURRENT_PORT_JAVA_FILES = 322;
     public static final int ORIGINAL_TC4_PNG_TEXTURES = 820;
-    public static final int CURRENT_PORT_PNG_TEXTURES = 2625;
+    public static final int CURRENT_PORT_PNG_TEXTURES = 3474;
     public static final int ORIGINAL_TC4_SOUND_FILES = 111;
-    public static final int CURRENT_PORT_SOUND_FILES = 111;
+    public static final int CURRENT_PORT_SOUND_FILES = 222;
     public static final int ORIGINAL_TC4_SOUND_EVENTS = 66;
 
     public static final List<SystemStatus> SYSTEMS = List.of(
@@ -30,17 +30,17 @@ public final class TC4FullParityIndex {
             new SystemStatus("RESEARCH_ITEMS", "runtime", "metadata split into 1.19.2 tc4_* research/component items"),
             new SystemStatus("RECIPES", "partial", "ConfigRecipes materialized partially; unresolved metadata remains"),
             new SystemStatus("INFUSION", "runtime", "matrix/pedestal/essentia/component cycle, structure and instability events present"),
-            new SystemStatus("ARCANE_WORKBENCH", "runtime", "arcane recipe costs now pass through wand cap modifiers; exact TC4 GUI still pending"),
+            new SystemStatus("ARCANE_WORKBENCH", "runtime-audited", "Stage193/194: original slot/order/output-take flow active; browser-era packets/screens removed; slot 11 is migration-only"),
             new SystemStatus("CRUCIBLE_ALCHEMY", "runtime", "heat, boil, thrown items, renderer, spill remnants and flux world blocks present; exact FX refinements pending"),
             new SystemStatus("ESSENTIA_TRANSPORT", "partial", "jars/tubes exist; needs exact suction network from TC4"),
             new SystemStatus("AURA_NODES_VIS", "runtime", "node generation, types, modifiers, stabilizer/transducer, Node Jar and energized relay recharge chain present"),
-            new SystemStatus("WANDS_FOCI", "runtime", "Stage134: cap discounts, special copper/silver modifiers, rod/staff capacity, elemental/primal rod recharge, component swapping, focus pouch, warding and portable-hole runtime present; exact upgrade UI/animations pending"),
+            new SystemStatus("WANDS_FOCI", "runtime-audited", "Stage171-192: original focus NBT/upgrades, pouch/equip, WandManager/IArchitect, projectiles, continuous use, renderer and crafting regression audited"),
             new SystemStatus("GOLEMS", "partial", "entities/items exist; needs TC4 golem AI, cores, upgrades and seals parity"),
             new SystemStatus("ELDRITCH", "partial", "blocks/entities exist; eldritch progression/dim/rituals not complete"),
-            new SystemStatus("TAINT_FLUX", "partial", "taint/instability events exist; needs exact flux goo/gas/taint spread world logic"),
+            new SystemStatus("TAINT_FLUX", "runtime", "Stage145: TC4 blockTaint metadata split, taint fibres age bridge, spread adjacency logic and output texture guard present; biome conversion and all taint mobs still pending"),
             new SystemStatus("ENTITIES", "partial", "some entities exist; must port all TC4 mobs/projectiles/trades"),
             new SystemStatus("SOUNDS", "runtime", "all TC4 sounds.json events registered in Stage124"),
-            new SystemStatus("TEXTURES", "audited", "all model texture refs verified; original texture set preserved"),
+            new SystemStatus("TEXTURES", "audited", "all model texture refs verified; Stage145 verifies required textures are present inside the GitHub output jar"),
             new SystemStatus("LOCALIZATION", "partial", "original lang files preserved; 1.19.2 lang generated partially")
     );
 

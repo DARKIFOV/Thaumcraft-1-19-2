@@ -1,0 +1,29 @@
+{
+  "tc4_key": "FocusFire",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "FOCUSFIRE",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:quartz",
+  "ingredients": [
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_ignis"
+  ],
+  "aspects": {
+    "IGNIS": 20,
+    "PERDITIO": 10
+  },
+  "pattern": [
+    "CQC",
+    "Q#Q",
+    "CQC"
+  ],
+  "key": {
+    "#": "minecraft:quartz",
+    "Q": "minecraft:nether_wart",
+    "C": "thaumcraft:tc4_shard_ignis"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_focus_fire",
+    "count": 1
+  }
+}

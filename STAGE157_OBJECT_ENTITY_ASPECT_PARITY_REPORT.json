@@ -1,0 +1,28 @@
+{
+  "status": "OK",
+  "object_entries": 190,
+  "entity_entries": 67,
+  "added_entity_entries": [
+    "minecraft:wither_skeleton",
+    "thaumcraft:crimson_cleric",
+    "thaumcraft:crimson_cultist",
+    "thaumcraft:crimson_knight",
+    "thaumcraft:crimson_praetor",
+    "thaumcraft:eldritch_orb",
+    "thaumcraft:firebat",
+    "thaumcraft:giant_brainy_zombie",
+    "thaumcraft:mind_spider",
+    "thaumcraft:primal_orb",
+    "thaumcraft:taint_spider",
+    "thaumcraft:taint_spore",
+    "thaumcraft:taint_swarm",
+    "thaumcraft:taint_swarmer",
+    "thaumcraft:taintacle_tiny",
+    "thaumcraft:tainted_chicken",
+    "thaumcraft:tainted_cow",
+    "thaumcraft:tainted_creeper",
+    "thaumcraft:tainted_pig",
+    "thaumcraft:tainted_sheep",
+    "thaumcraft:tainted_villager"
+  ]
+}

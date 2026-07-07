@@ -1,0 +1,11 @@
+{
+  "stage": 162,
+  "source": "Thaumcraft4-1.7.10 ResearchManager.checkResearchCompletion + TileResearchTable.placeAspect",
+  "parity": "research note completion/consumption",
+  "completion_rule": "all type=1 original research anchors must connect through type>=1 hexes using exact direct TC4 component links",
+  "knowledge_rule": "completion only accepts links where the player knows both linked aspects",
+  "placement_rule": "placing consumes one aspect pool point after a successful empty active hex placement",
+  "refund_rule": "clearing a player placed type=2 hex refunds one aspect pool point",
+  "cleanup_rule": "when solved, disconnected non-anchor placed hexes are pruned like TC4 removes non-remains",
+  "conversion_rule": "solved note right-click converts to completed original research if original prerequisites still pass"
+}

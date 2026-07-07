@@ -12,6 +12,8 @@ import java.util.List;
 public final class AlchemyRecipes {
     private static final List<AlchemyRecipe> FALLBACK_RECIPES = new ArrayList<>();
     private static final List<AlchemyRecipe> LOADED_RECIPES = new ArrayList<>();
+    private static final List<AlchemyRecipe> STRICT_ORIGINAL_RECIPES = new ArrayList<>();
+    private static final List<AlchemyRecipe> NON_ORIGINAL_RECIPES = new ArrayList<>();
 
     static {
         FALLBACK_RECIPES.add(new AlchemyRecipe(
@@ -44,16 +46,33 @@ public final class AlchemyRecipes {
     }
 
     public static List<AlchemyRecipe> recipes() {
-        if (LOADED_RECIPES.isEmpty()) {
-            return Collections.unmodifiableList(FALLBACK_RECIPES);
+        if (!STRICT_ORIGINAL_RECIPES.isEmpty()) {
+            return Collections.unmodifiableList(STRICT_ORIGINAL_RECIPES);
         }
 
-        return Collections.unmodifiableList(LOADED_RECIPES);
+        if (!LOADED_RECIPES.isEmpty()) {
+            return Collections.unmodifiableList(LOADED_RECIPES);
+        }
+
+        return Collections.unmodifiableList(FALLBACK_RECIPES);
+    }
+
+    public static List<AlchemyRecipe> nonOriginalRecipes() {
+        return Collections.unmodifiableList(NON_ORIGINAL_RECIPES);
     }
 
     public static void setLoadedRecipes(List<AlchemyRecipe> recipes) {
         LOADED_RECIPES.clear();
+        STRICT_ORIGINAL_RECIPES.clear();
+        NON_ORIGINAL_RECIPES.clear();
         LOADED_RECIPES.addAll(recipes);
+        for (AlchemyRecipe recipe : recipes) {
+            if (!recipe.tc4Key().isBlank()) {
+                STRICT_ORIGINAL_RECIPES.add(recipe);
+            } else {
+                NON_ORIGINAL_RECIPES.add(recipe);
+            }
+        }
     }
 
     public static AlchemyRecipe findByCatalyst(ItemStack catalyst) {

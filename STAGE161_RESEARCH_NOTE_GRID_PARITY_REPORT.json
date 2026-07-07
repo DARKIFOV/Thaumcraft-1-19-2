@@ -1,0 +1,12 @@
+{
+  "stage": 161,
+  "version": "1.61.0-internal",
+  "status": "completed in Stage162 archive",
+  "changes": [
+    "Replaced fixed 19-slot/two-anchor rebuild note with dynamic TC4 axial hex grid.",
+    "Implemented TC4 radius rule and outer-ring research tag anchors.",
+    "Added slot type NBT: empty, original anchor, player placed.",
+    "Synced active slot types to the client for rendering and interaction."
+  ],
+  "remaining": "Research note visual polish and exact packet/table inventory coupling can continue later."
+}

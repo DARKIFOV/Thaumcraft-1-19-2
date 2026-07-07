@@ -42,7 +42,10 @@ public final class OriginalResearchBridge {
             return false;
         }
 
-        PlayerThaumData.unlockResearch(player, entry.key());
+        if (!PlayerThaumData.unlockResearch(player, entry.key())) {
+            return false;
+        }
+        OriginalResearchProgression.applyUnlockSideEffects(player, entry);
         OriginalAspectWallet.seedIfEmpty(player);
 
         player.displayClientMessage(Component.literal("Research completed: ")
@@ -52,7 +55,8 @@ public final class OriginalResearchBridge {
     }
 
     public static Optional<ResearchEntry> firstAvailable(Player player) {
-        for (ResearchEntry entry : ResearchRegistry.entries()) {
+        OriginalResearchProgression.seedAutoUnlocks(player);
+        for (ResearchEntry entry : ResearchRegistry.originalEntries()) {
             if (canUnlock(player, entry)) {
                 return Optional.of(entry);
             }

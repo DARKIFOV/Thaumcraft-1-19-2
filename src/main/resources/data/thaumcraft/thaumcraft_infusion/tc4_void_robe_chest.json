@@ -1,0 +1,30 @@
+{
+  "tc4_key": "VoidRobeChest",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ARMORVOIDFORTRESS",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_voidchest",
+  "components": [
+    "thaumcraft:tc4_clothchest",
+    "thaumcraft:tc4_voidingot",
+    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_cloth",
+    "minecraft:sugar"
+  ],
+  "aspects": {
+    "METALLUM": 24,
+    "TUTAMEN": 24,
+    "PANNUS": 24,
+    "PRAECANTATIO": 16,
+    "ALIENIS": 16,
+    "VACUOS": 24
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_voidrobechest",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

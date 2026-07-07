@@ -1,0 +1,28 @@
+{
+  "tc4_key": "EssentiaReservoir",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ESSENTIARESERVOIR",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_block_essentia_tube",
+  "components": [
+    "thaumcraft:tc4_voidingot",
+    "thaumcraft:tc4_block_essentia_jar",
+    "thaumcraft:tc4_block_essentia_jar",
+    "thaumcraft:tc4_voidingot",
+    "thaumcraft:tc4_block_essentia_jar",
+    "thaumcraft:tc4_block_essentia_jar"
+  ],
+  "aspects": {
+    "AQUA": 8,
+    "VACUOS": 8,
+    "PRAECANTATIO": 8,
+    "PERMUTATIO": 8
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_block_essentia_reservoir",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

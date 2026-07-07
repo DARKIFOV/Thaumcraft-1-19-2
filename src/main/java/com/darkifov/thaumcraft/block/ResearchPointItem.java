@@ -5,6 +5,7 @@ import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.OriginalResearchBridge;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
+import com.darkifov.thaumcraft.research.OriginalResearchProgression;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,9 +28,13 @@ public class ResearchPointItem extends Item {
         if (!level.isClientSide) {
             boolean unlocked = false;
 
-            for (ResearchEntry entry : ResearchRegistry.entries()) {
+            OriginalResearchProgression.seedAutoUnlocks(player);
+            for (ResearchEntry entry : ResearchRegistry.originalEntries()) {
                 if (OriginalResearchBridge.canUnlock(player, entry)) {
-                    PlayerThaumData.unlockResearch(player, entry.key());
+                    if (!PlayerThaumData.unlockResearch(player, entry.key())) {
+                        continue;
+                    }
+                    OriginalResearchProgression.applyUnlockSideEffects(player, entry);
 
                     if (!player.getAbilities().instabuild) {
                         stack.shrink(1);

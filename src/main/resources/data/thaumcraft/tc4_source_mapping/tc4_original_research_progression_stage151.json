@@ -1,0 +1,452 @@
+[
+  {
+    "key": "BASICTHAUMATURGY",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "FOCUSHELLBAT",
+    "item_triggers_raw": [],
+    "entity_triggers": [
+      "Thaumcraft.Firebat"
+    ],
+    "aspect_triggers": [
+      "IGNIS"
+    ],
+    "auto_unlock": false,
+    "warp": 2
+  },
+  {
+    "key": "CAP_iron",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "ROD_wood",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "BASICARTIFACE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "ARCANESTONE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "GRATE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "TABLE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "ARCTABLE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "RESTABLE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "THAUMOMETER",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "BANNERS",
+    "item_triggers_raw": [
+      "ConfigBlocks.blockWoodenDevice, 1, 8"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "HOVERGIRDLE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "VOLATUS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "MIRROR",
+    "item_triggers_raw": [
+      "ConfigBlocks.blockMirror, 1, 0",
+      "Items.field_151079_bi",
+      "Blocks.field_150427_aO, 1, 32767",
+      "Blocks.field_150384_bq, 1, 32767",
+      "Blocks.field_150378_br, 1, 32767"
+    ],
+    "entity_triggers": [
+      "Enderman"
+    ],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "LAMPGROWTH",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "LUX",
+      "MESSIS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "LAMPFERTILITY",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "LUX",
+      "VICTUS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "BONEBOW",
+    "item_triggers_raw": [
+      "ConfigItems.itemBowBone",
+      "Items.field_151031_f, 1, 32767",
+      "Items.field_151103_aS"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "JARBRAIN",
+    "item_triggers_raw": [
+      "ConfigBlocks.blockJar, 1, 1",
+      "ConfigItems.itemResource, 1, 3"
+    ],
+    "entity_triggers": [
+      "Thaumcraft.BrainyZombie",
+      "Thaumcraft.GiantBrainyZombie"
+    ],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 3
+  },
+  {
+    "key": "ARMORFORTRESS",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TUTAMEN"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "PHIAL",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "CRUCIBLE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "LIQUIDDEATH",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "MORTUUS",
+      "VENENUM"
+    ],
+    "auto_unlock": false,
+    "warp": 3
+  },
+  {
+    "key": "BOTTLETAINT",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "VITIUM"
+    ],
+    "auto_unlock": false,
+    "warp": 2
+  },
+  {
+    "key": "THAUMIUM",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "METALLUM"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "ETHEREALBLOOM",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "VITIUM"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYHAT",
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 0",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYGLASSES",
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 1",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYBOWTIE",
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 2",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYFEZ",
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 3",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYDART",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TELUM"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYVISOR",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TUTAMEN"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYARMOR",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TUTAMEN"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "TINYHAMMER",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TELUM"
+    ],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "ASPECTS",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "PECH",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "NODES",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "WARP",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "RESEARCH",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "KNOWFRAG",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "THAUMONOMICON",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "ORE",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "PLANTS",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "ENCHANT",
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": true,
+    "warp": 0
+  },
+  {
+    "key": "OUTERREV",
+    "item_triggers_raw": [
+      "ConfigBlocks.blockEldritch, 1, 5",
+      "ConfigBlocks.blockEldritch, 1, 10"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "PRIMPEARL",
+    "item_triggers_raw": [
+      "ConfigItems.itemEldritchObject, 1, 3",
+      "ConfigItems.itemEldritchObject, 1, 3"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 0
+  },
+  {
+    "key": "ROD_primal_staff",
+    "item_triggers_raw": [
+      "ConfigItems.itemWandRod, 1, 100",
+      "ConfigItems.itemFocusPrimal"
+    ],
+    "entity_triggers": [
+      "Thaumcraft.PrimalOrb"
+    ],
+    "aspect_triggers": [],
+    "auto_unlock": false,
+    "warp": 3
+  }
+]

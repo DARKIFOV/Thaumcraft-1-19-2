@@ -1,0 +1,311 @@
+{
+  "stage": 160,
+  "source": "Original TC4 aspect component graph as represented by Aspect enum ids and ConfigAspects semantics",
+  "total_aspects": 48,
+  "primal_aspects": [
+    "aer",
+    "terra",
+    "ignis",
+    "aqua",
+    "ordo",
+    "perditio"
+  ],
+  "compound_count": 42,
+  "compounds": [
+    {
+      "aspect": "vacuos",
+      "components": [
+        "aer",
+        "perditio"
+      ]
+    },
+    {
+      "aspect": "lux",
+      "components": [
+        "aer",
+        "ignis"
+      ]
+    },
+    {
+      "aspect": "tempestas",
+      "components": [
+        "aer",
+        "aqua"
+      ]
+    },
+    {
+      "aspect": "motus",
+      "components": [
+        "aer",
+        "ordo"
+      ]
+    },
+    {
+      "aspect": "gelum",
+      "components": [
+        "ignis",
+        "perditio"
+      ]
+    },
+    {
+      "aspect": "vitreus",
+      "components": [
+        "terra",
+        "ordo"
+      ]
+    },
+    {
+      "aspect": "victus",
+      "components": [
+        "aqua",
+        "terra"
+      ]
+    },
+    {
+      "aspect": "venenum",
+      "components": [
+        "aqua",
+        "perditio"
+      ]
+    },
+    {
+      "aspect": "potentia",
+      "components": [
+        "ordo",
+        "ignis"
+      ]
+    },
+    {
+      "aspect": "permutatio",
+      "components": [
+        "perditio",
+        "ordo"
+      ]
+    },
+    {
+      "aspect": "metallum",
+      "components": [
+        "terra",
+        "vitreus"
+      ]
+    },
+    {
+      "aspect": "mortuus",
+      "components": [
+        "victus",
+        "perditio"
+      ]
+    },
+    {
+      "aspect": "volatus",
+      "components": [
+        "aer",
+        "motus"
+      ]
+    },
+    {
+      "aspect": "tenebrae",
+      "components": [
+        "vacuos",
+        "lux"
+      ]
+    },
+    {
+      "aspect": "spiritus",
+      "components": [
+        "victus",
+        "mortuus"
+      ]
+    },
+    {
+      "aspect": "sano",
+      "components": [
+        "victus",
+        "ordo"
+      ]
+    },
+    {
+      "aspect": "iter",
+      "components": [
+        "motus",
+        "terra"
+      ]
+    },
+    {
+      "aspect": "alienis",
+      "components": [
+        "vacuos",
+        "tenebrae"
+      ]
+    },
+    {
+      "aspect": "praecantatio",
+      "components": [
+        "vacuos",
+        "potentia"
+      ]
+    },
+    {
+      "aspect": "auram",
+      "components": [
+        "praecantatio",
+        "aer"
+      ]
+    },
+    {
+      "aspect": "vitium",
+      "components": [
+        "praecantatio",
+        "perditio"
+      ]
+    },
+    {
+      "aspect": "limus",
+      "components": [
+        "victus",
+        "aqua"
+      ]
+    },
+    {
+      "aspect": "herba",
+      "components": [
+        "victus",
+        "terra"
+      ]
+    },
+    {
+      "aspect": "arbor",
+      "components": [
+        "aer",
+        "herba"
+      ]
+    },
+    {
+      "aspect": "bestia",
+      "components": [
+        "motus",
+        "victus"
+      ]
+    },
+    {
+      "aspect": "corpus",
+      "components": [
+        "mortuus",
+        "bestia"
+      ]
+    },
+    {
+      "aspect": "exanimis",
+      "components": [
+        "motus",
+        "mortuus"
+      ]
+    },
+    {
+      "aspect": "cognitio",
+      "components": [
+        "ignis",
+        "spiritus"
+      ]
+    },
+    {
+      "aspect": "sensus",
+      "components": [
+        "aer",
+        "spiritus"
+      ]
+    },
+    {
+      "aspect": "humanus",
+      "components": [
+        "bestia",
+        "cognitio"
+      ]
+    },
+    {
+      "aspect": "messis",
+      "components": [
+        "herba",
+        "humanus"
+      ]
+    },
+    {
+      "aspect": "perfodio",
+      "components": [
+        "humanus",
+        "terra"
+      ]
+    },
+    {
+      "aspect": "instrumentum",
+      "components": [
+        "humanus",
+        "ordo"
+      ]
+    },
+    {
+      "aspect": "meto",
+      "components": [
+        "messis",
+        "instrumentum"
+      ]
+    },
+    {
+      "aspect": "telum",
+      "components": [
+        "instrumentum",
+        "ignis"
+      ]
+    },
+    {
+      "aspect": "tutamen",
+      "components": [
+        "instrumentum",
+        "terra"
+      ]
+    },
+    {
+      "aspect": "fames",
+      "components": [
+        "victus",
+        "vacuos"
+      ]
+    },
+    {
+      "aspect": "lucrum",
+      "components": [
+        "humanus",
+        "fames"
+      ]
+    },
+    {
+      "aspect": "fabrico",
+      "components": [
+        "humanus",
+        "instrumentum"
+      ]
+    },
+    {
+      "aspect": "pannus",
+      "components": [
+        "instrumentum",
+        "bestia"
+      ]
+    },
+    {
+      "aspect": "machina",
+      "components": [
+        "motus",
+        "instrumentum"
+      ]
+    },
+    {
+      "aspect": "vinculum",
+      "components": [
+        "motus",
+        "perditio"
+      ]
+    }
+  ],
+  "research_note_rule": "Research note links must use an immediate original component/decomposition relationship or exact source component pair. No distance-2 shortcut links."
+}

@@ -79,6 +79,21 @@ public enum WandRodType {
         return regeneratedAspect() != null || regeneratesAllPrimals();
     }
 
+
+    /** Stage187: original TC4 WandRod#getTag strings are the root NBT values. */
+    public String originalTag() {
+        return id;
+    }
+
+    public static WandRodType fromOriginalTag(String tag) {
+        if (tag == null || tag.isBlank()) return WOOD;
+        String normalized = tag.toLowerCase(Locale.ROOT);
+        for (WandRodType type : values()) {
+            if (type.originalTag().equals(normalized) || type.id.equals(normalized)) return type;
+        }
+        return fromId(tag);
+    }
+
     public static WandRodType fromId(String id) {
         if (id == null || id.isBlank()) return WOOD;
         for (WandRodType type : values()) {

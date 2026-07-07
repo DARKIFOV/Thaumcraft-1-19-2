@@ -20,7 +20,7 @@ final class OriginalResearchLayout {
 
     static List<ResearchEntry> entriesFor(OriginalResearchCategory category) {
         List<ResearchEntry> result = new ArrayList<>();
-        for (ResearchEntry entry : ResearchRegistry.entries()) {
+        for (ResearchEntry entry : ResearchRegistry.originalEntries()) {
             if (categoryFor(entry) == category) {
                 result.add(entry);
             }

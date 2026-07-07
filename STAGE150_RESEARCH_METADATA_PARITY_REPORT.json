@@ -1,0 +1,24 @@
+{
+  "stage": 150,
+  "goal": "strict original TC4 ResearchItem metadata parity",
+  "expected_research_keys": 201,
+  "current_research_keys": 201,
+  "triggered_research_keys": 24,
+  "metadata_mismatches": [],
+  "missing_trigger_literals": [],
+  "remaining_stage_estimate_after_stage150": "42-67 stages before Stage151; 41-66 after Stage151",
+  "checks": {
+    "version_stage151_for_two_stage_drop": true,
+    "stage150_metadata_spec_present": true,
+    "stage150_metadata_matches_original_source": true,
+    "runtime_key_count_201": true,
+    "metadata_fields_match_runtime_bridge": true,
+    "metadata_index_java_present": true,
+    "all_trigger_literals_preserved_in_index": true,
+    "original_registry_slice_added": true,
+    "thaumonomicon_layout_uses_original_entries": true,
+    "workflow_runs_stage150_audit": true,
+    "github_guard_runs_stage150_audit": true
+  },
+  "passed": true
+}

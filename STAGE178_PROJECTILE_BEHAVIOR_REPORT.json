@@ -1,0 +1,33 @@
+{
+  "stage": 178,
+  "title": "TC4 focus projectile behavior parity batch 2",
+  "version": "1.78.0",
+  "strict_original": true,
+  "source_truth": [
+    "thaumcraft/common/entities/projectile/EntityFrostShard.java",
+    "thaumcraft/common/entities/projectile/EntityExplosiveOrb.java",
+    "thaumcraft/common/entities/projectile/EntityShockOrb.java",
+    "thaumcraft/common/entities/projectile/EntityPrimalOrb.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusFire.java",
+    "ItemFocusFrost.java",
+    "ItemFocusShock.java",
+    "ItemFocusPrimal.java"
+  ],
+  "implemented": [
+    "Added projectile gravity/lifecycle hook in TC4FocusProjectileEntity.",
+    "FrostShard now has original fragile/gravity distinction, bounce-limit discard behavior, axis-specific bounce response and non-snow hit behavior.",
+    "ExplosiveOrb now applies direct hit damage before explosion, uses original-ish gravity and non-terrain-breaking explosion adapter.",
+    "ShockOrb now performs visible-entity area burst with LOS ClipContext check, lightning damage and weakness effect.",
+    "PrimalOrb seeker/non-seeker movement, low gravity, water-amplified impact chance/strength, taint/aura-node special outcome adapter and maxLife parity were moved into the projectile entity instead of fake base projectile effects."
+  ],
+  "forge_1192_adapters": [
+    "Explosion APIs are mapped to 1.19.2 Explosion.BlockInteraction values; ExplosiveOrb uses NONE, PrimalOrb uses BREAK to preserve destructive primal impact intent.",
+    "Primal taint/node side effects route to current port registry blocks/entities until full aura/node/taint systems are completed."
+  ],
+  "audits": [
+    "scripts/tc4_stage178_projectile_behavior_audit.py"
+  ],
+  "drift_fixed": [
+    "Removed non-original Stage174/176 base projectile primal effect helpers from TC4FocusProjectileEntity."
+  ]
+}

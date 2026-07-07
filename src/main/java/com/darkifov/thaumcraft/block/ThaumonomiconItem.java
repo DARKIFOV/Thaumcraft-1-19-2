@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.client.ClientHooks;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.research.OriginalResearchProgression;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,6 +27,7 @@ public class ThaumonomiconItem extends Item {
             DistExecutor.unsafeRunWhenOn(net.minecraftforge.api.distmarker.Dist.CLIENT, () -> ClientHooks::openThaumonomicon);
         } else {
             if (player instanceof ServerPlayer serverPlayer) {
+                OriginalResearchProgression.seedAutoUnlocks(serverPlayer);
                 ThaumcraftNetwork.syncResearch(serverPlayer);
             }
 

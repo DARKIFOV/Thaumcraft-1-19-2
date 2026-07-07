@@ -211,7 +211,7 @@ public final class InfusionInstabilityEvents {
 
     private static void placeFluxLikeGoo(Level level, BlockPos pos) {
         if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).isAir()) {
-            level.setBlock(pos, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
+            level.setBlock(pos, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), 3);
         }
     }
 

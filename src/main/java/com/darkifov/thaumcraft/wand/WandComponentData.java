@@ -13,6 +13,9 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
     private static final String TAG_WAND = "Wand";
     private static final String TAG_ROD = "Rod";
     private static final String TAG_CAP = "Cap";
+    public static final String ORIGINAL_TAG_ROD = "rod";
+    public static final String ORIGINAL_TAG_CAP = "cap";
+    public static final String ORIGINAL_TAG_SCEPTRE = "sceptre";
 
     public static WandComponentData from(ItemStack stack) {
         if (stack.getItem() instanceof WandItem wandItem) {
@@ -20,8 +23,18 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
             WandRodType rod = wandItem.defaultRod();
             WandCapType cap = wandItem.defaultCap();
 
-            if (tag != null) {
+            CompoundTag root = stack.getTag();
+            // Stage187: original ItemWandCasting stores rod/cap as root NBT strings
+            // named exactly "rod" and "cap".  Keep the Stage144-186 nested
+            // "Wand" adapter as a read-only compatibility fallback.
+            if (root != null && root.contains(ORIGINAL_TAG_ROD)) {
+                rod = WandRodType.fromOriginalTag(root.getString(ORIGINAL_TAG_ROD));
+            } else if (tag != null) {
                 rod = WandRodType.fromId(tag.getString(TAG_ROD));
+            }
+            if (root != null && root.contains(ORIGINAL_TAG_CAP)) {
+                cap = WandCapType.fromOriginalTag(root.getString(ORIGINAL_TAG_CAP));
+            } else if (tag != null) {
                 cap = WandCapType.fromId(tag.getString(TAG_CAP));
             }
 
@@ -32,6 +45,11 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
     }
 
     public static void write(ItemStack stack, WandRodType rod, WandCapType cap) {
+        // Stage187: write original root NBT first, then preserve the old nested
+        // adapter tags so existing Stage174-186 saves keep working.
+        CompoundTag root = stack.getOrCreateTag();
+        root.putString(ORIGINAL_TAG_ROD, rod.originalTag());
+        root.putString(ORIGINAL_TAG_CAP, cap.originalTag());
         CompoundTag tag = stack.getOrCreateTagElement(TAG_WAND);
         tag.putString(TAG_ROD, rod.id());
         tag.putString(TAG_CAP, cap.id());
@@ -39,6 +57,44 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
 
     public int capacity() {
         return rod.baseCapacity();
+    }
+
+    /** Stage185: original ItemWandCasting root NBT adapter for the "sceptre" byte tag. Historical audit token: root.contains("sceptre"). */
+    public static boolean isSceptre(ItemStack stack) {
+        CompoundTag root = stack.getTag();
+        return root != null && root.contains(ORIGINAL_TAG_SCEPTRE);
+    }
+
+    public static void setSceptre(ItemStack stack, boolean sceptre) {
+        CompoundTag root = stack.getOrCreateTag();
+        if (sceptre) {
+            root.putByte(ORIGINAL_TAG_SCEPTRE, (byte)1);
+        } else {
+            root.remove(ORIGINAL_TAG_SCEPTRE);
+        }
+    }
+
+    /** Stage185: original StaffRod.hasRunes parity; only primal staff sets runes in ConfigItems. */
+    public boolean hasRunes() {
+        return rod == WandRodType.PRIMAL_STAFF;
+    }
+
+    /** Stage185: original ItemWandCasting#getMaxVis: rod capacity * 150 for sceptres, otherwise * 100. */
+    public int capacity(ItemStack stack) {
+        int capacity = rod.baseCapacity();
+        if (isSceptre(stack)) {
+            capacity = (int)Math.floor(capacity * 1.5F);
+        }
+        return capacity;
+    }
+
+    /** Stage185: original sceptre crafting-only 0.1 consumption modifier adapter. */
+    public float visCostModifier(ItemStack stack, Aspect aspect) {
+        float modifier = visCostModifier(aspect);
+        if (isSceptre(stack)) {
+            modifier -= 0.1F;
+        }
+        return Math.max(modifier, 0.1F);
     }
 
     public float visCostModifier() {

@@ -1,55 +1,54 @@
-# Thaumcraft Legacy Rebuild — Stage144 Clean GitHub Package
+# Thaumcraft Legacy Rebuild — Stage194
 
-Forge 1.19.2 port checkpoint for the strict Thaumcraft 4 1.7.10 rebuild.
+Strict original Thaumcraft 4 parity-port to Forge Minecraft 1.19.2.
 
-This package is cleaned for GitHub usage: the old generated Stage reports, historical audit scripts, and porting-doc clutter were removed from the repository root. The source code, resources, Gradle wrapper, workflow, and the current Stage144 audit remain.
+Version: `1.94.0`.
 
-## What was fixed
+This archive continues directly from Stage192 and adds Stage193 + Stage194 without adding new mechanics, GUI progression, non-original textures or invented behavior.
 
-- Fixed GitHub compile error caused by duplicate `GOLEM_WIRELESS_BACKPACK` registry field.
-- Fixed Crimson Cultist/Knight/Cleric/Praetor entity registration generics so Java does not infer `EntityType<Entity>`.
-- Cleaned `.github/workflows/main.yml` so CI runs only the required current checks.
-- Cleaned `scripts/` so only active GitHub checks remain.
-- Removed old root `STAGE*.json`, `*_REPORT.json`, and historical `docs/porting` files from the upload package.
+## Stage193
 
-## Current active systems
+Arcane Workbench legacy packet/browser cleanup:
 
-Stage144 keeps the already ported systems and adds the Eldritch/Warp/Taint/Cultist pass:
+- Removed old browser-era runtime packet/screen files:
+  - `RequestArcaneCraftPacket`
+  - `RequestArcaneMenuCraftPacket`
+  - `OpenArcaneWorkbenchPacket`
+  - standalone `ArcaneWorkbenchScreen`
+- Removed client helper methods for fake recipe-button crafting.
+- Kept Arcane Workbench opening on the strict container path:
+  - `NetworkHooks.openScreen(serverPlayer, workbench)`
+  - `ArcaneWorkbenchMenu`
+  - `ArcaneWorkbenchContainerScreen`
+- Updated the TC4 class mapping so `GuiArcaneWorkbench` now points to `ArcaneWorkbenchContainerScreen`, not the deleted standalone screen.
+- Preserved `ArcaneRecipeSyncPacket` only for client-side display/vis cost lookup; it no longer provides a craft button path.
+- Kept `SLOT_LEGACY_CATALYST = 11` only as a clearly marked Stage135–188 save-migration adapter.
 
-- split Warp data: permanent, sticky, temporary, and warp counter;
-- TC4-style Eldritch progression thresholds;
-- Crimson cultist variants and Eldritch Guardian entity registration;
-- Eldritch portal/altar flow using custom entities, not vanilla Enderman/Vex;
-- shared taint runtime hooks;
-- preserved golemancy, research, wands, nodes, Crucible, and Infusion code.
+## Stage194
 
-## GitHub upload
+Consolidated full-port drift ledger:
 
-Upload the contents of this archive directly into the repository root. These files/folders must be at the top level:
+- Added `TC4FullPortDriftLedger` runtime guard class.
+- Added JSON ledger resource: `data/thaumcraft/tc4_drift/full_port_drift_ledger_stage194.json`.
+- Added human-readable ledger: `docs/TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md`.
+- Covered major systems:
+  - golems;
+  - wands/foci;
+  - aura/nodes;
+  - crucible;
+  - infusion;
+  - taint;
+  - eldritch;
+  - worldgen;
+  - Thaumonomicon/research;
+  - research table;
+  - Arcane Workbench.
 
-- `build.gradle`
-- `settings.gradle`
-- `gradle.properties`
-- `gradlew`
-- `gradlew.bat`
-- `gradle/`
-- `.github/`
-- `scripts/`
-- `src/`
+## New audits
 
-Do not upload the extracted folder as a folder inside the repository.
+- `scripts/tc4_stage193_arcane_cleanup_audit.py`
+- `scripts/tc4_stage194_full_port_drift_ledger_audit.py`
 
-## Local checks included
+## Notes
 
-```bash
-python scripts/java_syntax_guard.py
-python scripts/github_ci_guard.py
-python scripts/github_static_audit.py
-python scripts/tc4_stage144_eldritch_warp_taint_audit.py
-```
-
-The full Gradle build should be run by GitHub Actions or another online environment because the local sandbox may not be able to download Gradle/Forge dependencies.
-
-## Stage144 hotfix: GitHub compile SoundEvent fix
-
-Fixed Forge 1.19.2 GitHub compile failure in `TC4Sounds`: replaced newer `SoundEvent.createVariableRangeEvent(id)` with the 1.19.2-compatible `new SoundEvent(id)`. Also added a static audit rule so this API mismatch does not return in later stages.
+The only remaining Arcane Workbench non-original compatibility surface is the hidden save-migration slot for older Stage135–188 worlds. It is explicitly marked as a Forge 1.19.2 migration adapter and is not part of the strict original TC4 crafting flow.

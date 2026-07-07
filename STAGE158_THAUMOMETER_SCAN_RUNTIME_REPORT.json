@@ -1,0 +1,16 @@
+{
+  "status": "OK",
+  "entity_scan_triggers": {
+    "minecraft:enderman": "Enderman",
+    "thaumcraft:brainy_zombie": "Thaumcraft.BrainyZombie",
+    "thaumcraft:giant_brainy_zombie": "Thaumcraft.GiantBrainyZombie",
+    "thaumcraft:firebat": "Thaumcraft.Firebat",
+    "thaumcraft:primal_orb": "Thaumcraft.PrimalOrb"
+  },
+  "research_keys": [
+    "FOCUSHELLBAT",
+    "MIRROR",
+    "JARBRAIN",
+    "ROD_primal_staff"
+  ]
+}

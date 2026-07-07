@@ -22,10 +22,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -66,7 +68,7 @@ public class WandItem extends Item {
     }
 
     public int stackVisCapacity(ItemStack stack) {
-        return WandComponentData.from(stack).capacity();
+        return WandComponentData.from(stack).capacity(stack);
     }
 
     public float stackVisCostModifier(ItemStack stack) {
@@ -75,6 +77,11 @@ public class WandItem extends Item {
 
     public boolean isInfiniteVis(ItemStack stack) {
         return false;
+    }
+
+    /** Stage189: original SlotLimitedByWand rejects staff rods from Arcane Workbench wand slot. */
+    public static boolean isStaffStack(ItemStack stack) {
+        return stack.getItem() instanceof WandItem && WandComponentData.from(stack).rod().staff();
     }
 
     public static boolean hasInfiniteVis(ItemStack stack) {
@@ -122,7 +129,7 @@ public class WandItem extends Item {
         if (baseAmount <= 0 || hasInfiniteVis(wandStack)) {
             return 0;
         }
-        float modifier = WandComponentData.from(wandStack).visCostModifier(aspect);
+        float modifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
         return Math.max(1, (int) Math.ceil(baseAmount * modifier));
     }
 
@@ -319,7 +326,7 @@ public class WandItem extends Item {
         tooltip.add(Component.literal("Rod: " + data.rod().id()).withStyle(ChatFormatting.DARK_AQUA));
         tooltip.add(Component.literal("Caps: " + data.cap().id()).withStyle(ChatFormatting.GOLD));
         tooltip.add(Component.literal("Capacity: " + stackVisCapacity(stack)).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("Cap cost: x" + data.cap().visCostModifier() + " base").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Cap cost: x" + data.visCostModifier(stack, Aspect.AER) + " base").withStyle(ChatFormatting.GRAY));
         if (data.rod().staff()) {
             tooltip.add(Component.literal("Staff-class rod").withStyle(ChatFormatting.DARK_PURPLE));
         }
@@ -340,16 +347,65 @@ public class WandItem extends Item {
     }
 
     @Override
+    public int getUseDuration(ItemStack stack) {
+        return !WandComponentData.isSceptre(stack) && WandFocusRuntime.shouldUseContinuously(stack) ? Integer.MAX_VALUE : 0;
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        // Original TC4 ItemWandRenderer animates the wand itself with WandFocusAnimation.WAVE/CHARGE.
+        // Do not let vanilla draw the wand as a bow; the custom renderer handles the held-use motion.
+        return UseAnim.NONE;
+    }
+
+    @Override
+    public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+        if (livingEntity instanceof Player player && !WandComponentData.isSceptre(stack)) {
+            WandFocusRuntime.onUsingFocusTick(stack, level, player, remainingUseDuration);
+        }
+    }
+
+    @Override
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int remainingUseDuration) {
+        if (livingEntity instanceof Player player && !WandComponentData.isSceptre(stack)) {
+            WandFocusRuntime.onPlayerStoppedUsingFocus(stack, level, player, remainingUseDuration);
+        }
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack wandStack = player.getItemInHand(hand);
 
         if (level.isClientSide) {
+            if (!WandComponentData.isSceptre(wandStack) && WandFocusRuntime.shouldUseContinuously(wandStack)) {
+                player.startUsingItem(hand);
+                return InteractionResultHolder.consume(wandStack);
+            }
             return InteractionResultHolder.success(wandStack);
         }
 
         ItemStack offhand = player.getOffhandItem();
 
         if (hand == InteractionHand.MAIN_HAND && tryInstallWandComponent(wandStack, offhand, player)) {
+            return InteractionResultHolder.consume(wandStack);
+        }
+
+        if (WandComponentData.isSceptre(wandStack) && player.isShiftKeyDown() && WandFocusRuntime.hasFocus(wandStack)) {
+            WandFocusType oldFocus = WandFocusRuntime.getFocus(wandStack);
+            ItemStack focusStack = WandFocusRuntime.getFocusStack(wandStack);
+            WandFocusRuntime.setFocus(wandStack, null);
+            if (focusStack.isEmpty()) {
+                focusStack = WandFocusRuntime.focusStack(oldFocus);
+            }
+            if (!player.getInventory().add(focusStack)) {
+                player.drop(focusStack, false);
+            }
+            player.displayClientMessage(Component.literal("Removed " + oldFocus.displayName() + " from sceptre adapter NBT.").withStyle(ChatFormatting.GRAY), true);
+            return InteractionResultHolder.consume(wandStack);
+        }
+
+        if (WandComponentData.isSceptre(wandStack) && (offhand.getItem() instanceof FocusPouchItem || offhand.getItem() instanceof WandFocusItem || WandFocusRuntime.hasFocus(wandStack))) {
+            player.displayClientMessage(Component.literal("Original TC4 sceptres are crafting-only and cannot equip or cast wand foci.").withStyle(ChatFormatting.RED), true);
             return InteractionResultHolder.consume(wandStack);
         }
 
@@ -361,7 +417,9 @@ public class WandItem extends Item {
         }
 
         if (hand == InteractionHand.MAIN_HAND && offhand.getItem() instanceof WandFocusItem focusItem) {
-            WandFocusRuntime.setFocus(wandStack, focusItem.focusType());
+            ItemStack installedFocus = offhand.copy();
+            installedFocus.setCount(1);
+            WandFocusRuntime.setFocusStack(wandStack, installedFocus);
             if (!player.getAbilities().instabuild) {
                 offhand.shrink(1);
             }
@@ -371,12 +429,21 @@ public class WandItem extends Item {
 
         if (player.isShiftKeyDown() && WandFocusRuntime.hasFocus(wandStack)) {
             WandFocusType oldFocus = WandFocusRuntime.getFocus(wandStack);
+            ItemStack focusStack = WandFocusRuntime.getFocusStack(wandStack);
             WandFocusRuntime.setFocus(wandStack, null);
-            ItemStack focusStack = WandFocusRuntime.focusStack(oldFocus);
+            if (focusStack.isEmpty()) {
+                focusStack = WandFocusRuntime.focusStack(oldFocus);
+            }
             if (!player.getInventory().add(focusStack)) {
                 player.drop(focusStack, false);
             }
             player.displayClientMessage(Component.literal("Removed " + oldFocus.displayName() + " from wand.").withStyle(ChatFormatting.GRAY), true);
+            return InteractionResultHolder.consume(wandStack);
+        }
+
+        if (WandFocusRuntime.shouldUseContinuously(wandStack)) {
+            player.startUsingItem(hand);
+            WandFocusRuntime.beginContinuousUse(wandStack, level, player);
             return InteractionResultHolder.consume(wandStack);
         }
 
@@ -391,16 +458,20 @@ public class WandItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
 
-        if (level.isClientSide) {
-            return InteractionResult.SUCCESS;
-        }
-
         if (context.getPlayer() == null) {
             return InteractionResult.PASS;
         }
 
         Player player = context.getPlayer();
         ItemStack wandStack = context.getItemInHand();
+
+        if (level.isClientSide) {
+            if (!WandComponentData.isSceptre(wandStack) && WandFocusRuntime.shouldUseContinuously(wandStack)) {
+                player.startUsingItem(context.getHand());
+            }
+            return InteractionResult.SUCCESS;
+        }
+
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
@@ -460,7 +531,16 @@ public class WandItem extends Item {
         }
 
         WandFocusType focus = WandFocusRuntime.getFocus(wandStack);
+        if (focus != null && WandComponentData.isSceptre(wandStack)) {
+            player.displayClientMessage(Component.literal("Original TC4 sceptres are crafting-only and cannot cast wand foci.").withStyle(ChatFormatting.RED), true);
+            return InteractionResult.CONSUME;
+        }
         if (focus != null) {
+            if (!WandComponentData.isSceptre(wandStack) && WandFocusRuntime.shouldUseContinuously(wandStack)) {
+                player.startUsingItem(context.getHand());
+                WandFocusRuntime.beginContinuousUse(wandStack, level, player);
+                return InteractionResult.CONSUME;
+            }
             return WandFocusRuntime.cast(wandStack, level, player);
         }
 

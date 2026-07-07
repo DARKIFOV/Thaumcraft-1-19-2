@@ -199,6 +199,10 @@ public final class TC4ObjectAspectRegistry {
         exact("thaumcraft:amber_ore", aspects(Aspect.TERRA, 1, Aspect.VINCULUM, 3, Aspect.VITREUS, 2));
         exact("thaumcraft:cinnabar_ore", aspects(Aspect.TERRA, 1, Aspect.METALLUM, 2, Aspect.PERMUTATIO, 2, Aspect.VENENUM, 1));
         exact("thaumcraft:tainted_soil", aspects(Aspect.TERRA, 1, Aspect.VITIUM, 3));
+        exact("thaumcraft:taint_soil", aspects(Aspect.TERRA, 1, Aspect.VITIUM, 3));
+        exact("thaumcraft:taint_crust", aspects(Aspect.TERRA, 1, Aspect.VITIUM, 2, Aspect.LIMUS, 1));
+        exact("thaumcraft:taint_fibres", aspects(Aspect.VITIUM, 2, Aspect.HERBA, 1));
+        exact("thaumcraft:flesh_block", aspects(Aspect.CORPUS, 4, Aspect.VITIUM, 3));
         exact("thaumcraft:taint_seed", aspects(Aspect.VICTUS, 1, Aspect.VITIUM, 3));
         exact("thaumcraft:greatwood_planks", aspects(Aspect.ARBOR, 1, Aspect.PRAECANTATIO, 1));
         exact("thaumcraft:silverwood_planks", aspects(Aspect.ARBOR, 1, Aspect.PRAECANTATIO, 1, Aspect.ORDO, 1));

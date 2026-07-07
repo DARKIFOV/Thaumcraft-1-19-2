@@ -1,0 +1,26 @@
+{
+  "tc4_key": "FocusPortableHole",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "FOCUSPORTABLEHOLE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:ender_eye",
+  "components": [
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_terra",
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_aer",
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_perditio"
+  ],
+  "aspects": {
+    "ITER": 25,
+    "ALIENIS": 10,
+    "PERMUTATIO": 10,
+    "PERDITIO": 25
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_focus_portablehole",
+    "count": 1
+  }
+}

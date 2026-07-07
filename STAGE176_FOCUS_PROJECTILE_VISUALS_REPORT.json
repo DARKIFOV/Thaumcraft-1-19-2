@@ -1,0 +1,23 @@
+{
+  "stage": 176,
+  "title": "TC4 focus projectile visual/sound/particle parity batch",
+  "version": "1.76.0",
+  "implemented": [
+    "Replaced Stage174 no-op projectile renderer with original TC4 texture-sheet based translucent quad renderer",
+    "FrostShard uses original frostshard texture and damage-scaled shard visual adapter",
+    "ExplosiveOrb uses original particles2 sheet frame coordinates and original 1.0 base strength",
+    "ShockOrb uses original particles sheet frame sequence, area 4 and damage 5 defaults",
+    "PrimalOrb uses original particles sheet frame sequence, primal aspect colors and 5000 tick lifetime",
+    "Client tick particles and original TC4 sound keys for FrostShard, ExplosiveOrb, ShockOrb and PrimalOrb where the original projectiles used these effects",
+    "Removed non-original FrostShard snow placement drift from Stage174"
+  ],
+  "adapters": [
+    "Original RenderFrostShard OBJ/GL11 path is represented with the original frostshard texture on a Forge 1.19.2 entity quad until a baked OBJ adapter is added",
+    "Original RenderPrimalOrb GL triangle rays are represented with rotating particle-sheet quads using the same primal colors and frame source"
+  ],
+  "deferred": [
+    "Baked OBJ model adapter for original textures/models/orb.obj",
+    "Exact ParticleEngine FX classes for wisp/fire/shock beyond vanilla particle equivalents",
+    "Exact primal orb side effects for nodes/taint once aura/nodes final parity is complete"
+  ]
+}

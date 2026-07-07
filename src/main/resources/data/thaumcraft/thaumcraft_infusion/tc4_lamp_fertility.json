@@ -1,0 +1,27 @@
+{
+  "tc4_key": "LampFertility",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "LAMPFERTILITY",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_block_arcane_lamp",
+  "components": [
+    "minecraft:gold_ingot",
+    "minecraft:blaze_rod",
+    "thaumcraft:tc4_shard_ignis",
+    "minecraft:gold_ingot",
+    "minecraft:brewing_stand",
+    "thaumcraft:tc4_shard_ignis"
+  ],
+  "aspects": {
+    "BESTIA": 16,
+    "VICTUS": 16,
+    "LUX": 8
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_block_lamp_fertility",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

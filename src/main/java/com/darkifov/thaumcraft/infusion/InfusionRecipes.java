@@ -12,6 +12,8 @@ import java.util.List;
 public final class InfusionRecipes {
     private static final List<InfusionRecipe> FALLBACK = new ArrayList<>();
     private static final List<InfusionRecipe> LOADED = new ArrayList<>();
+    private static final List<InfusionRecipe> STRICT_ORIGINAL = new ArrayList<>();
+    private static final List<InfusionRecipe> NON_ORIGINAL = new ArrayList<>();
 
     static {
         FALLBACK.add(new InfusionRecipe(
@@ -47,16 +49,33 @@ public final class InfusionRecipes {
     }
 
     public static List<InfusionRecipe> recipes() {
-        if (LOADED.isEmpty()) {
-            return Collections.unmodifiableList(FALLBACK);
+        if (!STRICT_ORIGINAL.isEmpty()) {
+            return Collections.unmodifiableList(STRICT_ORIGINAL);
         }
 
-        return Collections.unmodifiableList(LOADED);
+        if (!LOADED.isEmpty()) {
+            return Collections.unmodifiableList(LOADED);
+        }
+
+        return Collections.unmodifiableList(FALLBACK);
+    }
+
+    public static List<InfusionRecipe> nonOriginalRecipes() {
+        return Collections.unmodifiableList(NON_ORIGINAL);
     }
 
     public static void setLoadedRecipes(List<InfusionRecipe> recipes) {
         LOADED.clear();
+        STRICT_ORIGINAL.clear();
+        NON_ORIGINAL.clear();
         LOADED.addAll(recipes);
+        for (InfusionRecipe recipe : recipes) {
+            if (!recipe.tc4Key().isBlank()) {
+                STRICT_ORIGINAL.add(recipe);
+            } else {
+                NON_ORIGINAL.add(recipe);
+            }
+        }
     }
 
     public static InfusionRecipe find(ItemStack catalyst) {

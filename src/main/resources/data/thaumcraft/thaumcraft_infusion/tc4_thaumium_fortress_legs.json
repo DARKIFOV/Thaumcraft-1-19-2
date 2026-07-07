@@ -1,0 +1,26 @@
+{
+  "tc4_key": "ThaumiumFortressLegs",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ARMORFORTRESS",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_thaumiumlegs",
+  "components": [
+    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:tc4_thaumiumingot",
+    "minecraft:gold_ingot",
+    "minecraft:sugar"
+  ],
+  "aspects": {
+    "METALLUM": 24,
+    "TUTAMEN": 20,
+    "PRAECANTATIO": 16
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_thaumiumfortresslegs",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

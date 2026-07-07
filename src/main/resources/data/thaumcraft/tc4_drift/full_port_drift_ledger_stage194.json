@@ -1,0 +1,96 @@
+{
+  "stage": 194,
+  "version": "1.94.0",
+  "source_of_truth": "Original Thaumcraft 4 for Minecraft 1.7.10 source/assets/configs/research/recipes/textures/sounds",
+  "policy": "No invented mechanics, recipes, progression, GUI, textures, sounds, particles, or behavior. Forge 1.19.2 adapters must be named explicitly and must preserve original TC4 data/keys/NBT/flow where direct porting is impossible.",
+  "systems": [
+    {
+      "system": "golems",
+      "status": "partial",
+      "tc4_source": ["EntityGolemBase", "ItemGolemBell", "ItemGolemCore", "ItemGolemUpgrade", "TileGolemBuilder"],
+      "parity_locked": ["items", "icons", "basic registrations", "research/recipe gates"],
+      "remaining_drift": ["exact TC4 golem AI task scheduler", "core behavior matrix", "upgrade stacking behavior", "seal/marker parity"],
+      "adapter_notes": ["Forge 1.19.2 entity/data-sync adapter required"]
+    },
+    {
+      "system": "wands_foci",
+      "status": "runtime-audited",
+      "tc4_source": ["ItemWandCasting", "WandManager", "ItemFocusBasic", "ItemFocusFire", "ItemFocusFrost", "ItemFocusShock", "ItemFocusExcavation", "ItemFocusTrade", "ItemFocusPortableHole", "ItemFocusWarding", "ItemFocusPrimal"],
+      "parity_locked": ["root NBT rod/cap/sceptre/focus", "focus upgrade NBT list upgrade", "focus pouch Inventory/Slot", "architect areax/areay/areaz/aread/picked", "continuous use hooks", "projectile entity/render foundation"],
+      "remaining_drift": ["final in-game held item visual tuning", "full original focus upgrade UI", "edge-case projectile collision parity under every target type"],
+      "adapter_notes": ["Baubles pouch flow is represented by Forge 1.19.2 offhand/inventory adapter"]
+    },
+    {
+      "system": "aura_nodes",
+      "status": "runtime",
+      "tc4_source": ["TileNode", "AuraManager", "NodeType", "NodeModifier", "ItemNodeJar", "TileNodeStabilizer", "TileNodeTransducer"],
+      "parity_locked": ["node profiles", "types/modifiers", "scan runtime", "node jar runtime", "stabilizer/transducer registrations"],
+      "remaining_drift": ["exact aura tick economics", "exact node merge/drain/transducer edge cases", "full energized node network parity"],
+      "adapter_notes": ["dimension/world capability storage replaces 1.7.10 world save hooks"]
+    },
+    {
+      "system": "crucible",
+      "status": "runtime",
+      "tc4_source": ["TileCrucible", "BlockMetalDevice", "ConfigRecipes"],
+      "parity_locked": ["boil/heat", "thrown item alchemy", "aspect consumption", "flux spill blocks", "research recipe gates"],
+      "remaining_drift": ["exact spill/flux randomness", "all original particle timings", "complete container-item edge cases"],
+      "adapter_notes": ["Forge 1.19.2 item/entity hooks replace 1.7.10 EntityItem collision hooks"]
+    },
+    {
+      "system": "infusion",
+      "status": "runtime-audited",
+      "tc4_source": ["TileInfusionMatrix", "ConfigRecipes", "InfusionRecipe", "InfusionEnchantmentRecipe"],
+      "parity_locked": ["pedestal catalyst/component lookup", "dedicated enchantment index", "instability events", "recipe unlock gates", "materialized original infusion recipes"],
+      "remaining_drift": ["all instability event micro-timings", "exact essentia suction race behavior", "remaining uncommon original recipes"],
+      "adapter_notes": ["Forge 1.19.2 block entity tick adapter"]
+    },
+    {
+      "system": "taint",
+      "status": "runtime",
+      "tc4_source": ["BlockTaint", "BlockTaintFibres", "BiomeGenTaint", "EntityTaint*"],
+      "parity_locked": ["blockTaint metadata split", "fibres age bridge", "spread adjacency", "output texture guard"],
+      "remaining_drift": ["exact biome conversion", "all taint mobs", "full taint poison/flux interactions", "worldgen infection timing"],
+      "adapter_notes": ["1.19.2 blockstate properties replace 1.7.10 metadata"]
+    },
+    {
+      "system": "eldritch",
+      "status": "partial",
+      "tc4_source": ["EldritchDimension", "TileEldritchAltar", "EntityCultist*", "ItemEldritchObject"],
+      "parity_locked": ["blocks/items/entities registered", "warp hooks", "research keys/icons/pages present"],
+      "remaining_drift": ["dimension/maze generation", "ritual progression", "boss/cultist AI", "portal/event exact behavior"],
+      "adapter_notes": ["Forge 1.19.2 dimension registration replaces 1.7.10 provider hooks"]
+    },
+    {
+      "system": "worldgen",
+      "status": "partial-audited",
+      "tc4_source": ["WorldGenSilverwoodTrees", "WorldGenGreatwoodTrees", "WorldGenAuraNodes", "WorldGenEldritchRing", "WorldGenTotem"],
+      "parity_locked": ["original resources preserved", "sapling/tree bridge", "node resource data"],
+      "remaining_drift": ["exact weighted feature placement", "biome/dimension filters", "all structures and loot", "ore/clusters positional parity"],
+      "adapter_notes": ["ConfiguredFeature/PlacedFeature adapters replace 1.7.10 IWorldGenerator"]
+    },
+    {
+      "system": "thaumonomicon_research",
+      "status": "runtime-audited",
+      "tc4_source": ["ResearchCategories", "ResearchItem", "ResearchPage", "GuiResearchBrowser", "GuiResearchRecipe"],
+      "parity_locked": ["research keys", "categories", "parents/hidden parents/siblings", "coordinates", "icons", "warp", "page recipes", "runtime progression bridge", "recipe gates"],
+      "remaining_drift": ["remaining item-stack render micro-layout", "some addon-specific page display edge cases"],
+      "adapter_notes": ["1.19.2 screen adapter preserves TC4 data and layout"]
+    },
+    {
+      "system": "research_table",
+      "status": "runtime-audited",
+      "tc4_source": ["TileResearchTable", "ContainerResearchTable", "GuiResearchTable", "ItemResearchNotes"],
+      "parity_locked": ["slot 0 paper", "slot 1 scribing tools", "bonusAspects", "research note copy behavior", "axial hex grid", "completion/consumption", "drag/drop hit testing"],
+      "remaining_drift": ["minor visual polish against exact TC4 pixel offsets", "all original sound timing edges"],
+      "adapter_notes": ["Forge 1.19.2 menu/screen/data-slot adapter"]
+    },
+    {
+      "system": "arcane_workbench",
+      "status": "runtime-audited",
+      "tc4_source": ["TileArcaneWorkbench", "ContainerArcaneWorkbench", "GuiArcaneWorkbench", "SlotCraftingArcaneWorkbench", "ConfigRecipes"],
+      "parity_locked": ["slot layout 0-8/9/10", "container menu output/wand/grid order", "vanilla-first fallback", "output take flow", "right-click/drag restrictions", "wand component recipes", "sceptre/wand NBT"],
+      "remaining_drift": ["remaining uncommon ConfigRecipes combinations", "exact vis display pixel polishing", "compat save migration slot 11 removal after old saves are no longer supported"],
+      "adapter_notes": ["NetworkHooks.openScreen replaces legacy standalone packet screen; hidden slot 11 is migration-only"]
+    }
+  ]
+}

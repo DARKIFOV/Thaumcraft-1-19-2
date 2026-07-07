@@ -1,0 +1,16 @@
+{
+  "stage": 164,
+  "source_truth": [
+    "thaumcraft/client/gui/GuiResearchTable.java",
+    "thaumcraft/common/lib/utils/HexUtils.java"
+  ],
+  "gui_rules": [
+    "drag known aspect from palette",
+    "release over TC4 axial hex grid",
+    "hit-test uses the same q/r indexed grid generated in Stage161",
+    "right-click clears only type=2 placed player hexes",
+    "type=1 original research anchors stay locked"
+  ],
+  "modern_adapter": "Screen still uses packet slot ids, but hit testing resolves mouse position to the Stage161 q/r axial grid before sending placement.",
+  "no_new_puzzle_rules": true
+}

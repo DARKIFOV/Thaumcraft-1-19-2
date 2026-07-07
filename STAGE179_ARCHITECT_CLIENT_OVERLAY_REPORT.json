@@ -1,0 +1,24 @@
+{
+  "stage": 179,
+  "title": "client architect overlay/keybind packet parity",
+  "source_of_truth": [
+    "WandManager",
+    "IArchitect",
+    "PacketItemKeyToServer",
+    "ItemFocusTrade",
+    "ItemFocusWarding"
+  ],
+  "implemented": [
+    "Client G key adapter for original misc wand toggle",
+    "RequestWandArchitectTogglePacket server path using FocusArchitectRuntime.toggleMisc",
+    "Architect HUD status line from original area NBT keys areax/areay/areaz/aread and picked",
+    "Client preview block outline for Equal Trade architect area",
+    "Client preview block outline for Warding architect ward/unward area",
+    "Picked block display for Equal Trade"
+  ],
+  "drift_notes": [
+    "Rendering uses Forge 1.19.2 RenderLevelStageEvent/RenderGuiOverlayEvent adapter; no new TC mechanics were added.",
+    "NBT keys and server mutation remain original-style through Stage177 FocusArchitectRuntime."
+  ],
+  "audit": "scripts/tc4_stage179_architect_client_overlay_audit.py"
+}

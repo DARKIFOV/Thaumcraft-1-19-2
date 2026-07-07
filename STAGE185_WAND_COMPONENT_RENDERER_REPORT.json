@@ -1,0 +1,23 @@
+{
+  "stage": 185,
+  "title": "wand/staff component renderer parity",
+  "version": "1.88.0",
+  "source_of_truth": [
+    "thaumcraft/client/renderers/models/gear/ModelWand.java",
+    "thaumcraft/client/renderers/item/ItemWandRenderer.java",
+    "thaumcraft/common/items/wands/ItemWandCasting.java",
+    "thaumcraft/common/config/ConfigItems.java"
+  ],
+  "implemented": [
+    "Original ModelWand rod/cap/staff/sceptre transform constants adapted into WandItemRenderer.",
+    "Original glowing rod lightmap timing preserved as a 1.19.2 adapter.",
+    "Original root NBT sceptre tag recognized for renderer, capacity and cost modifier.",
+    "Original primal staff rune gate preserved through WandComponentData.hasRunes().",
+    "Sceptre capacity and extra 0.1 vis discount adapted from ItemWandCasting."
+  ],
+  "forge_1_19_2_adapters": [
+    "ModelRenderer/Tessellator/OpenGL fixed-function calls are represented with PoseStack/VertexConsumer geometry.",
+    "Lightmap calls are approximated by packed-light maxing because old OpenGlHelper lightmap API is absent."
+  ],
+  "audit": "scripts/tc4_stage185_wand_component_renderer_audit.py"
+}

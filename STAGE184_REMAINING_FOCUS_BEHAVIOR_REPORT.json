@@ -1,0 +1,29 @@
+{
+  "stage": 184,
+  "title": "Remaining focus behavior drift batch",
+  "source_of_truth": [
+    "ItemFocusFire",
+    "ItemFocusFrost",
+    "ItemFocusShock",
+    "ItemFocusExcavation",
+    "ItemFocusTrade",
+    "ItemFocusPortableHole",
+    "ItemFocusWarding",
+    "ItemFocusPrimal"
+  ],
+  "implemented": [
+    "Focus-specific own-sound gate to avoid duplicate generic activation sounds",
+    "Frost original ice sound volume/pitch at spawned shard source",
+    "Primal original ice sound volume/pitch at spawned orb source",
+    "Fireball original level event 1009 adapter",
+    "Fire non-fireball fallback range corrected to 17",
+    "Equal Trade linked radius corrected to 3 + enlarge * 2",
+    "Warding original 500 ms per-position delay guard",
+    "Primal cost randomization changed to System.currentTimeMillis() / 200L window"
+  ],
+  "forge_1_19_2_adapters": [
+    "Minecraft 1.7.10 world event/sound calls are mapped to Level.levelEvent and TC4Sounds ResourceLocation events",
+    "Damage/projectile handling remains in the Forge 1.19.2 entity adapter layer from Stage174-178"
+  ],
+  "audit": "scripts/tc4_stage184_remaining_focus_behavior_audit.py"
+}

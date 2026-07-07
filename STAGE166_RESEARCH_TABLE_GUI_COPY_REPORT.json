@@ -1,0 +1,11 @@
+{
+  "stage": 166,
+  "status": "ok",
+  "added": [
+    "ResearchTableContainerScreen",
+    "RequestResearchTableActionPacket",
+    "container-backed table GUI",
+    "RESEARCHDUPE copy action"
+  ],
+  "no_new_rules": true
+}

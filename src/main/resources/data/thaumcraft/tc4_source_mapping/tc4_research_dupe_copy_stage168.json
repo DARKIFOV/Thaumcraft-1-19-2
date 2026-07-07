@@ -1,0 +1,19 @@
+{
+  "stage": 168,
+  "source": "Thaumcraft4-1.7.10 thaumcraft/common/tiles/TileResearchTable.duplicate",
+  "parity_scope": "RESEARCHDUPE and completed research note copy edge parity",
+  "original_requirements": [
+    "completed research note in table slot 1",
+    "RESEARCHDUPE research complete",
+    "player carries paper",
+    "player carries ink sac",
+    "player has each original ResearchItem tag amount plus current note copies"
+  ],
+  "modern_behavior": [
+    "copy action 5 is accepted as the original container button id, with action 3 left as compatibility",
+    "copy consumes paper and ink sac, not scribing-tool ink",
+    "copy consumes original research aspect costs from the player's aspect pool",
+    "copy increments ResearchNoteState copies and grows the completed note stack in table slot 1"
+  ],
+  "no_fake_rules": true
+}

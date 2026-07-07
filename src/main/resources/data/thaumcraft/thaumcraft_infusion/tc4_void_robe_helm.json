@@ -1,0 +1,31 @@
+{
+  "tc4_key": "VoidRobeHelm",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ARMORVOIDFORTRESS",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_voidhelm",
+  "components": [
+    "thaumcraft:tc4_gogglesrevealing",
+    "thaumcraft:tc4_cloth",
+    "thaumcraft:tc4_cloth",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_cloth",
+    "thaumcraft:tc4_cloth"
+  ],
+  "aspects": {
+    "METALLUM": 16,
+    "SENSUS": 16,
+    "TUTAMEN": 16,
+    "PANNUS": 16,
+    "PRAECANTATIO": 16,
+    "ALIENIS": 16,
+    "VACUOS": 16
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_voidrobehelm",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

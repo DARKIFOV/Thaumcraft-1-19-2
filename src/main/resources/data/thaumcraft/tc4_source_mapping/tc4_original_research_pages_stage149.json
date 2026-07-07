@@ -1,0 +1,4161 @@
+[
+  {
+    "key": "BASICTHAUMATURGY",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BASICTHAUMATURGY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BASICTHAUMATURGY.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapIron"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandBasic"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSFIRE",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSFIRE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSFIRE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusFire"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSFROST",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSFROST.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusFrost"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSHELLBAT",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSHELLBAT.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusHellbat"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSEXCAVATION",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSEXCAVATION.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusExcavation"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSWARDING",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSWARDING.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusWarding"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSSHOCK",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSSHOCK.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusShock"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSTRADE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSTRADE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusTrade"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSPORTABLEHOLE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSPORTABLEHOLE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusPortableHole"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSPOUCH",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSPOUCH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusPouch"
+      }
+    ]
+  },
+  {
+    "key": "CAP_iron",
+    "page_count": 0,
+    "pages": []
+  },
+  {
+    "key": "CAP_gold",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CAP_gold.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapGold"
+      }
+    ]
+  },
+  {
+    "key": "CAP_thaumium",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CAP_thaumium.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapThaumiumInert"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapThaumium"
+      }
+    ]
+  },
+  {
+    "key": "CAP_copper",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CAP_copper.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapCopper"
+      }
+    ]
+  },
+  {
+    "key": "CAP_silver",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CAP_silver.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapSilverInert"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapSilver"
+      }
+    ]
+  },
+  {
+    "key": "ROD_wood",
+    "page_count": 0,
+    "pages": []
+  },
+  {
+    "key": "ROD_greatwood",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_greatwood.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodGreatwood"
+      }
+    ]
+  },
+  {
+    "key": "ROD_reed",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_reed.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodReed"
+      }
+    ]
+  },
+  {
+    "key": "ROD_blaze",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_blaze.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodBlaze"
+      }
+    ]
+  },
+  {
+    "key": "ROD_obsidian",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_obsidian.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodObsidian"
+      }
+    ]
+  },
+  {
+    "key": "ROD_ice",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_ice.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodIce"
+      }
+    ]
+  },
+  {
+    "key": "ROD_quartz",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_quartz.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodQuartz"
+      }
+    ]
+  },
+  {
+    "key": "ROD_bone",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_bone.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodBone"
+      }
+    ]
+  },
+  {
+    "key": "ROD_silverwood",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_silverwood.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodSilverwood"
+      }
+    ]
+  },
+  {
+    "key": "SCEPTRE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.SCEPTRE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:SCEPTRE"
+      }
+    ]
+  },
+  {
+    "key": "ROD_greatwood_staff",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_greatwood_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_greatwood_staff.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodGreatwoodStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_reed_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_reed_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodReedStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_blaze_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_blaze_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodBlazeStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_obsidian_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_obsidian_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodObsidianStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_ice_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_ice_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodIceStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_quartz_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_quartz_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodQuartzStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_bone_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_bone_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodBoneStaff"
+      }
+    ]
+  },
+  {
+    "key": "ROD_silverwood_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_silverwood_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodSilverwoodStaff"
+      }
+    ]
+  },
+  {
+    "key": "WANDPED",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WANDPED.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandPed"
+      }
+    ]
+  },
+  {
+    "key": "VISAMULET",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISAMULET.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VisAmulet"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISAMULET.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "WANDPEDFOC",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WANDPEDFOC.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandPedFocus"
+      }
+    ]
+  },
+  {
+    "key": "NODESTABILIZER",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODESTABILIZER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "NodeStabilizer"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODESTABILIZER.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "NODESTABILIZERADV",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODESTABILIZERADV.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "NodeStabilizerAdv"
+      }
+    ]
+  },
+  {
+    "key": "VISPOWER",
+    "page_count": 7,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISPOWER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "NodeTransducer"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISPOWER.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISPOWER.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "NodeRelay"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISPOWER.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISPOWER.5",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "VISCHARGERELAY",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VISCHARGERELAY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "NodeChargeRelay"
+      }
+    ]
+  },
+  {
+    "key": "FOCALMANIPULATION",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCALMANIPULATION.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocalManipulator"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCALMANIPULATION.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "VAMPBAT",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "focus.upgrade.vampirebats.text",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "BASICARTIFACE",
+    "page_count": 6,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BASICARTIFACE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PrimalCharm"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MundaneAmulet"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MundaneRing"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MundaneBelt"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MirrorGlass"
+      }
+    ]
+  },
+  {
+    "key": "ARCANESTONE",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANESTONE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneStone1"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneStone2"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneStone3"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneStone4"
+      }
+    ]
+  },
+  {
+    "key": "GRATE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GRATE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Grate"
+      }
+    ]
+  },
+  {
+    "key": "TABLE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TABLE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Table"
+      }
+    ]
+  },
+  {
+    "key": "ARCTABLE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCTABLE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcTable"
+      }
+    ]
+  },
+  {
+    "key": "RESTABLE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESTABLE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ResTable"
+      }
+    ]
+  },
+  {
+    "key": "THAUMOMETER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.THAUMOMETER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Thaumometer"
+      }
+    ]
+  },
+  {
+    "key": "PAVETRAVEL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PAVETRAVEL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PaveTravel"
+      }
+    ]
+  },
+  {
+    "key": "PAVEWARD",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PAVEWARD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PaveWard"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PAVEWARD.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "GOGGLES",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOGGLES.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Goggles"
+      }
+    ]
+  },
+  {
+    "key": "ARCANEEAR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANEEAR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneEar"
+      }
+    ]
+  },
+  {
+    "key": "SINSTONE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.SINSTONE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "SinStone"
+      }
+    ]
+  },
+  {
+    "key": "LEVITATOR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.LEVITATOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Levitator"
+      }
+    ]
+  },
+  {
+    "key": "INFERNALFURNACE",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFERNALFURNACE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "InfernalFurnace"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFERNALFURNACE.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "BELLOWS",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BELLOWS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Bellows"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BELLOWS.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ENCHFABRIC",
+    "page_count": 6,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ENCHFABRIC.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "EnchantedFabric"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ENCHFABRIC.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RobeChest"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RobeLegs"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RobeBoots"
+      }
+    ]
+  },
+  {
+    "key": "INFUSION",
+    "page_count": 8,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSION.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "InfusionMatrix"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcanePedestal"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSION.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "InfusionAltar"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSION.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSION.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSION.5",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "FLUXSCRUB",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FLUXSCRUB.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FluxScrubber"
+      }
+    ]
+  },
+  {
+    "key": "RUNICARMOR",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICARMOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICARMOR.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicRing"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicAmulet"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicGirdle"
+      }
+    ]
+  },
+  {
+    "key": "RUNICCHARGED",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICCHARGED.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicRingCharged"
+      }
+    ]
+  },
+  {
+    "key": "RUNICHEALING",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICHEALING.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicRingHealing"
+      }
+    ]
+  },
+  {
+    "key": "RUNICKINETIC",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICKINETIC.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicGirdleKinetic"
+      }
+    ]
+  },
+  {
+    "key": "RUNICEMERGENCY",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICEMERGENCY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RunicAmuletEmergency"
+      }
+    ]
+  },
+  {
+    "key": "BANNERS",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BANNERS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:BANNERS"
+      }
+    ]
+  },
+  {
+    "key": "RUNICAUGMENTATION",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICAUGMENTATION.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:RUNICAUGMENTATION"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RUNICAUGMENTATION.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "BOOTSTRAVELLER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BOOTSTRAVELLER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BootsTraveller"
+      }
+    ]
+  },
+  {
+    "key": "HOVERHARNESS",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.HOVERHARNESS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "HoverHarness"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.HOVERHARNESS.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "HOVERGIRDLE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.HOVERGIRDLE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "HoverGirdle"
+      }
+    ]
+  },
+  {
+    "key": "MIRROR",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MIRROR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MIRROR.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Mirror"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MIRROR.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "MIRRORHAND",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MIRRORHAND.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MirrorHand"
+      }
+    ]
+  },
+  {
+    "key": "MIRRORESSENTIA",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MIRRORESSENTIA.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MirrorEssentia"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MIRRORESSENTIA.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ARCANEBORE",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANEBORE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneBore"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANEBORE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneBoreBase"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANEBORE.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ARCANELAMP",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANELAMP.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneLamp"
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:ARCANEBORE",
+        "text_key": "tc.research_page.ARCANELAMP.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "LAMPGROWTH",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.LAMPGROWTH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "LampGrowth"
+      }
+    ]
+  },
+  {
+    "key": "LAMPFERTILITY",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.LAMPFERTILITY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "LampFertility"
+      }
+    ]
+  },
+  {
+    "key": "BONEBOW",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BONEBOW.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BoneBow"
+      }
+    ]
+  },
+  {
+    "key": "PRIMALARROW",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMALARROW.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:PRIMALARROW"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMALARROW.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMALARROW.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ELEMENTALAXE",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALAXE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ElementalAxe"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALAXE.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ELEMENTALPICK",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALPICK.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ElementalPick"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALPICK.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ELEMENTALSWORD",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALSWORD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ElementalSword"
+      }
+    ]
+  },
+  {
+    "key": "ELEMENTALSHOVEL",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALSHOVEL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ElementalShovel"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALSHOVEL.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ELEMENTALHOE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELEMENTALHOE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ElementalHoe"
+      }
+    ]
+  },
+  {
+    "key": "WARDEDARCANA",
+    "page_count": 9,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARDEDARCANA.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneDoor"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARDEDARCANA.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "IronKey"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GoldKey"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARDEDARCANA.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcanePressurePlate"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARDEDARCANA.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WardedGlass"
+      }
+    ]
+  },
+  {
+    "key": "JARBRAIN",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.JARBRAIN.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "JarBrain"
+      }
+    ]
+  },
+  {
+    "key": "INFUSIONENCHANTMENT",
+    "page_count": 27,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSIONENCHANTMENT.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSIONENCHANTMENT.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.INFUSIONENCHANTMENT.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnchRepair"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnchHaste"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch0"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch1"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch2"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch3"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch4"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch5"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch6"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch7"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch8"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch9"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch10"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch11"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch12"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch13"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch14"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch15"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch16"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch17"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch18"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch19"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch20"
+      },
+      {
+        "type": "INFUSION_ENCHANTMENT",
+        "text_key": "",
+        "recipe_key": "InfEnch21"
+      }
+    ]
+  },
+  {
+    "key": "ARMORFORTRESS",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARMORFORTRESS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARMORFORTRESS.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumFortressHelm"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumFortressChest"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumFortressLegs"
+      }
+    ]
+  },
+  {
+    "key": "HELMGOGGLES",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.HELMGOGGLES.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "HelmGoggles"
+      }
+    ]
+  },
+  {
+    "key": "MASKGRINNINGDEVIL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MASKGRINNINGDEVIL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MaskGrinningDevil"
+      }
+    ]
+  },
+  {
+    "key": "MASKANGRYGHOST",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MASKANGRYGHOST.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MaskAngryGhost"
+      }
+    ]
+  },
+  {
+    "key": "MASKSIPPINGFIEND",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.MASKSIPPINGFIEND.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MaskSippingFiend"
+      }
+    ]
+  },
+  {
+    "key": "PHIAL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PHIAL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Phial"
+      }
+    ]
+  },
+  {
+    "key": "CRUCIBLE",
+    "page_count": 8,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CRUCIBLE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CRUCIBLE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CRUCIBLE.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Crucible"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CRUCIBLE.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:CRUCIBLE"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CRUCIBLE.5",
+        "recipe_key": ""
+      },
+      {
+        "type": "ITEMSTACK_PAGE",
+        "text_key": "",
+        "recipe_key": "new ItemStack(ConfigItems.itemShard, 1, 6)"
+      }
+    ]
+  },
+  {
+    "key": "NITOR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NITOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Nitor"
+      }
+    ]
+  },
+  {
+    "key": "ALUMENTUM",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ALUMENTUM.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Alumentum"
+      }
+    ]
+  },
+  {
+    "key": "ALCHEMICALDUPLICATION",
+    "page_count": 6,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ALCHEMICALDUPLICATION.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltGunpowder"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltSlime"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltClay"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltGlowstone"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltInk"
+      }
+    ]
+  },
+  {
+    "key": "ALCHEMICALMANUFACTURE",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ALCHEMICALMANUFACTURE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltWeb"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltMossyCobble"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltIce"
+      }
+    ]
+  },
+  {
+    "key": "ENTROPICPROCESSING",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ENTROPICPROCESSING.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltCrackedBrick"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AltBonemeal"
+      }
+    ]
+  },
+  {
+    "key": "LIQUIDDEATH",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.LIQUIDDEATH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "LiquidDeath"
+      }
+    ]
+  },
+  {
+    "key": "BOTTLETAINT",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BOTTLETAINT.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BottleTaint"
+      }
+    ]
+  },
+  {
+    "key": "THAUMIUM",
+    "page_count": 11,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.THAUMIUM.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Thaumium"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumAxe"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumSword"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumPick"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumShovel"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumHoe"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumHelm"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumChest"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumLegs"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ThaumiumBoots"
+      }
+    ]
+  },
+  {
+    "key": "PUREIRON",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PUREIRON.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PureIron"
+      }
+    ]
+  },
+  {
+    "key": "PUREGOLD",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PUREGOLD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PureGold"
+      }
+    ]
+  },
+  {
+    "key": "PURECOPPER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PURECOPPER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PureCopper"
+      }
+    ]
+  },
+  {
+    "key": "PURETIN",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PURETIN.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PureTin"
+      }
+    ]
+  },
+  {
+    "key": "PURESILVER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PURESILVER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PureSilver"
+      }
+    ]
+  },
+  {
+    "key": "PURELEAD",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PURELEAD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PureLead"
+      }
+    ]
+  },
+  {
+    "key": "TRANSIRON",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRANSIRON.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TransIron"
+      }
+    ]
+  },
+  {
+    "key": "TRANSGOLD",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRANSGOLD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TransGold"
+      }
+    ]
+  },
+  {
+    "key": "TRANSCOPPER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRANSCOPPER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TransCopper"
+      }
+    ]
+  },
+  {
+    "key": "TRANSTIN",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRANSTIN.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TransTin"
+      }
+    ]
+  },
+  {
+    "key": "TRANSSILVER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRANSSILVER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TransSilver"
+      }
+    ]
+  },
+  {
+    "key": "TRANSLEAD",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRANSLEAD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TransLead"
+      }
+    ]
+  },
+  {
+    "key": "TALLOW",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TALLOW.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Tallow"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TallowCandle"
+      }
+    ]
+  },
+  {
+    "key": "ETHEREALBLOOM",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ETHEREALBLOOM.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "EtherealBloom"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ETHEREALBLOOM.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "BATHSALTS",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.BATHSALTS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BathSalts"
+      }
+    ]
+  },
+  {
+    "key": "SANESOAP",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.SANESOAP.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "SaneSoap"
+      }
+    ]
+  },
+  {
+    "key": "ARCANESPA",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARCANESPA.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "ArcaneSpa"
+      }
+    ]
+  },
+  {
+    "key": "DISTILESSENTIA",
+    "page_count": 6,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.DISTILESSENTIA.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AlchemyFurnace"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.DISTILESSENTIA.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Filter"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Alembic"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AlchemicalConstruct"
+      }
+    ]
+  },
+  {
+    "key": "JARLABEL",
+    "page_count": 7,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.JARLABEL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WardedJar"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.JARLABEL.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "JarLabel"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.JARLABEL.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:JARLABEL"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "JarLabelNull"
+      }
+    ]
+  },
+  {
+    "key": "JARVOID",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.JARVOID.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "JarVoid"
+      }
+    ]
+  },
+  {
+    "key": "TUBES",
+    "page_count": 7,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TUBES.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Tube"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TUBES.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TubeValve"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TUBES.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Resonator"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TUBES.4",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "TUBEFILTER",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TUBEFILTER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TubeFilter"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TUBEFILTER.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TubeRestrict"
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TubeOneway"
+      }
+    ]
+  },
+  {
+    "key": "ESSENTIACRYSTAL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ESSENTIACRYSTAL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "EssentiaCrystalizer"
+      }
+    ]
+  },
+  {
+    "key": "CENTRIFUGE",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CENTRIFUGE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Centrifuge"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CENTRIFUGE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CENTRIFUGE.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TubeBuffer"
+      }
+    ]
+  },
+  {
+    "key": "THAUMATORIUM",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.THAUMATORIUM.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Thaumatorium"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.THAUMATORIUM.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.THAUMATORIUM.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "MnemonicMatrix"
+      }
+    ]
+  },
+  {
+    "key": "HUNGRYCHEST",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.HUNGRYCHEST.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "HungryChest"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMFETTER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMFETTER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemFetter"
+      }
+    ]
+  },
+  {
+    "key": "TRAVELTRUNK",
+    "page_count": 9,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRAVELTRUNK.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TravelTrunk"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TRAVELTRUNK.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEAIR",
+        "text_key": "tc.research_page.TRAVELTRUNK.UAI",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEEARTH",
+        "text_key": "tc.research_page.TRAVELTRUNK.UEA",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEFIRE",
+        "text_key": "tc.research_page.TRAVELTRUNK.UFI",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEWATER",
+        "text_key": "tc.research_page.TRAVELTRUNK.UWA",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEORDER",
+        "text_key": "tc.research_page.TRAVELTRUNK.UOR",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEENTROPY",
+        "text_key": "tc.research_page.TRAVELTRUNK.UEN",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "GOLEMSTRAW",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMSTRAW.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMSTRAW.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemStraw"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMSTRAW.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "GOLEMWOOD",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMWOOD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemWood"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMTALLOW",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMTALLOW.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BlockTallow"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemTallow"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMCLAY",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMCLAY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemClay"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMFLESH",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMFLESH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BlockFlesh"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemFlesh"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMSTONE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMSTONE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemStone"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMIRON",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMIRON.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemIron"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMTHAUMIUM",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMTHAUMIUM.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "BlockThaumium"
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemThaumium"
+      }
+    ]
+  },
+  {
+    "key": "GOLEMBELL",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMBELL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.GOLEMBELL.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "GolemBell"
+      }
+    ]
+  },
+  {
+    "key": "COREGATHER",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREGATHER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreBlank"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREGATHER.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreGather"
+      }
+    ]
+  },
+  {
+    "key": "COREFILL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREFILL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreFill"
+      }
+    ]
+  },
+  {
+    "key": "COREEMPTY",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREEMPTY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreEmpty"
+      }
+    ]
+  },
+  {
+    "key": "CORESORTING",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CORESORTING.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreSorting"
+      }
+    ]
+  },
+  {
+    "key": "COREUSE",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREUSE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREUSE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreUse"
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEAIR",
+        "text_key": "tc.research_page.COREUSE.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "COREHARVEST",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREHARVEST.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreHarvest"
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEORDER",
+        "text_key": "tc.research_page.COREHARVEST.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "COREFISHING",
+    "page_count": 6,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREFISHING.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreFishing"
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEAIR",
+        "text_key": "tc.research_page.COREFISHING.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEFIRE",
+        "text_key": "tc.research_page.COREFISHING.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEORDER",
+        "text_key": "tc.research_page.COREFISHING.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEENTROPY",
+        "text_key": "tc.research_page.COREFISHING.5",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "CORELUMBER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CORELUMBER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreLumber"
+      }
+    ]
+  },
+  {
+    "key": "COREGUARD",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREGUARD.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreGuard"
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEORDER",
+        "text_key": "tc.research_page.COREGUARD.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "COREBUTCHER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREBUTCHER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreButcher"
+      }
+    ]
+  },
+  {
+    "key": "CORELIQUID",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CORELIQUID.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreLiquid"
+      },
+      {
+        "type": "TEXT_RESEARCH_GATED:UPGRADEENTROPY",
+        "text_key": "tc.research_page.CORELIQUID.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "COREALCHEMY",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREALCHEMY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "CoreAlchemy"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.COREALCHEMY.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "UPGRADEAIR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.UPGRADEAIR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "UpgradeAir"
+      }
+    ]
+  },
+  {
+    "key": "UPGRADEEARTH",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.UPGRADEEARTH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "UpgradeEarth"
+      }
+    ]
+  },
+  {
+    "key": "UPGRADEFIRE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.UPGRADEFIRE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "UpgradeFire"
+      }
+    ]
+  },
+  {
+    "key": "UPGRADEWATER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.UPGRADEWATER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "UpgradeWater"
+      }
+    ]
+  },
+  {
+    "key": "UPGRADEORDER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.UPGRADEORDER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "UpgradeOrder"
+      }
+    ]
+  },
+  {
+    "key": "UPGRADEENTROPY",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.UPGRADEENTROPY.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "UpgradeEntropy"
+      }
+    ]
+  },
+  {
+    "key": "ADVANCEDGOLEM",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ADVANCEDGOLEM.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AdvancedGolem"
+      }
+    ]
+  },
+  {
+    "key": "TINYHAT",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYHAT.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyHat"
+      }
+    ]
+  },
+  {
+    "key": "TINYGLASSES",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYGLASSES.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyGlasses"
+      }
+    ]
+  },
+  {
+    "key": "TINYBOWTIE",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYBOWTIE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyBowtie"
+      }
+    ]
+  },
+  {
+    "key": "TINYFEZ",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYFEZ.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyFez"
+      }
+    ]
+  },
+  {
+    "key": "TINYDART",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYDART.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyDart"
+      }
+    ]
+  },
+  {
+    "key": "TINYVISOR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYVISOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyVisor"
+      }
+    ]
+  },
+  {
+    "key": "TINYARMOR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYARMOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyArmor"
+      }
+    ]
+  },
+  {
+    "key": "TINYHAMMER",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.TINYHAMMER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "TinyHammer"
+      }
+    ]
+  },
+  {
+    "key": "ASPECTS",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ASPECTS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ASPECTS.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ASPECTS.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "PECH",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PECH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PECH.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "NODES",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODES.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODES.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODES.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "WARP",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARP.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARP.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.WARP.3",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "RESEARCH",
+    "page_count": 16,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Thaumometer"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Scribe1"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Scribe2"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Scribe3"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.5",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.6",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.7",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.8",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.9",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.10",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.11",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCH.12",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "KNOWFRAG",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.KNOWFRAG.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "KnowFrag"
+      }
+    ]
+  },
+  {
+    "key": "THAUMONOMICON",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.THAUMONOMICON.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Thaumonomicon"
+      }
+    ]
+  },
+  {
+    "key": "ORE",
+    "page_count": 5,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ORE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ORE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "RESEARCH:ORE"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ORE.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ORE.4",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "PLANTS",
+    "page_count": 8,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PLANTS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PlankGreatwood"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PLANTS.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PlankSilverwood"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PLANTS.3",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PLANTS.4",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PLANTS.5",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PLANTS.6",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ENCHANT",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ENCHANT.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ENCHANT.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "NODETAPPER1",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODETAPPER1.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "NODEPRESERVE",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODEPRESERVE",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "NODEJAR",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODEJAR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "NodeJar"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODEJAR.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "NODETAPPER2",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.NODETAPPER2.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "RESEARCHER1",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCHER1.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "DECONSTRUCTOR",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.DECONSTRUCTOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "Deconstructor"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.DECONSTRUCTOR.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "RESEARCHER2",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCHER2.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "RESEARCHDUPE",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.RESEARCHDUPE.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "CRIMSON",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CRIMSON.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ELDRITCHMINOR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELDRITCHMINOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidSeed"
+      }
+    ]
+  },
+  {
+    "key": "ELDRITCHMAJOR",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELDRITCHMAJOR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ELDRITCHMAJOR.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "OCULUS",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.OCULUS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "EldritchEye"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.OCULUS.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ENTEROUTER",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ENTEROUTER.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "OUTERREV",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.OUTERREV.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "PRIMPEARL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMPEARL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMPEARL.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "PRIMNODE",
+    "page_count": 1,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMNODE.1",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "ADVALCHEMYFURNACE",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ADVALCHEMYFURNACE.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AdvAlchemyConstruct"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ADVALCHEMYFURNACE.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "COMPOUND_CRAFTING",
+        "text_key": "",
+        "recipe_key": "AdvAlchemyFurnace"
+      }
+    ]
+  },
+  {
+    "key": "PRIMALCRUSHER",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMALCRUSHER.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "PrimalCrusher"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.PRIMALCRUSHER.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "SANITYCHECK",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.SANITYCHECK.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "SanityCheck"
+      }
+    ]
+  },
+  {
+    "key": "VOIDMETAL",
+    "page_count": 12,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VOIDMETAL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "CRUCIBLE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidMetal"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.VOIDMETAL.2",
+        "recipe_key": ""
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidAxe"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidSword"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidPick"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidShovel"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidHoe"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidHelm"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidChest"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidLegs"
+      },
+      {
+        "type": "NORMAL_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidBoots"
+      }
+    ]
+  },
+  {
+    "key": "ESSENTIARESERVOIR",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ESSENTIARESERVOIR.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "EssentiaReservoir"
+      },
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ESSENTIARESERVOIR.2",
+        "recipe_key": ""
+      }
+    ]
+  },
+  {
+    "key": "CAP_void",
+    "page_count": 3,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.CAP_void.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapVoidInert"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandCapVoid"
+      }
+    ]
+  },
+  {
+    "key": "ARMORVOIDFORTRESS",
+    "page_count": 4,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ARMORVOIDFORTRESS.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidRobeHelm"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidRobeChest"
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "VoidRobeLegs"
+      }
+    ]
+  },
+  {
+    "key": "FOCUSPRIMAL",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.FOCUSPRIMAL.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "ARCANE_CRAFTING",
+        "text_key": "",
+        "recipe_key": "FocusPrimal"
+      }
+    ]
+  },
+  {
+    "key": "ROD_primal_staff",
+    "page_count": 2,
+    "pages": [
+      {
+        "type": "TEXT",
+        "text_key": "tc.research_page.ROD_primal_staff.1",
+        "recipe_key": ""
+      },
+      {
+        "type": "INFUSION_CRAFTING",
+        "text_key": "",
+        "recipe_key": "WandRodPrimalStaff"
+      }
+    ]
+  }
+]

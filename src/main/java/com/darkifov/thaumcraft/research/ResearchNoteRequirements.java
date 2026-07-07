@@ -57,9 +57,6 @@ public final class ResearchNoteRequirements {
             if (aspect != null) {
                 result.add(aspect);
             }
-            if (result.size() >= 6) {
-                break;
-            }
         }
         return result;
     }

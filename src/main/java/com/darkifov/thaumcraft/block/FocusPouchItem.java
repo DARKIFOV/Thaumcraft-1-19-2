@@ -1,32 +1,37 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.menu.FocusPouchContainer;
+import com.darkifov.thaumcraft.menu.FocusPouchMenu;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
 import com.darkifov.thaumcraft.wand.WandFocusType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * Stage130: TC4-style focus pouch runtime adapter.
- *
- * Original TC4 uses ItemFocusPouch + InventoryFocusPouch + GuiFocusPouch. The
- * 1.19.2 port keeps the same gameplay role without depending on the old GUI
- * stack: the pouch stores wand foci in NBT, can collect a focus from off-hand,
- * can return one to inventory, and can rotate/equip foci into a wand.
+ * Stage186: strict original Focus Pouch adapter.
+ * Original TC4 source of truth: ItemFocusPouch, ItemFocusPouchBauble,
+ * InventoryFocusPouch, ContainerFocusPouch and GuiFocusPouch.
  */
 public class FocusPouchItem extends Item {
-    private static final String TAG_FOCI = "Foci";
+    public static final String TAG_INVENTORY = "Inventory";
+    private static final String LEGACY_TAG_FOCI = "Foci";
     private static final String TAG_SELECTED = "SelectedFocus";
     private static final int MAX_FOCI = 18;
 
@@ -34,15 +39,33 @@ public class FocusPouchItem extends Item {
         super(properties.stacksTo(1));
     }
 
+    /** Original ItemFocusPouch#getInventory: NBTTagList "Inventory", byte "Slot", ItemStack.loadItemStackFromNBT. */
+    public static ItemStack[] getInventory(ItemStack item) {
+        migrateLegacyCounts(item);
+        return FocusPouchContainer.readInventoryList(item);
+    }
+
+    /** Original ItemFocusPouch#setInventory: writes NBTTagList "Inventory" with byte Slot and saved ItemStacks. */
+    public static void setInventory(ItemStack item, ItemStack[] stackList) {
+        FocusPouchContainer.writeInventoryList(item, stackList);
+    }
+
     public static int storedCount(ItemStack pouch, WandFocusType type) {
-        return pouch.getOrCreateTagElement(TAG_FOCI).getInt(type.id());
+        int total = 0;
+        for (ItemStack stack : getInventory(pouch)) {
+            if (stack.getItem() instanceof WandFocusItem focusItem && focusItem.focusType() == type) {
+                total += 1;
+            }
+        }
+        return total;
     }
 
     public static int totalStored(ItemStack pouch) {
         int total = 0;
-        CompoundTag foci = pouch.getOrCreateTagElement(TAG_FOCI);
-        for (WandFocusType type : WandFocusType.values()) {
-            total += Math.max(0, foci.getInt(type.id()));
+        for (ItemStack stack : getInventory(pouch)) {
+            if (!stack.isEmpty()) {
+                total += 1;
+            }
         }
         return total;
     }
@@ -51,43 +74,84 @@ public class FocusPouchItem extends Item {
         if (type == null || count <= 0) {
             return false;
         }
-        int space = MAX_FOCI - totalStored(pouch);
-        if (space <= 0) {
-            return false;
+        ItemStack[] inv = getInventory(pouch);
+        boolean changed = false;
+        for (int n = 0; n < count; n++) {
+            int slot = firstEmpty(inv);
+            if (slot < 0) {
+                break;
+            }
+            inv[slot] = WandFocusRuntime.focusStack(type);
+            inv[slot].setCount(1);
+            changed = true;
         }
-        int accepted = Math.min(space, count);
-        CompoundTag foci = pouch.getOrCreateTagElement(TAG_FOCI);
-        foci.putInt(type.id(), Math.max(0, foci.getInt(type.id())) + accepted);
-        if (!pouch.getOrCreateTag().contains(TAG_SELECTED)) {
-            pouch.getOrCreateTag().putString(TAG_SELECTED, type.id());
+        if (changed) {
+            setInventory(pouch, inv);
+            if (!pouch.getOrCreateTag().contains(TAG_SELECTED)) {
+                pouch.getOrCreateTag().putString(TAG_SELECTED, type.id());
+            }
         }
-        return true;
+        return changed;
     }
 
     public static boolean removeFocus(ItemStack pouch, WandFocusType type, int count) {
         if (type == null || count <= 0) {
             return false;
         }
-        CompoundTag foci = pouch.getOrCreateTagElement(TAG_FOCI);
-        int current = foci.getInt(type.id());
-        if (current < count) {
-            return false;
-        }
-        int next = current - count;
-        if (next <= 0) {
-            foci.remove(type.id());
-        } else {
-            foci.putInt(type.id(), next);
-        }
-        if (type.id().equals(pouch.getOrCreateTag().getString(TAG_SELECTED)) && next <= 0) {
-            WandFocusType replacement = firstStored(pouch);
-            if (replacement == null) {
-                pouch.getOrCreateTag().remove(TAG_SELECTED);
-            } else {
-                pouch.getOrCreateTag().putString(TAG_SELECTED, replacement.id());
+        ItemStack[] inv = getInventory(pouch);
+        int removed = 0;
+        for (int i = 0; i < inv.length && removed < count; i++) {
+            ItemStack stack = inv[i];
+            if (stack.getItem() instanceof WandFocusItem focusItem && focusItem.focusType() == type) {
+                inv[i] = ItemStack.EMPTY;
+                removed++;
             }
         }
-        return true;
+        if (removed > 0) {
+            setInventory(pouch, inv);
+            if (type.id().equals(pouch.getOrCreateTag().getString(TAG_SELECTED)) && storedCount(pouch, type) <= 0) {
+                WandFocusType replacement = firstStored(pouch);
+                if (replacement == null) {
+                    pouch.getOrCreateTag().remove(TAG_SELECTED);
+                } else {
+                    pouch.getOrCreateTag().putString(TAG_SELECTED, replacement.id());
+                }
+            }
+        }
+        return removed == count;
+    }
+
+
+    public static boolean addExactFocusStack(ItemStack pouch, ItemStack focus) {
+        ItemStack[] inv = getInventory(pouch);
+        boolean stored = storeFocusStack(inv, focus);
+        if (stored) {
+            setInventory(pouch, inv);
+        }
+        return stored;
+    }
+
+    public static ItemStack removeFocusAt(ItemStack pouch, int slot) {
+        ItemStack[] inv = getInventory(pouch);
+        if (slot < 0 || slot >= inv.length || inv[slot] == null || inv[slot].isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack out = inv[slot].copy();
+        out.setCount(1);
+        inv[slot] = ItemStack.EMPTY;
+        setInventory(pouch, inv);
+        return out;
+    }
+
+    public static String sortingHelper(ItemStack stack) {
+        if (stack.getItem() instanceof WandFocusItem focusItem) {
+            return sortKey(focusItem.focusType(), stack);
+        }
+        return "";
+    }
+
+    public static int maxFocusSlots() {
+        return MAX_FOCI;
     }
 
     public static WandFocusType selected(ItemStack pouch) {
@@ -102,43 +166,112 @@ public class FocusPouchItem extends Item {
         return first;
     }
 
+    /**
+     * Stage186 WandManager.changeFocus adapter: pull one focus from pouch Inventory slots,
+     * return the previous wand focus to the first empty pouch slot, and preserve exact focus ItemStack NBT.
+     */
     public static boolean equipNextFocusFromPouch(ItemStack pouch, ItemStack wandStack, Player player, boolean reverse) {
-        WandFocusType current = WandFocusRuntime.getFocus(wandStack);
-        List<WandFocusType> stored = storedTypes(pouch);
+        ItemStack[] inv = getInventory(pouch);
+        List<FocusSlot> foci = focusSlots(inv);
+        ItemStack currentStack = WandFocusRuntime.getFocusStack(wandStack);
+        WandFocusType currentType = WandFocusRuntime.getFocus(wandStack);
 
-        if (stored.isEmpty()) {
-            if (current != null && reverse) {
-                addFocus(pouch, current, 1);
+        if (foci.isEmpty()) {
+            if (currentType != null && storeFocusStack(inv, currentStack.isEmpty() ? WandFocusRuntime.focusStack(currentType) : currentStack)) {
                 WandFocusRuntime.setFocus(wandStack, null);
-                player.displayClientMessage(Component.literal("Stored " + current.displayName() + " in the Focus Pouch.").withStyle(ChatFormatting.GRAY), true);
+                setInventory(pouch, inv);
+                player.displayClientMessage(Component.literal("Stored " + currentType.displayName() + " in the Focus Pouch.").withStyle(ChatFormatting.GRAY), true);
                 return true;
             }
             player.displayClientMessage(Component.literal("Focus Pouch is empty.").withStyle(ChatFormatting.GRAY), true);
             return false;
         }
 
-        List<WandFocusType> available = storedTypes(pouch);
-        int selectedIndex = 0;
-        if (current != null) {
-            int currentIndex = available.indexOf(current);
-            if (currentIndex >= 0) {
-                selectedIndex = reverse ? currentIndex - 1 : currentIndex + 1;
+        foci.sort(Comparator.comparing(FocusSlot::sortKey));
+        int nextIndex = 0;
+        if (currentType != null) {
+            String key = sortKey(currentType, currentStack);
+            int found = -1;
+            for (int i = 0; i < foci.size(); i++) {
+                if (foci.get(i).sortKey().compareTo(key) > 0) {
+                    found = i;
+                    break;
+                }
+            }
+            nextIndex = found >= 0 ? found : 0;
+            if (reverse) {
+                nextIndex = Math.floorMod(nextIndex - 1, foci.size());
             }
         } else {
             WandFocusType preferred = selected(pouch);
-            int preferredIndex = available.indexOf(preferred);
-            selectedIndex = preferredIndex >= 0 ? preferredIndex : 0;
+            for (int i = 0; i < foci.size(); i++) {
+                if (foci.get(i).type() == preferred) {
+                    nextIndex = i;
+                    break;
+                }
+            }
         }
 
-        selectedIndex = Math.floorMod(selectedIndex, available.size());
-        WandFocusType next = available.get(selectedIndex);
-        removeFocus(pouch, next, 1);
-        if (current != null) {
-            addFocus(pouch, current, 1);
+        FocusSlot picked = foci.get(nextIndex);
+        ItemStack nextFocus = inv[picked.slot()].copy();
+        inv[picked.slot()] = ItemStack.EMPTY;
+        if (currentType != null) {
+            ItemStack old = currentStack.isEmpty() ? WandFocusRuntime.focusStack(currentType) : currentStack.copy();
+            old.setCount(1);
+            if (!storeFocusStack(inv, old)) {
+                if (!player.getInventory().add(old)) {
+                    player.drop(old, false);
+                }
+            }
         }
-        WandFocusRuntime.setFocus(wandStack, next);
-        pouch.getOrCreateTag().putString(TAG_SELECTED, next.id());
-        player.displayClientMessage(Component.literal("Equipped " + next.displayName() + " from the Focus Pouch.").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+        WandFocusRuntime.setFocusStack(wandStack, nextFocus);
+        setInventory(pouch, inv);
+        pouch.getOrCreateTag().putString(TAG_SELECTED, picked.type().id());
+        player.displayClientMessage(Component.literal("Equipped " + picked.type().displayName() + " from the Focus Pouch.").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+        return true;
+    }
+
+    private static void migrateLegacyCounts(ItemStack pouch) {
+        CompoundTag tag = pouch.getTag();
+        if (tag == null || tag.contains(TAG_INVENTORY, 9) || !tag.contains(LEGACY_TAG_FOCI, 10)) {
+            return;
+        }
+        ItemStack[] inv = new ItemStack[MAX_FOCI];
+        for (int i = 0; i < inv.length; i++) {
+            inv[i] = ItemStack.EMPTY;
+        }
+        CompoundTag foci = tag.getCompound(LEGACY_TAG_FOCI);
+        int slot = 0;
+        for (WandFocusType type : WandFocusType.values()) {
+            int count = Math.max(0, foci.getInt(type.id()));
+            for (int i = 0; i < count && slot < inv.length; i++) {
+                inv[slot++] = WandFocusRuntime.focusStack(type);
+            }
+        }
+        setInventory(pouch, inv);
+        tag.remove(LEGACY_TAG_FOCI);
+    }
+
+    private static int firstEmpty(ItemStack[] inv) {
+        for (int i = 0; i < inv.length; i++) {
+            if (inv[i] == null || inv[i].isEmpty()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static boolean storeFocusStack(ItemStack[] inv, ItemStack focus) {
+        if (focus.isEmpty() || !(focus.getItem() instanceof WandFocusItem)) {
+            return false;
+        }
+        int slot = firstEmpty(inv);
+        if (slot < 0) {
+            return false;
+        }
+        ItemStack copy = focus.copy();
+        copy.setCount(1);
+        inv[slot] = copy;
         return true;
     }
 
@@ -148,80 +281,55 @@ public class FocusPouchItem extends Item {
 
     private static List<WandFocusType> storedTypes(ItemStack pouch) {
         List<WandFocusType> result = new ArrayList<>();
-        for (WandFocusType type : WandFocusType.values()) {
-            if (storedCount(pouch, type) > 0) {
-                result.add(type);
+        for (FocusSlot slot : focusSlots(getInventory(pouch))) {
+            if (!result.contains(slot.type())) {
+                result.add(slot.type());
             }
         }
         result.sort(Comparator.comparing(WandFocusType::id));
         return result;
     }
 
+    private static List<FocusSlot> focusSlots(ItemStack[] inv) {
+        List<FocusSlot> result = new ArrayList<>();
+        for (int i = 0; i < inv.length; i++) {
+            ItemStack stack = inv[i];
+            if (stack != null && stack.getItem() instanceof WandFocusItem focusItem) {
+                result.add(new FocusSlot(i, focusItem.focusType(), sortKey(focusItem.focusType(), stack)));
+            }
+        }
+        return result;
+    }
+
+    private static String sortKey(WandFocusType type, ItemStack stack) {
+        // Original getSortingHelper is focus-defined; use original focus id plus saved NBT as a deterministic 1.19.2 adapter.
+        return type.id() + ":" + stack.getHoverName().getString();
+    }
+
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack pouch = player.getItemInHand(hand);
-        if (level.isClientSide) {
-            return InteractionResultHolder.success(pouch);
+        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
+            boolean mainHand = hand == InteractionHand.MAIN_HAND;
+            NetworkHooks.openScreen(
+                    serverPlayer,
+                    new SimpleMenuProvider(
+                            (int id, Inventory inventory, Player menuPlayer) -> new FocusPouchMenu(id, inventory, pouch),
+                            Component.literal("Focus Pouch")
+                    ),
+                    buffer -> buffer.writeBoolean(mainHand)
+            );
         }
-
-        ItemStack offhand = player.getOffhandItem();
-        if (hand == InteractionHand.MAIN_HAND && offhand.getItem() instanceof WandFocusItem focusItem) {
-            int before = totalStored(pouch);
-            addFocus(pouch, focusItem.focusType(), offhand.getCount());
-            int accepted = totalStored(pouch) - before;
-            if (accepted <= 0) {
-                player.displayClientMessage(Component.literal("Focus Pouch is full.").withStyle(ChatFormatting.RED), true);
-                return InteractionResultHolder.consume(pouch);
-            }
-            if (!player.getAbilities().instabuild) {
-                offhand.shrink(accepted);
-            }
-            pouch.getOrCreateTag().putString(TAG_SELECTED, focusItem.focusType().id());
-            player.displayClientMessage(Component.literal("Stored " + focusItem.focusType().displayName() + " in the Focus Pouch.").withStyle(ChatFormatting.GOLD), true);
-            return InteractionResultHolder.consume(pouch);
-        }
-
-        WandFocusType selected = selected(pouch);
-        if (player.isShiftKeyDown()) {
-            if (selected == null) {
-                player.displayClientMessage(Component.literal("Focus Pouch is empty.").withStyle(ChatFormatting.GRAY), true);
-                return InteractionResultHolder.consume(pouch);
-            }
-            removeFocus(pouch, selected, 1);
-            ItemStack stack = WandFocusRuntime.focusStack(selected);
-            if (!player.getInventory().add(stack)) {
-                player.drop(stack, false);
-            }
-            player.displayClientMessage(Component.literal("Removed " + selected.displayName() + " from the Focus Pouch.").withStyle(ChatFormatting.GRAY), true);
-            return InteractionResultHolder.consume(pouch);
-        }
-
-        if (selected == null) {
-            player.displayClientMessage(Component.literal("Focus Pouch is empty. Hold a focus in off-hand and right-click the pouch to store it.").withStyle(ChatFormatting.GRAY), true);
-            return InteractionResultHolder.consume(pouch);
-        }
-
-        List<WandFocusType> types = storedTypes(pouch);
-        int nextIndex = Math.floorMod(types.indexOf(selected) + 1, types.size());
-        WandFocusType next = types.get(nextIndex);
-        pouch.getOrCreateTag().putString(TAG_SELECTED, next.id());
-        player.displayClientMessage(Component.literal("Selected " + next.displayName() + " in Focus Pouch.").withStyle(ChatFormatting.LIGHT_PURPLE), true);
-        return InteractionResultHolder.consume(pouch);
+        return InteractionResultHolder.success(pouch);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         int total = totalStored(stack);
-        tooltip.add(Component.literal("TC4 focus storage: " + total + "/" + MAX_FOCI + " focus" + (total == 1 ? "" : "es")).withStyle(ChatFormatting.DARK_PURPLE));
-        WandFocusType selected = selected(stack);
-        if (selected != null) {
-            tooltip.add(Component.literal("Selected: " + selected.displayName()).withStyle(ChatFormatting.LIGHT_PURPLE));
-        }
-        for (WandFocusType type : storedTypes(stack)) {
-            tooltip.add(Component.literal("- " + type.displayName() + " x" + storedCount(stack, type)).withStyle(ChatFormatting.GRAY));
-        }
-        tooltip.add(Component.literal("Off-hand focus + right-click: store").withStyle(ChatFormatting.DARK_GRAY));
-        tooltip.add(Component.literal("Off-hand pouch + wand right-click: equip/cycle").withStyle(ChatFormatting.DARK_GRAY));
-        tooltip.add(Component.literal("Shift + right-click: remove selected").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.literal("TC4 Focus Pouch: " + total + "/" + MAX_FOCI).withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.literal("Right-click: open original focus pouch GUI.").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Off-hand pouch + wand right-click: cycle/equip focus.").withStyle(ChatFormatting.DARK_GRAY));
     }
+
+    private record FocusSlot(int slot, WandFocusType type, String sortKey) {}
 }

@@ -72,6 +72,37 @@ public final class AspectCombinationRegistry {
         return Optional.ofNullable(COMBINATIONS.get(key(first, second)));
     }
 
+
+    public static Optional<Aspect[]> decompose(Aspect compound) {
+        if (compound == null || compound.isPrimal()) {
+            return Optional.empty();
+        }
+        return Optional.of(new Aspect[] {compound.firstComponent(), compound.secondComponent()});
+    }
+
+    public static boolean isOriginalComponentPair(Aspect result, Aspect first, Aspect second) {
+        if (result == null || first == null || second == null || result.isPrimal()) {
+            return false;
+        }
+        Aspect left = result.firstComponent();
+        Aspect right = result.secondComponent();
+        return (left == first && right == second) || (left == second && right == first);
+    }
+
+    public static boolean isOriginalDirectLink(Aspect first, Aspect second) {
+        if (first == null || second == null) {
+            return false;
+        }
+        if (first == second) {
+            return true;
+        }
+        return first.firstComponent() == second
+                || first.secondComponent() == second
+                || second.firstComponent() == first
+                || second.secondComponent() == first
+                || combine(first, second).isPresent();
+    }
+
     public static boolean canCombine(Aspect first, Aspect second) {
         return combine(first, second).isPresent();
     }

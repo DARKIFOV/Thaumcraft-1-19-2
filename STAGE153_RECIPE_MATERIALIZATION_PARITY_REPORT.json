@@ -1,0 +1,14 @@
+{
+  "stage": 153,
+  "version": "1.53.0",
+  "strict_runtime_keys": 170,
+  "strict_runtime_counts_by_kind": {
+    "CRUCIBLE": 50,
+    "ARCANE_SHAPED": 76,
+    "ARCANE_SHAPELESS": 2,
+    "INFUSION": 42
+  },
+  "stage153_expected_infusion_keys": 17,
+  "non_original_placeholder_json_count": 51,
+  "errors": []
+}

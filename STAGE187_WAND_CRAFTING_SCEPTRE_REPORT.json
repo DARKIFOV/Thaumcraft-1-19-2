@@ -1,0 +1,25 @@
+{
+  "stage": 187,
+  "title": "TC4 wand crafting / sceptre table parity",
+  "version": "1.88.0",
+  "source_of_truth": [
+    "thaumcraft.common.items.wands.ItemWandCasting",
+    "thaumcraft.common.lib.crafting.ArcaneWandRecipe",
+    "thaumcraft.common.lib.crafting.ArcaneSceptreRecipe",
+    "thaumcraft.common.config.ConfigRecipes",
+    "thaumcraft.common.container.ContainerArcaneWorkbench"
+  ],
+  "implemented": [
+    "Generated wand assembly recipes from original rod/cap combinations through WandCraftingRuntime",
+    "Generated sceptre assembly recipes using original charm/cap/rod grid",
+    "Preserved original root NBT strings rod/cap and byte sceptre on results",
+    "Preserved all-primal craftCost formulas for wands and sceptres",
+    "Kept original wood+iron basic wand exclusion",
+    "Added sceptre focus equip/cast restriction matching original focus-change guard"
+  ],
+  "forge_1_19_2_adapters": [
+    "ArcaneWorkbenchBlockEntity.slotForGrid maps original 3x3 container coordinates to Forge 1.19.2 block-entity slots",
+    "Generic iron_capped_wooden_wand registry item carries original rod/cap/sceptre NBT instead of using 1.7.10 item metadata"
+  ],
+  "drift_notes": []
+}

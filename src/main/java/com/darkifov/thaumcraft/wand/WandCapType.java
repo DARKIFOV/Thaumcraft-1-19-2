@@ -53,6 +53,21 @@ public enum WandCapType {
     public int craftCost() { return craftCost; }
     public String researchKey() { return researchKey; }
 
+
+    /** Stage187: original TC4 WandCap#getTag strings are the root NBT values. */
+    public String originalTag() {
+        return id;
+    }
+
+    public static WandCapType fromOriginalTag(String tag) {
+        if (tag == null || tag.isBlank()) return IRON;
+        String normalized = tag.toLowerCase(Locale.ROOT);
+        for (WandCapType type : values()) {
+            if (type.originalTag().equals(normalized) || type.id.equals(normalized)) return type;
+        }
+        return fromId(tag);
+    }
+
     public static WandCapType fromId(String id) {
         if (id == null || id.isBlank()) return IRON;
         for (WandCapType type : values()) {

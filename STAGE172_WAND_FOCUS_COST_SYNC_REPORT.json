@@ -1,0 +1,16 @@
+{
+  "stage": 172,
+  "strict_original": true,
+  "status": "completed",
+  "version": "1.72.0",
+  "cooldowns": [
+    "FROST 200",
+    "SHOCK 250",
+    "PRIMAL 500"
+  ],
+  "costs": [
+    "base exact costs",
+    "PRIMAL random 50..250 per primal"
+  ],
+  "remaining_estimate": "20-45 stages"
+}

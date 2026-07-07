@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.network;
 
 import com.darkifov.thaumcraft.block.ResearchNoteItem;
 import com.darkifov.thaumcraft.research.ResearchNoteSolver;
+import com.darkifov.thaumcraft.research.ResearchTableInventoryRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -40,6 +41,7 @@ public class RequestSolveResearchNotePacket {
             }
 
             ResearchNoteSolver.solve(player, note);
+            ResearchTableInventoryRuntime.markOpenTableChanged(player);
             ThaumcraftNetwork.syncAspectKnowledge(player);
             ThaumcraftNetwork.syncResearch(player);
             ThaumcraftNetwork.syncResearchNote(player, note);
@@ -49,18 +51,6 @@ public class RequestSolveResearchNotePacket {
     }
 
     private static ItemStack findNote(ServerPlayer player) {
-        ItemStack main = player.getMainHandItem();
-
-        if (main.getItem() instanceof ResearchNoteItem) {
-            return main;
-        }
-
-        ItemStack off = player.getOffhandItem();
-
-        if (off.getItem() instanceof ResearchNoteItem) {
-            return off;
-        }
-
-        return ItemStack.EMPTY;
+        return ResearchTableInventoryRuntime.findHeldResearchNote(player).orElse(ItemStack.EMPTY);
     }
 }

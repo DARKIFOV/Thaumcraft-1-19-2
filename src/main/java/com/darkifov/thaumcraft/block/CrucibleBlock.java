@@ -7,6 +7,8 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipe;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipes;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
+import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -126,6 +128,12 @@ public class CrucibleBlock extends BaseEntityBlock {
         AlchemyRecipe catalystRecipe = AlchemyRecipes.findByCatalyst(held);
 
         if (catalystRecipe != null) {
+            String requiredResearch = TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(catalystRecipe.tc4Key(), catalystRecipe.research());
+            if (!requiredResearch.isBlank() && !PlayerThaumData.hasResearch(player, requiredResearch)) {
+                player.displayClientMessage(Component.literal("Research locked: " + requiredResearch).withStyle(ChatFormatting.RED), false);
+                return InteractionResult.CONSUME;
+            }
+
             if (catalystRecipe.canCraft(held, crucible.aspects())) {
                 ItemStack result = catalystRecipe.craft(held, crucible.aspects());
 

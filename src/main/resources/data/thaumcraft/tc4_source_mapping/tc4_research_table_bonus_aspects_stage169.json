@@ -1,0 +1,52 @@
+{
+  "stage": 169,
+  "source": "thaumcraft/common/tiles/TileResearchTable.java recalculateBonus",
+  "strict_original": true,
+  "recalculate_interval_ticks": 600,
+  "scan_radius": 8,
+  "ownership": "bonusAspects are stored on ResearchTableBlockEntity and are not merged into player pool",
+  "sources": {
+    "dark_no_sky": {
+      "aspect": "perditio",
+      "chance": "1/20"
+    },
+    "height_over_50_66_75_percent_world_height": {
+      "aspect": "aer",
+      "chance_each": "1/20"
+    },
+    "nearby_primal_crystals": {
+      "aspects": [
+        "aer",
+        "ignis",
+        "aqua",
+        "terra",
+        "ordo",
+        "perditio"
+      ],
+      "chance": "1/10 while table amount < 1 for that primal"
+    },
+    "nearby_fire_or_lava": {
+      "aspect": "ignis",
+      "chance": "1/20 while table amount < 1"
+    },
+    "nearby_earth_material": {
+      "aspect": "terra",
+      "chance": "1/20 while table amount < 1"
+    },
+    "nearby_water_or_ice": {
+      "aspect": "aqua",
+      "chance": "1/15 while table amount < 1"
+    },
+    "nearby_order_material_adapter": {
+      "aspect": "ordo",
+      "chance": "1/20 while table amount < 1"
+    },
+    "bookshelf": {
+      "aspect": "random original Aspect",
+      "chance": "1/300"
+    },
+    "brain_in_jar": {
+      "status": "unresolved exact block not yet ported; no fake essentia jar mapping"
+    }
+  }
+}

@@ -206,5 +206,100 @@
     "AER": 2,
     "TERRA": 2,
     "PRAECANTATIO": 2
+  },
+  "minecraft:wither_skeleton": {
+    "EXANIMIS": 4,
+    "HUMANUS": 1,
+    "IGNIS": 2
+  },
+  "thaumcraft:primal_orb": {
+    "AER": 5,
+    "PERDITIO": 10,
+    "PRAECANTATIO": 10,
+    "POTENTIA": 10
+  },
+  "thaumcraft:firebat": {
+    "BESTIA": 2,
+    "VOLATUS": 1,
+    "IGNIS": 2
+  },
+  "thaumcraft:giant_brainy_zombie": {
+    "EXANIMIS": 4,
+    "HUMANUS": 2,
+    "COGNITIO": 1,
+    "TERRA": 2
+  },
+  "thaumcraft:taintacle_tiny": {
+    "VITIUM": 1,
+    "AQUA": 1
+  },
+  "thaumcraft:taint_spider": {
+    "VITIUM": 1,
+    "TERRA": 1
+  },
+  "thaumcraft:taint_spore": {
+    "VITIUM": 2,
+    "AER": 2
+  },
+  "thaumcraft:taint_swarmer": {
+    "VITIUM": 2,
+    "AER": 2
+  },
+  "thaumcraft:taint_swarm": {
+    "VITIUM": 3,
+    "AER": 3
+  },
+  "thaumcraft:tainted_pig": {
+    "VITIUM": 2,
+    "TERRA": 2
+  },
+  "thaumcraft:tainted_sheep": {
+    "VITIUM": 2,
+    "TERRA": 2
+  },
+  "thaumcraft:tainted_cow": {
+    "VITIUM": 3,
+    "TERRA": 3
+  },
+  "thaumcraft:tainted_chicken": {
+    "VITIUM": 2,
+    "VOLATUS": 2,
+    "AER": 1
+  },
+  "thaumcraft:tainted_villager": {
+    "VITIUM": 3,
+    "AER": 2
+  },
+  "thaumcraft:tainted_creeper": {
+    "VITIUM": 2,
+    "IGNIS": 2
+  },
+  "thaumcraft:mind_spider": {
+    "VITIUM": 2,
+    "IGNIS": 2
+  },
+  "thaumcraft:eldritch_orb": {
+    "ALIENIS": 2,
+    "MORTUUS": 2
+  },
+  "thaumcraft:crimson_cultist": {
+    "ALIENIS": 1,
+    "HUMANUS": 2,
+    "PERDITIO": 1
+  },
+  "thaumcraft:crimson_knight": {
+    "ALIENIS": 1,
+    "HUMANUS": 2,
+    "PERDITIO": 1
+  },
+  "thaumcraft:crimson_cleric": {
+    "ALIENIS": 1,
+    "HUMANUS": 2,
+    "PERDITIO": 1
+  },
+  "thaumcraft:crimson_praetor": {
+    "ALIENIS": 1,
+    "HUMANUS": 2,
+    "PERDITIO": 1
   }
 }

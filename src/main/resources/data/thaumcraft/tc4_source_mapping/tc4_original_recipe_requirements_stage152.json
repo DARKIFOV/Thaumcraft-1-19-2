@@ -1,0 +1,2845 @@
+{
+  "stage": "152",
+  "version": "1.52.0",
+  "source": "Original TC4 ConfigResearch.java ResearchPage recipe slots + ConfigRecipes.java bridge data",
+  "strict_rule": "Every Thaumonomicon recipe page must resolve to an original TC4 recipe key or original dynamic research group and must declare the research key that unlocks it.",
+  "page_recipe_slots": 281,
+  "unique_recipe_keys": 280,
+  "bridge_direct_recipe_keys_known": 295,
+  "counts_by_original_kind": {
+    "ARCANE_SHAPED": 82,
+    "ARCANE_SHAPELESS": 5,
+    "COMPOUND": 52,
+    "CRUCIBLE": 48,
+    "DYNAMIC_RESEARCH_GROUP": 7,
+    "INFUSION": 62,
+    "INFUSION_ENCHANTMENT": 24,
+    "ITEMSTACK_PAGE": 1
+  },
+  "counts_by_page_type": {
+    "ARCANE_CRAFTING": 90,
+    "COMPOUND_CRAFTING": 9,
+    "CRUCIBLE_CRAFTING": 49,
+    "INFUSION_CRAFTING": 63,
+    "INFUSION_ENCHANTMENT": 24,
+    "ITEMSTACK_PAGE": 1,
+    "NORMAL_CRAFTING": 45
+  },
+  "counts_by_resolution": {
+    "itemstack_page": 1,
+    "research_dynamic_group": 7,
+    "tc4_recipe_runtime_bridge": 273
+  },
+  "requirements": [
+    {
+      "research_key": "BASICTHAUMATURGY",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "WandCapIron",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "BASICTHAUMATURGY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BASICTHAUMATURGY",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "WandBasic",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "BASICTHAUMATURGY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSFIRE",
+      "page_index": 2,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusFire",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSFIRE",
+      "required_research": "FOCUSFIRE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSFROST",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusFrost",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSFROST",
+      "required_research": "FOCUSFROST",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSHELLBAT",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "FocusHellbat",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "FOCUSHELLBAT",
+      "required_research": "FOCUSHELLBAT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSEXCAVATION",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusExcavation",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSEXCAVATION",
+      "required_research": "FOCUSEXCAVATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSWARDING",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "FocusWarding",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "FOCUSWARDING",
+      "required_research": "FOCUSWARDING",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSSHOCK",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusShock",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSSHOCK",
+      "required_research": "FOCUSSHOCK",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSTRADE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusTrade",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSTRADE",
+      "required_research": "FOCUSTRADE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSPORTABLEHOLE",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "FocusPortableHole",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "FOCUSPORTABLEHOLE",
+      "required_research": "FOCUSPORTABLEHOLE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSPOUCH",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusPouch",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSPOUCH",
+      "required_research": "FOCUSPOUCH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_gold",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandCapGold",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CAP_gold",
+      "required_research": "CAP_gold",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_thaumium",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandCapThaumiumInert",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CAP_thaumium",
+      "required_research": "CAP_thaumium",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_thaumium",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandCapThaumium",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "CAP_thaumium",
+      "required_research": "CAP_thaumium",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_copper",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandCapCopper",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CAP_copper",
+      "required_research": "CAP_copper",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_silver",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandCapSilverInert",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CAP_silver",
+      "required_research": "CAP_silver",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_silver",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandCapSilver",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "CAP_silver",
+      "required_research": "CAP_silver",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_greatwood",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodGreatwood",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_greatwood",
+      "required_research": "ROD_greatwood",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_reed",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodReed",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_reed",
+      "required_research": "ROD_reed",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_blaze",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodBlaze",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_blaze",
+      "required_research": "ROD_blaze",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_obsidian",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodObsidian",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_obsidian",
+      "required_research": "ROD_obsidian",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_ice",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodIce",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_ice",
+      "required_research": "ROD_ice",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_quartz",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodQuartz",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_quartz",
+      "required_research": "ROD_quartz",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_bone",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodBone",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_bone",
+      "required_research": "ROD_bone",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_silverwood",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodSilverwood",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_silverwood",
+      "required_research": "ROD_silverwood",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "SCEPTRE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "RESEARCH:SCEPTRE",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "SCEPTRE",
+      "required_research": "SCEPTRE",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "ROD_greatwood_staff",
+      "page_index": 2,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodGreatwoodStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_greatwood_staff",
+      "required_research": "ROD_greatwood_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_reed_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodReedStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_reed_staff",
+      "required_research": "ROD_reed_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_blaze_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodBlazeStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_blaze_staff",
+      "required_research": "ROD_blaze_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_obsidian_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodObsidianStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_obsidian_staff",
+      "required_research": "ROD_obsidian_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_ice_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodIceStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_ice_staff",
+      "required_research": "ROD_ice_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_quartz_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodQuartzStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_quartz_staff",
+      "required_research": "ROD_quartz_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_bone_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodBoneStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_bone_staff",
+      "required_research": "ROD_bone_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_silverwood_staff",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandRodSilverwoodStaff",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ROD_silverwood_staff",
+      "required_research": "ROD_silverwood_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WANDPED",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandPed",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "WANDPED",
+      "required_research": "WANDPED",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VISAMULET",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "VisAmulet",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "VISAMULET",
+      "required_research": "VISAMULET",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WANDPEDFOC",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandPedFocus",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "WANDPEDFOC",
+      "required_research": "WANDPEDFOC",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "NODESTABILIZER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "NodeStabilizer",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "NODESTABILIZER",
+      "required_research": "NODESTABILIZER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "NODESTABILIZERADV",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "NodeStabilizerAdv",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "NODESTABILIZERADV",
+      "required_research": "NODESTABILIZERADV",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VISPOWER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "NodeTransducer",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "VISPOWER",
+      "required_research": "VISPOWER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VISPOWER",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "NodeRelay",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "VISPOWER",
+      "required_research": "VISPOWER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VISCHARGERELAY",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "NodeChargeRelay",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "VISCHARGERELAY",
+      "required_research": "VISCHARGERELAY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCALMANIPULATION",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocalManipulator",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCALMANIPULATION",
+      "required_research": "FOCALMANIPULATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BASICARTIFACE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "PrimalCharm",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "BASICARTIFACE",
+      "required_research": "BASICARTIFACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BASICARTIFACE",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "MundaneAmulet",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "BASICARTIFACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BASICARTIFACE",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "MundaneRing",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "BASICARTIFACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BASICARTIFACE",
+      "page_index": 4,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "MundaneBelt",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "BASICARTIFACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BASICARTIFACE",
+      "page_index": 5,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "MirrorGlass",
+      "original_recipe_kind": "ARCANE_SHAPELESS",
+      "original_recipe_research": "BASICARTIFACE",
+      "required_research": "BASICARTIFACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANESTONE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcaneStone1",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ARCANESTONE",
+      "required_research": "ARCANESTONE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANESTONE",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ArcaneStone2",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "ARCANESTONE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANESTONE",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ArcaneStone3",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "ARCANESTONE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANESTONE",
+      "page_index": 4,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ArcaneStone4",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "ARCANESTONE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GRATE",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Grate",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "GRATE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TABLE",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Table",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "TABLE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCTABLE",
+      "page_index": 1,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "ArcTable",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "ARCTABLE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RESTABLE",
+      "page_index": 1,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "ResTable",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "RESTABLE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMOMETER",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Thaumometer",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMOMETER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PAVETRAVEL",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "PaveTravel",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "PAVETRAVEL",
+      "required_research": "PAVETRAVEL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PAVEWARD",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "PaveWard",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "PAVEWARD",
+      "required_research": "PAVEWARD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOGGLES",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Goggles",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "GOGGLES",
+      "required_research": "GOGGLES",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANEEAR",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcaneEar",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ARCANEEAR",
+      "required_research": "ARCANEEAR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "SINSTONE",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "SinStone",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "SINSTONE",
+      "required_research": "SINSTONE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "LEVITATOR",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Levitator",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "LEVITATOR",
+      "required_research": "LEVITATOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFERNALFURNACE",
+      "page_index": 1,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "InfernalFurnace",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "INFERNALFURNACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BELLOWS",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Bellows",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "BELLOWS",
+      "required_research": "BELLOWS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ENCHFABRIC",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "EnchantedFabric",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ENCHFABRIC",
+      "required_research": "ENCHFABRIC",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ENCHFABRIC",
+      "page_index": 3,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "RobeChest",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ENCHFABRIC",
+      "required_research": "ENCHFABRIC",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ENCHFABRIC",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "RobeLegs",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ENCHFABRIC",
+      "required_research": "ENCHFABRIC",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ENCHFABRIC",
+      "page_index": 5,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "RobeBoots",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ENCHFABRIC",
+      "required_research": "ENCHFABRIC",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSION",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "InfusionMatrix",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "INFUSION",
+      "required_research": "INFUSION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSION",
+      "page_index": 2,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcanePedestal",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "INFUSION",
+      "required_research": "INFUSION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSION",
+      "page_index": 4,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "InfusionAltar",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "INFUSION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FLUXSCRUB",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FluxScrubber",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FLUXSCRUB",
+      "required_research": "FLUXSCRUB",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICARMOR",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicRing",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICARMOR",
+      "required_research": "RUNICARMOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICARMOR",
+      "page_index": 3,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicAmulet",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICARMOR",
+      "required_research": "RUNICARMOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICARMOR",
+      "page_index": 4,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicGirdle",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICARMOR",
+      "required_research": "RUNICARMOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICCHARGED",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicRingCharged",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICCHARGED",
+      "required_research": "RUNICCHARGED",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICHEALING",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicRingHealing",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICHEALING",
+      "required_research": "RUNICHEALING",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICKINETIC",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicGirdleKinetic",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICKINETIC",
+      "required_research": "RUNICKINETIC",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RUNICEMERGENCY",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RunicAmuletEmergency",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "RUNICEMERGENCY",
+      "required_research": "RUNICEMERGENCY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BANNERS",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "RESEARCH:BANNERS",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "BANNERS",
+      "required_research": "BANNERS",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "RUNICAUGMENTATION",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "RESEARCH:RUNICAUGMENTATION",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "RUNICAUGMENTATION",
+      "required_research": "RUNICAUGMENTATION",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "BOOTSTRAVELLER",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "BootsTraveller",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "BOOTSTRAVELLER",
+      "required_research": "BOOTSTRAVELLER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "HOVERHARNESS",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "HoverHarness",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "HOVERHARNESS",
+      "required_research": "HOVERHARNESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "HOVERGIRDLE",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "HoverGirdle",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "HOVERGIRDLE",
+      "required_research": "HOVERGIRDLE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "MIRROR",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "Mirror",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "MIRROR",
+      "required_research": "MIRROR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "MIRRORHAND",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "MirrorHand",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "MIRRORHAND",
+      "required_research": "MIRRORHAND",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "MIRRORESSENTIA",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "MirrorEssentia",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "MIRRORESSENTIA",
+      "required_research": "MIRRORESSENTIA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANEBORE",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ArcaneBore",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARCANEBORE",
+      "required_research": "ARCANEBORE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANEBORE",
+      "page_index": 3,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcaneBoreBase",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ARCANEBORE",
+      "required_research": "ARCANEBORE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANELAMP",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcaneLamp",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ARCANELAMP",
+      "required_research": "ARCANELAMP",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "LAMPGROWTH",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "LampGrowth",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "LAMPGROWTH",
+      "required_research": "LAMPGROWTH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "LAMPFERTILITY",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "LampFertility",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "LAMPFERTILITY",
+      "required_research": "LAMPFERTILITY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BONEBOW",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "BoneBow",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "BONEBOW",
+      "required_research": "BONEBOW",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PRIMALARROW",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "RESEARCH:PRIMALARROW",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "PRIMALARROW",
+      "required_research": "PRIMALARROW",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "ELEMENTALAXE",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ElementalAxe",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ELEMENTALAXE",
+      "required_research": "ELEMENTALAXE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ELEMENTALPICK",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ElementalPick",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ELEMENTALPICK",
+      "required_research": "ELEMENTALPICK",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ELEMENTALSWORD",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ElementalSword",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ELEMENTALSWORD",
+      "required_research": "ELEMENTALSWORD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ELEMENTALSHOVEL",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ElementalShovel",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ELEMENTALSHOVEL",
+      "required_research": "ELEMENTALSHOVEL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ELEMENTALHOE",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ElementalHoe",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ELEMENTALHOE",
+      "required_research": "ELEMENTALHOE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WARDEDARCANA",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcaneDoor",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "WARDEDARCANA",
+      "required_research": "WARDEDARCANA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WARDEDARCANA",
+      "page_index": 3,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "IronKey",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "WARDEDARCANA",
+      "required_research": "WARDEDARCANA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WARDEDARCANA",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "GoldKey",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "WARDEDARCANA",
+      "required_research": "WARDEDARCANA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WARDEDARCANA",
+      "page_index": 6,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcanePressurePlate",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "WARDEDARCANA",
+      "required_research": "WARDEDARCANA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "WARDEDARCANA",
+      "page_index": 8,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WardedGlass",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "WARDEDARCANA",
+      "required_research": "WARDEDARCANA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "JARBRAIN",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "JarBrain",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "JARBRAIN",
+      "required_research": "JARBRAIN",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 3,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnchRepair",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 4,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnchHaste",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 5,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch0",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 6,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch1",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 7,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch2",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 8,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch3",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 9,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch4",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 10,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch5",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 11,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch6",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 12,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch7",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 13,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch8",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 14,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch9",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 15,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch10",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 16,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch11",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 17,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch12",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 18,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch13",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 19,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch14",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 20,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch15",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 21,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch16",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 22,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch17",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 23,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch18",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 24,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch19",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 25,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch20",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "INFUSIONENCHANTMENT",
+      "page_index": 26,
+      "page_type": "INFUSION_ENCHANTMENT",
+      "recipe_key": "InfEnch21",
+      "original_recipe_kind": "INFUSION_ENCHANTMENT",
+      "original_recipe_research": "INFUSIONENCHANTMENT",
+      "required_research": "INFUSIONENCHANTMENT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARMORFORTRESS",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ThaumiumFortressHelm",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARMORFORTRESS",
+      "required_research": "ARMORFORTRESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARMORFORTRESS",
+      "page_index": 3,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ThaumiumFortressChest",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARMORFORTRESS",
+      "required_research": "ARMORFORTRESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARMORFORTRESS",
+      "page_index": 4,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "ThaumiumFortressLegs",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARMORFORTRESS",
+      "required_research": "ARMORFORTRESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "HELMGOGGLES",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "HelmGoggles",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "HELMGOGGLES",
+      "required_research": "HELMGOGGLES",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "MASKGRINNINGDEVIL",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "MaskGrinningDevil",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "MASKGRINNINGDEVIL",
+      "required_research": "MASKGRINNINGDEVIL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "MASKANGRYGHOST",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "MaskAngryGhost",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "MASKANGRYGHOST",
+      "required_research": "MASKANGRYGHOST",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "MASKSIPPINGFIEND",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "MaskSippingFiend",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "MASKSIPPINGFIEND",
+      "required_research": "MASKSIPPINGFIEND",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PHIAL",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Phial",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "PHIAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CRUCIBLE",
+      "page_index": 3,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "Crucible",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "CRUCIBLE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CRUCIBLE",
+      "page_index": 5,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "RESEARCH:CRUCIBLE",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "CRUCIBLE",
+      "required_research": "CRUCIBLE",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "CRUCIBLE",
+      "page_index": 7,
+      "page_type": "ITEMSTACK_PAGE",
+      "recipe_key": "new ItemStack(ConfigItems.itemShard, 1, 6)",
+      "original_recipe_kind": "ITEMSTACK_PAGE",
+      "original_recipe_research": "CRUCIBLE",
+      "required_research": "CRUCIBLE",
+      "resolution": "itemstack_page"
+    },
+    {
+      "research_key": "NITOR",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "Nitor",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "NITOR",
+      "required_research": "NITOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALUMENTUM",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "Alumentum",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALUMENTUM",
+      "required_research": "ALUMENTUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALDUPLICATION",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltGunpowder",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALDUPLICATION",
+      "required_research": "ALCHEMICALDUPLICATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALDUPLICATION",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltSlime",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALDUPLICATION",
+      "required_research": "ALCHEMICALDUPLICATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALDUPLICATION",
+      "page_index": 3,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltClay",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALDUPLICATION",
+      "required_research": "ALCHEMICALDUPLICATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALDUPLICATION",
+      "page_index": 4,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltGlowstone",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALDUPLICATION",
+      "required_research": "ALCHEMICALDUPLICATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALDUPLICATION",
+      "page_index": 5,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltInk",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALDUPLICATION",
+      "required_research": "ALCHEMICALDUPLICATION",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALMANUFACTURE",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltWeb",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALMANUFACTURE",
+      "required_research": "ALCHEMICALMANUFACTURE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALMANUFACTURE",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltMossyCobble",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALMANUFACTURE",
+      "required_research": "ALCHEMICALMANUFACTURE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ALCHEMICALMANUFACTURE",
+      "page_index": 3,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltIce",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ALCHEMICALMANUFACTURE",
+      "required_research": "ALCHEMICALMANUFACTURE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ENTROPICPROCESSING",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltCrackedBrick",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ENTROPICPROCESSING",
+      "required_research": "ENTROPICPROCESSING",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ENTROPICPROCESSING",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "AltBonemeal",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ENTROPICPROCESSING",
+      "required_research": "ENTROPICPROCESSING",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "LIQUIDDEATH",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "LiquidDeath",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "LIQUIDDEATH",
+      "required_research": "LIQUIDDEATH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BOTTLETAINT",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "BottleTaint",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "BOTTLETAINT",
+      "required_research": "BOTTLETAINT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "Thaumium",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "THAUMIUM",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumAxe",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumSword",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 4,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumPick",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 5,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumShovel",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 6,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumHoe",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 7,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumHelm",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 8,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumChest",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 9,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumLegs",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMIUM",
+      "page_index": 10,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "ThaumiumBoots",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PUREIRON",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "PureIron",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "PUREIRON",
+      "required_research": "PUREIRON",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PUREGOLD",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "PureGold",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "PUREGOLD",
+      "required_research": "PUREGOLD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PURECOPPER",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "PureCopper",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "PURECOPPER",
+      "required_research": "PURECOPPER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PURETIN",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "PureTin",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "PURETIN",
+      "required_research": "PURETIN",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PURESILVER",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "PureSilver",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "PURESILVER",
+      "required_research": "PURESILVER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PURELEAD",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "PureLead",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "PURELEAD",
+      "required_research": "PURELEAD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRANSIRON",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "TransIron",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TRANSIRON",
+      "required_research": "TRANSIRON",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRANSGOLD",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "TransGold",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TRANSGOLD",
+      "required_research": "TRANSGOLD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRANSCOPPER",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "TransCopper",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TRANSCOPPER",
+      "required_research": "TRANSCOPPER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRANSTIN",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "TransTin",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TRANSTIN",
+      "required_research": "TRANSTIN",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRANSSILVER",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "TransSilver",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TRANSSILVER",
+      "required_research": "TRANSSILVER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRANSLEAD",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "TransLead",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TRANSLEAD",
+      "required_research": "TRANSLEAD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TALLOW",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "Tallow",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "TALLOW",
+      "required_research": "TALLOW",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TALLOW",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "TallowCandle",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "TALLOW",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ETHEREALBLOOM",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "EtherealBloom",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "ETHEREALBLOOM",
+      "required_research": "ETHEREALBLOOM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "BATHSALTS",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "BathSalts",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "BATHSALTS",
+      "required_research": "BATHSALTS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "SANESOAP",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "SaneSoap",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "SANESOAP",
+      "required_research": "SANESOAP",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARCANESPA",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "ArcaneSpa",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ARCANESPA",
+      "required_research": "ARCANESPA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "DISTILESSENTIA",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "AlchemyFurnace",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "DISTILESSENTIA",
+      "required_research": "DISTILESSENTIA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "DISTILESSENTIA",
+      "page_index": 3,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Filter",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "DISTILESSENTIA",
+      "required_research": "DISTILESSENTIA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "DISTILESSENTIA",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Alembic",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "DISTILESSENTIA",
+      "required_research": "DISTILESSENTIA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "DISTILESSENTIA",
+      "page_index": 5,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "AlchemicalConstruct",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "DISTILESSENTIA",
+      "required_research": "DISTILESSENTIA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "JARLABEL",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WardedJar",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "DISTILESSENTIA",
+      "required_research": "DISTILESSENTIA",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "JARLABEL",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "JarLabel",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "JARLABEL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "JARLABEL",
+      "page_index": 5,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "RESEARCH:JARLABEL",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "JARLABEL",
+      "required_research": "JARLABEL",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "JARLABEL",
+      "page_index": 6,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "JarLabelNull",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "JARLABEL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "JARVOID",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "JarVoid",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "JARVOID",
+      "required_research": "JARVOID",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TUBES",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Tube",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TUBES",
+      "required_research": "TUBES",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TUBES",
+      "page_index": 3,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TubeValve",
+      "original_recipe_kind": "ARCANE_SHAPELESS",
+      "original_recipe_research": "TUBES",
+      "required_research": "TUBES",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TUBES",
+      "page_index": 5,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Resonator",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TUBES",
+      "required_research": "TUBES",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TUBEFILTER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TubeFilter",
+      "original_recipe_kind": "ARCANE_SHAPELESS",
+      "original_recipe_research": "TUBEFILTER",
+      "required_research": "TUBEFILTER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TUBEFILTER",
+      "page_index": 3,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TubeRestrict",
+      "original_recipe_kind": "ARCANE_SHAPELESS",
+      "original_recipe_research": "TUBEFILTER",
+      "required_research": "TUBEFILTER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TUBEFILTER",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TubeOneway",
+      "original_recipe_kind": "ARCANE_SHAPELESS",
+      "original_recipe_research": "TUBEFILTER",
+      "required_research": "TUBEFILTER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ESSENTIACRYSTAL",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "EssentiaCrystalizer",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ESSENTIACRYSTAL",
+      "required_research": "ESSENTIACRYSTAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CENTRIFUGE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Centrifuge",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CENTRIFUGE",
+      "required_research": "CENTRIFUGE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CENTRIFUGE",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TubeBuffer",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CENTRIFUGE",
+      "required_research": "CENTRIFUGE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMATORIUM",
+      "page_index": 1,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "Thaumatorium",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMATORIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMATORIUM",
+      "page_index": 4,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "MnemonicMatrix",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "THAUMATORIUM",
+      "required_research": "THAUMATORIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "HUNGRYCHEST",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "HungryChest",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "HUNGRYCHEST",
+      "required_research": "HUNGRYCHEST",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMFETTER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "GolemFetter",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "GOLEMFETTER",
+      "required_research": "GOLEMFETTER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TRAVELTRUNK",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "TravelTrunk",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "TRAVELTRUNK",
+      "required_research": "TRAVELTRUNK",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMSTRAW",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemStraw",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMSTRAW",
+      "required_research": "GOLEMSTRAW",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMWOOD",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemWood",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMWOOD",
+      "required_research": "GOLEMWOOD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMTALLOW",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "BlockTallow",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "GOLEMTALLOW",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMTALLOW",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemTallow",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMTALLOW",
+      "required_research": "GOLEMTALLOW",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMCLAY",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemClay",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMCLAY",
+      "required_research": "GOLEMCLAY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMFLESH",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "BlockFlesh",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "GOLEMFLESH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMFLESH",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemFlesh",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMFLESH",
+      "required_research": "GOLEMFLESH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMSTONE",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemStone",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMSTONE",
+      "required_research": "GOLEMSTONE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMIRON",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemIron",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMIRON",
+      "required_research": "GOLEMIRON",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMTHAUMIUM",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "BlockThaumium",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "GOLEMTHAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMTHAUMIUM",
+      "page_index": 2,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "GolemThaumium",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "GOLEMTHAUMIUM",
+      "required_research": "GOLEMTHAUMIUM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "GOLEMBELL",
+      "page_index": 2,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "GolemBell",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "GOLEMBELL",
+      "required_research": "GOLEMBELL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREGATHER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "CoreBlank",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "COREGATHER",
+      "required_research": "COREGATHER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREGATHER",
+      "page_index": 3,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreGather",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "COREGATHER",
+      "required_research": "COREGATHER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREFILL",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreFill",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "COREFILL",
+      "required_research": "COREFILL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREEMPTY",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreEmpty",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "COREEMPTY",
+      "required_research": "COREEMPTY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CORESORTING",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "CoreSorting",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "CORESORTING",
+      "required_research": "CORESORTING",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREUSE",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "CoreUse",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "COREUSE",
+      "required_research": "COREUSE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREHARVEST",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreHarvest",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "COREHARVEST",
+      "required_research": "COREHARVEST",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREFISHING",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "CoreFishing",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "COREFISHING",
+      "required_research": "COREFISHING",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CORELUMBER",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "CoreLumber",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "CORELUMBER",
+      "required_research": "CORELUMBER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREGUARD",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreGuard",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "COREGUARD",
+      "required_research": "COREGUARD",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREBUTCHER",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreButcher",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "COREBUTCHER",
+      "required_research": "COREBUTCHER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CORELIQUID",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "CoreLiquid",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "CORELIQUID",
+      "required_research": "CORELIQUID",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "COREALCHEMY",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "CoreAlchemy",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "COREALCHEMY",
+      "required_research": "COREALCHEMY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "UPGRADEAIR",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "UpgradeAir",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "UPGRADEAIR",
+      "required_research": "UPGRADEAIR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "UPGRADEEARTH",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "UpgradeEarth",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "UPGRADEEARTH",
+      "required_research": "UPGRADEEARTH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "UPGRADEFIRE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "UpgradeFire",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "UPGRADEFIRE",
+      "required_research": "UPGRADEFIRE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "UPGRADEWATER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "UpgradeWater",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "UPGRADEWATER",
+      "required_research": "UPGRADEWATER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "UPGRADEORDER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "UpgradeOrder",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "UPGRADEORDER",
+      "required_research": "UPGRADEORDER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "UPGRADEENTROPY",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "UpgradeEntropy",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "UPGRADEENTROPY",
+      "required_research": "UPGRADEENTROPY",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ADVANCEDGOLEM",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "AdvancedGolem",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ADVANCEDGOLEM",
+      "required_research": "ADVANCEDGOLEM",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYHAT",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyHat",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYHAT",
+      "required_research": "TINYHAT",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYGLASSES",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyGlasses",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYGLASSES",
+      "required_research": "TINYGLASSES",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYBOWTIE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyBowtie",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYBOWTIE",
+      "required_research": "TINYBOWTIE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYFEZ",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyFez",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYFEZ",
+      "required_research": "TINYFEZ",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYDART",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyDart",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYDART",
+      "required_research": "TINYDART",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYVISOR",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyVisor",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYVISOR",
+      "required_research": "TINYVISOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYARMOR",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyArmor",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYARMOR",
+      "required_research": "TINYARMOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "TINYHAMMER",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "TinyHammer",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "TINYHAMMER",
+      "required_research": "TINYHAMMER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RESEARCH",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Thaumometer",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "RESEARCH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RESEARCH",
+      "page_index": 5,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Scribe1",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "RESEARCH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RESEARCH",
+      "page_index": 6,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Scribe2",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "RESEARCH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "RESEARCH",
+      "page_index": 7,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "Scribe3",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "RESEARCH",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "KNOWFRAG",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "KnowFrag",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "KNOWFRAG",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "THAUMONOMICON",
+      "page_index": 1,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "Thaumonomicon",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "THAUMONOMICON",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ORE",
+      "page_index": 2,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "RESEARCH:ORE",
+      "original_recipe_kind": "DYNAMIC_RESEARCH_GROUP",
+      "original_recipe_research": "ORE",
+      "required_research": "ORE",
+      "resolution": "research_dynamic_group"
+    },
+    {
+      "research_key": "PLANTS",
+      "page_index": 1,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "PlankGreatwood",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "PLANTS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PLANTS",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "PlankSilverwood",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "PLANTS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "NODEJAR",
+      "page_index": 1,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "NodeJar",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "NODEJAR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "DECONSTRUCTOR",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "Deconstructor",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "DECONSTRUCTOR",
+      "required_research": "DECONSTRUCTOR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ELDRITCHMINOR",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "VoidSeed",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "VOIDMETAL",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "OCULUS",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "EldritchEye",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "OCULUS",
+      "required_research": "OCULUS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ADVALCHEMYFURNACE",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "AdvAlchemyConstruct",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "ADVALCHEMYFURNACE",
+      "required_research": "ADVALCHEMYFURNACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ADVALCHEMYFURNACE",
+      "page_index": 3,
+      "page_type": "COMPOUND_CRAFTING",
+      "recipe_key": "AdvAlchemyFurnace",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "ADVALCHEMYFURNACE",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "PRIMALCRUSHER",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "PrimalCrusher",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "PRIMALCRUSHER",
+      "required_research": "PRIMALCRUSHER",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "SANITYCHECK",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "SanityCheck",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "SANITYCHECK",
+      "required_research": "SANITYCHECK",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 1,
+      "page_type": "CRUCIBLE_CRAFTING",
+      "recipe_key": "VoidMetal",
+      "original_recipe_kind": "CRUCIBLE",
+      "original_recipe_research": "VOIDMETAL",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 3,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidAxe",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 4,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidSword",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 5,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidPick",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 6,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidShovel",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 7,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidHoe",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 8,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidHelm",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 9,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidChest",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 10,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidLegs",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "VOIDMETAL",
+      "page_index": 11,
+      "page_type": "NORMAL_CRAFTING",
+      "recipe_key": "VoidBoots",
+      "original_recipe_kind": "COMPOUND",
+      "original_recipe_research": "",
+      "required_research": "VOIDMETAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ESSENTIARESERVOIR",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "EssentiaReservoir",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ESSENTIARESERVOIR",
+      "required_research": "ESSENTIARESERVOIR",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_void",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "WandCapVoidInert",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "CAP_void",
+      "required_research": "CAP_void",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "CAP_void",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandCapVoid",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "CAP_void",
+      "required_research": "CAP_void",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARMORVOIDFORTRESS",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "VoidRobeHelm",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARMORVOIDFORTRESS",
+      "required_research": "ARMORVOIDFORTRESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARMORVOIDFORTRESS",
+      "page_index": 2,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "VoidRobeChest",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARMORVOIDFORTRESS",
+      "required_research": "ARMORVOIDFORTRESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ARMORVOIDFORTRESS",
+      "page_index": 3,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "VoidRobeLegs",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ARMORVOIDFORTRESS",
+      "required_research": "ARMORVOIDFORTRESS",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "FOCUSPRIMAL",
+      "page_index": 1,
+      "page_type": "ARCANE_CRAFTING",
+      "recipe_key": "FocusPrimal",
+      "original_recipe_kind": "ARCANE_SHAPED",
+      "original_recipe_research": "FOCUSPRIMAL",
+      "required_research": "FOCUSPRIMAL",
+      "resolution": "tc4_recipe_runtime_bridge"
+    },
+    {
+      "research_key": "ROD_primal_staff",
+      "page_index": 1,
+      "page_type": "INFUSION_CRAFTING",
+      "recipe_key": "WandRodPrimalStaff",
+      "original_recipe_kind": "INFUSION",
+      "original_recipe_research": "ROD_primal_staff",
+      "required_research": "ROD_primal_staff",
+      "resolution": "tc4_recipe_runtime_bridge"
+    }
+  ]
+}

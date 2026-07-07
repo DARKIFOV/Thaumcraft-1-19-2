@@ -53,6 +53,27 @@ public final class TC4EntityAspectRegistry {
         exact("minecraft:hopper_minecart", aspects(Aspect.MACHINA, 3, Aspect.AER, 1, Aspect.PERMUTATIO, 1));
         exact("minecraft:spawner_minecart", aspects(Aspect.MACHINA, 3, Aspect.AER, 1, Aspect.PRAECANTATIO, 1));
         exact("minecraft:end_crystal", aspects(Aspect.ALIENIS, 3, Aspect.PRAECANTATIO, 3, Aspect.SANO, 3));
+        exact("minecraft:wither_skeleton", aspects(Aspect.EXANIMIS, 4, Aspect.HUMANUS, 1, Aspect.IGNIS, 2));
+        exact("thaumcraft:primal_orb", aspects(Aspect.AER, 5, Aspect.PERDITIO, 10, Aspect.PRAECANTATIO, 10, Aspect.POTENTIA, 10));
+        exact("thaumcraft:firebat", aspects(Aspect.BESTIA, 2, Aspect.VOLATUS, 1, Aspect.IGNIS, 2));
+        exact("thaumcraft:giant_brainy_zombie", aspects(Aspect.EXANIMIS, 4, Aspect.HUMANUS, 2, Aspect.COGNITIO, 1, Aspect.TERRA, 2));
+        exact("thaumcraft:taintacle_tiny", aspects(Aspect.VITIUM, 1, Aspect.AQUA, 1));
+        exact("thaumcraft:taint_spider", aspects(Aspect.VITIUM, 1, Aspect.TERRA, 1));
+        exact("thaumcraft:taint_spore", aspects(Aspect.VITIUM, 2, Aspect.AER, 2));
+        exact("thaumcraft:taint_swarmer", aspects(Aspect.VITIUM, 2, Aspect.AER, 2));
+        exact("thaumcraft:taint_swarm", aspects(Aspect.VITIUM, 3, Aspect.AER, 3));
+        exact("thaumcraft:tainted_pig", aspects(Aspect.VITIUM, 2, Aspect.TERRA, 2));
+        exact("thaumcraft:tainted_sheep", aspects(Aspect.VITIUM, 2, Aspect.TERRA, 2));
+        exact("thaumcraft:tainted_cow", aspects(Aspect.VITIUM, 3, Aspect.TERRA, 3));
+        exact("thaumcraft:tainted_chicken", aspects(Aspect.VITIUM, 2, Aspect.VOLATUS, 2, Aspect.AER, 1));
+        exact("thaumcraft:tainted_villager", aspects(Aspect.VITIUM, 3, Aspect.AER, 2));
+        exact("thaumcraft:tainted_creeper", aspects(Aspect.VITIUM, 2, Aspect.IGNIS, 2));
+        exact("thaumcraft:mind_spider", aspects(Aspect.VITIUM, 2, Aspect.IGNIS, 2));
+        exact("thaumcraft:eldritch_orb", aspects(Aspect.ALIENIS, 2, Aspect.MORTUUS, 2));
+        exact("thaumcraft:crimson_cultist", aspects(Aspect.ALIENIS, 1, Aspect.HUMANUS, 2, Aspect.PERDITIO, 1));
+        exact("thaumcraft:crimson_knight", aspects(Aspect.ALIENIS, 1, Aspect.HUMANUS, 2, Aspect.PERDITIO, 1));
+        exact("thaumcraft:crimson_cleric", aspects(Aspect.ALIENIS, 1, Aspect.HUMANUS, 2, Aspect.PERDITIO, 1));
+        exact("thaumcraft:crimson_praetor", aspects(Aspect.ALIENIS, 1, Aspect.HUMANUS, 2, Aspect.PERDITIO, 1));
         exact("minecraft:item_frame", aspects(Aspect.SENSUS, 3, Aspect.PANNUS, 1));
         exact("minecraft:painting", aspects(Aspect.SENSUS, 5, Aspect.PANNUS, 3));
         exact("thaumcraft:pech", aspects(Aspect.HUMANUS, 2, Aspect.PRAECANTATIO, 2, Aspect.PERMUTATIO, 2, Aspect.LUCRUM, 2));
@@ -76,6 +97,32 @@ public final class TC4EntityAspectRegistry {
         }
         AspectList aspects = EXACT.get(id.toString().toLowerCase(Locale.ROOT));
         return aspects == null ? new AspectList() : copyOf(aspects);
+    }
+
+
+    public static String legacyScanTriggerId(Entity entity) {
+        if (entity == null) {
+            return "";
+        }
+        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
+        if (id == null) {
+            return "";
+        }
+        return legacyScanTriggerId(id.toString());
+    }
+
+    public static String legacyScanTriggerId(String modernId) {
+        if (modernId == null || modernId.isBlank()) {
+            return "";
+        }
+        return switch (modernId.toLowerCase(Locale.ROOT)) {
+            case "minecraft:enderman" -> "Enderman";
+            case "thaumcraft:brainy_zombie" -> "Thaumcraft.BrainyZombie";
+            case "thaumcraft:giant_brainy_zombie" -> "Thaumcraft.GiantBrainyZombie";
+            case "thaumcraft:firebat" -> "Thaumcraft.Firebat";
+            case "thaumcraft:primal_orb" -> "Thaumcraft.PrimalOrb";
+            default -> "";
+        };
     }
 
     public static int exactRuntimeEntries() {

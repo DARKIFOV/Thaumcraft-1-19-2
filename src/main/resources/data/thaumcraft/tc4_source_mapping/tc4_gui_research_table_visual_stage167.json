@@ -1,0 +1,20 @@
+{
+  "stage": 167,
+  "source": "Thaumcraft4-1.7.10 thaumcraft/client/gui/GuiResearchTable.java + ContainerResearchTable.java",
+  "parity_scope": "Research Table visual/container coordinate parity",
+  "original_texture": "textures/gui/guiresearchtable2.png",
+  "modern_texture": "assets/thaumcraft/textures/gui/thaumcraft_core_original/guiresearchtable2.png",
+  "x_size": 255,
+  "y_size": 255,
+  "slot_coordinates": {
+    "slot_0_scribing_tools": [14, 10],
+    "slot_1_research_note": [70, 10],
+    "player_inventory_start": [48, 175],
+    "hotbar_start": [48, 233],
+    "copy_icon": [37, 5]
+  },
+  "forge_adapter_notes": [
+    "Buttons are Forge 1.19.2 screen actions over the original texture because the old 1.7.10 mouse-in-container button hooks do not exist unchanged.",
+    "The two table slots and player inventory coordinates now match original TC4 ContainerResearchTable coordinates."
+  ]
+}

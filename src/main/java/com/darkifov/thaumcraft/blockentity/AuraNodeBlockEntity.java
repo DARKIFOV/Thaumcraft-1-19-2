@@ -286,7 +286,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
         if (level.getGameTime() % 160L == 0L) {
             BlockPos target = worldPosition.offset(level.random.nextInt(9) - 4, -1, level.random.nextInt(9) - 4);
             if (!level.isOutsideBuildHeight(target) && !level.getBlockState(target).isAir() && !level.getBlockState(target).is(Blocks.BEDROCK)) {
-                level.setBlock(target, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
+                level.setBlock(target, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), 3);
             }
         }
     }

@@ -1,0 +1,15 @@
+{
+  "stage": 173,
+  "title": "TC4 Focus Upgrade NBT/rank parity foundation",
+  "version": "1.74.0",
+  "implemented": [
+    "FocusUpgradeType original IDs 0..18 and 20",
+    "Original NBT key upgrade with 5 rank slots",
+    "Focus stack stored in wand under original focus compound key",
+    "Installing/removing focus preserves upgrade NBT",
+    "Possible upgrades by focus/rank from original focus classes"
+  ],
+  "deferred": [
+    "actual upgrade effects beyond already-connected Fireball/Earthshock/Seeker/Frost variants are deferred to exact behavior stages"
+  ]
+}

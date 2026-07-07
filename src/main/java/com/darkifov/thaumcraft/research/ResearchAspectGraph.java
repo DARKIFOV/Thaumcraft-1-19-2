@@ -151,11 +151,11 @@ public final class ResearchAspectGraph {
      * notes too forgiving and let paths skip one original TC4 aspect.
      */
     public static boolean canConnect(Aspect first, Aspect second) {
-        return isDirect(first, second);
+        return AspectCombinationRegistry.isOriginalDirectLink(first, second);
     }
 
     public static boolean isDirect(Aspect first, Aspect second) {
-        return distance(first, second) <= 1;
+        return AspectCombinationRegistry.isOriginalDirectLink(first, second);
     }
 
     public static boolean canHintThroughOneMissingAspect(Aspect first, Aspect second) {

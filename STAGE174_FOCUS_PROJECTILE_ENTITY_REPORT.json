@@ -1,0 +1,19 @@
+{
+  "stage": 174,
+  "title": "TC4 focus projectile entity parity foundation",
+  "version": "1.74.0",
+  "implemented": [
+    "TC4FrostShardEntity",
+    "TC4ExplosiveOrbEntity",
+    "TC4ShockOrbEntity",
+    "TC4PrimalOrbEntity",
+    "entity registration",
+    "minimal spawn-safe renderer",
+    "focus runtime connections for Frost, Primal, Fireball upgrade and Earthshock upgrade"
+  ],
+  "deferred": [
+    "exact original projectile models/particles",
+    "full upgrade effects for every focus branch",
+    "EntityEmber fire beam projectile batch"
+  ]
+}

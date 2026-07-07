@@ -1,0 +1,24 @@
+{
+  "stage": 191,
+  "version": "1.92.0",
+  "source_of_truth": [
+    "thaumcraft/common/container/ContainerArcaneWorkbench.java",
+    "thaumcraft/common/container/SlotCraftingArcaneWorkbench.java",
+    "thaumcraft/common/tiles/TileArcaneWorkbench.java"
+  ],
+  "changes": [
+    "Restored vanilla-first CraftingManager fallback before arcane recipe matching.",
+    "Added Forge 1.19.2 CraftingContainer/ContainerDummy adapter for 3x3 vanilla matching.",
+    "Output take now consumes original craft matrix with crafting remaining items.",
+    "Arcane and generated wand/sceptre output crafting now share original SlotCraftingArcaneWorkbench matrix-consumption path.",
+    "Shift-click routing now mirrors original ContainerArcaneWorkbench and does not auto-fill the 3x3 grid from inventory/hotbar.",
+    "Added original click/drop and drag-splitting restrictions for output/wand/workbench slots.",
+    "Server-side canPlaceItem now rejects staff stacks in the wand slot."
+  ],
+  "forge_1_19_2_adapters": [
+    "TC4DummyCraftingMenu replaces original ContainerDummy for RecipeManager access.",
+    "RecipeType.CRAFTING/CraftingRecipe replaces 1.7.10 CraftingManager.func_77594_a path.",
+    "ItemStack.getCraftingRemainingItem handles original container item behavior through Forge 1.19.2 API."
+  ],
+  "drift_status": "No invented GUI/search/button/catalyst mechanics were added; remaining legacy catalyst slot is migration-only."
+}

@@ -15,8 +15,31 @@ public final class ResearchTableFoundation {
     private ResearchTableFoundation() {
     }
 
+    public static boolean componentsKnown(Player player, Aspect aspect) {
+        if (player == null || aspect == null) {
+            return false;
+        }
+        return aspect.isPrimal() || (PlayerAspectKnowledge.knows(player, aspect.firstComponent())
+                && PlayerAspectKnowledge.knows(player, aspect.secondComponent()));
+    }
+
+    public static Optional<Aspect[]> decompose(Player player, Aspect compound) {
+        if (player == null || compound == null || compound.isPrimal()) {
+            return Optional.empty();
+        }
+
+        PlayerAspectKnowledge.seedPrimals(player);
+        if (!PlayerAspectKnowledge.knows(player, compound)) {
+            return Optional.empty();
+        }
+
+        Aspect[] parts = AspectCombinationRegistry.decompose(compound).orElse(null);
+        return parts == null ? Optional.empty() : Optional.of(parts);
+    }
+
     public static void seed(Player player) {
         PlayerAspectKnowledge.seedPrimals(player);
+        OriginalResearchProgression.seedAutoUnlocks(player);
 
         // Stage136: TC4 gives the player primal understanding as the foundation of research,
         // but it must not duplicate free research pool points every time the table is clicked.
@@ -55,8 +78,7 @@ public final class ResearchTableFoundation {
 
         Aspect discovered = result.get();
 
-        if (discovered.firstComponent() != first && discovered.firstComponent() != second
-                && discovered.secondComponent() != first && discovered.secondComponent() != second) {
+        if (!AspectCombinationRegistry.isOriginalComponentPair(discovered, first, second)) {
             return Optional.empty();
         }
 

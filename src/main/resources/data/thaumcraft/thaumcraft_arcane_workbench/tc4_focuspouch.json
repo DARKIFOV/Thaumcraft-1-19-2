@@ -1,0 +1,30 @@
+{
+  "tc4_key": "FocusPouch",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "FOCUSPOUCH",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_bauble_belt",
+  "ingredients": [
+    "minecraft:sugar",
+    "minecraft:gold_ingot"
+  ],
+  "aspects": {
+    "TERRA": 10,
+    "ORDO": 10,
+    "PERDITIO": 10
+  },
+  "pattern": [
+    "LGL",
+    "LBL",
+    "LLL"
+  ],
+  "key": {
+    "B": "thaumcraft:tc4_bauble_belt",
+    "L": "minecraft:sugar",
+    "G": "minecraft:gold_ingot"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_focuspouch",
+    "count": 1
+  }
+}

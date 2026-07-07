@@ -1,0 +1,25 @@
+{
+  "stage": 181,
+  "name": "focus client beam FX parity batch",
+  "source_of_truth": [
+    "thaumcraft/common/items/wands/foci/ItemFocusShock.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusExcavation.java",
+    "thaumcraft/client/fx/bolt/FXLightningBolt.java",
+    "thaumcraft/client/fx/beams/FXBeamWand.java",
+    "thaumcraft/client/ClientProxy.java"
+  ],
+  "implemented": [
+    "client-only bridge for original Thaumcraft.proxy focus FX call sites",
+    "shock sparkle cloud and FXLightningBolt-style segmented electric path",
+    "excavation beamCont adapter using original type=2 color=65382 and impact/endMod semantics",
+    "excavateFX adapter routed to LevelRenderer.destroyBlockProgress with original progress scale 0..9"
+  ],
+  "forbidden_drift": [
+    "no new focus mechanics",
+    "no new progression or recipes",
+    "no invented projectile visuals beyond adapters for TC4 FX calls"
+  ],
+  "adapter_notes": [
+    "1.7.10 GL particle classes cannot be copied directly into the 1.19.2 renderer; TC4ClientFocusFx preserves call constants using 1.19.2 particles."
+  ]
+}

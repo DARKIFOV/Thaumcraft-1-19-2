@@ -1,0 +1,12 @@
+{
+  "stage": 170,
+  "source": "TileResearchTable.bonusAspects + PacketAspectCombinationToServer bonus flags",
+  "strict_original": true,
+  "changes": [
+    "bonusAspects saved to block entity NBT as original tag-list style entries",
+    "bonusAspects synced to client through block entity update tag/packet",
+    "ResearchNoteSolver placement accepts player pool or table bonus aspect",
+    "placement consumes player pool first; if player pool is empty it removes one table bonus aspect",
+    "ResearchTableContainerScreen displays table bonus aspects"
+  ]
+}

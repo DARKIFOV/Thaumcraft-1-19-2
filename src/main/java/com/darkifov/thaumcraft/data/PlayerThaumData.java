@@ -1,11 +1,14 @@
 package com.darkifov.thaumcraft.data;
 
+import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.AspectList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public final class PlayerThaumData {
@@ -20,6 +23,9 @@ public final class PlayerThaumData {
     private static final String WARP_EVENT_COOLDOWN = "WarpEventCooldown";
     private static final String ELDRITCH_ATTUNEMENT = "EldritchAttunement";
     private static final String PECH_FAVOR = "PechFavor";
+    private static final String SCANNED_OBJECTS = "ScannedObjects";
+    private static final String SCANNED_ENTITIES = "ScannedEntities";
+    private static final String SCANNED_ASPECTS = "ScannedAspects";
 
     private PlayerThaumData() {
     }
@@ -249,4 +255,104 @@ public final class PlayerThaumData {
     public static int researchCount(Player player) {
         return getResearchSet(player).size();
     }
+
+    public static boolean markScannedObject(Player player, String objectId) {
+        return addString(root(player), SCANNED_OBJECTS, normalize(objectId));
+    }
+
+    public static boolean markScannedEntity(Player player, String entityId) {
+        return addString(root(player), SCANNED_ENTITIES, normalize(entityId));
+    }
+
+    public static int recordScannedAspects(Player player, AspectList aspects) {
+        if (aspects == null || aspects.isEmpty()) {
+            return 0;
+        }
+
+        int added = 0;
+        CompoundTag root = root(player);
+
+        for (Aspect aspect : aspects.entries().keySet()) {
+            if (aspect != null && addString(root, SCANNED_ASPECTS, aspect.id())) {
+                added++;
+            }
+        }
+
+        return added;
+    }
+
+    public static boolean hasScannedObject(Player player, String objectId) {
+        return containsString(root(player), SCANNED_OBJECTS, normalize(objectId));
+    }
+
+    public static boolean hasScannedEntity(Player player, String entityId) {
+        return containsString(root(player), SCANNED_ENTITIES, normalize(entityId));
+    }
+
+    public static Set<String> getScannedObjects(Player player) {
+        return stringSet(root(player), SCANNED_OBJECTS);
+    }
+
+    public static Set<String> getScannedEntities(Player player) {
+        return stringSet(root(player), SCANNED_ENTITIES);
+    }
+
+    public static Set<String> getScannedAspectIds(Player player) {
+        return stringSet(root(player), SCANNED_ASPECTS);
+    }
+
+    public static int getScanKnowledgeCount(Player player) {
+        return getScannedObjects(player).size() + getScannedEntities(player).size();
+    }
+
+    private static String normalize(String value) {
+        return value == null ? "" : value.trim();
+    }
+
+    private static boolean addString(CompoundTag root, String key, String value) {
+        if (value == null || value.isBlank()) {
+            return false;
+        }
+
+        ListTag list = root.getList(key, 8);
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.getString(i).equals(value)) {
+                root.put(key, list);
+                return false;
+            }
+        }
+
+        list.add(StringTag.valueOf(value));
+        root.put(key, list);
+        return true;
+    }
+
+    private static boolean containsString(CompoundTag root, String key, String value) {
+        if (value == null || value.isBlank()) {
+            return false;
+        }
+
+        ListTag list = root.getList(key, 8);
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.getString(i).equals(value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static Set<String> stringSet(CompoundTag root, String key) {
+        Set<String> result = new LinkedHashSet<>();
+        ListTag list = root.getList(key, 8);
+
+        for (int i = 0; i < list.size(); i++) {
+            result.add(list.getString(i));
+        }
+
+        return result;
+    }
+
 }

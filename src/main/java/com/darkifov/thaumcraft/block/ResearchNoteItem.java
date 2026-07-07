@@ -1,9 +1,8 @@
 package com.darkifov.thaumcraft.block;
 
-import com.darkifov.thaumcraft.research.OriginalResearchBridge;
-import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchNoteState;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.research.ResearchNoteSolver;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,7 +15,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ResearchNoteItem extends Item {
     public ResearchNoteItem(Properties properties) {
@@ -30,16 +28,8 @@ public class ResearchNoteItem extends Item {
 
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             if (ResearchNoteState.solved(stack)) {
-                Optional<ResearchEntry> target = OriginalResearchBridge.byKey(ResearchNoteState.target(stack));
-                if (target.isPresent() && OriginalResearchBridge.canUnlock(player, target.get())) {
-                    OriginalResearchBridge.unlock(player, target.get());
-                    if (!player.getAbilities().instabuild) {
-                        stack.shrink(1);
-                    }
-                    ThaumcraftNetwork.syncResearch(serverPlayer);
-                    return InteractionResultHolder.success(stack);
-                }
-                player.displayClientMessage(Component.literal("This theory has already been resolved.").withStyle(ChatFormatting.GRAY), true);
+                ResearchNoteSolver.convertSolvedNote(player, stack);
+                return InteractionResultHolder.success(stack);
             } else {
                 ThaumcraftNetwork.openResearchNote(serverPlayer, stack);
             }
@@ -55,6 +45,10 @@ public class ResearchNoteItem extends Item {
         tooltip.add(Component.literal("Target: " + (target.isBlank() ? "unbound" : target)).withStyle(ChatFormatting.DARK_PURPLE));
         tooltip.add(Component.literal("Theory progress: " + ResearchNoteState.progress(stack) + " / 100").withStyle(ChatFormatting.GOLD));
         tooltip.add(Component.literal("Required: " + ResearchNoteState.requiredAspects(stack).size() + " original TC4 aspects").withStyle(ChatFormatting.GRAY));
+        int copies = ResearchNoteState.copyCount(stack);
+        if (copies > 0) {
+            tooltip.add(Component.literal("Copies made: " + copies).withStyle(ChatFormatting.DARK_AQUA));
+        }
         tooltip.add(Component.literal("Right-click: open the research note puzzle.").withStyle(ChatFormatting.DARK_AQUA));
         tooltip.add(Component.literal("Shift-right-click: legacy shortcut kept compatible; right-click opens it now.").withStyle(ChatFormatting.GRAY));
         if (ResearchNoteState.solved(stack)) {

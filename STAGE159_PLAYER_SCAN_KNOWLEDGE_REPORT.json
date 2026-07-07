@@ -1,0 +1,9 @@
+{
+  "stage": 159,
+  "title": "Player scan knowledge parity",
+  "version": "1.60.0",
+  "summary": "Thaumometer scan knowledge now persists on PlayerThaumData rather than only on the individual item stack.",
+  "player_lists": ["ScannedObjects", "ScannedEntities", "ScannedAspects"],
+  "compatibility_item_lists": ["ScannedBlocks", "ScannedEntities"],
+  "strict_tc4_rule": "Scan knowledge belongs to the player; item NBT mirrors are kept only for save compatibility."
+}

@@ -1,0 +1,418 @@
+{
+  "stage": 173,
+  "source": "Thaumcraft4-1.7.10 thaumcraft/api/wands/FocusUpgradeType.java and common/items/wands/foci/* getPossibleUpgradesByRank",
+  "original_nbt_key": "upgrade",
+  "max_rank": 5,
+  "upgrade_types": [
+    {
+      "id": 0,
+      "key": "potency",
+      "icon": "thaumcraft:textures/foci/potency.png",
+      "name_key": "focus.upgrade.potency.name",
+      "text_key": "focus.upgrade.potency.text",
+      "aspects": [
+        "WEAPON"
+      ]
+    },
+    {
+      "id": 1,
+      "key": "frugal",
+      "icon": "thaumcraft:textures/foci/frugal.png",
+      "name_key": "focus.upgrade.frugal.name",
+      "text_key": "focus.upgrade.frugal.text",
+      "aspects": [
+        "HUNGER"
+      ]
+    },
+    {
+      "id": 2,
+      "key": "treasure",
+      "icon": "thaumcraft:textures/foci/treasure.png",
+      "name_key": "focus.upgrade.treasure.name",
+      "text_key": "focus.upgrade.treasure.text",
+      "aspects": [
+        "GREED"
+      ]
+    },
+    {
+      "id": 3,
+      "key": "enlarge",
+      "icon": "thaumcraft:textures/foci/enlarge.png",
+      "name_key": "focus.upgrade.enlarge.name",
+      "text_key": "focus.upgrade.enlarge.text",
+      "aspects": [
+        "TRAVEL"
+      ]
+    },
+    {
+      "id": 4,
+      "key": "alchemistsfire",
+      "icon": "thaumcraft:textures/foci/alchemistsfire.png",
+      "name_key": "focus.upgrade.alchemistsfire.name",
+      "text_key": "focus.upgrade.alchemistsfire.text",
+      "aspects": [
+        "ENERGY",
+        "SLIME"
+      ]
+    },
+    {
+      "id": 5,
+      "key": "alchemistsfrost",
+      "icon": "thaumcraft:textures/foci/alchemistsfrost.png",
+      "name_key": "focus.upgrade.alchemistsfrost.name",
+      "text_key": "focus.upgrade.alchemistsfrost.text",
+      "aspects": [
+        "COLD",
+        "TRAP"
+      ]
+    },
+    {
+      "id": 6,
+      "key": "architect",
+      "icon": "thaumcraft:textures/foci/architect.png",
+      "name_key": "focus.upgrade.architect.name",
+      "text_key": "focus.upgrade.architect.text",
+      "aspects": [
+        "CRAFT"
+      ]
+    },
+    {
+      "id": 7,
+      "key": "extend",
+      "icon": "thaumcraft:textures/foci/extend.png",
+      "name_key": "focus.upgrade.extend.name",
+      "text_key": "focus.upgrade.extend.text",
+      "aspects": [
+        "EXCHANGE"
+      ]
+    },
+    {
+      "id": 8,
+      "key": "silktouch",
+      "icon": "thaumcraft:textures/foci/silktouch.png",
+      "name_key": "focus.upgrade.silktouch.name",
+      "text_key": "focus.upgrade.silktouch.text",
+      "aspects": [
+        "GREED"
+      ]
+    },
+    {
+      "id": 9,
+      "key": "fireball",
+      "icon": "thaumcraft:textures/foci/fireball.png",
+      "name_key": "focus.upgrade.fireball.name",
+      "text_key": "focus.upgrade.fireball.text",
+      "aspects": [
+        "DARKNESS"
+      ]
+    },
+    {
+      "id": 10,
+      "key": "firebeam",
+      "icon": "thaumcraft:textures/foci/firebeam.png",
+      "name_key": "focus.upgrade.firebeam.name",
+      "text_key": "focus.upgrade.firebeam.text",
+      "aspects": [
+        "LIGHT"
+      ]
+    },
+    {
+      "id": 11,
+      "key": "scattershot",
+      "icon": "thaumcraft:textures/foci/scattershot.png",
+      "name_key": "focus.upgrade.scattershot.name",
+      "text_key": "focus.upgrade.scattershot.text",
+      "aspects": [
+        "COLD",
+        "WEAPON"
+      ]
+    },
+    {
+      "id": 12,
+      "key": "iceboulder",
+      "icon": "thaumcraft:textures/foci/iceboulder.png",
+      "name_key": "focus.upgrade.iceboulder.name",
+      "text_key": "focus.upgrade.iceboulder.text",
+      "aspects": [
+        "COLD",
+        "CRYSTAL"
+      ]
+    },
+    {
+      "id": 13,
+      "key": "batbombs",
+      "icon": "thaumcraft:textures/foci/batbombs.png",
+      "name_key": "focus.upgrade.batbombs.name",
+      "text_key": "focus.upgrade.batbombs.text",
+      "aspects": [
+        "ENERGY",
+        "TRAP"
+      ]
+    },
+    {
+      "id": 14,
+      "key": "devilbats",
+      "icon": "thaumcraft:textures/foci/devilbats.png",
+      "name_key": "focus.upgrade.devilbats.name",
+      "text_key": "focus.upgrade.devilbats.text",
+      "aspects": [
+        "ARMOR"
+      ]
+    },
+    {
+      "id": 15,
+      "key": "nightshade",
+      "icon": "thaumcraft:textures/foci/nightshade.png",
+      "name_key": "focus.upgrade.nightshade.name",
+      "text_key": "focus.upgrade.nightshade.text",
+      "aspects": [
+        "LIFE",
+        "POISON",
+        "MAGIC"
+      ]
+    },
+    {
+      "id": 16,
+      "key": "seeker",
+      "icon": "thaumcraft:textures/foci/seeker.png",
+      "name_key": "focus.upgrade.seeker.name",
+      "text_key": "focus.upgrade.seeker.text",
+      "aspects": [
+        "SENSES",
+        "MIND"
+      ]
+    },
+    {
+      "id": 17,
+      "key": "chainlightning",
+      "icon": "thaumcraft:textures/foci/chainlightning.png",
+      "name_key": "focus.upgrade.chainlightning.name",
+      "text_key": "focus.upgrade.chainlightning.text",
+      "aspects": [
+        "WEATHER"
+      ]
+    },
+    {
+      "id": 18,
+      "key": "earthshock",
+      "icon": "thaumcraft:textures/foci/earthshock.png",
+      "name_key": "focus.upgrade.earthshock.name",
+      "text_key": "focus.upgrade.earthshock.text",
+      "aspects": [
+        "WEATHER"
+      ]
+    },
+    {
+      "id": 20,
+      "key": "dowsing",
+      "icon": "thaumcraft:textures/foci/dowsing.png",
+      "name_key": "focus.upgrade.dowsing.name",
+      "text_key": "focus.upgrade.dowsing.text",
+      "aspects": [
+        "MINE"
+      ]
+    }
+  ],
+  "possible_upgrades_by_focus_rank": {
+    "fire": {
+      "1": [
+        "frugal",
+        "potency"
+      ],
+      "2": [
+        "frugal",
+        "potency",
+        "alchemistsfire"
+      ],
+      "3": [
+        "frugal",
+        "potency",
+        "fireball",
+        "firebeam"
+      ],
+      "4": [
+        "frugal",
+        "potency",
+        "alchemistsfire"
+      ],
+      "5": [
+        "frugal",
+        "potency"
+      ]
+    },
+    "frost": {
+      "1": [
+        "frugal",
+        "potency",
+        "alchemistsfrost"
+      ],
+      "2": [
+        "frugal",
+        "potency"
+      ],
+      "3": [
+        "frugal",
+        "potency",
+        "scattershot",
+        "iceboulder",
+        "alchemistsfrost"
+      ],
+      "4": [
+        "frugal",
+        "potency"
+      ],
+      "5": [
+        "frugal",
+        "potency",
+        "alchemistsfrost"
+      ]
+    },
+    "shock": {
+      "1": [
+        "frugal",
+        "potency"
+      ],
+      "2": [
+        "frugal",
+        "potency"
+      ],
+      "3": [
+        "frugal",
+        "potency",
+        "chainlightning",
+        "earthshock"
+      ],
+      "4": [
+        "frugal",
+        "potency",
+        "enlarge"
+      ],
+      "5": [
+        "frugal",
+        "potency",
+        "enlarge"
+      ]
+    },
+    "excavation": {
+      "1": [
+        "frugal",
+        "potency",
+        "treasure"
+      ],
+      "2": [
+        "frugal",
+        "potency",
+        "enlarge"
+      ],
+      "3": [
+        "frugal",
+        "potency",
+        "treasure",
+        "dowsing"
+      ],
+      "4": [
+        "frugal",
+        "potency",
+        "enlarge"
+      ],
+      "5": [
+        "frugal",
+        "potency",
+        "treasure",
+        "silktouch"
+      ]
+    },
+    "equal_trade": {
+      "1": [
+        "frugal",
+        "enlarge"
+      ],
+      "2": [
+        "frugal",
+        "enlarge"
+      ],
+      "3": [
+        "frugal",
+        "enlarge",
+        "treasure",
+        "architect"
+      ],
+      "4": [
+        "frugal",
+        "enlarge"
+      ],
+      "5": [
+        "frugal",
+        "enlarge",
+        "silktouch"
+      ]
+    },
+    "portable_hole": {
+      "1": [
+        "frugal",
+        "enlarge",
+        "extend"
+      ],
+      "2": [
+        "frugal",
+        "enlarge",
+        "extend"
+      ],
+      "3": [
+        "frugal",
+        "enlarge",
+        "extend"
+      ],
+      "4": [
+        "frugal",
+        "enlarge",
+        "extend"
+      ],
+      "5": [
+        "frugal",
+        "enlarge",
+        "extend"
+      ]
+    },
+    "warding": {
+      "1": [
+        "frugal"
+      ],
+      "2": [
+        "frugal",
+        "architect"
+      ],
+      "3": [
+        "frugal",
+        "enlarge"
+      ],
+      "4": [
+        "frugal",
+        "enlarge"
+      ],
+      "5": [
+        "frugal",
+        "enlarge"
+      ]
+    },
+    "primal": {
+      "1": [
+        "frugal"
+      ],
+      "2": [
+        "frugal"
+      ],
+      "3": [
+        "frugal",
+        "seeker"
+      ],
+      "4": [
+        "frugal"
+      ],
+      "5": [
+        "frugal"
+      ]
+    }
+  },
+  "drift_note": "Stage173 only adds metadata/NBT parity. Upgrade effects remain disabled until exact behavior stages."
+}

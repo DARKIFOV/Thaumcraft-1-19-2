@@ -1,6 +1,8 @@
 package com.darkifov.thaumcraft.arcane;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.wand.WandCraftingRuntime;
+import com.darkifov.thaumcraft.wand.TC4ConfigRecipesWandIndex;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -11,6 +13,9 @@ import java.util.List;
 public final class ArcaneWorkbenchRecipes {
     private static final List<ArcaneWorkbenchRecipe> FALLBACK = new ArrayList<>();
     private static final List<ArcaneWorkbenchRecipe> LOADED = new ArrayList<>();
+    private static final List<ArcaneWorkbenchRecipe> STRICT_ORIGINAL = new ArrayList<>();
+    private static final List<ArcaneWorkbenchRecipe> NON_ORIGINAL = new ArrayList<>();
+    private static final List<ArcaneWorkbenchRecipe> WITH_WAND_ASSEMBLY = new ArrayList<>();
 
     static {
         FALLBACK.add(new ArcaneWorkbenchRecipe(
@@ -35,16 +40,41 @@ public final class ArcaneWorkbenchRecipes {
     }
 
     public static List<ArcaneWorkbenchRecipe> recipes() {
-        if (LOADED.isEmpty()) {
-            return Collections.unmodifiableList(FALLBACK);
+        if (!STRICT_ORIGINAL.isEmpty()) {
+            return Collections.unmodifiableList(withWandAssembly(STRICT_ORIGINAL));
         }
 
-        return Collections.unmodifiableList(LOADED);
+        if (!LOADED.isEmpty()) {
+            return Collections.unmodifiableList(withWandAssembly(LOADED));
+        }
+
+        return Collections.unmodifiableList(withWandAssembly(FALLBACK));
+    }
+
+    private static List<ArcaneWorkbenchRecipe> withWandAssembly(List<ArcaneWorkbenchRecipe> base) {
+        WITH_WAND_ASSEMBLY.clear();
+        WITH_WAND_ASSEMBLY.addAll(base);
+        WITH_WAND_ASSEMBLY.addAll(TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes());
+        WITH_WAND_ASSEMBLY.addAll(WandCraftingRuntime.generatedWandAssemblyRecipes());
+        return WITH_WAND_ASSEMBLY;
+    }
+
+    public static List<ArcaneWorkbenchRecipe> nonOriginalRecipes() {
+        return Collections.unmodifiableList(NON_ORIGINAL);
     }
 
     public static void setLoadedRecipes(List<ArcaneWorkbenchRecipe> recipes) {
         LOADED.clear();
+        STRICT_ORIGINAL.clear();
+        NON_ORIGINAL.clear();
         LOADED.addAll(recipes);
+        for (ArcaneWorkbenchRecipe recipe : recipes) {
+            if (!recipe.tc4Key().isBlank()) {
+                STRICT_ORIGINAL.add(recipe);
+            } else {
+                NON_ORIGINAL.add(recipe);
+            }
+        }
     }
 
     public static ArcaneWorkbenchRecipe find(ItemStack catalyst) {

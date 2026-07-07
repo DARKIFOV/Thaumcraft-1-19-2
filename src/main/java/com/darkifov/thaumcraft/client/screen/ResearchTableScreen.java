@@ -51,10 +51,11 @@ public class ResearchTableScreen extends Screen {
                 OriginalGuiTextures.RESEARCH_TABLE_OVERLAY, 0, 0, 96, 96, 256, 256);
 
         int ink = 0x3F2612;
-        drawCenteredString(poseStack, font, Component.literal("Aspect Research"), leftPos + BG_WIDTH / 2, topPos + 8, ink);
+        drawCenteredString(poseStack, font, Component.literal("Research Table"), leftPos + BG_WIDTH / 2, topPos + 8, ink);
         drawString(poseStack, font, Component.literal("TC4 aspect base: " + Aspect.values().length + " aspects"), leftPos + 18, topPos + 142, ink);
         drawString(poseStack, font, Component.literal("Known: " + ClientAspectData.knownCount() + " / " + Aspect.values().length), leftPos + 18, topPos + 154, ink);
         drawString(poseStack, font, Component.literal("Combinations: " + AspectCombinationRegistry.count()), leftPos + 18, topPos + 166, ink);
+        drawString(poseStack, font, Component.literal("Slot 0: Scribing Tools  Slot 1: Research Note"), leftPos + 18, topPos + 232, 0x5A3515);
 
         renderAspectGrid(poseStack, mouseX, mouseY);
         renderSelected(poseStack);

@@ -1,0 +1,11 @@
+{
+  "stage": 165,
+  "status": "ok",
+  "added": [
+    "ResearchTableBlockEntity",
+    "ResearchTableMenu",
+    "persistent slot 0 scribing tools",
+    "persistent slot 1 research note"
+  ],
+  "corrected_original_drift": "replaced virtual primary table model with table-owned inventory"
+}

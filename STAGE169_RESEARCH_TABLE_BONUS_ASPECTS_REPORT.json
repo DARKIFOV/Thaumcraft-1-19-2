@@ -1,0 +1,14 @@
+{
+  "stage": 169,
+  "title": "TC4 Research Table bonus aspects parity",
+  "implemented": [
+    "ResearchTableBonusRuntime",
+    "ResearchTableBlockEntity.bonusAspects",
+    "600 tick recalc",
+    "original-style NBT bonusAspects list",
+    "removed Stage163 immediate player-pool merge drift"
+  ],
+  "remaining": [
+    "Exact brain-in-a-jar block source waits for original brain jar block/entity port"
+  ]
+}

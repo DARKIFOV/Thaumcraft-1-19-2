@@ -104,6 +104,14 @@ public final class ThaumcraftNetwork {
 
         CHANNEL.registerMessage(
                 packetId++,
+                RequestResearchTableActionPacket.class,
+                RequestResearchTableActionPacket::encode,
+                RequestResearchTableActionPacket::decode,
+                RequestResearchTableActionPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
                 RequestResearchUnlockPacket.class,
                 RequestResearchUnlockPacket::encode,
                 RequestResearchUnlockPacket::decode,
@@ -124,30 +132,6 @@ public final class ThaumcraftNetwork {
                 RequestCompleteSelectedResearchPacket::encode,
                 RequestCompleteSelectedResearchPacket::decode,
                 RequestCompleteSelectedResearchPacket::handle
-        );
-
-        CHANNEL.registerMessage(
-                packetId++,
-                OpenArcaneWorkbenchPacket.class,
-                OpenArcaneWorkbenchPacket::encode,
-                OpenArcaneWorkbenchPacket::decode,
-                OpenArcaneWorkbenchPacket::handle
-        );
-
-        CHANNEL.registerMessage(
-                packetId++,
-                RequestArcaneCraftPacket.class,
-                RequestArcaneCraftPacket::encode,
-                RequestArcaneCraftPacket::decode,
-                RequestArcaneCraftPacket::handle
-        );
-
-        CHANNEL.registerMessage(
-                packetId++,
-                RequestArcaneMenuCraftPacket.class,
-                RequestArcaneMenuCraftPacket::encode,
-                RequestArcaneMenuCraftPacket::decode,
-                RequestArcaneMenuCraftPacket::handle
         );
 
         CHANNEL.registerMessage(
@@ -253,6 +237,22 @@ public final class ThaumcraftNetwork {
                 RequestTransvectorActionPacket::decode,
                 RequestTransvectorActionPacket::handle
         );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestWandArchitectTogglePacket.class,
+                RequestWandArchitectTogglePacket::encode,
+                RequestWandArchitectTogglePacket::decode,
+                RequestWandArchitectTogglePacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestFocusChangePacket.class,
+                RequestFocusChangePacket::encode,
+                RequestFocusChangePacket::decode,
+                RequestFocusChangePacket::handle
+        );
     }
 
     public static void syncResearch(ServerPlayer player) {
@@ -283,12 +283,6 @@ public final class ThaumcraftNetwork {
         CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenResearchTablePacket());
     }
 
-    public static void openArcaneWorkbench(ServerPlayer player) {
-        syncResearch(player);
-        syncArcaneRecipes(player);
-        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenArcaneWorkbenchPacket());
-    }
-
     public static void requestUnlockFromClient() {
         CHANNEL.sendToServer(new RequestResearchUnlockPacket());
     }
@@ -305,12 +299,19 @@ public final class ThaumcraftNetwork {
         CHANNEL.sendToServer(new RequestCombineAspectsPacket(firstId, secondId));
     }
 
+    public static void requestResearchTableActionFromClient(net.minecraft.core.BlockPos pos, int action) {
+        CHANNEL.sendToServer(new RequestResearchTableActionPacket(pos, action));
+    }
+
     public static void syncResearchNote(ServerPlayer player, net.minecraft.world.item.ItemStack note) {
+        ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         Map<Integer, String> slots = new LinkedHashMap<>();
+        Map<Integer, Integer> types = new LinkedHashMap<>();
 
         for (Map.Entry<Integer, Aspect> entry : ResearchNoteState.slots(note).entrySet()) {
             slots.put(entry.getKey(), entry.getValue().id());
         }
+        types.putAll(ResearchNoteState.slotTypes(note));
 
         CHANNEL.send(
                 PacketDistributor.PLAYER.with(() -> player),
@@ -318,7 +319,9 @@ public final class ThaumcraftNetwork {
                         ResearchNoteState.target(note),
                         ResearchNoteState.progress(note),
                         ResearchNoteState.solved(note),
-                        slots
+                        ResearchNoteState.radius(note),
+                        slots,
+                        types
                 )
         );
     }
@@ -340,14 +343,6 @@ public final class ThaumcraftNetwork {
 
     public static void requestClearResearchNoteSlotFromClient(int slot) {
         CHANNEL.sendToServer(new RequestClearResearchNoteSlotPacket(slot));
-    }
-
-    public static void requestArcaneCraftFromClient(ResourceLocation recipeId) {
-        CHANNEL.sendToServer(new RequestArcaneCraftPacket(recipeId));
-    }
-
-    public static void requestArcaneMenuCraftFromClient(net.minecraft.core.BlockPos pos, ResourceLocation recipeId) {
-        CHANNEL.sendToServer(new RequestArcaneMenuCraftPacket(pos, recipeId));
     }
 
     public static void requestPechTradeFromClient(int pechEntityId, int tier) {
@@ -396,5 +391,14 @@ public final class ThaumcraftNetwork {
 
     public static void requestTransvectorAction(net.minecraft.core.BlockPos pos, int action) {
         CHANNEL.sendToServer(new RequestTransvectorActionPacket(pos, action));
+    }
+
+
+    public static void requestWandArchitectToggleFromClient() {
+        CHANNEL.sendToServer(new RequestWandArchitectTogglePacket((byte) 1));
+    }
+
+    public static void requestFocusChangeFromClient(String focus) {
+        CHANNEL.sendToServer(new RequestFocusChangePacket(focus));
     }
 }

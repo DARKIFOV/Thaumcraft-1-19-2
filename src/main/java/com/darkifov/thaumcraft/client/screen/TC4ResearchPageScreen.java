@@ -2,8 +2,10 @@ package com.darkifov.thaumcraft.client.screen;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRuntimeBridge;
+import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
 import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
@@ -108,7 +110,7 @@ public class TC4ResearchPageScreen extends Screen {
             boolean recipe = isRecipeType(type);
             if (i == idx) {
                 if (recipe) {
-                    return new PageRef(type, recipeIndex < entry.recipeKeys().length ? entry.recipeKeys()[recipeIndex] : "missing_recipe_" + recipeIndex, true);
+                    return new PageRef(type, recipeIndex < entry.recipeKeys().length ? entry.recipeKeys()[recipeIndex] : "RESEARCH:" + entry.key(), true);
                 }
                 return new PageRef(type, textIndex < entry.pageTextKeys().length ? entry.pageTextKeys()[textIndex] : "missing_text_" + textIndex, false);
             }
@@ -119,16 +121,32 @@ public class TC4ResearchPageScreen extends Screen {
 
     private boolean isRecipeType(String type) {
         String upper = type == null ? "" : type.toUpperCase();
-        return upper.contains("CRAFT") || upper.contains("RECIPE") || upper.contains("INFUSION") || upper.contains("CRUCIBLE") || upper.contains("SMELT");
+        return upper.contains("CRAFT")
+                || upper.contains("RECIPE")
+                || upper.contains("INFUSION")
+                || upper.contains("CRUCIBLE")
+                || upper.contains("SMELT")
+                || upper.contains("COMPOUND")
+                || upper.contains("ITEMSTACK_PAGE");
     }
 
     private void renderTextPage(PoseStack poseStack, int x, int y, String type, String key) {
+        String gate = gatedResearchKey(type);
+        drawString(poseStack, font, pageTypeLabel(type), x, y, 0x7A4E1A);
+        y += 14;
+
+        if (!gate.isBlank() && !ClientResearchData.hasResearch(gate)) {
+            fill(poseStack, x, y, x + 190, y + 74, 0x221B0E08);
+            drawCenteredString(poseStack, font, Component.literal("Locked TC4 page"), x + 95, y + 14, 0x5A3515);
+            drawCenteredString(poseStack, font, Component.literal("Requires: " + gate), x + 95, y + 34, 0x8A2D1B);
+            drawCenteredString(poseStack, font, Component.literal(key), x + 95, y + 54, 0x6D4A22);
+            return;
+        }
+
         String text = TC4ResearchText.pageText(key);
         if (text.isBlank() || text.equals(key)) {
             text = "TC4 page key: " + key;
         }
-        drawString(poseStack, font, type, x, y, 0x7A4E1A);
-        y += 14;
         for (FormattedCharSequence line : splitText(text, 190)) {
             font.draw(poseStack, line, x, y, 0x2D1B0B);
             y += 10;
@@ -140,14 +158,30 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderRecipePage(PoseStack poseStack, int x, int y, String type, String recipeKey) {
-        drawString(poseStack, font, type, x, y, 0x7A4E1A);
+        drawString(poseStack, font, pageTypeLabel(type), x, y, 0x7A4E1A);
         y += 16;
         fill(poseStack, x, y, x + 190, y + 150, 0x22A06D2B);
         fill(poseStack, x + 6, y + 6, x + 184, y + 144, 0x22F5E0B8);
 
+        String requiredResearch = TC4RecipeRequirementIndex.requiredResearchFor(recipeKey, entry.key());
+        if (!requiredResearch.isBlank() && !ClientResearchData.hasResearch(requiredResearch)) {
+            drawCenteredString(poseStack, font, Component.literal("Locked original TC4 recipe"), x + 95, y + 16, 0x8A2D1B);
+            drawCenteredString(poseStack, font, Component.literal("Requires research: " + requiredResearch), x + 95, y + 38, 0x5A3515);
+            drawCenteredString(poseStack, font, Component.literal(recipeKey == null || recipeKey.isBlank() ? "missing recipe key" : recipeKey), x + 95, y + 60, 0x6D4A22);
+            return;
+        }
+
+        if (type != null && type.toUpperCase().contains("ITEMSTACK_PAGE")) {
+            drawCenteredString(poseStack, font, Component.literal("Original TC4 ItemStack Page"), x + 95, y + 16, 0x2D1B0B);
+            renderResolvedItemIcon(poseStack, recipeKey, x + 87, y + 42);
+            drawCenteredString(poseStack, font, Component.literal(compactExpressionWithTc4Item(recipeKey)), x + 95, y + 72, 0x5A3515);
+            return;
+        }
+
         TC4RecipeRuntimeBridge.OriginalRecipe recipe = TC4RecipeRuntimeBridge.byKey(recipeKey);
         if (recipe == null && recipeKey != null) {
-            List<TC4RecipeRuntimeBridge.OriginalRecipe> byResearch = TC4RecipeRuntimeBridge.byResearch(recipeKey);
+            String researchKey = recipeKey.startsWith("RESEARCH:") ? recipeKey.substring("RESEARCH:".length()) : recipeKey;
+            List<TC4RecipeRuntimeBridge.OriginalRecipe> byResearch = TC4RecipeRuntimeBridge.byResearch(researchKey);
             if (!byResearch.isEmpty()) {
                 recipe = byResearch.get(0);
             }
@@ -364,7 +398,28 @@ public class TC4ResearchPageScreen extends Screen {
         if (upper.contains("INFUSION")) return "Infusion Recipe";
         if (upper.contains("CRUCIBLE")) return "Crucible Recipe";
         if (upper.contains("SMELT")) return "Smelting Recipe";
+        if (upper.contains("COMPOUND")) return "Compound TC4 Recipe";
+        if (upper.contains("ITEMSTACK_PAGE")) return "Original ItemStack Page";
         return "Crafting Recipe";
+    }
+
+    private String pageTypeLabel(String type) {
+        if (type == null || type.isBlank()) {
+            return "TEXT";
+        }
+        int delimiter = type.indexOf(':');
+        if (delimiter > 0) {
+            return type.substring(0, delimiter);
+        }
+        return type;
+    }
+
+    private String gatedResearchKey(String type) {
+        if (type == null) {
+            return "";
+        }
+        String prefix = "TEXT_RESEARCH_GATED:";
+        return type.startsWith(prefix) ? type.substring(prefix.length()) : "";
     }
 
     private List<FormattedCharSequence> splitText(String text, int width) {

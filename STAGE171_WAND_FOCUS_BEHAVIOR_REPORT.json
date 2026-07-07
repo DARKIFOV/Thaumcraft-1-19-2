@@ -1,0 +1,21 @@
+{
+  "stage": 171,
+  "strict_original": true,
+  "status": "completed",
+  "focus_batch": [
+    "fire",
+    "frost",
+    "shock",
+    "excavation",
+    "equal_trade",
+    "primal"
+  ],
+  "remaining_focus_work": [
+    "portable_hole",
+    "warding",
+    "hellbat",
+    "pech",
+    "focus upgrades",
+    "projectile entity ports"
+  ]
+}

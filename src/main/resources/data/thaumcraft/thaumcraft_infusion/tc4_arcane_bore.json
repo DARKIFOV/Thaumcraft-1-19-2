@@ -1,0 +1,31 @@
+{
+  "tc4_key": "ArcaneBore",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ARCANEBORE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:obsidian",
+  "components": [
+    "thaumcraft:tc4_block_greatwood_planks",
+    "thaumcraft:tc4_block_greatwood_planks",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:bowl",
+    "minecraft:mushroom_stew",
+    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:tc4_shard_terra"
+  ],
+  "aspects": {
+    "POTENTIA": 16,
+    "PERFODIO": 32,
+    "MACHINA": 32,
+    "VACUOS": 16,
+    "MOTUS": 16
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_block_arcane_bore",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

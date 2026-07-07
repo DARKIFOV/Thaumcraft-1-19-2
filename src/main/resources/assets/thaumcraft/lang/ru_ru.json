@@ -795,5 +795,9 @@
   "entity.thaumcraft.crimson_cultist": "Багровый культист",
   "entity.thaumcraft.crimson_knight": "Багровый рыцарь",
   "entity.thaumcraft.crimson_cleric": "Багровый клирик",
-  "entity.thaumcraft.crimson_praetor": "Багровый претор"
+  "entity.thaumcraft.crimson_praetor": "Багровый претор",
+  "block.thaumcraft.taint_crust": "Таинтовая корка",
+  "block.thaumcraft.taint_soil": "Таинтовая почва",
+  "block.thaumcraft.flesh_block": "Блок плоти",
+  "block.thaumcraft.taint_fibres": "Таинтовые волокна"
 }

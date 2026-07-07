@@ -1,0 +1,23 @@
+{
+  "stage": 175,
+  "title": "TC4 wand focus upgrade effect parity batch 1",
+  "version": "1.76.0",
+  "implemented": [
+    "ItemWandCasting-style frugal vis modifier: focus frugal ranks subtract 0.1 per rank after cap modifier with original 0.1 floor",
+    "Dynamic original focus vis costs for fireball/firebeam/frost scatter/boulder/shock chain/earthshock/excavation silk/dowsing/equal trade silk/portable hole/primal random primal cost",
+    "Original cooldown branches for fireball, frost scatter/boulder, shock chain/earthshock and primal",
+    "Potency effects for Fireball strength, FrostShard damage/count, Shock/Chain damage and Earthshock damage",
+    "Enlarge effects for Earthshock area, Portable Hole distance, Equal Trade target plane and Excavation adjacent block attempts",
+    "Extend effect for Portable Hole duration",
+    "Treasure/Silk Touch excavation drop adapter through vanilla Forge 1.19.2 loot context rather than fake drops"
+  ],
+  "adapters": [
+    "Excavation treasure/silk touch uses an enchanted tool ItemStack passed to Block.dropResources because TC4 BlockUtils.harvestBlock does not exist in Forge 1.19.2",
+    "Portable Hole extra tunnel cost is measured first and charged before opening the tunnel; cast() already charges the first base cost"
+  ],
+  "deferred": [
+    "Architect-mode area selection GUI/preview for Warding and Equal Trade",
+    "Exact server beam geometry from the original ItemFocusShock renderer path",
+    "Hellbat/other non-requested focus branches"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "stage": 176,
+  "source_truth": [
+    "thaumcraft.client.renderers.entity.projectile.RenderFrostShard",
+    "thaumcraft.client.renderers.entity.projectile.RenderExplosiveOrb",
+    "thaumcraft.client.renderers.entity.projectile.RenderElectricOrb",
+    "thaumcraft.client.renderers.entity.projectile.RenderPrimalOrb",
+    "thaumcraft.common.entities.projectile.EntityFrostShard",
+    "thaumcraft.common.entities.projectile.EntityExplosiveOrb",
+    "thaumcraft.common.entities.projectile.EntityShockOrb",
+    "thaumcraft.common.entities.projectile.EntityPrimalOrb"
+  ],
+  "textures": [
+    "textures/original/thaumcraft4/blocks/frostshard.png",
+    "textures/original/thaumcraft4/misc/particles.png",
+    "textures/original/thaumcraft4/misc/particles2.png",
+    "textures/original/thaumcraft4/models/orb.obj"
+  ],
+  "adapters": [
+    "GL11/ParticleEngine billboard renderers converted to Forge 1.19.2 EntityRenderer translucent quads",
+    "OBJ frost shard model retained as a deferred baked model adapter while original texture/frame/scale rules are used"
+  ]
+}

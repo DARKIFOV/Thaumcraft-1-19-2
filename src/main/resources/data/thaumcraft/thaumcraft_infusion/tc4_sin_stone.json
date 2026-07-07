@@ -1,0 +1,26 @@
+{
+  "tc4_key": "SinStone",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "SINSTONE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:paper",
+  "components": [
+    "thaumcraft:tc4_nitor",
+    "thaumcraft:tc4_shard_ordo",
+    "thaumcraft:tc4_knowledgefragment",
+    "thaumcraft:tc4_shard_perditio"
+  ],
+  "aspects": {
+    "SENSUS": 8,
+    "TENEBRAE": 8,
+    "ALIENIS": 8,
+    "AURAM": 8
+  },
+  "instability": 5,
+  "result": {
+    "item": "thaumcraft:tc4_compassstone",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

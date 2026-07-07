@@ -1,0 +1,282 @@
+{
+  "stage": 153,
+  "version": "1.53.0",
+  "source_of_truth": [
+    "Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java",
+    "tc4_stage121_materialized_recipes.json",
+    "tc4_stage121_unresolved_recipes.json"
+  ],
+  "strict_rule": "Only recipes resolved from original TC4 ConfigRecipes are materialized in strict TC4 runtime paths. Unresolved ore dictionary/enchantment/smelting entries remain explicit data, not invented replacements.",
+  "stage153_created_infusion_json_count": 17,
+  "stage153_created_infusion_json": [
+    "data/thaumcraft/thaumcraft_infusion/tc4_core_lumber.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_core_fishing.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_core_use.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_arcane_bore.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_lamp_growth.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_lamp_fertility.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_thaumium_fortress_helm.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_thaumium_fortress_chest.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_thaumium_fortress_legs.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_void_robe_helm.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_void_robe_chest.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_void_robe_legs.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_sanity_check.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_essentia_reservoir.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_sin_stone.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_primal_crusher.json",
+    "data/thaumcraft/thaumcraft_infusion/tc4_eldritch_eye.json"
+  ],
+  "stage121_materialized_recipe_count": 189,
+  "runtime_tc4_custom_recipe_count_after_stage153": 160,
+  "runtime_tc4_custom_recipe_counts_by_kind": {
+    "CRUCIBLE": 50,
+    "ARCANE_SHAPED": 69,
+    "ARCANE_SHAPELESS": 2,
+    "INFUSION": 39
+  },
+  "materialized_but_not_custom_runtime_count": 29,
+  "materialized_but_not_custom_runtime_counts_by_kind": {
+    "INFUSION_ENCHANTMENT": 24,
+    "SMELTING": 5
+  },
+  "materialized_but_not_custom_runtime_keys": [
+    {
+      "key": "InfEnchRepair",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnchHaste",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch0",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch1",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch2",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch3",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch4",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch5",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch6",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch7",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch8",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch9",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch10",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch11",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch12",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch13",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch14",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch15",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch16",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch17",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch18",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch19",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch20",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "InfEnch21",
+      "kind": "INFUSION_ENCHANTMENT",
+      "research": "INFUSIONENCHANTMENT",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "Smelting_4",
+      "kind": "SMELTING",
+      "research": "",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "Smelting_5",
+      "kind": "SMELTING",
+      "research": "",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "Smelting_6",
+      "kind": "SMELTING",
+      "research": "",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "Smelting_7",
+      "kind": "SMELTING",
+      "research": "",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    },
+    {
+      "key": "Smelting_8",
+      "kind": "SMELTING",
+      "research": "",
+      "reason": "runtime serializer not implemented yet for this original TC4 recipe kind"
+    }
+  ],
+  "stage121_unresolved_recipe_count": 54,
+  "stage121_unresolved_counts_by_kind": {
+    "CRUCIBLE": 4,
+    "ARCANE_SHAPED": 20,
+    "ARCANE_SHAPELESS": 3,
+    "INFUSION": 24,
+    "SMELTING": 3
+  },
+  "non_original_or_placeholder_runtime_json_count": 51,
+  "non_original_or_placeholder_runtime_json_paths": [
+    "data/thaumcraft/thaumcraft_alchemy/alchemy_dust.json",
+    "data/thaumcraft/thaumcraft_alchemy/alchemy_dust_original_catalyst.json",
+    "data/thaumcraft/thaumcraft_alchemy/alchemy_dust_original_style.json",
+    "data/thaumcraft/thaumcraft_alchemy/flux_crystal.json",
+    "data/thaumcraft/thaumcraft_alchemy/flux_crystal_original_catalyst.json",
+    "data/thaumcraft/thaumcraft_alchemy/flux_crystal_original_style.json",
+    "data/thaumcraft/thaumcraft_alchemy/glowstone_dust.json",
+    "data/thaumcraft/thaumcraft_alchemy/nitor.json",
+    "data/thaumcraft/thaumcraft_alchemy/nitor_original_catalyst.json",
+    "data/thaumcraft/thaumcraft_alchemy/nitor_original_style.json",
+    "data/thaumcraft/thaumcraft_alchemy/quicksilver_drop_original_style.json",
+    "data/thaumcraft/thaumcraft_alchemy/tainted_slime_original_catalyst.json",
+    "data/thaumcraft/thaumcraft_alchemy/tainted_slime_original_style.json",
+    "data/thaumcraft/thaumcraft_alchemy/thaumium_ingot.json",
+    "data/thaumcraft/thaumcraft_alchemy/thaumium_ingot_original_catalyst.json",
+    "data/thaumcraft/thaumcraft_alchemy/thaumium_ingot_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_arrow.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_blink.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_destroy.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_dispel.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_exchange.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_experience.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_fire_original_json_sync_test.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_freeze.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_heal.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_pech_summon.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_pouch_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_return.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_smelting.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/focus_speed.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/goggles_of_revealing.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/goggles_of_revealing_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/golem_core_arcane.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/golem_core_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/greatwood_wand.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/greatwood_wand_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/greatwood_wand_original_tc4_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/research_note.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/silverwood_wand.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/silverwood_wand_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/silverwood_wand_original_tc4_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/thaumium_plate_original_style.json",
+    "data/thaumcraft/thaumcraft_arcane_workbench/thaumometer_original_style.json",
+    "data/thaumcraft/thaumcraft_infusion/infusion_core.json",
+    "data/thaumcraft/thaumcraft_infusion/infusion_core_original_style.json",
+    "data/thaumcraft/thaumcraft_infusion/primordial_pearl.json",
+    "data/thaumcraft/thaumcraft_infusion/primordial_pearl_original_style.json",
+    "data/thaumcraft/thaumcraft_infusion/unstable_singularity.json",
+    "data/thaumcraft/thaumcraft_infusion/unstable_singularity_original_style.json",
+    "data/thaumcraft/thaumcraft_infusion/void_metal_ingot.json",
+    "data/thaumcraft/thaumcraft_infusion/void_metal_ingot_original_style.json"
+  ],
+  "next_stage_recommendation": "Stage154 should add original infusion enchantment runtime/materialization and keep smelting/ore-dictionary entries unresolved until exact 1.19.2 equivalents are mapped."
+}

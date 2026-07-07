@@ -1,0 +1,20 @@
+{
+  "stage": 166,
+  "question": "Did the port drift away from original TC4?",
+  "answer": "Partially in Stage163 due to virtual slots; corrected in Stage165 with persistent two-slot table inventory.",
+  "corrected_deviation": [
+    "Stage163 virtual slot 0/1 is no longer the primary model",
+    "ResearchTableBlock is now BaseEntityBlock",
+    "ResearchTableBlockEntity owns slot 0 and slot 1",
+    "ResearchTableMenu exposes those slots to GUI"
+  ],
+  "remaining_intentional_adapters": [
+    "Forge 1.19.2 networking/menu code replaces 1.7.10 Container/Gui classes",
+    "Old held-note lookup remains as compatibility fallback only"
+  ],
+  "forbidden_for_future": [
+    "Do not invent research puzzle rules",
+    "Do not add approximate aspects",
+    "Do not create fake recipes to cover unresolved TC4 data"
+  ]
+}

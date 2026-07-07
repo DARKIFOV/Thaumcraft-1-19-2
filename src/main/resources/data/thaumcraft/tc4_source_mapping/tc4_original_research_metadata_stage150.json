@@ -1,0 +1,5007 @@
+[
+  {
+    "key": "BASICTHAUMATURGY",
+    "category": "THAUMATURGY",
+    "display_column": 0,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSFIRE",
+    "category": "THAUMATURGY",
+    "display_column": 2,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {
+      "IGNIS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "BASICTHAUMATURGY"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSFROST",
+    "category": "THAUMATURGY",
+    "display_column": 1,
+    "display_row": -5,
+    "complexity": 1,
+    "aspects": {
+      "AQUA": 3,
+      "PRAECANTATIO": 3,
+      "GELUM": 6
+    },
+    "parents": [
+      "FOCUSFIRE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSHELLBAT",
+    "category": "THAUMATURGY",
+    "display_column": 3,
+    "display_row": -7,
+    "complexity": 2,
+    "aspects": {
+      "ITER": 3,
+      "BESTIA": 6,
+      "IGNIS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [],
+    "parents_hidden": [
+      "FOCUSFIRE",
+      "INFUSION"
+    ],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 2,
+    "item_triggers_raw": [],
+    "entity_triggers": [
+      "Thaumcraft.Firebat"
+    ],
+    "aspect_triggers": [
+      "IGNIS"
+    ]
+  },
+  {
+    "key": "FOCUSEXCAVATION",
+    "category": "THAUMATURGY",
+    "display_column": 0,
+    "display_row": -3,
+    "complexity": 2,
+    "aspects": {
+      "TERRA": 3,
+      "PERDITIO": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "FOCUSFIRE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSWARDING",
+    "category": "THAUMATURGY",
+    "display_column": -2,
+    "display_row": -4,
+    "complexity": 3,
+    "aspects": {
+      "TERRA": 6,
+      "TUTAMEN": 3,
+      "ORDO": 3,
+      "COGNITIO": 3
+    },
+    "parents": [
+      "FOCUSEXCAVATION",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSSHOCK",
+    "category": "THAUMATURGY",
+    "display_column": 3,
+    "display_row": -5,
+    "complexity": 1,
+    "aspects": {
+      "AER": 3,
+      "POTENTIA": 6,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "FOCUSFIRE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSTRADE",
+    "category": "THAUMATURGY",
+    "display_column": 4,
+    "display_row": -3,
+    "complexity": 2,
+    "aspects": {
+      "TERRA": 3,
+      "PERMUTATIO": 6,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "FOCUSFIRE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSPORTABLEHOLE",
+    "category": "THAUMATURGY",
+    "display_column": 7,
+    "display_row": -2,
+    "complexity": 2,
+    "aspects": {
+      "ITER": 3,
+      "PERDITIO": 3,
+      "ALIENIS": 6,
+      "AER": 3
+    },
+    "parents": [
+      "FOCUSTRADE",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSPOUCH",
+    "category": "THAUMATURGY",
+    "display_column": 4,
+    "display_row": -1,
+    "complexity": 1,
+    "aspects": {
+      "VACUOS": 6,
+      "PRAECANTATIO": 3,
+      "INSTRUMENTUM": 3
+    },
+    "parents": [
+      "FOCUSFIRE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CAP_iron",
+    "category": "THAUMATURGY",
+    "display_column": 0,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CAP_gold",
+    "category": "THAUMATURGY",
+    "display_column": 3,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "LUCRUM": 3,
+      "INSTRUMENTUM": 3
+    },
+    "parents": [
+      "BASICTHAUMATURGY"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CAP_thaumium",
+    "category": "THAUMATURGY",
+    "display_column": 5,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "METALLUM": 6,
+      "PRAECANTATIO": 6,
+      "INSTRUMENTUM": 3,
+      "AURAM": 3
+    },
+    "parents": [
+      "CAP_gold",
+      "THAUMIUM",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CAP_copper",
+    "category": "THAUMATURGY",
+    "display_column": 2,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 3,
+      "INSTRUMENTUM": 3
+    },
+    "parents": [
+      "BASICTHAUMATURGY"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CAP_silver",
+    "category": "THAUMATURGY",
+    "display_column": 5,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "LUCRUM": 3,
+      "INSTRUMENTUM": 3,
+      "AURAM": 3
+    },
+    "parents": [
+      "CAP_gold",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_wood",
+    "category": "THAUMATURGY",
+    "display_column": 0,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_greatwood",
+    "category": "THAUMATURGY",
+    "display_column": -5,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "ARBOR": 6,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "BASICTHAUMATURGY"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_reed",
+    "category": "THAUMATURGY",
+    "display_column": -5,
+    "display_row": -1,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "AER": 6,
+      "HERBA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_blaze",
+    "category": "THAUMATURGY",
+    "display_column": -7,
+    "display_row": 0,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "IGNIS": 6,
+      "POTENTIA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_obsidian",
+    "category": "THAUMATURGY",
+    "display_column": -8,
+    "display_row": 2,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "TERRA": 6,
+      "IGNIS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_ice",
+    "category": "THAUMATURGY",
+    "display_column": -7,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "GELUM": 6,
+      "AQUA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_quartz",
+    "category": "THAUMATURGY",
+    "display_column": -5,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "ORDO": 6,
+      "VITREUS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_bone",
+    "category": "THAUMATURGY",
+    "display_column": -3,
+    "display_row": 0,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "PERDITIO": 6,
+      "EXANIMIS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_silverwood",
+    "category": "THAUMATURGY",
+    "display_column": -2,
+    "display_row": 5,
+    "complexity": 3,
+    "aspects": {
+      "INSTRUMENTUM": 6,
+      "ARBOR": 6,
+      "PRAECANTATIO": 9
+    },
+    "parents": [
+      "ROD_greatwood",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "SCEPTRE",
+    "category": "THAUMATURGY",
+    "display_column": 0,
+    "display_row": 4,
+    "complexity": 3,
+    "aspects": {
+      "INSTRUMENTUM": 6,
+      "FABRICO": 6,
+      "ARBOR": 6,
+      "PRAECANTATIO": 9
+    },
+    "parents": [
+      "ROD_silverwood"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_greatwood_staff",
+    "category": "THAUMATURGY",
+    "display_column": -1,
+    "display_row": 7,
+    "complexity": 1,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "ARBOR": 6,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_silverwood"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_reed_staff",
+    "category": "THAUMATURGY",
+    "display_column": -5,
+    "display_row": -2,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "AER": 6,
+      "HERBA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_reed"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_blaze_staff",
+    "category": "THAUMATURGY",
+    "display_column": -8,
+    "display_row": -1,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "IGNIS": 6,
+      "POTENTIA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_blaze"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_obsidian_staff",
+    "category": "THAUMATURGY",
+    "display_column": -9,
+    "display_row": 2,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "TERRA": 6,
+      "IGNIS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_obsidian"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_ice_staff",
+    "category": "THAUMATURGY",
+    "display_column": -8,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "GELUM": 6,
+      "AQUA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_ice"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_quartz_staff",
+    "category": "THAUMATURGY",
+    "display_column": -4,
+    "display_row": 6,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "ORDO": 6,
+      "VITREUS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_quartz"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_bone_staff",
+    "category": "THAUMATURGY",
+    "display_column": -2,
+    "display_row": -1,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "PERDITIO": 6,
+      "EXANIMIS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "ROD_bone"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_silverwood_staff",
+    "category": "THAUMATURGY",
+    "display_column": -1,
+    "display_row": 5,
+    "complexity": 3,
+    "aspects": {
+      "INSTRUMENTUM": 6,
+      "ARBOR": 6,
+      "PRAECANTATIO": 9
+    },
+    "parents": [
+      "ROD_silverwood"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "WANDPED",
+    "category": "THAUMATURGY",
+    "display_column": -9,
+    "display_row": -6,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 6,
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3,
+      "POTENTIA": 3
+    },
+    "parents": [
+      "INFUSION",
+      "NODEPRESERVE",
+      "NODESTABILIZER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "VISAMULET",
+    "category": "THAUMATURGY",
+    "display_column": -9,
+    "display_row": -8,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 3,
+      "PRAECANTATIO": 6,
+      "POTENTIA": 3,
+      "VACUOS": 3
+    },
+    "parents": [
+      "WANDPED"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "WANDPEDFOC",
+    "category": "THAUMATURGY",
+    "display_column": -10,
+    "display_row": -7,
+    "complexity": 3,
+    "aspects": {
+      "AURAM": 6,
+      "PRAECANTATIO": 6,
+      "PERMUTATIO": 6,
+      "POTENTIA": 3,
+      "INSTRUMENTUM": 3
+    },
+    "parents": [
+      "WANDPED"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODESTABILIZER",
+    "category": "THAUMATURGY",
+    "display_column": -7,
+    "display_row": -4,
+    "complexity": 1,
+    "aspects": {
+      "AURAM": 4,
+      "ORDO": 4,
+      "POTENTIA": 4
+    },
+    "parents": [
+      "NODEPRESERVE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODESTABILIZERADV",
+    "category": "THAUMATURGY",
+    "display_column": -8,
+    "display_row": -3,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 9,
+      "PRAECANTATIO": 6,
+      "ORDO": 6,
+      "POTENTIA": 6
+    },
+    "parents": [
+      "NODESTABILIZER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "VISPOWER",
+    "category": "THAUMATURGY",
+    "display_column": -5,
+    "display_row": -6,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 3,
+      "MACHINA": 3,
+      "POTENTIA": 6
+    },
+    "parents": [
+      "NODESTABILIZER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "special"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "VISCHARGERELAY",
+    "category": "THAUMATURGY",
+    "display_column": -7,
+    "display_row": -6,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "AURAM": 3,
+      "MACHINA": 3,
+      "POTENTIA": 6
+    },
+    "parents": [
+      "VISPOWER",
+      "WANDPED"
+    ],
+    "parents_hidden": [
+      "ROD_greatwood"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCALMANIPULATION",
+    "category": "THAUMATURGY",
+    "display_column": -3,
+    "display_row": -8,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 8,
+      "INSTRUMENTUM": 8,
+      "FABRICO": 5,
+      "VITREUS": 5,
+      "POTENTIA": 5
+    },
+    "parents": [
+      "VISPOWER"
+    ],
+    "parents_hidden": [
+      "INFUSION",
+      "FOCUSFIRE"
+    ],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "VAMPBAT",
+    "category": "THAUMATURGY",
+    "display_column": 4,
+    "display_row": -8,
+    "complexity": 1,
+    "aspects": {
+      "FAMES": 5,
+      "VICTUS": 5,
+      "PRAECANTATIO": 5
+    },
+    "parents": [
+      "FOCUSHELLBAT"
+    ],
+    "parents_hidden": [
+      "FOCALMANIPULATION"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "BASICARTIFACE",
+    "category": "ARTIFICE",
+    "display_column": 0,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARCANESTONE",
+    "category": "ARTIFICE",
+    "display_column": 5,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GRATE",
+    "category": "ARTIFICE",
+    "display_column": 2,
+    "display_row": -1,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TABLE",
+    "category": "ARTIFICE",
+    "display_column": 0,
+    "display_row": -1,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARCTABLE",
+    "category": "ARTIFICE",
+    "display_column": -1,
+    "display_row": -3,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "TABLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RESTABLE",
+    "category": "ARTIFICE",
+    "display_column": 1,
+    "display_row": -3,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "TABLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "THAUMOMETER",
+    "category": "ARTIFICE",
+    "display_column": 2,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PAVETRAVEL",
+    "category": "ARTIFICE",
+    "display_column": 4,
+    "display_row": -4,
+    "complexity": 1,
+    "aspects": {
+      "ITER": 3,
+      "TERRA": 3,
+      "VOLATUS": 3
+    },
+    "parents": [
+      "ARCANESTONE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PAVEWARD",
+    "category": "ARTIFICE",
+    "display_column": 6,
+    "display_row": -4,
+    "complexity": 1,
+    "aspects": {
+      "MOTUS": 3,
+      "VINCULUM": 3,
+      "BESTIA": 3
+    },
+    "parents": [
+      "ARCANESTONE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOGGLES",
+    "category": "ARTIFICE",
+    "display_column": 4,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "SENSUS": 3,
+      "AURAM": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "THAUMOMETER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARCANEEAR",
+    "category": "ARTIFICE",
+    "display_column": 6,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {
+      "SENSUS": 3,
+      "POTENTIA": 3,
+      "AER": 3
+    },
+    "parents": [
+      "GOGGLES"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "SINSTONE",
+    "category": "ARTIFICE",
+    "display_column": 6,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "SENSUS": 3,
+      "TENEBRAE": 3,
+      "ALIENIS": 3,
+      "AURAM": 3
+    },
+    "parents": [
+      "GOGGLES"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 2,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "LEVITATOR",
+    "category": "ARTIFICE",
+    "display_column": -3,
+    "display_row": -3,
+    "complexity": 1,
+    "aspects": {
+      "MOTUS": 3,
+      "VOLATUS": 3,
+      "AER": 3
+    },
+    "parents": [
+      "NITOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "INFERNALFURNACE",
+    "category": "ARTIFICE",
+    "display_column": -4,
+    "display_row": -1,
+    "complexity": 2,
+    "aspects": {
+      "IGNIS": 6,
+      "METALLUM": 3,
+      "FABRICO": 3,
+      "AURAM": 3
+    },
+    "parents": [
+      "NITOR",
+      "ALUMENTUM"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 2,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "BELLOWS",
+    "category": "ARTIFICE",
+    "display_column": -6,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {
+      "AER": 6,
+      "MACHINA": 3,
+      "MOTUS": 3
+    },
+    "parents": [
+      "INFERNALFURNACE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ENCHFABRIC",
+    "category": "ARTIFICE",
+    "display_column": 0,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {
+      "PANNUS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "INFUSION",
+    "category": "ARTIFICE",
+    "display_column": -4,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 6,
+      "MACHINA": 3,
+      "FABRICO": 6
+    },
+    "parents": [
+      "DISTILESSENTIA"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FLUXSCRUB",
+    "category": "ARTIFICE",
+    "display_column": -8,
+    "display_row": -3,
+    "complexity": 1,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "VINCULUM": 3,
+      "AER": 3,
+      "AQUA": 3
+    },
+    "parents": [
+      "VISPOWER",
+      "BELLOWS",
+      "TUBES"
+    ],
+    "parents_hidden": [
+      "INFUSION"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RUNICARMOR",
+    "category": "ARTIFICE",
+    "display_column": 3,
+    "display_row": 4,
+    "complexity": 3,
+    "aspects": {
+      "TUTAMEN": 6,
+      "AER": 3,
+      "PRAECANTATIO": 3,
+      "POTENTIA": 3,
+      "COGNITIO": 3
+    },
+    "parents": [
+      "ENCHFABRIC"
+    ],
+    "parents_hidden": [
+      "INFUSION"
+    ],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RUNICCHARGED",
+    "category": "ARTIFICE",
+    "display_column": 2,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "TUTAMEN": 3,
+      "POTENTIA": 6
+    },
+    "parents": [
+      "RUNICARMOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RUNICHEALING",
+    "category": "ARTIFICE",
+    "display_column": 4,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "TUTAMEN": 3,
+      "SANO": 4,
+      "AQUA": 4
+    },
+    "parents": [
+      "RUNICARMOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RUNICKINETIC",
+    "category": "ARTIFICE",
+    "display_column": 2,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "TUTAMEN": 3,
+      "AER": 6
+    },
+    "parents": [
+      "RUNICARMOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RUNICEMERGENCY",
+    "category": "ARTIFICE",
+    "display_column": 4,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "TUTAMEN": 3,
+      "TERRA": 4,
+      "VACUOS": 4
+    },
+    "parents": [
+      "RUNICARMOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "BANNERS",
+    "category": "ARTIFICE",
+    "display_column": 4,
+    "display_row": 8,
+    "complexity": 1,
+    "aspects": {
+      "SENSUS": 3,
+      "PANNUS": 3,
+      "PRAECANTATIO": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigBlocks.blockWoodenDevice, 1, 8"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RUNICAUGMENTATION",
+    "category": "ARTIFICE",
+    "display_column": 6,
+    "display_row": 4,
+    "complexity": 1,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "TUTAMEN": 3,
+      "PERMUTATIO": 4,
+      "LUCRUM": 4
+    },
+    "parents": [
+      "RUNICARMOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "BOOTSTRAVELLER",
+    "category": "ARTIFICE",
+    "display_column": -1,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "ITER": 3,
+      "TERRA": 3,
+      "VOLATUS": 3,
+      "AQUA": 3
+    },
+    "parents": [
+      "ENCHFABRIC",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "HOVERHARNESS",
+    "category": "ARTIFICE",
+    "display_column": 1,
+    "display_row": 7,
+    "complexity": 3,
+    "aspects": {
+      "VOLATUS": 6,
+      "ITER": 6,
+      "AER": 6,
+      "MACHINA": 3
+    },
+    "parents": [
+      "BOOTSTRAVELLER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "HOVERGIRDLE",
+    "category": "ARTIFICE",
+    "display_column": 2,
+    "display_row": 7,
+    "complexity": 3,
+    "aspects": {
+      "VOLATUS": 6,
+      "ITER": 3,
+      "AER": 3,
+      "MOTUS": 6
+    },
+    "parents": [
+      "HOVERHARNESS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "VOLATUS"
+    ]
+  },
+  {
+    "key": "MIRROR",
+    "category": "ARTIFICE",
+    "display_column": -1,
+    "display_row": 8,
+    "complexity": 2,
+    "aspects": {
+      "ITER": 6,
+      "ALIENIS": 3,
+      "TENEBRAE": 3,
+      "VITREUS": 3
+    },
+    "parents": [
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigBlocks.blockMirror, 1, 0",
+      "Items.field_151079_bi",
+      "Blocks.field_150427_aO, 1, 32767",
+      "Blocks.field_150384_bq, 1, 32767",
+      "Blocks.field_150378_br, 1, 32767"
+    ],
+    "entity_triggers": [
+      "Enderman"
+    ],
+    "aspect_triggers": []
+  },
+  {
+    "key": "MIRRORHAND",
+    "category": "ARTIFICE",
+    "display_column": 1,
+    "display_row": 9,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 6,
+      "ALIENIS": 3,
+      "VITREUS": 3,
+      "ITER": 3
+    },
+    "parents": [
+      "MIRROR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "MIRRORESSENTIA",
+    "category": "ARTIFICE",
+    "display_column": -1,
+    "display_row": 10,
+    "complexity": 2,
+    "aspects": {
+      "ITER": 6,
+      "ALIENIS": 3,
+      "AQUA": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "MIRROR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARCANEBORE",
+    "category": "ARTIFICE",
+    "display_column": -3,
+    "display_row": 8,
+    "complexity": 2,
+    "aspects": {
+      "PERFODIO": 6,
+      "MOTUS": 3,
+      "MACHINA": 3,
+      "INSTRUMENTUM": 3
+    },
+    "parents": [
+      "FOCUSEXCAVATION",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARCANELAMP",
+    "category": "ARTIFICE",
+    "display_column": -3,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "LUX": 3,
+      "SENSUS": 3,
+      "TENEBRAE": 3
+    },
+    "parents": [
+      "NITOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "LAMPGROWTH",
+    "category": "ARTIFICE",
+    "display_column": -4,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "LUX": 3,
+      "HERBA": 6,
+      "VICTUS": 3,
+      "MESSIS": 3
+    },
+    "parents": [
+      "ARCANELAMP",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "LUX",
+      "MESSIS"
+    ]
+  },
+  {
+    "key": "LAMPFERTILITY",
+    "category": "ARTIFICE",
+    "display_column": -2,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "BESTIA": 6,
+      "VICTUS": 6,
+      "LUX": 3
+    },
+    "parents": [
+      "ARCANELAMP",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "LUX",
+      "VICTUS"
+    ]
+  },
+  {
+    "key": "BONEBOW",
+    "category": "ARTIFICE",
+    "display_column": -7,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "TELUM": 3,
+      "AER": 3,
+      "MOTUS": 3
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigItems.itemBowBone",
+      "Items.field_151031_f, 1, 32767",
+      "Items.field_151103_aS"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PRIMALARROW",
+    "category": "ARTIFICE",
+    "display_column": -9,
+    "display_row": 0,
+    "complexity": 2,
+    "aspects": {
+      "TELUM": 3,
+      "AER": 3,
+      "IGNIS": 3,
+      "AQUA": 3,
+      "TERRA": 3,
+      "ORDO": 3,
+      "PERDITIO": 3
+    },
+    "parents": [
+      "BONEBOW"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELEMENTALAXE",
+    "category": "ARTIFICE",
+    "display_column": -7,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "AQUA": 3,
+      "MOTUS": 3
+    },
+    "parents": [
+      "THAUMIUM",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELEMENTALPICK",
+    "category": "ARTIFICE",
+    "display_column": -7,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "IGNIS": 3,
+      "SENSUS": 3
+    },
+    "parents": [
+      "THAUMIUM",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELEMENTALSWORD",
+    "category": "ARTIFICE",
+    "display_column": -7,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "TELUM": 3,
+      "AER": 3,
+      "POTENTIA": 3
+    },
+    "parents": [
+      "THAUMIUM",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELEMENTALSHOVEL",
+    "category": "ARTIFICE",
+    "display_column": -7,
+    "display_row": 6,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "TERRA": 3,
+      "FABRICO": 3
+    },
+    "parents": [
+      "THAUMIUM",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELEMENTALHOE",
+    "category": "ARTIFICE",
+    "display_column": -7,
+    "display_row": 7,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "VICTUS": 3,
+      "MESSIS": 3
+    },
+    "parents": [
+      "THAUMIUM",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "WARDEDARCANA",
+    "category": "ARTIFICE",
+    "display_column": -5,
+    "display_row": -4,
+    "complexity": 2,
+    "aspects": {
+      "INSTRUMENTUM": 6,
+      "COGNITIO": 3,
+      "MACHINA": 3,
+      "TUTAMEN": 3
+    },
+    "parents": [
+      "THAUMIUM"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "JARBRAIN",
+    "category": "ARTIFICE",
+    "display_column": -5,
+    "display_row": 9,
+    "complexity": 2,
+    "aspects": {
+      "FAMES": 3,
+      "COGNITIO": 3,
+      "EXANIMIS": 3,
+      "LUCRUM": 3
+    },
+    "parents": [
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 3,
+    "item_triggers_raw": [
+      "ConfigBlocks.blockJar, 1, 1",
+      "ConfigItems.itemResource, 1, 3"
+    ],
+    "entity_triggers": [
+      "Thaumcraft.BrainyZombie",
+      "Thaumcraft.GiantBrainyZombie"
+    ],
+    "aspect_triggers": []
+  },
+  {
+    "key": "INFUSIONENCHANTMENT",
+    "category": "ARTIFICE",
+    "display_column": -6,
+    "display_row": 11,
+    "complexity": 3,
+    "aspects": {
+      "PRAECANTATIO": 6,
+      "COGNITIO": 3,
+      "TELUM": 3,
+      "TUTAMEN": 3,
+      "INSTRUMENTUM": 3
+    },
+    "parents": [
+      "JARBRAIN"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARMORFORTRESS",
+    "category": "ARTIFICE",
+    "display_column": -8,
+    "display_row": 9,
+    "complexity": 2,
+    "aspects": {
+      "METALLUM": 3,
+      "TUTAMEN": 5,
+      "FABRICO": 5
+    },
+    "parents": [
+      "THAUMIUM",
+      "INFUSIONENCHANTMENT"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TUTAMEN"
+    ]
+  },
+  {
+    "key": "HELMGOGGLES",
+    "category": "ARTIFICE",
+    "display_column": -9,
+    "display_row": 7,
+    "complexity": 2,
+    "aspects": {
+      "SENSUS": 5,
+      "AURAM": 3,
+      "TUTAMEN": 3
+    },
+    "parents": [
+      "ARMORFORTRESS"
+    ],
+    "parents_hidden": [
+      "GOGGLES"
+    ],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "MASKGRINNINGDEVIL",
+    "category": "ARTIFICE",
+    "display_column": -10,
+    "display_row": 8,
+    "complexity": 2,
+    "aspects": {
+      "SANO": 5,
+      "COGNITIO": 5,
+      "TUTAMEN": 3
+    },
+    "parents": [
+      "ARMORFORTRESS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "MASKANGRYGHOST",
+    "category": "ARTIFICE",
+    "display_column": -10,
+    "display_row": 9,
+    "complexity": 2,
+    "aspects": {
+      "PERDITIO": 5,
+      "MORTUUS": 5,
+      "TUTAMEN": 3
+    },
+    "parents": [
+      "ARMORFORTRESS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "MASKSIPPINGFIEND",
+    "category": "ARTIFICE",
+    "display_column": -10,
+    "display_row": 10,
+    "complexity": 2,
+    "aspects": {
+      "EXANIMIS": 5,
+      "VICTUS": 5,
+      "TUTAMEN": 3
+    },
+    "parents": [
+      "ARMORFORTRESS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PHIAL",
+    "category": "ALCHEMY",
+    "display_column": 0,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CRUCIBLE",
+    "category": "ALCHEMY",
+    "display_column": 0,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NITOR",
+    "category": "ALCHEMY",
+    "display_column": 2,
+    "display_row": -1,
+    "complexity": 1,
+    "aspects": {
+      "LUX": 3,
+      "IGNIS": 1
+    },
+    "parents": [
+      "CRUCIBLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ALUMENTUM",
+    "category": "ALCHEMY",
+    "display_column": 2,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "POTENTIA": 3,
+      "IGNIS": 1
+    },
+    "parents": [
+      "CRUCIBLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ALCHEMICALDUPLICATION",
+    "category": "ALCHEMY",
+    "display_column": -4,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "LUCRUM": 3,
+      "FABRICO": 3
+    },
+    "parents": [
+      "TALLOW"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ALCHEMICALMANUFACTURE",
+    "category": "ALCHEMY",
+    "display_column": -5,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3,
+      "FABRICO": 3
+    },
+    "parents": [
+      "ALCHEMICALDUPLICATION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ENTROPICPROCESSING",
+    "category": "ALCHEMY",
+    "display_column": -6,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "PRAECANTATIO": 1,
+      "PERDITIO": 3,
+      "FABRICO": 1
+    },
+    "parents": [
+      "ALCHEMICALDUPLICATION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "LIQUIDDEATH",
+    "category": "ALCHEMY",
+    "display_column": -7,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "MORTUUS": 3,
+      "VENENUM": 3,
+      "PERDITIO": 1,
+      "AQUA": 1
+    },
+    "parents": [
+      "ENTROPICPROCESSING"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 3,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "MORTUUS",
+      "VENENUM"
+    ]
+  },
+  {
+    "key": "BOTTLETAINT",
+    "category": "ALCHEMY",
+    "display_column": -8,
+    "display_row": 1,
+    "complexity": 2,
+    "aspects": {
+      "VITIUM": 5,
+      "PRAECANTATIO": 3,
+      "PERDITIO": 1,
+      "AQUA": 1
+    },
+    "parents": [
+      "ENTROPICPROCESSING"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 2,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "VITIUM"
+    ]
+  },
+  {
+    "key": "THAUMIUM",
+    "category": "ALCHEMY",
+    "display_column": -1,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "CRUCIBLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "METALLUM"
+    ]
+  },
+  {
+    "key": "PUREIRON",
+    "category": "ALCHEMY",
+    "display_column": -2,
+    "display_row": 5,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "ORDO": 3
+    },
+    "parents": [
+      "THAUMIUM"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PUREGOLD",
+    "category": "ALCHEMY",
+    "display_column": -4,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "ORDO": 2,
+      "LUCRUM": 1
+    },
+    "parents": [
+      "PUREIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PURECOPPER",
+    "category": "ALCHEMY",
+    "display_column": -4,
+    "display_row": 5,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "ORDO": 2,
+      "PERMUTATIO": 1
+    },
+    "parents": [
+      "PUREIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PURETIN",
+    "category": "ALCHEMY",
+    "display_column": -4,
+    "display_row": 7,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "ORDO": 2,
+      "VITREUS": 1
+    },
+    "parents": [
+      "PUREIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PURESILVER",
+    "category": "ALCHEMY",
+    "display_column": -3,
+    "display_row": 8,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "ORDO": 2,
+      "LUCRUM": 1
+    },
+    "parents": [
+      "PUREIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PURELEAD",
+    "category": "ALCHEMY",
+    "display_column": -2,
+    "display_row": 9,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "ORDO": 3
+    },
+    "parents": [
+      "PUREIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRANSIRON",
+    "category": "ALCHEMY",
+    "display_column": 0,
+    "display_row": 5,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "THAUMIUM"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRANSGOLD",
+    "category": "ALCHEMY",
+    "display_column": 2,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "TRANSIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRANSCOPPER",
+    "category": "ALCHEMY",
+    "display_column": 2,
+    "display_row": 5,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "TRANSIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRANSTIN",
+    "category": "ALCHEMY",
+    "display_column": 2,
+    "display_row": 7,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 2,
+      "VITREUS": 1
+    },
+    "parents": [
+      "TRANSIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRANSSILVER",
+    "category": "ALCHEMY",
+    "display_column": 1,
+    "display_row": 8,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 2,
+      "LUCRUM": 1
+    },
+    "parents": [
+      "TRANSIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRANSLEAD",
+    "category": "ALCHEMY",
+    "display_column": 0,
+    "display_row": 9,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 3,
+      "PERMUTATIO": 2,
+      "ORDO": 1
+    },
+    "parents": [
+      "TRANSIRON"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TALLOW",
+    "category": "ALCHEMY",
+    "display_column": -2,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {
+      "CORPUS": 3,
+      "PRAECANTATIO": 1
+    },
+    "parents": [
+      "CRUCIBLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ETHEREALBLOOM",
+    "category": "ALCHEMY",
+    "display_column": -2,
+    "display_row": -3,
+    "complexity": 2,
+    "aspects": {
+      "PRAECANTATIO": 1,
+      "HERBA": 6,
+      "SANO": 3,
+      "VITIUM": 6
+    },
+    "parents": [
+      "CRUCIBLE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "VITIUM"
+    ]
+  },
+  {
+    "key": "BATHSALTS",
+    "category": "ALCHEMY",
+    "display_column": -4,
+    "display_row": -4,
+    "complexity": 2,
+    "aspects": {
+      "COGNITIO": 3,
+      "AURAM": 3,
+      "ORDO": 3,
+      "SANO": 3
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "SANESOAP",
+    "category": "ALCHEMY",
+    "display_column": -3,
+    "display_row": -6,
+    "complexity": 1,
+    "aspects": {
+      "COGNITIO": 5,
+      "ORDO": 5,
+      "SANO": 5,
+      "ALIENIS": 5
+    },
+    "parents": [
+      "BATHSALTS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARCANESPA",
+    "category": "ALCHEMY",
+    "display_column": -6,
+    "display_row": -5,
+    "complexity": 1,
+    "aspects": {
+      "AQUA": 3,
+      "MACHINA": 3,
+      "ORDO": 3
+    },
+    "parents": [
+      "BATHSALTS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "DISTILESSENTIA",
+    "category": "ALCHEMY",
+    "display_column": 5,
+    "display_row": -1,
+    "complexity": 1,
+    "aspects": {
+      "PRAECANTATIO": 3,
+      "AQUA": 3,
+      "LIMUS": 3
+    },
+    "parents": [
+      "NITOR",
+      "ALUMENTUM"
+    ],
+    "parents_hidden": [],
+    "siblings": [
+      "JARLABEL"
+    ],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "JARLABEL",
+    "category": "ALCHEMY",
+    "display_column": 4,
+    "display_row": -3,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "DISTILESSENTIA"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "JARVOID",
+    "category": "ALCHEMY",
+    "display_column": 5,
+    "display_row": -5,
+    "complexity": 1,
+    "aspects": {
+      "AQUA": 3,
+      "PERDITIO": 3,
+      "VACUOS": 6
+    },
+    "parents": [
+      "JARLABEL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TUBES",
+    "category": "ALCHEMY",
+    "display_column": 7,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {
+      "AQUA": 3,
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "DISTILESSENTIA"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TUBEFILTER",
+    "category": "ALCHEMY",
+    "display_column": 9,
+    "display_row": 1,
+    "complexity": 2,
+    "aspects": {
+      "AQUA": 3,
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3,
+      "ORDO": 3
+    },
+    "parents": [
+      "TUBES"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ESSENTIACRYSTAL",
+    "category": "ALCHEMY",
+    "display_column": 8,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {
+      "AQUA": 5,
+      "VITREUS": 5,
+      "PERMUTATIO": 3,
+      "PRAECANTATIO": 5
+    },
+    "parents": [
+      "TUBES"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CENTRIFUGE",
+    "category": "ALCHEMY",
+    "display_column": 10,
+    "display_row": 0,
+    "complexity": 2,
+    "aspects": {
+      "PERDITIO": 3,
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3,
+      "FABRICO": 3
+    },
+    "parents": [
+      "TUBEFILTER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "THAUMATORIUM",
+    "category": "ALCHEMY",
+    "display_column": 10,
+    "display_row": -2,
+    "complexity": 3,
+    "aspects": {
+      "AQUA": 3,
+      "PRAECANTATIO": 6,
+      "PERMUTATIO": 3,
+      "FABRICO": 3
+    },
+    "parents": [
+      "CENTRIFUGE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "HUNGRYCHEST",
+    "category": "GOLEMANCY",
+    "display_column": -1,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {
+      "FAMES": 3,
+      "VACUOS": 3
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMFETTER",
+    "category": "GOLEMANCY",
+    "display_column": 4,
+    "display_row": 8,
+    "complexity": 1,
+    "aspects": {
+      "VINCULUM": 3,
+      "MACHINA": 3
+    },
+    "parents": [
+      "GOLEMSTONE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TRAVELTRUNK",
+    "category": "GOLEMANCY",
+    "display_column": 0,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 3,
+      "ITER": 3,
+      "ARBOR": 3,
+      "VACUOS": 3
+    },
+    "parents": [
+      "INFUSION",
+      "GOLEMWOOD"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMSTRAW",
+    "category": "GOLEMANCY",
+    "display_column": 0,
+    "display_row": 2,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 3,
+      "MOTUS": 3,
+      "MESSIS": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "HUNGRYCHEST"
+    ],
+    "parents_hidden": [],
+    "siblings": [
+      "COREGATHER",
+      "GOLEMBELL"
+    ],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMWOOD",
+    "category": "GOLEMANCY",
+    "display_column": 2,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 4,
+      "MOTUS": 4,
+      "ARBOR": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMSTRAW"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMTALLOW",
+    "category": "GOLEMANCY",
+    "display_column": 4,
+    "display_row": 6,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 3,
+      "MOTUS": 3,
+      "CORPUS": 3,
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMCLAY",
+      "TALLOW"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMCLAY",
+    "category": "GOLEMANCY",
+    "display_column": 2,
+    "display_row": 6,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 6,
+      "MOTUS": 6,
+      "TERRA": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMWOOD"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMFLESH",
+    "category": "GOLEMANCY",
+    "display_column": 4,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 7,
+      "MOTUS": 7,
+      "CORPUS": 6,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMWOOD"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 3,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMSTONE",
+    "category": "GOLEMANCY",
+    "display_column": 2,
+    "display_row": 8,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 6,
+      "MOTUS": 6,
+      "TERRA": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMCLAY"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMIRON",
+    "category": "GOLEMANCY",
+    "display_column": 0,
+    "display_row": 10,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 9,
+      "MOTUS": 9,
+      "METALLUM": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMSTONE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMTHAUMIUM",
+    "category": "GOLEMANCY",
+    "display_column": 2,
+    "display_row": 10,
+    "complexity": 2,
+    "aspects": {
+      "SPIRITUS": 10,
+      "MOTUS": 10,
+      "METALLUM": 3,
+      "PRAECANTATIO": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "GOLEMIRON",
+      "THAUMIUM"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "GOLEMBELL",
+    "category": "GOLEMANCY",
+    "display_column": 3,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "GOLEMSTRAW"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "stub"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREGATHER",
+    "category": "GOLEMANCY",
+    "display_column": -3,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "GOLEMSTRAW"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "stub",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREFILL",
+    "category": "GOLEMANCY",
+    "display_column": -5,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "FAMES": 3,
+      "PERMUTATIO": 3,
+      "VACUOS": 3
+    },
+    "parents": [
+      "COREGATHER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREEMPTY",
+    "category": "GOLEMANCY",
+    "display_column": -5,
+    "display_row": 1,
+    "complexity": 2,
+    "aspects": {
+      "VACUOS": 3,
+      "PERMUTATIO": 3,
+      "LUCRUM": 3
+    },
+    "parents": [
+      "COREGATHER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CORESORTING",
+    "category": "GOLEMANCY",
+    "display_column": -7,
+    "display_row": 2,
+    "complexity": 2,
+    "aspects": {
+      "VACUOS": 3,
+      "PERMUTATIO": 3,
+      "LUCRUM": 3,
+      "FAMES": 3
+    },
+    "parents": [
+      "COREEMPTY",
+      "COREFILL",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREUSE",
+    "category": "GOLEMANCY",
+    "display_column": -7,
+    "display_row": 0,
+    "complexity": 3,
+    "aspects": {
+      "INSTRUMENTUM": 3,
+      "PERMUTATIO": 3,
+      "MACHINA": 3,
+      "HUMANUS": 3
+    },
+    "parents": [
+      "COREEMPTY",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREHARVEST",
+    "category": "GOLEMANCY",
+    "display_column": -2,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "METO": 6,
+      "MESSIS": 3,
+      "ITER": 3
+    },
+    "parents": [
+      "COREGATHER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREFISHING",
+    "category": "GOLEMANCY",
+    "display_column": -2,
+    "display_row": 7,
+    "complexity": 2,
+    "aspects": {
+      "AQUA": 3,
+      "METO": 3,
+      "BESTIA": 3,
+      "FAMES": 3
+    },
+    "parents": [
+      "COREHARVEST",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CORELUMBER",
+    "category": "GOLEMANCY",
+    "display_column": -1,
+    "display_row": 7,
+    "complexity": 2,
+    "aspects": {
+      "ARBOR": 6,
+      "METO": 3,
+      "INSTRUMENTUM": 3,
+      "POTENTIA": 3
+    },
+    "parents": [
+      "COREHARVEST",
+      "ELEMENTALAXE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREGUARD",
+    "category": "GOLEMANCY",
+    "display_column": -4,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "TELUM": 3,
+      "VINCULUM": 3,
+      "SENSUS": 3
+    },
+    "parents": [
+      "COREGATHER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREBUTCHER",
+    "category": "GOLEMANCY",
+    "display_column": -3,
+    "display_row": 7,
+    "complexity": 2,
+    "aspects": {
+      "TELUM": 3,
+      "BESTIA": 3,
+      "SENSUS": 3,
+      "METO": 3
+    },
+    "parents": [
+      "COREGUARD",
+      "COREHARVEST"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CORELIQUID",
+    "category": "GOLEMANCY",
+    "display_column": -7,
+    "display_row": 4,
+    "complexity": 2,
+    "aspects": {
+      "AQUA": 3,
+      "PERMUTATIO": 3,
+      "ITER": 3
+    },
+    "parents": [
+      "COREFILL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "COREALCHEMY",
+    "category": "GOLEMANCY",
+    "display_column": -9,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "AQUA": 3,
+      "ITER": 3,
+      "PRAECANTATIO": 3,
+      "POTENTIA": 3
+    },
+    "parents": [
+      "CORELIQUID",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "UPGRADEAIR",
+    "category": "GOLEMANCY",
+    "display_column": 7,
+    "display_row": -3,
+    "complexity": 1,
+    "aspects": {
+      "AER": 6,
+      "MOTUS": 3
+    },
+    "parents": [
+      "GOLEMBELL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "UPGRADEEARTH",
+    "category": "GOLEMANCY",
+    "display_column": 6,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {
+      "TERRA": 6,
+      "VICTUS": 3
+    },
+    "parents": [
+      "GOLEMBELL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "UPGRADEFIRE",
+    "category": "GOLEMANCY",
+    "display_column": 5,
+    "display_row": -1,
+    "complexity": 1,
+    "aspects": {
+      "IGNIS": 6,
+      "POTENTIA": 3
+    },
+    "parents": [
+      "GOLEMBELL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "UPGRADEWATER",
+    "category": "GOLEMANCY",
+    "display_column": 5,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "AQUA": 6,
+      "SENSUS": 3
+    },
+    "parents": [
+      "GOLEMBELL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "UPGRADEORDER",
+    "category": "GOLEMANCY",
+    "display_column": 6,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "ORDO": 6,
+      "COGNITIO": 3
+    },
+    "parents": [
+      "GOLEMBELL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "UPGRADEENTROPY",
+    "category": "GOLEMANCY",
+    "display_column": 7,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {
+      "PERDITIO": 6,
+      "COGNITIO": 3
+    },
+    "parents": [
+      "GOLEMBELL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ADVANCEDGOLEM",
+    "category": "GOLEMANCY",
+    "display_column": 8,
+    "display_row": 0,
+    "complexity": 2,
+    "aspects": {
+      "VICTUS": 3,
+      "POTENTIA": 3,
+      "COGNITIO": 6,
+      "SENSUS": 3
+    },
+    "parents": [
+      "INFUSION",
+      "UPGRADEAIR",
+      "UPGRADEEARTH",
+      "UPGRADEFIRE",
+      "UPGRADEWATER",
+      "UPGRADEORDER",
+      "UPGRADEENTROPY"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 5,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "TINYHAT",
+    "category": "GOLEMANCY",
+    "display_column": 5,
+    "display_row": 10,
+    "complexity": 1,
+    "aspects": {
+      "PANNUS": 2,
+      "VICTUS": 1,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 0",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ]
+  },
+  {
+    "key": "TINYGLASSES",
+    "category": "GOLEMANCY",
+    "display_column": 6,
+    "display_row": 10,
+    "complexity": 1,
+    "aspects": {
+      "PANNUS": 2,
+      "SENSUS": 1,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 1",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ]
+  },
+  {
+    "key": "TINYBOWTIE",
+    "category": "GOLEMANCY",
+    "display_column": 7,
+    "display_row": 10,
+    "complexity": 1,
+    "aspects": {
+      "PANNUS": 2,
+      "ITER": 1,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 2",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ]
+  },
+  {
+    "key": "TINYFEZ",
+    "category": "GOLEMANCY",
+    "display_column": 8,
+    "display_row": 10,
+    "complexity": 1,
+    "aspects": {
+      "PANNUS": 2,
+      "POTENTIA": 1,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigItems.itemGolemDecoration, 1, 3",
+      "Blocks.field_150325_L, 1, 32767"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "PANNUS"
+    ]
+  },
+  {
+    "key": "TINYDART",
+    "category": "GOLEMANCY",
+    "display_column": 5,
+    "display_row": 11,
+    "complexity": 1,
+    "aspects": {
+      "VOLATUS": 1,
+      "TELUM": 2,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TELUM"
+    ]
+  },
+  {
+    "key": "TINYVISOR",
+    "category": "GOLEMANCY",
+    "display_column": 6,
+    "display_row": 11,
+    "complexity": 1,
+    "aspects": {
+      "SENSUS": 1,
+      "TUTAMEN": 2,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TUTAMEN"
+    ]
+  },
+  {
+    "key": "TINYARMOR",
+    "category": "GOLEMANCY",
+    "display_column": 7,
+    "display_row": 11,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 1,
+      "TUTAMEN": 2,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TUTAMEN"
+    ]
+  },
+  {
+    "key": "TINYHAMMER",
+    "category": "GOLEMANCY",
+    "display_column": 8,
+    "display_row": 11,
+    "complexity": 1,
+    "aspects": {
+      "METALLUM": 1,
+      "TELUM": 2,
+      "LUCRUM": 1
+    },
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": [
+      "TELUM"
+    ]
+  },
+  {
+    "key": "ASPECTS",
+    "category": "BASICS",
+    "display_column": 0,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PECH",
+    "category": "BASICS",
+    "display_column": -4,
+    "display_row": -4,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODES",
+    "category": "BASICS",
+    "display_column": -2,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "WARP",
+    "category": "BASICS",
+    "display_column": 0,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RESEARCH",
+    "category": "BASICS",
+    "display_column": 2,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "KNOWFRAG",
+    "category": "BASICS",
+    "display_column": 3,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "RESEARCH"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "THAUMONOMICON",
+    "category": "BASICS",
+    "display_column": 1,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "RESEARCH"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ORE",
+    "category": "BASICS",
+    "display_column": -2,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PLANTS",
+    "category": "BASICS",
+    "display_column": -2,
+    "display_row": -4,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ENCHANT",
+    "category": "BASICS",
+    "display_column": -4,
+    "display_row": -2,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "auto_unlock",
+      "stub",
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODETAPPER1",
+    "category": "BASICS",
+    "display_column": -4,
+    "display_row": 1,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 3,
+      "PRAECANTATIO": 3,
+      "MOTUS": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "NODES"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODEPRESERVE",
+    "category": "BASICS",
+    "display_column": -6,
+    "display_row": 2,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 3,
+      "LUCRUM": 3,
+      "SENSUS": 3
+    },
+    "parents": [
+      "NODETAPPER1"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODEJAR",
+    "category": "BASICS",
+    "display_column": -7,
+    "display_row": 4,
+    "complexity": 3,
+    "aspects": {
+      "AURAM": 6,
+      "LUCRUM": 3,
+      "PERMUTATIO": 3,
+      "MOTUS": 3
+    },
+    "parents": [
+      "NODEPRESERVE"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "NODETAPPER2",
+    "category": "BASICS",
+    "display_column": -3,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "AURAM": 6,
+      "PRAECANTATIO": 3,
+      "MOTUS": 3,
+      "PERMUTATIO": 3
+    },
+    "parents": [
+      "NODETAPPER1"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round",
+      "special"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RESEARCHER1",
+    "category": "BASICS",
+    "display_column": 4,
+    "display_row": 1,
+    "complexity": 1,
+    "aspects": {
+      "COGNITIO": 3,
+      "SENSUS": 3,
+      "ORDO": 3
+    },
+    "parents": [
+      "RESEARCH"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "DECONSTRUCTOR",
+    "category": "BASICS",
+    "display_column": 6,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "COGNITIO": 3,
+      "FABRICO": 3,
+      "PERDITIO": 3
+    },
+    "parents": [
+      "RESEARCHER1"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RESEARCHER2",
+    "category": "BASICS",
+    "display_column": 3,
+    "display_row": 3,
+    "complexity": 2,
+    "aspects": {
+      "COGNITIO": 6,
+      "ORDO": 3,
+      "SENSUS": 3,
+      "PRAECANTATIO": 3
+    },
+    "parents": [
+      "RESEARCHER1"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round",
+      "special"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "RESEARCHDUPE",
+    "category": "BASICS",
+    "display_column": 4,
+    "display_row": 5,
+    "complexity": 3,
+    "aspects": {
+      "COGNITIO": 6,
+      "PERMUTATIO": 3,
+      "SENSUS": 3,
+      "LUCRUM": 3,
+      "FABRICO": 3
+    },
+    "parents": [
+      "RESEARCHER2"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CRIMSON",
+    "category": "BASICS",
+    "display_column": 0,
+    "display_row": 4,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "stub",
+      "round",
+      "special",
+      "hidden"
+    ],
+    "warp": 3,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELDRITCHMINOR",
+    "category": "ELDRITCH",
+    "display_column": 1,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round",
+      "special",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ELDRITCHMAJOR",
+    "category": "ELDRITCH",
+    "display_column": -1,
+    "display_row": 0,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "stub",
+      "round",
+      "special",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "OCULUS",
+    "category": "ELDRITCH",
+    "display_column": -2,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "COGNITIO": 3,
+      "TENEBRAE": 3,
+      "PERMUTATIO": 3,
+      "ITER": 6,
+      "ALIENIS": 6
+    },
+    "parents": [
+      "CRIMSON",
+      "ELDRITCHMAJOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "round",
+      "special",
+      "concealed"
+    ],
+    "warp": 6,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ENTEROUTER",
+    "category": "ELDRITCH",
+    "display_column": -3,
+    "display_row": 4,
+    "complexity": 1,
+    "aspects": {},
+    "parents": [
+      "OCULUS"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "stub",
+      "round",
+      "hidden"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "OUTERREV",
+    "category": "ELDRITCH",
+    "display_column": -5,
+    "display_row": 3,
+    "complexity": 1,
+    "aspects": {
+      "ALIENIS": 4,
+      "COGNITIO": 4
+    },
+    "parents": [
+      "ENTEROUTER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "special",
+      "lost"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigBlocks.blockEldritch, 1, 5",
+      "ConfigBlocks.blockEldritch, 1, 10"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PRIMPEARL",
+    "category": "ELDRITCH",
+    "display_column": 0,
+    "display_row": 4,
+    "complexity": 1,
+    "aspects": {
+      "AER": 8,
+      "TERRA": 8,
+      "IGNIS": 8,
+      "AQUA": 8,
+      "ORDO": 8,
+      "PERDITIO": 8
+    },
+    "parents": [
+      "ELDRITCHMINOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "special",
+      "lost"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [
+      "ConfigItems.itemEldritchObject, 1, 3",
+      "ConfigItems.itemEldritchObject, 1, 3"
+    ],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PRIMNODE",
+    "category": "ELDRITCH",
+    "display_column": 0,
+    "display_row": 6,
+    "complexity": 1,
+    "aspects": {
+      "AURAM": 1,
+      "PRAECANTATIO": 1,
+      "ORDO": 1,
+      "PERDITIO": 1
+    },
+    "parents": [
+      "PRIMPEARL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ADVALCHEMYFURNACE",
+    "category": "ELDRITCH",
+    "display_column": -2,
+    "display_row": 6,
+    "complexity": 1,
+    "aspects": {
+      "AURAM": 1,
+      "PRAECANTATIO": 1,
+      "ORDO": 1,
+      "PERDITIO": 1
+    },
+    "parents": [
+      "PRIMPEARL",
+      "DISTILESSENTIA",
+      "VISPOWER"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "PRIMALCRUSHER",
+    "category": "ELDRITCH",
+    "display_column": 2,
+    "display_row": 5,
+    "complexity": 2,
+    "aspects": {
+      "PERFODIO": 6,
+      "INSTRUMENTUM": 6,
+      "PERDITIO": 6,
+      "VACUOS": 6,
+      "TELUM": 6,
+      "ALIENIS": 6,
+      "LUCRUM": 6
+    },
+    "parents": [
+      "PRIMPEARL"
+    ],
+    "parents_hidden": [
+      "VOIDMETAL",
+      "ELEMENTALPICK",
+      "ELEMENTALSHOVEL"
+    ],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "SANITYCHECK",
+    "category": "ELDRITCH",
+    "display_column": 2,
+    "display_row": 2,
+    "complexity": 1,
+    "aspects": {
+      "COGNITIO": 5,
+      "ALIENIS": 3,
+      "SENSUS": 5
+    },
+    "parents": [
+      "ELDRITCHMINOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "VOIDMETAL",
+    "category": "ELDRITCH",
+    "display_column": 2,
+    "display_row": -2,
+    "complexity": 2,
+    "aspects": {
+      "METALLUM": 3,
+      "ALIENIS": 3,
+      "TENEBRAE": 3,
+      "VACUOS": 5
+    },
+    "parents": [
+      "THAUMIUM",
+      "ELDRITCHMINOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ESSENTIARESERVOIR",
+    "category": "ELDRITCH",
+    "display_column": 4,
+    "display_row": -3,
+    "complexity": 2,
+    "aspects": {
+      "AQUA": 5,
+      "VACUOS": 8,
+      "PERMUTATIO": 3,
+      "PRAECANTATIO": 5
+    },
+    "parents": [
+      "VOIDMETAL",
+      "CENTRIFUGE",
+      "INFUSION"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "CAP_void",
+    "category": "ELDRITCH",
+    "display_column": 5,
+    "display_row": -1,
+    "complexity": 3,
+    "aspects": {
+      "VACUOS": 5,
+      "ALIENIS": 5,
+      "INSTRUMENTUM": 3,
+      "PRAECANTATIO": 3,
+      "AURAM": 3
+    },
+    "parents": [
+      "CAP_thaumium",
+      "VOIDMETAL"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 1,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ARMORVOIDFORTRESS",
+    "category": "ELDRITCH",
+    "display_column": 0,
+    "display_row": -3,
+    "complexity": 3,
+    "aspects": {
+      "TUTAMEN": 5,
+      "ALIENIS": 3,
+      "PANNUS": 3,
+      "TENEBRAE": 3,
+      "VACUOS": 5
+    },
+    "parents": [
+      "VOIDMETAL",
+      "ENCHFABRIC",
+      "ELDRITCHMAJOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "secondary",
+      "concealed"
+    ],
+    "warp": 0,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "FOCUSPRIMAL",
+    "category": "ELDRITCH",
+    "display_column": 4,
+    "display_row": 1,
+    "complexity": 2,
+    "aspects": {
+      "AER": 6,
+      "AQUA": 6,
+      "IGNIS": 6,
+      "TERRA": 6,
+      "ORDO": 6,
+      "PERDITIO": 6,
+      "PRAECANTATIO": 6
+    },
+    "parents": [
+      "ELDRITCHMINOR"
+    ],
+    "parents_hidden": [],
+    "siblings": [],
+    "flags": [
+      "concealed"
+    ],
+    "warp": 2,
+    "item_triggers_raw": [],
+    "entity_triggers": [],
+    "aspect_triggers": []
+  },
+  {
+    "key": "ROD_primal_staff",
+    "category": "ELDRITCH",
+    "display_column": 6,
+    "display_row": 2,
+    "complexity": 3,
+    "aspects": {
+      "AER": 9,
+      "TERRA": 9,
+      "IGNIS": 9,
+      "AQUA": 9,
+      "ORDO": 9,
+      "PERDITIO": 9,
+      "INSTRUMENTUM": 9,
+      "PRAECANTATIO": 12
+    },
+    "parents": [
+      "FOCUSPRIMAL"
+    ],
+    "parents_hidden": [
+      "ROD_silverwood_staff",
+      "ROD_bone_staff",
+      "ROD_greatwood_staff",
+      "ROD_blaze_staff",
+      "ROD_reed_staff",
+      "ROD_obsidian_staff",
+      "ROD_quartz_staff",
+      "ROD_ice_staff"
+    ],
+    "siblings": [],
+    "flags": [
+      "hidden"
+    ],
+    "warp": 3,
+    "item_triggers_raw": [
+      "ConfigItems.itemWandRod, 1, 100",
+      "ConfigItems.itemFocusPrimal"
+    ],
+    "entity_triggers": [
+      "Thaumcraft.PrimalOrb"
+    ],
+    "aspect_triggers": []
+  }
+]

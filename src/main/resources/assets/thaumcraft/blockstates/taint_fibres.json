@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "thaumcraft:block/taint_fibres"
+    },
+    "age=1": {
+      "model": "thaumcraft:block/taint_fibres"
+    },
+    "age=2": {
+      "model": "thaumcraft:block/taint_fibres"
+    },
+    "age=3": {
+      "model": "thaumcraft:block/taint_fibres"
+    },
+    "age=4": {
+      "model": "thaumcraft:block/taint_fibres"
+    }
+  }
+}

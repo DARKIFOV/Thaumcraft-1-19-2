@@ -6,7 +6,9 @@ import com.darkifov.thaumcraft.aura.AuraNodeWorldRuntime;
 import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.research.OriginalResearchProgression;
 import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
+import com.darkifov.thaumcraft.world.TC4WorldgenRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -39,6 +41,7 @@ public final class CommonEvents {
         }
 
         for (ServerPlayer player : level.players()) {
+            TC4WorldgenRuntime.tickPlayerArea(level, player);
             AuraVisRelayNetwork.tickPlayerRecharge(level, player);
             AABB scan = player.getBoundingBox().inflate(24.0D);
             for (ItemEntity itemEntity : level.getEntitiesOfClass(ItemEntity.class, scan, ItemEntity::isAlive)) {
@@ -71,6 +74,7 @@ public final class CommonEvents {
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            OriginalResearchProgression.seedAutoUnlocks(player);
             ThaumcraftNetwork.syncResearch(player);
         }
     }
@@ -87,6 +91,7 @@ public final class CommonEvents {
             PlayerThaumData.copyFrom(oldPlayer, player);
             ThaumcraftNetwork.syncResearch(player);
         } else if (event.getEntity() instanceof ServerPlayer player) {
+            OriginalResearchProgression.seedAutoUnlocks(player);
             ThaumcraftNetwork.syncResearch(player);
         }
 
@@ -96,6 +101,7 @@ public final class CommonEvents {
     @SubscribeEvent
     public static void onDimensionChange(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            OriginalResearchProgression.seedAutoUnlocks(player);
             ThaumcraftNetwork.syncResearch(player);
         }
     }

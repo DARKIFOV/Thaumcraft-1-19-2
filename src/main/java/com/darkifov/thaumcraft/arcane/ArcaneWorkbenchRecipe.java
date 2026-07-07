@@ -259,6 +259,22 @@ public class ArcaneWorkbenchRecipe {
         return this;
     }
 
+    public ArcaneWorkbenchRecipe patternRow(String row) {
+        pattern.add(row == null ? "" : row);
+        return this;
+    }
+
+    public ArcaneWorkbenchRecipe patternKey(char symbol, ResourceLocation id) {
+        if (id != null) {
+            explicitPatternMap.put(symbol, id);
+        }
+        return this;
+    }
+
+    public static ArcaneWorkbenchRecipe tc4Adapter(ResourceLocation id, ResourceLocation catalystId, ResourceLocation resultItemId, int resultCount, String research, String tc4Key, String tc4Kind) {
+        return new ArcaneWorkbenchRecipe(id, catalystId, resultItemId, resultCount, research, tc4Key, tc4Kind);
+    }
+
     public static ArcaneWorkbenchRecipe fromJson(ResourceLocation id, JsonObject json) {
         ResourceLocation catalyst = new ResourceLocation(json.get("catalyst").getAsString());
 

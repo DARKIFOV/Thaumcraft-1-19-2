@@ -191,8 +191,8 @@
   {
     "tc4_class": "GuiArcaneWorkbench",
     "tc4_path": "thaumcraft/client/gui/GuiArcaneWorkbench.java",
-    "current_target": "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchScreen.java",
-    "mapping_type": "original_arcane_gui_bridge",
+    "current_target": "src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneWorkbenchContainerScreen.java",
+    "mapping_type": "original_arcane_container_gui_bridge",
     "priority": "P0"
   },
   {

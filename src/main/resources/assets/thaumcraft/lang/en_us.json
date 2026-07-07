@@ -3873,5 +3873,11 @@
   "entity.thaumcraft.crimson_cultist": "Crimson Cultist",
   "entity.thaumcraft.crimson_knight": "Crimson Knight",
   "entity.thaumcraft.crimson_cleric": "Crimson Cleric",
-  "entity.thaumcraft.crimson_praetor": "Crimson Praetor"
+  "entity.thaumcraft.crimson_praetor": "Crimson Praetor",
+  "block.thaumcraft.taint_crust": "Taint Crust",
+  "block.thaumcraft.taint_soil": "Taint Soil",
+  "block.thaumcraft.flesh_block": "Flesh Block",
+  "block.thaumcraft.taint_fibres": "Taint Fibres",
+  "key.categories.thaumcraft": "Thaumcraft",
+  "key.thaumcraft.misc_wand_toggle": "Misc Wand Toggle"
 }

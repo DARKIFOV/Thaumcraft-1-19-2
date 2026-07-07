@@ -1,0 +1,65 @@
+{
+  "stage": "171",
+  "title": "TC4 wand focus behavior parity batch",
+  "strict_original": true,
+  "source_truth": [
+    "thaumcraft/common/items/wands/foci/ItemFocusFire.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusFrost.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusShock.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusExcavation.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusTrade.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusPrimal.java"
+  ],
+  "foci": {
+    "fire": {
+      "original_cost": "FIRE 10",
+      "adapter": "beam/ray fire damage, ignition, block fire placement",
+      "upgrades_unresolved": [
+        "fireball",
+        "firebeam",
+        "alchemistsfire"
+      ]
+    },
+    "frost": {
+      "original_cost": "WATER 5, FIRE 2, ENTROPY 2",
+      "adapter": "ray frost damage, slow, extinguish, snow/ice placement",
+      "upgrades_unresolved": [
+        "scattershot",
+        "iceboulder",
+        "alchemistsfrost"
+      ]
+    },
+    "shock": {
+      "original_cost": "AIR 25",
+      "adapter": "ray lightning damage, weakness, chain pulse",
+      "upgrades_unresolved": [
+        "chainlightning",
+        "earthshock"
+      ]
+    },
+    "excavation": {
+      "original_cost": "EARTH 15",
+      "adapter": "ray mining with ward/hardness gate",
+      "upgrades_unresolved": [
+        "dowsing",
+        "silktouch"
+      ]
+    },
+    "equal_trade": {
+      "original_cost": "ENTROPY 5, EARTH 5, ORDER 5",
+      "adapter": "original-style connected swap / architect plane selection using wand areax/areay/areaz/aread and picked block NBT; offhand remains Forge 1.19.2 fallback adapter until original pick UI is restored",
+      "upgrades_unresolved": [
+        "client architect overlay/keybind packet polish"
+      ]
+    },
+    "primal": {
+      "original_cost": "random 50..250 of each primal aspect",
+      "adapter": "TC4PrimalOrbEntity projectile impact/seeker behavior adapter; no Stage171 fake ray effect remains"
+    }
+  },
+  "no_fake_replacements": true,
+  "stage177_update": {
+    "equal_trade_adapter": "replaced Stage171 3x3 planar placeholder with original WandManager/IArchitect area NBT and connected-swap traversal in FocusArchitectRuntime",
+    "primal_adapter": "Stage178 moved primal impact behavior into TC4PrimalOrbEntity and removed Stage171 placeholder ray effect methods"
+  }
+}

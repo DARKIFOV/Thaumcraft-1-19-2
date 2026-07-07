@@ -1,0 +1,25 @@
+{
+  "stage": "Stage158",
+  "version": "1.58.0",
+  "source": "ConfigResearch.java entity/item/aspect triggers + ConfigAspects.java entity AspectList",
+  "runtime": "ThaumometerItem now scans entity ray targets and passes exact aspects plus legacy entity trigger aliases into OriginalResearchProgression.",
+  "entity_scan_research_triggers": {
+    "minecraft:enderman": "Enderman",
+    "thaumcraft:brainy_zombie": "Thaumcraft.BrainyZombie",
+    "thaumcraft:giant_brainy_zombie": "Thaumcraft.GiantBrainyZombie",
+    "thaumcraft:firebat": "Thaumcraft.Firebat",
+    "thaumcraft:primal_orb": "Thaumcraft.PrimalOrb"
+  },
+  "research_keys_requiring_entity_scan": [
+    "FOCUSHELLBAT",
+    "MIRROR",
+    "JARBRAIN",
+    "ROD_primal_staff"
+  ],
+  "entity_aspect_entries_available": 67,
+  "scan_storage_tags": [
+    "ScannedBlocks",
+    "ScannedEntities"
+  ],
+  "no_fake_unlocks": "Only original entity trigger aliases from ConfigResearch are passed to progression. Modern id is used for scan persistence and aspect lookup."
+}

@@ -1,0 +1,28 @@
+{
+  "stage": "172",
+  "title": "TC4 wand focus cost/cooldown/sync parity",
+  "strict_original": true,
+  "base_cooldowns": {
+    "fire": 0,
+    "frost": 200,
+    "shock": 250,
+    "excavation": 0,
+    "equal_trade": 0,
+    "primal": 500
+  },
+  "vis_cost_per_tick": [
+    "fire",
+    "excavation"
+  ],
+  "implemented": [
+    "resolved per-cast primal random AspectList",
+    "cooldown applied through Player#getCooldowns after successful cast",
+    "focus failure plays original wandfail sound",
+    "server-side beams and particles preserve TC4 feedback adapter path",
+    "equal trade expanded from one-block drift to TC4-like 3x3 planar exchange"
+  ],
+  "deviation_notes": [
+    "Original projectile entity classes are not dropped in directly; behavior is adapted through modern ray/beam runtime until entity ports are completed.",
+    "Focus upgrade branches remain unresolved instead of approximated."
+  ]
+}

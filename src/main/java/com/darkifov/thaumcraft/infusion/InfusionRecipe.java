@@ -21,6 +21,8 @@ public class InfusionRecipe {
     private final int resultCount;
     private final int instability;
     private final String research;
+    private final String tc4Key;
+    private final String tc4Kind;
     private final List<ResourceLocation> components = new ArrayList<>();
     private final EnumMap<Aspect, Integer> aspectCost = new EnumMap<>(Aspect.class);
 
@@ -29,12 +31,18 @@ public class InfusionRecipe {
     }
 
     public InfusionRecipe(ResourceLocation id, ResourceLocation catalystId, ResourceLocation resultItemId, int resultCount, int instability, String research) {
+        this(id, catalystId, resultItemId, resultCount, instability, research, "", "");
+    }
+
+    private InfusionRecipe(ResourceLocation id, ResourceLocation catalystId, ResourceLocation resultItemId, int resultCount, int instability, String research, String tc4Key, String tc4Kind) {
         this.id = id;
         this.catalystId = catalystId;
         this.resultItemId = resultItemId;
         this.resultCount = Math.max(1, resultCount);
         this.instability = Math.max(0, instability);
         this.research = research == null ? "" : research;
+        this.tc4Key = tc4Key == null ? "" : tc4Key;
+        this.tc4Kind = tc4Kind == null ? "" : tc4Kind;
     }
 
     public ResourceLocation id() {
@@ -59,6 +67,14 @@ public class InfusionRecipe {
 
     public String research() {
         return research;
+    }
+
+    public String tc4Key() {
+        return tc4Key;
+    }
+
+    public String tc4Kind() {
+        return tc4Kind;
     }
 
     public List<ResourceLocation> components() {
@@ -105,8 +121,10 @@ public class InfusionRecipe {
         int count = resultObject.has("count") ? resultObject.get("count").getAsInt() : 1;
         int instability = json.has("instability") ? json.get("instability").getAsInt() : 0;
         String research = json.has("research") ? json.get("research").getAsString() : "";
+        String tc4Key = json.has("tc4_key") ? json.get("tc4_key").getAsString() : "";
+        String tc4Kind = json.has("tc4_kind") ? json.get("tc4_kind").getAsString() : (json.has("kind") ? json.get("kind").getAsString() : "");
 
-        InfusionRecipe recipe = new InfusionRecipe(id, catalyst, resultItem, count, instability, research);
+        InfusionRecipe recipe = new InfusionRecipe(id, catalyst, resultItem, count, instability, research, tc4Key, tc4Kind);
 
         JsonArray components = json.getAsJsonArray("components");
         for (JsonElement element : components) {

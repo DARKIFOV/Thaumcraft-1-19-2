@@ -1,0 +1,15 @@
+{
+  "stage": 165,
+  "source_truth": [
+    "thaumcraft/common/tiles/TileResearchTable.java",
+    "thaumcraft/common/container/ContainerResearchTable.java"
+  ],
+  "parity_contract": {
+    "slot_0": "IScribeTools / ScribingToolsItem",
+    "slot_1": "itemResearchNotes / ResearchNoteItem",
+    "inventory_owner": "ResearchTableBlockEntity",
+    "persistent_nbt": true
+  },
+  "modern_adapter": "Forge 1.19.2 BlockEntity + Menu replaces 1.7.10 TileEntity + Container; slot order is preserved.",
+  "compatibility_fallback": "Held note/player inventory lookup remains only for old packets/world tests; primary path is table slot inventory."
+}

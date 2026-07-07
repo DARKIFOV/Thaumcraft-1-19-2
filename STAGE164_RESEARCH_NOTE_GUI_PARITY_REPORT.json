@@ -1,0 +1,11 @@
+{
+  "stage": 164,
+  "version": "1.64.0",
+  "summary": "Research Note screen now supports TC4-style drag/drop aspect placement and q/r grid hit-testing instead of only click-select/click-place.",
+  "files": [
+    "ResearchNoteScreen.java",
+    "ResearchNoteGrid.java",
+    "tc4_research_note_gui_stage164.json"
+  ],
+  "remaining": "Full original visual art/layout polish and copy behavior continue in the next GUI polish stages."
+}

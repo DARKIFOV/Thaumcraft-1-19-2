@@ -1,0 +1,20 @@
+{
+  "stage": 159,
+  "source": "Thaumcraft 4 player-scoped scan knowledge semantics adapted to Forge 1.19.2 persistent player NBT",
+  "player_root": "ThaumcraftLegacy",
+  "player_lists": [
+    "ScannedObjects",
+    "ScannedEntities",
+    "ScannedAspects"
+  ],
+  "legacy_item_mirrors": [
+    "ScannedBlocks",
+    "ScannedEntities"
+  ],
+  "rules": [
+    "Thaumometer scans are owned by the player, not by the individual thaumometer item.",
+    "The old per-item NBT lists are retained only as a compatibility mirror.",
+    "Scanned aspect ids are stored under player thaum data; aspect pool/discovery is synchronized through PlayerAspectKnowledge.",
+    "Research scan triggers remain sourced from Stage150/151 original metadata."
+  ]
+}

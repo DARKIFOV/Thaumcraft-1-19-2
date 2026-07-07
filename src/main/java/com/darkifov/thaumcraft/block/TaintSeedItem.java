@@ -37,7 +37,7 @@ public class TaintSeedItem extends Item {
 
         BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
         TaintSpreadRuntime.convert(level, context.getClickedPos(), true);
-        level.setBlock(pos, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
+        level.setBlock(pos, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), 3);
 
         TaintCrawlerEntity crawler = ThaumcraftMod.TAINT_CRAWLER.get().create(level);
 

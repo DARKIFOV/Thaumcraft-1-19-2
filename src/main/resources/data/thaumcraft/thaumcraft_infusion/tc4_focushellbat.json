@@ -1,0 +1,26 @@
+{
+  "tc4_key": "FocusHellbat",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "FOCUSHELLBAT",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:carrot",
+  "components": [
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_ignis",
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_aer",
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_perditio"
+  ],
+  "aspects": {
+    "IGNIS": 25,
+    "AER": 15,
+    "BESTIA": 15,
+    "PERDITIO": 25
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_focus_hellbat",
+    "count": 1
+  }
+}

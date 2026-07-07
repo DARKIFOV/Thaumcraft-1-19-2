@@ -1,0 +1,52 @@
+{
+  "stage": 174,
+  "source": "Thaumcraft4-1.7.10 EntityFrostShard, EntityExplosiveOrb, EntityShockOrb, EntityPrimalOrb",
+  "entities": [
+    {
+      "id": "thaumcraft:focus_frost_shard",
+      "original": "EntityFrostShard",
+      "used_by": "Focus Frost",
+      "fields": [
+        "damage",
+        "fragile",
+        "bounce",
+        "bounceLimit",
+        "frosty"
+      ]
+    },
+    {
+      "id": "thaumcraft:focus_explosive_orb",
+      "original": "EntityExplosiveOrb",
+      "used_by": "Focus Fire fireball upgrade",
+      "fields": [
+        "strength",
+        "alchemistsFire"
+      ]
+    },
+    {
+      "id": "thaumcraft:focus_shock_orb",
+      "original": "EntityShockOrb",
+      "used_by": "Focus Shock earthshock upgrade",
+      "fields": [
+        "damage",
+        "area"
+      ]
+    },
+    {
+      "id": "thaumcraft:focus_primal_orb",
+      "original": "EntityPrimalOrb",
+      "used_by": "Focus Primal",
+      "fields": [
+        "seeker",
+        "aspect"
+      ]
+    }
+  ],
+  "runtime_connections": [
+    "Frost focus now spawns TC4FrostShardEntity",
+    "Primal focus now spawns TC4PrimalOrbEntity",
+    "Fireball upgrade uses TC4ExplosiveOrbEntity",
+    "Earthshock upgrade uses TC4ShockOrbEntity"
+  ],
+  "renderer_status": "minimal spawn-safe renderer; exact original visual renderer deferred to later parity stage"
+}

@@ -4,12 +4,12 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="1.44.0"
+version="1.94.0"
 displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 Strict Forge 1.19.2 source-driven port of Thaumcraft 4.
-Stage 144: TC4 Eldritch/Warp/Taint/Cultist pass with split warp buckets, Eldritch progression gates, custom cultist entities and taint runtime.
+Stage 149: strict original TC4 research page parity. Completes exact ConfigResearch icon coverage for all 201 original research keys and guards those resources in GitHub/JAR output.
 '''
 
 [[dependencies.thaumcraft]]

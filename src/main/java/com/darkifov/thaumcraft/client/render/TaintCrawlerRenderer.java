@@ -25,7 +25,7 @@ public class TaintCrawlerRenderer extends EntityRenderer<TaintCrawlerEntity> {
         poseStack.scale(0.44F, 0.42F, 0.44F);
 
         Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
-                ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(),
+                ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(),
                 poseStack,
                 buffer,
                 packedLight,

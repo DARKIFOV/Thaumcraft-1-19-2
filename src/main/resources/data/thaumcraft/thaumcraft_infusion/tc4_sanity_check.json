@@ -1,0 +1,24 @@
+{
+  "tc4_key": "SanityCheck",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "SANITYCHECK",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:thaumometer",
+  "components": [
+    "thaumcraft:tc4_mirrorglass",
+    "thaumcraft:tc4_brain",
+    "minecraft:diamond"
+  ],
+  "aspects": {
+    "COGNITIO": 24,
+    "SENSUS": 24,
+    "ALIENIS": 8
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_sanitychecker",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

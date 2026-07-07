@@ -1,0 +1,16 @@
+{
+  "stage": 166,
+  "source_truth": [
+    "thaumcraft/client/gui/GuiResearchTable.java",
+    "thaumcraft/common/container/ContainerResearchTable.java"
+  ],
+  "parity_features": [
+    "container-backed screen",
+    "visible slot 0 scribing tools",
+    "visible slot 1 research note",
+    "server actions for create/open/copy",
+    "copy gated by RESEARCHDUPE",
+    "no-ink feedback through table block entity"
+  ],
+  "not_new_rules": "No new research puzzle rules were added; GUI is a 1.19.2 container adapter for existing Stage161-164 note logic."
+}

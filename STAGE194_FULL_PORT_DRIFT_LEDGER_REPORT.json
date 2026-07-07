@@ -1,0 +1,24 @@
+{
+  "stage": 194,
+  "version": "1.94.0",
+  "focus": "Consolidated full-port drift ledger",
+  "ledger_files": [
+    "docs/TC4_FULL_PORT_DRIFT_LEDGER_STAGE194.md",
+    "src/main/resources/data/thaumcraft/tc4_drift/full_port_drift_ledger_stage194.json",
+    "src/main/java/com/darkifov/thaumcraft/porting/TC4FullPortDriftLedger.java"
+  ],
+  "systems_covered": [
+    "golems",
+    "wands_foci",
+    "aura_nodes",
+    "crucible",
+    "infusion",
+    "taint",
+    "eldritch",
+    "worldgen",
+    "thaumonomicon_research",
+    "research_table",
+    "arcane_workbench"
+  ],
+  "policy": "Remaining differences must be resolved by original TC4 parity work or remain explicitly marked as Forge 1.19.2 adapters."
+}

@@ -13,6 +13,7 @@ final class OriginalGuiTextures {
 
     static final ResourceLocation THAUMONOMICON = tex("thaumonomicon.png");
     static final ResourceLocation RESEARCH_TABLE = tex("research_table.png");
+    static final ResourceLocation RESEARCH_TABLE_TC4_ORIGINAL = tex("thaumcraft_core_original/guiresearchtable2.png");
     static final ResourceLocation RESEARCH_TABLE_OVERLAY = tex("research_table_overlay.png");
     static final ResourceLocation ARCANE_WORKBENCH = tex("arcane_workbench.png");
     static final ResourceLocation PECH_TRADE = tex("pech_trade.png");

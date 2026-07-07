@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public final class ResearchRegistry {
     private static final List<ResearchEntry> ENTRIES = new ArrayList<>();
+    private static final int ORIGINAL_TC4_ENTRY_COUNT = TC4ResearchRuntimeBridge.size();
 
     static {
         ENTRIES.addAll(TC4ResearchRuntimeBridge.entries());
@@ -128,6 +129,15 @@ public final class ResearchRegistry {
 
     public static List<ResearchEntry> entries() {
         return Collections.unmodifiableList(ENTRIES);
+    }
+
+
+    public static List<ResearchEntry> originalEntries() {
+        return Collections.unmodifiableList(ENTRIES.subList(0, Math.min(ORIGINAL_TC4_ENTRY_COUNT, ENTRIES.size())));
+    }
+
+    public static int originalSize() {
+        return ORIGINAL_TC4_ENTRY_COUNT;
     }
 
     public static int size() {

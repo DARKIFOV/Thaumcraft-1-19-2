@@ -55,7 +55,7 @@ public class FluxGooBlock extends Block {
             BlockState targetState = level.getBlockState(target);
             if (targetState.is(Blocks.DIRT) || targetState.is(Blocks.GRASS_BLOCK) || targetState.is(Blocks.COARSE_DIRT)
                     || targetState.is(Blocks.ROOTED_DIRT) || targetState.is(Blocks.MUD)) {
-                level.setBlock(target, ThaumcraftMod.TAINTED_SOIL.get().defaultBlockState(), 3);
+                level.setBlock(target, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), 3);
             }
         }
 

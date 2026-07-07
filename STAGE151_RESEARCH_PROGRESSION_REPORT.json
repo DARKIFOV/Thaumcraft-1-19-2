@@ -1,0 +1,26 @@
+{
+  "stage": 151,
+  "goal": "strict original TC4 research progression: auto-unlock, scan triggers and warp side-effects",
+  "progression_entries": 46,
+  "remaining_stage_estimate_after_stage151": "41-66 stages",
+  "checks": {
+    "version_stage151": true,
+    "progression_spec_present_and_exact": true,
+    "progression_runtime_class_present": true,
+    "auto_unlock_runtime_uses_original_index": true,
+    "scan_trigger_runtime_uses_item_entity_aspect_maps": true,
+    "trigger_unlock_checks_original_parents": true,
+    "warp_side_effects_applied_once_on_unlock": true,
+    "sync_after_scan_trigger_unlock": true,
+    "bridge_unlock_uses_progression_side_effects": true,
+    "bridge_first_available_limited_to_original_tc4": true,
+    "research_point_limited_to_original_tc4": true,
+    "thaumometer_calls_scan_triggers": true,
+    "auto_unlock_seeded_on_login_table_and_book": true,
+    "metadata_index_has_all_trigger_lookup_methods": true,
+    "workflow_runs_stage151_audit": true,
+    "github_guard_runs_stage151_audit": true,
+    "status_and_prompt_updated": true
+  },
+  "passed": true
+}

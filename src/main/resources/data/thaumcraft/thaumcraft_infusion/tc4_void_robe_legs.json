@@ -1,0 +1,30 @@
+{
+  "tc4_key": "VoidRobeLegs",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ARMORVOIDFORTRESS",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_voidlegs",
+  "components": [
+    "thaumcraft:tc4_clothlegs",
+    "thaumcraft:tc4_voidingot",
+    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_cloth",
+    "minecraft:sugar"
+  ],
+  "aspects": {
+    "METALLUM": 20,
+    "TUTAMEN": 20,
+    "PANNUS": 20,
+    "PRAECANTATIO": 16,
+    "ALIENIS": 16,
+    "VACUOS": 20
+  },
+  "instability": 6,
+  "result": {
+    "item": "thaumcraft:tc4_voidrobelegs",
+    "count": 1
+  },
+  "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
+  "stage153_strict_original": true
+}

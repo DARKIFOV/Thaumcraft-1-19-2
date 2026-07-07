@@ -4,7 +4,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '1.44.0'
+version = '1.94.0'
 group = 'com.darkifov.thaumcraft'
 archivesBaseName = 'thaumcraft_legacy_rebuild_1.19.2'
 
@@ -63,6 +63,267 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+
+def requiredJarResourceEntries = [
+        'assets/thaumcraft/textures/block/taint_crust.png',
+        'assets/thaumcraft/textures/block/taint_soil.png',
+        'assets/thaumcraft/textures/block/flesh_block.png',
+        'assets/thaumcraft/textures/block/taint_fibres.png',
+        'assets/thaumcraft/models/block/taint_crust.json',
+        'assets/thaumcraft/models/block/taint_soil.json',
+        'assets/thaumcraft/models/block/flesh_block.json',
+        'assets/thaumcraft/models/block/taint_fibres.json',
+        'assets/thaumcraft/blockstates/taint_crust.json',
+        'assets/thaumcraft/blockstates/taint_soil.json',
+        'assets/thaumcraft/blockstates/flesh_block.json',
+        'assets/thaumcraft/blockstates/taint_fibres.json',
+        'data/thaumcraft/loot_tables/blocks/taint_fibres.json',
+        'assets/thaumcraft/textures/block/greatwood_log.png',
+        'assets/thaumcraft/textures/block/greatwood_log_top.png',
+        'assets/thaumcraft/textures/block/greatwood_leaves.png',
+        'assets/thaumcraft/textures/block/greatwood_sapling.png',
+        'assets/thaumcraft/textures/block/silverwood_log.png',
+        'assets/thaumcraft/textures/block/silverwood_log_top.png',
+        'assets/thaumcraft/textures/block/silverwood_leaves.png',
+        'assets/thaumcraft/textures/block/silverwood_sapling.png',
+        'assets/thaumcraft/models/block/greatwood_log.json',
+        'assets/thaumcraft/models/block/greatwood_leaves.json',
+        'assets/thaumcraft/models/block/greatwood_sapling.json',
+        'assets/thaumcraft/models/block/silverwood_log.json',
+        'assets/thaumcraft/models/block/silverwood_leaves.json',
+        'assets/thaumcraft/models/block/silverwood_sapling.json',
+        'assets/thaumcraft/blockstates/greatwood_log.json',
+        'assets/thaumcraft/blockstates/greatwood_leaves.json',
+        'assets/thaumcraft/blockstates/greatwood_sapling.json',
+        'assets/thaumcraft/blockstates/silverwood_log.json',
+        'assets/thaumcraft/blockstates/silverwood_leaves.json',
+        'assets/thaumcraft/blockstates/silverwood_sapling.json',
+        'data/thaumcraft/loot_tables/blocks/greatwood_log.json',
+        'data/thaumcraft/loot_tables/blocks/greatwood_leaves.json',
+        'data/thaumcraft/loot_tables/blocks/greatwood_sapling.json',
+        'data/thaumcraft/loot_tables/blocks/silverwood_log.json',
+        'data/thaumcraft/loot_tables/blocks/silverwood_leaves.json',
+        'data/thaumcraft/loot_tables/blocks/silverwood_sapling.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_original_recipe_requirements_stage152.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_original_recipe_materialization_stage153.json',
+        'data/minecraft/tags/blocks/logs.json',
+        'data/minecraft/tags/blocks/leaves.json',
+        'data/minecraft/tags/blocks/saplings.json',
+
+        'assets/thaumcraft/textures/gui/gui_research.png',
+        'assets/thaumcraft/textures/gui/gui_researchback.png',
+        'assets/thaumcraft/textures/gui/gui_researchbackeldritch.png',
+        'assets/thaumcraft/textures/misc/r_thaumaturgy.png',
+        'assets/thaumcraft/textures/misc/r_crucible.png',
+        'assets/thaumcraft/textures/misc/r_artifice.png',
+        'assets/thaumcraft/textures/misc/r_golemancy.png',
+        'assets/thaumcraft/textures/misc/r_eldritch.png',
+        'assets/thaumcraft/textures/items/thaumonomiconcheat.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_greatwood.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_reed.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_blaze.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_obsidian.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_ice.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_quartz.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_bone.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_rod_silverwood.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_cap_void.png',
+
+        // Stage151: all explicit TC4 ConfigResearch icon resources must survive jar/output packaging.
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_fire.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_frost.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_hellbat.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_warding.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_shock.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_trade.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_portablehole.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focuspouch.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_cap_gold.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_cap_thaumium.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_cap_copper.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_cap_silver.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/vis_amulet.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/charm.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/arcane_stone.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/gogglesrevealing.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/sinister_stone.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/cloth.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/runic_ring.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/runic_girdle.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/runic_amulet.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/bootstraveler.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/hoverharness.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/mirrorhand.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/bonebow.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/elementalaxe.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/elementalpick.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/elementalsword.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/elementalshovel.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/elementalhoe.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/nitor.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/alumentum.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/bucket_death.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/bottle_taint.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/thaumiumingot.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/nuggetthaumium.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/tallow.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/cinderpearl.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/bath_salts.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/soap.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_wood.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/ironbell.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_core_blank.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golemdecotophat.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/inkwell.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/knowledgefragment.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/thaumonomicon.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/eldritch_object.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/primal_crusher.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/voidingot.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/focus_primal.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/wand_cap_iron.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/wand_rod_wood.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/wand.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/wandpedestal_top.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/wandpedestal_focus_top.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/node_stabilizer.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/node_stabilizer_over.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/node_converter.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/vis_relay.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/worktable.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/foci/vampirebats.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/grate.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/table.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/restable.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/scanner.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/arcaneeartopoff.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/liftertop.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_infernalfurnace.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/bellows.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/infuser.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/fluxscrubber.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/banner_blank.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_runicupg.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/hovergirdle.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/mirrorframe.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/mirrorframe2.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/Bore.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/lamp_top.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/lamp_grow_top.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/lamp_fert_top.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/el_arrow_air.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/arcanedoor.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/brainbox.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_enchant.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/thaumiumfortresshelm.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_mask0.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_mask1.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_mask2.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/phial.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/crucible1.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_alchmult.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_alchman.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_alchent.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/spa_top.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/alch_furnace.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/jar.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/jar_void.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/pipe_1.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/pipe_filter.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/crystalizer.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/centrifuge.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/alchemyblock.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/chesthungry.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/trunk.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_upgrade_air.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_upgrade_earth.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_upgrade_fire.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_upgrade_water.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_upgrade_order.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_upgrade_entropy.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/golem_over_adv.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_aspects.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_pech.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_nodes.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_warp.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/amberore.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_nodetap1.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_nodepreserve.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_nodetap2.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_researcher1.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/models/decontable.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_researcher2.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_resdupe.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_eldritchminor.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_eldritchmajor.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_outer.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_outerrev.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/misc/r_nodes_2.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/alchemyblockadv.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/sanitychecker.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/blocks/essentiareservoir.png',
+        'assets/thaumcraft/textures/original/thaumcraft4/items/voidrobehelm.png',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_table_inventory_ink_stage163.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_note_gui_stage164.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_table_block_entity_stage165.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_table_gui_copy_stage166.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_original_drift_check_stage166.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_gui_research_table_visual_stage167.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_dupe_copy_stage168.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_table_bonus_aspects_stage169.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_research_table_bonus_sync_stage170.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_wand_focus_behavior_stage171.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_wand_focus_cost_sync_stage172.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_focus_upgrade_nbt_stage173.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_focus_projectile_entities_stage174.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_focus_upgrade_effects_stage175.json',
+        'data/thaumcraft/tc4_source_mapping/tc4_focus_projectile_visuals_stage176.json',
+        'META-INF/mods.toml'
+]
+
+def verifyJarResourceEntries = { File jarFile ->
+    if (!jarFile.exists()) {
+        throw new GradleException("Missing jar to verify: ${jarFile}")
+    }
+    def zip = new java.util.zip.ZipFile(jarFile)
+    try {
+        requiredJarResourceEntries.each { entry ->
+            if (zip.getEntry(entry) == null) {
+                throw new GradleException("Built jar is missing required resource: ${entry}")
+            }
+        }
+    } finally {
+        zip.close()
+    }
+}
+
+tasks.register('verifyJarResources') {
+    dependsOn 'jar'
+    doLast {
+        verifyJarResourceEntries(jar.archiveFile.get().asFile)
+    }
+}
+
+tasks.register('verifyGithubOutputJarResources') {
+    dependsOn 'reobfJar'
+    doLast {
+        verifyJarResourceEntries(file("${buildDir}/reobfJar/output.jar"))
+    }
+}
+
+tasks.register('copyGithubOutputJar', Copy) {
+    dependsOn 'verifyGithubOutputJarResources'
+    from("${buildDir}/reobfJar/output.jar")
+    into("${buildDir}/libs")
+    rename { String fileName -> "thaumcraft_legacy_rebuild_1.19.2-${project.version}-github.jar" }
+}
+
+tasks.named('build') {
+    dependsOn 'verifyJarResources'
+    finalizedBy 'copyGithubOutputJar'
 }
 
 jar.finalizedBy('reobfJar')

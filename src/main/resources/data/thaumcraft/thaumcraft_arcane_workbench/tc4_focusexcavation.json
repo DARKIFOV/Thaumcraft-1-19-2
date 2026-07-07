@@ -1,0 +1,30 @@
+{
+  "tc4_key": "FocusExcavation",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "FOCUSEXCAVATION",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:emerald",
+  "ingredients": [
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_terra"
+  ],
+  "aspects": {
+    "TERRA": 20,
+    "PERDITIO": 5,
+    "ORDO": 5
+  },
+  "pattern": [
+    "CQC",
+    "Q#Q",
+    "CQC"
+  ],
+  "key": {
+    "#": "minecraft:emerald",
+    "Q": "minecraft:nether_wart",
+    "C": "thaumcraft:tc4_shard_terra"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_focus_excavation",
+    "count": 1
+  }
+}

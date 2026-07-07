@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.blockentity;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
 import com.darkifov.thaumcraft.infusion.InfusionAltarStructure;
 import com.darkifov.thaumcraft.infusion.InfusionMatrixAuxiliaryHelper;
 import com.darkifov.thaumcraft.infusion.InfusionProcessHelper;
@@ -104,15 +105,16 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             return false;
         }
 
-        InfusionRecipe recipe = InfusionRecipes.find(catalystPedestal.stored());
+        InfusionRecipe recipe = findMatchingOriginalInfusionRecipe(catalystPedestal.stored(), report.componentPedestals());
 
         if (recipe == null) {
             player.displayClientMessage(Component.literal("No infusion recipe for catalyst: ").append(catalystPedestal.stored().getHoverName()).withStyle(ChatFormatting.RED), false);
             return false;
         }
 
-        if (!PlayerThaumData.hasResearch(player, recipe.research())) {
-            player.displayClientMessage(Component.literal("Research locked: " + recipe.research()).withStyle(ChatFormatting.RED), false);
+        String requiredResearch = TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(recipe.tc4Key(), recipe.research());
+        if (!requiredResearch.isBlank() && !PlayerThaumData.hasResearch(player, requiredResearch)) {
+            player.displayClientMessage(Component.literal("Research locked: " + requiredResearch).withStyle(ChatFormatting.RED), false);
             return false;
         }
 
@@ -162,6 +164,24 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         setChangedAndSync();
         return true;
+    }
+
+    /**
+     * Stage153 strict TC4 parity: the original 1.7.10 infusion registry can
+     * contain multiple recipes with the same catalyst ItemStack. The selected
+     * recipe is determined by the catalyst plus the surrounding component
+     * pedestals, not by the catalyst alone. Keeping the old catalyst-only lookup
+     * caused newly materialized original recipes such as CoreLumber/CoreFishing
+     * and fortress/void robe upgrades to resolve to the wrong recipe.
+     */
+    private InfusionRecipe findMatchingOriginalInfusionRecipe(ItemStack catalyst, List<ArcanePedestalBlockEntity> componentPedestals) {
+        for (InfusionRecipe recipe : InfusionRecipes.recipes()) {
+            if (recipe.catalystMatches(catalyst) && InfusionProcessHelper.hasComponents(componentPedestals, recipe)) {
+                return recipe;
+            }
+        }
+
+        return InfusionRecipes.find(catalyst);
     }
 
     public void cancelInfusion(Player player) {

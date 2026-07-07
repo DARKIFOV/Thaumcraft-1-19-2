@@ -1,0 +1,23 @@
+{
+  "stage": 175,
+  "source_truth": [
+    "thaumcraft.api.wands.ItemFocusBasic",
+    "thaumcraft.common.items.wands.ItemWandCasting",
+    "thaumcraft.common.items.wands.foci.ItemFocusFire",
+    "thaumcraft.common.items.wands.foci.ItemFocusFrost",
+    "thaumcraft.common.items.wands.foci.ItemFocusShock",
+    "thaumcraft.common.items.wands.foci.ItemFocusExcavation",
+    "thaumcraft.common.items.wands.foci.ItemFocusPortableHole",
+    "thaumcraft.common.items.wands.foci.ItemFocusTrade",
+    "thaumcraft.common.items.wands.foci.ItemFocusWarding",
+    "thaumcraft.common.items.wands.foci.ItemFocusPrimal"
+  ],
+  "upgrade_effects": {
+    "potency": ["fireball strength", "frost damage/count", "shock damage", "earthshock damage"],
+    "frugal": ["subtract 0.1 per rank from cap vis modifier with 0.1 floor"],
+    "enlarge": ["earthshock area", "portable hole distance", "equal trade plane", "excavation adjacent attempts"],
+    "extend": ["portable hole duration"],
+    "treasure": ["excavation fortune loot adapter"],
+    "silktouch": ["excavation silk loot adapter", "original cost branches for excavation/equal trade"]
+  }
+}

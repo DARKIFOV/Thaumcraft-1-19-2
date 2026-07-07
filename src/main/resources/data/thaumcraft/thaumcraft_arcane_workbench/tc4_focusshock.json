@@ -1,0 +1,30 @@
+{
+  "tc4_key": "FocusShock",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "FOCUSSHOCK",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:cauldron",
+  "ingredients": [
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_aer"
+  ],
+  "aspects": {
+    "AER": 10,
+    "ORDO": 10,
+    "PERDITIO": 10
+  },
+  "pattern": [
+    "CQC",
+    "Q#Q",
+    "CQC"
+  ],
+  "key": {
+    "#": "minecraft:cauldron",
+    "Q": "minecraft:nether_wart",
+    "C": "thaumcraft:tc4_shard_aer"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_focus_shock",
+    "count": 1
+  }
+}

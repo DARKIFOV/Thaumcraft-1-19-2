@@ -1,0 +1,28 @@
+{
+  "tc4_key": "FocusWarding",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "FOCUSWARDING",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:fire_charge",
+  "components": [
+    "thaumcraft:tc4_quicksilver",
+    "thaumcraft:tc4_shard_terra",
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_ordo",
+    "thaumcraft:tc4_quicksilver",
+    "thaumcraft:tc4_shard_terra",
+    "minecraft:nether_wart",
+    "thaumcraft:tc4_shard_ordo"
+  ],
+  "aspects": {
+    "TERRA": 25,
+    "TUTAMEN": 25,
+    "ORDO": 25,
+    "COGNITIO": 10
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_focus_warding",
+    "count": 1
+  }
+}

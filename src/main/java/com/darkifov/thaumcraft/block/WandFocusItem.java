@@ -2,6 +2,8 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.AspectStack;
 import com.darkifov.thaumcraft.wand.WandFocusType;
+import com.darkifov.thaumcraft.wand.FocusUpgradeRuntime;
+import com.darkifov.thaumcraft.wand.FocusUpgradeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -30,6 +32,18 @@ public class WandFocusItem extends Item {
         tooltip.add(Component.literal("Original vis cost:").withStyle(ChatFormatting.DARK_AQUA));
         for (AspectStack aspect : focusType.visCost().all()) {
             tooltip.add(Component.literal("- " + aspect.aspect().displayName() + " " + aspect.amount()).withStyle(style -> style.withColor(aspect.aspect().textColor())));
+        }
+        short[] upgrades = FocusUpgradeRuntime.getAppliedUpgrades(stack);
+        boolean any = false;
+        for (int i = 0; i < upgrades.length; i++) {
+            FocusUpgradeType type = FocusUpgradeType.byId(upgrades[i]);
+            if (type != null) {
+                if (!any) {
+                    tooltip.add(Component.literal("TC4 upgrades:").withStyle(ChatFormatting.DARK_PURPLE));
+                    any = true;
+                }
+                tooltip.add(Component.literal("Rank " + (i + 1) + ": " + type.key()).withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
         }
     }
 }

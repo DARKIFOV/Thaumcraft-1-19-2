@@ -1,0 +1,35 @@
+{
+  "stage": 190,
+  "title": "TC4 ConfigRecipes wand/staff component recipe parity",
+  "status": "complete",
+  "version": "1.90.0",
+  "source_of_truth": [
+    "thaumcraft.common.config.ConfigRecipes",
+    "thaumcraft.common.items.wands.ItemWandCasting",
+    "thaumcraft.common.items.wands.WandRod",
+    "thaumcraft.common.items.wands.WandCap"
+  ],
+  "parity_changes": [
+    "Added TC4ConfigRecipesWandIndex for materialized original cap recipes.",
+    "Added materialized original greatwood wand rod recipe.",
+    "Added materialized original staff rod recipes using tc4_charm catalyst and base rod inputs.",
+    "Preserved original research keys CAP_*, ROD_* and STAVE_* for generated component recipes.",
+    "Preserved original craftCost based primal vis formulas for caps, rods and staff rods.",
+    "Integrated component recipes before generated ArcaneWandRecipe and ArcaneSceptreRecipe assembly recipes.",
+    "Marked prebuilt wand shortcuts as compatibility drift adapters rather than original recipes."
+  ],
+  "drift_found_and_fixed": [
+    "Wand/staff component crafting previously depended mostly on generated assembly and prebuilt shortcuts; Stage190 adds original ConfigRecipes component chain.",
+    "Old prebuilt shortcuts remain explicitly documented as adapters, not original TC4 parity recipes."
+  ],
+  "checks": [
+    "scripts/tc4_stage190_wand_configrecipes_audit.py",
+    "scripts/java_syntax_guard.py",
+    "scripts/github_static_audit.py",
+    "scripts/github_ci_guard.py"
+  ],
+  "adapter_notes": [
+    "Forge 1.19.2 item IDs are tc4-prefixed materialized adapter items while research keys, costs and recipe structure follow original TC4.",
+    "Arcane Workbench server preview is the authoritative resolver for generated recipes."
+  ]
+}

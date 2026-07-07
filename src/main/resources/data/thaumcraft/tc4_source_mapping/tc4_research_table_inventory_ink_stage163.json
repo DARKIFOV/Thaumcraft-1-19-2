@@ -1,0 +1,24 @@
+{
+  "stage": 163,
+  "source_truth": [
+    "thaumcraft/common/tiles/TileResearchTable.java",
+    "thaumcraft/common/container/ContainerResearchTable.java",
+    "thaumcraft/common/lib/research/ResearchManager.consumeInkFromTable"
+  ],
+  "original_slots": {
+    "0": "IScribeTools",
+    "1": "ItemResearchNotes damage < 64"
+  },
+  "modern_adapter": {
+    "virtual_slot_0": "first ScribingToolsItem with ink in player hands/inventory",
+    "virtual_slot_1": "held ResearchNoteItem"
+  },
+  "ink_rules": {
+    "create_note": "consume 1 ink from virtual slot 0",
+    "place_aspect": "consume 1 ink after valid placement",
+    "clear_aspect": "consume 1 ink after valid clear",
+    "open_edit": "blocked without inked scribing tools"
+  },
+  "bonus_aspects": "Stage163 adds a deterministic adapter for the original nearby environment bonusAspects categories; no new aspect rules are invented.",
+  "no_fake_mechanics": true
+}

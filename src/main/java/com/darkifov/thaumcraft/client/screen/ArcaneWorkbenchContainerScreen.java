@@ -1,172 +1,189 @@
 package com.darkifov.thaumcraft.client.screen;
 
-import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.AspectColor;
+import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipePage;
 import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipeRegistry;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
-import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.Locale;
+import java.util.Map;
 
+/**
+ * Stage189 original TC4 GuiArcaneWorkbench adapter.
+ *
+ * Source of truth: thaumcraft.client.gui.GuiArcaneWorkbench.
+ * There is no recipe browser, search field or client-side Craft button in TC4.
+ * The server-side container previews the current 3x3 grid output and this screen
+ * only renders gui_arcaneworkbench plus the six primal aspect costs around it.
+ */
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-    private static final ResourceLocation ORIGINAL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/arcane_workbench.png");
-
-    private int page = 0;
-    private EditBox searchBox;
+    private static final int[][] ASPECT_LOCS = new int[][]{
+            {72, 21},   // Air
+            {24, 43},   // Earth
+            {24, 102},  // Fire
+            {72, 124},  // Water
+            {120, 102}, // Order
+            {120, 43}   // Entropy
+    };
+    private static final Aspect[] PRIMALS = new Aspect[]{Aspect.AER, Aspect.TERRA, Aspect.IGNIS, Aspect.AQUA, Aspect.ORDO, Aspect.PERDITIO};
 
     public ArcaneWorkbenchContainerScreen(ArcaneWorkbenchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 234;
+        imageWidth = 190;
         imageHeight = 234;
         inventoryLabelY = 151;
     }
 
     @Override
-    protected void init() {
-        super.init();
-
-        searchBox = new EditBox(font, leftPos + 8, topPos - 44, 198, 18, Component.literal("Search"));
-        searchBox.setMaxLength(40);
-        searchBox.setSuggestion("Search recipe...");
-        addRenderableWidget(searchBox);
-
-        addRenderableWidget(new Button(leftPos + 6, topPos - 24, 50, 18, Component.literal("<"), button -> {
-            page = Math.max(0, page - 1);
-        }));
-
-        addRenderableWidget(new Button(leftPos + 158, topPos - 24, 50, 18, Component.literal(">"), button -> {
-            page = Math.min(filteredRecipes().size() - 1, page + 1);
-        }));
-
-        addRenderableWidget(new Button(leftPos + 70, topPos - 24, 72, 18, Component.literal("Craft"), button -> {
-            ClientArcaneRecipePage recipe = currentRecipe();
-
-            if (recipe != null && ClientResearchData.hasResearch(recipe.research())) {
-                ThaumcraftNetwork.requestArcaneMenuCraftFromClient(menu.blockPos(), new ResourceLocation(recipe.id()));
-            }
-        }));
-    }
-
-    private List<ClientArcaneRecipePage> filteredRecipes() {
-        List<ClientArcaneRecipePage> all = ClientArcaneRecipeRegistry.pages();
-        String query = searchBox == null ? "" : searchBox.getValue().trim().toLowerCase(Locale.ROOT);
-
-        if (query.isEmpty()) {
-            return all;
-        }
-
-        List<ClientArcaneRecipePage> filtered = new ArrayList<>();
-
-        for (ClientArcaneRecipePage page : all) {
-            String haystack = (page.title() + " " + page.research() + " " + page.catalyst() + " " + page.result()).toLowerCase(Locale.ROOT);
-
-            if (haystack.contains(query)) {
-                filtered.add(page);
-            }
-        }
-
-        return filtered;
-    }
-
-    private ClientArcaneRecipePage currentRecipe() {
-        List<ClientArcaneRecipePage> filtered = filteredRecipes();
-
-        if (filtered.isEmpty()) {
-            return null;
-        }
-
-        if (page >= filtered.size()) {
-            page = filtered.size() - 1;
-        }
-
-        if (page < 0) {
-            page = 0;
-        }
-
-        return filtered.get(page);
+    protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
+        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos, topPos, OriginalGuiTextures.ARCANE_WORKBENCH, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 
     @Override
-    protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        int x = leftPos + (imageWidth - 256) / 2;
-        int y = topPos + (imageHeight - 256) / 2;
-        OriginalGuiTextures.blitOriginal(poseStack, x, y, OriginalGuiTextures.ARCANE_WORKBENCH, 256, 256);
+    protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+        // Original GuiArcaneWorkbench leaves the foreground layer empty.
     }
 
-    private void renderGhostItems(PoseStack poseStack, ClientArcaneRecipePage recipe) {
-        boolean shaped = recipe.patternRows() != null && recipe.patternRows().length > 0;
-        font.draw(poseStack, shaped ? "TC4 shaped layout:" : "TC4 ghost layout:", leftPos + 10, topPos + 126, 0x4A2A11);
+    @Override
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTick);
+        renderOriginalAspectCosts(poseStack, partialTick);
+        renderOriginalInsufficientVis(poseStack);
+        renderTooltip(poseStack, mouseX, mouseY);
+    }
 
-        if (shaped) {
-            renderPatternGhost(poseStack, recipe);
-        } else {
-            renderGhostStack(poseStack, recipe.catalystId(), leftPos + 16, topPos + 64);
-
-            String[] ids = recipe.ingredientIds();
-
-            for (int i = 0; i < Math.min(ids.length, 9); i++) {
-                int x = leftPos + 40 + (i % 3) * 24;
-                int y = topPos + 40 + (i / 3) * 24;
-                renderGhostStack(poseStack, ids[i], x, y);
-            }
+    private void renderOriginalAspectCosts(PoseStack poseStack, float partialTick) {
+        ClientArcaneRecipePage recipe = recipeForOutput();
+        if (recipe == null) {
+            return;
         }
 
-        renderGhostStack(poseStack, recipe.resultId(), leftPos + 160, topPos + 64);
+        Map<Aspect, Integer> costs = parseAspectCosts(recipe.visCost());
+        if (costs.isEmpty()) {
+            return;
+        }
+
+        ItemStack wand = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_WAND).getItem();
+        for (int i = 0; i < PRIMALS.length; i++) {
+            Aspect aspect = PRIMALS[i];
+            int baseAmount = costs.getOrDefault(aspect, 0);
+            if (baseAmount <= 0) {
+                continue;
+            }
+
+            int amount = wand.getItem() instanceof WandItem ? WandItem.modifiedVisCost(wand, aspect, baseAmount) : baseAmount;
+            boolean enough = !(wand.getItem() instanceof WandItem) || WandItem.getVis(wand, aspect) >= amount || WandItem.hasInfiniteVis(wand);
+            int x = leftPos + ASPECT_LOCS[i][0] - 8;
+            int y = topPos + ASPECT_LOCS[i][1] - 8;
+            int alpha = enough ? 230 : 120;
+            int color = enough ? AspectColor.argb(aspect, alpha) : AspectColor.dim(aspect, alpha, 0.45F);
+
+            fill(poseStack, x, y, x + 16, y + 16, color);
+            drawString(poseStack, font, Component.literal(String.valueOf(amount)), x + 11, y + 9, enough ? 0xFFFFFF : 0x9E5A3B);
+        }
     }
 
-    private void renderPatternGhost(PoseStack poseStack, ClientArcaneRecipePage recipe) {
-        String[] rows = recipe.patternRows();
-        Map<Character, String> symbolMap = inferredClientPatternMap(recipe);
+    private void renderOriginalInsufficientVis(PoseStack poseStack) {
+        ClientArcaneRecipePage recipe = recipeForVisibleGrid();
+        if (recipe == null) {
+            return;
+        }
+        if (!menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_OUTPUT).getItem().isEmpty()) {
+            return;
+        }
+        ItemStack wand = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_WAND).getItem();
+        if (!(wand.getItem() instanceof WandItem)) {
+            return;
+        }
+        Map<Aspect, Integer> costs = parseAspectCosts(recipe.visCost());
+        if (costs.isEmpty()) {
+            return;
+        }
+        for (Map.Entry<Aspect, Integer> entry : costs.entrySet()) {
+            int needed = WandItem.modifiedVisCost(wand, entry.getKey(), entry.getValue());
+            if (!WandItem.hasInfiniteVis(wand) && WandItem.getVis(wand, entry.getKey()) < needed) {
+                drawCenteredString(poseStack, font, Component.literal("Insufficient vis").withStyle(ChatFormatting.RED), leftPos + 168, topPos + 46, 0xEE6E6E);
+                return;
+            }
+        }
+    }
 
-        for (int row = 0; row < Math.min(3, rows.length); row++) {
-            String line = rows[row];
-            for (int col = 0; col < Math.min(3, line.length()); col++) {
-                char symbol = line.charAt(col);
-                int x = leftPos + 40 + col * 24;
-                int y = topPos + 40 + row * 24;
+    private ClientArcaneRecipePage recipeForOutput() {
+        ItemStack output = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_OUTPUT).getItem();
+        if (output.isEmpty()) {
+            return null;
+        }
+        ResourceLocation outputId = ForgeRegistries.ITEMS.getKey(output.getItem());
+        if (outputId == null) {
+            return null;
+        }
+        for (ClientArcaneRecipePage page : ClientArcaneRecipeRegistry.pages()) {
+            if (!ClientResearchData.hasResearch(page.research())) {
+                continue;
+            }
+            if (outputId.toString().equals(page.resultId())) {
+                return page;
+            }
+        }
+        return null;
+    }
 
+    private ClientArcaneRecipePage recipeForVisibleGrid() {
+        for (ClientArcaneRecipePage page : ClientArcaneRecipeRegistry.pages()) {
+            if (!ClientResearchData.hasResearch(page.research())) {
+                continue;
+            }
+            if (matchesVisibleGrid(page)) {
+                return page;
+            }
+        }
+        return null;
+    }
+
+    private boolean matchesVisibleGrid(ClientArcaneRecipePage page) {
+        String[] rows = page.patternRows();
+        if (rows == null || rows.length == 0) {
+            return false;
+        }
+        Map<Character, String> key = inferredPatternMap(page);
+        for (int row = 0; row < 3; row++) {
+            String line = row < rows.length ? rows[row] : "";
+            for (int col = 0; col < 3; col++) {
+                char symbol = col < line.length() ? line.charAt(col) : ' ';
+                Slot slot = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_GRID_START + row * 3 + col);
+                ItemStack stack = slot.getItem();
                 if (symbol == ' ') {
-                    drawSlot(poseStack, x - 1, y - 1);
+                    if (!stack.isEmpty()) return false;
                     continue;
                 }
-
-                String itemId = symbolMap.getOrDefault(symbol, recipe.catalystId());
-                renderGhostStack(poseStack, itemId, x, y);
-                font.draw(poseStack, String.valueOf(symbol), x + 12, y + 10, 0xFF2D1B0B);
+                String required = key.get(symbol);
+                ResourceLocation actual = ForgeRegistries.ITEMS.getKey(stack.getItem());
+                if (required == null || actual == null || !required.equals(actual.toString())) {
+                    return false;
+                }
             }
         }
-
-        if (!recipe.catalystId().isBlank()) {
-            font.draw(poseStack, "catalyst", leftPos + 10, topPos + 52, 0x4A2A11);
-            renderGhostStack(poseStack, recipe.catalystId(), leftPos + 16, topPos + 64);
-        }
+        return true;
     }
 
-    private Map<Character, String> inferredClientPatternMap(ClientArcaneRecipePage recipe) {
-        Map<Character, String> map = new LinkedHashMap<>();
-        List<Character> symbols = new ArrayList<>();
-        String[] rows = recipe.patternRows();
-
-        for (String row : rows) {
+    private Map<Character, String> inferredPatternMap(ClientArcaneRecipePage page) {
+        Map<Character, String> result = new java.util.LinkedHashMap<>();
+        java.util.List<Character> symbols = new java.util.ArrayList<>();
+        for (String row : page.patternRows()) {
             for (int i = 0; i < row.length(); i++) {
                 char symbol = row.charAt(i);
                 if (symbol != ' ' && !symbols.contains(symbol)) {
@@ -174,44 +191,32 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
                 }
             }
         }
-
-        Character catalystSymbol = inferredClientCatalystSymbol(rows, symbols, recipe.ingredientIds().length);
+        Character catalyst = inferCatalystSymbol(page.patternRows(), symbols, page.ingredientIds().length);
         int ingredientIndex = 0;
-
         for (Character symbol : symbols) {
-            if (catalystSymbol != null && symbol.equals(catalystSymbol)) {
-                map.put(symbol, recipe.catalystId());
-                continue;
-            }
-            String[] ingredients = recipe.ingredientIds();
-            if (ingredients.length == 1) {
-                map.put(symbol, ingredients[0]);
-            } else if (ingredientIndex < ingredients.length) {
-                map.put(symbol, ingredients[ingredientIndex++]);
+            if (catalyst != null && catalyst.equals(symbol)) {
+                result.put(symbol, page.catalystId());
+            } else if (page.ingredientIds().length == 1) {
+                result.put(symbol, page.ingredientIds()[0]);
+            } else if (ingredientIndex < page.ingredientIds().length) {
+                result.put(symbol, page.ingredientIds()[ingredientIndex++]);
             }
         }
-
-        return map;
+        return result;
     }
 
-    private Character inferredClientCatalystSymbol(String[] rows, List<Character> symbols, int ingredientCount) {
-        if (symbols.isEmpty()) {
-            return null;
-        }
-        if (ingredientCount == 0 && symbols.size() == 1) {
-            return symbols.get(0);
-        }
+    private Character inferCatalystSymbol(String[] rows, java.util.List<Character> symbols, int ingredientCount) {
+        if (symbols.isEmpty()) return null;
+        if (ingredientCount == 0 && symbols.size() == 1) return symbols.get(0);
         if (symbols.size() == ingredientCount + 1 || (ingredientCount == 1 && symbols.size() == 2)) {
             if (rows.length > 1 && rows[1].length() > 1) {
                 char center = rows[1].charAt(1);
-                if (center != ' ' && countClientSymbol(rows, center) == 1) {
-                    return center;
-                }
+                if (center != ' ' && countSymbol(rows, center) == 1) return center;
             }
             Character rarest = null;
             int rarestCount = Integer.MAX_VALUE;
             for (Character symbol : symbols) {
-                int count = countClientSymbol(rows, symbol);
+                int count = countSymbol(rows, symbol);
                 if (count < rarestCount) {
                     rarest = symbol;
                     rarestCount = count;
@@ -222,111 +227,39 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
         return null;
     }
 
-    private int countClientSymbol(String[] rows, char symbol) {
+    private int countSymbol(String[] rows, char symbol) {
         int count = 0;
         for (String row : rows) {
             for (int i = 0; i < row.length(); i++) {
-                if (row.charAt(i) == symbol) {
-                    count++;
-                }
+                if (row.charAt(i) == symbol) count++;
             }
         }
         return count;
     }
 
-    private void renderGhostStack(PoseStack poseStack, String itemId, int x, int y) {
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId));
-
-        if (item == null) {
-            fill(poseStack, x, y, x + 16, y + 16, 0x559A2B2B);
-            font.draw(poseStack, "?", x + 5, y + 4, 0xFFFFFF);
-            return;
+    private Map<Aspect, Integer> parseAspectCosts(String text) {
+        Map<Aspect, Integer> costs = new EnumMap<>(Aspect.class);
+        if (text == null || text.isBlank() || text.equals("none")) {
+            return costs;
         }
-
-        itemRenderer.renderAndDecorateItem(new ItemStack(item), x, y);
-        fill(poseStack, x, y, x + 16, y + 16, 0x55FFFFFF);
-    }
-
-    private void drawSlot(PoseStack poseStack, int x, int y) {
-        fill(poseStack, x, y, x + 18, y + 18, 0xFF5C4631);
-        fill(poseStack, x + 1, y + 1, x + 17, y + 17, 0xFFEEDDB9);
-        fill(poseStack, x + 2, y + 2, x + 16, y + 16, 0x88FFFFFF);
-    }
-
-    private void renderRecipeInfo(PoseStack poseStack, ClientArcaneRecipePage recipe) {
-        boolean unlocked = ClientResearchData.hasResearch(recipe.research());
-        int ink = 0x3F2612;
-        int warning = 0x8A2D1B;
-
-        drawCenteredString(poseStack, font, Component.literal("Arcane Workbench"), leftPos + imageWidth / 2, topPos + 8, ink);
-        drawString(poseStack, font, Component.literal(recipe.title()), leftPos + 10, topPos + 18, ink);
-        drawString(poseStack, font, Component.literal("Research: " + (recipe.research().isBlank() ? "none" : recipe.research())), leftPos + 10, topPos + 30, unlocked ? 0x245A24 : warning);
-        drawString(poseStack, font, Component.literal("Vis: " + recipe.visCost()), leftPos + 10, topPos + 42, 0x4A2A88);
-        if (!recipe.tc4Kind().isBlank()) {
-            drawString(poseStack, font, Component.literal(recipe.tc4Kind()), leftPos + 10, topPos + 54, 0x6D4A22);
+        String lower = text.toLowerCase(Locale.ROOT);
+        for (Aspect aspect : PRIMALS) {
+            String display = aspect.displayName().toLowerCase(Locale.ROOT);
+            String id = aspect.id().toLowerCase(Locale.ROOT);
+            int idx = lower.indexOf(display);
+            if (idx < 0) idx = lower.indexOf(id);
+            if (idx < 0) continue;
+            String tail = lower.substring(idx + (lower.startsWith(display, idx) ? display.length() : id.length())).trim();
+            StringBuilder digits = new StringBuilder();
+            for (int i = 0; i < tail.length(); i++) {
+                char ch = tail.charAt(i);
+                if (Character.isDigit(ch)) digits.append(ch);
+                else if (digits.length() > 0) break;
+            }
+            if (digits.length() > 0) {
+                costs.put(aspect, Integer.parseInt(digits.toString()));
+            }
         }
-        drawString(poseStack, font, Component.literal((page + 1) + " / " + Math.max(1, filteredRecipes().size())), leftPos + 168, topPos + 18, ink);
-
-        if (!unlocked) {
-            drawCenteredString(poseStack, font, Component.literal("Research locked"), leftPos + 168, topPos + 86, warning);
-        }
-
-        if (!recipe.note().isBlank()) {
-            drawString(poseStack, font, Component.literal(recipe.note()), leftPos + 10, topPos + 136, 0x5A3515);
-        }
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (searchBox != null && searchBox.keyPressed(keyCode, scanCode, modifiers)) {
-            page = 0;
-            return true;
-        }
-
-        return super.keyPressed(keyCode, scanCode, modifiers);
-    }
-
-    @Override
-    public boolean charTyped(char codePoint, int modifiers) {
-        if (searchBox != null && searchBox.charTyped(codePoint, modifiers)) {
-            page = 0;
-            return true;
-        }
-
-        return super.charTyped(codePoint, modifiers);
-    }
-
-    @Override
-    public void containerTick() {
-        super.containerTick();
-
-        if (searchBox != null) {
-            searchBox.tick();
-        }
-    }
-
-    @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-        renderBackground(poseStack);
-        super.render(poseStack, mouseX, mouseY, partialTick);
-        ClientArcaneRecipePage recipe = currentRecipe();
-
-        if (recipe != null) {
-            renderRecipeInfo(poseStack, recipe);
-            renderGhostItems(poseStack, recipe);
-        }
-
-        renderTooltip(poseStack, mouseX, mouseY);
-
-        if (searchBox != null) {
-            searchBox.render(poseStack, mouseX, mouseY, partialTick);
-        }
-
-        if (recipe != null && mouseY < topPos) {
-            renderTooltip(poseStack,
-                    Component.literal(recipe.title() + " | " + recipe.result()).withStyle(ChatFormatting.GOLD),
-                    mouseX,
-                    mouseY);
-        }
+        return costs;
     }
 }

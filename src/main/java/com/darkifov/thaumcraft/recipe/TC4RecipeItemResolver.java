@@ -12,6 +12,8 @@ public final class TC4RecipeItemResolver {
     private static final Map<String, String> ITEM_DIRECT = new LinkedHashMap<>();
     private static final Map<String, String> BLOCK_META = new LinkedHashMap<>();
     private static final Map<String, String> VANILLA_ITEMS = new LinkedHashMap<>();
+    private static final Map<String, String> VANILLA_BLOCKS = new LinkedHashMap<>();
+    private static final Map<String, String> ORE_DICT_EXACT = new LinkedHashMap<>();
     static {
         ITEM_META.put("itemAmuletVis:0", "thaumcraft:tc4_vis_amulet_lesser");
         ITEM_META.put("itemAmuletVis:1", "thaumcraft:tc4_vis_amulet");
@@ -121,6 +123,9 @@ public final class TC4RecipeItemResolver {
         ITEM_DIRECT.put("itemAxeThaumium", "thaumcraft:tc4_thaumiumaxe");
         ITEM_DIRECT.put("itemAxeVoid", "thaumcraft:tc4_voidaxe");
         ITEM_DIRECT.put("itemBathSalts", "thaumcraft:tc4_bath_salts");
+        ITEM_META.put("itemBaubleBlanks:0", "thaumcraft:tc4_bauble_amulet");
+        ITEM_META.put("itemBaubleBlanks:1", "thaumcraft:tc4_bauble_ring");
+        ITEM_META.put("itemBaubleBlanks:2", "thaumcraft:tc4_bauble_belt");
         ITEM_DIRECT.put("itemBaubleBlanks", "thaumcraft:tc4_bauble_amulet");
         ITEM_DIRECT.put("itemBootsRobe", "thaumcraft:tc4_clothboots");
         ITEM_DIRECT.put("itemBootsThaumium", "thaumcraft:tc4_thaumiumboots");
@@ -138,6 +143,16 @@ public final class TC4RecipeItemResolver {
         ITEM_DIRECT.put("itemCompassStone", "thaumcraft:tc4_compassstone");
         ITEM_DIRECT.put("itemCrystalEssence", "thaumcraft:tc4_crystalessence");
         ITEM_DIRECT.put("itemEssence", "thaumcraft:tc4_essence");
+        ITEM_DIRECT.put("itemFocusExcavation", "thaumcraft:tc4_focus_excavation");
+        ITEM_DIRECT.put("itemFocusFire", "thaumcraft:tc4_focus_fire");
+        ITEM_DIRECT.put("itemFocusFrost", "thaumcraft:tc4_focus_frost");
+        ITEM_DIRECT.put("itemFocusHellbat", "thaumcraft:tc4_focus_hellbat");
+        ITEM_DIRECT.put("itemFocusPortableHole", "thaumcraft:tc4_focus_portablehole");
+        ITEM_DIRECT.put("itemFocusPouch", "thaumcraft:tc4_focuspouch");
+        ITEM_DIRECT.put("itemFocusPrimal", "thaumcraft:tc4_focus_primal");
+        ITEM_DIRECT.put("itemFocusShock", "thaumcraft:tc4_focus_shock");
+        ITEM_DIRECT.put("itemFocusTrade", "thaumcraft:tc4_focus_trade");
+        ITEM_DIRECT.put("itemFocusWarding", "thaumcraft:tc4_focus_warding");
         ITEM_DIRECT.put("itemGirdleHover", "thaumcraft:tc4_hovergirdle");
         ITEM_DIRECT.put("itemGirdleRunic", "thaumcraft:tc4_runic_girdle");
         ITEM_DIRECT.put("itemGoggles", "thaumcraft:tc4_gogglesrevealing");
@@ -200,6 +215,13 @@ public final class TC4RecipeItemResolver {
         BLOCK_META.put("blockCustomPlant:3", "thaumcraft:tc4_block_cinderpearl");
         BLOCK_META.put("blockCustomPlant:4", "thaumcraft:tc4_block_ethereal_bloom");
         BLOCK_META.put("blockCustomPlant:5", "thaumcraft:tc4_block_vishroom");
+        BLOCK_META.put("blockCosmeticOpaque:2", "thaumcraft:tce_warded_glass");
+        BLOCK_META.put("blockJar:3", "thaumcraft:void_essentia_jar");
+        BLOCK_META.put("blockMirror:0", "thaumcraft:tc4_mirrorframe");
+        BLOCK_META.put("blockMirror:6", "thaumcraft:tc4_mirrorframe2");
+        BLOCK_META.put("blockMetalDevice:2", "thaumcraft:vis_relay");
+        BLOCK_META.put("blockMetalDevice:14", "thaumcraft:vis_relay");
+        BLOCK_META.put("blockStoneDevice:0", "thaumcraft:alchemical_furnace");
         BLOCK_META.put("blockEssentiaReservoir:*", "thaumcraft:tc4_block_essentia_reservoir");
         BLOCK_META.put("blockJar:0", "thaumcraft:tc4_block_essentia_jar");
         BLOCK_META.put("blockLifter:*", "thaumcraft:tc4_block_levitator");
@@ -300,6 +322,27 @@ public final class TC4RecipeItemResolver {
         VANILLA_ITEMS.put("field_151170_bI", "minecraft:melon_seeds");
         VANILLA_ITEMS.put("field_151172_bF", "minecraft:brewing_stand");
         VANILLA_ITEMS.put("field_151174_bG", "minecraft:cauldron");
+        VANILLA_BLOCKS.put("field_150331_J", "minecraft:lapis_block");
+        VANILLA_BLOCKS.put("field_150343_Z", "minecraft:obsidian");
+        VANILLA_BLOCKS.put("field_150359_w", "minecraft:glass");
+        VANILLA_BLOCKS.put("field_150367_z", "minecraft:diamond_block");
+        VANILLA_BLOCKS.put("field_150442_at", "minecraft:redstone_torch");
+        VANILLA_BLOCKS.put("field_150453_bW", "minecraft:daylight_detector");
+        VANILLA_BLOCKS.put("field_150460_al", "minecraft:furnace");
+        VANILLA_BLOCKS.put("field_150467_bQ", "minecraft:enchanting_table");
+        ORE_DICT_EXACT.put("dustGlowstone", "minecraft:glowstone_dust");
+        ORE_DICT_EXACT.put("gemDiamond", "minecraft:diamond");
+        ORE_DICT_EXACT.put("gemEmerald", "minecraft:emerald");
+        ORE_DICT_EXACT.put("ingotGold", "minecraft:gold_ingot");
+        ORE_DICT_EXACT.put("ingotIron", "minecraft:iron_ingot");
+        ORE_DICT_EXACT.put("nuggetCopper", "thaumcraft:tc4_nuggetcopper");
+        ORE_DICT_EXACT.put("nuggetSilver", "thaumcraft:tc4_nuggetsilver");
+        ORE_DICT_EXACT.put("nuggetThaumium", "thaumcraft:tc4_nuggetthaumium");
+        ORE_DICT_EXACT.put("nuggetVoid", "thaumcraft:tc4_nuggetvoid");
+        ORE_DICT_EXACT.put("plankWood", "minecraft:oak_planks");
+        ORE_DICT_EXACT.put("stickWood", "minecraft:stick");
+        ORE_DICT_EXACT.put("stone", "minecraft:stone");
+        ORE_DICT_EXACT.put("dyeBlue", "minecraft:blue_dye");
     }
 
     private TC4RecipeItemResolver() {}
@@ -324,6 +367,66 @@ public final class TC4RecipeItemResolver {
         return VANILLA_ITEMS.getOrDefault(field, "");
     }
 
+    public static String resolveVanillaBlockField(String field) {
+        return VANILLA_BLOCKS.getOrDefault(field, "");
+    }
+
+    public static String resolveOreDictionaryToken(String token) {
+        if (token == null) return "";
+        String trimmed = token.trim();
+        if (trimmed.length() >= 2 && trimmed.startsWith("'") && trimmed.endsWith("'")) {
+            trimmed = trimmed.substring(1, trimmed.length() - 1);
+        }
+        return ORE_DICT_EXACT.getOrDefault(trimmed, "");
+    }
+
+    /**
+     * Stage155: conservative 1.7.10 -> 1.19.2 recipe expression resolver.
+     * It resolves only exact, already-carried TC4 ids and vanilla ids. Ore-dict
+     * names without an exact single modern item remain unresolved on purpose.
+     */
+    public static String resolveLegacyRecipeExpression(String expression) {
+        if (expression == null || expression.isBlank()) return "";
+        String compact = expression.replace(" ", "");
+        java.util.regex.Matcher itemMatcher = java.util.regex.Pattern.compile("ConfigItems\.(item[A-Za-z0-9_]+)(?:,1,(-?\d+))?").matcher(compact);
+        if (itemMatcher.find()) {
+            String field = itemMatcher.group(1);
+            int meta = 0;
+            if (itemMatcher.group(2) != null) {
+                try { meta = Integer.parseInt(itemMatcher.group(2)); } catch (NumberFormatException ignored) { meta = 0; }
+            }
+            String resolved = resolveConfigItem(field, meta);
+            if (!resolved.isBlank()) return resolved;
+        }
+        java.util.regex.Matcher blockMatcher = java.util.regex.Pattern.compile("ConfigBlocks\.(block[A-Za-z0-9_]+)(?:,1,(-?\d+))?").matcher(compact);
+        if (blockMatcher.find()) {
+            String field = blockMatcher.group(1);
+            int meta = 0;
+            if (blockMatcher.group(2) != null) {
+                try { meta = Integer.parseInt(blockMatcher.group(2)); } catch (NumberFormatException ignored) { meta = 0; }
+            }
+            String resolved = resolveConfigBlock(field, meta);
+            if (!resolved.isBlank()) return resolved;
+        }
+        java.util.regex.Matcher vanillaItemMatcher = java.util.regex.Pattern.compile("Items\.(field_[0-9]+_[A-Za-z0-9]+)").matcher(compact);
+        if (vanillaItemMatcher.find()) {
+            String resolved = resolveVanillaItemField(vanillaItemMatcher.group(1));
+            if (!resolved.isBlank()) return resolved;
+        }
+        java.util.regex.Matcher vanillaBlockMatcher = java.util.regex.Pattern.compile("Blocks\.(field_[0-9]+_[A-Za-z0-9]+)").matcher(compact);
+        if (vanillaBlockMatcher.find()) {
+            String resolved = resolveVanillaBlockField(vanillaBlockMatcher.group(1));
+            if (!resolved.isBlank()) return resolved;
+        }
+        java.util.regex.Matcher oreMatcher = java.util.regex.Pattern.compile("'([^']+)'").matcher(expression);
+        if (oreMatcher.matches()) {
+            return resolveOreDictionaryToken(oreMatcher.group(1));
+        }
+        return "";
+    }
+
     public static int mappedTc4ItemCount() { return ITEM_META.size() + ITEM_DIRECT.size(); }
     public static int mappedTc4BlockVariantCount() { return BLOCK_META.size(); }
+    public static int mappedVanillaBlockCount() { return VANILLA_BLOCKS.size(); }
+    public static int mappedExactOreDictTokenCount() { return ORE_DICT_EXACT.size(); }
 }

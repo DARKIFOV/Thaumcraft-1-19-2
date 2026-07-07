@@ -40,6 +40,159 @@ jobs:
       - name: Run Stage144 eldritch/warp/taint audit
         run: python scripts/tc4_stage144_eldritch_warp_taint_audit.py
 
+      - name: Run Stage145 taint/output texture audit
+        run: python scripts/tc4_stage145_taint_output_texture_audit.py
+
+      - name: Run Stage146 worldgen/resource audit
+        run: python scripts/tc4_stage146_worldgen_resources_audit.py
+
+      - name: Run Stage147 strict original parity audit
+        run: python scripts/tc4_stage147_strict_original_parity_audit.py
+
+      - name: Run Stage148 research icon parity audit
+        run: python scripts/tc4_stage148_research_icon_parity_audit.py
+
+      - name: Run Stage149 research page parity audit
+        run: python scripts/tc4_stage149_research_page_parity_audit.py
+
+      - name: Run Stage150 research metadata parity audit
+        run: python scripts/tc4_stage150_research_metadata_parity_audit.py
+
+      - name: Run Stage151 research progression audit
+        run: python scripts/tc4_stage151_research_progression_audit.py
+
+      - name: Run Stage152 recipe unlock parity audit
+        run: python scripts/tc4_stage152_recipe_unlock_parity_audit.py
+
+      - name: Run Stage153 recipe materialization parity audit
+        run: python scripts/tc4_stage153_recipe_materialization_parity_audit.py
+
+      - name: Run Stage154 infusion enchantment parity audit
+        run: python scripts/tc4_stage154_infusion_enchantment_parity_audit.py
+
+      - name: Run Stage155 recipe resolver audit
+        run: python scripts/tc4_stage155_recipe_resolver_audit.py
+
+      - name: Run Stage156 bulk recipe materialization audit
+        run: python scripts/tc4_stage156_bulk_recipe_materialization_audit.py
+
+      - name: Run Stage157 object/entity aspect parity audit
+        run: python scripts/tc4_stage157_object_entity_aspect_parity_audit.py
+
+      - name: Run Stage158 Thaumometer scan runtime audit
+        run: python scripts/tc4_stage158_thaumometer_scan_runtime_audit.py
+
+      - name: Run Stage159 player scan knowledge audit
+        run: python scripts/tc4_stage159_player_scan_knowledge_audit.py
+
+      - name: Run Stage160 research table aspect foundation audit
+        run: python scripts/tc4_stage160_research_table_aspect_foundation_audit.py
+
+      - name: Run Stage161 research note grid parity audit
+        run: python scripts/tc4_stage161_research_note_grid_parity_audit.py
+
+      - name: Run Stage162 research note completion parity audit
+        run: python scripts/tc4_stage162_research_note_completion_parity_audit.py
+
+      - name: Run Stage163 research table inventory/ink audit
+        run: python scripts/tc4_stage163_research_table_inventory_ink_audit.py
+
+      - name: Run Stage164 research note GUI parity audit
+        run: python scripts/tc4_stage164_research_note_gui_parity_audit.py
+
+      - name: Run Stage165 research table block entity audit
+        run: python scripts/tc4_stage165_research_table_block_entity_audit.py
+
+      - name: Run Stage166 research table GUI/copy audit
+        run: python scripts/tc4_stage166_research_table_gui_copy_audit.py
+
+      - name: Run Stage166 original drift audit
+        run: python scripts/tc4_stage166_original_drift_audit.py
+
+      - name: Run Stage167 GuiResearchTable visual audit
+        run: python scripts/tc4_stage167_gui_research_table_visual_audit.py
+
+      - name: Run Stage168 RESEARCHDUPE copy audit
+        run: python scripts/tc4_stage168_research_dupe_copy_audit.py
+
+      - name: Run Stage169 Research Table bonus aspects audit
+        run: python scripts/tc4_stage169_research_table_bonus_aspects_audit.py
+
+      - name: Run Stage170 Research Table bonus sync audit
+        run: python scripts/tc4_stage170_research_table_bonus_sync_audit.py
+
+      - name: Run Stage171 wand focus behavior audit
+        run: python scripts/tc4_stage171_wand_focus_behavior_audit.py
+
+      - name: Run Stage172 wand focus cost/sync audit
+        run: python scripts/tc4_stage172_wand_focus_cost_sync_audit.py
+
+      - name: Run Stage173 focus upgrade NBT audit
+        run: python scripts/tc4_stage173_focus_upgrade_nbt_audit.py
+
+      - name: Run Stage174 focus projectile entity audit
+        run: python scripts/tc4_stage174_focus_projectile_entity_audit.py
+
+      - name: Run Stage175 focus upgrade effects audit
+        run: python scripts/tc4_stage175_focus_upgrade_effects_audit.py
+
+      - name: Run Stage176 focus projectile visual audit
+        run: python scripts/tc4_stage176_focus_projectile_visuals_audit.py
+
+      - name: Run Stage177 focus architect area audit
+        run: python scripts/tc4_stage177_focus_architect_area_audit.py
+
+      - name: Run Stage178 projectile behavior audit
+        run: python scripts/tc4_stage178_projectile_behavior_audit.py
+
+      - name: Run Stage179 architect client overlay/keybind audit
+        run: python scripts/tc4_stage179_architect_client_overlay_audit.py
+
+      - name: Run Stage180 continuous focus use audit
+        run: python scripts/tc4_stage180_continuous_focus_use_audit.py
+
+      - name: Run Stage181 focus client FX audit
+        run: python scripts/tc4_stage181_focus_client_fx_audit.py
+
+      - name: Run Stage182 focus animation audit
+        run: python scripts/tc4_stage182_focus_animation_audit.py
+
+      - name: Run Stage183 focus renderer/layers audit
+        run: python scripts/tc4_stage183_focus_renderer_layers_audit.py
+
+      - name: Run Stage184 remaining focus behavior audit
+        run: python scripts/tc4_stage184_remaining_focus_behavior_audit.py
+
+      - name: Run Stage185 wand component renderer audit
+        run: python scripts/tc4_stage185_wand_component_renderer_audit.py
+
+      - name: Run Stage186 focus pouch GUI audit
+        run: python scripts/tc4_stage186_focus_pouch_gui_audit.py
+
+      - name: Run Stage187 wand crafting/sceptre audit
+        run: python scripts/tc4_stage187_wand_crafting_sceptre_audit.py
+
+      - name: Run Stage188 focus selection packet audit
+        run: python scripts/tc4_stage188_focus_selection_packet_audit.py
+
+      - name: Run Stage189 arcane workbench GUI audit
+        run: python scripts/tc4_stage189_arcane_workbench_gui_audit.py
+
+      - name: Run Stage190 wand ConfigRecipes audit
+        run: python scripts/tc4_stage190_wand_configrecipes_audit.py
+
+      - name: Run Stage191 Arcane Workbench slot edge-case audit
+        run: python scripts/tc4_stage191_arcane_slot_edge_cases_audit.py
+
+      - name: Run Stage192 wand/focus regression audit
+        run: python scripts/tc4_stage192_wand_focus_regression_audit.py
+
+      - name: Run Stage193 Arcane Workbench cleanup audit
+        run: python scripts/tc4_stage193_arcane_cleanup_audit.py
+
+      - name: Run Stage194 full-port drift ledger audit
+        run: python scripts/tc4_stage194_full_port_drift_ledger_audit.py
+
   build:
     name: Build Forge mod jar
     runs-on: ubuntu-latest
@@ -67,23 +220,22 @@ jobs:
         run: ./gradlew --version
 
       - name: Build and reobfuscate jar
-        run: ./gradlew --no-daemon clean build --stacktrace
+        run: ./gradlew --no-daemon clean build verifyJarResources verifyGithubOutputJarResources copyGithubOutputJar --stacktrace
 
       - name: Upload built jars
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: thaumcraft-legacy-rebuild-stage144-jars
+          name: thaumcraft-legacy-rebuild-stage194-jars
           path: |
             build/libs/*.jar
-            build/reobfJar/output.jar
           if-no-files-found: warn
 
       - name: Upload build reports on failure
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: stage144-build-reports
+          name: stage194-build-reports
           path: |
             build/reports/**
             build/tmp/**
