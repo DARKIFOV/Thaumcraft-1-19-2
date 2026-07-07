@@ -41,8 +41,9 @@ public final class JarTubeInteractionRuntime {
             return true;
         }
         jar.setFilterAspect(aspect);
+        final Aspect finalAspect = aspect;
         player.displayClientMessage(Component.literal("Jar AspectFilter set to ")
-                .append(Component.literal(aspect.displayName()).withStyle(style -> style.withColor(aspect.textColor()))), false);
+                .append(Component.literal(finalAspect.displayName()).withStyle(style -> style.withColor(finalAspect.textColor()))), false);
         return true;
     }
 
@@ -64,8 +65,9 @@ public final class JarTubeInteractionRuntime {
             return true;
         }
         tube.setAspectFilter(aspect);
+        final Aspect finalAspect = aspect;
         player.displayClientMessage(Component.literal(tube.subtype().originalClassName() + " AspectFilter set to ")
-                .append(Component.literal(aspect.displayName()).withStyle(style -> style.withColor(aspect.textColor()))), false);
+                .append(Component.literal(finalAspect.displayName()).withStyle(style -> style.withColor(finalAspect.textColor()))), false);
         return true;
     }
 

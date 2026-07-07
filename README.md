@@ -43,3 +43,8 @@ If Minecraft still shows missing textures, remove old jars such as `1.94.0` from
 ## Stage204 GitHub audit hotfix
 
 Fixed GitHub Actions `Static source/resource audit` failure from the stale Stage161 version guard. The Stage161 research-note audit now accepts current Stage204 version `2.04.0` via semantic version parsing instead of old hard-coded version literals.
+
+### Stage204 GitHub Compile Hotfix 2
+
+- Fixed GitHub `compileJava` failure in `JarTubeInteractionRuntime.java`: lambda captured reassigned local `aspect`; now snapshots `final Aspect finalAspect` before `withStyle(...)`.
+- No TC4 mechanics changed; Stage204 parity/resource pack fixes remain intact.
