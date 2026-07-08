@@ -183,7 +183,7 @@ public class TaintacleGiantEntity extends Monster {
     protected float getSoundVolume() { return getBbHeight() / 8.0F; }
 
     @Override
-    protected float getVoicePitch() { return 1.3F - getBbHeight() / 10.0F; }
+    public float getVoicePitch() { return 1.3F - getBbHeight() / 10.0F; }
 
     public int getAnger() { return anger; }
 

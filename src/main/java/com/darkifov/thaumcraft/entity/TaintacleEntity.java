@@ -67,7 +67,7 @@ public class TaintacleEntity extends Monster {
             } else if (flailIntensity > 1.0F) {
                 flailIntensity = Math.max(1.0F, flailIntensity - 0.2F);
             }
-            if (tickCount < getBbHeight() * 10.0F && onGround && random.nextInt(2) == 0) {
+            if (tickCount < getBbHeight() * 10.0F && this.onGround && random.nextInt(2) == 0) {
                 level.addParticle(ParticleTypes.REVERSE_PORTAL, getRandomX(0.45D), getY() + 0.1D, getRandomZ(0.45D), 0.0D, 0.02D, 0.0D);
             }
             return;
@@ -107,9 +107,19 @@ public class TaintacleEntity extends Monster {
             if (doHurtTarget(entity) && level instanceof ServerLevel server) {
                 server.playSound(null, blockPosition(), TC4Sounds.event("tentacle"), SoundSource.HOSTILE, getSoundVolume(), getVoicePitch());
             }
-        } else if (distance > getBbHeight() && entity.onGround && !(this instanceof TaintacleSmallEntity)) {
+        } else if (distance > getBbHeight() && isEntityOnGround1192Adapter(entity) && !(this instanceof TaintacleSmallEntity)) {
             spawnTentacleSmall(entity);
         }
+    }
+
+    /**
+     * Forge 1.19.2 adapter for TC4 Entity.onGround checks on arbitrary targets.
+     * Mojang mappings keep Entity.onGround protected in this target, so external
+     * target checks use the public verticalCollisionBelow flag that backs the
+     * same ground-contact state. No gameplay effect is invented here.
+     */
+    protected boolean isEntityOnGround1192Adapter(Entity entity) {
+        return entity.verticalCollisionBelow;
     }
 
     protected void spawnTentacleSmall(Entity entity) {
@@ -173,7 +183,7 @@ public class TaintacleEntity extends Monster {
     protected float getSoundVolume() { return getBbHeight() / 8.0F; }
 
     @Override
-    protected float getVoicePitch() { return 1.3F - getBbHeight() / 10.0F; }
+    public float getVoicePitch() { return 1.3F - getBbHeight() / 10.0F; }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {

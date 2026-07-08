@@ -321,7 +321,9 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             }
         }
 
-        return InfusionRecipes.find(catalyst);
+        // Stage342 GitHub hotfix: do not fall back to catalyst-only lookup.
+        // Original TC4 infusion selection requires the component pedestals too.
+        return null;
     }
 
     public void cancelInfusion(Player player) {

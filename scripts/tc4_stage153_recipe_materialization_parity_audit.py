@@ -120,8 +120,10 @@ if "findMatchingOriginalInfusionRecipe" not in matrix_text:
     errors.append("Infusion matrix must select original TC4 recipes by catalyst + component pedestals")
 if "InfusionProcessHelper.hasComponents(componentPedestals, recipe)" not in matrix_text:
     errors.append("Stage153 infusion lookup must check component pedestals before selecting a recipe")
-if "InfusionRecipes.find(catalystPedestal.stored())" in matrix_text:
+if "InfusionRecipes.find(catalystPedestal.stored())" in matrix_text or "InfusionRecipes.find(catalyst)" in matrix_text:
     errors.append("Infusion matrix still uses old catalyst-only recipe selection")
+if "return null;" not in matrix_text:
+    errors.append("Infusion matrix recipe lookup must fail closed instead of falling back to catalyst-only lookup")
 
 build_text = (ROOT / "build.gradle").read_text(encoding="utf-8")
 mods_text = (ROOT / "src/main/resources/META-INF/mods.toml").read_text(encoding="utf-8")

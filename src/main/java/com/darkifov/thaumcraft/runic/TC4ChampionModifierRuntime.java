@@ -236,9 +236,10 @@ public final class TC4ChampionModifierRuntime {
 
     private static void applyOffensiveChampionEffect(LivingHurtEvent event) {
         Entity attacker = event.getSource().getEntity();
-        if (!(attacker instanceof Mob champion) || !(event.getEntity() instanceof LivingEntity target)) {
+        if (!(attacker instanceof Mob champion)) {
             return;
         }
+        LivingEntity target = event.getEntity();
         int mod = championMod(champion);
         if (mod < 0 || MODS[mod].type() != 1) {
             return;

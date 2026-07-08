@@ -80,13 +80,13 @@ public class MindSpiderEntity extends Spider {
     }
 
     @Override
-    protected float getVoicePitch() {
+    public float getVoicePitch() {
         return 0.7F;
     }
 
     @Override
-    protected int getExperienceReward(Player player) {
-        return isHarmless() ? 0 : super.getExperienceReward(player);
+    protected int getExperienceReward() {
+        return isHarmless() ? 0 : super.getExperienceReward();
     }
 
     @Override

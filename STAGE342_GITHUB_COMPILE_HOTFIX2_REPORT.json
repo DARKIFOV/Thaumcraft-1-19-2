@@ -1,0 +1,39 @@
+{
+  "stage": "Stage342 GitHub compile/static hotfix 2",
+  "version": "3.42.1-hotfix2",
+  "base_archive": "thaumcraft_legacy_rebuild_STAGE323_342_TC4_SUPER_MEGA_ORIGINAL_PARITY_CLEANUP_1192_GITHUB_HOTFIX.zip",
+  "trigger": "GitHub Actions failed after Stage342. Uploaded logs show compile errors in MindSpiderEntity, TaintacleEntity, TaintacleGiantEntity and TC4ChampionModifierRuntime; screenshot also shows the Stage153 component-pedestal infusion selection guard.",
+  "github_errors_fixed": [
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/entity/MindSpiderEntity.java",
+      "fix": "Changed getVoicePitch() access to public and changed getExperienceReward(Player) adapter to Forge 1.19.2 getExperienceReward() signature. Harmless spider XP behaviour remains original-parity: 0 if harmless, otherwise superclass XP."
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/entity/TaintacleEntity.java",
+      "fix": "Changed getVoicePitch() access to public. Replaced target entity.onGround field access with a Forge 1.19.2 adapter using verticalCollisionBelow because Entity.onGround is protected for arbitrary targets. Self ground check remains this.onGround."
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/entity/TaintacleGiantEntity.java",
+      "fix": "Changed getVoicePitch() access to public to match LivingEntity in Forge 1.19.2 official mappings."
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/runic/TC4ChampionModifierRuntime.java",
+      "fix": "Removed redundant pattern match against event.getEntity(), which already has LivingEntity type in this Forge target."
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/blockentity/InfusionMatrixBlockEntity.java",
+      "fix": "Removed catalyst-only fallback from findMatchingOriginalInfusionRecipe. Infusion recipe selection now returns a recipe only after catalyst and component pedestals match; otherwise null."
+    }
+  ],
+  "parity_note": "No new TC4 mechanics, items, recipes, GUI, progression or textures were introduced. All changes are Forge 1.19.2 API adapters or strict-original infusion selection cleanup.",
+  "local_checks_passed": [
+    "python3 scripts/java_syntax_guard.py",
+    "python3 scripts/github_ci_guard.py",
+    "python3 scripts/github_static_audit.py",
+    "python3 scripts/tc4_stage153_recipe_materialization_parity_audit.py",
+    "all Python audit steps from .github/workflows/main.yml through Stage215",
+    "python3 scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py"
+  ],
+  "gradle_build": "Not run to completion in sandbox because the Gradle wrapper attempted to download Gradle 7.5.1 and DNS/network is unavailable here. GitHub logs were used as the compile source of truth.",
+  "created_at_utc": "2026-07-08T16:30:01Z"
+}
