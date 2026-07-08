@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.client.screen;
 
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectColor;
+import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.AspectCombinationRegistry;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.ClientAspectData;
@@ -74,6 +75,30 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
         renderAspectPaletteLikeTC4(poseStack);
         renderCombinationSlotsLikeTC4(poseStack);
         renderPageArrowsLikeTC4(poseStack);
+
+        String bonus = bonusSummary();
+        if (!bonus.isBlank()) {
+            drawString(poseStack, font, Component.literal("Bonus " + bonus), leftPos + 112, topPos + 28, 0x6B4A2B);
+        }
+    }
+
+
+    private String bonusSummary() {
+        AspectList bonus = menu.tableBonusAspects();
+        if (bonus.isEmpty()) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (java.util.Map.Entry<Aspect, Integer> entry : bonus.entries().entrySet()) {
+            if (entry.getValue() <= 0) {
+                continue;
+            }
+            if (builder.length() > 0) {
+                builder.append(", ");
+            }
+            builder.append(entry.getKey().displayName()).append(' ').append(entry.getValue());
+        }
+        return builder.toString();
     }
 
 

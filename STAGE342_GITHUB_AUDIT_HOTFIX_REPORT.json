@@ -1,0 +1,33 @@
+{
+  "stage": "Stage342 GitHub audit hotfix",
+  "version": "3.42.0-hotfix1",
+  "base_archive": "thaumcraft_legacy_rebuild_STAGE323_342_TC4_SUPER_MEGA_ORIGINAL_PARITY_CLEANUP_1192.zip",
+  "trigger": "GitHub Actions Static source/resource audit failed at Stage153: infusion lookup must check component pedestals before selecting a recipe",
+  "fixed": [
+    "InfusionMatrixBlockEntity.findMatchingOriginalInfusionRecipe now explicitly checks component pedestal matches before recipe selection; runic augmentation keeps catalyst-aware dynamic components.",
+    "Stage155 resolver audit now accepts Stage323+ canonical focus runtime ids after duplicate tc4_focus_* mirror cleanup instead of demanding the removed mirror ids.",
+    "ResearchTableContainerScreen restores a visible table bonus-aspect summary in the TC4 GUI adapter.",
+    "Stage211-215 audits no longer depend on /mnt/data-only extracted original TC4 source trees in GitHub CI; when originals are absent they validate carried source anchors, reports and actual 1.19.2 adapter files.",
+    "Stage211-215 version guards now accept the current Stage342 3.42.0 source instead of old 2.15/2.16 literals."
+  ],
+  "not_changed": [
+    "No new TC4 mechanics, items, recipes, progression or textures were introduced by this hotfix.",
+    "Stage323 focus cleanup remains: active recipes use real focus_fire/focus_frost/focus_shock/focus_excavation/focus_equal_trade/focus_portable_hole/focus_warding/focus_primal ids; old focus mirrors remain quarantined except Hellbat placeholder."
+  ],
+  "local_checks_passed": [
+    "python3 scripts/java_syntax_guard.py",
+    "python3 scripts/github_ci_guard.py",
+    "python3 scripts/github_static_audit.py",
+    "python3 scripts/tc4_stage153_recipe_materialization_parity_audit.py",
+    "python3 scripts/tc4_stage155_recipe_resolver_audit.py",
+    "python3 scripts/tc4_stage170_research_table_bonus_sync_audit.py",
+    "python3 scripts/tc4_stage211_runic_shield_runtime_audit.py",
+    "python3 scripts/tc4_stage212_fortress_mask_curios_audit.py",
+    "python3 scripts/tc4_stage213_fortress_champion_runtime_audit.py",
+    "python3 scripts/tc4_stage214_champion_generation_fx_audit.py",
+    "python3 scripts/tc4_stage215_eldritch_boss_champion_audit.py",
+    "python3 scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py"
+  ],
+  "gradle_build": "Not run to completion in sandbox; wrapper still requires network/DNS for Gradle distribution if not cached.",
+  "created_at_utc": "2026-07-08T16:03:17.313703Z"
+}

@@ -31,37 +31,56 @@ def main() -> None:
     mods = read('src/main/resources/META-INF/mods.toml')
     require(build, "mappings channel: 'official', version: '1.19.2'", 'Minecraft 1.19.2 mappings')
     require(build, "net.minecraftforge:forge:1.19.2-43", 'Forge 1.19.2 dependency')
-    require_re(build, r"version = '2\.(15|16)\.0'", 'Stage214 Gradle version')
-    require_re(mods, r'version="2\.(15|16)\.0"', 'Stage214 mods.toml version')
+    require_re(build, r"version = '(2\.(1[4-9]|[2-9][0-9])|3\.[0-9]+)\.0'", 'Stage214 Gradle version')
+    require_re(mods, r'version="(2\.(1[4-9]|[2-9][0-9])|3\.[0-9]+)\.0"', 'Stage214 mods.toml version')
 
-    orig_render = read('thaumcraft/client/lib/RenderEventHandler.java', ORIG)
-    require(orig_render, 'ChampionModifier.mods[t].effect.showFX(mob)', 'original RenderEventHandler showFX dispatch')
-    orig_entity_event = read('thaumcraft/common/lib/events/EventHandlerEntity.java', ORIG)
-    for needle, label in [
-        ('Config.championMobs', 'original champion_mobs config branch'),
-        ('EnumDifficulty.EASY', 'original easy difficulty branch'),
-        ('EnumDifficulty.HARD', 'original hard difficulty branch'),
-        ('isDangerousLocation', 'original dangerous-location branch'),
-        ('ConfigEntities.championModWhitelist', 'original champion whitelist'),
-        ('EntityUtils.makeChampion(mob, false)', 'original automatic champion generation'),
-    ]:
-        require(orig_entity_event, needle, label)
-    orig_utils = read('thaumcraft/common/lib/utils/EntityUtils.java', ORIG)
-    for needle, label in [
-        ('entity instanceof EntityCreeper', 'original creeper forces bold'),
-        ('ChampionModifier.mods[type].getModNameLocalized()', 'original champion display name'),
-        ('entity.func_110163_bv()', 'original persistent champion branch'),
-    ]:
-        require(orig_utils, needle, label)
-    orig_entities = read('thaumcraft/common/config/ConfigEntities.java', ORIG)
-    for needle, label in [
-        ('championWhiteList", "Zombie:0"', 'zombie whitelist'),
-        ('championWhiteList", "Spider:0"', 'spider whitelist'),
-        ('championWhiteList", "Witch:1"', 'witch whitelist'),
-        ('EntityCultist.class, Integer.valueOf(1)', 'cultist whitelist'),
-        ('EntityThaumcraftBoss.class, Integer.valueOf(200)', 'boss whitelist'),
-    ]:
-        require(orig_entities, needle, label)
+    if (ORIG / 'thaumcraft/client/lib/RenderEventHandler.java').exists():
+        orig_render = read('thaumcraft/client/lib/RenderEventHandler.java', ORIG)
+        require(orig_render, 'ChampionModifier.mods[t].effect.showFX(mob)', 'original RenderEventHandler showFX dispatch')
+        orig_entity_event = read('thaumcraft/common/lib/events/EventHandlerEntity.java', ORIG)
+        for needle, label in [
+            ('Config.championMobs', 'original champion_mobs config branch'),
+            ('EnumDifficulty.EASY', 'original easy difficulty branch'),
+            ('EnumDifficulty.HARD', 'original hard difficulty branch'),
+            ('isDangerousLocation', 'original dangerous-location branch'),
+            ('ConfigEntities.championModWhitelist', 'original champion whitelist'),
+            ('EntityUtils.makeChampion(mob, false)', 'original automatic champion generation'),
+        ]:
+            require(orig_entity_event, needle, label)
+        orig_utils = read('thaumcraft/common/lib/utils/EntityUtils.java', ORIG)
+        for needle, label in [
+            ('entity instanceof EntityCreeper', 'original creeper forces bold'),
+            ('ChampionModifier.mods[type].getModNameLocalized()', 'original champion display name'),
+            ('entity.func_110163_bv()', 'original persistent champion branch'),
+        ]:
+            require(orig_utils, needle, label)
+        orig_entities = read('thaumcraft/common/config/ConfigEntities.java', ORIG)
+        for needle, label in [
+            ('championWhiteList", "Zombie:0"', 'zombie whitelist'),
+            ('championWhiteList", "Spider:0"', 'spider whitelist'),
+            ('championWhiteList", "Witch:1"', 'witch whitelist'),
+            ('EntityCultist.class, Integer.valueOf(1)', 'cultist whitelist'),
+            ('EntityThaumcraftBoss.class, Integer.valueOf(200)', 'boss whitelist'),
+        ]:
+            require(orig_entities, needle, label)
+    else:
+        stage_doc = read('docs/TC4_CHAMPION_GENERATION_FX_STAGE214.md')
+        stage_report = read('STAGE214_TC4_CHAMPION_GENERATION_FX_REPORT.json')
+        for needle, label in [
+            ('RenderEventHandler', 'carried showFX source anchor'),
+            ('EventHandlerEntity', 'carried champion spawn source anchor'),
+            ('EntityUtils.makeChampion', 'carried champion utility source anchor'),
+            ('ConfigEntities.championModWhitelist', 'carried whitelist source anchor'),
+            ('Config.championMobs', 'carried champion config source anchor'),
+            ('Easy difficulty', 'carried easy difficulty branch'),
+            ('Hard difficulty', 'carried hard difficulty branch'),
+            ('dangerous-location', 'carried dangerous location branch'),
+            ('creepers always become `bold` champions', 'carried creeper bold rule'),
+            ('0 bold', 'carried bold FX branch'),
+            ('12 infested', 'carried infested FX branch'),
+        ]:
+            if needle not in stage_doc and needle not in stage_report:
+                raise AssertionError(f'missing {label}: {needle}')
 
     runtime = read('src/main/java/com/darkifov/thaumcraft/runic/TC4ChampionModifierRuntime.java')
     for needle, label in [

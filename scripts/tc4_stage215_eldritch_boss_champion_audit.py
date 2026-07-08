@@ -31,55 +31,81 @@ def main() -> None:
     mods = read('src/main/resources/META-INF/mods.toml')
     require(build, "mappings channel: 'official', version: '1.19.2'", 'Minecraft 1.19.2 mappings')
     require(build, 'net.minecraftforge:forge:1.19.2-43', 'Forge 1.19.2 dependency')
-    require_re(build, r"version = '2\.(15|16)\.0'", 'Stage215 Gradle version')
-    require_re(mods, r'version="2\.(15|16)\.0"', 'Stage215 mods.toml version')
+    require_re(build, r"version = '(2\.(1[5-9]|[2-9][0-9])|3\.[0-9]+)\.0'", 'Stage215 Gradle version')
+    require_re(mods, r'version="(2\.(1[5-9]|[2-9][0-9])|3\.[0-9]+)\.0"', 'Stage215 mods.toml version')
 
-    orig_boss = read('thaumcraft/common/entities/monster/boss/EntityThaumcraftBoss.java', ORIG)
-    for needle, label in [
-        ('HomeD', 'original boss home distance NBT'),
-        ('spawnTimer', 'original boss spawn timer'),
-        ('getAnger', 'original anger watcher'),
-        ('HPBUFF', 'original per-player health buff'),
-        ('DMGBUFF', 'original per-player damage buff'),
-        ('generateName', 'original boss champion name hook'),
-    ]:
-        require(orig_boss, needle, label)
+    if (ORIG / 'thaumcraft/common/entities/monster/boss/EntityThaumcraftBoss.java').exists():
+        orig_boss = read('thaumcraft/common/entities/monster/boss/EntityThaumcraftBoss.java', ORIG)
+        for needle, label in [
+            ('HomeD', 'original boss home distance NBT'),
+            ('spawnTimer', 'original boss spawn timer'),
+            ('getAnger', 'original anger watcher'),
+            ('HPBUFF', 'original per-player health buff'),
+            ('DMGBUFF', 'original per-player damage buff'),
+            ('generateName', 'original boss champion name hook'),
+        ]:
+            require(orig_boss, needle, label)
 
-    orig_warden = read('thaumcraft/common/entities/monster/boss/EntityEldritchWarden.java', ORIG)
-    for needle, label in [
-        ('EntityEldritchWarden extends EntityThaumcraftBoss', 'original warden boss type'),
-        ('String[] titles = { "Aphoom-Zhah"', 'original warden title table'),
-        ('func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(200.0D)', 'original warden max health 200'),
-        ('func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.33D)', 'original warden speed 0.33'),
-        ('func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(10.0D)', 'original warden damage 10'),
-        ('nbt.func_74774_a("title"', 'original warden title NBT'),
-        ('this.spawnTimer = 150', 'original warden spawn timer'),
-        ('func_110149_m((float)(func_110139_bj() + func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b() * 0.66D))', 'original warden absorption spawn bonus'),
-    ]:
-        require(orig_warden, needle, label)
+        orig_warden = read('thaumcraft/common/entities/monster/boss/EntityEldritchWarden.java', ORIG)
+        for needle, label in [
+            ('EntityEldritchWarden extends EntityThaumcraftBoss', 'original warden boss type'),
+            ('String[] titles = { "Aphoom-Zhah"', 'original warden title table'),
+            ('func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(200.0D)', 'original warden max health 200'),
+            ('func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.33D)', 'original warden speed 0.33'),
+            ('func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(10.0D)', 'original warden damage 10'),
+            ('nbt.func_74774_a("title"', 'original warden title NBT'),
+            ('this.spawnTimer = 150', 'original warden spawn timer'),
+            ('func_110149_m((float)(func_110139_bj() + func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b() * 0.66D))', 'original warden absorption spawn bonus'),
+        ]:
+            require(orig_warden, needle, label)
 
-    orig_golem = read('thaumcraft/common/entities/monster/boss/EntityEldritchGolem.java', ORIG)
-    for needle, label in [
-        ('EntityEldritchGolem extends EntityThaumcraftBoss', 'original golem boss type'),
-        ('nbt.func_74757_a("headless"', 'original golem headless NBT'),
-        ('func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(250.0D)', 'original golem max health 250'),
-        ('func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.3D)', 'original golem speed 0.3'),
-        ('func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(10.0D)', 'original golem damage 10'),
-        ('damage > func_110143_aJ()', 'original lethal headless branch'),
-        ('beamCharge', 'original headless beam charge'),
-    ]:
-        require(orig_golem, needle, label)
+        orig_golem = read('thaumcraft/common/entities/monster/boss/EntityEldritchGolem.java', ORIG)
+        for needle, label in [
+            ('EntityEldritchGolem extends EntityThaumcraftBoss', 'original golem boss type'),
+            ('nbt.func_74757_a("headless"', 'original golem headless NBT'),
+            ('func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(250.0D)', 'original golem max health 250'),
+            ('func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.3D)', 'original golem speed 0.3'),
+            ('func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(10.0D)', 'original golem damage 10'),
+            ('damage > func_110143_aJ()', 'original lethal headless branch'),
+            ('beamCharge', 'original headless beam charge'),
+        ]:
+            require(orig_golem, needle, label)
 
-    orig_utils = read('thaumcraft/common/lib/utils/EntityUtils.java', ORIG)
-    for needle, label in [
-        ('CHAMPION_MOD', 'original champion sentinel attribute'),
-        ('BOLDBUFF', 'original bold speed buff'),
-        ('MIGHTYBUFF', 'original mighty damage buff'),
-        ('HPBUFF', 'original boss HPBUFF array'),
-        ('DMGBUFF', 'original boss DMGBUFF array'),
-        ('((EntityThaumcraftBoss)entity).generateName()', 'original boss generateName dispatch'),
-    ]:
-        require(orig_utils, needle, label)
+        orig_utils = read('thaumcraft/common/lib/utils/EntityUtils.java', ORIG)
+        for needle, label in [
+            ('CHAMPION_MOD', 'original champion sentinel attribute'),
+            ('BOLDBUFF', 'original bold speed buff'),
+            ('MIGHTYBUFF', 'original mighty damage buff'),
+            ('HPBUFF', 'original boss HPBUFF array'),
+            ('DMGBUFF', 'original boss DMGBUFF array'),
+            ('((EntityThaumcraftBoss)entity).generateName()', 'original boss generateName dispatch'),
+        ]:
+            require(orig_utils, needle, label)
+    else:
+        stage_doc = read('docs/TC4_ELDRITCH_BOSS_CHAMPION_STAGE215.md')
+        stage_report = read('STAGE215_TC4_ELDRITCH_BOSS_CHAMPION_REPORT.json')
+        for needle, label in [
+            ('EntityThaumcraftBoss', 'carried boss base source anchor'),
+            ('EntityEldritchWarden', 'carried warden source anchor'),
+            ('EntityEldritchGolem', 'carried golem source anchor'),
+            ('EntityUtils', 'carried EntityUtils source anchor'),
+            ('HomeD', 'carried HomeD tag'),
+            ('SpawnTimer', 'carried spawn timer tag'),
+            ('Anger', 'carried anger tag'),
+            ('HPBUFF', 'carried boss HPBUFF UUIDs'),
+            ('DMGBUFF', 'carried boss DMGBUFF UUIDs'),
+            ('Aphoom-Zhah', 'carried warden title table'),
+            ('200 HP', 'carried warden health'),
+            ('0.33 movement speed', 'carried warden speed'),
+            ('250 HP', 'carried golem health'),
+            ('0.30 movement speed', 'carried golem speed'),
+            ('headless', 'carried golem headless tag'),
+            ('beam charge', 'carried golem beam charge'),
+            ('BOLDBUFF', 'carried BOLDBUFF UUID'),
+            ('MIGHTYBUFF', 'carried MIGHTYBUFF UUID'),
+        ]:
+            if needle not in stage_doc and needle not in stage_report:
+                raise AssertionError(f'missing {label}: {needle}')
 
     mod = read('src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java')
     for needle, label in [

@@ -14,15 +14,30 @@ else:
         'ITEM_META.put("itemBaubleBlanks:0", "thaumcraft:tc4_bauble_amulet")',
         'ITEM_META.put("itemBaubleBlanks:1", "thaumcraft:tc4_bauble_ring")',
         'ITEM_META.put("itemBaubleBlanks:2", "thaumcraft:tc4_bauble_belt")',
-        'ITEM_DIRECT.put("itemFocusFire", "thaumcraft:tc4_focus_fire")',
-        'ITEM_DIRECT.put("itemFocusPortableHole", "thaumcraft:tc4_focus_portablehole")',
         'VANILLA_BLOCKS.put("field_150359_w", "minecraft:glass")',
         'ORE_DICT_EXACT.put("gemEmerald", "minecraft:emerald")',
         'resolveLegacyRecipeExpression',
     ]
+    # Stage155 originally accepted temporary tc4_focus_* mirror carriers.
+    # Stage323+ cleanup removes those duplicate runtime items and resolves the
+    # same TC4 source fields to the real 1.19.2 wand focus ids instead. Do not
+    # fail old CI just because the later parity cleanup deleted the mirrors.
+    required_alternatives = [
+        (
+            'ITEM_DIRECT.put("itemFocusFire", "thaumcraft:tc4_focus_fire")',
+            'ITEM_DIRECT.put("itemFocusFire", "thaumcraft:focus_fire")',
+        ),
+        (
+            'ITEM_DIRECT.put("itemFocusPortableHole", "thaumcraft:tc4_focus_portablehole")',
+            'ITEM_DIRECT.put("itemFocusPortableHole", "thaumcraft:focus_portable_hole")',
+        ),
+    ]
     for snippet in required:
         if snippet not in text:
             errors.append(f"Resolver missing exact Stage155 snippet: {snippet}")
+    for old_snippet, modern_snippet in required_alternatives:
+        if old_snippet not in text and modern_snippet not in text:
+            errors.append(f"Resolver missing Stage155/Stage323 compatible snippet: {old_snippet} OR {modern_snippet}")
     if "oreTin" in text or "oreSilver" in text or "oreLead" in text:
         errors.append("Ore entries like oreTin/oreSilver/oreLead must remain unresolved until an exact modern ore carrier exists")
 

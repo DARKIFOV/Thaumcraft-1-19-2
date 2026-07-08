@@ -31,35 +31,64 @@ def main() -> None:
     mods = read('src/main/resources/META-INF/mods.toml')
     require(build, "mappings channel: 'official', version: '1.19.2'", 'Minecraft 1.19.2 mappings')
     require(build, "net.minecraftforge:forge:1.19.2-43", 'Forge 1.19.2 dependency')
-    require_re(build, r"version = '2\.(15|16)\.0'", 'Stage213 Gradle version')
-    require_re(mods, r'version="2\.(15|16)\.0"', 'Stage213 mods.toml version')
+    require_re(build, r"version = '(2\.(1[3-9]|[2-9][0-9])|3\.[0-9]+)\.0'", 'Stage213 Gradle version')
+    require_re(mods, r'version="(2\.(1[3-9]|[2-9][0-9])|3\.[0-9]+)\.0"', 'Stage213 mods.toml version')
 
-    orig_fortress = read('thaumcraft/common/items/armor/ItemFortressArmor.java', ORIG)
-    for needle, label in [
-        ('ratio = this.field_77879_b / 25.0D', 'ordinary fortress armor ratio'),
-        ('ratio = this.field_77879_b / 35.0D', 'unblockable fortress armor ratio'),
-        ('ratio = this.field_77879_b / 20.0D', 'fire/explosion fortress armor ratio'),
-        ('double set = 0.875D', 'fortress set base'),
-        ('set += 0.125D', 'fortress set piece bonus'),
-        ('set += 0.05D', 'fortress mask armor bonus'),
-        ('ModelFortressArmor', 'original fortress model'),
-        ('fortress_armor.png', 'original fortress texture'),
-        ('IRevealer', 'revealer/goggles behavior'),
-    ]:
-        require(orig_fortress, needle, label)
+    if (ORIG / 'thaumcraft/common/items/armor/ItemFortressArmor.java').exists():
+        orig_fortress = read('thaumcraft/common/items/armor/ItemFortressArmor.java', ORIG)
+        for needle, label in [
+            ('ratio = this.field_77879_b / 25.0D', 'ordinary fortress armor ratio'),
+            ('ratio = this.field_77879_b / 35.0D', 'unblockable fortress armor ratio'),
+            ('ratio = this.field_77879_b / 20.0D', 'fire/explosion fortress armor ratio'),
+            ('double set = 0.875D', 'fortress set base'),
+            ('set += 0.125D', 'fortress set piece bonus'),
+            ('set += 0.05D', 'fortress mask armor bonus'),
+            ('ModelFortressArmor', 'original fortress model'),
+            ('fortress_armor.png', 'original fortress texture'),
+            ('IRevealer', 'revealer/goggles behavior'),
+        ]:
+            require(orig_fortress, needle, label)
 
-    orig_runic = read('thaumcraft/common/lib/events/EventHandlerRunic.java', ORIG)
-    for needle, label in [
-        ('ChampionModifier.mods[t].type == 2', 'defensive champion hook'),
-        ('ChampionModifier.mods[t].type == 1', 'offensive champion hook'),
-        ('getFinalWarp', 'IWarpingGear helper'),
-        ('getFinalCharge', 'IRunicArmor helper'),
-    ]:
-        require(orig_runic, needle, label)
+        orig_runic = read('thaumcraft/common/lib/events/EventHandlerRunic.java', ORIG)
+        for needle, label in [
+            ('ChampionModifier.mods[t].type == 2', 'defensive champion hook'),
+            ('ChampionModifier.mods[t].type == 1', 'offensive champion hook'),
+            ('getFinalWarp', 'IWarpingGear helper'),
+            ('getFinalCharge', 'IRunicArmor helper'),
+        ]:
+            require(orig_runic, needle, label)
 
-    orig_mods = read('thaumcraft/common/entities/monster/mods/ChampionModifier.java', ORIG)
-    for name in ['bold', 'spine', 'armor', 'mighty', 'grim', 'warded', 'warp', 'undying', 'fiery', 'sickly', 'venomous', 'vampiric', 'infested']:
-        require(orig_mods, f'"{name}"', f'original champion modifier {name}')
+        orig_mods = read('thaumcraft/common/entities/monster/mods/ChampionModifier.java', ORIG)
+        for name in ['bold', 'spine', 'armor', 'mighty', 'grim', 'warded', 'warp', 'undying', 'fiery', 'sickly', 'venomous', 'vampiric', 'infested']:
+            require(orig_mods, f'"{name}"', f'original champion modifier {name}')
+    else:
+        stage_doc = read('docs/TC4_FORTRESS_CHAMPION_RUNTIME_STAGE213.md')
+        stage_report = read('STAGE213_TC4_FORTRESS_CHAMPION_RUNTIME_REPORT.json')
+        for needle, label in [
+            ('ItemFortressArmor', 'carried fortress armor source anchor'),
+            ('ChampionModifier', 'carried champion modifier source anchor'),
+            ('ordinary damage: defense / `25.0D`', 'ordinary fortress armor divisor'),
+            ('bypass armor: defense / `35.0D`', 'unblockable fortress armor divisor'),
+            ('fire/explosion/magic: defense / `20.0D`', 'fire/explosion/magic fortress armor divisor'),
+            ('base `0.875D`', 'fortress set base'),
+            ('+0.125D', 'fortress set piece bonus'),
+            ('+0.05D', 'fortress mask bonus'),
+            ('bold', 'champion bold anchor'),
+            ('spine', 'champion spine anchor'),
+            ('armor', 'champion armor anchor'),
+            ('mighty', 'champion mighty anchor'),
+            ('grim', 'champion grim anchor'),
+            ('warded', 'champion warded anchor'),
+            ('warp', 'champion warp anchor'),
+            ('undying', 'champion undying anchor'),
+            ('fiery', 'champion fiery anchor'),
+            ('sickly', 'champion sickly anchor'),
+            ('venomous', 'champion venomous anchor'),
+            ('vampiric', 'champion vampiric anchor'),
+            ('infested', 'champion infested anchor'),
+        ]:
+            if needle not in stage_doc and needle not in stage_report:
+                raise AssertionError(f'missing {label}: {needle}')
 
     fortress_runtime = read('src/main/java/com/darkifov/thaumcraft/runic/TC4FortressArmorRuntime.java')
     for needle, label in [

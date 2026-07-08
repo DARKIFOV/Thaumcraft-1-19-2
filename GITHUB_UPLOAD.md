@@ -1,23 +1,25 @@
-# GitHub upload notes — Stage209
+# GitHub upload notes — Stage342 audit hotfix
 
-Stage209 version: `2.09.0`.
+Stage342 version: `3.42.0`.
 
-Expected GitHub artifact name:
+This hotfix addresses the GitHub Actions failure shown in `Static source/resource audit`:
 
-`thaumcraft_legacy_rebuild_1.19.2-2.09.0-github.jar`
+- `Stage153 infusion lookup must check component pedestals before selecting a recipe`
 
 Run before upload:
 
 ```bash
-python scripts/java_syntax_guard.py
-python scripts/github_static_audit.py
-python scripts/github_ci_guard.py
-python scripts/tc4_stage205_hard_parity_reset_audit.py
-python scripts/tc4_stage206_original_parity_repair_audit.py
-python scripts/tc4_stage207_infusion_matrix_parity_audit.py
-python scripts/tc4_stage208_infusion_renderer_enchantment_audit.py
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_ci_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/tc4_stage153_recipe_materialization_parity_audit.py
+python3 scripts/tc4_stage155_recipe_resolver_audit.py
+python3 scripts/tc4_stage211_runic_shield_runtime_audit.py
+python3 scripts/tc4_stage212_fortress_mask_curios_audit.py
+python3 scripts/tc4_stage213_fortress_champion_runtime_audit.py
+python3 scripts/tc4_stage214_champion_generation_fx_audit.py
+python3 scripts/tc4_stage215_eldritch_boss_champion_audit.py
+python3 scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py
 ```
 
-Stage209 keeps the Stage205/206 hard original-parity rules and continues Stage207 Infusion Matrix work with an animated matrix renderer, original infusion enchantment runtime adapter, XP-drain cycle, enchantment/NBT output handling and recipe-aware component pulling.
-
-Important install note: remove old jars from the Minecraft `mods` folder, especially 1.94.0, 2.04.0, 2.05.0, 2.06.0 and 2.07.0 jars, before testing the new jar. If old jars remain, Minecraft can keep loading the old broken version.
+Important: upload this hotfix source as a clean replacement of the previous Stage342 source. Do not mix it with older generated files or old built jars in the repository/mods folder.

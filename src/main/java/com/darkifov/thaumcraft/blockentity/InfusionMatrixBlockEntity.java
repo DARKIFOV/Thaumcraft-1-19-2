@@ -308,7 +308,15 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
      */
     private InfusionRecipe findMatchingOriginalInfusionRecipe(ItemStack catalyst, List<ArcanePedestalBlockEntity> componentPedestals) {
         for (InfusionRecipe recipe : InfusionRecipes.recipes()) {
-            if (recipe.catalystMatches(catalyst) && InfusionProcessHelper.hasComponents(componentPedestals, recipe, catalyst)) {
+            if (!recipe.catalystMatches(catalyst)) {
+                continue;
+            }
+
+            boolean componentsMatch = recipe.isRunicAugmentRecipe()
+                    ? InfusionProcessHelper.hasComponents(componentPedestals, recipe, catalyst)
+                    : InfusionProcessHelper.hasComponents(componentPedestals, recipe);
+
+            if (componentsMatch) {
                 return recipe;
             }
         }
