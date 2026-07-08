@@ -5,7 +5,7 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:oak_planks",
   "ingredients": [
-    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:aer_shard",
     "minecraft:iron_ingot",
     "minecraft:sugar"
   ],
@@ -19,7 +19,7 @@
     "WW"
   ],
   "key": {
-    "W": "thaumcraft:tc4_shard_aer",
+    "W": "thaumcraft:aer_shard",
     "L": "minecraft:iron_ingot",
     "C": "minecraft:oak_planks",
     "I": "minecraft:sugar"

@@ -8,7 +8,7 @@
   },
   "catalyst": "minecraft:arrow",
   "ingredients": [
-    "thaumcraft:tc4_shard_aqua"
+    "thaumcraft:aqua_shard"
   ],
   "aspects": {
     "AQUA": 8
@@ -19,7 +19,7 @@
     "AAA"
   ],
   "key": {
-    "A": "thaumcraft:tc4_shard_aqua",
+    "A": "thaumcraft:aqua_shard",
     "S": "minecraft:arrow"
   },
   "source": "ConfigRecipes arcane loop lines 972-975"

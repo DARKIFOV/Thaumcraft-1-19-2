@@ -18,8 +18,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Stage126: TC4-style flux gas as a real 1.19.2 block.
- * It is intentionally unstable: it drifts, poisons lightly, condenses back into goo and
- * fades out so the world is not permanently filled by accidental crucible overflows.
+ * Stage209 narrows this toward TC4 BlockFluxGas: occasional contact effect,
+ * slow drift, and finite dissipation instead of a permanent world filler.
  */
 public class FluxGasBlock extends Block {
     private static final VoxelShape SHAPE = Shapes.empty();
@@ -35,9 +35,15 @@ public class FluxGasBlock extends Block {
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!level.isClientSide && entity instanceof LivingEntity living && living.tickCount % 30 == 0) {
-            living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0));
-            living.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
+        if (!level.isClientSide && entity instanceof LivingEntity living && living.tickCount % 20 == 0 && level.random.nextInt(10) == 0) {
+            if (level.random.nextBoolean()) {
+                living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 1200, 0, true, true));
+            } else {
+                living.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 0, false, true));
+            }
+            if (level.random.nextBoolean()) {
+                level.removeBlock(pos, false);
+            }
         }
         super.entityInside(state, level, pos, entity);
     }
@@ -55,14 +61,14 @@ public class FluxGasBlock extends Block {
             }
         }
 
-        if (random.nextInt(11) == 0) {
+        if (random.nextInt(20) == 0) {
             BlockPos below = pos.below();
             if (level.isEmptyBlock(below)) {
                 level.setBlock(below, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
             }
         }
 
-        if (random.nextInt(13) == 0) {
+        if (random.nextInt(18) == 0) {
             level.removeBlock(pos, false);
         }
     }

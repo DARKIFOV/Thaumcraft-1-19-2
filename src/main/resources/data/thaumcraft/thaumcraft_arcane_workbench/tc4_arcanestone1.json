@@ -5,7 +5,7 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:stone",
   "ingredients": [
-    "thaumcraft:tc4_shard_aer"
+    "thaumcraft:aer_shard"
   ],
   "aspects": {
     "TERRA": 1,
@@ -17,7 +17,7 @@
     "SSS"
   ],
   "key": {
-    "S": "thaumcraft:tc4_shard_aer",
+    "S": "thaumcraft:aer_shard",
     "C": "minecraft:stone"
   },
   "result": {

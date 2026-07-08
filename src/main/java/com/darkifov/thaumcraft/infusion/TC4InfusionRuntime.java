@@ -16,7 +16,11 @@ import java.util.Map;
  * block entity instead of using the earlier all-at-once finish consumption.
  */
 public final class TC4InfusionRuntime {
+    /** TC4 EssentiaHandler.drainEssentia range used by TileInfusionMatrix.craftCycle. */
     public static final int ESSENTIA_DRAIN_RANGE = 12;
+    /** TC4 TileInfusionMatrix.countDelay default: craftCycle is evaluated every ten ticks. */
+    public static final int CRAFT_CYCLE_DELAY = 10;
+    /** TC4 itemCount delay before a pedestal component is consumed after source FX begins. */
     public static final int ITEM_PULL_DELAY = 5;
     public static final int MIN_INSTABILITY_ROLL = 1;
     public static final int MAX_INSTABILITY = 25;
@@ -28,9 +32,13 @@ public final class TC4InfusionRuntime {
     }
 
     public static int estimateDuration(InfusionRecipe recipe, InfusionStructureReport report) {
-        int essentia = totalEssentia(recipe.aspectCost());
-        int components = recipe.components().size();
-        int base = 20 + essentia * ESSENTIA_DRAIN_RANGE + components * (ITEM_PULL_DELAY + 2) + recipe.instability() * 20;
+        return estimateDuration(recipe, report, recipe.aspectCost(), recipe.components(), recipe.instability());
+    }
+
+    public static int estimateDuration(InfusionRecipe recipe, InfusionStructureReport report, Map<Aspect, Integer> aspectCost, List<ResourceLocation> components, int recipeInstability) {
+        int essentia = totalEssentia(aspectCost);
+        int componentCount = components == null ? 0 : components.size();
+        int base = 20 + essentia * CRAFT_CYCLE_DELAY + componentCount * (ITEM_PULL_DELAY + CRAFT_CYCLE_DELAY) + recipeInstability * 20;
         return InfusionProcessHelper.acceleratedDuration(Math.max(80, base), report);
     }
 

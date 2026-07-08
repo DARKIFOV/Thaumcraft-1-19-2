@@ -1,0 +1,29 @@
+{
+  "stage": "283-302",
+  "version": "3.02.0",
+  "minecraft": "1.19.2",
+  "reference": "Thaumcraft4-1.7.10-master.zip",
+  "batch_type": "super-mega",
+  "summary": [
+    "Added CultistPortalEntity adapter for TC4 EntityCultistPortal.",
+    "Added TaintacleGiantEntity adapter for TC4 EntityTaintacleGiant.",
+    "Replaced lock-cycle cultist/taint placeholder boss branches with real registered entities.",
+    "Added renderers for cultist portal, taintacle giant, mind spider and eldritch tile block entities.",
+    "Added LivingEntity overload for Outer Lands boss death loot.",
+    "Added NEXT_CHAT_PROMPT_STAGE302 handoff file."
+  ],
+  "cleanup": {
+    "quarantined_items_policy": "Preserved from Stage253-262: hidden from creative and blocked from lootbag output; no new quarantined registry ids added in this batch.",
+    "placeholder_replacements": [
+      "TileEldritchLock cultist branch: Crimson Praetor placeholder -> CultistPortalEntity",
+      "TileEldritchLock taint branch: Warden taint placeholder -> TaintacleGiantEntity",
+      "MindSpider client block-placeholder registration -> dedicated TC4MindSpiderRenderer"
+    ]
+  },
+  "known_limitations": [
+    "Full Gradle compile was not completed in sandbox because Gradle wrapper needs internet to download gradle-7.5.1-bin.zip.",
+    "TaintacleSmall is not yet split into its own entity.",
+    "TileEldritchNothing/Obelisk renderers remain future work.",
+    "Cultist portal renderer is a 1.19.2 translucent quad bridge, not exact legacy GL."
+  ]
+}

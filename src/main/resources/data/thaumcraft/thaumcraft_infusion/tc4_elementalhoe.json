@@ -5,8 +5,8 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_thaumiumhoe",
   "components": [
-    "thaumcraft:tc4_shard_ordo",
-    "thaumcraft:tc4_shard_perditio",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:perditio_shard",
     "minecraft:diamond",
     "thaumcraft:tc4_block_greatwood_log"
   ],

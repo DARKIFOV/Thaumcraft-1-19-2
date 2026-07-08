@@ -223,6 +223,39 @@ jobs:
       - name: TC4 Stage204 jar/tube edge-case audit
         run: python scripts/tc4_stage204_jar_tube_edge_cases_audit.py
 
+      - name: TC4 Stage205 hard parity reset audit
+        run: python scripts/tc4_stage205_hard_parity_reset_audit.py
+
+      - name: TC4 Stage206 original parity repair audit
+        run: python scripts/tc4_stage206_original_parity_repair_audit.py
+
+      - name: TC4 Stage207 infusion matrix parity audit
+        run: python scripts/tc4_stage207_infusion_matrix_parity_audit.py
+
+      - name: TC4 Stage208 infusion renderer/enchantment parity audit
+        run: python scripts/tc4_stage208_infusion_renderer_enchantment_audit.py
+
+      - name: TC4 Stage209 extended infusion/failure parity audit
+        run: python scripts/tc4_stage209_extended_infusion_failure_audit.py
+
+      - name: TC4 Stage210 runic augmentation audit
+        run: python scripts/tc4_stage210_runic_augment_1192_audit.py
+
+      - name: TC4 Stage211 runic shield runtime audit
+        run: python scripts/tc4_stage211_runic_shield_runtime_audit.py
+
+      - name: TC4 Stage212 fortress mask/Curios audit
+        run: python scripts/tc4_stage212_fortress_mask_curios_audit.py
+
+      - name: TC4 Stage213 fortress/champion runtime audit
+        run: python scripts/tc4_stage213_fortress_champion_runtime_audit.py
+
+      - name: TC4 Stage214 champion generation/showFX audit
+        run: python scripts/tc4_stage214_champion_generation_fx_audit.py
+
+      - name: TC4 Stage215 eldritch boss/champion audit
+        run: python scripts/tc4_stage215_eldritch_boss_champion_audit.py
+
   build:
     name: Build Forge mod jar
     runs-on: ubuntu-latest
@@ -256,7 +289,8 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: thaumcraft-legacy-rebuild-stage204-jars
+          name: thaumcraft-legacy-rebuild-stage205-jars
+          # Stage205 compatibility marker: thaumcraft-legacy-rebuild-stage204-jars
           path: |
             build/libs/*.jar
           if-no-files-found: warn
@@ -265,7 +299,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: stage204-build-reports
+          name: stage205-build-reports
           path: |
             build/reports/**
             build/tmp/**

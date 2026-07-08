@@ -6,7 +6,7 @@
   "catalyst": "minecraft:cauldron",
   "ingredients": [
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_aer"
+    "thaumcraft:aer_shard"
   ],
   "aspects": {
     "AER": 10,
@@ -21,10 +21,10 @@
   "key": {
     "#": "minecraft:cauldron",
     "Q": "minecraft:nether_wart",
-    "C": "thaumcraft:tc4_shard_aer"
+    "C": "thaumcraft:aer_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_focus_shock",
+    "item": "thaumcraft:focus_shock",
     "count": 1
   }
 }

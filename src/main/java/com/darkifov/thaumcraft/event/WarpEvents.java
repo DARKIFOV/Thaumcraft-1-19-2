@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.runic.TC4FortressMaskRuntime;
 import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -106,6 +107,13 @@ public final class WarpEvents {
 
     private static void triggerWarpEvent(ServerPlayer player, int warp, int actualWarp) {
         int eff = player.getRandom().nextInt(Math.max(1, warp));
+        if (TC4FortressMaskRuntime.hasGrinningDevil(player)) {
+            eff -= 2 + player.getRandom().nextInt(4);
+        }
+        if (eff <= 0) {
+            message(player, "warp.text.mask", "The Grinning Devil mask dampens the Warp event.");
+            return;
+        }
 
         if (eff <= 4) {
             grantResearch(player, 1);

@@ -7,6 +7,11 @@ import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.research.ResearchNoteState;
 import com.darkifov.thaumcraft.Aspect;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -253,6 +258,149 @@ public final class ThaumcraftNetwork {
                 RequestFocusChangePacket::decode,
                 RequestFocusChangePacket::handle
         );
+
+
+        CHANNEL.registerMessage(
+                packetId++,
+                PacketFXInfusionSource.class,
+                PacketFXInfusionSource::encode,
+                PacketFXInfusionSource::decode,
+                PacketFXInfusionSource::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                PacketFXBlockZap.class,
+                PacketFXBlockZap::encode,
+                PacketFXBlockZap::decode,
+                PacketFXBlockZap::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                PacketRunicCharge.class,
+                PacketRunicCharge::encode,
+                PacketRunicCharge::decode,
+                PacketRunicCharge::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                PacketFXShield.class,
+                PacketFXShield::encode,
+                PacketFXShield::decode,
+                PacketFXShield::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                PacketFXChampion.class,
+                PacketFXChampion::encode,
+                PacketFXChampion::decode,
+                PacketFXChampion::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                PacketFXEldritchBoss.class,
+                PacketFXEldritchBoss::encode,
+                PacketFXEldritchBoss::decode,
+                PacketFXEldritchBoss::handle
+        );
+    }
+
+    public static void sendInfusionSource(ServerLevel level, BlockPos matrixPos, BlockPos sourcePos, int entityId) {
+        if (level == null || matrixPos == null || sourcePos == null) {
+            return;
+        }
+        int dx = matrixPos.getX() - sourcePos.getX();
+        int dy = matrixPos.getY() - sourcePos.getY();
+        int dz = matrixPos.getZ() - sourcePos.getZ();
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D, 32.0D, level.dimension())),
+                new PacketFXInfusionSource(matrixPos, clampByte(dx), clampByte(dy), clampByte(dz), entityId)
+        );
+    }
+
+    public static void sendInfusionSourceFromEntity(ServerLevel level, BlockPos matrixPos, int entityId) {
+        if (level == null || matrixPos == null) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D, 32.0D, level.dimension())),
+                new PacketFXInfusionSource(matrixPos, (byte) 0, (byte) 0, (byte) 0, entityId)
+        );
+    }
+
+    public static void sendBlockZap(ServerLevel level, BlockPos center, double sx, double sy, double sz, double ex, double ey, double ez) {
+        if (level == null || center == null) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(center.getX() + 0.5D, center.getY() + 0.5D, center.getZ() + 0.5D, 32.0D, level.dimension())),
+                new PacketFXBlockZap((float) sx, (float) sy, (float) sz, (float) ex, (float) ey, (float) ez)
+        );
+    }
+
+    public static void sendRunicCharge(ServerPlayer player, int charge, int max) {
+        if (player == null) {
+            return;
+        }
+        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new PacketRunicCharge(player.getId(), charge, max));
+    }
+
+    public static void sendChampionFx(ServerLevel level, LivingEntity entity, int mod, double range) {
+        if (level == null || entity == null || mod < 0) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(entity.getX(), entity.getY(), entity.getZ(), range, level.dimension())),
+                new PacketFXChampion(entity.getId(), mod)
+        );
+    }
+
+    public static void sendEldritchBossFx(ServerLevel level, Entity entity, int type, double range) {
+        if (level == null || entity == null) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(entity.getX(), entity.getY(), entity.getZ(), range, level.dimension())),
+                new PacketFXEldritchBoss(type, entity.getId(), entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0)
+        );
+    }
+
+    public static void sendEldritchBossBlockFx(ServerLevel level, Entity entity, int type, BlockPos pos, double range) {
+        if (level == null || entity == null || pos == null) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(entity.getX(), entity.getY(), entity.getZ(), range, level.dimension())),
+                new PacketFXEldritchBoss(type, entity.getId(), entity.getX(), entity.getY(), entity.getZ(), pos.getX(), pos.getY(), pos.getZ())
+        );
+    }
+
+    public static void sendEldritchOrbBurst(ServerLevel level, Entity entity, double range) {
+        if (level == null || entity == null) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(entity.getX(), entity.getY(), entity.getZ(), range, level.dimension())),
+                new PacketFXEldritchBoss(116, entity.getId(), entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0)
+        );
+    }
+
+    public static void sendRunicShieldFx(ServerLevel level, Entity source, int target, double range) {
+        if (level == null || source == null) {
+            return;
+        }
+        CHANNEL.send(
+                PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(source.getX(), source.getY(), source.getZ(), range, level.dimension())),
+                new PacketFXShield(source.getId(), target)
+        );
+    }
+
+    private static byte clampByte(int value) {
+        return (byte) Math.max(Byte.MIN_VALUE, Math.min(Byte.MAX_VALUE, value));
     }
 
     public static void syncResearch(ServerPlayer player) {

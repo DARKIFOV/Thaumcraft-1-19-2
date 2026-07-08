@@ -1,0 +1,37 @@
+{
+  "stage": 215,
+  "version": "2.15.0",
+  "target": "Minecraft Forge 1.19.2",
+  "base_archive": "thaumcraft_legacy_rebuild_STAGE214_TC4_CHAMPION_GENERATION_FX_1192_PARITY.zip",
+  "original_reference": "Thaumcraft4-1.7.10-master.zip",
+  "summary": "Adds dedicated Eldritch Warden/Golem entities, shared TC4 boss adapter, boss title/name generation, champion boss whitelist/persistence, and closer champion attribute modifier parity.",
+  "ported": [
+    "TC4 EntityThaumcraftBoss home/spawn/anger/player-buff adapter",
+    "TC4 EntityEldritchWarden title table, title NBT, spawn absorption, champion name generation",
+    "TC4 EntityEldritchGolem headless NBT, lethal headless transition, beam charge adapter",
+    "TC4 EntityUtils BOLDBUFF and MIGHTYBUFF UUID modifier semantics",
+    "TC4 ConfigEntities boss whitelist mirror for eldritch_warden and eldritch_golem"
+  ],
+  "checks": [
+    "scripts/java_syntax_guard.py",
+    "scripts/github_static_audit.py",
+    "scripts/github_ci_guard.py",
+    "scripts/tc4_stage205_hard_parity_reset_audit.py",
+    "scripts/tc4_stage206_original_parity_repair_audit.py",
+    "scripts/tc4_stage207_infusion_matrix_parity_audit.py",
+    "scripts/tc4_stage208_infusion_renderer_enchantment_audit.py",
+    "scripts/tc4_stage209_extended_infusion_failure_audit.py",
+    "scripts/tc4_stage210_runic_augment_1192_audit.py",
+    "scripts/tc4_stage211_runic_shield_runtime_audit.py",
+    "scripts/tc4_stage212_fortress_mask_curios_audit.py",
+    "scripts/tc4_stage213_fortress_champion_runtime_audit.py",
+    "scripts/tc4_stage214_champion_generation_fx_audit.py",
+    "scripts/tc4_stage215_eldritch_boss_champion_audit.py"
+  ],
+  "gradle_build": {
+    "attempted": true,
+    "status": "blocked_by_sandbox_no_internet",
+    "details": "Gradle wrapper tried to download gradle-7.5.1-bin.zip from services.gradle.org."
+  },
+  "next_stage": "Stage216 should focus on dedicated Warden/Golem render/model parity, EntityEldritchOrb/ranged attack parity, golem boss beam/arc FX packets, and Outer Lands boss-room/key-room spawn metadata."
+}

@@ -1,0 +1,25 @@
+{
+  "stage_batch": "223-232",
+  "version": "2.32.0",
+  "target": "Minecraft/Forge 1.19.2",
+  "original_reference": "Thaumcraft4-1.7.10-master.zip",
+  "changes": [
+    "Added TC4OuterLandsMazeCell packed-short parity",
+    "Added TC4OuterLandsMazeCellLoc parity",
+    "Added TC4OuterLandsMazeGenerator deterministic 7x7 bridge",
+    "Added TC4OuterLandsMazeHandler with labyrinth map, NBT cells list, feature dispatch",
+    "Connected room selector ring to MazeHandler",
+    "Connected server player-area tick to existing generated maze cells",
+    "Added GenCommon decoration adapter",
+    "Added TC4 loot potion/enchantment post-processing",
+    "Fixed duplicate TC4Original permanent item tag write",
+    "Added NEXT_CHAT_PROMPT_STAGE232.md"
+  ],
+  "audits": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage223_232_mega_outer_lands_audit.py"
+  ],
+  "gradle_build": "Not run to completion in sandbox because Gradle wrapper needs internet to download gradle-7.5.1-bin.zip"
+}

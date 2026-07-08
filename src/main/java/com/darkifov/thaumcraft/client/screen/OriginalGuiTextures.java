@@ -11,10 +11,12 @@ final class OriginalGuiTextures {
     private OriginalGuiTextures() {
     }
 
-    static final ResourceLocation THAUMONOMICON = tex("thaumonomicon.png");
-    static final ResourceLocation RESEARCH_TABLE = tex("research_table.png");
+    static final ResourceLocation THAUMONOMICON = tex("gui_researchbook.png");
+    static final ResourceLocation RESEARCH_TABLE = tex("guiresearchtable2.png");
     static final ResourceLocation RESEARCH_TABLE_TC4_ORIGINAL = tex("thaumcraft_core_original/guiresearchtable2.png");
     static final ResourceLocation RESEARCH_TABLE_OVERLAY = tex("research_table_overlay.png");
+    static final ResourceLocation HEX1 = tex("thaumcraft_core_original/hex1.png");
+    static final ResourceLocation HEX2 = tex("thaumcraft_core_original/hex2.png");
     static final ResourceLocation ARCANE_WORKBENCH = tex("arcane_workbench.png");
     static final ResourceLocation PECH_TRADE = tex("pech_trade.png");
     static final ResourceLocation ESSENTIA_TERMINAL = tex("essentia_terminal.png");

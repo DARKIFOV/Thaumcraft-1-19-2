@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class InfusionProcessHelper {
-    public static final int RADIUS = 4;
+    public static final int RADIUS = TC4InfusionRuntime.ESSENTIA_DRAIN_RANGE;
 
     private InfusionProcessHelper() {
     }
@@ -72,29 +72,32 @@ public final class InfusionProcessHelper {
     }
 
     public static boolean hasComponents(List<ArcanePedestalBlockEntity> pedestals, InfusionRecipe recipe) {
-        Map<ResourceLocation, Integer> available = new HashMap<>();
+        return hasComponents(pedestals, recipe, ItemStack.EMPTY);
+    }
 
+    public static boolean hasComponents(List<ArcanePedestalBlockEntity> pedestals, InfusionRecipe recipe, ItemStack catalyst) {
+        List<ItemStack> available = new ArrayList<>();
         for (ArcanePedestalBlockEntity pedestal : pedestals) {
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(pedestal.stored().getItem());
-
-            if (id != null) {
-                available.put(id, available.getOrDefault(id, 0) + 1);
+            if (!pedestal.stored().isEmpty()) {
+                available.add(pedestal.stored().copy());
             }
         }
 
-        Map<ResourceLocation, Integer> needed = new HashMap<>();
-
-        for (ResourceLocation id : recipe.components()) {
-            needed.put(id, needed.getOrDefault(id, 0) + 1);
-        }
-
-        for (Map.Entry<ResourceLocation, Integer> entry : needed.entrySet()) {
-            if (available.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
+        for (ResourceLocation componentId : recipe.componentsFor(catalyst)) {
+            boolean matched = false;
+            for (int i = 0; i < available.size(); i++) {
+                if (recipe.componentMatches(available.get(i), componentId)) {
+                    available.remove(i);
+                    matched = true;
+                    break;
+                }
+            }
+            if (!matched) {
                 return false;
             }
         }
 
-        return true;
+        return available.isEmpty() || recipe.isInfusionEnchantment();
     }
 
     public static void consumeComponents(List<ArcanePedestalBlockEntity> pedestals, InfusionRecipe recipe) {
@@ -114,13 +117,17 @@ public final class InfusionProcessHelper {
     }
 
     public static boolean hasAspects(List<EssentiaJarBlockEntity> jars, InfusionRecipe recipe) {
+        return hasAspects(jars, recipe.aspectCost());
+    }
+
+    public static boolean hasAspects(List<EssentiaJarBlockEntity> jars, Map<Aspect, Integer> requiredAspects) {
         AspectList total = new AspectList();
 
         for (EssentiaJarBlockEntity jar : jars) {
             total.addAll(jar.aspects());
         }
 
-        for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
+        for (Map.Entry<Aspect, Integer> entry : requiredAspects.entrySet()) {
             if (total.get(entry.getKey()) < entry.getValue()) {
                 return false;
             }
@@ -168,14 +175,21 @@ public final class InfusionProcessHelper {
     }
 
     public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
+        return findComponentPedestal(pedestals, componentId, null);
+    }
+
+    public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId, InfusionRecipe recipe) {
         if (componentId == null) {
             return null;
         }
 
         for (ArcanePedestalBlockEntity pedestal : pedestals) {
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(pedestal.stored().getItem());
-
-            if (componentId.equals(id)) {
+            if (recipe == null) {
+                ResourceLocation id = ForgeRegistries.ITEMS.getKey(pedestal.stored().getItem());
+                if (componentId.equals(id)) {
+                    return pedestal;
+                }
+            } else if (recipe.componentMatches(pedestal.stored(), componentId)) {
                 return pedestal;
             }
         }
@@ -184,7 +198,11 @@ public final class InfusionProcessHelper {
     }
 
     public static boolean consumeSingleComponent(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
-        ArcanePedestalBlockEntity pedestal = findComponentPedestal(pedestals, componentId);
+        return consumeSingleComponent(pedestals, componentId, null);
+    }
+
+    public static boolean consumeSingleComponent(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId, InfusionRecipe recipe) {
+        ArcanePedestalBlockEntity pedestal = findComponentPedestal(pedestals, componentId, recipe);
 
         if (pedestal == null) {
             return false;
@@ -245,6 +263,8 @@ public final class InfusionProcessHelper {
     }
 
     public static void spawnSourceParticles(ServerLevel level, BlockPos source, BlockPos matrixPos, boolean item) {
+        // Stage209: server particle fallback plus TC4 PacketFXInfusionSource client arc.
+        ThaumcraftNetwork.sendInfusionSource(level, matrixPos, source, 0);
         spawnParticleLine(level,
                 source.getX() + 0.5D, source.getY() + 1.15D, source.getZ() + 0.5D,
                 matrixPos.getX() + 0.5D, matrixPos.getY() + 0.7D, matrixPos.getZ() + 0.5D,
@@ -325,23 +345,27 @@ public final class InfusionProcessHelper {
         spawnParticleLine(level, sx, sy, sz, ex, ey, ez, particle, points);
     }
 
-    public static void instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report) {
-        instabilityEvent(level, matrixPos, player, recipe, report, 0);
+    public static boolean instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report) {
+        return instabilityEvent(level, matrixPos, player, recipe, report, 0);
     }
 
-    public static void instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers) {
+    public static boolean instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers) {
         int instability = calculatedInstability(recipe, report, matrixStabilizers);
-        instabilityEvent(level, matrixPos, player, recipe, report, matrixStabilizers, instability);
+        return instabilityEvent(level, matrixPos, player, recipe, report, matrixStabilizers, instability);
     }
 
-    public static void instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers, int explicitInstability) {
-        InfusionInstabilityEvents.maybeTrigger(level, matrixPos, player, recipe, report, explicitInstability);
+    public static boolean instabilityEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int matrixStabilizers, int explicitInstability) {
+        return InfusionInstabilityEvents.maybeTrigger(level, matrixPos, player, recipe, report, explicitInstability);
     }
 
     public static String componentText(InfusionRecipe recipe) {
+        return componentText(recipe, ItemStack.EMPTY);
+    }
+
+    public static String componentText(InfusionRecipe recipe, ItemStack catalyst) {
         StringBuilder builder = new StringBuilder();
 
-        for (ResourceLocation id : recipe.components()) {
+        for (ResourceLocation id : recipe.componentsFor(catalyst)) {
             if (builder.length() > 0) {
                 builder.append(", ");
             }
@@ -353,9 +377,13 @@ public final class InfusionProcessHelper {
     }
 
     public static String aspectText(InfusionRecipe recipe) {
+        return aspectText(recipe, ItemStack.EMPTY);
+    }
+
+    public static String aspectText(InfusionRecipe recipe, ItemStack catalyst) {
         StringBuilder builder = new StringBuilder();
 
-        for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
+        for (Map.Entry<Aspect, Integer> entry : recipe.aspectCostFor(catalyst).entrySet()) {
             if (builder.length() > 0) {
                 builder.append(", ");
             }

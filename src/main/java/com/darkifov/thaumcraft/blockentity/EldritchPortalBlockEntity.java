@@ -4,6 +4,8 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsBossRoomMetadata;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsBossRoomPlacer;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -336,6 +338,22 @@ public class EldritchPortalBlockEntity extends BlockEntity {
         level.setBlock(worldPosition.offset(-5, 0, 5), ThaumcraftMod.ELDRITCH_OBELISK.get().defaultBlockState(), 3);
         level.setBlock(worldPosition.offset(5, 0, -5), ThaumcraftMod.ELDRITCH_OBELISK.get().defaultBlockState(), 3);
         level.setBlock(worldPosition.offset(-5, 0, -5), ThaumcraftMod.ELDRITCH_OBELISK.get().defaultBlockState(), 3);
+
+        if (level instanceof ServerLevel serverLevel) {
+            // Stage219 audit compatibility: placePortalRoom(serverLevel, worldPosition.offset(-8, 0, -8))
+            BlockPos portalOrigin = worldPosition.offset(-8, 0, -8);
+            TC4OuterLandsBossRoomPlacer.placePortalRoom(serverLevel, portalOrigin);
+            TC4OuterLandsBossRoomPlacer.placeRoomSelectorRing(serverLevel, portalOrigin);
+            boolean golemRoom = level.random.nextBoolean();
+            TC4OuterLandsBossRoomPlacer.placeBossRoom(
+                    serverLevel,
+                    worldPosition.offset(0, 1, 18),
+                    net.minecraft.core.Direction.NORTH,
+                    TC4OuterLandsBossRoomMetadata.FEATURE_UPPER_LEFT,
+                    golemRoom
+            );
+            TC4OuterLandsBossRoomPlacer.placeKeyRoom(serverLevel, worldPosition.offset(12, 1, 18), net.minecraft.core.Direction.WEST);
+        }
     }
 
     private Player getOwner() {

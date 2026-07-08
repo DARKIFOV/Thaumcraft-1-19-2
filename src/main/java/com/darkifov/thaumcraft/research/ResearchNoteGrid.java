@@ -161,12 +161,12 @@ public final class ResearchNoteGrid {
 
     public static int x(int index) {
         GridSlot slot = slot(index);
-        return 128 + (int) Math.round(18.0D * slot.q());
+        return 169 + (int) Math.round(18.0D * slot.q());
     }
 
     public static int y(int index) {
         GridSlot slot = slot(index);
-        return 112 + (int) Math.round(15.588D * (slot.r() + slot.q() / 2.0D));
+        return 83 + (int) Math.round(15.588D * (slot.r() + slot.q() / 2.0D));
     }
 
     public static int defaultStartSlot() {

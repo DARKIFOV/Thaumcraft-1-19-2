@@ -7,10 +7,10 @@
   "components": [
     "minecraft:gold_ingot",
     "minecraft:blaze_rod",
-    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:ignis_shard",
     "minecraft:gold_ingot",
     "minecraft:brewing_stand",
-    "thaumcraft:tc4_shard_ignis"
+    "thaumcraft:ignis_shard"
   ],
   "aspects": {
     "BESTIA": 16,

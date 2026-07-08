@@ -1,0 +1,48 @@
+{
+  "stage": 216,
+  "version": "2.16.0",
+  "target": "Minecraft Forge 1.19.2",
+  "baseline": "Thaumcraft4 1.7.10 original source mirror",
+  "summary": "Adds real TC4 EldritchOrb/GolemOrb projectile entities, boss FX packet bridge, Warden ranged/sonic/frenzy adapters, Golem headless beam/arc adapters, and Outer Lands boss/key-room metadata.",
+  "new_runtime_classes": [
+    "TC4EldritchOrbEntity",
+    "TC4GolemOrbEntity",
+    "PacketFXEldritchBoss",
+    "TC4ClientEldritchBossFx",
+    "TC4EldritchOrbRenderer",
+    "TC4OuterLandsBossRoomMetadata"
+  ],
+  "modified_runtime_classes": [
+    "ThaumcraftMod",
+    "ThaumcraftNetwork",
+    "ClientModEvents",
+    "EldritchWardenEntity",
+    "EldritchGolemEntity"
+  ],
+  "original_tc4_files_compared": [
+    "EntityEldritchOrb.java",
+    "EntityGolemOrb.java",
+    "EntityEldritchWarden.java",
+    "EntityEldritchGolem.java",
+    "GenBossRoom.java"
+  ],
+  "checks_passed": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage205_hard_parity_reset_audit.py",
+    "tc4_stage206_original_parity_repair_audit.py",
+    "tc4_stage207_infusion_matrix_parity_audit.py",
+    "tc4_stage208_infusion_renderer_enchantment_audit.py",
+    "tc4_stage209_extended_infusion_failure_audit.py",
+    "tc4_stage210_runic_augment_1192_audit.py",
+    "tc4_stage211_runic_shield_runtime_audit.py",
+    "tc4_stage212_fortress_mask_curios_audit.py",
+    "tc4_stage213_fortress_champion_runtime_audit.py",
+    "tc4_stage214_champion_generation_fx_audit.py",
+    "tc4_stage215_eldritch_boss_champion_audit.py",
+    "tc4_stage216_eldritch_orb_boss_ai_audit.py"
+  ],
+  "gradle_build": "blocked: sandbox has no internet and Gradle wrapper cannot resolve services.gradle.org/gradle-7.5.1-bin.zip",
+  "next_stage_recommendation": "Stage217: dedicated Warden/Golem renderers/models, boss sounds/particle cadence, and Outer Lands structure realization."
+}

@@ -3,15 +3,15 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "BASICARTIFACE",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_shard_balanced",
+  "catalyst": "thaumcraft:balanced_shard",
   "ingredients": [
     "minecraft:gold_ingot",
-    "thaumcraft:tc4_shard_aer",
-    "thaumcraft:tc4_shard_ignis",
-    "thaumcraft:tc4_shard_aqua",
-    "thaumcraft:tc4_shard_terra",
-    "thaumcraft:tc4_shard_ordo",
-    "thaumcraft:tc4_shard_perditio"
+    "thaumcraft:aer_shard",
+    "thaumcraft:ignis_shard",
+    "thaumcraft:aqua_shard",
+    "thaumcraft:terra_shard",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:perditio_shard"
   ],
   "aspects": {
     "TERRA": 25,
@@ -28,16 +28,16 @@
   ],
   "key": {
     "1": "minecraft:gold_ingot",
-    "2": "thaumcraft:tc4_shard_aer",
-    "3": "thaumcraft:tc4_shard_ignis",
-    "I": "thaumcraft:tc4_shard_aqua",
-    "S": "thaumcraft:tc4_shard_balanced",
-    "4": "thaumcraft:tc4_shard_terra",
-    "5": "thaumcraft:tc4_shard_ordo",
-    "6": "thaumcraft:tc4_shard_perditio"
+    "2": "thaumcraft:aer_shard",
+    "3": "thaumcraft:ignis_shard",
+    "I": "thaumcraft:aqua_shard",
+    "S": "thaumcraft:balanced_shard",
+    "4": "thaumcraft:terra_shard",
+    "5": "thaumcraft:ordo_shard",
+    "6": "thaumcraft:perditio_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_charm",
+    "item": "thaumcraft:warp_charm",
     "count": 1
   }
 }

@@ -178,6 +178,7 @@ public final class InfusionAltarStructure {
                 matrixStabilizationPercent,
                 stabilityScore,
                 instabilityPenalty,
+                tc4Penalty,
                 componentPedestals,
                 summary
         );

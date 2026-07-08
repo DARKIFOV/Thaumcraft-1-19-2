@@ -1,0 +1,15 @@
+{
+  "stage": 221,
+  "version": "2.21.0",
+  "minecraft": "1.19.2",
+  "source_reference": "Thaumcraft4-1.7.10-master.zip",
+  "implemented": [
+    "crimson plate armor bridge",
+    "EldritchCrab itemChestCultistPlate drop",
+    "TC4LootBlock urn/crate variant rarity",
+    "Utils.generateLoot adapter",
+    "GenNestRoom loot placement",
+    "Gen2x2/GenPassage adapters"
+  ],
+  "next": "Stage222 live room selector integration, exact WeightedRandomLoot tables, ItemLootBag opening, crab vent renderer"
+}

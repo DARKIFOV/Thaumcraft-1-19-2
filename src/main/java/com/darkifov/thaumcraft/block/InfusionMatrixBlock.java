@@ -37,7 +37,7 @@ public class InfusionMatrixBlock extends BaseEntityBlock {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -52,23 +52,25 @@ public class InfusionMatrixBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         boolean active = false;
+        boolean crafting = false;
 
         if (level.getBlockEntity(pos) instanceof InfusionMatrixBlockEntity matrix) {
             active = matrix.active();
+            crafting = matrix.crafting();
         }
 
-        if (random.nextFloat() < (active ? 0.9F : 0.45F)) {
-            double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * (active ? 2.0D : 1.4D);
+        if (random.nextFloat() < (crafting ? 0.9F : (active ? 0.55F : 0.18F))) {
+            double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * (crafting ? 2.0D : 1.1D);
             double y = pos.getY() + 0.5D + random.nextDouble() * 0.9D;
-            double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * (active ? 2.0D : 1.4D);
-            level.addParticle(ParticleTypes.ENCHANT, x, y, z, 0.0D, active ? 0.06D : 0.03D, 0.0D);
+            double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * (crafting ? 2.0D : 1.1D);
+            level.addParticle(ParticleTypes.ENCHANT, x, y, z, 0.0D, crafting ? 0.06D : 0.02D, 0.0D);
         }
 
-        if (random.nextFloat() < (active ? 0.45F : 0.18F)) {
+        if (active && random.nextFloat() < (crafting ? 0.45F : 0.12F)) {
             level.addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 0.85D, pos.getZ() + 0.5D, 0.0D, 0.02D, 0.0D);
         }
 
-        if (active && random.nextFloat() < 0.25F) {
+        if (crafting && random.nextFloat() < 0.25F) {
             level.addParticle(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 0.55D, pos.getZ() + 0.5D, 0.0D, 0.01D, 0.0D);
         }
     }
@@ -109,7 +111,7 @@ public class InfusionMatrixBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
 
-        matrix.startInfusion(player);
+        matrix.onWandRightClick(player);
         return InteractionResult.CONSUME;
     }
 }

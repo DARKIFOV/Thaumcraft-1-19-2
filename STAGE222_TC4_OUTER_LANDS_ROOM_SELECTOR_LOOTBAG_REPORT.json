@@ -1,0 +1,15 @@
+{
+  "stage": 222,
+  "version": "2.22.0",
+  "minecraft": "1.19.2",
+  "base": "STAGE221",
+  "reference": "Thaumcraft4-1.7.10-master.zip",
+  "focus": [
+    "Outer Lands live room selector ring",
+    "TC4 weighted lootbag tables",
+    "ItemLootBag open behavior",
+    "GenNestRoom loot md fix"
+  ],
+  "handoff_prompt": "docs/NEXT_CHAT_PROMPT_STAGE222.md",
+  "generated_at": "2026-07-08"
+}

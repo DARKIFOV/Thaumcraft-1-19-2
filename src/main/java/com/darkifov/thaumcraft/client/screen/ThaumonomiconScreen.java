@@ -53,13 +53,10 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     private Set<String> unlockedResearch() {
-        Set<String> synced = new HashSet<>(ClientResearchData.research());
-        // TC4 opens with these basic pages visible. Real progress is still synced
-        // from the server; this just prevents an empty first browser.
-        synced.add("ASPECTS");
-        synced.add("RESEARCH");
-        synced.add("NODES");
-        return synced;
+        // Stage205 hard parity reset: do not inject fake client-side completions.
+        // TC4 progression visibility must come from the player's research data and
+        // each ResearchItem's parents/hiddenParents, not from convenience defaults.
+        return new HashSet<>(ClientResearchData.research());
     }
 
     @Override
@@ -217,11 +214,25 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     private void drawResearchLine(PoseStack poseStack, int x1, int y1, int x2, int y2, int color, boolean active) {
-        int midX = x1 + (x2 - x1) / 2;
-        int thickness = active ? 2 : 1;
-        fill(poseStack, Math.min(x1, midX), y1, Math.max(x1, midX) + thickness, y1 + thickness, color);
-        fill(poseStack, midX, Math.min(y1, y2), midX + thickness, Math.max(y1, y2) + thickness, color);
-        fill(poseStack, Math.min(midX, x2), y2, Math.max(midX, x2) + thickness, y2 + thickness, color);
+        // TC4 draws animated dangling/wiggling research links, not rigid L-shaped sticks.
+        // This 1.19.2 GuiComponent adapter preserves the original visual behaviour:
+        // a polyline sampled along the direct parent/sibling vector with optional
+        // sine offsets for not-yet-complete links.
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        int steps = Math.max(1, (int)Math.sqrt(dx * dx + dy * dy) / 2);
+        float tick = Minecraft.getInstance().player == null ? 0.0F : Minecraft.getInstance().player.tickCount;
+        for (int i = 0; i <= steps; i++) {
+            float phase = i / (float)steps;
+            int x = x1 + Math.round(dx * phase);
+            int y = y1 + Math.round(dy * phase);
+            if (!active) {
+                x += Math.round((float)Math.sin((tick + i) / 7.0F) * 5.0F * (1.0F - phase));
+                y += Math.round((float)Math.sin((tick + i) / 5.0F) * 5.0F * (1.0F - phase));
+            }
+            int alpha = active ? 0xCC000000 : Math.max(0x33000000, (int)(0x99000000 * phase));
+            fill(poseStack, x, y, x + 2, y + 2, (color & 0x00FFFFFF) | alpha);
+        }
     }
 
     private void renderTabs(PoseStack poseStack, int mouseX, int mouseY) {

@@ -3,7 +3,7 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "ROD_reed_staff",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_charm",
+  "catalyst": "thaumcraft:warp_charm",
   "ingredients": [
     "thaumcraft:tc4_wand_rod_reed"
   ],
@@ -14,7 +14,7 @@
     "G"
   ],
   "key": {
-    "S": "thaumcraft:tc4_charm",
+    "S": "thaumcraft:warp_charm",
     "G": "thaumcraft:tc4_wand_rod_reed"
   },
   "result": {

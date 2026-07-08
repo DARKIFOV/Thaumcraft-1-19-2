@@ -11,8 +11,8 @@
     "minecraft:gold_ingot",
     "minecraft:bowl",
     "minecraft:mushroom_stew",
-    "thaumcraft:tc4_shard_aer",
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:aer_shard",
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "POTENTIA": 16,

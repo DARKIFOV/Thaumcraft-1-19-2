@@ -3,7 +3,7 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "FOCUSPRIMAL",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_charm",
+  "catalyst": "thaumcraft:warp_charm",
   "ingredients": [
     "minecraft:nether_wart",
     "minecraft:diamond"
@@ -22,12 +22,12 @@
     "CQC"
   ],
   "key": {
-    "#": "thaumcraft:tc4_charm",
+    "#": "thaumcraft:warp_charm",
     "Q": "minecraft:nether_wart",
     "C": "minecraft:diamond"
   },
   "result": {
-    "item": "thaumcraft:tc4_focus_primal",
+    "item": "thaumcraft:focus_primal",
     "count": 1
   }
 }

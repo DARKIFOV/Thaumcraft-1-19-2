@@ -7,10 +7,10 @@
   "components": [
     "minecraft:gold_ingot",
     "minecraft:black_dye",
-    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:terra_shard",
     "minecraft:gold_ingot",
     "minecraft:black_dye",
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "HERBA": 16,

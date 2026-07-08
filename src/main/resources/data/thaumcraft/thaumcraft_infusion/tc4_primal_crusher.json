@@ -5,10 +5,10 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_eldritch_object_3",
   "components": [
-    "thaumcraft:tc4_charm",
+    "thaumcraft:warp_charm",
     "thaumcraft:tc4_voidpick",
     "thaumcraft:tc4_voidshovel",
-    "thaumcraft:tc4_charm",
+    "thaumcraft:warp_charm",
     "thaumcraft:tc4_elementalpick",
     "thaumcraft:tc4_elementalshovel"
   ],

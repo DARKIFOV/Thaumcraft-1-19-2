@@ -38,7 +38,9 @@ public final class TC4TreeGenerator {
         }
 
         makeGreatwoodCrown(level, base.above(height - 2), random);
-        makeGreatwoodCrown(level, base.above(Math.max(4, height / 2 + 2)), random);
+        if (height > 15 && random.nextBoolean()) {
+            makeGreatwoodCrown(level, base.above(Math.max(5, height / 2 + 2)), random);
+        }
         makeBranches(level, base.above(Math.max(5, height / 2)), height, random, ThaumcraftMod.GREATWOOD_LOG.get().defaultBlockState(), ThaumcraftMod.GREATWOOD_LEAVES.get().defaultBlockState());
 
         if (worldgen && random.nextInt(8) == 0) {
@@ -55,7 +57,9 @@ public final class TC4TreeGenerator {
 
         clearBase(level, base);
         for (int y = 0; y < height; y++) {
-            placeCrossLog(level, base.above(y), ThaumcraftMod.SILVERWOOD_LOG.get().defaultBlockState());
+            // Original WorldGenSilverwoodTrees is a single trunk, not the
+            // oversized 5-block cross trunk used by the temporary adapter.
+            setReplaceable(level, base.above(y), ThaumcraftMod.SILVERWOOD_LOG.get().defaultBlockState());
         }
 
         makeSilverwoodCrown(level, base.above(height - 2), random);
@@ -139,7 +143,7 @@ public final class TC4TreeGenerator {
     private static void makeGreatwoodCrown(ServerLevel level, BlockPos center, RandomSource random) {
         BlockState leaves = ThaumcraftMod.GREATWOOD_LEAVES.get().defaultBlockState();
         for (int y = -3; y <= 4; y++) {
-            int radius = y < -1 ? 4 : y < 2 ? 5 : y < 4 ? 4 : 2;
+            int radius = y < -1 ? 3 : y < 2 ? 4 : y < 4 ? 3 : 2;
             placeLeafBlob(level, center.above(y), radius, leaves, random);
         }
     }
@@ -147,7 +151,7 @@ public final class TC4TreeGenerator {
     private static void makeSilverwoodCrown(ServerLevel level, BlockPos center, RandomSource random) {
         BlockState leaves = ThaumcraftMod.SILVERWOOD_LEAVES.get().defaultBlockState();
         for (int y = -2; y <= 4; y++) {
-            int radius = y < 0 ? 4 : y < 3 ? 5 : 3;
+            int radius = y < 0 ? 3 : y < 3 ? 4 : 2;
             placeLeafBlob(level, center.above(y), radius, leaves, random);
         }
     }
@@ -170,13 +174,13 @@ public final class TC4TreeGenerator {
             if (random.nextInt(3) == 0 && i > 3) {
                 continue;
             }
-            int length = 3 + random.nextInt(4);
+            int length = 2 + random.nextInt(3);
             BlockPos pos = start.above(random.nextInt(Math.max(1, height / 3)));
             for (int step = 1; step <= length; step++) {
                 pos = pos.offset(directions[i][0], step % 2 == 0 ? 1 : 0, directions[i][1]);
                 setReplaceable(level, pos, log);
             }
-            placeLeafBlob(level, pos, 3 + random.nextInt(2), leaves, random);
+            placeLeafBlob(level, pos, 2 + random.nextInt(2), leaves, random);
         }
     }
 

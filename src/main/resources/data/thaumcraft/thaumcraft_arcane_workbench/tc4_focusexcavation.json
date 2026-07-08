@@ -6,7 +6,7 @@
   "catalyst": "minecraft:emerald",
   "ingredients": [
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "TERRA": 20,
@@ -21,10 +21,10 @@
   "key": {
     "#": "minecraft:emerald",
     "Q": "minecraft:nether_wart",
-    "C": "thaumcraft:tc4_shard_terra"
+    "C": "thaumcraft:terra_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_focus_excavation",
+    "item": "thaumcraft:focus_excavation",
     "count": 1
   }
 }

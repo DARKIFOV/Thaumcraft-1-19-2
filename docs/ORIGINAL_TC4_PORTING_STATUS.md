@@ -106,3 +106,11 @@ Remaining estimate after Stage200: roughly 1-15 stages, depending on how deep th
 - Resource-pack metadata remains enforced through `pack.mcmeta` with `pack_format: 9`; jar/tube/golem GUI texture audits remain active.
 
 Remaining estimate after Stage204: roughly 1–11 stages, mostly final golem AI/renderer polish, exact tube raytrace/subHit side interaction, remaining jar/tube renderer details and full regression sweep.
+
+## Stage205–Stage207
+
+- Stage205: hard parity reset removed/disabled several fake player-facing paths: rebuild/debug research-table buttons, fake reveal progression side effects, duplicate shard creative clutter and wrong fallback recipes; original TC4 resources/config became the mandatory source of truth.
+- Stage206: original reveal gear/aura-node parity repair. Goggles/Helmet of Revealing now keep TC4 reveal semantics instead of fake scan/research/warp effects; node renderer uses original `textures/misc/nodes.png`; Research Table/Research Note visuals moved back toward original textures and coordinates; Goggles/Thaumometer/InfusionMatrix recipes were corrected from `ConfigRecipes.java`.
+- Stage207: Infusion Matrix parity start. Matrix activation now mirrors original TC4 two-phase wand flow (`active` first, `crafting` second), validates center pedestal + four diagonal pillars before activation, stores original NBT aliases, exposes original symmetry penalty, separates essentia range 12 from craft-cycle delay 10, and delays component consumption by the original five-tick source-FX travel step.
+
+Remaining estimate after Stage207: roughly 1–9 stages, mostly Infusion Matrix renderer/output/enchantment parity, exact source FX packets, remaining failure effects, exact component ItemStack matching, and final full-regression sweep.

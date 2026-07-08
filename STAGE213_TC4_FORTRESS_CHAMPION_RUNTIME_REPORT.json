@@ -1,0 +1,35 @@
+{
+  "stage": 213,
+  "version": "2.13.0",
+  "target": "Minecraft/Forge 1.19.2",
+  "base": "thaumcraft_legacy_rebuild_STAGE212_TC4_FORTRESS_MASK_CURIOS_1192_PARITY.zip",
+  "reference": "Thaumcraft4-1.7.10-master.zip",
+  "title": "TC4 Fortress Armor + Champion Runtime Parity",
+  "implemented": [
+    "TC4FortressArmorRuntime with ItemFortressArmor special armor ratio and set bonus constants",
+    "TC4ChampionModifierRuntime with ChampionModifier ids/types/effects 0..12",
+    "TC4WarpingGearAdapter for original IWarpingGear-style item warp",
+    "TC4FortressArmorLayer with active fortress_armor and runic_goggles textures",
+    "CommonEvents hooks for champion tick/hurt and fortress remaining-damage mitigation",
+    "Stage213 audit and Stage210-212 version audit carry-forward updates"
+  ],
+  "checks_passed": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage205_hard_parity_reset_audit.py",
+    "tc4_stage206_original_parity_repair_audit.py",
+    "tc4_stage207_infusion_matrix_parity_audit.py",
+    "tc4_stage208_infusion_renderer_enchantment_audit.py",
+    "tc4_stage209_extended_infusion_failure_audit.py",
+    "tc4_stage210_runic_augment_1192_audit.py",
+    "tc4_stage211_runic_shield_runtime_audit.py",
+    "tc4_stage212_fortress_mask_curios_audit.py",
+    "tc4_stage213_fortress_champion_runtime_audit.py"
+  ],
+  "gradle_build": {
+    "status": "not_completed",
+    "reason": "sandbox has no DNS/network access; Gradle wrapper could not download gradle-7.5.1-bin.zip from services.gradle.org"
+  },
+  "next_stage": "Stage214 champion visual FX/showFX, champion generation/persistence/display-name parity, localization keys and deeper compile pass when dependencies are available."
+}

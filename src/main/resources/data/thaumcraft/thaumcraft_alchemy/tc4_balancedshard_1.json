@@ -3,10 +3,10 @@
   "kind": "CRUCIBLE",
   "research": "CRUCIBLE",
   "result": {
-    "item": "thaumcraft:tc4_shard_balanced",
+    "item": "thaumcraft:balanced_shard",
     "count": 1
   },
-  "catalyst": "thaumcraft:tc4_shard_ignis",
+  "catalyst": "thaumcraft:ignis_shard",
   "aspects": {
     "AER": 2,
     "AQUA": 2,

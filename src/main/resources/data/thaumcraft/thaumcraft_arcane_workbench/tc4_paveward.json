@@ -5,8 +5,8 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:tc4_block_paving_travel",
   "ingredients": [
-    "thaumcraft:tc4_shard_ignis",
-    "thaumcraft:tc4_shard_ordo"
+    "thaumcraft:ignis_shard",
+    "thaumcraft:ordo_shard"
   ],
   "aspects": {
     "IGNIS": 10,
@@ -17,8 +17,8 @@
     "SBS"
   ],
   "key": {
-    "S": "thaumcraft:tc4_shard_ignis",
-    "A": "thaumcraft:tc4_shard_ordo",
+    "S": "thaumcraft:ignis_shard",
+    "A": "thaumcraft:ordo_shard",
     "B": "thaumcraft:tc4_block_paving_travel"
   },
   "result": {

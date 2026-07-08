@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/block",
   "textures": {
-    "all": "thaumcraft:block/infusion_matrix"
+    "particle": "thaumcraft:models/infuser"
   }
 }

@@ -18,6 +18,14 @@ import com.darkifov.thaumcraft.block.BellowsBlock;
 import com.darkifov.thaumcraft.block.CrucibleBlock;
 import com.darkifov.thaumcraft.block.FilteredEssentiaJarBlock;
 import com.darkifov.thaumcraft.block.EldritchAltarBlock;
+import com.darkifov.thaumcraft.block.EldritchTrapBlock;
+import com.darkifov.thaumcraft.block.EldritchLockBlock;
+import com.darkifov.thaumcraft.block.EldritchCrystalBlock;
+import com.darkifov.thaumcraft.block.EldritchCapBlock;
+import com.darkifov.thaumcraft.block.EldritchCrabSpawnerBlock;
+import com.darkifov.thaumcraft.block.EldritchNothingBlock;
+import com.darkifov.thaumcraft.block.TC4LootBlock;
+import com.darkifov.thaumcraft.block.TC4CrimsonPlateArmorItem;
 import com.darkifov.thaumcraft.block.EldritchEyeItem;
 import com.darkifov.thaumcraft.block.EssentiaValveBlock;
 import com.darkifov.thaumcraft.block.EssentiaTubeBlock;
@@ -105,6 +113,11 @@ import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchPortalBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EldritchCrabSpawnerBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EldritchCrystalBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EldritchTrapBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EldritchLockBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EldritchCapBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaDriveBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
@@ -114,12 +127,22 @@ import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
+import com.darkifov.thaumcraft.entity.EldritchCrabEntity;
+import com.darkifov.thaumcraft.entity.EldritchWardenEntity;
+import com.darkifov.thaumcraft.entity.EldritchGolemEntity;
+import com.darkifov.thaumcraft.entity.MindSpiderEntity;
+import com.darkifov.thaumcraft.entity.CultistPortalEntity;
+import com.darkifov.thaumcraft.entity.TaintacleGiantEntity;
+import com.darkifov.thaumcraft.entity.TaintacleSmallEntity;
+import com.darkifov.thaumcraft.entity.TaintacleEntity;
 import com.darkifov.thaumcraft.entity.PechEntity;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EmberEntity;
+import com.darkifov.thaumcraft.entity.projectile.TC4EldritchOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ExplosiveOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4FrostShardEntity;
+import com.darkifov.thaumcraft.entity.projectile.TC4GolemOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PrimalOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ShockOrbEntity;
 import com.darkifov.thaumcraft.infusion.InfusionRecipeManager;
@@ -137,8 +160,10 @@ import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
 import com.darkifov.thaumcraft.menu.ResearchTableMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.porting.TC4RegistryGarbageGuard;
 import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -192,6 +217,12 @@ public class ThaumcraftMod {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(THAUMONOMICON.get());
+        }
+
+        @Override
+        public void fillItemList(NonNullList<ItemStack> items) {
+            super.fillItemList(items);
+            items.removeIf(TC4RegistryGarbageGuard::isHiddenFromCreative);
         }
     };
 
@@ -249,13 +280,13 @@ public class ThaumcraftMod {
     public static final RegistryObject<Item> ORDO_SHARD = specialItem("ordo_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.ORDO, false));
     public static final RegistryObject<Item> PERDITIO_SHARD = specialItem("perditio_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.PERDITIO, false));
     public static final RegistryObject<Item> BALANCED_SHARD = specialItem("balanced_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.PRAECANTATIO, true));
-    public static final RegistryObject<Item> VITREUS_SHARD = specialItem("vitreus_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.VITREUS, false));
-    public static final RegistryObject<Item> METALLUM_SHARD = specialItem("metallum_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.METALLUM, false));
-    public static final RegistryObject<Item> PRAECANTATIO_SHARD = specialItem("praecantatio_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.PRAECANTATIO, false));
-    public static final RegistryObject<Item> VACUOS_SHARD = specialItem("vacuos_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.VACUOS, false));
-    public static final RegistryObject<Item> HERBA_SHARD = specialItem("herba_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.HERBA, false));
-    public static final RegistryObject<Item> LUX_SHARD = specialItem("lux_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.LUX, false));
-    public static final RegistryObject<Item> POTENTIA_SHARD = specialItem("potentia_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.POTENTIA, false));
+    public static final RegistryObject<Item> VITREUS_SHARD = specialItem("vitreus_shard", () -> new ShardItem(new Item.Properties(), Aspect.VITREUS, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
+    public static final RegistryObject<Item> METALLUM_SHARD = specialItem("metallum_shard", () -> new ShardItem(new Item.Properties(), Aspect.METALLUM, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
+    public static final RegistryObject<Item> PRAECANTATIO_SHARD = specialItem("praecantatio_shard", () -> new ShardItem(new Item.Properties(), Aspect.PRAECANTATIO, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
+    public static final RegistryObject<Item> VACUOS_SHARD = specialItem("vacuos_shard", () -> new ShardItem(new Item.Properties(), Aspect.VACUOS, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
+    public static final RegistryObject<Item> HERBA_SHARD = specialItem("herba_shard", () -> new ShardItem(new Item.Properties(), Aspect.HERBA, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
+    public static final RegistryObject<Item> LUX_SHARD = specialItem("lux_shard", () -> new ShardItem(new Item.Properties(), Aspect.LUX, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
+    public static final RegistryObject<Item> POTENTIA_SHARD = specialItem("potentia_shard", () -> new ShardItem(new Item.Properties(), Aspect.POTENTIA, false)); // Stage205: legacy duplicate hidden from creative; TC4 core exposes primal + balanced shards.
     public static final RegistryObject<Item> SPELLBINDING_CLOTH = item("spellbinding_cloth");
     public static final RegistryObject<Item> OSMOTIC_ENCHANTMENT_FOCUS = item("osmotic_enchantment_focus");
     public static final RegistryObject<Item> TT_RESEARCH_STAMP = item("tt_research_stamp");
@@ -381,6 +412,14 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Item> CRIMSON_KEY = item("crimson_key");
     public static final RegistryObject<Item> AWAKENED_CRIMSON_KEY = item("awakened_crimson_key");
+    public static final RegistryObject<Item> CRIMSON_PLATE_HELM = specialItem("crimson_plate_helm",
+            () -> new TC4CrimsonPlateArmorItem(EquipmentSlot.HEAD, new Item.Properties().tab(THAUMCRAFT_TAB), "ConfigItems.itemHelmetCultistPlate", "cultistplatehelm", false));
+    public static final RegistryObject<Item> CRIMSON_PLATE_CHEST = specialItem("crimson_plate_chest",
+            () -> new TC4CrimsonPlateArmorItem(EquipmentSlot.CHEST, new Item.Properties().tab(THAUMCRAFT_TAB), "ConfigItems.itemChestCultistPlate", "cultistplatechest", false));
+    public static final RegistryObject<Item> CRIMSON_PLATE_LEGS = specialItem("crimson_plate_legs",
+            () -> new TC4CrimsonPlateArmorItem(EquipmentSlot.LEGS, new Item.Properties().tab(THAUMCRAFT_TAB), "ConfigItems.itemLegsCultistPlate", "cultistplatelegs", false));
+    public static final RegistryObject<Item> CRIMSON_PLATE_BOOTS = specialItem("crimson_plate_boots",
+            () -> new TC4CrimsonPlateArmorItem(EquipmentSlot.FEET, new Item.Properties().tab(THAUMCRAFT_TAB), "ConfigItems.itemBootsCultist", "cultistboots", false));
     public static final RegistryObject<Item> ELDRITCH_RELIC = item("eldritch_relic");
     public static final RegistryObject<Item> ELDRITCH_GUARDIAN_CORE = item("eldritch_guardian_core");
 
@@ -541,6 +580,45 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> ELDRITCH_PORTAL = eldritchPortalBlock("eldritch_portal",
             BlockBehaviour.Properties.of(Material.PORTAL).strength(-1.0F, 3600000.0F).noOcclusion().lightLevel(state -> 12));
+
+    public static final RegistryObject<Block> ELDRITCH_NOTHING = BLOCKS.register("eldritch_nothing",
+            () -> new EldritchNothingBlock(BlockBehaviour.Properties.of(Material.PORTAL).strength(-1.0F, 3600000.0F).noCollission().noOcclusion()));
+
+    public static final RegistryObject<Block> ELDRITCH_CAP = BLOCKS.register("eldritch_cap",
+            () -> new EldritchCapBlock(BlockBehaviour.Properties.of(Material.STONE).strength(6.0F, 16.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 4)));
+    public static final RegistryObject<Item> ELDRITCH_CAP_ITEM = ITEMS.register("eldritch_cap",
+            () -> new BlockItem(ELDRITCH_CAP.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Block> ELDRITCH_LOCK = BLOCKS.register("eldritch_lock",
+            () -> new EldritchLockBlock(BlockBehaviour.Properties.of(Material.STONE).strength(6.0F, 16.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> state.getValue(EldritchLockBlock.OPEN) ? 12 : 5)));
+    public static final RegistryObject<Item> ELDRITCH_LOCK_ITEM = ITEMS.register("eldritch_lock",
+            () -> new BlockItem(ELDRITCH_LOCK.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Block> ELDRITCH_TRAP = BLOCKS.register("eldritch_trap",
+            () -> new EldritchTrapBlock(BlockBehaviour.Properties.of(Material.STONE).strength(6.0F, 16.0F).requiresCorrectToolForDrops().lightLevel(state -> 3)));
+    public static final RegistryObject<Item> ELDRITCH_TRAP_ITEM = ITEMS.register("eldritch_trap",
+            () -> new BlockItem(ELDRITCH_TRAP.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Block> ELDRITCH_CRYSTAL = BLOCKS.register("eldritch_crystal",
+            () -> new EldritchCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 12.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 11)));
+    public static final RegistryObject<Item> ELDRITCH_CRYSTAL_ITEM = ITEMS.register("eldritch_crystal",
+            () -> new BlockItem(ELDRITCH_CRYSTAL.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Block> ELDRITCH_CRUST = block("eldritch_crust",
+            BlockBehaviour.Properties.of(Material.STONE).strength(6.0F, 16.0F).requiresCorrectToolForDrops().lightLevel(state -> 3));
+
+    public static final RegistryObject<Block> ELDRITCH_DECORATIVE = block("eldritch_decorative",
+            BlockBehaviour.Properties.of(Material.STONE).strength(6.0F, 16.0F).requiresCorrectToolForDrops().lightLevel(state -> 3));
+
+    public static final RegistryObject<Block> ELDRITCH_DOOR = block("eldritch_door",
+            BlockBehaviour.Properties.of(Material.STONE).strength(50.0F, 1200.0F).requiresCorrectToolForDrops().lightLevel(state -> 3));
+
+    public static final RegistryObject<Block> ELDRITCH_CRAB_SPAWNER = eldritchCrabSpawnerBlock("eldritch_crab_spawner",
+            BlockBehaviour.Properties.of(Material.STONE).strength(5.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 4));
+    public static final RegistryObject<Block> OUTER_LANDS_LOOT_URN = tc4LootBlock("outer_lands_loot_urn", TC4LootBlock.Kind.URN,
+            BlockBehaviour.Properties.of(Material.WOOD).strength(0.15F, 0.0F).noOcclusion());
+    public static final RegistryObject<Block> OUTER_LANDS_LOOT_CRATE = tc4LootBlock("outer_lands_loot_crate", TC4LootBlock.Kind.CRATE,
+            BlockBehaviour.Properties.of(Material.WOOD).strength(0.15F, 0.0F).noOcclusion());
     public static final RegistryObject<Block> AMBER_ORE = block("amber_ore",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> CINNABAR_ORE = block("cinnabar_ore",
@@ -886,6 +964,21 @@ public class ThaumcraftMod {
     public static final RegistryObject<BlockEntityType<EldritchPortalBlockEntity>> ELDRITCH_PORTAL_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("eldritch_portal", () -> BlockEntityType.Builder.of(EldritchPortalBlockEntity::new, ELDRITCH_PORTAL.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<EldritchCrabSpawnerBlockEntity>> ELDRITCH_CRAB_SPAWNER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("eldritch_crab_spawner", () -> BlockEntityType.Builder.of(EldritchCrabSpawnerBlockEntity::new, ELDRITCH_CRAB_SPAWNER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EldritchCapBlockEntity>> ELDRITCH_CAP_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("eldritch_cap", () -> BlockEntityType.Builder.of(EldritchCapBlockEntity::new, ELDRITCH_CAP.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EldritchLockBlockEntity>> ELDRITCH_LOCK_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("eldritch_lock", () -> BlockEntityType.Builder.of(EldritchLockBlockEntity::new, ELDRITCH_LOCK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EldritchTrapBlockEntity>> ELDRITCH_TRAP_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("eldritch_trap", () -> BlockEntityType.Builder.of(EldritchTrapBlockEntity::new, ELDRITCH_TRAP.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EldritchCrystalBlockEntity>> ELDRITCH_CRYSTAL_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("eldritch_crystal", () -> BlockEntityType.Builder.of(EldritchCrystalBlockEntity::new, ELDRITCH_CRYSTAL.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<AuraNodeBlockEntity>> AURA_NODE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("aura_node", () -> BlockEntityType.Builder.of(AuraNodeBlockEntity::new, AURA_NODE.get()).build(null));
 
@@ -949,6 +1042,30 @@ public class ThaumcraftMod {
                     .clientTrackingRange(8)
                     .build(MOD_ID + ":eldritch_guardian"));
 
+    public static final RegistryObject<EntityType<EldritchCrabEntity>> ELDRITCH_CRAB =
+            ENTITY_TYPES.register("eldritch_crab", () -> EntityType.Builder.of(EldritchCrabEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 0.6F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":eldritch_crab"));
+
+    public static final RegistryObject<EntityType<MindSpiderEntity>> MIND_SPIDER =
+            ENTITY_TYPES.register("mind_spider", () -> EntityType.Builder.<MindSpiderEntity>of(MindSpiderEntity::new, MobCategory.MONSTER)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":mind_spider"));
+
+    public static final RegistryObject<EntityType<EldritchWardenEntity>> ELDRITCH_WARDEN =
+            ENTITY_TYPES.register("eldritch_warden", () -> EntityType.Builder.of(EldritchWardenEntity::new, MobCategory.MONSTER)
+                    .sized(1.5F, 3.5F)
+                    .clientTrackingRange(10)
+                    .build(MOD_ID + ":eldritch_warden"));
+
+    public static final RegistryObject<EntityType<EldritchGolemEntity>> ELDRITCH_GOLEM =
+            ENTITY_TYPES.register("eldritch_golem", () -> EntityType.Builder.of(EldritchGolemEntity::new, MobCategory.MONSTER)
+                    .sized(1.75F, 3.5F)
+                    .clientTrackingRange(10)
+                    .build(MOD_ID + ":eldritch_golem"));
+
     public static final RegistryObject<EntityType<CrimsonCultistEntity>> CRIMSON_CULTIST =
             ENTITY_TYPES.register("crimson_cultist", () -> EntityType.Builder.<CrimsonCultistEntity>of((type, level) -> new CrimsonCultistEntity(type, level, CrimsonCultistEntity.Role.CULTIST), MobCategory.MONSTER)
                     .sized(0.6F, 1.95F)
@@ -973,6 +1090,32 @@ public class ThaumcraftMod {
                     .clientTrackingRange(10)
                     .build(MOD_ID + ":crimson_praetor"));
 
+
+
+    public static final RegistryObject<EntityType<CultistPortalEntity>> CULTIST_PORTAL =
+            ENTITY_TYPES.register("cultist_portal", () -> EntityType.Builder.of(CultistPortalEntity::new, MobCategory.MONSTER)
+                    .sized(1.5F, 3.0F)
+                    .clientTrackingRange(12)
+                    .build(MOD_ID + ":cultist_portal"));
+
+
+    public static final RegistryObject<EntityType<TaintacleEntity>> TAINTACLE =
+            ENTITY_TYPES.register("taintacle", () -> EntityType.Builder.of(TaintacleEntity::new, MobCategory.MONSTER)
+                    .sized(0.66F, 3.0F)
+                    .clientTrackingRange(10)
+                    .build(MOD_ID + ":taintacle"));
+
+    public static final RegistryObject<EntityType<TaintacleSmallEntity>> TAINTACLE_SMALL =
+            ENTITY_TYPES.register("taintacle_small", () -> EntityType.Builder.of(TaintacleSmallEntity::new, MobCategory.MONSTER)
+                    .sized(0.22F, 1.0F)
+                    .clientTrackingRange(8)
+                    .build(MOD_ID + ":taintacle_small"));
+
+    public static final RegistryObject<EntityType<TaintacleGiantEntity>> TAINTACLE_GIANT =
+            ENTITY_TYPES.register("taintacle_giant", () -> EntityType.Builder.of(TaintacleGiantEntity::new, MobCategory.MONSTER)
+                    .sized(1.1F, 6.0F)
+                    .clientTrackingRange(12)
+                    .build(MOD_ID + ":taintacle_giant"));
 
 
     public static final RegistryObject<EntityType<TC4EmberEntity>> FOCUS_EMBER =
@@ -1010,6 +1153,20 @@ public class ThaumcraftMod {
                     .updateInterval(10)
                     .build(MOD_ID + ":focus_primal_orb"));
 
+    public static final RegistryObject<EntityType<TC4EldritchOrbEntity>> ELDRITCH_ORB =
+            ENTITY_TYPES.register("eldritch_orb", () -> EntityType.Builder.<TC4EldritchOrbEntity>of(TC4EldritchOrbEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(10)
+                    .build(MOD_ID + ":eldritch_orb"));
+
+    public static final RegistryObject<EntityType<TC4GolemOrbEntity>> GOLEM_ORB =
+            ENTITY_TYPES.register("golem_orb", () -> EntityType.Builder.<TC4GolemOrbEntity>of(TC4GolemOrbEntity::new, MobCategory.MISC)
+                    .sized(0.35F, 0.35F)
+                    .clientTrackingRange(8)
+                    .updateInterval(10)
+                    .build(MOD_ID + ":golem_orb"));
+
     public ThaumcraftMod() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ThaumcraftConfig.SPEC);
@@ -1029,10 +1186,18 @@ public class ThaumcraftMod {
         event.put(TAINT_CRAWLER.get(), TaintCrawlerEntity.createAttributes().build());
         event.put(PECH.get(), PechEntity.createAttributes().build());
         event.put(ELDRITCH_GUARDIAN.get(), EldritchGuardianEntity.createAttributes().build());
+        event.put(ELDRITCH_CRAB.get(), EldritchCrabEntity.createAttributes().build());
+        event.put(MIND_SPIDER.get(), MindSpiderEntity.createAttributes().build());
+        event.put(ELDRITCH_WARDEN.get(), EldritchWardenEntity.createAttributes().build());
+        event.put(ELDRITCH_GOLEM.get(), EldritchGolemEntity.createAttributes().build());
         event.put(CRIMSON_CULTIST.get(), CrimsonCultistEntity.createCultistAttributes().build());
         event.put(CRIMSON_KNIGHT.get(), CrimsonCultistEntity.createKnightAttributes().build());
         event.put(CRIMSON_CLERIC.get(), CrimsonCultistEntity.createClericAttributes().build());
         event.put(CRIMSON_PRAETOR.get(), CrimsonCultistEntity.createLeaderAttributes().build());
+        event.put(CULTIST_PORTAL.get(), CultistPortalEntity.createAttributes().build());
+        event.put(TAINTACLE.get(), TaintacleEntity.createAttributes().build());
+        event.put(TAINTACLE_SMALL.get(), TaintacleSmallEntity.createAttributes().build());
+        event.put(TAINTACLE_GIANT.get(), TaintacleGiantEntity.createAttributes().build());
     }
 
     private void onAddReloadListeners(AddReloadListenerEvent event) {
@@ -1234,6 +1399,18 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> eldritchPortalBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new EldritchPortalBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> eldritchCrabSpawnerBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new EldritchCrabSpawnerBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> tc4LootBlock(String name, TC4LootBlock.Kind kind, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new TC4LootBlock(properties, kind));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }

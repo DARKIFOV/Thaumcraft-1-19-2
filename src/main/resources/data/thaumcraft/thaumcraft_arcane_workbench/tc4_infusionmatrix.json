@@ -1,12 +1,13 @@
 {
   "tc4_key": "InfusionMatrix",
-  "tc4_source": "addArcaneCraftingRecipe",
+  "tc4_source": "ConfigRecipes.java:997 addArcaneCraftingRecipe(\"INFUSION\")",
   "research": "INFUSION",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_block_arcane_stone",
+  "catalyst": "thaumcraft:arcane_stone",
   "ingredients": [
+    "thaumcraft:arcane_stone",
     "minecraft:ender_eye",
-    "thaumcraft:tc4_shard_aer"
+    "#forge:shards/primal"
   ],
   "aspects": {
     "ORDO": 40
@@ -17,12 +18,12 @@
     "SBS"
   ],
   "key": {
-    "S": "minecraft:ender_eye",
-    "B": "thaumcraft:tc4_shard_aer",
-    "E": "thaumcraft:tc4_block_arcane_stone"
+    "S": "thaumcraft:arcane_stone",
+    "E": "minecraft:ender_eye",
+    "B": "#forge:shards/primal"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_infusion_matrix",
+    "item": "thaumcraft:infusion_matrix",
     "count": 1
   }
 }

@@ -112,6 +112,9 @@ public final class InfusionInstabilityEvents {
 
         if (level instanceof ServerLevel serverLevel) {
             InfusionProcessHelper.spawnSourceParticles(serverLevel, p, matrixPos, true);
+            ThaumcraftNetwork.sendBlockZap(serverLevel, matrixPos,
+                    matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D,
+                    p.getX() + 0.5D, p.getY() + 1.5D, p.getZ() + 0.5D);
             serverLevel.sendParticles(ParticleTypes.SMOKE, p.getX() + 0.5D, p.getY() + 1.25D, p.getZ() + 0.5D, 18, 0.25D, 0.25D, 0.25D, 0.03D);
         }
 
@@ -140,6 +143,9 @@ public final class InfusionInstabilityEvents {
             target.hurt(DamageSource.MAGIC, 4.0F + level.random.nextInt(4));
 
             if (level instanceof ServerLevel serverLevel) {
+                ThaumcraftNetwork.sendBlockZap(serverLevel, matrixPos,
+                        matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D,
+                        target.getX(), target.getY() + target.getBbHeight() * 0.5D, target.getZ());
                 InfusionProcessHelper.spawnParticleBeam(serverLevel,
                         matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D,
                         target.getX(), target.getY() + target.getBbHeight() * 0.5D, target.getZ(),
@@ -210,12 +216,19 @@ public final class InfusionInstabilityEvents {
     }
 
     private static void placeFluxLikeGoo(Level level, BlockPos pos) {
+        // TC4 inEvEjectItem type 1/3 places ConfigBlocks.blockFluxGoo metadata 7.
         if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).isAir()) {
-            level.setBlock(pos, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), 3);
+            level.setBlock(pos, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
+            level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.3F, 1.0F);
         }
     }
 
     private static void gasBurst(Level level, BlockPos pos) {
+        // TC4 inEvEjectItem type 2/4 places ConfigBlocks.blockFluxGas metadata 7.
+        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).isAir()) {
+            level.setBlock(pos, ThaumcraftMod.FLUX_GAS.get().defaultBlockState(), 3);
+            level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.3F, 1.0F);
+        }
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.CLOUD, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 30, 0.45D, 0.45D, 0.45D, 0.02D);
             serverLevel.sendParticles(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 18, 0.35D, 0.35D, 0.35D, 0.02D);

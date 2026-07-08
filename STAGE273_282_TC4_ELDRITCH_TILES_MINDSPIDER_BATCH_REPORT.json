@@ -1,0 +1,46 @@
+{
+  "stage_batch": "273-282",
+  "version": "2.82.0",
+  "target": "Forge/Minecraft 1.19.2",
+  "reference": "Thaumcraft4-1.7.10-master.zip",
+  "base_stage": "263-272",
+  "major_changes": [
+    "Added dedicated MindSpiderEntity with TC4 harmless/viewer/lifespan NBT contract",
+    "GenPassage feature 14 now spawns thaumcraft:mind_spider instead of vanilla cave_spider",
+    "Added EldritchCap/Lock/Trap/Crystal block entities and registered their block entity types",
+    "EldritchLock now delays 100 ticks and advances a saved BossMapData-equivalent cycle",
+    "EldritchTrap now ticks on 10+rand(25), zaps players in range 3, deals magic damage and applies temporary warp",
+    "Split blockEldritch meta 4/5/7 into eldritch_crust/eldritch_decorative/eldritch_door",
+    "Mapped blockEldritch meta 9 to real eldritch_crab_spawner",
+    "Expanded Guardian/Warden/Golem baked model part tree",
+    "Fixed Stage220 crab spawner particle coordinate typo"
+  ],
+  "added_files": [
+    "src/main/java/com/darkifov/thaumcraft/entity/MindSpiderEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/EldritchCapBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/EldritchLockBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/EldritchTrapBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/EldritchCrystalBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsBossCycleData.java",
+    "src/main/java/com/darkifov/thaumcraft/eldritch/TC4EldritchLockBossSpawner.java",
+    "scripts/tc4_stage273_282_mega_eldritch_tiles_mindspider_audit.py",
+    "docs/TC4_MEGA_STAGE273_282_ELDRITCH_TILES_MINDSPIDER_PARITY.md",
+    "docs/NEXT_CHAT_PROMPT_STAGE282.md"
+  ],
+  "known_limitations": [
+    "Cultist portal and taintacle giant boss-room variants are still equivalent placeholders and should become dedicated entities in Stage283-292",
+    "MindSpider renderer is currently a small block-mob renderer bridge; replace with a spider model renderer next",
+    "Gradle build could not be fully run in the sandbox because the wrapper needs internet access"
+  ],
+  "audits_run": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage223_232_mega_outer_lands_audit.py",
+    "tc4_stage233_242_mega_maze_persistence_audit.py",
+    "tc4_stage243_252_mega_boss_decor_dimension_audit.py",
+    "tc4_stage253_262_full_stage_cleanup_audit.py",
+    "tc4_stage263_272_mega_passage_cleanup_audit.py",
+    "tc4_stage273_282_mega_eldritch_tiles_mindspider_audit.py"
+  ]
+}

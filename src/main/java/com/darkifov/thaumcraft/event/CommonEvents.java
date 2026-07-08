@@ -7,6 +7,10 @@ import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.OriginalResearchProgression;
+import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
+import com.darkifov.thaumcraft.runic.TC4FortressArmorRuntime;
+import com.darkifov.thaumcraft.runic.TC4FortressMaskRuntime;
+import com.darkifov.thaumcraft.runic.TC4RunicShieldRuntime;
 import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
 import com.darkifov.thaumcraft.world.TC4WorldgenRuntime;
 import net.minecraft.core.BlockPos;
@@ -19,6 +23,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -35,6 +42,10 @@ public final class CommonEvents {
             return;
         }
         AuraNodeWorldRuntime.seedNearbyNaturalNodes(level);
+
+        for (ServerPlayer player : level.players()) {
+            TC4RunicShieldRuntime.tick(player);
+        }
 
         if (level.getGameTime() % 5L != 0L) {
             return;
@@ -60,6 +71,25 @@ public final class CommonEvents {
         }
     }
 
+
+
+    @SubscribeEvent
+    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        TC4ChampionModifierRuntime.maybeMakeSpawnChampion(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        TC4FortressMaskRuntime.handleHurt(event);
+        TC4ChampionModifierRuntime.handleHurt(event);
+        TC4RunicShieldRuntime.handleHurt(event);
+        TC4FortressArmorRuntime.handleHurt(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+        TC4ChampionModifierRuntime.tick(event.getEntity());
+    }
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {

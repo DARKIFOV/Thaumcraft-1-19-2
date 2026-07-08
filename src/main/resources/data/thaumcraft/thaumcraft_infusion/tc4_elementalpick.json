@@ -5,8 +5,8 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_thaumiumpick",
   "components": [
-    "thaumcraft:tc4_shard_ignis",
-    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:ignis_shard",
+    "thaumcraft:ignis_shard",
     "minecraft:diamond",
     "thaumcraft:tc4_block_greatwood_log"
   ],

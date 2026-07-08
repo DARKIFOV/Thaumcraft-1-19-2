@@ -1,0 +1,60 @@
+{
+  "stage": 219,
+  "version": "2.19.0",
+  "target": "Minecraft/Forge 1.19.2",
+  "original_reference": "Thaumcraft4-1.7.10-master.zip / Thaumcraft 4.2.3.5",
+  "base_stage": 218,
+  "summary": [
+    "Replaced Eldritch Guardian block-placeholder renderer with a TC4 RenderEldritchGuardian-inspired renderer.",
+    "Added Guardian/Warden/Golem ModelLayerLocation and LayerDefinition anchors for 1.19.2 ModelPart migration.",
+    "Added TC4 GenCommon numeric palette adapter and GenPortal 16x16x13 room bridge.",
+    "Portal encounter now places the GenPortal bridge before boss/key-room bridge placement.",
+    "Added NEXT_CHAT_PROMPT_STAGE219.md for continuation in another chat."
+  ],
+  "tc4_parity_anchors": {
+    "RenderEldritchGuardian": [
+      "textures/models/eldritch_guardian.png",
+      "textures/models/eldritch_warden.png",
+      "warden scale 1.5F",
+      "guardian close alpha 0.6F",
+      "Hard fade max 576.0F, other difficulties 1024.0F"
+    ],
+    "ModelEldritchGuardian": [
+      "HoodEye",
+      "Hood4 rotation -0.5759587F",
+      "Chestplate",
+      "ShoulderR/ShoulderL",
+      "LegpanelC3"
+    ],
+    "ModelEldritchGolem": [
+      "Torso",
+      "Head",
+      "CollarL/CollarR",
+      "HeadlessVent",
+      "texture atlas 128x64"
+    ],
+    "GenPortal": [
+      "a,b loops 1..15",
+      "height 0..13 shell",
+      "generateConnections(..., 3, true)",
+      "center altar/portal/obelisk at local 8,2/3/4,8"
+    ]
+  },
+  "known_remaining_work": [
+    "Renderer classes still draw cuboid bridge geometry; Stage220 should consume baked ModelParts directly.",
+    "Full ModelEldritchGuardian and ModelEldritchGolem trees are not yet completely copied.",
+    "GenCommon decoration queues for urns, crystals, crab spawners need dedicated runtime entities/blocks.",
+    "Gen2x2, GenPassage, GenLibraryRoom, GenNestRoom remain partial/next-stage work."
+  ],
+  "checks": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage219_guardian_model_portal_audit.py"
+  ],
+  "gradle_build": {
+    "attempted": true,
+    "result": "blocked_without_internet",
+    "reason": "Gradle wrapper needs gradle-7.5.1-bin.zip from services.gradle.org"
+  }
+}

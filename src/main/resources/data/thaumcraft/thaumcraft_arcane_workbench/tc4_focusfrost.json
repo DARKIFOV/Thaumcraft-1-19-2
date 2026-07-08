@@ -6,7 +6,7 @@
   "catalyst": "minecraft:diamond",
   "ingredients": [
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_aqua"
+    "thaumcraft:aqua_shard"
   ],
   "aspects": {
     "AQUA": 10,
@@ -21,10 +21,10 @@
   "key": {
     "#": "minecraft:diamond",
     "Q": "minecraft:nether_wart",
-    "C": "thaumcraft:tc4_shard_aqua"
+    "C": "thaumcraft:aqua_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_focus_frost",
+    "item": "thaumcraft:focus_frost",
     "count": 1
   }
 }

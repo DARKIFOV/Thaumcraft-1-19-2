@@ -3,10 +3,10 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "FOCUSTRADE",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_quicksilver",
+  "catalyst": "thaumcraft:quicksilver_drop",
   "ingredients": [
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_balanced"
+    "thaumcraft:balanced_shard"
   ],
   "aspects": {
     "ORDO": 15,
@@ -19,13 +19,13 @@
     "CQE"
   ],
   "key": {
-    "#": "thaumcraft:tc4_quicksilver",
+    "#": "thaumcraft:quicksilver_drop",
     "Q": "minecraft:nether_wart",
-    "C": "thaumcraft:tc4_shard_balanced",
-    "E": "thaumcraft:tc4_shard_balanced"
+    "C": "thaumcraft:balanced_shard",
+    "E": "thaumcraft:balanced_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_focus_trade",
+    "item": "thaumcraft:focus_equal_trade",
     "count": 1
   }
 }

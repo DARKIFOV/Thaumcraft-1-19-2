@@ -14,6 +14,8 @@ public final class InfusionRecipes {
     private static final List<InfusionRecipe> LOADED = new ArrayList<>();
     private static final List<InfusionRecipe> STRICT_ORIGINAL = new ArrayList<>();
     private static final List<InfusionRecipe> NON_ORIGINAL = new ArrayList<>();
+    private static final List<InfusionRecipe> ENCHANTMENT_RUNTIME = new ArrayList<>();
+    private static final List<InfusionRecipe> RUNIC_RUNTIME = new ArrayList<>();
 
     static {
         FALLBACK.add(new InfusionRecipe(
@@ -49,15 +51,33 @@ public final class InfusionRecipes {
     }
 
     public static List<InfusionRecipe> recipes() {
+        List<InfusionRecipe> base;
         if (!STRICT_ORIGINAL.isEmpty()) {
-            return Collections.unmodifiableList(STRICT_ORIGINAL);
+            base = STRICT_ORIGINAL;
+        } else if (!LOADED.isEmpty()) {
+            base = LOADED;
+        } else {
+            base = FALLBACK;
         }
 
-        if (!LOADED.isEmpty()) {
-            return Collections.unmodifiableList(LOADED);
-        }
+        List<InfusionRecipe> combined = new ArrayList<>(base);
+        combined.addAll(enchantmentRuntimeRecipes());
+        combined.addAll(runicRuntimeRecipes());
+        return Collections.unmodifiableList(combined);
+    }
 
-        return Collections.unmodifiableList(FALLBACK);
+    private static List<InfusionRecipe> enchantmentRuntimeRecipes() {
+        if (ENCHANTMENT_RUNTIME.isEmpty()) {
+            ENCHANTMENT_RUNTIME.addAll(TC4InfusionEnchantmentAdapter.materializeRecipes());
+        }
+        return ENCHANTMENT_RUNTIME;
+    }
+
+    private static List<InfusionRecipe> runicRuntimeRecipes() {
+        if (RUNIC_RUNTIME.isEmpty()) {
+            RUNIC_RUNTIME.add(TC4InfusionRunicAugmentAdapter.materializeRecipe());
+        }
+        return RUNIC_RUNTIME;
     }
 
     public static List<InfusionRecipe> nonOriginalRecipes() {

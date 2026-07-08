@@ -1,0 +1,40 @@
+{
+  "stage": "323-342",
+  "base_archive": "thaumcraft_legacy_rebuild_STAGE303_322_TC4_SUPER_MEGA_TAINTACLE_DIMENSION_BATCH_1192_PARITY.zip",
+  "target": "Forge Minecraft 1.19.2",
+  "rule": "Strict original Thaumcraft 4 parity; no invented mechanics or fake behaviours.",
+  "changed": [
+    "Taintacle renderer converted from flat temporary render path to segmented numeric TC4 ModelTaintacle-style adapter.",
+    "Outer Lands chunk-provider bridge connected to live server tick through TC4OuterLandsLivePopulateAdapter.",
+    "Research note links render as deterministic sagging thread-like segments instead of rigid straight rods.",
+    "Research table container screen now restores original GUI coordinate areas for aspect palette, combination slots, preview and page arrows.",
+    "Research table and normal table block models changed from placeholder cube style to TC4-like table top plus legs.",
+    "Key broken item/block textures were copied from original TC4 source bank into active runtime texture paths.",
+    "Standard focus recipes and resolver mappings were cleaned to real runtime ids instead of old tc4_* mirror ids.",
+    "Duplicate old mirror focus/goggles ids were quarantined from creative/loot/report exposure.",
+    "Stage323-342 audit script and continuation prompt were added."
+  ],
+  "explicit_adapters": [
+    "TC4TaintacleRenderer segmented 1.19.2 renderer adapter",
+    "TC4OuterLandsLivePopulateAdapter live tick bridge",
+    "ResearchNoteScreen sagging thread visual adapter"
+  ],
+  "not_finished": [
+    "Infusion Matrix GUI/renderer/tick/instability full parity",
+    "Aura Node GUI/overlay and node interaction parity",
+    "Goggles of Revealing overlay deep parity",
+    "Thaumonomicon full page/icon/recipe gate audit",
+    "All remaining ConfigRecipes materialization without mirror-id drift",
+    "All original wand focus/projectile behaviours",
+    "Golems, wands, crucible, taint, eldritch and worldgen final parity"
+  ],
+  "estimated_remaining_large_batches": "18-25",
+  "static_audits_run": [
+    "scripts/java_syntax_guard.py: OK",
+    "scripts/github_static_audit.py: OK",
+    "scripts/github_ci_guard.py: OK",
+    "scripts/tc4_stage303_322_super_mega_taintacle_dimension_audit.py: OK",
+    "scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py: OK"
+  ],
+  "gradle_status": "Not executed: Gradle wrapper tried to download gradle-7.5.1-bin.zip, but network/DNS is unavailable in the sandbox."
+}

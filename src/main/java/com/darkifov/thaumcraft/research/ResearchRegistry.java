@@ -102,14 +102,15 @@ public final class ResearchRegistry {
         add("TRANSVECTOR_ACTIVE_USE", "Transvector Active Use", "The interface can now perform safe remote actions for jars, drives and key thaumic machines.", "TRANSVECTOR_REMOTE_INTERFACE");
         add("TT_UTILITY_ITEMS", "Thaumic Tinkerer Utility Items", "Knowledge sharing, infused scribing tools, bottomless pouch and revealing helmet branch.", "FUME_DISSIPATOR_AREA", "TRANSVECTOR_ACTIVE_USE");
         add("BOTTOMLESS_POUCH_STORAGE", "Bottomless Pouch Storage", "Bottomless Pouch now stores and retrieves stacks in item NBT.", "TT_UTILITY_ITEMS");
-        add("HELMET_REVEALING_SCAN", "Helmet of Revealing Scan", "Helmet of Revealing can equip itself and scan nearby aura nodes and research insight.", "TT_UTILITY_ITEMS");
+        // Stage206 quarantine: removed fake Helmet of Revealing scan research.
+        // TC4 reveal gear is passive IRevealer/IGoggles-style behavior, not a research-unlocking scan branch.
         add("KAMI_ICHOR_BASE", "KAMI and Ichor", "Endgame KAMI/Ichor material and gear base branch.", "TT_UTILITY_ITEMS", "ELDRITCH_ARENA");
         add("ICHOR_GEAR_REALIZATION", "Ichor Gear Realization", "Ichor tools and Ichorcloth pieces now have a dedicated gear class with durability, enchantability and effects.", "KAMI_ICHOR_BASE");
         add("KAMI_COMPLETION_GATE", "KAMI Completion Gate", "KAMI Research Core now checks warp and grants eldritch insight as a gated endgame unlock.", "ICHOR_GEAR_REALIZATION", "ELDRITCH_ARENA");
         add("ICHOR_REAL_GEAR", "Real Ichor Gear", "Ichor tools and Ichorcloth armor now use real SwordItem, PickaxeItem and ArmorItem classes.", "ICHOR_GEAR_REALIZATION");
         add("BOTTOMLESS_POUCH_GUI", "Bottomless Pouch GUI", "Bottomless Pouch now has a real 27-slot GUI backed by item NBT.", "BOTTOMLESS_POUCH_STORAGE");
-        add("HELMET_REVEALING_OVERLAY", "Helmet of Revealing Overlay", "Helmet of Revealing is now real armor with a client overlay base.", "HELMET_REVEALING_SCAN");
-        add("TT_TRUE_COMPLETION", "Thaumic Tinkerer True Completion", "True-completion pass: real gear classes, pouch GUI, revealing overlay, KAMI gate and build-fix checks.", "ICHOR_REAL_GEAR", "BOTTOMLESS_POUCH_GUI", "HELMET_REVEALING_OVERLAY", "KAMI_COMPLETION_GATE");
+        // Stage206 quarantine: removed fake Helmet of Revealing overlay research node.
+        add("TT_TRUE_COMPLETION", "Thaumic Tinkerer True Completion", "True-completion pass: real gear classes, pouch GUI, reveal gear adapter, KAMI gate and build-fix checks.", "ICHOR_REAL_GEAR", "BOTTOMLESS_POUCH_GUI", "TT_UTILITY_ITEMS", "KAMI_COMPLETION_GATE");
         add("MAX_PORT_PARITY", "Maximum Port Parity", "Stage 67 audits every registered item/block across core and addon branches and adds parity tags, ledger and conservative missing recipes.", "TT_TRUE_COMPLETION", "AUTOCRAFTING_BASE", "THAUMCRAFT_EXTRAS_COMPLETE");
         add("DEEP_GAMEPLAY_PARITY", "Deep Gameplay Parity", "Stage 68 gives formerly plain registry items active gameplay behavior: aspect crystals, shards, goggles, research notes, golem seals and TE cards.", "MAX_PORT_PARITY");
         add("MATRIX_AUXILIARIES", "Matrix Auxiliaries", "Adds Infusion Matrix Accelerator and Matrix Stabilization Pylon. Accelerators speed infusion up to x5; powered symmetric pylons stabilize up to 100%.", "INFUSION");

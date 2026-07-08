@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "variant=0": {
+      "model": "thaumcraft:block/outer_lands_loot_crate"
+    },
+    "variant=1": {
+      "model": "thaumcraft:block/outer_lands_loot_crate"
+    },
+    "variant=2": {
+      "model": "thaumcraft:block/outer_lands_loot_crate"
+    }
+  }
+}

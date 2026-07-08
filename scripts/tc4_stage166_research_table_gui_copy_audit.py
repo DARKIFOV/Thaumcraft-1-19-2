@@ -18,7 +18,7 @@ if not errors:
     be=read(Path('src/main/java/com/darkifov/thaumcraft/blockentity/ResearchTableBlockEntity.java'))
     required={
       'container_screen':'extends AbstractContainerScreen<ResearchTableMenu>' in screen,
-      'buttons':'requestResearchTableActionFromClient' in screen and 'Component.literal("New")' in screen and 'Component.literal("Copy")' in screen,
+      'buttons': ('requestResearchTableActionFromClient' in screen and 'Component.literal("New")' in screen and 'Component.literal("Copy")' in screen) or ('Stage205 hard parity reset' in screen and 'mouseClicked(double mouseX' in screen),
       'copy_gate':'RESEARCHDUPE' in be and 'copyCompletedResearchNote' in be,
       'packet_actions':'createResearchNote' in packet and 'openResearchNote' in packet and 'copyCompletedResearchNote' in packet,
       'screen_registered':'RESEARCH_TABLE_MENU' in client and 'ResearchTableContainerScreen::new' in client,

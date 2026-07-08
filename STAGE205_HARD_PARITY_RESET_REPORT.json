@@ -1,0 +1,26 @@
+{
+  "stage": "205",
+  "name": "TC4 hard parity reset batch",
+  "version": "2.05.0",
+  "fixed": [
+    "strict hidden research visibility in Thaumonomicon",
+    "removed fake Research Table buttons/debug labels",
+    "Research Note grid center moved to original GuiResearchTable coordinates",
+    "Thaumonomicon lines changed from rigid L-sticks to original-style wiggly direct links",
+    "active GUI/item textures repointed/copied from original TC4 assets",
+    "thaumometer item model now references original scanner texture",
+    "goggles item texture copied from original gogglesrevealing",
+    "silverwood oversized cross trunk removed",
+    "greatwood/silverwood crowns reduced from temporary oversized adapter",
+    "infused crystal/shard worldgen density reduced",
+    "extra non-TC4 core shards hidden from creative as legacy compatibility adapters",
+    "new hard parity rules document added"
+  ],
+  "not_complete": [
+    "full Infusion Matrix multiblock/GUI still needs dedicated Stage206+",
+    "Aura Node GUI/HUD and Goggles renderer need dedicated Stage206+",
+    "full original recipe materialization still needs further stages",
+    "full original model/blockstate remap still needs complete audit"
+  ],
+  "source_of_truth": "Thaumcraft4-1.7.10-master original assets and Java classes"
+}

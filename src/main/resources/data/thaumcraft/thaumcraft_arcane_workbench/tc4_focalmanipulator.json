@@ -9,7 +9,7 @@
     "thaumcraft:table",
     "minecraft:iron_ingot",
     "minecraft:gold_ingot",
-    "thaumcraft:tc4_charm"
+    "thaumcraft:warp_charm"
   ],
   "aspects": {
     "IGNIS": 32,
@@ -30,7 +30,7 @@
     "S": "minecraft:iron_ingot",
     "P": "thaumcraft:tc4_block_arcane_stone_slab",
     "G": "minecraft:gold_ingot",
-    "T": "thaumcraft:tc4_charm"
+    "T": "thaumcraft:warp_charm"
   },
   "result": {
     "item": "thaumcraft:tc4_block_focal_manipulator",

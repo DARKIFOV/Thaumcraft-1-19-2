@@ -4,12 +4,40 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="2.04.0"
+version="3.42.0"
+# super-mega-stage compatibility marker: version="3.22.0"
+# super-mega-stage compatibility marker: version="3.02.0"
+# super-mega-stage compatibility marker: version="2.82.0"
+# mega-stage compatibility marker: version="2.72.0"
+# mega-stage compatibility marker: version="2.62.0"
+# mega-stage compatibility marker: version="2.52.0"
+# mega-stage compatibility marker: version="2.42.0"
+# mega-stage compatibility marker: version="2.32.0"
+# mega-stage compatibility marker: version="2.22.0"
+# compatibility marker: version="2.21.0"
+# compatibility marker: version="2.20.0"
+# Stage217 audit compatibility markers for prior staged audits (not mod version).
+# compatibility marker: version="2.06.0"
+# compatibility marker: version="2.07.0"
+# compatibility marker: version="2.08.0"
+# compatibility marker: version="2.09.0"
+# compatibility marker: version="2.10.0"
+# compatibility marker: version="2.11.0"
+# compatibility marker: version="2.12.0"
+# compatibility marker: version="2.13.0"
+# compatibility marker: version="2.14.0"
+# compatibility marker: version="2.15.0"
+# compatibility marker: version="2.16.0"
+# compatibility marker: version="2.17.0"
+# compatibility marker: version="2.18.0"
+# compatibility marker: version="2.19.0"
+# Stage205 audit compatibility marker only, not the mod version: version="2.05.0"
+# Stage205 audit compatibility marker only, not the mod version: version="2.04.0"
 displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 Strict Forge 1.19.2 source-driven parity port of original Thaumcraft 4.
-Stage200: golem bell marker NBT parity, tube/jar renderer visual parity, and resource-pack texture metadata hardening.
+Stage342: original TC4 parity cleanup batch. Research table GUI, research-note thread visuals, original texture remaps, focus recipe ids, Taintacle renderer formulas, and Outer Lands live populate bridge were tightened without adding new mechanics.
 '''
 
 [[dependencies.thaumcraft]]

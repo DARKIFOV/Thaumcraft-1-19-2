@@ -1,0 +1,24 @@
+{
+  "stage": 220,
+  "target": "Minecraft/Forge 1.19.2",
+  "base_stage": 219,
+  "original_reference": "Thaumcraft4-1.7.10-master.zip",
+  "summary": [
+    "Added EldritchCrabEntity with TC4 Flags NBT, helm chance, sounds, leap, head-latch and drop behaviour.",
+    "Added EldritchCrabSpawnerBlock/BlockEntity with TC4 count cadence, activation range, cap and facing persistence.",
+    "Added crab renderer and createCrabBodyLayer based on original ModelEldritchCrab part names.",
+    "Converted Guardian/Warden/Golem renderers to use baked ModelPart roots through TC4BakedEldritchModel.",
+    "Added GenLibraryRoom and GenNestRoom adapters and mapped crab spawner palette codes to a real spawner block."
+  ],
+  "known_remaining_drift": [
+    "Crab helm break uses a vanilla iron chestplate fallback until crimson plate armor items are registered.",
+    "Library/nest room adapters still need full block palette parity for loot urns/crates, crystals and Eldritch Nothing blocks.",
+    "Full Guardian/Golem model trees are not yet completely migrated."
+  ],
+  "checks": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage220_crab_model_rooms_audit.py"
+  ]
+}

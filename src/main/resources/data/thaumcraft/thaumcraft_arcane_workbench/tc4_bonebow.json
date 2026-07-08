@@ -3,7 +3,7 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "BONEBOW",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_shard_perditio",
+  "catalyst": "thaumcraft:perditio_shard",
   "ingredients": [
     "minecraft:bone",
     "minecraft:string"
@@ -20,7 +20,7 @@
   "key": {
     "S": "minecraft:bone",
     "B": "minecraft:string",
-    "E": "thaumcraft:tc4_shard_perditio"
+    "E": "thaumcraft:perditio_shard"
   },
   "result": {
     "item": "thaumcraft:tc4_bonebow",

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "thaumcraft:block/tc4/urn_top",
+    "top": "thaumcraft:block/tc4/urn_top",
+    "side": "thaumcraft:block/tc4/urn_side_0"
+  }
+}

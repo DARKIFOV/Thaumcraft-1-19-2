@@ -1,5 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "forge:false"
+    }
+  ],
+  "tc4_quarantine": "Disabled. TC4 Goggles are arcane-crafting gated by research GOGGLES in thaumcraft_arcane_workbench/tc4_goggles.json.",
   "pattern": [
     "GPG",
     "LTL",

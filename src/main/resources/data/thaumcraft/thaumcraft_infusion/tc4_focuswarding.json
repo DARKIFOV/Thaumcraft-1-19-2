@@ -5,14 +5,14 @@
   "tc4_kind": "INFUSION",
   "catalyst": "minecraft:fire_charge",
   "components": [
-    "thaumcraft:tc4_quicksilver",
-    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:quicksilver_drop",
+    "thaumcraft:terra_shard",
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_ordo",
-    "thaumcraft:tc4_quicksilver",
-    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:quicksilver_drop",
+    "thaumcraft:terra_shard",
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_ordo"
+    "thaumcraft:ordo_shard"
   ],
   "aspects": {
     "TERRA": 25,
@@ -22,7 +22,7 @@
   },
   "instability": 4,
   "result": {
-    "item": "thaumcraft:tc4_focus_warding",
+    "item": "thaumcraft:focus_warding",
     "count": 1
   }
 }

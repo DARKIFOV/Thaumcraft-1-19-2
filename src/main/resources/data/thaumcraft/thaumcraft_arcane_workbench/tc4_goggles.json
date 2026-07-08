@@ -1,12 +1,18 @@
 {
   "tc4_key": "Goggles",
-  "tc4_source": "addArcaneCraftingRecipe",
+  "tc4_source": "ConfigRecipes.java:1393 addArcaneCraftingRecipe(\"GOGGLES\")",
   "research": "GOGGLES",
   "tc4_kind": "ARCANE_SHAPED",
+  "tc4_original_pattern": [
+    "LGL",
+    "L L",
+    "TGT"
+  ],
   "catalyst": "thaumcraft:thaumometer",
   "ingredients": [
+    "minecraft:leather",
     "minecraft:gold_ingot",
-    "minecraft:sugar"
+    "thaumcraft:thaumometer"
   ],
   "aspects": {
     "AER": 5,
@@ -22,12 +28,12 @@
     "TGT"
   ],
   "key": {
-    "L": "minecraft:gold_ingot",
-    "G": "thaumcraft:thaumometer",
-    "T": "minecraft:sugar"
+    "L": "minecraft:leather",
+    "G": "minecraft:gold_ingot",
+    "T": "thaumcraft:thaumometer"
   },
   "result": {
-    "item": "thaumcraft:tc4_gogglesrevealing",
+    "item": "thaumcraft:goggles_of_revealing",
     "count": 1
   }
 }

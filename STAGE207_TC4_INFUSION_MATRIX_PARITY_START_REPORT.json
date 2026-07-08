@@ -1,0 +1,41 @@
+{
+  "stage": 207,
+  "version": "2.07.0",
+  "name": "TC4 Infusion Matrix Parity Start",
+  "source_of_truth": [
+    "Thaumcraft4-1.7.10-master/thaumcraft/common/tiles/TileInfusionMatrix.java",
+    "Thaumcraft4-1.7.10-master/thaumcraft/common/blocks/BlockStoneDevice.java",
+    "Thaumcraft4-1.7.10-master/thaumcraft/client/renderers/tile/TileRunicMatrixRenderer.java",
+    "Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java"
+  ],
+  "fixed": [
+    "Split Infusion Matrix state into original TC4 active vs crafting phases instead of starting recipes on the first wand click.",
+    "Added onWandRightClick adapter: inactive+validLocation activates, active+not crafting starts crafting, crafting reports status.",
+    "Activation now requires original validLocation shape: center pedestal at matrixY-2 and four diagonal infusion pillars.",
+    "Runtime now persists TC4-style count, craftCount, symmetry and recipeInstability state.",
+    "Saved original TC4 NBT aliases active, crafting, instability, recipeinst, recipetype and recipeplayer alongside modern fields.",
+    "InfusionStructureReport exposes originalSymmetryPenalty and crafting starts from symmetry + recipeInstability.",
+    "Separated ESSENTIA_DRAIN_RANGE=12 from CRAFT_CYCLE_DELAY=10 so scan radius is not misused as delay.",
+    "Component consumption now uses a TravellingComponent delay to spawn source particles before removal after the original five tick itemCount delay.",
+    "Infusion HUD overlay now renders only while crafting rather than merely active.",
+    "Copied original textures/models/infuser.png into active resources for the upcoming TileRunicMatrixRenderer parity pass.",
+    "Added Stage207 audit and documentation."
+  ],
+  "still_not_full_original": [
+    "TileRunicMatrixRenderer cube split/startup rotation/halo rendering is not fully rebuilt yet.",
+    "NBTBase and Enchantment recipe outputs from craftingFinish still need exact adapters.",
+    "Infusion enchantment XP drain and runic augment behavior need exact source parity.",
+    "PacketFXInfusionSource and PacketFXBlockZap are approximated with local particles and need source packet adapters.",
+    "Flux goo/gas failure effects are still adapter-grade pending exact flux block parity.",
+    "Component matching still needs exact ItemStack damage/NBT parity where original recipes require it."
+  ],
+  "audits": [
+    "scripts/tc4_stage207_infusion_matrix_parity_audit.py",
+    "scripts/tc4_stage206_original_parity_repair_audit.py",
+    "scripts/tc4_stage205_hard_parity_reset_audit.py",
+    "scripts/github_static_audit.py",
+    "scripts/java_syntax_guard.py",
+    "scripts/github_ci_guard.py"
+  ],
+  "next_stage": "Stage208 Infusion Matrix renderer + output/enchantment parity"
+}

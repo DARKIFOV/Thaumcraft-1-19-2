@@ -1,0 +1,19 @@
+{
+  "stage": "303-322",
+  "version": "3.22.0",
+  "base": "Stage283-302",
+  "target": "Minecraft Forge 1.19.2",
+  "reference": "Thaumcraft 4.2.3.5 / Minecraft 1.7.10",
+  "ported": [
+    "EntityTaintacle adapter",
+    "EntityTaintacleSmall adapter",
+    "Taintacle renderers and registration",
+    "Giant Taintacle small-tentacle ranged spawn",
+    "Cultist Portal 16-frame alpha/pulse renderer bridge",
+    "WorldProviderOuter constants bridge",
+    "ChunkProviderOuter seed/populate bridge",
+    "Eldritch tile render profile constants"
+  ],
+  "garbage_recipe_json_count": 0,
+  "gradle_build": "not run successfully in sandbox: Gradle wrapper requires internet/cached distribution"
+}

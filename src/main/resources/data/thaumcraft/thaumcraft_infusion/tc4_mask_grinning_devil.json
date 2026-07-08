@@ -1,0 +1,29 @@
+{
+  "tc4_key": "MaskGrinningDevil",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "MASKGRINNINGDEVIL",
+  "tc4_kind": "INFUSION_NBT_OUTPUT",
+  "catalyst": { "item": "thaumcraft:tc4_thaumiumfortresshelm", "damage_wildcard": true },
+  "components": [
+    "minecraft:black_dye",
+    "minecraft:gold_ingot",
+    "minecraft:leather",
+    "thaumcraft:tc4_block_shimmerleaf",
+    "thaumcraft:tc4_brain",
+    "minecraft:gold_ingot"
+  ],
+  "aspects": {
+    "COGNITIO": 64,
+    "SANO": 64,
+    "TUTAMEN": 16
+  },
+  "instability": 8,
+  "result": {
+    "item": "minecraft:air",
+    "count": 1,
+    "output_nbt_label": "mask",
+    "output_nbt_type": "int",
+    "output_nbt_value": 0
+  },
+  "stage212_strict_original": "new Object[] { 'mask', new NBTTagInt(0) }"
+}

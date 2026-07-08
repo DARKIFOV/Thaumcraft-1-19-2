@@ -6,9 +6,9 @@
   "catalyst": "minecraft:paper",
   "components": [
     "thaumcraft:tc4_nitor",
-    "thaumcraft:tc4_shard_ordo",
+    "thaumcraft:ordo_shard",
     "thaumcraft:tc4_knowledgefragment",
-    "thaumcraft:tc4_shard_perditio"
+    "thaumcraft:perditio_shard"
   ],
   "aspects": {
     "SENSUS": 8,

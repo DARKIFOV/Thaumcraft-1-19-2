@@ -88,13 +88,12 @@ final class OriginalResearchLayout {
     }
 
     static boolean visible(Set<String> unlockedResearch, ResearchEntry entry) {
-        if (unlocked(unlockedResearch, entry) || available(unlockedResearch, entry)) {
-            return true;
-        }
-        if (entry.hasFlag("hidden") || entry.hasFlag("concealed") || entry.hasFlag("lost")) {
-            return false;
-        }
-        return true;
+        // Stage205 hard parity reset: TC4 GuiResearchBrowser does not draw research
+        // nodes that the player has not reached. Hidden/concealed/lost entries stay
+        // invisible until their exact parent/hidden-parent conditions are met. The
+        // previous adapter rendered almost the whole tree as dimmed placeholders,
+        // which made Thaumonomicon progression look unlike 1.7.10.
+        return unlocked(unlockedResearch, entry) || available(unlockedResearch, entry);
     }
 
     static boolean secondary(ResearchEntry entry) {

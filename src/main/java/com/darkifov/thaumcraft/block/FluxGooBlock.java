@@ -22,10 +22,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * Stage126: TC4-style flux goo as a real 1.19.2 block.
  *
- * Original TC4 uses flux goo/gas as world spill from unstable alchemy.  This is not a
- * cosmetic marker: it hurts/poisons living things, can taint nearby soil and can evaporate
- * into flux gas.  The exact 1.7.10 block ids are not reused directly; the behavior is
- * ported into a normal Forge 1.19.2 block.
+ * Original TC4 uses flux goo/gas as world spill from unstable infusion/alchemy.
+ * Stage209 narrows the behavior toward TC4 BlockFluxGoo: it slows and exhausts
+ * entities, decays over time, can vent gas upward, and only rarely taints soil.
  */
 public class FluxGooBlock extends Block {
     private static final VoxelShape SHAPE = Shapes.box(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D);
@@ -41,16 +40,18 @@ public class FluxGooBlock extends Block {
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!level.isClientSide && entity instanceof LivingEntity living && living.tickCount % 20 == 0) {
-            living.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 0));
-            living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 80, 0));
+        if (!level.isClientSide) {
+            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.65D, 1.0D, 0.65D));
+            if (entity instanceof LivingEntity living && living.tickCount % 20 == 0) {
+                living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 0, true, true));
+            }
         }
         super.entityInside(state, level, pos, entity);
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (random.nextInt(7) == 0) {
+        if (random.nextInt(50) == 0) {
             BlockPos target = pos.offset(random.nextInt(5) - 2, random.nextInt(3) - 1, random.nextInt(5) - 2);
             BlockState targetState = level.getBlockState(target);
             if (targetState.is(Blocks.DIRT) || targetState.is(Blocks.GRASS_BLOCK) || targetState.is(Blocks.COARSE_DIRT)
@@ -59,9 +60,13 @@ public class FluxGooBlock extends Block {
             }
         }
 
-        if (random.nextInt(9) == 0 && level.isEmptyBlock(pos.above())) {
-            level.setBlock(pos.above(), ThaumcraftMod.FLUX_GAS.get().defaultBlockState(), 3);
-            level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.30F, 0.75F + random.nextFloat() * 0.2F);
+        if (random.nextInt(30) == 0) {
+            if (level.isEmptyBlock(pos.above()) && random.nextBoolean()) {
+                level.setBlock(pos.above(), ThaumcraftMod.FLUX_GAS.get().defaultBlockState(), 3);
+                level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.30F, 0.75F + random.nextFloat() * 0.2F);
+            } else {
+                level.removeBlock(pos, false);
+            }
         }
 
         if (random.nextInt(18) == 0) {

@@ -1,0 +1,38 @@
+{
+  "stage": 214,
+  "version": "2.14.0",
+  "target": "Minecraft/Forge 1.19.2",
+  "base": "thaumcraft_legacy_rebuild_STAGE213_TC4_FORTRESS_CHAMPION_RUNTIME_1192_PARITY.zip",
+  "reference": "Thaumcraft4-1.7.10-master.zip",
+  "title": "TC4 Champion Generation + showFX Parity",
+  "implemented": [
+    "Champion generation hook via EntityJoinLevelEvent",
+    "1.19.2 registry-id mirror of TC4 ConfigEntities.championModWhitelist",
+    "TC4 champion_mobs config bridge as ThaumcraftConfig.CHAMPION_MOBS",
+    "Difficulty/dimension/dangerous-location probability branches",
+    "Creeper champion rule forces bold modifier",
+    "Localized champion display-name refresh for generic, Eldritch Guardian and Crimson branches",
+    "PacketFXChampion and TC4ClientChampionFx showFX branches for champion ids 0..12",
+    "Stage214 audit and Stage210-213 version audit carry-forward updates"
+  ],
+  "checks_passed": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage205_hard_parity_reset_audit.py",
+    "tc4_stage206_original_parity_repair_audit.py",
+    "tc4_stage207_infusion_matrix_parity_audit.py",
+    "tc4_stage208_infusion_renderer_enchantment_audit.py",
+    "tc4_stage209_extended_infusion_failure_audit.py",
+    "tc4_stage210_runic_augment_1192_audit.py",
+    "tc4_stage211_runic_shield_runtime_audit.py",
+    "tc4_stage212_fortress_mask_curios_audit.py",
+    "tc4_stage213_fortress_champion_runtime_audit.py",
+    "tc4_stage214_champion_generation_fx_audit.py"
+  ],
+  "gradle_build": {
+    "status": "not_completed",
+    "reason": "sandbox has no DNS/network access; Gradle wrapper could not download gradle-7.5.1-bin.zip from services.gradle.org"
+  },
+  "next_stage": "Stage215 dedicated Eldritch Warden/Golem/boss name/generation parity and deeper champion attribute review."
+}

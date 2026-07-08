@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {
+      "type": "forge:false"
+    }
+  ],
+  "tc4_quarantine": "placeholder disabled; exact TC4 recipe is materialized in the primary recipe file."
+}

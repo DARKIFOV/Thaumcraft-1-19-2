@@ -5,8 +5,8 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:tc4_block_paving_travel",
   "ingredients": [
-    "thaumcraft:tc4_shard_aer",
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:aer_shard",
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "TERRA": 10,
@@ -17,8 +17,8 @@
     "SBS"
   ],
   "key": {
-    "S": "thaumcraft:tc4_shard_aer",
-    "A": "thaumcraft:tc4_shard_terra",
+    "S": "thaumcraft:aer_shard",
+    "A": "thaumcraft:terra_shard",
     "B": "thaumcraft:tc4_block_paving_travel"
   },
   "result": {

@@ -5,8 +5,8 @@
   "tc4_kind": "INFUSION",
   "catalyst": "minecraft:book",
   "components": [
-    "thaumcraft:tc4_shard_aer",
-    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:aer_shard",
+    "thaumcraft:aer_shard",
     "thaumcraft:tc4_cloth",
     "thaumcraft:tc4_cloth",
     "minecraft:feather",

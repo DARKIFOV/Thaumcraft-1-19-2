@@ -1,0 +1,29 @@
+{
+  "tc4_key": "MaskAngryGhost",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "MASKANGRYGHOST",
+  "tc4_kind": "INFUSION_NBT_OUTPUT",
+  "catalyst": { "item": "thaumcraft:tc4_thaumiumfortresshelm", "damage_wildcard": true },
+  "components": [
+    "minecraft:white_dye",
+    "minecraft:gold_ingot",
+    "minecraft:leather",
+    "minecraft:fermented_spider_eye",
+    "minecraft:spider_eye",
+    "minecraft:gold_ingot"
+  ],
+  "aspects": {
+    "PERDITIO": 64,
+    "MORTUUS": 64,
+    "TUTAMEN": 16
+  },
+  "instability": 8,
+  "result": {
+    "item": "minecraft:air",
+    "count": 1,
+    "output_nbt_label": "mask",
+    "output_nbt_type": "int",
+    "output_nbt_value": 1
+  },
+  "stage212_strict_original": "new Object[] { 'mask', new NBTTagInt(1) }"
+}

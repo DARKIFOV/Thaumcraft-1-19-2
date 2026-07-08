@@ -1,10 +1,10 @@
-# GitHub upload notes — Stage204
+# GitHub upload notes — Stage209
 
-Stage204 version: `2.04.0`.
+Stage209 version: `2.09.0`.
 
 Expected GitHub artifact name:
 
-`thaumcraft_legacy_rebuild_1.19.2-2.04.0-github.jar`
+`thaumcraft_legacy_rebuild_1.19.2-2.09.0-github.jar`
 
 Run before upload:
 
@@ -12,17 +12,12 @@ Run before upload:
 python scripts/java_syntax_guard.py
 python scripts/github_static_audit.py
 python scripts/github_ci_guard.py
-python scripts/tc4_stage203_golem_ghost_slot_audit.py
-python scripts/tc4_stage204_jar_tube_edge_cases_audit.py
+python scripts/tc4_stage205_hard_parity_reset_audit.py
+python scripts/tc4_stage206_original_parity_repair_audit.py
+python scripts/tc4_stage207_infusion_matrix_parity_audit.py
+python scripts/tc4_stage208_infusion_renderer_enchantment_audit.py
 ```
 
-Stage204 keeps the Stage198/Stage200 resource-pack fix. `pack.mcmeta` must remain present with `pack_format: 9` for Minecraft 1.19.2.
+Stage209 keeps the Stage205/206 hard original-parity rules and continues Stage207 Infusion Matrix work with an animated matrix renderer, original infusion enchantment runtime adapter, XP-drain cycle, enchantment/NBT output handling and recipe-aware component pulling.
 
-## Stage204 GitHub audit hotfix
-
-Fixed GitHub Actions `Static source/resource audit` failure from the stale Stage161 version guard. The Stage161 research-note audit now accepts current Stage204 version `2.04.0` via semantic version parsing instead of old hard-coded version literals.
-
-### Stage204 GitHub Compile Hotfix 2
-
-- Fixed GitHub `compileJava` failure in `JarTubeInteractionRuntime.java`: lambda captured reassigned local `aspect`; now snapshots `final Aspect finalAspect` before `withStyle(...)`.
-- No TC4 mechanics changed; Stage204 parity/resource pack fixes remain intact.
+Important install note: remove old jars from the Minecraft `mods` folder, especially 1.94.0, 2.04.0, 2.05.0, 2.06.0 and 2.07.0 jars, before testing the new jar. If old jars remain, Minecraft can keep loading the old broken version.

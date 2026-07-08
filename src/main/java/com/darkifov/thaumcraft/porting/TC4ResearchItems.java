@@ -1,8 +1,11 @@
 package com.darkifov.thaumcraft.porting;
 
+import com.darkifov.thaumcraft.block.TC4FortressArmorItem;
+import com.darkifov.thaumcraft.block.TC4FortressMaskItem;
 import com.darkifov.thaumcraft.item.TC4ResearchComponentItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
@@ -480,10 +483,23 @@ public final class TC4ResearchItems {
     public static Map<String, RegistryObject<Item>> registerAll(DeferredRegister<Item> items, CreativeModeTab tab) {
         Map<String, RegistryObject<Item>> out = new LinkedHashMap<>();
         for (Entry entry : ENTRIES) {
-            out.put(entry.id(), items.register(entry.id(), () -> new TC4ResearchComponentItem(new Item.Properties().tab(tab), entry.originalSource(), entry.legacyTexture())));
+            out.put(entry.id(), items.register(entry.id(), () -> createItem(entry, tab)));
         }
         registered = Collections.unmodifiableMap(out);
         return registered;
+    }
+
+    private static Item createItem(Entry entry, CreativeModeTab tab) {
+        Item.Properties properties = new Item.Properties().tab(tab);
+        return switch (entry.id()) {
+            case "tc4_thaumiumfortresshelm" -> new TC4FortressArmorItem(EquipmentSlot.HEAD, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
+            case "tc4_thaumiumfortresschest" -> new TC4FortressArmorItem(EquipmentSlot.CHEST, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
+            case "tc4_thaumiumfortresslegs" -> new TC4FortressArmorItem(EquipmentSlot.LEGS, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
+            case "tc4_mask_grinning_devil" -> new TC4FortressMaskItem(properties, 0, entry.originalSource(), entry.legacyTexture());
+            case "tc4_mask_angry_ghost" -> new TC4FortressMaskItem(properties, 1, entry.originalSource(), entry.legacyTexture());
+            case "tc4_mask_sipping_fiend" -> new TC4FortressMaskItem(properties, 2, entry.originalSource(), entry.legacyTexture());
+            default -> new TC4ResearchComponentItem(properties, entry.originalSource(), entry.legacyTexture());
+        };
     }
 
     public static Entry[] entries() { return ENTRIES.clone(); }

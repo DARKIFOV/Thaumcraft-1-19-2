@@ -1,0 +1,46 @@
+{
+  "stage": 209,
+  "version": "2.09.0",
+  "base_archive": "thaumcraft_legacy_rebuild_STAGE208_TC4_INFUSION_RENDERER_ENCHANTMENT_PARITY_1_19_2.zip",
+  "original_reference": "Thaumcraft4-1.7.10-master.zip",
+  "focus": "Extended TC4 Infusion Matrix failure/craftCycle/FX/matching parity",
+  "original_files_checked": [
+    "thaumcraft/common/tiles/TileInfusionMatrix.java",
+    "thaumcraft/api/crafting/InfusionRecipe.java",
+    "thaumcraft/common/lib/network/fx/PacketFXInfusionSource.java",
+    "thaumcraft/common/lib/network/fx/PacketFXBlockZap.java",
+    "thaumcraft/common/blocks/BlockFluxGoo.java",
+    "thaumcraft/common/blocks/BlockFluxGas.java"
+  ],
+  "ported_changes": [
+    "Infusion instability is gated by the craft cycle delay instead of firing every progress tick.",
+    "Triggered instability events now consume the current craft cycle before normal essentia/component drain.",
+    "Invalid catalyst/structure paths roll a TC4-style instability event before failing.",
+    "Failure events now place FLUX_GOO and FLUX_GAS for TC4 eject-item type 1/3 and 2/4 outcomes.",
+    "Added PacketFXInfusionSource and PacketFXBlockZap 1.19.2 network adapters and client FX bridge.",
+    "XP drain now emits the entity-source infusion FX packet path.",
+    "Added TC4InfusionItemMatcher with item id, NBT, damage, and wildcard damage matching semantics.",
+    "Infusion JSON parser now supports catalyst/component object metadata: damage, meta, damage_wildcard, nbt.",
+    "Flux goo/gas behavior was narrowed toward finite TC4 spill behavior."
+  ],
+  "deferred_to_stage210": [
+    "InfusionRunicAugmentRecipe / RS.HARDEN exact runic augment behavior.",
+    "Full modern tag-backed OreDictionary equivalence.",
+    "Recipe materialization pass to annotate damage/NBT-sensitive original components.",
+    "Closer client-side sourceFX TTL particle rendering."
+  ],
+  "validation": {
+    "java_syntax_guard": "passed",
+    "github_static_audit": "passed",
+    "github_ci_guard": "passed",
+    "stage205_audit": "passed",
+    "stage206_audit": "passed",
+    "stage207_audit": "passed",
+    "stage208_audit": "passed after version-forward compatibility update",
+    "stage209_audit": "passed"
+  },
+  "gradle_build": {
+    "status": "not run to completion in sandbox",
+    "reason": "offline sandbox cannot download Gradle/Forge dependencies"
+  }
+}

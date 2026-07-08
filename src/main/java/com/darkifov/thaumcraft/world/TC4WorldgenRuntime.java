@@ -1,6 +1,9 @@
 package com.darkifov.thaumcraft.world;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsDimensionAdapter;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsMazeHandler;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLivePopulateAdapter;
 import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -40,6 +43,13 @@ public final class TC4WorldgenRuntime {
             return;
         }
 
+        TC4OuterLandsMazeHandler.tickPlayerArea(level, player);
+        TC4OuterLandsLivePopulateAdapter.tickPlayerArea(level, player);
+
+        if (!TC4OuterLandsDimensionAdapter.shouldRunSurfaceWorldgen(level.dimension())) {
+            return;
+        }
+
         ChunkPos center = player.chunkPosition();
         for (int dx = -PLAYER_CHUNK_RADIUS; dx <= PLAYER_CHUNK_RADIUS; dx++) {
             for (int dz = -PLAYER_CHUNK_RADIUS; dz <= PLAYER_CHUNK_RADIUS; dz++) {
@@ -49,7 +59,7 @@ public final class TC4WorldgenRuntime {
     }
 
     private static boolean isSupportedDimension(ResourceKey<Level> dimension) {
-        return dimension == Level.OVERWORLD;
+        return TC4OuterLandsDimensionAdapter.supportsPortalMaze(dimension);
     }
 
     private static void seedChunkOnce(ServerLevel level, ChunkPos chunk) {
@@ -82,12 +92,16 @@ public final class TC4WorldgenRuntime {
             tryPlaceOreBlob(level, random, new BlockPos(x, y, z), ThaumcraftMod.AMBER_ORE.get().defaultBlockState(), 2);
         }
 
-        for (int i = 0; i < 8; i++) {
+        // Stage205 hard parity reset: the previous adapter produced too many
+        // visible shard/crystal clusters. TC4 infused stone is sparse; use fewer
+        // attempts and small clusters until the exact IWorldGenerator pass is fully
+        // ported.
+        for (int i = 0; i < 3; i++) {
             int x = chunk.getMinBlockX() + random.nextInt(16);
             int z = chunk.getMinBlockZ() + random.nextInt(16);
             int surface = Math.max(level.getMinBuildHeight() + 12, getSurfaceY(level, x, z) - 5);
             int y = level.getMinBuildHeight() + random.nextInt(Math.max(6, surface - level.getMinBuildHeight()));
-            tryPlaceOreBlob(level, random, new BlockPos(x, y, z), randomInfusedCrystal(random), 6);
+            tryPlaceOreBlob(level, random, new BlockPos(x, y, z), randomInfusedCrystal(random), 3);
         }
     }
 

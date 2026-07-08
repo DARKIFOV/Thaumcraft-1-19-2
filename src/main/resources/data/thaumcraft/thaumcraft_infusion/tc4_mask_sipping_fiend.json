@@ -1,0 +1,29 @@
+{
+  "tc4_key": "MaskSippingFiend",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "MASKSIPPINGFIEND",
+  "tc4_kind": "INFUSION_NBT_OUTPUT",
+  "catalyst": { "item": "thaumcraft:tc4_thaumiumfortresshelm", "damage_wildcard": true },
+  "components": [
+    "minecraft:red_dye",
+    "minecraft:gold_ingot",
+    "minecraft:leather",
+    "minecraft:ghast_tear",
+    "minecraft:melon_slice",
+    "minecraft:gold_ingot"
+  ],
+  "aspects": {
+    "EXANIMIS": 64,
+    "VICTUS": 64,
+    "TUTAMEN": 16
+  },
+  "instability": 8,
+  "result": {
+    "item": "minecraft:air",
+    "count": 1,
+    "output_nbt_label": "mask",
+    "output_nbt_type": "int",
+    "output_nbt_value": 2
+  },
+  "stage212_strict_original": "new Object[] { 'mask', new NBTTagInt(2) }"
+}

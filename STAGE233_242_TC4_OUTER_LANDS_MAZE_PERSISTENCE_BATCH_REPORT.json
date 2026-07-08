@@ -1,0 +1,35 @@
+{
+  "stage_batch": "233-242",
+  "version": "2.42.0",
+  "target": "Minecraft/Forge 1.19.2",
+  "reference": "Thaumcraft4-1.7.10 original MazeGenerator/MazeThread/MazeHandler/GenCommon",
+  "major_changes": [
+    "TC4OuterLandsMazeGenerator now ports original DFS/backtracking maze algorithm instead of fixed 7x7 ring",
+    "MazeThread-style coordinate copy contract added to generateAt(centerX, centerZ, width, height, seed)",
+    "TC4OuterLandsMazeSavedData persists labyrinth Data.cells, portalOrigins and generatedCells",
+    "Feature dispatch moved to TC4OuterLandsFeatureSelector but preserves MazeHandler.generateEldritch ids",
+    "GenCommon.PAT_CONNECT 11x11 matrix and depth/justTheTip loops ported",
+    "Dedicated invisible EldritchNothingBlock replaces barrier placeholder for blockEldritchNothing",
+    "Live Outer Lands generation expands around player maze cells, not only portal center"
+  ],
+  "known_limits": [
+    "Gradle compile not executed because sandbox cannot download Gradle wrapper",
+    "GenBossRoom/GenKeyRoom are still shell adapters and should be deepened next",
+    "blockEldritch metadata variants still need full variant block/state parity"
+  ],
+  "files_added": [
+    "TC4OuterLandsMazeSavedData.java",
+    "TC4OuterLandsFeatureSelector.java",
+    "EldritchNothingBlock.java",
+    "docs/NEXT_CHAT_PROMPT_STAGE242.md"
+  ],
+  "checks": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage222_outer_lands_room_selector_lootbag_audit.py",
+    "tc4_stage223_232_mega_outer_lands_audit.py",
+    "tc4_stage233_242_mega_maze_persistence_audit.py"
+  ],
+  "gradle_build": "not_completed_offline_sandbox_unknownhost_services_gradle_org"
+}

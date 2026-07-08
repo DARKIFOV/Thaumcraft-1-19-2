@@ -5,12 +5,12 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_runic_ring",
   "components": [
-    "thaumcraft:tc4_shard_balanced",
-    "thaumcraft:tc4_shard_ignis",
-    "thaumcraft:tc4_shard_ignis",
+    "thaumcraft:balanced_shard",
+    "thaumcraft:ignis_shard",
+    "thaumcraft:ignis_shard",
     "minecraft:emerald",
-    "thaumcraft:tc4_shard_ignis",
-    "thaumcraft:tc4_shard_ignis"
+    "thaumcraft:ignis_shard",
+    "thaumcraft:ignis_shard"
   ],
   "aspects": {
     "TUTAMEN": 16,

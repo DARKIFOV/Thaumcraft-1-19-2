@@ -57,7 +57,7 @@ public final class InfusionMatrixAuxiliaryHelper {
 
         if (recipe != null) {
             List<EssentiaJarBlockEntity> jars = InfusionProcessHelper.findJars(level, matrixPos);
-            aspectPowered = InfusionProcessHelper.hasAspects(jars, recipe);
+            aspectPowered = InfusionProcessHelper.hasAspects(jars, recipe.aspectCostFor(catalystPedestal == null ? net.minecraft.world.item.ItemStack.EMPTY : catalystPedestal.stored()));
         }
 
         return new MatrixAuxiliaryReport(

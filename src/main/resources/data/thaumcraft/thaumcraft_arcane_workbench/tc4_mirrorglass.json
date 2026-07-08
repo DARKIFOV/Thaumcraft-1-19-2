@@ -3,7 +3,7 @@
   "tc4_source": "addShapelessArcaneCraftingRecipe",
   "research": "BASICARTIFACE",
   "tc4_kind": "ARCANE_SHAPELESS",
-  "catalyst": "thaumcraft:tc4_quicksilver",
+  "catalyst": "thaumcraft:quicksilver_drop",
   "ingredients": [
     "minecraft:hopper"
   ],

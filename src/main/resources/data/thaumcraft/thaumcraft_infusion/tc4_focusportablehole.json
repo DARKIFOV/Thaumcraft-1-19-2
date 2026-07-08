@@ -6,11 +6,11 @@
   "catalyst": "minecraft:ender_eye",
   "components": [
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:terra_shard",
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_aer",
+    "thaumcraft:aer_shard",
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_perditio"
+    "thaumcraft:perditio_shard"
   ],
   "aspects": {
     "ITER": 25,
@@ -20,7 +20,7 @@
   },
   "instability": 3,
   "result": {
-    "item": "thaumcraft:tc4_focus_portablehole",
+    "item": "thaumcraft:focus_portable_hole",
     "count": 1
   }
 }

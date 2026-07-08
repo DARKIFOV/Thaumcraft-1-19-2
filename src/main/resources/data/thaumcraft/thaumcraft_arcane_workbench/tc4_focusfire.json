@@ -6,7 +6,7 @@
   "catalyst": "minecraft:quartz",
   "ingredients": [
     "minecraft:nether_wart",
-    "thaumcraft:tc4_shard_ignis"
+    "thaumcraft:ignis_shard"
   ],
   "aspects": {
     "IGNIS": 20,
@@ -20,10 +20,10 @@
   "key": {
     "#": "minecraft:quartz",
     "Q": "minecraft:nether_wart",
-    "C": "thaumcraft:tc4_shard_ignis"
+    "C": "thaumcraft:ignis_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_focus_fire",
+    "item": "thaumcraft:focus_fire",
     "count": 1
   }
 }

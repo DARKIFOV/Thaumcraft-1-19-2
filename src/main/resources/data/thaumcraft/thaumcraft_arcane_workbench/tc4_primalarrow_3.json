@@ -8,7 +8,7 @@
   },
   "catalyst": "minecraft:arrow",
   "ingredients": [
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "TERRA": 8
@@ -19,7 +19,7 @@
     "AAA"
   ],
   "key": {
-    "A": "thaumcraft:tc4_shard_terra",
+    "A": "thaumcraft:terra_shard",
     "S": "minecraft:arrow"
   },
   "source": "ConfigRecipes arcane loop lines 972-975"

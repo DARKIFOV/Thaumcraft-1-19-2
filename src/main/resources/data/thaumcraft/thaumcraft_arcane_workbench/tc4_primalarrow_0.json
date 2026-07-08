@@ -8,7 +8,7 @@
   },
   "catalyst": "minecraft:arrow",
   "ingredients": [
-    "thaumcraft:tc4_shard_aer"
+    "thaumcraft:aer_shard"
   ],
   "aspects": {
     "AER": 8
@@ -19,7 +19,7 @@
     "AAA"
   ],
   "key": {
-    "A": "thaumcraft:tc4_shard_aer",
+    "A": "thaumcraft:aer_shard",
     "S": "minecraft:arrow"
   },
   "source": "ConfigRecipes arcane loop lines 972-975"

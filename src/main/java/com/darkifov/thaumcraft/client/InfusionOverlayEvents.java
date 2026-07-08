@@ -35,7 +35,7 @@ public final class InfusionOverlayEvents {
         BlockPos pos = ((BlockHitResult) minecraft.hitResult).getBlockPos();
         BlockEntity blockEntity = minecraft.level.getBlockEntity(pos);
 
-        if (!(blockEntity instanceof InfusionMatrixBlockEntity matrix) || !matrix.active()) {
+        if (!(blockEntity instanceof InfusionMatrixBlockEntity matrix) || !matrix.crafting()) {
             return;
         }
 

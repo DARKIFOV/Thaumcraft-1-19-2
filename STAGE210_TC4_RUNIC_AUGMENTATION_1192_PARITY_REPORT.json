@@ -1,0 +1,61 @@
+{
+  "stage": 210,
+  "name": "TC4 Runic Augmentation 1.19.2 Parity",
+  "base_archive": "thaumcraft_legacy_rebuild_STAGE209_TC4_EXTENDED_INFUSION_FAILURE_PARITY_1_19_2.zip",
+  "target_minecraft": "1.19.2",
+  "target_forge": "1.19.2-43.x",
+  "version": "2.10.0",
+  "original_sources_checked": [
+    "thaumcraft/common/lib/crafting/InfusionRunicAugmentRecipe.java",
+    "thaumcraft/common/lib/events/EventHandlerRunic.java",
+    "thaumcraft/common/tiles/TileInfusionMatrix.java"
+  ],
+  "ported": {
+    "InfusionRunicAugmentRecipe": true,
+    "RS.HARDEN byte tag": true,
+    "dynamic components iron + salis + salis*finalCharge": true,
+    "dynamic aspects 32*2^finalCharge": true,
+    "dynamic instability 5+finalCharge/2": true,
+    "runic base charge map": true,
+    "matrix catalyst-dependent pending components": true,
+    "matrix runic finish output": true,
+    "1.19.2 touched-file guard": true
+  },
+  "new_files": [
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4RunicArmorHelper.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionRunicAugmentAdapter.java",
+    "scripts/tc4_stage210_runic_augment_1192_audit.py",
+    "docs/TC4_RUNIC_AUGMENTATION_PARITY_STAGE210.md",
+    "docs/NEXT_CHAT_PROMPT_STAGE210.md"
+  ],
+  "changed_files_high_level": [
+    "build.gradle",
+    "src/main/resources/META-INF/mods.toml",
+    "src/main/java/com/darkifov/thaumcraft/infusion/InfusionRecipe.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/InfusionRecipes.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/InfusionProcessHelper.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionRuntime.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/InfusionMatrixAuxiliaryHelper.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/InfusionMatrixBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/item/TC4ResearchComponentItem.java",
+    "scripts/tc4_stage208_infusion_renderer_enchantment_audit.py",
+    "scripts/tc4_stage209_extended_infusion_failure_audit.py"
+  ],
+  "validation_passed": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage205_hard_parity_reset_audit.py",
+    "tc4_stage206_original_parity_repair_audit.py",
+    "tc4_stage207_infusion_matrix_parity_audit.py",
+    "tc4_stage208_infusion_renderer_enchantment_audit.py",
+    "tc4_stage209_extended_infusion_failure_audit.py",
+    "tc4_stage210_runic_augment_1192_audit.py"
+  ],
+  "gradle_build": {
+    "attempted": true,
+    "passed": false,
+    "reason": "Sandbox has no internet; Gradle wrapper failed to resolve services.gradle.org for gradle-7.5.1-bin.zip."
+  },
+  "next_stage": "Stage211: EventHandlerRunic runtime shielding, recharge, sounds/particles, runic variant behaviour."
+}

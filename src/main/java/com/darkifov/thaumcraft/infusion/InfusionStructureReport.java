@@ -21,6 +21,7 @@ public record InfusionStructureReport(
         int matrixStabilizationPercent,
         int stabilityScore,
         int instabilityPenalty,
+        int originalSymmetryPenalty,
         List<ArcanePedestalBlockEntity> componentPedestals,
         Component summary
 ) {

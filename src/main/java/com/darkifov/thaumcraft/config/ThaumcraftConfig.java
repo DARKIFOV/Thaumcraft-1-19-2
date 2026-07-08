@@ -31,6 +31,12 @@ public final class ThaumcraftConfig {
     public static final ForgeConfigSpec.IntValue ESSENTIA_TUBE_TRANSFER_INTERVAL_TICKS;
     public static final ForgeConfigSpec.IntValue ESSENTIA_TUBE_MAX_NETWORK;
 
+    public static final ForgeConfigSpec.IntValue RUNIC_SHIELD_RECHARGE_MS;
+    public static final ForgeConfigSpec.IntValue RUNIC_SHIELD_WAIT_TICKS;
+    public static final ForgeConfigSpec.IntValue RUNIC_SHIELD_COST;
+
+    public static final ForgeConfigSpec.BooleanValue CHAMPION_MOBS;
+
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
@@ -66,6 +72,16 @@ public final class ThaumcraftConfig {
         builder.push("essentia");
         ESSENTIA_TUBE_TRANSFER_INTERVAL_TICKS = builder.comment("How often tubes move essentia.").defineInRange("tubeTransferIntervalTicks", 20, 1, 20 * 60);
         ESSENTIA_TUBE_MAX_NETWORK = builder.comment("Maximum tube blocks in one network scan.").defineInRange("tubeMaxNetwork", 48, 4, 256);
+        builder.pop();
+
+        builder.push("champions");
+        CHAMPION_MOBS = builder.comment("TC4 Config.championMobs: allow natural champion mob generation; dangerous places can still force a reduced chance when disabled.").define("championMobs", true);
+        builder.pop();
+
+        builder.push("runic_shielding");
+        RUNIC_SHIELD_RECHARGE_MS = builder.comment("TC4 Config.shieldRecharge: milliseconds between runic shield charge restores; charged ring variants subtract 500ms each, min 500.").defineInRange("runicRechargeMs", 2000, 500, 60_000);
+        RUNIC_SHIELD_WAIT_TICKS = builder.comment("TC4 Config.shieldWait: delay in ticks before recharge resumes after the shield is depleted.").defineInRange("runicRechargeDelayTicks", 80, 0, 20 * 60);
+        RUNIC_SHIELD_COST = builder.comment("TC4 Config.shieldCost: Aer + Terra vis consumed from inventory wands per restored shield point.").defineInRange("runicCost", 50, 0, 10_000);
         builder.pop();
 
         SPEC = builder.build();

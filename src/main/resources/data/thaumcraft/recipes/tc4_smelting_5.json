@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "thaumcraft:tc4_clustercinnabar"
   },
-  "result": "thaumcraft:tc4_quicksilver",
+  "result": "thaumcraft:quicksilver_drop",
   "experience": 0.1,
   "cookingtime": 200
 }

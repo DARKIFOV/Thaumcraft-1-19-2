@@ -24,7 +24,7 @@
     "G": "minecraft:gold_ingot"
   },
   "result": {
-    "item": "thaumcraft:tc4_focuspouch",
+    "item": "thaumcraft:focus_pouch",
     "count": 1
   }
 }

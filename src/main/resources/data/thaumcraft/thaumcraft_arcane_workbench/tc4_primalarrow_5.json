@@ -8,7 +8,7 @@
   },
   "catalyst": "minecraft:arrow",
   "ingredients": [
-    "thaumcraft:tc4_shard_perditio"
+    "thaumcraft:perditio_shard"
   ],
   "aspects": {
     "PERDITIO": 8
@@ -19,7 +19,7 @@
     "AAA"
   ],
   "key": {
-    "A": "thaumcraft:tc4_shard_perditio",
+    "A": "thaumcraft:perditio_shard",
     "S": "minecraft:arrow"
   },
   "source": "ConfigRecipes arcane loop lines 972-975"

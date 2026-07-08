@@ -5,12 +5,12 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_runic_amulet",
   "components": [
-    "thaumcraft:tc4_shard_balanced",
-    "thaumcraft:tc4_shard_terra",
-    "thaumcraft:tc4_shard_terra",
+    "thaumcraft:balanced_shard",
+    "thaumcraft:terra_shard",
+    "thaumcraft:terra_shard",
     "minecraft:emerald",
-    "thaumcraft:tc4_shard_terra",
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:terra_shard",
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "TUTAMEN": 20,

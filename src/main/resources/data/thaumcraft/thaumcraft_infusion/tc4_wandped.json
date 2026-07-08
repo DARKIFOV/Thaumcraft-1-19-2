@@ -7,7 +7,7 @@
   "components": [
     "minecraft:gold_ingot",
     "minecraft:diamond",
-    "thaumcraft:tc4_charm",
+    "thaumcraft:warp_charm",
     "minecraft:diamond"
   ],
   "aspects": {

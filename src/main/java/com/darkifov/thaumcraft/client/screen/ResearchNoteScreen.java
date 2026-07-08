@@ -10,7 +10,6 @@ import com.darkifov.thaumcraft.research.ResearchAspectGraph;
 import com.darkifov.thaumcraft.research.ResearchNoteGrid;
 import com.darkifov.thaumcraft.research.ResearchNoteRequirements;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,29 +37,18 @@ public class ResearchNoteScreen extends Screen {
     protected void init() {
         leftPos = (width - BG_WIDTH) / 2;
         topPos = (height - BG_HEIGHT) / 2;
-
-        addRenderableWidget(new Button(leftPos + BG_WIDTH - 74, topPos + BG_HEIGHT - 28, 56, 18,
-                Component.literal("Solve"), button -> ThaumcraftNetwork.requestSolveResearchNoteFromClient()));
-
-        addRenderableWidget(new Button(leftPos + 8, topPos + BG_HEIGHT - 28, 22, 18,
-                Component.literal("×"), button -> onClose()));
+        // Original TC4 research note is manipulated on the research table GUI;
+        // it has no debug buttons. Escape closes via Screen default.
     }
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderBackground(poseStack);
-        OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, OriginalGuiTextures.RESEARCH_TABLE, BG_WIDTH, BG_HEIGHT);
+        OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, BG_WIDTH, BG_HEIGHT);
 
-        drawCenteredString(poseStack, font, Component.literal("Research Note"), leftPos + BG_WIDTH / 2, topPos + 8, 0x3F2612);
-        drawString(poseStack, font, Component.literal("Target: " + (ClientResearchNoteData.target().isBlank() ? "available research" : ClientResearchNoteData.target())), leftPos + 18, topPos + 26, 0x3F2612);
-        drawString(poseStack, font, Component.literal("Progress: " + ClientResearchNoteData.progress() + "%"), leftPos + 18, topPos + 38, 0x3F2612);
-        drawString(poseStack, font, Component.literal("Gold hexes = original TC4 research anchors. Green = empty active hex."), leftPos + 18, topPos + 50, 0x5A3515);
-        drawString(poseStack, font, Component.literal(ClientResearchNoteData.solved() ? "Solved" : status), leftPos + 18, topPos + 222, ClientResearchNoteData.solved() ? 0x287A28 : 0x5A3515);
 
         renderLinks(poseStack);
-        renderPathHint(poseStack);
         renderGrid(poseStack, mouseX, mouseY);
-        renderRequiredAspects(poseStack, mouseX, mouseY);
         renderAspectPalette(poseStack, mouseX, mouseY);
         renderDraggedAspect(poseStack, mouseX, mouseY);
 
@@ -77,12 +65,15 @@ public class ResearchNoteScreen extends Screen {
             Aspect aspect = ClientResearchNoteData.aspectAt(slot.index());
 
             boolean locked = isLockedSlot(slot.index());
-            boolean required = locked;
             boolean validTarget = selectedAspect != null && canClientPlace(slot.index(), selectedAspect);
-            int slotColor = aspect == null ? 0xAA3F2612 : AspectColor.argb(aspect, required ? 245 : 210);
-            int border = required ? 0xFFFFCC55 : validTarget ? 0xAA44AA44 : locked ? 0xAA6D4A22 : (aspect == null ? 0xAA3F2612 : AspectColor.dim(aspect, 185, 0.55F));
-            fill(poseStack, x - 12, y - 12, x + 12, y + 12, border);
-            fill(poseStack, x - 10, y - 10, x + 10, y + 10, slotColor);
+            ResourceLocation hexTexture = aspect == null && !validTarget ? OriginalGuiTextures.HEX1 : OriginalGuiTextures.HEX2;
+            OriginalGuiTextures.blitOriginal(poseStack, x - 10, y - 9, hexTexture, 20, 18);
+
+            if (locked) {
+                fill(poseStack, x - 10, y - 9, x + 10, y + 9, 0x22FFCC55);
+            } else if (validTarget) {
+                fill(poseStack, x - 10, y - 9, x + 10, y + 9, 0x2244AA44);
+            }
 
             if (aspect != null) {
                 ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
@@ -91,9 +82,9 @@ public class ResearchNoteScreen extends Screen {
                 drawCenteredString(poseStack, font, Component.literal("+"), x, y - 4, 0xD8FFD8);
             }
 
-            if (mouseX >= x - 10 && mouseX <= x + 10 && mouseY >= y - 10 && mouseY <= y + 10) {
-                fill(poseStack, x - 12, y - 12, x + 12, y + 12, 0x33FFFFFF);
-                String label = "Slot " + slot.index();
+            if (mouseX >= x - 10 && mouseX <= x + 10 && mouseY >= y - 9 && mouseY <= y + 9) {
+                fill(poseStack, x - 10, y - 9, x + 10, y + 9, 0x22FFFFFF);
+                String label = "TC4 hex " + slot.index();
                 if (aspect != null) {
                     label += " " + aspect.displayName() + (locked ? " (fixed)" : " - right-click to remove");
                 } else if (selectedAspect != null) {
@@ -134,44 +125,8 @@ public class ResearchNoteScreen extends Screen {
                 int lineColor = distance <= 1
                         ? AspectColor.mix(aspect, other, 220)
                         : distance <= 2 ? AspectColor.mix(aspect, other, 150) : 0xAA7A2222;
-                drawLine(poseStack, x, y, nx, ny, lineColor);
+                drawSaggingThreadLikeTC4(poseStack, x, y, nx, ny, lineColor, slot.index(), neighbor);
             }
-        }
-    }
-
-    private void renderPathHint(PoseStack poseStack) {
-        Aspect start = null;
-        Aspect end = null;
-        for (Map.Entry<Integer, Integer> entry : ClientResearchNoteData.types().entrySet()) {
-            if (entry.getValue() != ResearchNoteGrid.TYPE_RESEARCH_ANCHOR) {
-                continue;
-            }
-            Aspect aspect = ClientResearchNoteData.aspectAt(entry.getKey());
-            if (aspect == null) {
-                continue;
-            }
-            if (start == null) {
-                start = aspect;
-            } else {
-                end = aspect;
-                break;
-            }
-        }
-        List<Aspect> path = ResearchAspectGraph.shortestPath(start, end);
-
-        if (path.size() <= 2) {
-            return;
-        }
-
-        int x = leftPos + 176;
-        int y = topPos + 138;
-        drawString(poseStack, font, Component.literal("Path hint"), x, y - 10, 0x5A3515);
-
-        for (int i = 1; i < Math.min(path.size() - 1, 5); i++) {
-            Aspect aspect = path.get(i);
-            ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
-            int ix = x + (i - 1) * 18;
-            OriginalGuiTextures.blitOriginal(poseStack, ix, y, texture, 16, 16);
         }
     }
 
@@ -179,7 +134,7 @@ public class ResearchNoteScreen extends Screen {
         int x = leftPos + 176;
         int y = topPos + 58;
         Set<Aspect> requiredAspects = ResearchNoteRequirements.requiredFor(ClientResearchNoteData.target());
-        drawString(poseStack, font, Component.literal("Required"), x, y - 12, 0x5A3515);
+        // original GuiResearchTable does not draw a rebuild Required label
         int i = 0;
         for (Aspect aspect : requiredAspects) {
             int ix = x + (i % 3) * 20;
@@ -201,7 +156,7 @@ public class ResearchNoteScreen extends Screen {
 
     private void renderAspectPalette(PoseStack poseStack, int mouseX, int mouseY) {
         int startX = leftPos + 12;
-        int startY = topPos + 58;
+        int startY = topPos + 40;
         int shown = 0;
 
         for (Aspect aspect : Aspect.values()) {
@@ -328,7 +283,7 @@ public class ResearchNoteScreen extends Screen {
 
     private Aspect paletteAspectAt(double mouseX, double mouseY) {
         int startX = leftPos + 12;
-        int startY = topPos + 58;
+        int startY = topPos + 40;
         int shown = 0;
 
         for (Aspect aspect : Aspect.values()) {
@@ -367,15 +322,32 @@ public class ResearchNoteScreen extends Screen {
         return ClientResearchNoteData.anchorAt(index);
     }
 
-    private void drawLine(PoseStack poseStack, int x1, int y1, int x2, int y2, int color) {
+    /**
+     * TC4 GuiResearchRecipe draws solved connections as irregular thread-like
+     * links, not rigid debug ruler lines.  The exact GL line state from 1.7.10
+     * is not available here, so this keeps the same visual intent with a small
+     * deterministic sag and midpoint wobble while preserving the original hex
+     * endpoints.
+     */
+    private void drawSaggingThreadLikeTC4(PoseStack poseStack, int x1, int y1, int x2, int y2, int color, int fromSlot, int toSlot) {
         int steps = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1));
         if (steps <= 0) {
             fill(poseStack, x1, y1, x1 + 1, y1 + 1, color);
             return;
         }
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double len = Math.max(1.0D, Math.sqrt(dx * dx + dy * dy));
+        double nx = -dy / len;
+        double ny = dx / len;
+        int seed = fromSlot * 31 + toSlot * 17;
+        double wobble = ((seed & 3) - 1.5D) * 0.35D;
         for (int i = 0; i <= steps; i++) {
-            int x = x1 + (x2 - x1) * i / steps;
-            int y = y1 + (y2 - y1) * i / steps;
+            double t = i / (double) steps;
+            double sag = Math.sin(Math.PI * t) * (1.5D + Math.abs(dy) * 0.025D);
+            double knot = Math.sin((t * Math.PI * 2.0D) + seed) * wobble;
+            int x = (int) Math.round(x1 + dx * t + nx * (sag + knot));
+            int y = (int) Math.round(y1 + dy * t + ny * (sag * 0.35D + knot));
             fill(poseStack, x, y, x + 1, y + 1, color);
         }
     }

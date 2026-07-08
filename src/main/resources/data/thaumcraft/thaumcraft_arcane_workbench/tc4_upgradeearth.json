@@ -5,7 +5,7 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:gold_nugget",
   "ingredients": [
-    "thaumcraft:tc4_shard_terra"
+    "thaumcraft:terra_shard"
   ],
   "aspects": {
     "TERRA": 10
@@ -16,7 +16,7 @@
     "NNN"
   ],
   "key": {
-    "N": "thaumcraft:tc4_shard_terra",
+    "N": "thaumcraft:terra_shard",
     "C": "minecraft:gold_nugget"
   },
   "result": {
