@@ -83,6 +83,7 @@ checks['duplicate_focus_mirrors_quarantined'] = all(token in garbage for token i
 ])
 checks['handoff_docs_exist'] = exists('docs/TC4_SUPER_MEGA_STAGE323_342_ORIGINAL_PARITY_CLEANUP.md') and exists('docs/NEXT_CHAT_PROMPT_STAGE342.md')
 checks['no_stage323_audit_added_to_old_source_mapping'] = exists('scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py')
+checks['mind_spider_forge1192_xp_override_public'] = 'public int getExperienceReward()' in read('src/main/java/com/darkifov/thaumcraft/entity/MindSpiderEntity.java') and 'protected int getExperienceReward()' not in read('src/main/java/com/darkifov/thaumcraft/entity/MindSpiderEntity.java')
 
 print(json.dumps(checks, indent=2, sort_keys=True))
 failed = [name for name, passed in checks.items() if not passed]

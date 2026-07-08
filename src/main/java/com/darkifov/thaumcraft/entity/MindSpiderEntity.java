@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 /** Stage273-282 direct 1.19.2 port of TC4 EntityMindSpider. */
@@ -85,7 +84,7 @@ public class MindSpiderEntity extends Spider {
     }
 
     @Override
-    protected int getExperienceReward() {
+    public int getExperienceReward() {
         return isHarmless() ? 0 : super.getExperienceReward();
     }
 
