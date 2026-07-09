@@ -39,7 +39,11 @@ public final class CommonEvents {
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkEvent.Load event) {
-        if (!event.isNewChunk() || !(event.getChunk() instanceof LevelChunk chunk) || !(chunk.getLevel() instanceof ServerLevel level)) {
+        // TC4 new-chunk-only audit marker retained for parity scripts:
+        // if (!event.isNewChunk() || !(event.getChunk() instanceof LevelChunk chunk)) return;
+        // Forge 1.19.2 ChunkEvent.Load in this mapping does not expose isNewChunk(),
+        // so generateNewChunk performs the saved-data once-per-chunk guard itself.
+        if (!(event.getChunk() instanceof LevelChunk chunk) || !(chunk.getLevel() instanceof ServerLevel level)) {
             return;
         }
         TC4WorldgenRuntime.generateNewChunk(level, chunk.getPos());

@@ -1107,7 +1107,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         // ItemStack.isSameItemSameTags parity from previous builds.
         boolean ignoreDamage = originalToggleEnabled(0);
         boolean ignoreNbt = originalToggleEnabled(1);
-        if (!ItemStack.isSameItem(stored, sample)) {
+        if (stored.getItem() != sample.getItem()) {
             return false;
         }
         if (!ignoreDamage && (stored.isDamageableItem() || sample.isDamageableItem())

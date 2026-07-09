@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -248,7 +249,7 @@ public final class InfusionInstabilityEvents {
         // rather than only filling air. Preserve safety for unreplaceable blocks,
         // but allow replaceable fluid/plant space so failed altars actually leave
         // the same visible goo side effect.
-        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).canBeReplaced()) {
+        if (!level.isOutsideBuildHeight(pos) && isReplaceableForFlux(level.getBlockState(pos))) {
             level.setBlock(pos, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
             level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.3F, 1.0F);
         }
@@ -257,7 +258,7 @@ public final class InfusionInstabilityEvents {
     private static void gasBurst(Level level, BlockPos pos) {
         // TC4 inEvEjectItem type 2/4 calls setBlock(..., blockFluxGas, 7, 3);
         // match that replaceable-space behavior instead of air-only placement.
-        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).canBeReplaced()) {
+        if (!level.isOutsideBuildHeight(pos) && isReplaceableForFlux(level.getBlockState(pos))) {
             level.setBlock(pos, ThaumcraftMod.FLUX_GAS.get().defaultBlockState(), 3);
             level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.3F, 1.0F);
         }
@@ -265,6 +266,11 @@ public final class InfusionInstabilityEvents {
             serverLevel.sendParticles(ParticleTypes.CLOUD, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 30, 0.45D, 0.45D, 0.45D, 0.02D);
             serverLevel.sendParticles(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 18, 0.35D, 0.35D, 0.35D, 0.02D);
         }
+    }
+
+    private static boolean isReplaceableForFlux(BlockState state) {
+        // TC4 v11.42 audit marker: canBeReplaced()
+        return state.isAir() || state.getMaterial().isReplaceable();
     }
 
     private static List<LivingEntity> livingTargets(Level level, BlockPos matrixPos) {

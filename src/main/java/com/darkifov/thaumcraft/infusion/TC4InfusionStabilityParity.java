@@ -67,7 +67,7 @@ public final class TC4InfusionStabilityParity {
         }
 
         List<BlockPos> sorted = new ArrayList<>(positions);
-        sorted.sort(Comparator.comparingInt(BlockPos::getY).thenComparingInt(BlockPos::getX).thenComparingInt(BlockPos::getZ));
+        sorted.sort(Comparator.<BlockPos>comparingInt(pos -> pos.getY()).thenComparingInt(pos -> pos.getX()).thenComparingInt(pos -> pos.getZ()));
         return new StabilitySnapshot(sorted, mirrored, unpaired, Math.min(MAX_EFFECTIVE_STABILIZER_PAIRS, mirrored));
     }
 
