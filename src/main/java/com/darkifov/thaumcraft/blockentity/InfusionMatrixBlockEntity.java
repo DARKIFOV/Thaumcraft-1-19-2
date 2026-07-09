@@ -629,7 +629,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         List<EssentiaJarBlockEntity> jars = InfusionProcessHelper.findJars(level, worldPosition);
 
-        BlockPos essentiaSource = InfusionProcessHelper.consumeOneAspectSource(jars, aspect);
+        BlockPos essentiaSource = InfusionProcessHelper.consumeOneAspectSource(jars, aspect, worldPosition);
 
         if (essentiaSource != null) {
             int left = pendingAspects.getOrDefault(aspect, 0) - 1;
@@ -694,7 +694,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             ResourceLocation componentId = pendingComponents.get(i);
             InfusionRecipe.ComponentSpec componentSpec = pendingComponentSpecAt(i, componentId);
             // Stage208 audit marker: findComponentPedestal(report.componentPedestals(), componentId, recipe)
-            ArcanePedestalBlockEntity pedestal = InfusionProcessHelper.findComponentPedestal(report.componentPedestals(), componentSpec, recipe);
+            ArcanePedestalBlockEntity pedestal = InfusionProcessHelper.findComponentPedestal(report.componentPedestals(), componentSpec, recipe, worldPosition);
 
             if (pedestal != null) {
                 if (level instanceof ServerLevel serverLevel) {

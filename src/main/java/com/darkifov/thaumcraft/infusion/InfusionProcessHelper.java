@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,11 +164,16 @@ public final class InfusionProcessHelper {
     }
 
     public static BlockPos consumeOneAspectSource(List<EssentiaJarBlockEntity> jars, Aspect aspect) {
+        return consumeOneAspectSource(jars, aspect, null);
+    }
+
+    public static BlockPos consumeOneAspectSource(List<EssentiaJarBlockEntity> jars, Aspect aspect, BlockPos matrixPos) {
         if (aspect == null) {
             return null;
         }
 
-        for (EssentiaJarBlockEntity jar : jars) {
+        List<EssentiaJarBlockEntity> ordered = matrixPos == null ? jars : nearestJarOrder(jars, matrixPos);
+        for (EssentiaJarBlockEntity jar : ordered) {
             int removed = jar.aspects().removeUpTo(aspect, 1);
 
             if (removed > 0) {
@@ -177,6 +183,18 @@ public final class InfusionProcessHelper {
         }
 
         return null;
+    }
+
+    private static List<EssentiaJarBlockEntity> nearestJarOrder(List<EssentiaJarBlockEntity> jars, BlockPos matrixPos) {
+        List<EssentiaJarBlockEntity> ordered = new ArrayList<>(jars);
+        // v11.62: TC4 craftCycle source selection should not depend on BlockPos.betweenClosed iteration order.
+        // Prefer the closest valid jar/source to the matrix, then use coordinates only as a deterministic tie-breaker.
+        ordered.sort(Comparator
+                .comparingDouble((EssentiaJarBlockEntity jar) -> jar.getBlockPos().distSqr(matrixPos))
+                .thenComparingInt(jar -> jar.getBlockPos().getY())
+                .thenComparingInt(jar -> jar.getBlockPos().getX())
+                .thenComparingInt(jar -> jar.getBlockPos().getZ()));
+        return ordered;
     }
 
     public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
@@ -203,10 +221,15 @@ public final class InfusionProcessHelper {
     }
 
     public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, InfusionRecipe.ComponentSpec componentSpec, InfusionRecipe recipe) {
+        return findComponentPedestal(pedestals, componentSpec, recipe, null);
+    }
+
+    public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, InfusionRecipe.ComponentSpec componentSpec, InfusionRecipe recipe, BlockPos matrixPos) {
         if (componentSpec == null || componentSpec.itemId() == null) {
             return null;
         }
-        for (ArcanePedestalBlockEntity pedestal : pedestals) {
+        List<ArcanePedestalBlockEntity> ordered = matrixPos == null ? pedestals : nearestPedestalOrder(pedestals, matrixPos);
+        for (ArcanePedestalBlockEntity pedestal : ordered) {
             if (recipe == null) {
                 ResourceLocation id = ForgeRegistries.ITEMS.getKey(pedestal.stored().getItem());
                 if (componentSpec.itemId().equals(id)) {
@@ -217,6 +240,17 @@ public final class InfusionProcessHelper {
             }
         }
         return null;
+    }
+
+    private static List<ArcanePedestalBlockEntity> nearestPedestalOrder(List<ArcanePedestalBlockEntity> pedestals, BlockPos matrixPos) {
+        List<ArcanePedestalBlockEntity> ordered = new ArrayList<>(pedestals);
+        // v11.62: lock the concrete component source in a stable nearest-source order before ITEM_PULL_DELAY.
+        ordered.sort(Comparator
+                .comparingDouble((ArcanePedestalBlockEntity pedestal) -> pedestal.getBlockPos().distSqr(matrixPos))
+                .thenComparingInt(pedestal -> pedestal.getBlockPos().getY())
+                .thenComparingInt(pedestal -> pedestal.getBlockPos().getX())
+                .thenComparingInt(pedestal -> pedestal.getBlockPos().getZ()));
+        return ordered;
     }
 
     public static boolean consumeSingleComponent(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {

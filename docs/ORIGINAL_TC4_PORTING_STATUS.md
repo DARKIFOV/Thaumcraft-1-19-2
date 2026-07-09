@@ -114,3 +114,20 @@ Remaining estimate after Stage204: roughly 1–11 stages, mostly final golem AI/
 - Stage207: Infusion Matrix parity start. Matrix activation now mirrors original TC4 two-phase wand flow (`active` first, `crafting` second), validates center pedestal + four diagonal pillars before activation, stores original NBT aliases, exposes original symmetry penalty, separates essentia range 12 from craft-cycle delay 10, and delays component consumption by the original five-tick source-FX travel step.
 
 Remaining estimate after Stage207: roughly 1–9 stages, mostly Infusion Matrix renderer/output/enchantment parity, exact source FX packets, remaining failure effects, exact component ItemStack matching, and final full-regression sweep.
+
+## v11.62 compact batch
+
+- v11.62 locks TC4 infusion craft-cycle source ordering for essentia jars and component pedestals.
+- Essentia drain now uses a matrix-aware nearest-source order instead of raw world scan order.
+- Component pulls now choose the concrete source pedestal through the same stable nearest-source order before `ITEM_PULL_DELAY`; the existing travelling-component source stack/NBT lock still protects against mid-flight swaps.
+- Infusion drift ledger now marks `craftCycle source ordering` as parity-locked.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.
+- Estimated TC4 parity after v11.62: 90% complete / 10% remaining.
+
+
+## v11.62.1 hotfix
+
+- Fixed integrated-server startup crash when Arcane Workbench vanilla preview queried RecipeManager before ReloadableServerResources was attached.
+- Scope is runtime safety only; v11.62 infusion source ordering remains unchanged.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.1.
+- Estimated TC4 parity after v11.62.1: 90% complete / 10% remaining.

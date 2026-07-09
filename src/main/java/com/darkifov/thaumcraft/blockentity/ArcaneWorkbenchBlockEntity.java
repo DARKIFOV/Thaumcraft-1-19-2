@@ -299,11 +299,21 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
     }
 
     private Optional<CraftingRecipe> findMatchingVanillaCraftingRecipe() {
-        if (level == null) {
+        if (level == null || level.isClientSide) {
             return Optional.empty();
         }
-        CraftingContainer crafting = createCraftingContainer();
-        return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, crafting, level);
+
+        try {
+            CraftingContainer crafting = createCraftingContainer();
+            return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, crafting, level);
+        } catch (NullPointerException | IllegalStateException exception) {
+            // v11.62.1 hotfix: integrated server startup can call container/slot refresh
+            // before ReloadableServerResources is attached to MinecraftServer.
+            // In that short window vanilla preview must be skipped instead of
+            // crashing on MinecraftServer#getRecipeManager(). Arcane recipes are
+            // handled by our loaded TC4 registry and will refresh after startup.
+            return Optional.empty();
+        }
     }
 
     private CraftingContainer createCraftingContainer() {

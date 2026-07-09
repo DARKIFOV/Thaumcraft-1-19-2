@@ -1,3 +1,56 @@
+# Thaumcraft Legacy Rebuild — v11.62.1
+
+Compact batch after **v11.42.1**. This pass fixes the next high-impact TC4 drift area without changing progression or adding content: infusion craft-cycle source ordering for essentia jars and component pedestals.
+
+No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.
+
+## Porting status
+
+Estimated TC4 parity: **90% complete / 10% remaining**.
+
+
+## Hotfix v11.62.1
+
+- Fixed integrated-server startup crash caused by vanilla crafting-preview lookup before MinecraftServer has attached ReloadableServerResources.
+- Arcane Workbench now skips the vanilla preview during that early server bootstrap window instead of calling RecipeManager too early.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.1.
+
+## Changes in v11.62
+
+- **Infusion essentia source ordering**
+  - `InfusionMatrixBlockEntity` now drains essentia through a matrix-aware source-selection path.
+  - `InfusionProcessHelper.consumeOneAspectSource(...)` has a matrix-position overload.
+  - Valid jars are ordered by nearest distance to the matrix, then by deterministic Y/X/Z tie-breakers.
+  - This prevents source FX and drain choice from depending on `BlockPos.betweenClosed(...)` scan order.
+
+- **Infusion component source ordering**
+  - `InfusionProcessHelper.findComponentPedestal(...)` has a matrix-position overload for `ComponentSpec` pulls.
+  - The concrete pedestal source is selected in stable nearest-source order before `ITEM_PULL_DELAY` starts.
+  - The existing travelling-component lock remains active: after a pedestal is chosen, the final consume still requires the same locked pedestal stack/NBT.
+
+- **Drift ledger update**
+  - Infusion drift ledger now marks `craftCycle source ordering` as parity-locked.
+  - Remaining infusion drift is narrowed to micro-timing and uncommon recipe edges.
+
+## Audits
+
+Added:
+
+- `scripts/tc4_v11_62_infusion_source_order_audit.py`
+
+Verified locally:
+
+```bash
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_ci_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/tc4_v11_42_1_hotfix_axis_bonus_audit.py
+python3 scripts/tc4_v11_62_infusion_source_order_audit.py
+```
+
+Build note: the sandbox cannot download Gradle from `services.gradle.org`, so the actual jar build should be run in GitHub Actions or locally with network access.
+
+---
 # Thaumcraft Legacy Rebuild — v11.42.1 HOTFIX
 
 Hotfix is based on **v11.42** and keeps the porting status unchanged: **89% complete / 11% remaining**.

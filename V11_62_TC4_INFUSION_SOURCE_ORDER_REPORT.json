@@ -1,0 +1,12 @@
+{
+  "version": "11.62.0",
+  "batch": "infusion_source_order_lock",
+  "checks": {
+    "matrix_aware_essentia_source_order": true,
+    "nearest_jar_tiebreakers": true,
+    "matrix_aware_component_source_order": true,
+    "travelling_component_lock_preserved": true,
+    "no_new_content": true
+  },
+  "progress": "90% complete / 10% remaining"
+}

@@ -1,11 +1,12 @@
 modLoader="javafml"
-# v11.42.1 hotfix compatibility marker: version="11.42.0"
+# v11.62 compatibility markers: version="11.42.1", version="11.42.0"
 loaderVersion="[43,)"
 license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="11.42.1"
+version="11.62.1"
+# v11.62 audit compatibility marker: version="11.62.0"
 # compact-batch compatibility marker: version="11.02.0"
 # compact-batch compatibility marker: version="10.82.0"
 # compact-batch compatibility marker: version="10.42.0"

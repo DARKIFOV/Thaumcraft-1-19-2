@@ -386,6 +386,12 @@ jobs:
       - name: TC4 v11.42.1 hotfix axis/bonus audit
         run: python scripts/tc4_v11_42_1_hotfix_axis_bonus_audit.py
 
+      - name: TC4 v11.62 infusion source order audit
+        run: python scripts/tc4_v11_62_infusion_source_order_audit.py
+
+      - name: TC4 v11.62.1 integrated server startup hotfix audit
+        run: python scripts/tc4_v11_62_1_integrated_server_startup_hotfix_audit.py
+
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
