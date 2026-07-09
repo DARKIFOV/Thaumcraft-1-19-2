@@ -51,7 +51,7 @@ public class RequestResearchTableActionPacket {
                 table.openResearchNote(player);
             } else if (packet.action == TC4ResearchTableParity.ACTION_COMPLETE_SOLVED_NOTE) {
                 table.completeResearchNote(player);
-            } else if (TC4ResearchTableParity.isCopyAction(packet.action)) {
+            } else if (packet.action == 3 || packet.action == 5 || TC4ResearchTableParity.isCopyAction(packet.action)) {
                 table.copyCompletedResearchNote(player);
             }
         });

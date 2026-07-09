@@ -4,6 +4,15 @@ Compact batch after **v11.22**. This pass is a stricter original-comparison clea
 
 No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.42.
 
+
+## v11.42 GitHub Actions hotfix 2
+
+- Fixed Stage168 audit failure in `RequestResearchTableActionPacket` where the CI audit required the original TC4 container copy action id `5` to be accepted explicitly.
+- The packet now accepts copy ids `3` and `5` and routes them to `copyCompletedResearchNote(...)`.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added.
+
+Verified locally: `java_syntax_guard.py`, `github_ci_guard.py`, `github_static_audit.py`, `tc4_stage168_research_dupe_copy_audit.py`, and `tc4_v11_42_node_failure_tube_golem_audit.py`.
+
 ## Porting status
 
 Estimated TC4 parity: **89% complete / 11% remaining**.
@@ -44,6 +53,15 @@ Compatibility progress markers retained: 75% complete / 25% remaining; 76% compl
 Compact batch after **v10.82**. The goal of this batch is stricter TC4 original-comparison parity in three places that can silently drift even when token audits pass: terminal infusion failure severity, natural aura node profile generation, and sorting-core target discovery.
 
 No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.02. This batch only tightens existing runtime logic and adds behaviour-focused audits.
+
+
+## v11.42 GitHub Actions hotfix 2
+
+- Fixed Stage168 audit failure in `RequestResearchTableActionPacket` where the CI audit required the original TC4 container copy action id `5` to be accepted explicitly.
+- The packet now accepts copy ids `3` and `5` and routes them to `copyCompletedResearchNote(...)`.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added.
+
+Verified locally: `java_syntax_guard.py`, `github_ci_guard.py`, `github_static_audit.py`, `tc4_stage168_research_dupe_copy_audit.py`, and `tc4_v11_42_node_failure_tube_golem_audit.py`.
 
 ## Porting status
 

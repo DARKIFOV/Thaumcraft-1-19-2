@@ -32,6 +32,27 @@ python3 scripts/tc4_v11_42_node_failure_tube_golem_audit.py
 
 For a broader confidence pass, run the compact chain from v7.62 through v11.42.
 
+
+## GitHub Actions hotfix 2
+
+Fixed the Stage168 CI audit failure:
+
+```text
+RequestResearchTableActionPacket does not accept original container copy action id 5
+```
+
+`RequestResearchTableActionPacket` now explicitly accepts both copy action ids `3` and `5` before routing to `copyCompletedResearchNote(...)`.
+
+Verified:
+
+```bash
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_ci_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/tc4_stage168_research_dupe_copy_audit.py
+python3 scripts/tc4_v11_42_node_failure_tube_golem_audit.py
+```
+
 ## Expected jar build
 
 Use GitHub Actions or a local machine with network access for Gradle wrapper downloads. The sandbox may fail to resolve `services.gradle.org`.
