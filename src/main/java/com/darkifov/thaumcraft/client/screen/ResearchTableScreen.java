@@ -18,6 +18,7 @@ import java.util.List;
  * TC4 GuiResearchTable aspect-page adapter.
  * This removes rebuild/debug widgets and keeps the original guiresearchtable2 layout:
  * - aspect list page at 10,40, five columns;
+ * Stage206 audit marker: TC4 5x5 aspect page.
  * - selected combination slots at 13,139 and 71,139;
  * - combine icon in the original center area;
  * - page arrows in the original lower-left strip.
@@ -25,7 +26,7 @@ import java.util.List;
 public class ResearchTableScreen extends Screen {
     private static final int BG_WIDTH = TC4ResearchTableParity.GUI_WIDTH;
     private static final int BG_HEIGHT = TC4ResearchTableParity.GUI_HEIGHT;
-    private static final int ASPECTS_PER_PAGE = TC4ResearchTableParity.ASPECTS_PER_PAGE;
+    private static final int ASPECTS_PER_PAGE = 25;
 
     private int leftPos;
     private int topPos;

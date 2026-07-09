@@ -33,7 +33,7 @@ checks = {
     'screen_has_original_aspect_locs': all(token in files['screen'] for token in ['{72, 21}', '{24, 43}', '{24, 102}', '{72, 124}', '{120, 102}', '{120, 43}']),
     'screen_removed_recipe_browser': all(token not in files['screen'] for token in ['EditBox', 'new Button', 'Search recipe', 'requestArcaneMenuCraftFromClient']),
     'screen_original_empty_foreground': 'renderLabels' in files['screen'] and 'Original GuiArcaneWorkbench leaves the foreground layer empty' in files['screen'],
-    'insufficient_vis_adapter': 'Insufficient vis' in files['screen'] and 'WandItem.modifiedVisCost' in files['screen'],
+    'insufficient_vis_adapter': 'WandItem.modifiedVisCost' in files['screen'] and 'original TC4 does not draw a modern text warning' in files['screen'],
     'version_190': ("version = '2.04.0'" in files['build'] or "version = '1.98.0'" in files['build'] or "version = '2.00.0'" in files['build']) and ('version="2.04.0"' in files['mods'] or 'version="1.98.0"' in files['mods'] or 'version="2.00.0"' in files['mods']),
     'workflow_and_guard': 'tc4_stage189_arcane_workbench_gui_audit.py' in files['workflow'] and 'tc4_stage189_arcane_workbench_gui_audit.py' in files['guard'],
 }

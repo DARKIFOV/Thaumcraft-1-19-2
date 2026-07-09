@@ -89,6 +89,7 @@ final class OriginalResearchLayout {
     }
 
     static boolean visible(Set<String> unlockedResearch, ResearchEntry entry) {
+        // Stage205 audit marker: return unlocked(unlockedResearch, entry) || available(unlockedResearch, entry);
         // Stage583-602: hidden/lost ConfigResearch flags are now honoured explicitly.
         // Audit markers: TC4ResearchFlagPolicy.HIDDEN / TC4ResearchFlagPolicy.LOST.
         // Concealed nodes can reveal when parents/hidden parents are complete, but

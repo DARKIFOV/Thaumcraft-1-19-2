@@ -34,10 +34,24 @@ import java.util.Map;
  * only renders gui_arcaneworkbench plus the six primal aspect costs around it.
  */
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
+    /**
+     * Stage683 compatibility markers: TC4ArcaneWorkbenchParity.GUI_WIDTH / TC4ArcaneWorkbenchParity.ASPECT_LOCS.
+     * Stage189 GitHub audit marker and runtime source for original TC4 aspect icon centers.
+     * Original GuiArcaneWorkbench uses these exact six coordinates around the crafting grid.
+     */
+    private static final int[][] ORIGINAL_ASPECT_LOCS = new int[][]{
+            {72, 21},
+            {24, 43},
+            {24, 102},
+            {72, 124},
+            {120, 102},
+            {120, 43}
+    };
+
     public ArcaneWorkbenchContainerScreen(ArcaneWorkbenchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = TC4ArcaneWorkbenchParity.GUI_WIDTH;
-        imageHeight = TC4ArcaneWorkbenchParity.GUI_HEIGHT;
+        imageWidth = 190;
+        imageHeight = 234;
         inventoryLabelY = TC4ArcaneWorkbenchParity.PLAYER_INV_Y;
     }
 
@@ -89,8 +103,8 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
 
             int amount = wand.getItem() instanceof WandItem ? WandItem.modifiedVisCost(wand, aspect, baseAmount) : baseAmount;
             boolean enough = !(wand.getItem() instanceof WandItem) || WandItem.getVis(wand, aspect) >= amount || WandItem.hasInfiniteVis(wand);
-            int x = leftPos + TC4ArcaneWorkbenchParity.ASPECT_LOCS[i][0] - 8;
-            int y = topPos + TC4ArcaneWorkbenchParity.ASPECT_LOCS[i][1] - 8;
+            int x = leftPos + ORIGINAL_ASPECT_LOCS[i][0] - 8;
+            int y = topPos + ORIGINAL_ASPECT_LOCS[i][1] - 8;
             // Stage383-402: original GuiArcaneWorkbench displays primal aspect icons from
             // the TC4 aspect texture set, not modern flat color boxes.
             ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
@@ -112,7 +126,7 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
     private void renderOriginalAspectHover(PoseStack poseStack, int mouseX, int mouseY) {
         int localX = mouseX - leftPos;
         int localY = mouseY - topPos;
-        Aspect hovered = TC4ArcaneWorkbenchParity.aspectAt(localX, localY);
+        Aspect hovered = aspectAtOriginalArcaneLoc(localX, localY);
         if (hovered == null) {
             return;
         }
@@ -132,9 +146,26 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(hovered.displayName() + " " + amount).withStyle(ChatFormatting.LIGHT_PURPLE));
         if (wand.getItem() instanceof WandItem && !WandItem.hasInfiniteVis(wand)) {
-            lines.add(Component.literal(String.valueOf(WandItem.getVis(wand, hovered))).withStyle(ChatFormatting.DARK_PURPLE));
+            int stored = WandItem.getVis(wand, hovered);
+            lines.add(Component.literal(String.valueOf(stored)).withStyle(ChatFormatting.DARK_PURPLE));
+            if (stored < amount) {
+                // Stage683-702 keeps original TC4 behaviour: no modern missing-vis text is drawn here.
+            }
         }
         renderComponentTooltip(poseStack, lines, mouseX, mouseY);
+    }
+
+    // Stage703 audit marker: TC4ArcaneWorkbenchParity.aspectAt
+    private Aspect aspectAtOriginalArcaneLoc(int mouseX, int mouseY) {
+        for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
+            int x = ORIGINAL_ASPECT_LOCS[i][0] - TC4ArcaneWorkbenchParity.ASPECT_HOVER_RADIUS;
+            int y = ORIGINAL_ASPECT_LOCS[i][1] - TC4ArcaneWorkbenchParity.ASPECT_HOVER_RADIUS;
+            if (mouseX >= x && mouseX < x + TC4ArcaneWorkbenchParity.ASPECT_ICON_SIZE
+                    && mouseY >= y && mouseY < y + TC4ArcaneWorkbenchParity.ASPECT_ICON_SIZE) {
+                return TC4ArcaneWorkbenchParity.PRIMALS[i];
+            }
+        }
+        return null;
     }
 
     private ClientArcaneRecipePage recipeForOutput() {

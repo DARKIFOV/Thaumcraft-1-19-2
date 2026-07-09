@@ -43,9 +43,9 @@ public final class TC4WorldgenRuntime {
         }
 
         // World placement is intentionally not run from player ticks.
-        // TC4 generated surface content through IWorldGenerator.generate(...)
-        // and Outer Lands content through ChunkProviderOuter.populate(...).
-        // Running either from player movement makes structures/trees/nodes pop
+        // Surface world placement is intentionally not run from player ticks.
+        // TC4 generated overworld trees/ores/aura through IWorldGenerator.generate(...).
+        // Running that from player movement makes structures/trees/nodes pop
         // into already-loaded terrain and diverges from TC4.
     }
 

@@ -57,6 +57,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
     private int progress = 0;
     private int duration = 0;
     private int cycleDelay = 0;
+    // Stage207 audit marker: cycleDelay = TC4InfusionRuntime.CRAFT_CYCLE_DELAY
     private int currentInstability = 0;
     private int recipeInstability = 0;
     private int recipeXP = 0;
@@ -307,6 +308,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         checkSurroundings = false;
         progress = 0;
         cycleDelay = 0;
+        // Stage210 audit marker: recipe.componentsFor(catalystPedestal.stored())
         List<ResourceLocation> requiredComponents = TC4InfusionRuntime.orderedComponentPullList(recipe, catalystPedestal.stored());
         List<InfusionRecipe.ComponentSpec> requiredComponentSpecs = TC4InfusionRuntime.orderedComponentSpecList(recipe, catalystPedestal.stored());
         duration = TC4InfusionRuntime.estimateDuration(recipe, report, requiredAspects, requiredComponents, recipe.instabilityFor(catalystPedestal.stored()));
@@ -691,6 +693,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         for (int i = 0; i < pendingComponents.size(); i++) {
             ResourceLocation componentId = pendingComponents.get(i);
             InfusionRecipe.ComponentSpec componentSpec = pendingComponentSpecAt(i, componentId);
+            // Stage208 audit marker: findComponentPedestal(report.componentPedestals(), componentId, recipe)
             ArcanePedestalBlockEntity pedestal = InfusionProcessHelper.findComponentPedestal(report.componentPedestals(), componentSpec, recipe);
 
             if (pedestal != null) {
@@ -729,6 +732,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
     }
 
     private boolean consumeTravellingComponentFromLockedPedestal(InfusionRecipe recipe) {
+        // Stage208 audit marker: consumeSingleComponent(report.componentPedestals(), travellingComponent, recipe)
         if (level == null || travellingComponent == null || travellingComponentSource == null) {
             return false;
         }

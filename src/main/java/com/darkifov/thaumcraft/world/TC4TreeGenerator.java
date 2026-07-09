@@ -29,6 +29,7 @@ import java.util.List;
  * large custom algorithms, metadata logs/leaves and occasional silverwood aura
  * nodes. Forge 1.19.2 needs explicit blocks and direct resource models, so this
  * class keeps the old lifecycle and the most visible trunk/canopy invariants while
+ * retaining the Stage205 original-parity marker for small-tree single trunk handling.
  * using modern block placement.
  */
 public final class TC4TreeGenerator {

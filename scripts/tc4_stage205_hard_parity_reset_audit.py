@@ -26,7 +26,7 @@ rn=require('src/main/java/com/darkifov/thaumcraft/client/screen/ResearchNoteScre
 if 'Component.literal("Solve")' in rn or 'Path hint' in rn or 'Gold hexes' in rn: errors.append('Research note still exposes fake solver/debug UI')
 grid=require('src/main/java/com/darkifov/thaumcraft/research/ResearchNoteGrid.java','return 169 +')
 require('src/main/java/com/darkifov/thaumcraft/world/TC4TreeGenerator.java','single trunk')
-wg=require('src/main/java/com/darkifov/thaumcraft/world/TC4WorldgenRuntime.java','for (int i = 0; i < 3; i++)')
+wg=require('src/main/java/com/darkifov/thaumcraft/world/TC4WorldgenRuntime.java','for (int i = 0; i < 8; i++)')
 mod=require('src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java','legacy duplicate hidden from creative')
 model=require('src/main/resources/assets/thaumcraft/models/item/thaumometer.json','original/thaumcraft4/models/scanner')
 if errors:

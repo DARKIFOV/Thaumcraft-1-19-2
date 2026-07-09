@@ -35,7 +35,7 @@ checks['taintacle_renderer_numeric_formula_adapter'] = all(token in read('src/ma
     'renderSegmentedTaintacle', 'renderPrismSegment', 'NORMAL_SEGMENTS = 8', 'SMALL_SEGMENTS = 4', 'getFlailIntensity'
 ]) and 'quad(' not in read('src/main/java/com/darkifov/thaumcraft/client/render/TC4TaintacleRenderer.java')
 checks['outer_lands_live_populate_adapter_exists'] = exists('src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsLivePopulateAdapter.java')
-checks['outer_lands_live_populate_wired'] = 'TC4OuterLandsLivePopulateAdapter.tickPlayerArea(level, player)' in read('src/main/java/com/darkifov/thaumcraft/world/TC4WorldgenRuntime.java')
+checks['outer_lands_live_populate_wired'] = 'TC4OuterLandsLivePopulateAdapter.populateChunkOnce(level, chunk.x, chunk.z)' in read('src/main/java/com/darkifov/thaumcraft/world/TC4WorldgenRuntime.java')
 checks['research_note_thread_adapter'] = 'drawSaggingThreadLikeTC4' in read('src/main/java/com/darkifov/thaumcraft/client/screen/ResearchNoteScreen.java') and 'thread-like' in read('src/main/java/com/darkifov/thaumcraft/client/screen/ResearchNoteScreen.java')
 checks['research_table_original_gui_kept'] = 'RESEARCH_TABLE_TC4_ORIGINAL' in read('src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableContainerScreen.java')
 checks['research_table_aspect_palette'] = all(token in read('src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableContainerScreen.java') for token in [

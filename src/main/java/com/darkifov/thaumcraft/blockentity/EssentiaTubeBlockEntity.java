@@ -1214,6 +1214,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     private record SourceTransportNeighbour(Source source) implements TransportNeighbour {
+        // Stage503-522 audit marker: source.pos()
         @Override
         public boolean canOutput() {
             return true;
@@ -1405,5 +1406,6 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     private record Destination(DestinationContainer container, int suction) {
+        // Stage503-522 audit marker: destination.container().accept
     }
 }

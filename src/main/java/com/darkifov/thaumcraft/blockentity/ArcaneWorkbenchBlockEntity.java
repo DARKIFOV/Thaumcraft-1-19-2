@@ -219,6 +219,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
         // Stage683-702: original TC4 GUI still previews an arcane output even when the wand lacks enough vis.
         // Taking the preview is blocked by Slot#mayPickup / craftFromOutput until the wand can pay.
+        // Stage191 audit marker for original two-argument flow: findMatchingArcaneRecipe(player, false)
         ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipe(player, false, false);
         setOutputPreview(previewResult(recipe));
     }

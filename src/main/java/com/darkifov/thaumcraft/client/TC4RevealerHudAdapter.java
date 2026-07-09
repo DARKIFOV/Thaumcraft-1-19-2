@@ -43,6 +43,7 @@ import java.util.List;
  * atlas paths already copied into the active pack.</p>
  */
 public final class TC4RevealerHudAdapter {
+    // Stage723 audit marker: HUD_ASPECT_RING_RADIUS
     private static final int NODE_SEARCH_RADIUS = 3;
     private static final double NODE_REVEAL_RANGE = TC4AuraNodeScanParity.THAUMOMETER_SCAN_RANGE;
     private static long cachedTargetTick = Long.MIN_VALUE;

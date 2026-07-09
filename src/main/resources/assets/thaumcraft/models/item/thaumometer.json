@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:builtin/entity",
   "textures": {
-    "particle": "thaumcraft:item/thaumometer"
+    "particle": "thaumcraft:original/thaumcraft4/models/scanner"
   }
 }
