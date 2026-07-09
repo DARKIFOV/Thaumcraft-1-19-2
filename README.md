@@ -1,4 +1,4 @@
-# Thaumcraft Legacy Rebuild — v11.62.1
+# Thaumcraft Legacy Rebuild — v11.62.2
 
 Compact batch after **v11.42.1**. This pass fixes the next high-impact TC4 drift area without changing progression or adding content: infusion craft-cycle source ordering for essentia jars and component pedestals.
 
@@ -8,6 +8,15 @@ No new items, blocks, recipes, progression, GUI, or invented mechanics were adde
 
 Estimated TC4 parity: **90% complete / 10% remaining**.
 
+
+## Hotfix v11.62.2
+
+- Fixes integrated-server infinite loading / stuck terrain screen caused by running TC4 surface worldgen directly inside `ChunkEvent.Load` while spawn chunks are still being bootstrapped.
+- `CommonEvents.onChunkLoad` now queues TC4 surface population instead of executing it synchronously.
+- `TC4WorldgenRuntime.drainDeferredChunkQueue` drains at most one queued chunk per level tick and only after a player exists in the level.
+- Existing v11.62 infusion source ordering and v11.62.1 RecipeManager startup guard are unchanged.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.2.
+- Estimated TC4 parity after v11.62.2: 90% complete / 10% remaining.
 
 ## Hotfix v11.62.1
 

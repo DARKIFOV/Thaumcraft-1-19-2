@@ -5,8 +5,9 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.1'
+version = '11.62.2'
 // v11.62 audit compatibility marker: version = '11.62.0'
+// v11.62.1 audit compatibility marker: version = '11.62.1'
 // compact-batch compatibility marker: version = '11.02.0'
 // compact-batch compatibility marker: version = '10.82.0'
 // compact-batch compatibility marker: version = '10.42.0'

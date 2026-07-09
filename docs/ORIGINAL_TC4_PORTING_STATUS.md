@@ -131,3 +131,11 @@ Remaining estimate after Stage207: roughly 1–9 stages, mostly Infusion Matrix 
 - Scope is runtime safety only; v11.62 infusion source ordering remains unchanged.
 - No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.1.
 - Estimated TC4 parity after v11.62.1: 90% complete / 10% remaining.
+
+## v11.62.2 hotfix
+
+- Fixes integrated-server infinite loading / stuck terrain screen by deferring TC4 surface worldgen out of `ChunkEvent.Load`.
+- Queued chunks are drained after a player has joined the level, one chunk per tick, so spawn bootstrap is not blocked.
+- v11.62 infusion source ordering and v11.62.1 RecipeManager startup guard remain unchanged.
+- No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.62.2.
+- Estimated TC4 parity after v11.62.2: 90% complete / 10% remaining.

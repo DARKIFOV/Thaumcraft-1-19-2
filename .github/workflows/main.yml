@@ -392,6 +392,9 @@ jobs:
       - name: TC4 v11.62.1 integrated server startup hotfix audit
         run: python scripts/tc4_v11_62_1_integrated_server_startup_hotfix_audit.py
 
+      - name: TC4 v11.62.2 integrated server world-load hotfix audit
+        run: python scripts/tc4_v11_62_2_integrated_server_world_load_hotfix_audit.py
+
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:

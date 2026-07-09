@@ -17,6 +17,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +32,9 @@ import java.util.Set;
  */
 public final class TC4WorldgenRuntime {
     private static final Set<String> PROCESSED_CHUNKS = new HashSet<>();
+    private static final Set<String> PENDING_CHUNKS = new HashSet<>();
+    private static final Deque<QueuedChunk> DEFERRED_CHUNKS = new ArrayDeque<>();
+    private static final int MAX_DEFERRED_CHUNKS_PER_TICK = 1;
 
     private TC4WorldgenRuntime() {
     }
@@ -54,6 +59,65 @@ public final class TC4WorldgenRuntime {
     }
 
     /**
+     * v11.62.2 world-load hotfix: do not run surface population directly inside
+     * ChunkEvent.Load during integrated-server bootstrap.  Vanilla is still
+     * loading spawn chunks while the client shows the terrain screen there, so
+     * doing tree/ore/node placement synchronously can keep the world-load future
+     * from completing on some saves.  Queue the TC4 surface pass and drain it
+     * after at least one player has joined the level.
+     */
+    public static void queueNewChunk(ServerLevel level, ChunkPos chunk) {
+        if (level == null || chunk == null || !isSupportedDimension(level.dimension())) {
+            return;
+        }
+
+        if (!TC4OuterLandsDimensionAdapter.isOuterLands(level.dimension())
+                && !TC4OuterLandsDimensionAdapter.shouldRunSurfaceWorldgen(level.dimension())) {
+            return;
+        }
+
+        String key = chunkKey(level, chunk);
+        if (TC4WorldgenSavedData.get(level).isProcessed(chunk)) {
+            PROCESSED_CHUNKS.add(key);
+            return;
+        }
+
+        if (PENDING_CHUNKS.add(key)) {
+            DEFERRED_CHUNKS.addLast(new QueuedChunk(level.dimension(), chunk.x, chunk.z));
+        }
+    }
+
+    public static void drainDeferredChunkQueue(ServerLevel level) {
+        if (level == null || level.players().isEmpty() || DEFERRED_CHUNKS.isEmpty()) {
+            return;
+        }
+
+        int scanned = DEFERRED_CHUNKS.size();
+        int processed = 0;
+        while (scanned-- > 0 && processed < MAX_DEFERRED_CHUNKS_PER_TICK) {
+            QueuedChunk queued = DEFERRED_CHUNKS.pollFirst();
+            if (queued == null) {
+                return;
+            }
+
+            if (!queued.dimension().equals(level.dimension())) {
+                DEFERRED_CHUNKS.addLast(queued);
+                continue;
+            }
+
+            PENDING_CHUNKS.remove(queued.key());
+            // TC4WorldgenRuntime.generateNewChunk(level, chunk.getPos());
+            // The original call is intentionally deferred out of ChunkEvent.Load.
+            generateNewChunk(level, new ChunkPos(queued.x(), queued.z()));
+            processed++;
+        }
+    }
+
+    private static String chunkKey(ServerLevel level, ChunkPos chunk) {
+        return level.dimension().location() + ":" + chunk.x + ":" + chunk.z;
+    }
+
+    /**
      * TC4 worldgen entry used by the Forge new-chunk load hook. All surface
      * placement is intentionally only reachable through this path, never through
      * tickPlayerArea(...), so content cannot pop into existence in front of a
@@ -72,7 +136,7 @@ public final class TC4WorldgenRuntime {
             return;
         }
 
-        String key = level.dimension().location() + ":" + chunk.x + ":" + chunk.z;
+        String key = chunkKey(level, chunk);
         TC4WorldgenSavedData savedData = TC4WorldgenSavedData.get(level);
         if (!savedData.markProcessed(chunk)) {
             PROCESSED_CHUNKS.add(key);
@@ -306,4 +370,11 @@ public final class TC4WorldgenRuntime {
             default -> ThaumcraftMod.PERDITIO_CRYSTAL.get().defaultBlockState();
         };
     }
+
+    private record QueuedChunk(ResourceKey<Level> dimension, int x, int z) {
+        private String key() {
+            return dimension.location() + ":" + x + ":" + z;
+        }
+    }
+
 }

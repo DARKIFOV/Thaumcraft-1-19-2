@@ -46,7 +46,7 @@ public final class CommonEvents {
         if (!(event.getChunk() instanceof LevelChunk chunk) || !(chunk.getLevel() instanceof ServerLevel level)) {
             return;
         }
-        TC4WorldgenRuntime.generateNewChunk(level, chunk.getPos());
+        TC4WorldgenRuntime.queueNewChunk(level, chunk.getPos());
     }
 
     @SubscribeEvent
@@ -54,6 +54,8 @@ public final class CommonEvents {
         if (event.phase != TickEvent.Phase.END || event.level.isClientSide || !(event.level instanceof ServerLevel level)) {
             return;
         }
+        TC4WorldgenRuntime.drainDeferredChunkQueue(level);
+
         for (ServerPlayer player : level.players()) {
             TC4RunicShieldRuntime.tick(player);
         }
