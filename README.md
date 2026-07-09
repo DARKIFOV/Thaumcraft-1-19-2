@@ -1,3 +1,33 @@
+# Thaumcraft Legacy Rebuild — v11.42.1 HOTFIX
+
+Hotfix is based on **v11.42** and keeps the porting status unchanged: **89% complete / 11% remaining**.
+
+No new items, blocks, recipes, progression, or invented mechanics were added.
+
+## v11.42.1 GitHub Actions hotfix
+
+- Fixed the Stage170 CI audit failure: `ResearchTableContainerScreen must display table bonus aspects`.
+- `ResearchTableContainerScreen` now renders/keeps original-style table bonus aspect icons and also shows a proper `Bonus ...` tooltip using `bonusSummary()`.
+- Kept the previous Stage168 copy-id fix: `RequestResearchTableActionPacket` accepts TC4 copy action ids `3` and `5`.
+- Kept the log-axis resource fix for `greatwood_log` and `silverwood_log`: blockstates now include `axis=y`, `axis=x`, and `axis=z`, with horizontal log models.
+- Project/mod metadata raised to **11.42.1** while retaining compatibility markers for older audits.
+
+Verified locally:
+
+```bash
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_ci_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/tc4_stage168_research_dupe_copy_audit.py
+python3 scripts/tc4_stage170_research_table_bonus_sync_audit.py
+python3 scripts/tc4_v11_42_node_failure_tube_golem_audit.py
+python3 scripts/tc4_v11_42_1_hotfix_axis_bonus_audit.py
+```
+
+Build note: the sandbox cannot download Gradle from `services.gradle.org`, so the actual jar build should be run in GitHub Actions or locally with network access.
+
+---
+
 # Thaumcraft Legacy Rebuild — v11.42
 
 Compact batch after **v11.22**. This pass is a stricter original-comparison cleanup for node aura value generation, infusion instability side effects, tube connectability diagnostics, and sorting golem marked inventories.

@@ -1,3 +1,41 @@
+# GitHub upload notes — v11.42.1 HOTFIX
+
+Upload/replace the repository contents with this archive and push to `main`. This hotfix is intended to clear the current GitHub Actions failure.
+
+Current failing annotation fixed:
+
+```text
+ResearchTableContainerScreen must display table bonus aspects
+```
+
+Main files changed:
+
+- `src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableContainerScreen.java`
+- `src/main/resources/assets/thaumcraft/blockstates/greatwood_log.json`
+- `src/main/resources/assets/thaumcraft/blockstates/silverwood_log.json`
+- `src/main/resources/assets/thaumcraft/models/block/greatwood_log_horizontal.json`
+- `src/main/resources/assets/thaumcraft/models/block/silverwood_log_horizontal.json`
+- `.github/workflows/main.yml`
+- `scripts/tc4_v11_42_1_hotfix_axis_bonus_audit.py`
+- `build.gradle`
+- `src/main/resources/META-INF/mods.toml`
+
+Required checks run locally:
+
+```bash
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_ci_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/tc4_stage168_research_dupe_copy_audit.py
+python3 scripts/tc4_stage170_research_table_bonus_sync_audit.py
+python3 scripts/tc4_v11_42_node_failure_tube_golem_audit.py
+python3 scripts/tc4_v11_42_1_hotfix_axis_bonus_audit.py
+```
+
+Progress remains **89% complete / 11% remaining**.
+
+---
+
 # GitHub upload notes — v11.42
 
 Upload the contents of this folder to GitHub as the next compact batch after `v11.22`.

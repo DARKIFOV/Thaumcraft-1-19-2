@@ -1,10 +1,11 @@
 plugins {
+// v11.42.1 hotfix compatibility marker: version = '11.42.0'
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.42.0'
+version = '11.42.1'
 // compact-batch compatibility marker: version = '11.02.0'
 // compact-batch compatibility marker: version = '10.82.0'
 // compact-batch compatibility marker: version = '10.42.0'

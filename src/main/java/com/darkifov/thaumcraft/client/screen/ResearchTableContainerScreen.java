@@ -319,6 +319,27 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
         // across the copied guiresearchtable2.png; item/aspect tooltips still come
         // from the normal hovered stack/aspect paths.
         renderAspectTooltips(poseStack, mouseX, mouseY);
+        renderBonusAspectTooltips(poseStack, mouseX, mouseY);
+    }
+
+    private void renderBonusAspectTooltips(PoseStack poseStack, int mouseX, int mouseY) {
+        AspectList bonus = menu.tableBonusAspects();
+        if (bonus.isEmpty()) {
+            return;
+        }
+        int shown = 0;
+        for (java.util.Map.Entry<Aspect, Integer> entry : bonus.entries().entrySet()) {
+            if (entry.getValue() <= 0 || shown >= 8) {
+                continue;
+            }
+            int x = leftPos + 144 + (shown % 4) * 18;
+            int y = topPos + 33 + (shown / 4) * 18;
+            if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
+                renderTooltip(poseStack, Component.literal("Bonus " + entry.getKey().displayName() + " +" + entry.getValue() + " | " + bonusSummary()), mouseX, mouseY);
+                return;
+            }
+            shown++;
+        }
     }
 
     private boolean inOriginalNoteSlot(double mouseX, double mouseY) {

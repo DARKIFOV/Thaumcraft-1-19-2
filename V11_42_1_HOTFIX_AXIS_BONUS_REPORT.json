@@ -1,0 +1,10 @@
+{
+  "version": "11.42.1",
+  "hotfix": "log_axis_resource_and_research_table_bonus_display",
+  "checks": {
+    "greatwood_log_axis_variants": true,
+    "silverwood_log_axis_variants": true,
+    "research_table_bonus_display": true
+  },
+  "progress": "89% complete / 11% remaining"
+}
