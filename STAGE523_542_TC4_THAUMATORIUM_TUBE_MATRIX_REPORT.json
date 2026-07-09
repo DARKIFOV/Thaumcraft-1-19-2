@@ -1,0 +1,39 @@
+{
+  "stage": "523-542",
+  "base": "STAGE503_522_TC4_ESSENTIA_THAUMATORIUM_RESERVOIR_1192",
+  "version": "5.42.0",
+  "scope": [
+    "Thaumatorium GUI/menu adapter",
+    "Mnemonic Matrix runtime replacement",
+    "Essentia tube network parity tightening",
+    "Recipe resolver cleanup for blockMetalDevice meta 12"
+  ],
+  "changes": [
+    "Added thaumcraft:mnemonic_matrix as runtime replacement for original ConfigBlocks.blockMetalDevice meta 12.",
+    "Moved tc4_mnemonicmatrix arcane recipe output from thaumcraft:tc4_block_mnemonic_matrix to thaumcraft:mnemonic_matrix.",
+    "Quarantined old tc4_block_mnemonic_matrix mirror placeholder from creative exposure.",
+    "Added Thaumatorium MenuProvider, ThaumatoriumMenu and ThaumatoriumScreen using original gui_thaumatorium.png.",
+    "Added selected formula NBT and mnemonic-matrix-gated formula candidate display/selection state.",
+    "Added shift-empty-hand formula cycling and empty-hand GUI open while preserving catalyst insert/extract path.",
+    "Tightened TC4EssentiaNetworkRuntime to respect sideAllows, one-way traversal, valve/filter gates and tube buffer storage."
+  ],
+  "explicit_adapters": [
+    "ThaumatoriumMenu is a Forge 1.19.2 adapter for original ContainerThaumatorium; no modern recipe browser or fake grid was added.",
+    "ThaumatoriumScreen displays formula slots/client state but full original clickable packet logic remains for next stage.",
+    "Mnemonic Matrix runtime block is an original TC4 block replacement; geometry is still cube_all brainbox adapter until original model render is ported."
+  ],
+  "not_done_yet": [
+    "Clickable Thaumatorium formula hotzones packet.",
+    "Exact GuiThaumatorium pixel/slot parity and sounds/FX.",
+    "Full Mnemonic Matrix renderer with original brainbox/brain2 model behaviour.",
+    "Exact TileTubeRestrict/Buffer/Valve suction edge cases."
+  ],
+  "audits": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage503_522_essentia_thaumatorium_reservoir_audit.py",
+    "tc4_stage523_542_thaumatorium_tube_matrix_audit.py"
+  ],
+  "gradle": "Not run in sandbox: Gradle wrapper still cannot download Gradle 7.5.1 because DNS/network access is unavailable."
+}

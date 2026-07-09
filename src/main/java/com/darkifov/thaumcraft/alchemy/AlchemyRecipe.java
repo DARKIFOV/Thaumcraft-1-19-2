@@ -44,6 +44,14 @@ public class AlchemyRecipe {
         return catalystItemId;
     }
 
+    public ResourceLocation resultItemId() {
+        return resultItemId;
+    }
+
+    public int resultCount() {
+        return resultCount;
+    }
+
     public String research() {
         return research;
     }

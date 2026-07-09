@@ -256,6 +256,129 @@ jobs:
       - name: TC4 Stage215 eldritch boss/champion audit
         run: python scripts/tc4_stage215_eldritch_boss_champion_audit.py
 
+      - name: TC4 Stage323-342 original parity cleanup audit
+        run: python scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py
+
+      - name: TC4 Stage343-362 infusion/node/thaumonomicon audit
+        run: python scripts/tc4_stage343_362_super_mega_infusion_node_thaumonomicon_audit.py
+
+      - name: TC4 Stage363-382 original visual/runtime parity audit
+        run: python scripts/tc4_stage363_382_original_visual_runtime_parity_audit.py
+
+      - name: TC4 Stage383-402 original asset/gui/revealer audit
+        run: python scripts/tc4_stage383_402_original_asset_gui_revealer_audit.py
+
+      - name: TC4 Stage403-422 original model/gui/texture audit
+        run: python scripts/tc4_stage403_422_original_model_gui_texture_audit.py
+
+      - name: TC4 Stage423-442 original visual/atlas audit
+        run: python scripts/tc4_stage423_442_original_visual_atlas_audit.py
+
+      - name: TC4 Stage443-462 original GUI/revealer/wand audit
+        run: python scripts/tc4_stage443_462_original_gui_revealer_wand_audit.py
+
+      - name: TC4 Stage463-482 parity audit and creative research audit
+        run: python scripts/tc4_stage463_482_parity_audit_creative_research_audit.py
+
+      - name: TC4 Stage483-502 essentia distillation parity audit
+        run: python scripts/tc4_stage483_502_essentia_distillation_parity_audit.py
+
+      - name: TC4 Stage503-522 essentia thaumatorium reservoir audit
+        run: python scripts/tc4_stage503_522_essentia_thaumatorium_reservoir_audit.py
+
+      - name: TC4 Stage523-542 thaumatorium tube matrix audit
+        run: python scripts/tc4_stage523_542_thaumatorium_tube_matrix_audit.py
+
+      - name: TC4 Stage543-562 thaumatorium formula/suction audit
+        run: python scripts/tc4_stage543_562_thaumatorium_formula_suction_audit.py
+
+      - name: TC4 Stage563-582 research table/note parity audit
+        run: python scripts/tc4_stage563_582_research_table_note_parity_audit.py
+
+      - name: TC4 Stage583-602 research ConfigResearch parity audit
+        run: python scripts/tc4_stage583_602_research_config_parity_audit.py
+
+      - name: TC4 Stage603-622 research table deep parity audit
+        run: python scripts/tc4_stage603_622_research_table_deep_parity_audit.py
+
+      - name: TC4 Stage623-642 research visual/scribing parity audit
+        run: python scripts/tc4_stage623_642_research_visual_scribing_audit.py
+
+      - name: TC4 Stage643-662 research note gate parity audit
+        run: python scripts/tc4_stage643_662_research_note_gate_parity_audit.py
+
+      - name: TC4 Stage663-682 research/book pixel parity audit
+        run: python scripts/tc4_stage663_682_research_book_pixel_parity_audit.py
+
+      - name: TC4 Stage683-702 arcane/infusion/node sweep audit
+        run: python scripts/tc4_stage683_702_arcane_infusion_node_sweep_audit.py
+
+      - name: TC4 Stage703-722 arcane infusion node deep parity audit
+        run: python scripts/tc4_stage703_722_arcane_infusion_node_deep_audit.py
+
+      - name: TC4 Stage723-742 arcane infusion node edge parity audit
+        run: python scripts/tc4_stage723_742_arcane_infusion_node_edge_audit.py
+
+      - name: TC4 v7.62 infusion failure arcane node audit
+        run: python scripts/tc4_v7_62_infusion_failure_arcane_node_audit.py
+
+      - name: TC4 v7.82 infusion matrix arcane node parity audit
+        run: python scripts/tc4_v7_82_infusion_matrix_arcane_node_parity_audit.py
+
+      - name: TC4 v8.02 infusion arcane progress audit
+        run: python scripts/tc4_v8_02_infusion_arcane_progress_audit.py
+
+      - name: TC4 v8.22 infusion arcane node parity audit
+        run: python scripts/tc4_v8_22_infusion_arcane_node_parity_audit.py
+
+      - name: TC4 v8.42 infusion thaumometer HUD audit
+        run: python scripts/tc4_v8_42_infusion_thaumometer_hud_audit.py
+
+      - name: TC4 v8.62 scan infusion research audit
+        run: python scripts/tc4_v8_62_scan_infusion_research_audit.py
+
+      - name: TC4 v8.82 strict worldgen lifecycle audit
+        run: python scripts/tc4_v8_82_strict_worldgen_lifecycle_audit.py
+
+      - name: TC4 v9.02 strict original comparison audit
+        run: python scripts/tc4_v9_02_strict_original_comparison_audit.py
+
+      - name: TC4 v9.22 Greatwood jar transport audit
+        run: python scripts/tc4_v9_22_greatwood_jar_transport_audit.py
+
+      - name: TC4 v9.42 buffer bellows golem drop audit
+        run: python scripts/tc4_v9_42_buffer_bellows_golem_drop_audit.py
+
+      - name: TC4 v9.62 tube venting sorting golem audit
+        run: python scripts/tc4_v9_62_tube_venting_sorting_golem_audit.py
+
+      - name: TC4 v9.82 local tube worldgen golem audit
+        run: python scripts/tc4_v9_82_local_tube_worldgen_golem_audit.py
+
+      - name: TC4 v10.02 tube suction worldgen sorting audit
+        run: python scripts/tc4_v10_02_tube_suction_worldgen_sorting_audit.py
+
+      - name: TC4 v10.22 tube valve worldgen golem audit
+        run: python scripts/tc4_v10_22_tube_valve_worldgen_golem_audit.py
+
+      - name: TC4 v10.42 tube wand axis sorting audit
+        run: python scripts/tc4_v10_42_tube_wand_axis_sorting_audit.py
+
+      - name: TC4 v10.62 sorting buffer chain audit
+        run: python scripts/tc4_v10_62_sorting_buffer_chain_audit.py
+
+      - name: TC4 v10.82 golem timeout tube worldgen audit
+        run: python scripts/tc4_v10_82_golem_timeout_tube_worldgen_audit.py
+
+      - name: TC4 v11.02 infusion node sorting audit
+        run: python scripts/tc4_v11_02_infusion_node_sorting_audit.py
+
+      - name: TC4 v11.22 strict failure node tube audit
+        run: python scripts/tc4_v11_22_strict_failure_node_tube_audit.py
+
+      - name: TC4 v11.42 node failure tube golem audit
+        run: python scripts/tc4_v11_42_node_failure_tube_golem_audit.py
+
   build:
     name: Build Forge mod jar
     runs-on: ubuntu-latest

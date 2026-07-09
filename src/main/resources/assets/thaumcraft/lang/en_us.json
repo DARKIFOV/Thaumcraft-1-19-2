@@ -1021,7 +1021,7 @@
   "item.thaumcraft.tc4_thaumiumshovel": "TC4 Thaumiumshovel",
   "item.thaumcraft.tc4_thaumiumsword": "TC4 Thaumiumsword",
   "item.thaumcraft.tc4_thaumonomicon": "TC4 Thaumonomicon",
-  "item.thaumcraft.tc4_thaumonomiconcheat": "TC4 Thaumonomiconcheat",
+  "item.thaumcraft.tc4_thaumonomiconcheat": "Creative Thaumonomicon",
   "item.thaumcraft.tc4_tripletreat": "TC4 Tripletreat",
   "item.thaumcraft.tc4_vis_amulet": "TC4 Vis Amulet",
   "item.thaumcraft.tc4_vis_amulet_lesser": "TC4 Vis Amulet Lesser",
@@ -3910,5 +3910,10 @@
   "warp.text.8": "Surely there must be a way to stop these headaches?",
   "warp.text.9": "You suddenly feel reluctant to break things.",
   "warp.text.hunger.1": "Your hunger cannot be satisfied with normal food.",
-  "warp.text.hunger.2": "You hunger begins to fade."
+  "warp.text.hunger.2": "You hunger begins to fade.",
+  "block.thaumcraft.essentia_reservoir": "Essentia Reservoir",
+  "block.thaumcraft.advanced_alchemical_furnace": "Advanced Alchemical Furnace",
+  "block.thaumcraft.thaumatorium": "Thaumatorium",
+  "block.thaumcraft.mnemonic_matrix": "Mnemonic Matrix",
+  "container.thaumcraft.thaumatorium": "Thaumatorium"
 }

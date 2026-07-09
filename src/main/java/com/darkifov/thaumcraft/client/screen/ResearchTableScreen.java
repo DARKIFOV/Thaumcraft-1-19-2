@@ -1,11 +1,11 @@
 package com.darkifov.thaumcraft.client.screen;
 
 import com.darkifov.thaumcraft.Aspect;
-import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.AspectCombinationRegistry;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.research.TC4ResearchTableParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -23,9 +23,9 @@ import java.util.List;
  * - page arrows in the original lower-left strip.
  */
 public class ResearchTableScreen extends Screen {
-    private static final int BG_WIDTH = 255;
-    private static final int BG_HEIGHT = 255;
-    private static final int ASPECTS_PER_PAGE = 25;
+    private static final int BG_WIDTH = TC4ResearchTableParity.GUI_WIDTH;
+    private static final int BG_HEIGHT = TC4ResearchTableParity.GUI_HEIGHT;
+    private static final int ASPECTS_PER_PAGE = TC4ResearchTableParity.ASPECTS_PER_PAGE;
 
     private int leftPos;
     private int topPos;
@@ -61,34 +61,29 @@ public class ResearchTableScreen extends Screen {
         for (int i = start; i < end; i++) {
             Aspect aspect = known.get(i);
             int local = i - start;
-            int x = leftPos + 10 + (local % 5) * 18;
-            int y = topPos + 40 + (local / 5) * 18;
+            int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
             drawAspectIcon(poseStack, aspect, x, y, ClientAspectData.pool(aspect), aspect == first || aspect == second);
-            if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
+            if (TC4ResearchTableParity.isAspectIconHit(mouseX - leftPos, mouseY - topPos, local)) {
                 renderTooltip(poseStack, Component.literal(aspect.displayName()), mouseX, mouseY);
             }
         }
     }
 
     private void renderSelectedAspects(PoseStack poseStack, int mouseX, int mouseY) {
-        drawSelectionSlot(poseStack, first, leftPos + 13, topPos + 139, mouseX, mouseY);
-        drawSelectionSlot(poseStack, second, leftPos + 71, topPos + 139, mouseX, mouseY);
+        drawSelectionSlot(poseStack, first, leftPos + TC4ResearchTableParity.COMBINE_LEFT_X, topPos + TC4ResearchTableParity.COMBINE_Y, mouseX, mouseY);
+        drawSelectionSlot(poseStack, second, leftPos + TC4ResearchTableParity.COMBINE_RIGHT_X, topPos + TC4ResearchTableParity.COMBINE_Y, mouseX, mouseY);
 
         boolean canCombine = first != null && second != null && previewResult != null;
         int u = canCombine ? 184 : 184;
         int v = canCombine ? 184 : 168;
-        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 35, topPos + 139,
+        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.COMBINE_ARROW_X, topPos + TC4ResearchTableParity.COMBINE_Y,
                 OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, u, v, 24, 16, 255, 255);
 
         if (previewResult != null) {
-            drawAspectIcon(poseStack, previewResult, leftPos + 45, topPos + 139, 0, false);
+            drawAspectIcon(poseStack, previewResult, leftPos + TC4ResearchTableParity.COMBINE_ARROW_X + 10, topPos + TC4ResearchTableParity.COMBINE_Y, 0, false);
         }
-        if (mouseX >= leftPos + 35 && mouseX < leftPos + 59 && mouseY >= topPos + 139 && mouseY < topPos + 155) {
-            Component tooltip = previewResult == null
-                    ? Component.literal("Select two TC4-discovered aspects")
-                    : Component.literal(first.displayName() + " + " + second.displayName() + " = " + previewResult.displayName());
-            renderTooltip(poseStack, tooltip, mouseX, mouseY);
-        }
+        // Original TC4 does not render adapter instruction text over the combine arrow.
     }
 
     private void drawSelectionSlot(PoseStack poseStack, Aspect aspect, int x, int y, int mouseX, int mouseY) {
@@ -104,23 +99,22 @@ public class ResearchTableScreen extends Screen {
         boolean hasPrevious = aspectPage > 0;
         boolean hasNext = (aspectPage + 1) * ASPECTS_PER_PAGE < knownAspects().size();
         if (hasPrevious) {
-            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 27, topPos + 121,
+            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.PAGE_PREVIOUS_X, topPos + TC4ResearchTableParity.PAGE_ARROW_Y,
                     OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 184, 200, 16, 10, 255, 255);
         }
         if (hasNext) {
-            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 51, topPos + 121,
+            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.PAGE_NEXT_X, topPos + TC4ResearchTableParity.PAGE_ARROW_Y,
                     OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 200, 200, 16, 10, 255, 255);
         }
-        if (hasPrevious && mouseX >= leftPos + 27 && mouseX < leftPos + 43 && mouseY >= topPos + 121 && mouseY < topPos + 131) {
-            renderTooltip(poseStack, Component.literal("Previous aspects page"), mouseX, mouseY);
-        } else if (hasNext && mouseX >= leftPos + 51 && mouseX < leftPos + 67 && mouseY >= topPos + 121 && mouseY < topPos + 131) {
-            renderTooltip(poseStack, Component.literal("Next aspects page"), mouseX, mouseY);
-        }
+        // Arrow sprites are the navigation affordance; no modern explanatory tooltip.
     }
 
     private void drawAspectIcon(PoseStack poseStack, Aspect aspect, int x, int y, int pool, boolean selected) {
         if (selected) {
-            fill(poseStack, x - 2, y - 2, x + 18, y + 18, AspectColor.dim(aspect, 165, 0.42F));
+            fill(poseStack, x - 2, y - 2, x + 18, y - 1, 0xFFC08A32);
+            fill(poseStack, x - 2, y + 17, x + 18, y + 18, 0xFFC08A32);
+            fill(poseStack, x - 2, y - 2, x - 1, y + 18, 0xFFC08A32);
+            fill(poseStack, x + 17, y - 2, x + 18, y + 18, 0xFFC08A32);
         }
         ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
         OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
@@ -146,17 +140,17 @@ public class ResearchTableScreen extends Screen {
         }
 
         List<Aspect> known = knownAspects();
-        if (mouseX >= leftPos + 27 && mouseX < leftPos + 43 && mouseY >= topPos + 121 && mouseY < topPos + 131 && aspectPage > 0) {
+        if (TC4ResearchTableParity.isPreviousAspectPageHit(mouseX - leftPos, mouseY - topPos) && aspectPage > 0) {
             aspectPage--;
             return true;
         }
-        if (mouseX >= leftPos + 51 && mouseX < leftPos + 67 && mouseY >= topPos + 121 && mouseY < topPos + 131
+        if (TC4ResearchTableParity.isNextAspectPageHit(mouseX - leftPos, mouseY - topPos)
                 && (aspectPage + 1) * ASPECTS_PER_PAGE < known.size()) {
             aspectPage++;
             return true;
         }
 
-        if (mouseX >= leftPos + 35 && mouseX < leftPos + 59 && mouseY >= topPos + 139 && mouseY < topPos + 155) {
+        if (TC4ResearchTableParity.isCombineArrowHit(mouseX - leftPos, mouseY - topPos)) {
             if (first != null && second != null && previewResult != null) {
                 ThaumcraftNetwork.requestCombineAspectsFromClient(first.id(), second.id());
             }
@@ -167,9 +161,9 @@ public class ResearchTableScreen extends Screen {
         int end = Math.min(start + ASPECTS_PER_PAGE, known.size());
         for (int i = start; i < end; i++) {
             int local = i - start;
-            int x = leftPos + 10 + (local % 5) * 18;
-            int y = topPos + 40 + (local / 5) * 18;
-            if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
+            int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            if (TC4ResearchTableParity.isAspectIconHit(mouseX - leftPos, mouseY - topPos, local)) {
                 selectAspect(known.get(i));
                 return true;
             }

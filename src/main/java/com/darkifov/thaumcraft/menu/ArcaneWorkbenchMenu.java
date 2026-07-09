@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.menu;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
+import com.darkifov.thaumcraft.arcane.TC4ArcaneWorkbenchParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -41,10 +42,15 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         this.blockPos = workbench instanceof BlockEntity blockEntity ? blockEntity.getBlockPos() : BlockPos.ZERO;
         workbench.startOpen(playerInventory.player);
 
-        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_OUTPUT, 160, 64) {
+        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_OUTPUT, TC4ArcaneWorkbenchParity.OUTPUT_SLOT_X, TC4ArcaneWorkbenchParity.OUTPUT_SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return false;
+            }
+
+            @Override
+            public boolean mayPickup(Player player) {
+                return workbench instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench && arcaneWorkbench.canTakeOutput(player);
             }
 
             @Override
@@ -56,7 +62,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
             }
         });
 
-        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_WAND, 160, 24) {
+        addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_WAND, TC4ArcaneWorkbenchParity.WAND_SLOT_X, TC4ArcaneWorkbenchParity.WAND_SLOT_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() instanceof WandItem && !WandItem.isStaffStack(stack);
@@ -66,18 +72,18 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         int index = ArcaneWorkbenchBlockEntity.SLOT_INGREDIENT_START;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                addSlot(new Slot(workbench, index++, 40 + col * 24, 40 + row * 24));
+                addSlot(new Slot(workbench, index++, TC4ArcaneWorkbenchParity.gridSlotX(col), TC4ArcaneWorkbenchParity.gridSlotY(row)));
             }
         }
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlot(new Slot(playerInventory, col + row * 9 + 9, 16 + col * 18, 151 + row * 18));
+                addSlot(new Slot(playerInventory, col + row * 9 + 9, TC4ArcaneWorkbenchParity.PLAYER_INV_X + col * 18, TC4ArcaneWorkbenchParity.PLAYER_INV_Y + row * 18));
             }
         }
 
         for (int col = 0; col < 9; col++) {
-            addSlot(new Slot(playerInventory, col, 16 + col * 18, 209));
+            addSlot(new Slot(playerInventory, col, TC4ArcaneWorkbenchParity.PLAYER_INV_X + col * 18, TC4ArcaneWorkbenchParity.HOTBAR_Y));
         }
 
         if (workbench instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench) {
@@ -120,6 +126,12 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         if (slot != null && slot.hasItem()) {
             ItemStack stack = slot.getItem();
             original = stack.copy();
+
+            if (index == MENU_SLOT_OUTPUT && !slot.mayPickup(player)) {
+                // v7.62: shift-click must obey SlotCraftingArcaneWorkbench#canTakeStack.
+                // Otherwise a stale preview could be moved without paying wand vis.
+                return ItemStack.EMPTY;
+            }
 
             if (index == MENU_SLOT_OUTPUT) {
                 // Original func_82846_b: output only moves into player inventory + hotbar (11..47).

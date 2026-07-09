@@ -8,7 +8,6 @@ import com.darkifov.thaumcraft.recipe.TC4RecipeRuntimeBridge;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
 import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -50,9 +49,9 @@ public class TC4ResearchPageScreen extends Screen {
         this.leftPos = (width - BOOK_SIZE) / 2;
         this.topPos = (height - BOOK_SIZE) / 2;
         clearWidgets();
-        addRenderableWidget(new Button(leftPos + 28, topPos + BOOK_SIZE - 42, 58, 18, Component.literal("Back"), b -> minecraft.setScreen(parent)));
-        addRenderableWidget(new Button(leftPos + 190, topPos + BOOK_SIZE - 42, 48, 18, Component.literal("<"), b -> pageIndex = Math.max(0, pageIndex - 2)));
-        addRenderableWidget(new Button(leftPos + BOOK_SIZE - 238, topPos + BOOK_SIZE - 42, 48, 18, Component.literal(">"), b -> pageIndex = Math.min(maxFirstPage(), pageIndex + 2)));
+        // Stage343-362: no modern Button widgets inside the book.
+        // Click regions are handled manually below, matching the original TC4
+        // page/back hotzones on top of the copied book texture.
     }
 
     private int totalPages() {
@@ -74,13 +73,15 @@ public class TC4ResearchPageScreen extends Screen {
         OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, OVERLAY, BOOK_SIZE, BOOK_SIZE);
 
         drawCenteredString(poseStack, font, entry.title(), leftPos + BOOK_SIZE / 2, topPos + 22, 0x2D1B0B);
-        drawString(poseStack, font, entry.key(), leftPos + 38, topPos + 44, 0x6D4A22);
-        drawString(poseStack, font, entry.category(), leftPos + BOOK_SIZE - 130, topPos + 44, 0x6D4A22);
+        // Stage623-642: original Thaumonomicon pages do not print raw
+        // ConfigResearch keys/categories in the header. Keep those values only in
+        // NBT/audit data; the visible book remains TC4-style parchment.
         drawCenteredString(poseStack, font, Component.literal((pageIndex + 1) + "-" + Math.min(totalPages(), pageIndex + 2) + " / " + totalPages()), leftPos + BOOK_SIZE / 2, topPos + BOOK_SIZE - 58, 0x6D4A22);
 
         renderPage(poseStack, leftPos + 42, topPos + 70, pageIndex);
         renderPage(poseStack, leftPos + 286, topPos + 70, pageIndex + 1);
         renderAspects(poseStack, leftPos + 42, topPos + 424);
+        renderOriginalNavigationHotspots(poseStack, mouseX, mouseY);
 
         super.render(poseStack, mouseX, mouseY, partialTick);
     }
@@ -132,20 +133,17 @@ public class TC4ResearchPageScreen extends Screen {
 
     private void renderTextPage(PoseStack poseStack, int x, int y, String type, String key) {
         String gate = gatedResearchKey(type);
-        drawString(poseStack, font, pageTypeLabel(type), x, y, 0x7A4E1A);
-        y += 14;
+        // Original TC4 book pages do not display raw adapter page type strings such as TEXT_RESEARCH_GATED.
 
         if (!gate.isBlank() && !ClientResearchData.hasResearch(gate)) {
             fill(poseStack, x, y, x + 190, y + 74, 0x221B0E08);
-            drawCenteredString(poseStack, font, Component.literal("Locked TC4 page"), x + 95, y + 14, 0x5A3515);
-            drawCenteredString(poseStack, font, Component.literal("Requires: " + gate), x + 95, y + 34, 0x8A2D1B);
-            drawCenteredString(poseStack, font, Component.literal(key), x + 95, y + 54, 0x6D4A22);
+            drawCenteredString(poseStack, font, Component.literal("Locked"), x + 95, y + 24, 0x5A3515);
             return;
         }
 
         String text = TC4ResearchText.pageText(key);
         if (text.isBlank() || text.equals(key)) {
-            text = "TC4 page key: " + key;
+            text = "";
         }
         for (FormattedCharSequence line : splitText(text, 190)) {
             font.draw(poseStack, line, x, y, 0x2D1B0B);
@@ -158,23 +156,16 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderRecipePage(PoseStack poseStack, int x, int y, String type, String recipeKey) {
-        drawString(poseStack, font, pageTypeLabel(type), x, y, 0x7A4E1A);
-        y += 16;
-        fill(poseStack, x, y, x + 190, y + 150, 0x22A06D2B);
-        fill(poseStack, x + 6, y + 6, x + 184, y + 144, 0x22F5E0B8);
+        // Recipe page type is kept in data for gates/audits, but not rendered as a raw label in the book.
 
         String requiredResearch = TC4RecipeRequirementIndex.requiredResearchFor(recipeKey, entry.key());
         if (!requiredResearch.isBlank() && !ClientResearchData.hasResearch(requiredResearch)) {
-            drawCenteredString(poseStack, font, Component.literal("Locked original TC4 recipe"), x + 95, y + 16, 0x8A2D1B);
-            drawCenteredString(poseStack, font, Component.literal("Requires research: " + requiredResearch), x + 95, y + 38, 0x5A3515);
-            drawCenteredString(poseStack, font, Component.literal(recipeKey == null || recipeKey.isBlank() ? "missing recipe key" : recipeKey), x + 95, y + 60, 0x6D4A22);
+            drawCenteredString(poseStack, font, Component.literal("Locked"), x + 95, y + 32, 0x5A3515);
             return;
         }
 
         if (type != null && type.toUpperCase().contains("ITEMSTACK_PAGE")) {
-            drawCenteredString(poseStack, font, Component.literal("Original TC4 ItemStack Page"), x + 95, y + 16, 0x2D1B0B);
             renderResolvedItemIcon(poseStack, recipeKey, x + 87, y + 42);
-            drawCenteredString(poseStack, font, Component.literal(compactExpressionWithTc4Item(recipeKey)), x + 95, y + 72, 0x5A3515);
             return;
         }
 
@@ -188,37 +179,18 @@ public class TC4ResearchPageScreen extends Screen {
         }
 
         if (recipe == null) {
-            drawCenteredString(poseStack, font, Component.literal(recipeTitle(type)), x + 95, y + 14, 0x2D1B0B);
-            drawCenteredString(poseStack, font, Component.literal(recipeKey == null || recipeKey.isBlank() ? "missing recipe key" : recipeKey), x + 95, y + 36, 0x5A3515);
-            drawCenteredString(poseStack, font, Component.literal("No matching TC4 ConfigRecipes entry yet"), x + 95, y + 60, 0x8A2D1B);
             return;
         }
 
-        int cursor = y + 10;
-        drawCenteredString(poseStack, font, Component.literal(recipe.key()), x + 95, cursor, 0x2D1B0B);
+        // Stage623-642: visible Thaumonomicon recipe pages should look like
+        // original TC4 book recipe cards, not like a debug dump of internal
+        // ConfigRecipes keys/fields.  Keep the full key/research/catalyst data
+        // in recipe objects for gates/audits, but draw only the item/aspect
+        // layout in the book.
         renderResolvedItemIcon(poseStack, recipe.catalystExpression(), x + 54, y + 28);
         renderResolvedItemIcon(poseStack, recipe.resultExpression(), x + 118, y + 28);
         drawString(poseStack, font, "→", x + 92, y + 32, 0x6D4A22);
         renderRecipeVisuals(poseStack, x + 10, y + 52, recipe);
-        cursor += 94;
-        cursor = drawRecipeField(poseStack, x + 10, cursor, "Type", recipe.typeLabel(), 168);
-        cursor = drawRecipeField(poseStack, x + 10, cursor, "Research", recipe.research().isBlank() ? entry.key() : recipe.research(), 168);
-        cursor = drawRecipeField(poseStack, x + 10, cursor, "Result", compactExpressionWithTc4Item(recipe.resultExpression()), 168);
-        if (!recipe.catalystExpression().isBlank()) {
-            cursor = drawRecipeField(poseStack, x + 10, cursor, "Catalyst", compactExpressionWithTc4Item(recipe.catalystExpression()), 168);
-        }
-        if (!recipe.instability().isBlank()) {
-            cursor = drawRecipeField(poseStack, x + 10, cursor, "Instability", recipe.instability(), 168);
-        }
-        if (!recipe.patternText().isBlank()) {
-            cursor = drawRecipeField(poseStack, x + 10, cursor, "Pattern", recipe.patternText(), 168);
-        }
-        if (!recipe.aspectText().equals("none")) {
-            cursor = drawRecipeField(poseStack, x + 10, cursor, "Aspects", recipe.aspectText(), 168);
-        }
-        if (!recipe.componentText().equals("none")) {
-            drawRecipeField(poseStack, x + 10, cursor, "Items", compactExpressionWithTc4Item(recipe.componentText()), 168);
-        }
     }
 
 
@@ -230,14 +202,14 @@ public class TC4ResearchPageScreen extends Screen {
                 for (int col = 0; col < Math.min(3, line.length()); col++) {
                     int sx = x + col * 18;
                     int sy = y + row * 18;
-                    fill(poseStack, sx - 1, sy - 1, sx + 17, sy + 17, 0x553F2612);
                     char symbol = line.charAt(col);
                     if (symbol != ' ') {
                         String expression = symbolMap.get(symbol);
                         if (expression != null && !expression.isBlank()) {
                             renderResolvedItemIcon(poseStack, expression, sx, sy);
                         }
-                        drawString(poseStack, font, String.valueOf(symbol), sx + 10, sy + 8, 0x2D1B0B);
+                        // Stage623-642: do not paint inferred pattern letters
+                        // over item icons; those were adapter debugging marks.
                     }
                 }
             }
@@ -246,7 +218,6 @@ public class TC4ResearchPageScreen extends Screen {
             for (int i = 0; i < limit; i++) {
                 int sx = x + (i % 4) * 20;
                 int sy = y + (i / 4) * 20;
-                fill(poseStack, sx - 1, sy - 1, sx + 17, sy + 17, 0x553F2612);
                 renderResolvedItemIcon(poseStack, recipe.components()[i], sx, sy);
             }
         }
@@ -348,7 +319,6 @@ public class TC4ResearchPageScreen extends Screen {
 
             if (item != null) {
                 itemRenderer.renderAndDecorateItem(new ItemStack(item), x, y);
-                fill(poseStack, x, y, x + 16, y + 16, 0x33FFFFFF);
             }
         });
     }
@@ -443,9 +413,47 @@ public class TC4ResearchPageScreen extends Screen {
             drawString(poseStack, font, String.valueOf(aspect.getValue()), x + i * 21 + 11, y + 10, 0x2D1B0B);
             i++;
         }
-        if (entry.warp() > 0) {
-            drawString(poseStack, font, "Warp: " + entry.warp(), x + 230, y + 4, 0x5A1A66);
+        // Stage643-662: warp remains preserved in ResearchEntry/NBT/requirements,
+        // but the visible Thaumonomicon page no longer prints a raw adapter
+        // "Warp: N" label over the copied TC4 book texture.
+    }
+
+    private void renderOriginalNavigationHotspots(PoseStack poseStack, int mouseX, int mouseY) {
+        int navY = topPos + BOOK_SIZE - 44;
+        int backX = leftPos + 30;
+        int prevX = leftPos + 190;
+        int nextX = leftPos + BOOK_SIZE - 238;
+        int color = 0x5A3515;
+        drawString(poseStack, font, "Back", backX + 10, navY + 6, color);
+        drawCenteredString(poseStack, font, Component.literal("‹"), prevX + 24, navY + 6, pageIndex <= 0 ? 0xAA6D4A22 : color);
+        drawCenteredString(poseStack, font, Component.literal("›"), nextX + 24, navY + 6, pageIndex >= maxFirstPage() ? 0xAA6D4A22 : color);
+        if (inside(mouseX, mouseY, backX, navY, 58, 18)
+                || inside(mouseX, mouseY, prevX, navY, 48, 18)
+                || inside(mouseX, mouseY, nextX, navY, 48, 18)) {
+            fill(poseStack, mouseX - 4, mouseY - 4, mouseX + 4, mouseY + 4, 0x55F0DDAA);
         }
+    }
+
+    private boolean inside(double mouseX, double mouseY, int x, int y, int w, int h) {
+        return mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h;
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int navY = topPos + BOOK_SIZE - 44;
+        if (inside(mouseX, mouseY, leftPos + 30, navY, 58, 18)) {
+            minecraft.setScreen(parent);
+            return true;
+        }
+        if (inside(mouseX, mouseY, leftPos + 190, navY, 48, 18)) {
+            pageIndex = Math.max(0, pageIndex - 2);
+            return true;
+        }
+        if (inside(mouseX, mouseY, leftPos + BOOK_SIZE - 238, navY, 48, 18)) {
+            pageIndex = Math.min(maxFirstPage(), pageIndex + 2);
+            return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

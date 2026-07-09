@@ -1,0 +1,17 @@
+{
+  "version": "7.62.0",
+  "compact_label": "v7.62",
+  "previous_compact_label": "v7.42",
+  "legacy_stage_range": "743-762",
+  "legacy_base_range": "723-742",
+  "scope": "Infusion failure parity, Arcane Workbench stale-output guard, Aura Node HUD ledger cleanup",
+  "numbering_policy": "Public releases now use compact semantic version labels (v7.42, v7.62, v7.82). Legacy Stage ranges are kept only as internal audit/history metadata.",
+  "changes": [
+    "Added TC4InfusionFailureParity to route terminal matrix failures through the existing TC4 weighted instability event table.",
+    "Persisted recipefailure and recipefailinstability NBT for failure drift diagnostics.",
+    "Arcane Workbench shift-click output now checks mayPickup/canTakeStack before moving preview output.",
+    "Arcane Workbench output preview guard now compares item, NBT and count to prevent stale over-stacked previews.",
+    "Aura Node HUD aspect ordering and ring coordinates now come from TC4AuraNodeHudParity ledger."
+  ],
+  "parity_note": "No new TC4 mechanics/items/recipes were added; this batch tightens existing adapters toward original 1.7.10 behavior."
+}

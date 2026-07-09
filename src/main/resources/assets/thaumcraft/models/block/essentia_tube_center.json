@@ -1,20 +1,52 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "tube": "thaumcraft:block/essentia_tube",
-    "particle": "thaumcraft:block/essentia_tube"
+    "tube": "thaumcraft:block/pipe_1",
+    "particle": "thaumcraft:block/pipe_1"
   },
   "elements": [
     {
       "from": [
-        6,
-        6,
-        6
+        5.5,
+        5.5,
+        5.5
       ],
       "to": [
-        10,
-        10,
-        10
+        10.5,
+        10.5,
+        10.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#tube"
+        },
+        "south": {
+          "texture": "#tube"
+        },
+        "east": {
+          "texture": "#tube"
+        },
+        "west": {
+          "texture": "#tube"
+        },
+        "up": {
+          "texture": "#tube"
+        },
+        "down": {
+          "texture": "#tube"
+        }
+      }
+    },
+    {
+      "from": [
+        6.25,
+        6.25,
+        6.25
+      ],
+      "to": [
+        9.75,
+        9.75,
+        9.75
       ],
       "faces": {
         "north": {

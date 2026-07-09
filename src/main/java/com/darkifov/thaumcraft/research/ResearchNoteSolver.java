@@ -22,6 +22,11 @@ public final class ResearchNoteSolver {
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
 
+        if (ResearchNoteState.solved(note)) {
+            player.displayClientMessage(Component.literal("This research note is already complete.").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+
         if (!ResearchTableInventoryRuntime.checkInkForEdit(player)) {
             player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
             return false;
@@ -73,6 +78,10 @@ public final class ResearchNoteSolver {
             return false;
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
+        if (ResearchNoteState.solved(note)) {
+            player.displayClientMessage(Component.literal("This research note is already complete.").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
         if (!ResearchTableInventoryRuntime.checkInkForEdit(player)) {
             player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
             return false;

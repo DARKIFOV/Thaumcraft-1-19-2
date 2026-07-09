@@ -47,7 +47,8 @@ public class JarLabelItem extends Item {
         }
 
         if (JarTubeInteractionRuntime.applyLabelToJar(jar, context.getPlayer(), context.getItemInHand(),
-                context.getPlayer().getItemInHand(context.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND))) {
+                context.getPlayer().getItemInHand(context.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND),
+                context.getClickedFace())) {
             return InteractionResult.CONSUME;
         }
 

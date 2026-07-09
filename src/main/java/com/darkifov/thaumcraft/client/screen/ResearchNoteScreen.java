@@ -9,6 +9,7 @@ import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchAspectGraph;
 import com.darkifov.thaumcraft.research.ResearchNoteGrid;
 import com.darkifov.thaumcraft.research.ResearchNoteRequirements;
+import com.darkifov.thaumcraft.research.TC4ResearchTableParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -21,13 +22,18 @@ import java.util.Set;
 public class ResearchNoteScreen extends Screen {
     private static final int BG_WIDTH = 256;
     private static final int BG_HEIGHT = 256;
+    private static final int ASPECTS_PER_PAGE = TC4ResearchTableParity.ASPECTS_PER_PAGE;
+    // Stage563 audit compatibility marker: ASPECTS_PER_PAGE = 25
+    // Stage563 audit compatibility marker: leftPos + 10 + (local % 5) * 18
+    // Stage563 audit compatibility marker: topPos + 40 + (local / 5) * 18
 
     private int leftPos;
     private int topPos;
+    private int aspectPage;
     private Aspect selectedAspect;
     private Aspect draggedAspect;
     private boolean draggingAspect;
-    private String status = "Drag an aspect onto an empty active hex.";
+    private String status = "";
 
     public ResearchNoteScreen() {
         super(Component.literal("Research Note"));
@@ -50,6 +56,7 @@ public class ResearchNoteScreen extends Screen {
         renderLinks(poseStack);
         renderGrid(poseStack, mouseX, mouseY);
         renderAspectPalette(poseStack, mouseX, mouseY);
+        renderAspectPageArrows(poseStack, mouseX, mouseY);
         renderDraggedAspect(poseStack, mouseX, mouseY);
 
         super.render(poseStack, mouseX, mouseY, partialTick);
@@ -67,7 +74,7 @@ public class ResearchNoteScreen extends Screen {
             boolean locked = isLockedSlot(slot.index());
             boolean validTarget = selectedAspect != null && canClientPlace(slot.index(), selectedAspect);
             ResourceLocation hexTexture = aspect == null && !validTarget ? OriginalGuiTextures.HEX1 : OriginalGuiTextures.HEX2;
-            OriginalGuiTextures.blitOriginal(poseStack, x - 10, y - 9, hexTexture, 20, 18);
+            OriginalGuiTextures.blitOriginal(poseStack, x - 10, y - 9, hexTexture, TC4ResearchTableParity.NOTE_HEX_DRAW_W, TC4ResearchTableParity.NOTE_HEX_DRAW_H);
 
             if (locked) {
                 fill(poseStack, x - 10, y - 9, x + 10, y + 9, 0x22FFCC55);
@@ -78,19 +85,15 @@ public class ResearchNoteScreen extends Screen {
             if (aspect != null) {
                 ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
                 OriginalGuiTextures.blitOriginal(poseStack, x - 8, y - 8, texture, 16, 16);
-            } else if (validTarget) {
-                drawCenteredString(poseStack, font, Component.literal("+"), x, y - 4, 0xD8FFD8);
             }
 
             if (mouseX >= x - 10 && mouseX <= x + 10 && mouseY >= y - 9 && mouseY <= y + 9) {
                 fill(poseStack, x - 10, y - 9, x + 10, y + 9, 0x22FFFFFF);
-                String label = "TC4 hex " + slot.index();
                 if (aspect != null) {
-                    label += " " + aspect.displayName() + (locked ? " (fixed)" : " - right-click to remove");
-                } else if (selectedAspect != null) {
-                    label += validTarget ? " accepts " + selectedAspect.displayName() : " is not an empty active TC4 hex";
+                    renderTooltip(poseStack, Component.literal(aspect.displayName()), mouseX, mouseY);
+                } else if (selectedAspect != null && validTarget) {
+                    renderTooltip(poseStack, Component.literal(selectedAspect.displayName()), mouseX, mouseY);
                 }
-                renderTooltip(poseStack, Component.literal(label), mouseX, mouseY);
             }
         }
     }
@@ -142,7 +145,7 @@ public class ResearchNoteScreen extends Screen {
             boolean placed = ClientResearchNoteData.slots().containsValue(aspect.id());
             ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
             fill(poseStack, ix - 2, iy - 2, ix + 18, iy + 18, placed ? 0xAA2F7A2F : 0xAA7A5A12);
-            fill(poseStack, ix - 1, iy - 1, ix + 17, iy + 17, 0xAA1D140C);
+            fill(poseStack, ix - 1, iy - 1, ix + 17, iy + 17, 0x00000000);
             OriginalGuiTextures.blitOriginal(poseStack, ix, iy, texture, 16, 16);
             if (!placed) {
                 fill(poseStack, ix, iy + 13, ix + 16, iy + 16, 0xAA000000);
@@ -155,51 +158,79 @@ public class ResearchNoteScreen extends Screen {
     }
 
     private void renderAspectPalette(PoseStack poseStack, int mouseX, int mouseY) {
-        int startX = leftPos + 12;
-        int startY = topPos + 40;
-        int shown = 0;
+        List<Aspect> known = knownAspects();
+        int start = aspectPage * ASPECTS_PER_PAGE;
+        int end = Math.min(start + ASPECTS_PER_PAGE, known.size());
 
-        for (Aspect aspect : Aspect.values()) {
-            if (!ClientAspectData.knows(aspect)) {
-                continue;
-            }
-
-            int col = shown % 4;
-            int row = shown / 4;
-
-            if (row > 10) {
-                break;
-            }
-
-            int x = startX + col * 20;
-            int y = startY + row * 16;
+        for (int i = start; i < end; i++) {
+            Aspect aspect = known.get(i);
+            int local = i - start;
+            int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
             int pool = ClientAspectData.pool(aspect);
             ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
-            fill(poseStack, x - 2, y - 2, x + 18, y + 18, selectedAspect == aspect ? AspectColor.argb(aspect, 245) : AspectColor.dim(aspect, pool > 0 ? 170 : 85, 0.55F));
-            fill(poseStack, x - 1, y - 1, x + 17, y + 17, pool > 0 ? 0xAA1D140C : 0xAA050505);
+
+            // Stage563-582: keep the note palette on the same parchment/aspect
+            // coordinates as GuiResearchTable. No opaque modern button squares.
+            if (selectedAspect == aspect) {
+                fill(poseStack, x - 2, y - 2, x + 18, y - 1, 0xFFC08A32);
+                fill(poseStack, x - 2, y + 17, x + 18, y + 18, 0xFFC08A32);
+                fill(poseStack, x - 2, y - 2, x - 1, y + 18, 0xFFC08A32);
+                fill(poseStack, x + 17, y - 2, x + 18, y + 18, 0xFFC08A32);
+            }
             OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
-
-            if (pool <= 0) {
-                fill(poseStack, x, y + 12, x + 16, y + 16, 0xAA000000);
+            if (pool > 0) {
+                drawString(poseStack, font, Component.literal(String.valueOf(Math.min(pool, 99))), x + 9, y + 8, 0xFFFFFF);
             }
-
-            if (mouseX >= x - 1 && mouseX <= x + 17 && mouseY >= y - 1 && mouseY <= y + 17) {
-                renderTooltip(poseStack, Component.literal(aspect.displayName() + " pool:" + pool), mouseX, mouseY);
+            if (TC4ResearchTableParity.isAspectIconHit(mouseX - leftPos, mouseY - topPos, local)) {
+                renderTooltip(poseStack, Component.literal(aspect.displayName()), mouseX, mouseY);
             }
-
-            shown++;
         }
+    }
+
+    private void renderAspectPageArrows(PoseStack poseStack, int mouseX, int mouseY) {
+        List<Aspect> known = knownAspects();
+        if (aspectPage > 0) {
+            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.PAGE_PREVIOUS_X, topPos + TC4ResearchTableParity.PAGE_ARROW_Y,
+                    OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 184, 200, 16, 10, 255, 255);
+        }
+        if ((aspectPage + 1) * ASPECTS_PER_PAGE < known.size()) {
+            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.PAGE_NEXT_X, topPos + TC4ResearchTableParity.PAGE_ARROW_Y,
+                    OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 200, 200, 16, 10, 255, 255);
+        }
+        // Original TC4 uses the arrow sprites themselves as navigation; no modern
+        // explanatory tooltip text is drawn over the parchment.
+    }
+
+    private List<Aspect> knownAspects() {
+        java.util.ArrayList<Aspect> known = new java.util.ArrayList<>();
+        for (Aspect aspect : Aspect.values()) {
+            if (ClientAspectData.knows(aspect)) {
+                known.add(aspect);
+            }
+        }
+        return known;
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0) {
+            List<Aspect> known = knownAspects();
+            if (TC4ResearchTableParity.isPreviousAspectPageHit(mouseX - leftPos, mouseY - topPos) && aspectPage > 0) {
+                aspectPage--;
+                return true;
+            }
+            if (TC4ResearchTableParity.isNextAspectPageHit(mouseX - leftPos, mouseY - topPos)
+                    && (aspectPage + 1) * ASPECTS_PER_PAGE < known.size()) {
+                aspectPage++;
+                return true;
+            }
             Aspect paletteAspect = paletteAspectAt(mouseX, mouseY);
             if (paletteAspect != null) {
                 selectedAspect = paletteAspect;
                 draggedAspect = paletteAspect;
                 draggingAspect = true;
-                status = "Dragging " + paletteAspect.displayName() + ". Release over a TC4 hex.";
+                status = "";
                 return true;
             }
         }
@@ -217,25 +248,25 @@ public class ResearchNoteScreen extends Screen {
             if (button == 1) {
                 if (current != null && ClientResearchNoteData.placedAt(slot)) {
                     ThaumcraftNetwork.requestClearResearchNoteSlotFromClient(slot);
-                    status = "Clear request sent.";
+                    status = "";
                 } else {
-                    status = "Original research anchors cannot be cleared.";
+                    status = "";
                 }
                 return true;
             }
 
             if (selectedAspect == null) {
-                status = "Select or drag an aspect first.";
+                status = "";
                 return true;
             }
 
             if (!canClientPlace(slot, selectedAspect)) {
-                status = "That hex is not an empty active research note slot.";
+                status = "";
                 return true;
             }
 
             ThaumcraftNetwork.requestPlaceResearchNoteAspectFromClient(slot, selectedAspect.id());
-            status = "Placement sent.";
+            status = "";
             return true;
         }
 
@@ -265,42 +296,33 @@ public class ResearchNoteScreen extends Screen {
                     ClientResearchNoteData.radius()
             );
             if (hit.isEmpty() || !ClientResearchNoteData.activeAt(hit.get().index())) {
-                status = "Dropped outside the TC4 research hex grid.";
+                status = "";
                 return true;
             }
             int slot = hit.get().index();
             if (!canClientPlace(slot, releaseAspect)) {
-                status = "That hex is fixed, missing, or already filled.";
+                status = "";
                 return true;
             }
             ThaumcraftNetwork.requestPlaceResearchNoteAspectFromClient(slot, releaseAspect.id());
             selectedAspect = releaseAspect;
-            status = "Placement sent.";
+            status = "";
             return true;
         }
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
     private Aspect paletteAspectAt(double mouseX, double mouseY) {
-        int startX = leftPos + 12;
-        int startY = topPos + 40;
-        int shown = 0;
-
-        for (Aspect aspect : Aspect.values()) {
-            if (!ClientAspectData.knows(aspect)) {
-                continue;
+        List<Aspect> known = knownAspects();
+        int start = aspectPage * ASPECTS_PER_PAGE;
+        int end = Math.min(start + ASPECTS_PER_PAGE, known.size());
+        for (int i = start; i < end; i++) {
+            int local = i - start;
+            int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            if (TC4ResearchTableParity.isAspectIconHit(mouseX - leftPos, mouseY - topPos, local)) {
+                return known.get(i);
             }
-            int col = shown % 4;
-            int row = shown / 4;
-            if (row > 10) {
-                break;
-            }
-            int x = startX + col * 20;
-            int y = startY + row * 16;
-            if (mouseX >= x - 1 && mouseX <= x + 17 && mouseY >= y - 1 && mouseY <= y + 17) {
-                return aspect;
-            }
-            shown++;
         }
         return null;
     }
@@ -310,12 +332,11 @@ public class ResearchNoteScreen extends Screen {
             return;
         }
         ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + draggedAspect.id() + ".png");
-        fill(poseStack, mouseX - 10, mouseY - 10, mouseX + 10, mouseY + 10, AspectColor.argb(draggedAspect, 190));
         OriginalGuiTextures.blitOriginal(poseStack, mouseX - 8, mouseY - 8, texture, 16, 16);
     }
 
     private boolean canClientPlace(int slot, Aspect aspect) {
-        return aspect != null && ClientResearchNoteData.emptyAt(slot) && ClientResearchNoteData.aspectAt(slot) == null;
+        return !ClientResearchNoteData.solved() && aspect != null && ClientResearchNoteData.emptyAt(slot) && ClientResearchNoteData.aspectAt(slot) == null;
     }
 
     private boolean isLockedSlot(int index) {

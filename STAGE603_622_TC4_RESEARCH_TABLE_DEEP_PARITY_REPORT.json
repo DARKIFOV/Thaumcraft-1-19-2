@@ -1,0 +1,39 @@
+{
+  "stage": "Stage603-622",
+  "name": "TC4 Research Table deep parity / note workflow cleanup",
+  "base": "Stage583-602 TC4 Research Config parity",
+  "version": "6.22.0",
+  "scope": "Research Table, Research Note, Scribing Tools ink path, note copy/complete flow, recipe cleanup, Thaumonomicon gate audit continuation",
+  "strict_original_parity": true,
+  "changes": [
+    "Added TC4ResearchTableParity as a guarded coordinate/action ledger for original GuiResearchTable and TileResearchTable adapter values.",
+    "ResearchTableMenu now uses original TC4 coordinate constants for scribing tools, research note, player inventory and hotbar slots.",
+    "ResearchTableContainerScreen and legacy ResearchTableScreen now use the shared original coordinate ledger instead of repeated magic constants.",
+    "strict table-slot ownership: ResearchTableInventoryRuntime no longer falls back to hand/inventory scribing tools or held notes while the research table container is open; slot 0 and slot 1 are authoritative like original TC4.",
+    "Research note creation is all-or-nothing: paper and scribing ink are checked before consumption, then consumed through the Research Table action path.",
+    "Completed-note duplication prechecks paper, ink sac and original aspect cost before consuming anything; duplication still does not consume scribing-tool durability, matching the earlier TC4 source-mapped copy rule.",
+    "Research Table note create/open/copy/complete actions now play original TC4 sound keys write/page/learn through the 1.19.2 sound adapter.",
+    "Removed old crafting-table research_note JSON recipes so normal notes come from the original Research Table workflow instead of duplicate recipe clutter.",
+    "Added Stage603-622 audit to guard against returning to placeholder buttons, carried-item fallback, duplicate research-note recipes, or raw action-code drift."
+  ],
+  "adapters": [
+    "Forge 1.19.2 networking/menu/screen adapters remain necessary, but coordinates, slot ownership, action routing and resource costs are guarded as TC4 parity values.",
+    "Thaumonomicon page/icon/recipe gate work from previous stages is preserved; this stage does not claim it is complete."
+  ],
+  "not_100_percent_original_yet": [
+    "not 100% original yet",
+    "Research Note graph generation still needs deeper comparison with original GuiResearchRecipe randomization and line rendering.",
+    "Research Table pixel parity still needs a screenshot-by-screenshot check of every slot, mouse zone and hover response against TC4 1.7.10.",
+    "Thaumonomicon pages/icons/recipe gates are improved but still need a full entry-by-entry ConfigResearch and ConfigRecipes sweep.",
+    "Scribing Tools refill/anvil/repair behaviour still needs direct source confirmation before changing it."
+  ],
+  "audits": [
+    "java_syntax_guard.py",
+    "github_static_audit.py",
+    "github_ci_guard.py",
+    "tc4_stage583_602_research_config_parity_audit.py",
+    "tc4_stage603_622_research_table_deep_parity_audit.py"
+  ],
+  "estimated_total_parity": "58-63%",
+  "next_stage": "Stage623-642: finish deeper Research Table / Research Note pixel + state parity, direct Scribing Tools source checks, full Thaumonomicon page/icon/recipe gate sweep, hidden/lost trigger paths."
+}

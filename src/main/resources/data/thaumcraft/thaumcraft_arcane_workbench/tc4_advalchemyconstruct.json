@@ -24,7 +24,8 @@
     "P": "thaumcraft:tc4_block_alchemical_construct"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_advanced_alchemical_furnace",
+    "item": "thaumcraft:advanced_alchemical_furnace",
     "count": 4
-  }
+  },
+  "stage503_522_resolved_to_runtime_block": true
 }

@@ -13,7 +13,15 @@ public final class ResearchNoteRequirements {
 
     public static Set<Aspect> requiredFor(String researchKey) {
         Set<Aspect> result = originalAspectListFor(researchKey);
+        Optional<ResearchEntry> originalEntry = originalEntry(researchKey);
         if (result.size() >= 2) {
+            return result;
+        }
+        if (originalEntry.isPresent()) {
+            supplementFromOriginalAspectComponents(result);
+            if (result.size() < 2) {
+                add(result, Aspect.COGNITIO, Aspect.PRAECANTATIO);
+            }
             return result;
         }
 
@@ -42,13 +50,7 @@ public final class ResearchNoteRequirements {
 
     private static Set<Aspect> originalAspectListFor(String researchKey) {
         Set<Aspect> result = new LinkedHashSet<>();
-        if (researchKey == null || researchKey.isBlank()) {
-            return result;
-        }
-        Optional<ResearchEntry> entry = ResearchRegistry.byKey(researchKey);
-        if (entry.isEmpty()) {
-            entry = ResearchRegistry.byKey(researchKey.toUpperCase(Locale.ROOT));
-        }
+        Optional<ResearchEntry> entry = originalEntry(researchKey);
         if (entry.isEmpty()) {
             return result;
         }
@@ -59,6 +61,27 @@ public final class ResearchNoteRequirements {
             }
         }
         return result;
+    }
+
+    private static Optional<ResearchEntry> originalEntry(String researchKey) {
+        if (researchKey == null || researchKey.isBlank()) {
+            return Optional.empty();
+        }
+        Optional<ResearchEntry> entry = ResearchRegistry.byKey(researchKey);
+        if (entry.isEmpty()) {
+            entry = ResearchRegistry.byKey(researchKey.toUpperCase(Locale.ROOT));
+        }
+        return entry;
+    }
+
+    private static void supplementFromOriginalAspectComponents(Set<Aspect> result) {
+        java.util.ArrayList<Aspect> existing = new java.util.ArrayList<>(result);
+        for (Aspect aspect : existing) {
+            if (result.size() >= 2) {
+                return;
+            }
+            add(result, aspect.firstComponent(), aspect.secondComponent());
+        }
     }
 
     public static Aspect startFor(String researchKey) {

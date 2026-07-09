@@ -98,6 +98,25 @@ public final class TC4OuterLandsMazeHandler {
         }
     }
 
+
+    /**
+     * Chunk-generation entry for the soft 1.19.2 Outer Lands adapter. TC4's
+     * ChunkProviderOuter populated chunks as they were provided; this replaces
+     * the older player-tick neighbourhood generation to avoid visible pop-in.
+     */
+    public static void generateForNewChunk(ServerLevel level, ChunkPos chunk) {
+        if (PORTAL_ORIGINS.isEmpty()) {
+            return;
+        }
+        TC4OuterLandsMazeCellLoc loc = new TC4OuterLandsMazeCellLoc(chunk.x, chunk.z);
+        if (getFromHashMap(loc) == null) {
+            return;
+        }
+        for (BlockPos portalOrigin : PORTAL_ORIGINS.values()) {
+            generateEldritch(level, portalOrigin, chunk.x, chunk.z);
+        }
+    }
+
     public static void generateAround(ServerLevel level, BlockPos portalOrigin, int radius) {
         TC4OuterLandsMazeCellLoc origin = new TC4OuterLandsMazeCellLoc(cellCoord(portalOrigin.getX()), cellCoord(portalOrigin.getZ()));
         ensurePortalMaze(level, portalOrigin);

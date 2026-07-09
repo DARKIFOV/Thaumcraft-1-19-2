@@ -10,6 +10,8 @@ import com.darkifov.thaumcraft.block.AddonCompletionLedgerItem;
 import com.darkifov.thaumcraft.block.AdvancedNodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.AlchemicalFurnaceBlock;
 import com.darkifov.thaumcraft.block.AlembicBlock;
+import com.darkifov.thaumcraft.block.EssentiaReservoirBlock;
+import com.darkifov.thaumcraft.block.ThaumatoriumBlock;
 import com.darkifov.thaumcraft.block.ArcanePedestalBlock;
 import com.darkifov.thaumcraft.block.AspectCrystalItem;
 import com.darkifov.thaumcraft.block.ArcaneWorkbenchBlock;
@@ -121,6 +123,8 @@ import com.darkifov.thaumcraft.blockentity.EldritchCapBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaDriveBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ThaumatoriumBlockEntity;
 import com.darkifov.thaumcraft.blockentity.TransvectorInterfaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
@@ -159,6 +163,7 @@ import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
 import com.darkifov.thaumcraft.menu.ResearchTableMenu;
+import com.darkifov.thaumcraft.menu.ThaumatoriumMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.porting.TC4RegistryGarbageGuard;
 import com.darkifov.thaumcraft.porting.TC4ResearchItems;
@@ -174,6 +179,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -643,10 +649,10 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.AIR).strength(0.0F).randomTicks().noCollission().noOcclusion().lightLevel(state -> 3));
     public static final RegistryObject<Block> TEMPORARY_HOLE = temporaryHoleBlock("temporary_hole",
             BlockBehaviour.Properties.of(Material.AIR).strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 10));
-    public static final RegistryObject<Block> GREATWOOD_LOG = block("greatwood_log",
+    public static final RegistryObject<Block> GREATWOOD_LOG = pillarBlock("greatwood_log",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
 
-    public static final RegistryObject<Block> SILVERWOOD_LOG = block("silverwood_log",
+    public static final RegistryObject<Block> SILVERWOOD_LOG = pillarBlock("silverwood_log",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).lightLevel(state -> 1));
 
     public static final RegistryObject<Block> GREATWOOD_LEAVES = block("greatwood_leaves",
@@ -687,6 +693,10 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> VOID_ESSENTIA_JAR = voidEssentiaJarBlock("void_essentia_jar",
             BlockBehaviour.Properties.of(Material.GLASS).strength(2.5F, 5.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    public static final RegistryObject<Block> ESSENTIA_RESERVOIR = essentiaReservoirBlock("essentia_reservoir",
+            BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 8.0F).requiresCorrectToolForDrops().noOcclusion());
+
     public static final RegistryObject<Block> ALEMBIC = alembicBlock("alembic",
             BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
 
@@ -710,6 +720,16 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> ALCHEMICAL_FURNACE = alchemicalFurnaceBlock("alchemical_furnace",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> 4));
+
+    public static final RegistryObject<Block> ADVANCED_ALCHEMICAL_FURNACE = alchemicalFurnaceBlock("advanced_alchemical_furnace",
+            BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 5));
+
+    public static final RegistryObject<Block> THAUMATORIUM = thaumatoriumBlock("thaumatorium",
+            BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    /** Stage523-542: runtime replacement for original ConfigBlocks.blockMetalDevice meta 12 / TileMemory. */
+    public static final RegistryObject<Block> MNEMONIC_MATRIX = block("mnemonic_matrix",
+            BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 4));
 
     public static final RegistryObject<Block> EXTRAS_FIRE_BLOCK = extrasElementBlock("extras_fire_block", ThaumcraftExtrasElementalBlock.Mode.FIRE,
             BlockBehaviour.Properties.of(Material.STONE).strength(2.5F, 6.0F).lightLevel(state -> 10));
@@ -941,6 +961,10 @@ public class ThaumcraftMod {
             BLOCK_ENTITIES.register("crucible", () -> BlockEntityType.Builder.of(CrucibleBlockEntity::new, CRUCIBLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<EssentiaJarBlockEntity>> ESSENTIA_JAR_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("essentia_jar", () -> BlockEntityType.Builder.of(EssentiaJarBlockEntity::new, ESSENTIA_JAR.get(), FILTERED_ESSENTIA_JAR.get(), VOID_ESSENTIA_JAR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EssentiaReservoirBlockEntity>> ESSENTIA_RESERVOIR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("essentia_reservoir", () -> BlockEntityType.Builder.of(EssentiaReservoirBlockEntity::new, ESSENTIA_RESERVOIR.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<AlembicBlockEntity>> ALEMBIC_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("alembic", () -> BlockEntityType.Builder.of(AlembicBlockEntity::new, ALEMBIC.get()).build(null));
 
@@ -954,7 +978,11 @@ public class ThaumcraftMod {
                     ESSENTIA_VALVE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<AlchemicalFurnaceBlockEntity>> ALCHEMICAL_FURNACE_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("alchemical_furnace", () -> BlockEntityType.Builder.of(AlchemicalFurnaceBlockEntity::new, ALCHEMICAL_FURNACE.get()).build(null));
+            BLOCK_ENTITIES.register("alchemical_furnace", () -> BlockEntityType.Builder.of(AlchemicalFurnaceBlockEntity::new, ALCHEMICAL_FURNACE.get(), ADVANCED_ALCHEMICAL_FURNACE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ThaumatoriumBlockEntity>> THAUMATORIUM_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("thaumatorium", () -> BlockEntityType.Builder.of(ThaumatoriumBlockEntity::new, THAUMATORIUM.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ArcanePedestalBlockEntity>> ARCANE_PEDESTAL_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("arcane_pedestal", () -> BlockEntityType.Builder.of(ArcanePedestalBlockEntity::new, ARCANE_PEDESTAL.get()).build(null));
 
@@ -993,6 +1021,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<MenuType<ResearchTableMenu>> RESEARCH_TABLE_MENU =
             MENUS.register("research_table", () -> IForgeMenuType.create((windowId, inv, data) -> new ResearchTableMenu(windowId, inv, data)));
+
+    public static final RegistryObject<MenuType<ThaumatoriumMenu>> THAUMATORIUM_MENU =
+            MENUS.register("thaumatorium", () -> IForgeMenuType.create((windowId, inv, data) -> new ThaumatoriumMenu(windowId, inv, data)));
 
     public static final RegistryObject<MenuType<PechTradeMenu>> PECH_TRADE_MENU =
             MENUS.register("pech_trade", () -> IForgeMenuType.create((windowId, inv, data) -> new PechTradeMenu(windowId, inv, data)));
@@ -1236,6 +1267,12 @@ public class ThaumcraftMod {
         return block;
     }
 
+    private static RegistryObject<Block> pillarBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new RotatedPillarBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
     private static RegistryObject<Block> extrasElementBlock(String name, ThaumcraftExtrasElementalBlock.Mode mode, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new ThaumcraftExtrasElementalBlock(properties, mode));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
@@ -1347,6 +1384,18 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> alembicBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new AlembicBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> essentiaReservoirBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new EssentiaReservoirBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> thaumatoriumBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new ThaumatoriumBlock(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }

@@ -1,0 +1,38 @@
+{
+  "version": "v8.42",
+  "title": "TC4 infusion component-spec ledger and thaumometer hold-scan batch",
+  "base": "v8.22",
+  "estimated_port_completion_percent": 74,
+  "estimated_remaining_percent": 26,
+  "scope": [
+    "Infusion Matrix pending component spec ledger for same item id with different damage/NBT",
+    "Infusion component pedestal matching through ComponentSpec instead of ResourceLocation-only matching",
+    "Infusion save/load migration for PendingComponentSpecList and legacy PendingComponents",
+    "Thaumometer 25 tick hold-to-scan lifecycle instead of instant server scan",
+    "Goggles/Thaumometer HUD node targeting cache per client tick/look vector"
+  ],
+  "no_new_content": {
+    "items": true,
+    "blocks": true,
+    "recipes": true,
+    "research_progression": true
+  },
+  "checks": [
+    "python3 scripts/java_syntax_guard.py",
+    "python3 scripts/github_ci_guard.py",
+    "python3 scripts/github_static_audit.py",
+    "python3 scripts/tc4_v7_62_infusion_failure_arcane_node_audit.py",
+    "python3 scripts/tc4_v7_82_infusion_matrix_arcane_node_parity_audit.py",
+    "python3 scripts/tc4_v8_02_infusion_arcane_progress_audit.py",
+    "python3 scripts/tc4_v8_22_infusion_arcane_node_parity_audit.py",
+    "python3 scripts/tc4_v8_42_infusion_thaumometer_hud_audit.py"
+  ],
+  "gradle_build_status": "not_confirmed_in_sandbox_unknownhost_services_gradle_org",
+  "next_plan_v8_62": [
+    "Research/Thaumonomicon: fake/stub page and recipe unlock drift audit",
+    "Essentia/alchemy: jar/tube suction corner cases and essentia pull priority against TC4",
+    "Thaumometer: stabilize target during hold and add cancel/release parity checks",
+    "Infusion: audit container item remainders for pedestal components and failed component cases",
+    "Golems/seals: identify next runtime parity gap without adding invented mechanics"
+  ]
+}

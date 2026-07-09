@@ -15,6 +15,7 @@ import com.darkifov.thaumcraft.research.ResearchNoteState;
 import com.darkifov.thaumcraft.research.ResearchTableFoundation;
 import com.darkifov.thaumcraft.research.ResearchTableInventoryRuntime;
 import com.darkifov.thaumcraft.research.ResearchTableBonusRuntime;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -32,6 +33,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -155,12 +157,18 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
             player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
             return false;
         }
-        if (!consumePaper(player)) {
+        if (!player.getAbilities().instabuild && !hasInventoryItem(player, Items.PAPER)) {
             player.displayClientMessage(Component.literal("A sheet of paper is required for a research note.").withStyle(ChatFormatting.RED), false);
             return false;
         }
+        // Stage603-622: original table creation is all-or-nothing: paper and
+        // scribing ink are checked before either resource is consumed.
         if (!consumeInk(ResearchTableInventoryRuntime.INK_PER_NOTE_CREATE, player)) {
             player.displayClientMessage(Component.literal("Your Scribing Tools are out of ink.").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+        if (!consumePaper(player)) {
+            player.displayClientMessage(Component.literal("A sheet of paper is required for a research note.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
@@ -176,6 +184,7 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         }
         ThaumcraftNetwork.syncAspectKnowledge(player);
         player.displayClientMessage(Component.literal("Research note prepared in table slot 1.").withStyle(ChatFormatting.LIGHT_PURPLE), false);
+        playOriginalResearchSound("write", 0.35F, 1.0F);
         setChanged();
         return true;
     }
@@ -192,6 +201,7 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         ThaumcraftNetwork.openResearchNote(player, note);
+        playOriginalResearchSound("page", 0.25F, 1.0F);
         return true;
     }
 
@@ -204,6 +214,9 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         boolean converted = ResearchNoteSolver.convertSolvedNote(player, note);
         if (note.isEmpty()) {
             setItem(SLOT_RESEARCH_NOTE, ItemStack.EMPTY);
+        }
+        if (converted) {
+            playOriginalResearchSound("learn", 0.45F, 1.0F);
         }
         setChanged();
         return converted;
@@ -240,18 +253,20 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
             player.displayClientMessage(Component.literal("You lack the original TC4 aspects required to duplicate this research.").withStyle(ChatFormatting.RED), false);
             return false;
         }
-        if (!player.getAbilities().instabuild && !consumeInventoryItem(player, Items.PAPER)) {
+        if (!player.getAbilities().instabuild && !hasInventoryItem(player, Items.PAPER)) {
             player.displayClientMessage(Component.literal("A sheet of paper is required to copy a research note.").withStyle(ChatFormatting.RED), false);
             return false;
         }
-        if (!player.getAbilities().instabuild && !consumeInventoryItem(player, Items.INK_SAC)) {
-            // Preserve the consumed paper only when possible by returning a sheet. This prevents the
-            // modern adapter from being harsher than the original all-or-nothing duplicate check.
-            player.getInventory().add(new ItemStack(Items.PAPER));
+        if (!player.getAbilities().instabuild && !hasInventoryItem(player, Items.INK_SAC)) {
             player.displayClientMessage(Component.literal("An ink sac is required to copy a research note.").withStyle(ChatFormatting.RED), false);
             return false;
         }
         if (!player.getAbilities().instabuild) {
+            // Stage603-622: preserve TC4 duplicate-copy semantics. Materials are
+            // validated before removal, then consumed as one transaction; copy
+            // does not use scribing-tool durability.
+            consumeInventoryItem(player, Items.PAPER);
+            consumeInventoryItem(player, Items.INK_SAC);
             consumeCopyAspectCost(player, target.get(), previousCopies);
         }
 
@@ -259,6 +274,7 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         note.grow(1);
         setItem(SLOT_RESEARCH_NOTE, note);
         setChanged();
+        playOriginalResearchSound("write", 0.35F, 1.1F);
         player.displayClientMessage(Component.literal("Copied completed research note. Copies: " + nextCopies).withStyle(ChatFormatting.GOLD), false);
         return true;
     }
@@ -281,6 +297,25 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
             if (aspect != null && cost > 0) {
                 PlayerAspectKnowledge.consumePool(player, aspect, cost);
             }
+        }
+    }
+
+    private boolean hasInventoryItem(Player player, net.minecraft.world.item.Item item) {
+        if (player.getAbilities().instabuild) {
+            return true;
+        }
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void playOriginalResearchSound(String key, float volume, float pitch) {
+        if (level != null && !level.isClientSide) {
+            level.playSound(null, worldPosition, TC4Sounds.event(key), SoundSource.BLOCKS, volume, pitch);
         }
     }
 

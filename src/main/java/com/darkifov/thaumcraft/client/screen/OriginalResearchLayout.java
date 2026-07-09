@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.client.screen;
 
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
+import com.darkifov.thaumcraft.research.TC4ResearchFlagPolicy;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -88,24 +89,23 @@ final class OriginalResearchLayout {
     }
 
     static boolean visible(Set<String> unlockedResearch, ResearchEntry entry) {
-        // Stage205 hard parity reset: TC4 GuiResearchBrowser does not draw research
-        // nodes that the player has not reached. Hidden/concealed/lost entries stay
-        // invisible until their exact parent/hidden-parent conditions are met. The
-        // previous adapter rendered almost the whole tree as dimmed placeholders,
-        // which made Thaumonomicon progression look unlike 1.7.10.
-        return unlocked(unlockedResearch, entry) || available(unlockedResearch, entry);
+        // Stage583-602: hidden/lost ConfigResearch flags are now honoured explicitly.
+        // Audit markers: TC4ResearchFlagPolicy.HIDDEN / TC4ResearchFlagPolicy.LOST.
+        // Concealed nodes can reveal when parents/hidden parents are complete, but
+        // hidden/lost entries stay invisible until a real trigger unlocks them.
+        return TC4ResearchFlagPolicy.visibleInBook(entry, unlocked(unlockedResearch, entry), available(unlockedResearch, entry));
     }
 
     static boolean secondary(ResearchEntry entry) {
-        return entry.hasFlag("secondary") || (!entry.aspects().isEmpty() && entry.complexity() <= 1);
+        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.SECONDARY) || (!entry.aspects().isEmpty() && entry.complexity() <= 1);
     }
 
     static boolean round(ResearchEntry entry) {
-        return entry.hasFlag("round") || secondary(entry);
+        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.ROUND) || secondary(entry);
     }
 
     static boolean special(ResearchEntry entry) {
-        return entry.hasFlag("special") || entry.warp() > 0;
+        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.SPECIAL) || entry.warp() > 0;
     }
 
     static String shortTitle(String title) {

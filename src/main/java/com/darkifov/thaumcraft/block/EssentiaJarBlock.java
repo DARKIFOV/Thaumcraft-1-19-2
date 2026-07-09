@@ -19,6 +19,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -40,6 +42,14 @@ public class EssentiaJarBlock extends BaseEntityBlock {
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide) {
+            return null;
+        }
+        return createTickerHelper(type, ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), EssentiaJarBlockEntity::serverTick);
     }
 
     protected boolean isFilteredJar(BlockState state) {
@@ -78,7 +88,8 @@ public class EssentiaJarBlock extends BaseEntityBlock {
 
         if (held.getItem() instanceof JarLabelItem) {
             JarTubeInteractionRuntime.applyLabelToJar(jar, player, held,
-                    player.getItemInHand(hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND));
+                    player.getItemInHand(hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND),
+                    hit.getDirection());
             return InteractionResult.CONSUME;
         }
 

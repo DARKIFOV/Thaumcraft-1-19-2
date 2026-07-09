@@ -1,0 +1,31 @@
+{
+  "version": "v10.02",
+  "minecraft": "1.19.2",
+  "goal": "TC4 direct-neighbour tube suction propagation, jar untyped suction, original ore rarity, multi-filter sorting golem needed-list",
+  "progress_estimate": {
+    "complete_percent": 82,
+    "remaining_percent": 18
+  },
+  "scope": {
+    "new_items": false,
+    "new_blocks": false,
+    "new_recipes": false,
+    "new_progression": false,
+    "invented_mechanics": false
+  },
+  "changes": [
+    "Replaced whole-network tube suction calculation with direct-neighbour propagation matching TC4 TileTube.calculateSuction.",
+    "Allowed empty/unfiltered jars to advertise untyped suction, so tubes can accept the first adjacent essentia aspect.",
+    "Kept v9.82 local one-unit tube transfer and did not restore source-to-destination network teleportation.",
+    "Restored TC4 infused-stone worldgen invariant to 8 attempts per chunk with vein size 6.",
+    "Expanded sorting golem needed-list from a single filter sample to multiple active ghost/filter samples, with count-based output checks."
+  ],
+  "audits": [
+    "scripts/tc4_v10_02_tube_suction_worldgen_sorting_audit.py",
+    "scripts/tc4_v9_82_local_tube_worldgen_golem_audit.py",
+    "scripts/java_syntax_guard.py",
+    "scripts/github_static_audit.py",
+    "scripts/github_ci_guard.py"
+  ],
+  "gradle_build": "not confirmed in sandbox because Gradle wrapper distribution requires services.gradle.org access"
+}

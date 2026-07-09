@@ -1,12 +1,20 @@
 package com.darkifov.thaumcraft.item;
 
 import com.darkifov.thaumcraft.infusion.TC4RunicArmorHelper;
+import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.research.OriginalAspectWallet;
+import com.darkifov.thaumcraft.research.OriginalResearchProgression;
+import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
+import com.darkifov.thaumcraft.research.ResearchEntry;
+import com.darkifov.thaumcraft.research.ResearchRegistry;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLootAdapter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -48,6 +56,20 @@ public class TC4ResearchComponentItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        if (isCreativeThaumonomiconCheat()) {
+            if (!level.isClientSide) {
+                int unlocked = grantAllResearch(player);
+                player.displayClientMessage(Component.literal("Creative Thaumonomicon unlocked " + unlocked + " research keys ("
+                        + PlayerThaumData.researchCount(player) + "/" + ResearchRegistry.size() + ").")
+                        .withStyle(ChatFormatting.GOLD), false);
+                if (player instanceof ServerPlayer serverPlayer) {
+                    ThaumcraftNetwork.syncResearch(serverPlayer);
+                    ThaumcraftNetwork.syncAspectKnowledge(serverPlayer);
+                }
+            }
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+        }
+
         int rarity = lootbagRarity();
         if (rarity < 0) {
             return super.use(level, player, hand);
@@ -66,6 +88,29 @@ public class TC4ResearchComponentItem extends Item {
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
     }
 
+    private boolean isCreativeThaumonomiconCheat() {
+        // Stage463-482: TC4 already has a thaumonomiconcheat sprite/item mirror.
+        // Give that exact original cheat-book mirror behavior instead of registering
+        // another duplicate debug book. This is a Forge 1.19.2 utility adapter, not
+        // part of survival progression or recipe gates.
+        return "thaumonomiconcheat".equals(legacyTexture);
+    }
+
+    private int grantAllResearch(Player player) {
+        int unlocked = 0;
+        OriginalResearchProgression.seedAutoUnlocks(player);
+        OriginalAspectWallet.seedIfEmpty(player);
+        PlayerAspectKnowledge.seedPrimals(player);
+
+        for (ResearchEntry entry : ResearchRegistry.entries()) {
+            if (PlayerThaumData.unlockResearch(player, entry.key())) {
+                OriginalResearchProgression.applyUnlockSideEffects(player, entry);
+                unlocked++;
+            }
+        }
+        return unlocked;
+    }
+
     private int lootbagRarity() {
         if ("lootbag".equals(legacyTexture)) return 0;
         if ("lootbagunc".equals(legacyTexture)) return 1;
@@ -75,6 +120,12 @@ public class TC4ResearchComponentItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        if (isCreativeThaumonomiconCheat()) {
+            tooltip.add(Component.literal("Creative/debug TC4 cheat book: right-click to unlock every registered research key.")
+                    .withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.literal("No recipes are added; original progression remains untouched unless you use it.")
+                    .withStyle(ChatFormatting.GRAY));
+        }
         tooltip.add(Component.literal("TC4 1.7.10 source: " + originalSource).withStyle(ChatFormatting.DARK_PURPLE));
         tooltip.add(Component.literal("Legacy sprite: " + legacyTexture).withStyle(ChatFormatting.DARK_GRAY));
         TC4RunicArmorHelper.appendTooltip(stack, tooltip);

@@ -136,6 +136,16 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
         return subtype;
     }
 
+    private static boolean isCoreHit(BlockHitResult hit, BlockPos pos) {
+        double lx = hit.getLocation().x - pos.getX();
+        double ly = hit.getLocation().y - pos.getY();
+        double lz = hit.getLocation().z - pos.getZ();
+        // TC4 raytracer subHit == 6 is the central 0.34375..0.65625 core cuboid.
+        return lx >= 0.34375D && lx <= 0.65625D
+                && ly >= 0.34375D && ly <= 0.65625D
+                && lz >= 0.34375D && lz <= 0.65625D;
+    }
+
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -169,15 +179,22 @@ public class EssentiaTubeBlock extends BaseEntityBlock {
         }
 
         if (!level.isClientSide && player.getItemInHand(hand).getItem() instanceof WandItem) {
-            if (player.isShiftKeyDown()) {
+            Direction actedSide = hit.getDirection();
+            String action;
+            if (isCoreHit(hit, pos)) {
+                actedSide = tube.cycleFacingCoreLikeTC4();
+                action = "facing=" + actedSide.getName();
+            } else if (player.isShiftKeyDown()) {
                 tube.cycleChoke(hit.getDirection());
+                action = "choke=" + tube.chokeState(hit.getDirection());
             } else {
                 tube.toggleSideWithNeighbour(hit.getDirection());
+                action = "open=" + tube.isSideOpen(hit.getDirection());
             }
             player.displayClientMessage(Component.literal("Essentia Tube | " + tube.subtype().originalClassName()
-                    + " | side " + hit.getDirection().getName()
-                    + " open=" + tube.isSideOpen(hit.getDirection())
-                    + " choke=" + tube.chokeState(hit.getDirection()))
+                    + " | side " + actedSide.getName()
+                    + " | " + action
+                    + " | flow=" + (tube.isFlowAllowed() ? "open" : "closed"))
                     .withStyle(ChatFormatting.GOLD), false);
             return InteractionResult.CONSUME;
         }

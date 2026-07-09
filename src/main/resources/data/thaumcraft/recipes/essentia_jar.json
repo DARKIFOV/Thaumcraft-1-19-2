@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "GSG",
     "G G",
-    "GSG"
+    "G G",
+    "GPG"
   ],
   "key": {
     "G": {
       "item": "minecraft:glass"
     },
-    "S": {
-      "item": "thaumcraft:balanced_shard"
+    "P": {
+      "tag": "minecraft:wooden_slabs"
     }
   },
   "result": {

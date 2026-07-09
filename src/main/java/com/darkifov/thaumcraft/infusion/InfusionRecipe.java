@@ -176,6 +176,18 @@ public class InfusionRecipe {
         return isRunicAugmentRecipe() ? TC4InfusionRunicAugmentAdapter.componentsFor(catalyst) : components;
     }
 
+    public List<ComponentSpec> componentSpecsFor(ItemStack catalyst) {
+        List<ResourceLocation> ids = componentsFor(catalyst);
+        if (!isRunicAugmentRecipe() && !isInfusionEnchantment() && componentSpecs.size() == ids.size()) {
+            return componentSpecs;
+        }
+        List<ComponentSpec> specs = new ArrayList<>();
+        for (ResourceLocation id : ids) {
+            specs.add(new ComponentSpec(id, TC4InfusionItemMatcher.ANY_DAMAGE, null));
+        }
+        return specs;
+    }
+
     public EnumMap<Aspect, Integer> aspectCostFor(ItemStack catalyst) {
         return isRunicAugmentRecipe() ? TC4InfusionRunicAugmentAdapter.aspectsFor(catalyst) : aspectCost;
     }
@@ -249,11 +261,18 @@ public class InfusionRecipe {
                 continue;
             }
             sawSpec = true;
-            if (TC4InfusionItemMatcher.matches(stack, spec.itemId(), spec.damage(), spec.tag(), true)) {
+            if (componentMatches(stack, spec)) {
                 return true;
             }
         }
         return !sawSpec && TC4InfusionItemMatcher.matches(stack, componentId);
+    }
+
+    public boolean componentMatches(ItemStack stack, ComponentSpec spec) {
+        if (stack == null || stack.isEmpty() || spec == null || spec.itemId() == null) {
+            return false;
+        }
+        return TC4InfusionItemMatcher.matches(stack, spec.itemId(), spec.damage(), spec.tag(), true);
     }
 
     public ItemStack result() {

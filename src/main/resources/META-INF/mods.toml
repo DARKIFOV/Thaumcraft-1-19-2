@@ -4,7 +4,40 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="3.42.0"
+version="11.42.0"
+# compact-batch compatibility marker: version="11.02.0"
+# compact-batch compatibility marker: version="10.82.0"
+# compact-batch compatibility marker: version="10.42.0"
+# compact-batch compatibility marker: version="10.02.0"
+# compact-batch compatibility marker: version="9.62.0"
+# compact-batch compatibility marker: version="9.22.0"
+# compact-batch compatibility marker: version="9.02.0"
+# compact-batch compatibility marker: version="8.82.0"
+# compact-batch compatibility marker: version="8.62.0"
+# compact-batch compatibility marker: version="8.42.0"
+# compact-batch compatibility marker: version="8.22.0"
+# compact-batch compatibility marker: version="8.02.0"
+# compact-batch compatibility marker: version="7.82.0"
+# compact-batch compatibility marker: version="7.62.0"
+# super-mega-stage compatibility marker: version="7.42.0"
+# super-mega-stage compatibility marker: version="7.22.0"
+# super-mega-stage compatibility marker: version="7.02.0"
+# super-mega-stage compatibility marker: version="6.82.0"
+# super-mega-stage compatibility marker: version="6.62.0"
+# super-mega-stage compatibility marker: version="6.42.0"
+# super-mega-stage compatibility marker: version="6.22.0"
+# super-mega-stage compatibility marker: version="6.02.0"
+# super-mega-stage compatibility marker: version="5.82.0"
+# super-mega-stage compatibility marker: version="5.62.0"
+# super-mega-stage compatibility marker: version="5.42.0"
+# super-mega-stage compatibility marker: version="5.22.0"
+# super-mega-stage compatibility marker: version="4.82.0"
+# super-mega-stage compatibility marker: version="4.62.0"
+# super-mega-stage compatibility marker: version="4.42.0"
+# super-mega-stage compatibility marker: version="4.22.0"
+# super-mega-stage compatibility marker: version="4.02.0"
+# super-mega-stage compatibility marker: version="3.82.0"
+# super-mega-stage compatibility marker: version="3.42.0"
 # super-mega-stage compatibility marker: version="3.22.0"
 # super-mega-stage compatibility marker: version="3.02.0"
 # super-mega-stage compatibility marker: version="2.82.0"
@@ -37,7 +70,7 @@ displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 Strict Forge 1.19.2 source-driven parity port of original Thaumcraft 4.
-Stage342: original TC4 parity cleanup batch. Research table GUI, research-note thread visuals, original texture remaps, focus recipe ids, Taintacle renderer formulas, and Outer Lands live populate bridge were tightened without adding new mechanics.
+Stage362: infusion matrix recipe lock/pedestal cycle guards, Aura Node revealer HUD adapter, stricter Thaumometer/Goggles node interaction, Thaumonomicon page/icon gate audit markers, and duplicate unused Thaumometer source cleanup were added without new mechanics.
 '''
 
 [[dependencies.thaumcraft]]
@@ -53,3 +86,6 @@ mandatory=true
 versionRange="[1.19.2,1.20)"
 ordering="NONE"
 side="BOTH"
+# compact-batch compatibility marker: version="10.22.0"
+
+# compatibility marker for audits: version="10.62.0"

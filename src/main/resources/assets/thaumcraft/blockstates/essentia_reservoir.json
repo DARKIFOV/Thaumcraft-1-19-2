@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "thaumcraft:block/essentia_reservoir" },
+    "facing=south": { "model": "thaumcraft:block/essentia_reservoir", "y": 180 },
+    "facing=west": { "model": "thaumcraft:block/essentia_reservoir", "y": 270 },
+    "facing=east": { "model": "thaumcraft:block/essentia_reservoir", "y": 90 }
+  }
+}

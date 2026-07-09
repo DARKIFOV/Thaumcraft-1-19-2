@@ -44,7 +44,7 @@ public class RequestPlaceResearchNoteAspectPacket {
             ItemStack note = findNote(player);
 
             if (note.isEmpty()) {
-                player.displayClientMessage(Component.literal("Hold a Research Note to edit it.").withStyle(ChatFormatting.RED), false);
+                player.displayClientMessage(Component.literal("Open the Research Table and place a Research Note in slot 1.").withStyle(ChatFormatting.RED), false);
                 return;
             }
 
@@ -65,6 +65,6 @@ public class RequestPlaceResearchNoteAspectPacket {
     }
 
     private static ItemStack findNote(ServerPlayer player) {
-        return ResearchTableInventoryRuntime.findHeldResearchNote(player).orElse(ItemStack.EMPTY);
+        return ResearchTableInventoryRuntime.findOpenTableResearchNote(player).orElse(ItemStack.EMPTY);
     }
 }

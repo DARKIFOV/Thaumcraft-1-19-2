@@ -1,18 +1,41 @@
-# GitHub upload note — Stage323–342 GITHUB_COMPILE_HOTFIX3
+# GitHub upload notes — v11.42
 
-This package continues from Stage323–342 and fixes the GitHub Actions compile failure from logs_78317349221.zip.
+Upload the contents of this folder to GitHub as the next compact batch after `v11.22`.
 
-## Fixed
-- `MindSpiderEntity#getExperienceReward()` is now `public int getExperienceReward()`.
-- This matches Forge/Minecraft 1.19.2 `Mob#getExperienceReward()` access and avoids the weaker-access override compile error.
-- No TC4 gameplay mechanics, recipes, GUI behaviour, research data, aspects, textures, or progression were changed by this hotfix.
+No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.42.
 
-## Verified locally
-- `python3 scripts/java_syntax_guard.py` — OK
-- `python3 scripts/github_ci_guard.py` — OK
-- `python3 scripts/github_static_audit.py` — OK
-- `python3 scripts/tc4_stage153_recipe_materialization_parity_audit.py` — OK
-- `python3 scripts/tc4_stage323_342_super_mega_original_parity_cleanup_audit.py` — OK
+## What changed
 
-## Note
-Gradle full build may still require GitHub Actions/online Gradle cache because the sandbox cannot download Gradle dependencies.
+1. **Aura node value parity**
+   - Silverwood/small worldgen nodes quarter biome aura like TC4.
+   - Random node AspectList keeps initial seed weights before spread merge.
+   - Node modifier no longer scales generated aspects; it remains stored node metadata.
+
+2. **Infusion instability side effects**
+   - `inEvWarp` now uses sticky warp +1 on the 25% branch and permanent warp 1..5 otherwise.
+   - Flux goo/gas event side effects can replace replaceable space instead of only air.
+
+3. **Tube connectability guards**
+   - Destination suction type and destination counts respect closed/output-blocked sides.
+
+4. **Sorting golem marked inventory parity**
+   - Marked outputs include adjacent same-block container halves for double-chest style inventories.
+
+## Required local checks
+
+```bash
+python3 scripts/java_syntax_guard.py
+python3 scripts/github_static_audit.py
+python3 scripts/github_ci_guard.py
+python3 scripts/tc4_v11_42_node_failure_tube_golem_audit.py
+```
+
+For a broader confidence pass, run the compact chain from v7.62 through v11.42.
+
+## Expected jar build
+
+Use GitHub Actions or a local machine with network access for Gradle wrapper downloads. The sandbox may fail to resolve `services.gradle.org`.
+
+## Compatibility markers retained
+
+v11.42 v11.22 v11.02 v10.82 v10.62 v10.42 v10.22 v10.02 v9.82 v9.62 v9.42 v9.22 v9.02 v8.82 v8.62 v8.42 v8.22 v8.02 v7.82 v7.62

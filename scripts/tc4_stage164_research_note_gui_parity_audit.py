@@ -27,9 +27,11 @@ for token in [
 ]:
     if token not in screen:
         errors.append(f'ResearchNoteScreen missing Stage164 token: {token}')
-for token in ['hitTest(int relativeX, int relativeY, int radius)', 'bestDistance <= 144.0D', 'activeSlotsForRadius(actual)']:
+for token in ['hitTest(int relativeX, int relativeY, int radius)', 'activeSlotsForRadius(actual)']:
     if token not in grid:
         errors.append(f'ResearchNoteGrid missing Stage164 token: {token}')
+if 'bestDistance <= 144.0D' not in grid and 'NOTE_HEX_HIT_RADIUS_SQ = 144.0D' not in read('src/main/java/com/darkifov/thaumcraft/research/TC4ResearchTableParity.java'):
+    errors.append('ResearchNoteGrid/TC4ResearchTableParity missing Stage164 12px hit radius squared guard')
 json_path = ROOT / required[2]
 if json_path.exists():
     data = json.loads(json_path.read_text(encoding='utf-8'))

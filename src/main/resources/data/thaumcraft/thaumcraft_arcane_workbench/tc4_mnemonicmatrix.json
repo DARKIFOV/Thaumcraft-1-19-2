@@ -24,7 +24,7 @@
     "B": "thaumcraft:tc4_brain"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_mnemonic_matrix",
+    "item": "thaumcraft:mnemonic_matrix",
     "count": 1
   }
 }

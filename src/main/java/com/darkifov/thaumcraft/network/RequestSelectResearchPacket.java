@@ -36,8 +36,8 @@ public class RequestSelectResearchPacket {
                 return;
             }
 
-            boolean selected = OriginalResearchBridge.select(player, packet.researchKey);
             Optional<ResearchEntry> entry = OriginalResearchBridge.byKey(packet.researchKey);
+            boolean selected = entry.isPresent() && OriginalResearchBridge.selectForResearchTable(player, packet.researchKey);
 
             if (selected && entry.isPresent()) {
                 player.displayClientMessage(
@@ -46,6 +46,8 @@ public class RequestSelectResearchPacket {
                                 .append(Component.literal(entry.get().title()).withStyle(ChatFormatting.LIGHT_PURPLE)),
                         true
                 );
+            } else if (entry.isPresent()) {
+                player.displayClientMessage(Component.literal("That original TC4 entry cannot become a normal research-table note yet.").withStyle(ChatFormatting.RED), true);
             } else {
                 player.displayClientMessage(Component.literal("Unknown research key: " + packet.researchKey).withStyle(ChatFormatting.RED), true);
             }

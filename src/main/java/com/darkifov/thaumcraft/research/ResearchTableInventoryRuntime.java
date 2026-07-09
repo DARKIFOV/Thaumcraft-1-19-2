@@ -55,6 +55,11 @@ public final class ResearchTableInventoryRuntime {
             if (isScribingTools(tableTools)) {
                 return Optional.of(tableTools);
             }
+            // Stage603-622: when the original research table container is open,
+            // slot 0 is authoritative. Do not fall back to carried tools; that was
+            // a temporary 1.19.2 adapter drift and allowed editing without the
+            // visible TC4 inkwell/scribing-tools slot.
+            return Optional.empty();
         }
         ItemStack main = player.getMainHandItem();
         if (isScribingTools(main)) {
@@ -81,6 +86,27 @@ public final class ResearchTableInventoryRuntime {
         return Optional.empty();
     }
 
+
+    public static boolean hasOpenResearchTable(Player player) {
+        return player != null && player.containerMenu instanceof ResearchTableMenu;
+    }
+
+    public static Optional<ItemStack> findOpenTableResearchNote(Player player) {
+        if (player != null && player.containerMenu instanceof ResearchTableMenu menu) {
+            ItemStack tableNote = menu.tableStack(SLOT_RESEARCH_NOTE);
+            return isResearchNote(tableNote) ? Optional.of(tableNote) : Optional.empty();
+        }
+        return Optional.empty();
+    }
+
+    public static Optional<ItemStack> findOpenTableScribingTools(Player player) {
+        if (player != null && player.containerMenu instanceof ResearchTableMenu menu) {
+            ItemStack tableTools = menu.tableStack(SLOT_SCRIBING_TOOLS);
+            return isScribingTools(tableTools) ? Optional.of(tableTools) : Optional.empty();
+        }
+        return Optional.empty();
+    }
+
     public static Optional<ItemStack> findHeldResearchNote(Player player) {
         if (player == null) {
             return Optional.empty();
@@ -90,6 +116,10 @@ public final class ResearchTableInventoryRuntime {
             if (isResearchNote(tableNote)) {
                 return Optional.of(tableNote);
             }
+            // Stage603-622: while the table GUI is open, slot 1 is the original
+            // note slot. Held notes are only a compatibility path outside the
+            // table screen, not a parallel duplicate workflow.
+            return Optional.empty();
         }
         ItemStack main = player.getMainHandItem();
         if (isResearchNote(main)) {

@@ -1,0 +1,27 @@
+{
+  "stage": "Stage643-662",
+  "version": "6.62.0",
+  "base": "Stage623-642",
+  "theme": "research note gate parity and visible Thaumonomicon cleanup",
+  "parity_rule": "No new mechanics/items/recipes/GUI controls. Preserve original TC4 data and use Forge 1.19.2 adapters only where direct 1.7.10 code cannot be used.",
+  "changes": [
+    "Research-note edit/clear/solve packets now use open Research Table slot 1 instead of held-note fallback.",
+    "Added explicit ResearchTableInventoryRuntime helpers for open table note/tools lookup.",
+    "Research note hex hit radius tightened through TC4ResearchTableParity ledger.",
+    "Solved notes cannot be edited or cleared through ResearchNoteSolver.",
+    "Dragged aspect preview no longer paints a modern colored square background.",
+    "Thaumonomicon no longer shows raw visible Warp: N adapter label, while warp remains preserved in research data."
+  ],
+  "audits": [
+    "scripts/tc4_stage643_662_research_note_gate_parity_audit.py",
+    "scripts/java_syntax_guard.py",
+    "scripts/github_ci_guard.py",
+    "scripts/github_static_audit.py"
+  ],
+  "still_not_100_percent": [
+    "Research Table / Research Note exact pixel and mouse parity still needs more source-level comparison.",
+    "Thaumonomicon still needs full page/icon/recipe-gate sweep across every ConfigResearch entry.",
+    "Arcane Workbench, Infusion Matrix, Aura Nodes, wands/foci, golems, taint, eldritch and worldgen remain partially adapter-based."
+  ],
+  "estimated_strict_tc4_parity_percent": "60-65"
+}

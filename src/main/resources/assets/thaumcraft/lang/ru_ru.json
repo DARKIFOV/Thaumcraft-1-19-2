@@ -580,7 +580,7 @@
   "item.thaumcraft.tc4_thaumiumshovel": "TC4 Thaumiumshovel",
   "item.thaumcraft.tc4_thaumiumsword": "TC4 Thaumiumsword",
   "item.thaumcraft.tc4_thaumonomicon": "TC4 Thaumonomicon",
-  "item.thaumcraft.tc4_thaumonomiconcheat": "TC4 Thaumonomiconcheat",
+  "item.thaumcraft.tc4_thaumonomiconcheat": "Творческий таумономикон",
   "item.thaumcraft.tc4_tripletreat": "TC4 Tripletreat",
   "item.thaumcraft.tc4_vis_amulet": "TC4 Vis Amulet",
   "item.thaumcraft.tc4_vis_amulet_lesser": "TC4 Vis Amulet Lesser",
@@ -815,5 +815,7 @@
   "tooltip.thaumcraft.aspect.vitium": "the corrupting influence of magic",
   "tooltip.thaumcraft.aspect.vitreus": "crystals",
   "tooltip.thaumcraft.aspect.volatus": "flight",
-  "tooltip.thaumcraft.avaritia_creative_wand": "Жезл с бесконечным ВИС для аддон-расширения Avaritia."
+  "tooltip.thaumcraft.avaritia_creative_wand": "Жезл с бесконечным ВИС для аддон-расширения Avaritia.",
+  "block.thaumcraft.mnemonic_matrix": "Мнемоническая матрица",
+  "container.thaumcraft.thaumatorium": "Тауматорий"
 }

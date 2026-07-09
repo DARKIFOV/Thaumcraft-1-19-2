@@ -1,0 +1,30 @@
+{
+  "stage": "v8.82",
+  "goal": "strict TC4 lifecycle comparison for worldgen/player-tick drift",
+  "progress_estimate": {
+    "complete_percent": 76,
+    "remaining_percent": 24
+  },
+  "original_tc4_reference_points": [
+    "ThaumcraftWorldGenerator.generate runs from world generation/population",
+    "surface order: vegetation -> ores -> aura/structures",
+    "Greatwood chance random.nextInt(25) == 7 with biome support",
+    "Silverwood chance random.nextInt(60) == 3 with biome support",
+    "default Config.nodeRarity = 36"
+  ],
+  "fixed": [
+    "removed player-tick worldgen placement bridge from CommonEvents.onLevelTick",
+    "TC4WorldgenRuntime.tickPlayerArea no longer places vegetation/ores/taint/nodes/Outer Lands content",
+    "Greatwood and Silverwood only run through generateNewChunk/new chunk lifecycle",
+    "natural aura node seeding moved to new chunk lifecycle with rarity baseline 36",
+    "Outer Lands populate and maze generation moved behind new-chunk path",
+    "research note hit radius corrected to 144.0D"
+  ],
+  "known_not_100_percent": [
+    "configured/placed feature worldgen integration still needs deeper 1.19.2 parity",
+    "Greatwood/Silverwood exact shape algorithms still need deeper original comparison",
+    "essentia jar/tube suction priority remains a planned high-risk area",
+    "golem AI/seals remain incomplete parity areas"
+  ],
+  "gradle_build": "not verified in sandbox: services.gradle.org could not resolve"
+}

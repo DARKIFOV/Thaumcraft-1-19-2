@@ -1,0 +1,28 @@
+{
+  "compact_label": "v7.82",
+  "previous_compact_label": "v7.62",
+  "legacy_stage_range": "763-782",
+  "mc_version": "1.19.2",
+  "base": "thaumcraft_legacy_rebuild_v7.62_TC4_INFUSION_FAILURE_ARCANE_NODE_1192.zip",
+  "scope": "Short parity-only batch for Infusion Matrix failure/stabilizer/symmetry/FX, Arcane Workbench edge cases, Aura Node/Thaumometer/Goggles HUD/scan parity.",
+  "no_new_items": true,
+  "no_new_blocks": true,
+  "no_new_recipes": true,
+  "no_new_progression": true,
+  "changes": [
+    "InfusionInstabilityEvents now exposes triggerWeightedEvent(...) so terminal failure can reuse the TC4 weighted table without a second maybeTrigger probability gate.",
+    "TC4InfusionFailureParity calls triggerWeightedEvent(...) for terminal recipe/catalyst failure and keeps failure reason/instability NBT.",
+    "TC4InfusionStabilityParity scan range corrected to matrixY-10..matrixY+5, matching TileInfusionMatrix#getSurroundings after the old yy loop conversion.",
+    "InfusionMatrixAuxiliaryHelper and InfusionAltarStructure now mirror stabilizers around the matrix block, not the catalyst pedestal position.",
+    "InfusionAltarStructure summary no longer gives one-sided MATRIX_STABILIZER a synthetic +10 stabilizing block bonus in the TC4 symmetry path.",
+    "Thaumometer block scans now reject aspectless targets before writing player scan knowledge or legacy NBT, preventing fake scan/progression entries.",
+    "Arcane Workbench output/shift-click stale-preview guards from v7.62 are retained; no GUI or recipe expansion was added.",
+    "Aura Node/Goggles HUD parity remains reveal-only and shares sorted aspect/ring coordinate ledger."
+  ],
+  "audit": [
+    "python scripts/java_syntax_guard.py",
+    "python scripts/tc4_v7_62_infusion_failure_arcane_node_audit.py",
+    "python scripts/tc4_v7_82_infusion_matrix_arcane_node_parity_audit.py"
+  ],
+  "compile_note": "Gradle wrapper compile was attempted in the sandbox but could not download Gradle 7.5.1 because external DNS/network access to services.gradle.org is blocked. Run GitHub Actions/local Gradle to build the jar. Static Java syntax guard passes."
+}

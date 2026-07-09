@@ -42,6 +42,8 @@ public final class InfusionOverlayEvents {
         int duration = Math.max(1, matrix.duration());
         int progress = Math.max(0, matrix.progress());
         int pct = Math.min(100, progress * 100 / duration);
+        int pendingEssentia = matrix.pendingEssentiaAmount();
+        int pendingComponents = matrix.pendingComponentAmount();
 
         PoseStack poseStack = event.getPoseStack();
         Font font = minecraft.font;
@@ -50,7 +52,7 @@ public final class InfusionOverlayEvents {
         int x = screenWidth / 2 - 92;
         int y = 28;
         int w = 184;
-        int h = 32;
+        int h = 42;
 
         fill(poseStack, x, y, x + w, y + h, 0xAA160F20);
         fill(poseStack, x + 6, y + 20, x + w - 6, y + 27, 0xFF3A2A45);
@@ -58,9 +60,10 @@ public final class InfusionOverlayEvents {
 
         String title = "Infusion: " + pct + "%";
         font.draw(poseStack, Component.literal(title), x + 8, y + 7, 0xFFE8D4FF);
+        font.draw(poseStack, Component.literal("Essentia " + pendingEssentia + "  Items " + pendingComponents + "  Inst " + matrix.currentInstability()), x + 8, y + 31, 0xFFBFAFEF);
 
         if (matrix.activeRecipeId() != null) {
-            font.draw(poseStack, Component.literal(matrix.activeRecipeId().toString()), x + 8, y + 34, 0xFFBFAFEF);
+            font.draw(poseStack, Component.literal(matrix.activeRecipeId().toString()), x + 8, y + 44, 0xFFBFAFEF);
         }
     }
 

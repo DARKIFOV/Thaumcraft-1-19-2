@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.client.screen;
 import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchEntry;
+import com.darkifov.thaumcraft.research.TC4ResearchFlagPolicy;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -78,21 +79,10 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     private void renderBrowserHeader(PoseStack poseStack) {
-        Set<String> unlocked = unlockedResearch();
-        List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
-        int complete = 0;
-        int available = 0;
-
-        for (ResearchEntry entry : entries) {
-            if (OriginalResearchLayout.unlocked(unlocked, entry)) {
-                complete++;
-            } else if (OriginalResearchLayout.available(unlocked, entry)) {
-                available++;
-            }
-        }
-
+        // Stage663-682: keep the browser frame visually original. Completion and
+        // availability counts remain derivable from ClientResearchData, but are
+        // not painted as rebuild/debug text over gui_research.png.
         drawString(poseStack, font, Component.literal(category.title()), leftPos + 12, topPos + 8, 0x2D1B0B);
-        drawString(poseStack, font, Component.literal("Complete " + complete + " / " + entries.size() + "   Available " + available), leftPos + 12, topPos + PANE_HEIGHT - 18, 0x5A3515);
     }
 
     private void renderSelectedPage(PoseStack poseStack) {
@@ -267,18 +257,12 @@ public class ThaumonomiconScreen extends Screen {
         boolean available = OriginalResearchLayout.available(unlocked, highlighted);
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(highlighted.title()));
-        lines.add(Component.literal(OriginalResearchLayout.shortTitle(highlighted.description())));
-        if (highlighted.warp() > 0) lines.add(Component.literal("Forbidden knowledge / Warp " + highlighted.warp()));
-        if (complete) {
-            lines.add(Component.literal("Complete - click to open pages"));
-        } else if (available) {
-            lines.add(Component.literal("Available - click to create research note"));
-        } else {
-            lines.add(Component.literal("Missing required research"));
+        String desc = OriginalResearchLayout.shortTitle(highlighted.description());
+        if (!desc.isBlank()) {
+            lines.add(Component.literal(desc));
         }
-        if (!highlighted.aspects().isEmpty()) {
-            lines.add(Component.literal("Aspects: " + highlighted.aspects()));
-        }
+        // Do not append adapter status lines (Complete/Available/Missing/Warp/aspect map).
+        // Visibility and locking are already represented by the original node brightness.
         renderComponentTooltip(poseStack, lines, mouseX, mouseY);
     }
 
@@ -314,15 +298,15 @@ public class ThaumonomiconScreen extends Screen {
             Set<String> unlocked = unlockedResearch();
             OriginalClientResearchSelection.set(selected.key());
             ThaumcraftNetwork.requestSelectResearchFromClient(selected.key());
-            if (OriginalResearchLayout.unlocked(unlocked, selected)) {
+            if (OriginalResearchLayout.unlocked(unlocked, selected) && TC4ResearchFlagPolicy.hasOriginalPagePayload(selected)) {
                 Minecraft.getInstance().setScreen(new TC4ResearchPageScreen(this, selected));
-            } else if (OriginalResearchLayout.available(unlocked, selected)) {
+            } else if (!OriginalResearchLayout.unlocked(unlocked, selected) && OriginalResearchLayout.available(unlocked, selected)) {
                 ThaumcraftNetwork.requestCompleteSelectedResearchFromClient();
-                popupUntil = System.currentTimeMillis() + 2400L;
-                popupText = "Research note requested: " + selected.title();
+                popupUntil = 0L;
+                popupText = "";
             } else {
-                popupUntil = System.currentTimeMillis() + 1800L;
-                popupText = "You are missing required research.";
+                popupUntil = 0L;
+                popupText = "";
             }
             return true;
         }

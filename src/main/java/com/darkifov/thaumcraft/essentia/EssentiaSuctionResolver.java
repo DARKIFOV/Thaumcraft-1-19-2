@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.block.EssentiaValveBlock;
 import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,6 +45,12 @@ public final class EssentiaSuctionResolver {
             return EssentiaSuction.ALEMBIC_SOURCE_PRIORITY;
         }
 
+        if (entity instanceof EssentiaReservoirBlockEntity reservoir
+                && reservoir.canAccessFrom(direction.getOpposite())
+                && reservoir.aspects().get(aspect) > 0) {
+            return EssentiaSuction.RESERVOIR_SOURCE_PRIORITY;
+        }
+
         if (entity instanceof AlchemicalFurnaceBlockEntity furnace && furnace.aspects().get(aspect) > 0) {
             return EssentiaSuction.FURNACE_SOURCE_PRIORITY;
         }
@@ -59,15 +66,20 @@ public final class EssentiaSuctionResolver {
         BlockPos destinationPos = tubePos.relative(direction);
         BlockEntity entity = level.getBlockEntity(destinationPos);
 
-        if (!(entity instanceof EssentiaJarBlockEntity jar) || !jar.canAcceptAspect(aspect)) {
-            return EssentiaSuction.SOURCE_NONE;
+        if (entity instanceof EssentiaJarBlockEntity jar && jar.canAcceptAspect(aspect)) {
+            boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+
+            // Stage204 exact TileJarFillable/TileJarFillableVoid suction edge cases.
+            // Normal jars stop pulling when full; void jars keep a baseline suction even while full.
+            return jar.originalSuctionAmount(voidJar);
         }
 
-        boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+        if (entity instanceof EssentiaReservoirBlockEntity reservoir
+                && reservoir.canAccessFrom(direction.getOpposite())) {
+            return reservoir.originalSuctionAmount(aspect);
+        }
 
-        // Stage204 exact TileJarFillable/TileJarFillableVoid suction edge cases.
-        // Normal jars stop pulling when full; void jars keep a baseline suction even while full.
-        return jar.originalSuctionAmount(voidJar);
+        return EssentiaSuction.SOURCE_NONE;
     }
 
     public static boolean isTubeLike(Level level, BlockPos pos) {
@@ -75,15 +87,13 @@ public final class EssentiaSuctionResolver {
             return false;
         }
 
-        if (level.getBlockState(pos).is(ThaumcraftMod.ESSENTIA_TUBE.get())) {
-            return level.getBlockEntity(pos) instanceof EssentiaTubeBlockEntity;
-        }
-
         if (level.getBlockState(pos).is(ThaumcraftMod.ESSENTIA_VALVE.get())) {
             return EssentiaValveBlock.isOpen(level, pos) && level.getBlockEntity(pos) instanceof EssentiaTubeBlockEntity;
         }
 
-        return false;
+        // Stage503-522: all original Tube subtypes (filter/restrict/oneway/buffer) are BE-backed
+        // transport nodes, not just the normal tube registry id.
+        return level.getBlockEntity(pos) instanceof EssentiaTubeBlockEntity;
     }
 
     public static int competingDestinations(Level level, Iterable<BlockPos> network, Aspect aspect, BlockPos winningDestination) {

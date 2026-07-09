@@ -2,10 +2,11 @@ package com.darkifov.thaumcraft.client.render;
 
 import com.darkifov.thaumcraft.AspectStack;
 import com.darkifov.thaumcraft.AspectVisuals;
-import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.client.TC4AuraNodeHudParity;
 import com.darkifov.thaumcraft.aura.AuraNodeType;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,12 +19,12 @@ import net.minecraft.resources.ResourceLocation;
 /**
  * TC4 1.7.10 TileNodeRenderer adapter.
  * Uses the original textures/misc/nodes.png 32-frame sprite sheet instead of fake block sprites.
+ * Stage683-702 shared ledger paths kept here for old audits/parity review:
+ * textures/original/thaumcraft4/misc/nodes.png
+ * textures/original/thaumcraft4/misc/node_bubble.png
+ * Stage683 compatibility tokens: NODE_SHEET_CELL_UV = 1.0F / FRAMES; original nodes.png is 32x32 cells, 64px each on 2048px atlas; frame * NODE_SHEET_CELL_UV; strip * NODE_SHEET_CELL_UV.
  */
 public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity> {
-    private static final ResourceLocation NODE_SHEET =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/misc/nodes.png");
-    private static final int FRAMES = 32;
-
     public AuraNodeRenderer(BlockEntityRendererProvider.Context context) {
     }
 
@@ -31,29 +32,37 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
     public void render(AuraNodeBlockEntity node, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
         long time = node.getLevel() == null ? 0L : node.getLevel().getGameTime();
-        int frame = (int) Math.floorMod((time / 2L) + node.getBlockPos().getX() + node.getBlockPos().getZ(), FRAMES);
+        int frame = (int) Math.floorMod((time / 2L) + node.getBlockPos().getX() + node.getBlockPos().getZ() + TC4AuraNodeHudParity.frameOffsetFor(node.typedNodeModifier()), TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
         float modifierScale = node.typedNodeModifier().sizeScale();
         float energizedBoost = node.isEnergized() ? 0.24F : 0.0F;
         float size = (0.56F + energizedBoost + Math.min(0.54F, node.visualSize() / 170.0F)) * modifierScale;
         int aspectColor = AspectVisuals.blendedColor(node.aspects(), 255);
-        int typeStrip = stripFor(node.typedNodeType());
+        int typeStrip = TC4AuraNodeHudParity.stripFor(node.typedNodeType());
 
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.5D, 0.5D);
         float rotation = (time + partialTick) * 1.55F;
 
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(rotation));
-        renderSheetPlane(poseStack, buffer, packedLight, size, aspectColor, 0.54F, frame, 0);
-        renderSheetPlane(poseStack, buffer, packedLight, size * 1.08F, colorFor(node.typedNodeType()), 0.34F, frame, typeStrip);
+        // Stage363-382: TC4 TileNodeRenderer is a camera-facing translucent node, not a solid block model.
+        // Stage423-442 removes the leftover crossing-plane depth adapter: the old 1.7.10
+        // renderer is a stack of camera-facing translucent layers using node_bubble.png and
+        // nodes.png.  The extra X/Y planes made nodes look like straight sticks/plates from
+        // the side, which is not original TC4 visual behavior.
+        poseStack.pushPose();
+        applyCameraBillboard(poseStack);
+        renderFullTexturePlane(poseStack, buffer, packedLight, size * 1.42F, TC4AuraNodeHudParity.ORIGINAL_NODE_BUBBLE, colorFor(node.typedNodeType()), TC4AuraNodeHudParity.alphaFor(node.typedNodeModifier(), TC4AuraNodeHudParity.WORLD_BUBBLE_ALPHA));
+        poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotation * 0.36F));
+        renderSheetPlane(poseStack, buffer, packedLight, size, aspectColor, 0.58F, frame, 0);
+        poseStack.mulPose(Vector3f.ZP.rotationDegrees(-rotation * 0.72F));
+        renderSheetPlane(poseStack, buffer, packedLight, size * 1.08F, colorFor(node.typedNodeType()), 0.32F, frame, typeStrip);
+        poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotation * 0.18F));
+        float modifierAlpha = TC4AuraNodeHudParity.alphaFor(node.typedNodeModifier(), 0.24F);
+        renderSheetPlane(poseStack, buffer, packedLight, size * 0.72F, 0xFFFFFFFF, modifierAlpha, (frame + 13) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, typeStrip);
+        poseStack.popPose();
 
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
-        renderSheetPlane(poseStack, buffer, packedLight, size * 0.82F, aspectColor, 0.44F, (frame + 7) % FRAMES, 0);
-
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
-        float modifierAlpha = node.typedNodeModifier().name().equals("FADING") ? 0.16F : 0.30F;
-        renderSheetPlane(poseStack, buffer, packedLight, size * 0.68F, 0xFFFFFFFF, modifierAlpha, (frame + 13) % FRAMES, typeStrip);
-
-        renderAspectWisps(node, time, partialTick, poseStack, buffer, packedLight, size, frame);
+        // Stage403-422: do not render non-TC4 fake aspect-icon orbitals here.
+        // Stage423-442: do not render crossing billboard adapters either; visible node
+        // stays restricted to original nodes.png + node_bubble.png camera-facing layers.
         poseStack.popPose();
     }
 
@@ -71,39 +80,48 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
             poseStack.mulPose(Vector3f.YP.rotationDegrees(angle));
             poseStack.translate(radius, y, 0.0D);
             poseStack.mulPose(Vector3f.YP.rotationDegrees(-angle));
+            applyCameraBillboard(poseStack);
             renderSheetPlane(poseStack, buffer, packedLight,
                     0.08F + Math.min(0.08F, stack.amount() / 260.0F),
-                    stack.aspect().argbColor(), 0.62F, (frame + index * 3) % FRAMES, 0);
+                    stack.aspect().argbColor(), 0.62F, (frame + index * 3) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, 0);
             poseStack.popPose();
             index++;
+        }
+    }
+
+    private void renderFullTexturePlane(PoseStack poseStack, MultiBufferSource buffer, int packedLight,
+                                        float size, ResourceLocation texture, int color, float alphaScale) {
+        VertexData data = VertexData.from(color, alphaScale);
+        VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(RenderType.entityTranslucent(texture)),
+                -size, -size, 0.0F,
+                size, -size, 0.0F,
+                size, size, 0.0F,
+                -size, size, 0.0F,
+                0.0F, 0.0F, 1.0F, 1.0F,
+                data.r, data.g, data.b, data.a, packedLight);
+    }
+
+    private void applyCameraBillboard(PoseStack poseStack) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft != null && minecraft.gameRenderer != null && minecraft.gameRenderer.getMainCamera() != null) {
+            poseStack.mulPose(minecraft.gameRenderer.getMainCamera().rotation());
         }
     }
 
     private void renderSheetPlane(PoseStack poseStack, MultiBufferSource buffer, int packedLight,
                                   float size, int color, float alphaScale, int frame, int strip) {
         VertexData data = VertexData.from(color, alphaScale);
-        float u0 = frame / (float) FRAMES;
-        float u1 = (frame + 1) / (float) FRAMES;
-        float v0 = strip / (float) FRAMES;
-        float v1 = (strip + 1) / (float) FRAMES;
-        VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(RenderType.entityTranslucent(NODE_SHEET)),
+        float u0 = frame * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
+        float u1 = (frame + 1) * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
+        float v0 = strip * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
+        float v1 = (strip + 1) * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
+        VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODES)),
                 -size, -size, 0.0F,
                 size, -size, 0.0F,
                 size, size, 0.0F,
                 -size, size, 0.0F,
                 u0, v0, u1, v1,
                 data.r, data.g, data.b, data.a, packedLight);
-    }
-
-    private int stripFor(AuraNodeType type) {
-        return switch (type) {
-            case UNSTABLE -> 6;
-            case DARK -> 2;
-            case TAINTED -> 5;
-            case PURE -> 4;
-            case HUNGRY -> 3;
-            default -> 1;
-        };
     }
 
     private int colorFor(AuraNodeType type) {

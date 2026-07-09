@@ -6,8 +6,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -97,23 +95,23 @@ public final class InfusionAltarStructure {
         symmetricalPairs = symmetricalPairs / 2;
         missingSymmetry = missingSymmetry / 2;
 
-        int stabilizingBlocks = 0;
         int matrixAccelerators = 0;
         int matrixStabilizers = 0;
-        double stabilizerSymmetry = 0.0D;
 
-        for (BlockPos scan : BlockPos.betweenClosed(matrixPos.offset(-STABILIZER_RADIUS, -5, -STABILIZER_RADIUS), matrixPos.offset(STABILIZER_RADIUS, 10, STABILIZER_RADIUS))) {
+        // v7.82: keep structure summary on the same TC4 getSurroundings adapter
+        // used by matrix runtime.  TC4 scans x/z +-12 and y matrix-10..matrix+5,
+        // then mirrors stabilizers around the runic matrix block itself.
+        TC4InfusionStabilityParity.StabilitySnapshot stabilizerSnapshot = TC4InfusionStabilityParity.scan(level, matrixPos);
+        stabilizerPositions.addAll(stabilizerSnapshot.positions());
+        int stabilizingBlocks = stabilizerSnapshot.positions().size();
+        double stabilizerSymmetry = stabilizerSnapshot.unpaired() * 0.1D - stabilizerSnapshot.mirroredPairs() * 0.2D;
+
+        for (BlockPos scan : BlockPos.betweenClosed(matrixPos.offset(-STABILIZER_RADIUS, -10, -STABILIZER_RADIUS), matrixPos.offset(STABILIZER_RADIUS, 5, STABILIZER_RADIUS))) {
             if (scan.getX() == matrixPos.getX() && scan.getZ() == matrixPos.getZ()) {
                 continue;
             }
 
             BlockState state = level.getBlockState(scan);
-
-            if (isStabilizer(state)) {
-                stabilizingBlocks++;
-                stabilizerPositions.add(scan.immutable());
-                stabilizerSymmetry += 0.1D;
-            }
 
             if (state.is(ThaumcraftMod.MATRIX_ACCELERATOR.get())) {
                 matrixAccelerators++;
@@ -121,17 +119,6 @@ public final class InfusionAltarStructure {
 
             if (state.is(ThaumcraftMod.MATRIX_STABILIZER.get())) {
                 matrixStabilizers++;
-                stabilizingBlocks += 10;
-            }
-        }
-
-        for (BlockPos p : stabilizerPositions) {
-            int dx = matrixPos.getX() - p.getX();
-            int dz = matrixPos.getZ() - p.getZ();
-            BlockPos mirror = new BlockPos(matrixPos.getX() + dx, p.getY(), matrixPos.getZ() + dz);
-
-            if (isStabilizer(level.getBlockState(mirror))) {
-                stabilizerSymmetry -= 0.2D;
             }
         }
 
@@ -204,15 +191,8 @@ public final class InfusionAltarStructure {
     }
 
     private static boolean isStabilizer(BlockState state) {
-        Block block = state.getBlock();
-        return block == Blocks.WITHER_SKELETON_SKULL
-                || block == Blocks.SKELETON_SKULL
-                || block == Blocks.ZOMBIE_HEAD
-                || block == Blocks.CREEPER_HEAD
-                || block == Blocks.DRAGON_HEAD
-                || state.is(ThaumcraftMod.NODE_STABILIZER.get())
-                || state.is(ThaumcraftMod.MATRIX_STABILIZER.get())
-                || state.is(ThaumcraftMod.ARCANE_STONE_BRICKS.get())
-                || state.is(ThaumcraftMod.INFUSION_PILLAR.get());
+        // Stage723-742: keep structure summary and matrix runtime on the same
+        // original TC4 stabilizer whitelist/symmetry adapter.
+        return TC4InfusionStabilityParity.isOriginalStyleStabilizer(state);
     }
 }

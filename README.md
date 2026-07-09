@@ -1,89 +1,178 @@
-# Thaumcraft Legacy Rebuild — Stage209
+# Thaumcraft Legacy Rebuild — v11.42
 
-Version: `2.09.0`  
-Minecraft/Forge: `1.19.2 / Forge 43.5.2`
+Compact batch after **v11.22**. This pass is a stricter original-comparison cleanup for node aura value generation, infusion instability side effects, tube connectability diagnostics, and sorting golem marked inventories.
 
-## Current Stage209 focus
+No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.42.
 
-Stage203 + Stage205 were applied on top of Stage202. This remains a strict original Thaumcraft 4 parity-port pass. No new mechanics, progression, recipes, GUI concepts, or textures were invented.
+## Porting status
 
-### Stage203 — Golem ghost-slot parity
+Estimated TC4 parity: **89% complete / 11% remaining**.
 
-- Restored original `ContainerGolem` / `ContainerGhostSlots` behavior for golem GUI slots.
-- Golem inventory slots are now copy-only ghost slots, not real storage transfer slots.
-- Implemented `SlotGhost` semantics: no pickup, no player item consumption, copied filter stacks stored in golem `Inventory` NBT.
-- Implemented `SlotGhostFluid` adapter with Forge fluid-handler validation for liquid-core golems.
-- Preserved original limits: fill core ghost slots can hold count `256`; all other ghost slots use count `1`.
-- Restored click semantics: empty-hand count +/-1, shift-left clear, shift-right +16, throw clears, clone copies.
-- Preserved scroll `66/67`, toggle `50..57`, color cycling and original `guigolem.png` rendering path.
+## Changes in v11.42
 
-### Stage205 — Jar/tube transfer edge cases
+- **Aura node createRandomNodeAt value parity**
+  - Silverwood/small nodes now quarter biome aura directly like TC4, with only a safety floor for modded biome edge-cases.
+  - Random worldgen node AspectList now preserves the initial seed weights before merging spread-derived aura.
+  - Node modifier no longer scales the generated AspectList; modifier state is stored separately like TC4.
 
-- Added original-style `TileJarFillable.addToContainer` / `takeFromContainer` helpers.
-- Void jar overflow now consumes excess essentia while storing only up to capacity, like `TileJarFillableVoid`.
-- Restored original suction edge cases: normal jar `32`, labelled jar `64`, void jar `32`, labelled void jar `48`.
-- Phial pour/take and tube transfer now share the original jar add/take helpers.
-- Tube destination lookup now uses jar original suction instead of a fixed generic table.
-- Added one-way tube direction gates: input from opposite facing, output through facing, network traversal constrained to those sides.
-- Kept filter/restrict/buffer subtype checks and original NBT names: `AspectFilter`, `Aspect`, `Amount`, `facing`, `open`, `choke`, `buffer`.
-- Kept the Stage198/Stage200 resource pack and texture hardening: `pack.mcmeta` stays valid and model texture references are audited.
+- **Infusion instability side effects**
+  - `inEvWarp` now follows TC4 bucket behavior: 25% sticky warp +1, otherwise permanent warp 1..5.
+  - Flux goo/gas side effects now place into replaceable space instead of air-only checks, closer to TC4 `setBlock(..., blockFluxGoo/blockFluxGas, 7, 3)`.
 
+- **Essentia tube connectability diagnostics**
+  - Destination suction type now also respects this tube's output side before reading neighbour/destination type.
+  - Direct destination counting now skips closed sides and blocked valve sides.
 
-## Stage209 — TC4 Infusion Renderer + Enchantment Output Parity
+- **Sorting golem marked output inventory parity**
+  - Marked chest outputs now include adjacent same-block container halves as a TC4 `InventoryLargeChest` bridge.
+  - Existing marked-side, color, home-exclusion and sided-inventory checks are preserved.
 
-Version: `2.09.0`
+## Audits
 
-Stage209 continues the strict original Thaumcraft 4 Infusion Matrix parity pass. Original 1.7.10 `TileRunicMatrixRenderer`, `ModelCube`, `TileInfusionMatrix.craftingFinish` and `InfusionEnchantmentRecipe` were used as the source of truth before writing Forge 1.19.2 adapters.
+Added:
 
-- Infusion Matrix now uses an animated block-entity renderer instead of fake/static `cube_all` geometry.
-- Renderer uses original `textures/models/infuser.png`, eight cubelets, startup yaw/pitch/roll, active instability wobble, translucent glow and crafting halo adapter.
-- Runtime recipes now carry TC4 `recipeType`, enchantment output ids and NBTBase-style output labels/tags.
-- Added `TC4InfusionEnchantmentAdapter` for original infusion enchantment matching, instability, essentia scaling, XP scaling and enchantment application.
-- Matrix craft cycle now drains enchantment XP one level at a time before essentia, with radius-10 player search, magic damage and source FX.
-- `craftingFinish` now supports normal `ItemStack`, enchantment output and labelled NBT output adapters.
-- Component validation/pull now uses recipe-aware matching and preserves crafting container items.
+- `scripts/tc4_v11_42_node_failure_tube_golem_audit.py`
 
-Stage209 should focus on exact failure event weights, packet FX parity, runic augment dynamic NBT/components and full ItemStack damage/OreDictionary/NBT matching.
+Current public archive label: **v11.42**. Previous public archive labels: **v11.22**, **v11.02**, **v10.82**, **v10.62**, **v10.42**, **v10.22**, **v10.02**, **v9.82**, **v9.62**, **v9.42**, **v9.22**, **v9.02**. Earlier compact markers retained: **v8.82**, **v8.62**, **v8.42**, **v8.22**, **v8.02**.
 
-## Verification
+Compatibility progress markers retained: 75% complete / 25% remaining; 76% complete / 24% remaining; 77% complete / 23% remaining; 78% complete / 22% remaining; 79% complete / 21% remaining; 80% complete / 20% remaining; 81% complete / 19% remaining; 82% complete / 18% remaining; 83% complete / 17% remaining; 84% complete / 16% remaining; 85% complete / 15% remaining; 86% complete / 14% remaining; 87% complete / 13% remaining; 88% complete / 12% remaining; 89% complete / 11% remaining.
 
-```bash
-python3 scripts/java_syntax_guard.py
-python3 scripts/github_static_audit.py
-python3 scripts/github_ci_guard.py
-python3 scripts/tc4_stage203_golem_ghost_slot_audit.py
-python3 scripts/tc4_stage205_jar_tube_edge_cases_audit.py
-```
+---
 
-If Minecraft still shows missing textures, remove old jars such as `1.94.0` from the `mods` folder and install only the jar built from this Stage205 source.
+# Thaumcraft Legacy Rebuild — v11.02
 
-## Stage205 GitHub audit hotfix
+Compact batch after **v10.82**. The goal of this batch is stricter TC4 original-comparison parity in three places that can silently drift even when token audits pass: terminal infusion failure severity, natural aura node profile generation, and sorting-core target discovery.
 
-Fixed GitHub Actions `Static source/resource audit` failure from the stale Stage161 version guard. The Stage161 research-note audit now accepts current Stage205 version `2.05.0` via semantic version parsing instead of old hard-coded version literals.
+No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.02. This batch only tightens existing runtime logic and adds behaviour-focused audits.
 
-### Stage205 GitHub Compile Hotfix 2
+## Porting status
 
-- Fixed GitHub `compileJava` failure in `JarTubeInteractionRuntime.java`: lambda captured reassigned local `aspect`; now snapshots `final Aspect finalAspect` before `withStyle(...)`.
-- No TC4 mechanics changed; Stage205 parity/resource pack fixes remain intact.
+Estimated TC4 parity: **87% complete / 13% remaining**.
 
+This percentage is based on functional blocks, not file count: research/thaumonomicon, infusion, arcane workbench, aura/nodes, essentia/alchemy, golems/seals, worldgen, rendering/HUD/assets, and edge-case lifecycles.
 
-## Stage205 hard parity reset
+## Why v11.02 exists
 
-Stage205 adds a hard rule: original Thaumcraft 4 1.7.10 is the source of truth. Fake GUI buttons, duplicate creative-tab shards, overlarge tree adapters, fake Thaumonomicon visibility and non-original texture overrides are being removed/quarantined as drift.
+Earlier batches checked that terminal infusion failures entered the weighted instability table, but the calculated failure instability was not actually used for severity. v11.02 fixes that by converting higher terminal instability into additional direct weighted-table passes, capped to avoid runaway destruction.
 
-## Stage206 — TC4 original parity repair
+Natural aura node generation also still used a deterministic position-hash profile. TC4 `ThaumcraftWorldGenerator.createRandomNodeAt(...)` uses `specialNodeRarity` gates for node type and modifier, plus biome/environment aspect bias. v11.02 moves natural worldgen nodes onto that random profile path while keeping the deterministic profile for placed/debug nodes.
 
-Version: `2.09.0`
+Sorting golem target discovery was too filter-color focused. TC4 `GolemHelper.findSomethingSortCore(...)` scans marked containers with color `-1` for target availability, then placement uses the carried stack's matching colors. v11.02 aligns the pre-check with that broader target scan.
 
-Stage206 continues the hard parity reset. Original Thaumcraft 4 1.7.10 source/assets/config are now explicitly treated as the source of truth before writing any Forge 1.19.2 adapter.
+## Changes in v11.02
 
-- Added `docs/TC4_ORIGINAL_PARITY_RULES_STAGE206.md`.
-- Cleaned Goggles/Helmet of Revealing: no fake scan, no research unlock ticking, no fake Research/Warp HUD; goggles now expose TC4-style reveal semantics and 5% vis discount adapter.
-- Added reveal-only aura node HUD when looking at an aura node with revealing gear.
-- Switched aura node rendering to original `textures/misc/nodes.png` sprite sheet and moved old fake node sprites to `compatibility_quarantine/stage206_fake_node_sprites/`.
-- Reworked standalone Research Table screen toward original `GuiResearchTable`: original `guiresearchtable2.png`, 5x5 aspect page, selected aspect slots, combine icon and page arrows.
-- Research Note grid now uses original `hex1.png` / `hex2.png` instead of square fake cells.
-- Corrected key TC4 recipes from `ConfigRecipes.java`: Goggles, Thaumometer, Infusion Matrix.
-- Disabled wrong fallback/original-style placeholder recipes through quarantine conditions.
+### Infusion terminal failure severity
 
-Stage207 should start full Infusion Matrix parity: multiblock, pedestal ring, activation, instability, particles, sounds, crafting state and failure effects.
+- `TC4InfusionFailureParity` now keeps `TERMINAL_FAILURE_MAX_EVENT_PASSES = 4`.
+- Terminal failures use the computed `failureInstability` instead of discarding it.
+- Failure event passes are now `max(base passes, 1 + failureInstability / 4)`, capped at 4.
+- `InfusionInstabilityEvents.triggerWeightedEvent(...)` now has a severity-context overload.
+- The normal craft-cycle probability gate remains unchanged; this only affects terminal failure routing.
+- Explosion events receive the severity context and scale slightly with instability.
+
+### Aura node `createRandomNodeAt` profile parity
+
+- Natural worldgen nodes now use `createRandomWorldgenProfile(...)` instead of the deterministic `createProfile(pos)` path.
+- Added TC4 baseline constants:
+  - `TC4_DEFAULT_NODE_RARITY = 36`;
+  - `TC4_DEFAULT_SPECIAL_NODE_RARITY = 18`.
+- Type distribution now follows the original shape:
+  - silverwood → pure;
+  - eerie → dark;
+  - special roll → dark / unstable / pure / hungry by 10-slot table;
+  - otherwise normal.
+- Modifier distribution now follows the original shape:
+  - specialNodeRarity / 2 gate;
+  - bright / pale / fading table;
+  - otherwise normal/no modifier.
+- Aspect generation now uses a closer TC4-style spread:
+  - biome tag chance;
+  - primal/complex aspect fallback;
+  - special type aspect additives;
+  - local environment bias for water/lava/stone/foliage;
+  - spread weighting into a biome aura value.
+
+### Sorting golem target discovery
+
+- `sortingHasMarkedOutputWithRoomLikeTC4(...)` now uses `sortingOutputContainersLikeTC4(-1)` for target discovery.
+- This mirrors TC4 `GolemHelper.findSomethingSortCore(...)` more closely.
+- The marked output still must:
+  - not be the home container;
+  - be within golem range;
+  - already contain the item on a marked side;
+  - have room through a marked side.
+- Actual `AISortingPlace` still places using the carried stack's matching colors, preserving the existing marked-side semantics.
+
+## Audits
+
+Added:
+
+- `scripts/tc4_v11_02_infusion_node_sorting_audit.py`
+
+The new audit checks:
+
+- terminal failure severity uses `failureInstability`;
+- weighted event overload receives severity context;
+- natural node generation uses random TC4-like profile rather than deterministic position hash;
+- special node type/modifier rarity gates exist;
+- biome/environment aspect bias exists;
+- sorting target discovery uses the TC4 color `-1` scan;
+- version/docs/CI markers are updated;
+- no new content/progression statement is present.
+
+## Build note
+
+The source tree is intended to build with the included Gradle wrapper in a normal environment or through GitHub Actions. In this sandbox, Gradle jar build may fail if `services.gradle.org` cannot be resolved.
+
+Current public archive label: **v11.02**. Previous public archive labels: **v10.82**, **v10.62**, **v10.42**, **v10.22**, **v10.02**, **v9.82**, **v9.62**, **v9.42**, **v9.22**, **v9.02**. Earlier compact markers retained: **v8.82**, **v8.62**, **v8.42**, **v8.22**, **v8.02**.
+
+## Compatibility markers retained for older compact audits
+
+Historical progress markers retained so old forward-compatible audits still pass: 75% complete / 25% remaining; 76% complete / 24% remaining; 77% complete / 23% remaining; 78% complete / 22% remaining; 79% complete / 21% remaining; 80% complete / 20% remaining; 81% complete / 19% remaining; 82% complete / 18% remaining; 83% complete / 17% remaining; 84% complete / 16% remaining; 85% complete / 15% remaining; 86% complete / 14% remaining.
+
+## Compact batch v11.22 — strict original failure/node/tube correction
+
+No new items, blocks, recipes, progression, GUI, or invented mechanics were added in v11.22.
+
+### Infusion failure strict TC4 correction
+
+- Rechecked invalid-catalyst / invalid-recipe terminal failure against `TileInfusionMatrix` lines 366-387.
+- Fixed the v11.02 drift where high instability could run multiple direct weighted table passes.
+- Terminal failure now enters the 21-slot TC4 weighted instability table exactly once, then clears the matrix state.
+- Explosion side-effect is back to the original strength shape: `1.5F + random.nextFloat()`.
+- `failureInstability` remains saved/debug context, but it no longer over-scales the event table or explosion strength.
+
+### Aura node `createRandomNodeAt` tainted biome parity
+
+- Added tainted-biome handling to natural aura node profile generation.
+- If the biome maps to a tainted/corrupt style biome and the node is not pure, aura value receives the original-style 1.5x taint boost.
+- A random tainted-biome roll can convert the node type to `TAINTED` and applies the second 1.5x boost, matching the original `createRandomNodeAt` flow.
+- Removed the duplicate local `stone` counter from the local environment scan.
+
+### Tube venting neighbour-connectability guard
+
+- Tightened `checkVentingSnapshot()` so a neighbouring tube only participates in different-aspect venting if its opposite face can actually accept from this side.
+- Closed neighbour faces, powered valves, and valve handle sides no longer create false venting conflicts.
+- This matches the original `ThaumcraftApiHelper.getConnectableTile(...)` gate more closely.
+
+## Audits
+
+Added:
+
+- `scripts/tc4_v11_22_strict_failure_node_tube_audit.py`
+
+The new audit checks:
+
+- terminal failure is exactly one weighted table pass;
+- severity-scaled explosion drift is removed;
+- tainted biome node type/aura handling exists;
+- the duplicate node local-stone counter is gone;
+- tube venting ignores non-connectable neighbour faces;
+- docs/CI/version/progress markers are updated;
+- no new content/progression statement is present.
+
+Current progress estimate: **88% complete / 12% remaining**.
+
+Current public archive label: **v11.22**. Previous public archive labels: **v11.02**, **v10.82**, **v10.62**, **v10.42**, **v10.22**, **v10.02**, **v9.82**, **v9.62**, **v9.42**, **v9.22**, **v9.02**. Earlier compact markers retained: **v8.82**, **v8.62**, **v8.42**, **v8.22**, **v8.02**.
+
+Compatibility progress markers retained: 75% complete / 25% remaining; 76% complete / 24% remaining; 77% complete / 23% remaining; 78% complete / 22% remaining; 79% complete / 21% remaining; 80% complete / 20% remaining; 81% complete / 19% remaining; 82% complete / 18% remaining; 83% complete / 17% remaining; 84% complete / 16% remaining; 85% complete / 15% remaining; 86% complete / 14% remaining; 87% complete / 13% remaining; 88% complete / 12% remaining.

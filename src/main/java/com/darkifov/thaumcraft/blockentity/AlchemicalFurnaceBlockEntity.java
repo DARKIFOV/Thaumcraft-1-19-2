@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.Level;
+import com.darkifov.thaumcraft.essentia.TC4DistillationRuntime;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -148,6 +149,7 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity {
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemicalFurnaceBlockEntity furnace) {
         furnace.tickServer();
+        TC4DistillationRuntime.tickFurnaceToAlembics(level, pos, furnace);
     }
 
     public void setChangedAndSync() {

@@ -12,6 +12,9 @@ import com.darkifov.thaumcraft.infusion.InfusionRecipes;
 import com.darkifov.thaumcraft.infusion.InfusionStructureReport;
 import com.darkifov.thaumcraft.infusion.MatrixAuxiliaryReport;
 import com.darkifov.thaumcraft.infusion.TC4InfusionRuntime;
+import com.darkifov.thaumcraft.infusion.TC4InfusionCraftCycleParity;
+import com.darkifov.thaumcraft.infusion.TC4InfusionStabilityParity;
+import com.darkifov.thaumcraft.infusion.TC4InfusionFailureParity;
 import com.darkifov.thaumcraft.infusion.TC4InfusionEnchantmentAdapter;
 import com.darkifov.thaumcraft.infusion.TC4InfusionRunicAugmentAdapter;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -21,6 +24,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -35,6 +39,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -59,10 +64,25 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
     private float renderStartUp = 0.0F;
     private ResourceLocation recipeId = null;
     private ResourceLocation travellingComponent = null;
+    private BlockPos travellingComponentSource = null;
+    private ItemStack travellingComponentSnapshot = ItemStack.EMPTY;
+    private int travellingComponentIndex = -1;
+    private ResourceLocation lockedCatalystId = null;
+    private ItemStack lockedCatalystSnapshot = ItemStack.EMPTY;
+    private String lastStabilizerSignature = "";
+    private int lastSymmetryPenalty = 0;
+    private int lastStabilizerPairs = 0;
+    private int lastUnpairedStabilizers = 0;
+    private String lastFailureReason = "";
+    private int lastFailureInstability = 0;
+    private ResourceLocation lastFailureTravellingComponent = null;
+    private BlockPos lastFailureTravellingSource = null;
+    private ItemStack lastFailureTravellingSnapshot = ItemStack.EMPTY;
     private UUID ownerId = null;
     private String ownerName = "";
     private final EnumMap<Aspect, Integer> pendingAspects = new EnumMap<>(Aspect.class);
     private final List<ResourceLocation> pendingComponents = new ArrayList<>();
+    private final List<InfusionRecipe.ComponentSpec> pendingComponentSpecs = new ArrayList<>();
 
     public InfusionMatrixBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.INFUSION_MATRIX_BLOCK_ENTITY.get(), pos, state);
@@ -124,6 +144,18 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         return recipeId;
     }
 
+    public ResourceLocation lockedCatalystId() {
+        return lockedCatalystId;
+    }
+
+    public int pendingEssentiaAmount() {
+        return TC4InfusionRuntime.totalPendingEssentia(pendingAspects);
+    }
+
+    public int pendingComponentAmount() {
+        return pendingComponents.size();
+    }
+
     public Component statusComponent() {
         if (!active) {
             return Component.literal("Infusion Matrix idle.").withStyle(ChatFormatting.GRAY);
@@ -180,8 +212,23 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         recipeType = 0;
         recipeId = null;
         travellingComponent = null;
+        travellingComponentSource = null;
+        travellingComponentSnapshot = ItemStack.EMPTY;
+        travellingComponentIndex = -1;
+        lockedCatalystId = null;
+        lockedCatalystSnapshot = ItemStack.EMPTY;
+        lastStabilizerSignature = "";
+        lastSymmetryPenalty = 0;
+        lastStabilizerPairs = 0;
+        lastUnpairedStabilizers = 0;
+        lastFailureReason = "";
+        lastFailureInstability = 0;
+        lastFailureTravellingComponent = null;
+        lastFailureTravellingSource = null;
+        lastFailureTravellingSnapshot = ItemStack.EMPTY;
         pendingAspects.clear();
         pendingComponents.clear();
+        pendingComponentSpecs.clear();
 
         player.displayClientMessage(Component.literal("Infusion Matrix activated. Use the wand again to begin the TC4 craft cycle.").withStyle(ChatFormatting.LIGHT_PURPLE), false);
         player.displayClientMessage(report.summary(), false);
@@ -260,19 +307,27 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         checkSurroundings = false;
         progress = 0;
         cycleDelay = 0;
-        List<ResourceLocation> requiredComponents = recipe.componentsFor(catalystPedestal.stored());
+        List<ResourceLocation> requiredComponents = TC4InfusionRuntime.orderedComponentPullList(recipe, catalystPedestal.stored());
+        List<InfusionRecipe.ComponentSpec> requiredComponentSpecs = TC4InfusionRuntime.orderedComponentSpecList(recipe, catalystPedestal.stored());
         duration = TC4InfusionRuntime.estimateDuration(recipe, report, requiredAspects, requiredComponents, recipe.instabilityFor(catalystPedestal.stored()));
         symmetry = report.originalSymmetryPenalty();
         recipeType = recipe.recipeType();
         recipeXP = recipe.isInfusionEnchantment() ? TC4InfusionEnchantmentAdapter.calcXp(recipe, catalystPedestal.stored()) : 0;
         recipeInstability = recipe.isInfusionEnchantment() ? TC4InfusionEnchantmentAdapter.calcInstability(recipe, catalystPedestal.stored()) : recipe.instabilityFor(catalystPedestal.stored());
-        currentInstability = TC4InfusionRuntime.clampInstability(symmetry + recipeInstability - auxiliary.effectiveStabilizers());
+        currentInstability = TC4InfusionRuntime.clampInstability(symmetry + recipeInstability + auxiliary.unpairedInstabilityPenalty() - auxiliary.effectiveStabilizers());
+        rememberInfusionStabilitySnapshot(report, auxiliary);
         recipeId = recipe.id();
         travellingComponent = null;
+        travellingComponentSource = null;
+        travellingComponentSnapshot = ItemStack.EMPTY;
+        travellingComponentIndex = -1;
+        lockedCatalystId = itemIdFor(catalystPedestal.stored());
+        lockedCatalystSnapshot = catalystPedestal.stored().copy();
         ownerId = player.getUUID();
         ownerName = player.getName().getString();
         pendingAspects.clear();
         pendingComponents.clear();
+        pendingComponentSpecs.clear();
 
         for (Map.Entry<Aspect, Integer> entry : requiredAspects.entrySet()) {
             if (entry.getValue() > 0) {
@@ -281,15 +336,18 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         }
 
         pendingComponents.addAll(requiredComponents);
+        pendingComponentSpecs.addAll(requiredComponentSpecs);
 
-        player.displayClientMessage(
-                Component.literal("Infusion started: ")
-                        .append(catalystPedestal.stored().getHoverName())
-                        .append(Component.literal(" | TC4 craftCycle | Essentia: " + TC4InfusionRuntime.totalPendingEssentia(pendingAspects) + " | Components: " + pendingComponents.size() + " | XP: " + recipeXP + " | Symmetry: " + symmetry + " | Instability: " + currentInstability).withStyle(ChatFormatting.LIGHT_PURPLE)),
-                false
-        );
+        if (TC4InfusionCraftCycleParity.SHOW_START_COMPLETE_DEBUG_MESSAGES) {
+            player.displayClientMessage(
+                    Component.literal("Infusion started: ")
+                            .append(catalystPedestal.stored().getHoverName())
+                            .append(Component.literal(" | TC4 craftCycle | Essentia: " + TC4InfusionRuntime.totalPendingEssentia(pendingAspects) + " | Components: " + pendingComponents.size() + " | XP: " + recipeXP + " | Symmetry: " + symmetry + " | Instability: " + currentInstability).withStyle(ChatFormatting.LIGHT_PURPLE)),
+                    false
+            );
+        }
 
-        level.playSound(null, worldPosition, TC4Sounds.event("craftstart"), SoundSource.BLOCKS, 0.5F, 1.0F);
+        level.playSound(null, worldPosition, TC4Sounds.event(TC4InfusionCraftCycleParity.SOUND_MATRIX_START), SoundSource.BLOCKS, 0.5F, 1.0F);
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.END_ROD, worldPosition.getX() + 0.5D, worldPosition.getY() + 0.85D, worldPosition.getZ() + 0.5D, 30, 0.4D, 0.4D, 0.4D, 0.02D);
         }
@@ -324,6 +382,38 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         // Stage342 GitHub hotfix: do not fall back to catalyst-only lookup.
         // Original TC4 infusion selection requires the component pedestals too.
         return null;
+    }
+
+    private boolean componentsHaveStartedTravelling(InfusionRecipe recipe, ItemStack catalyst) {
+        return pendingComponents.size() < TC4InfusionRuntime.orderedComponentPullList(recipe, catalyst).size();
+    }
+
+    private boolean lockedRecipeStillMatchesCurrentPedestals(InfusionRecipe recipe, ItemStack catalyst, List<ArcanePedestalBlockEntity> componentPedestals) {
+        if (!lockedCatalystStackStillMatches(recipe, catalyst)) {
+            return false;
+        }
+        return findMatchingOriginalInfusionRecipe(catalyst, componentPedestals) == recipe;
+    }
+
+    private boolean lockedCatalystStackStillMatches(InfusionRecipe recipe, ItemStack currentCatalyst) {
+        if (currentCatalyst == null || currentCatalyst.isEmpty()) {
+            return false;
+        }
+        ResourceLocation currentCatalystId = itemIdFor(currentCatalyst);
+        if (lockedCatalystId != null && !lockedCatalystId.equals(currentCatalystId)) {
+            return false;
+        }
+        if (lockedCatalystSnapshot.isEmpty()) {
+            return recipe != null && recipe.catalystMatches(currentCatalyst);
+        }
+        return TC4InfusionRuntime.sameCraftingCatalyst(currentCatalyst, lockedCatalystSnapshot);
+    }
+
+    private ResourceLocation itemIdFor(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return null;
+        }
+        return ForgeRegistries.ITEMS.getKey(stack.getItem());
     }
 
     public void cancelInfusion(Player player) {
@@ -377,14 +467,16 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         MatrixAuxiliaryReport auxiliary = InfusionMatrixAuxiliaryHelper.analyze(level, worldPosition, catalystPedestal, recipe);
         Player owner = getOwner();
+        updateRunningStabilitySnapshot(report, auxiliary);
 
         if (catalystPedestal == null || catalystPedestal.stored().isEmpty()) {
             failInfusion(owner, "Catalyst pedestal is missing.");
             return;
         }
 
-        if (!recipe.catalystMatches(catalystPedestal.stored())) {
-            // TC4 rolls one instability event before ending an invalidated craft.
+        if (!lockedCatalystStackStillMatches(recipe, catalystPedestal.stored())) {
+            // TC4 stores recipeInput at craft start and compares against that exact stack during craftCycle.
+            // Keep NBT/damage-sensitive catalyst locks so mid-craft tag swaps do not silently finish.
             InfusionProcessHelper.instabilityEvent(level, worldPosition, owner, recipe, report, auxiliary.effectiveStabilizers(), Math.max(1, currentInstability));
             failInfusion(owner, "Catalyst changed during infusion.");
             return;
@@ -393,6 +485,17 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         if (!report.valid()) {
             InfusionProcessHelper.instabilityEvent(level, worldPosition, owner, recipe, report, auxiliary.effectiveStabilizers(), Math.max(1, currentInstability));
             failInfusion(owner, "Infusion structure became invalid.");
+            return;
+        }
+
+        if (!componentsHaveStartedTravelling(recipe, catalystPedestal.stored())
+                && !lockedRecipeStillMatchesCurrentPedestals(recipe, catalystPedestal.stored(), report.componentPedestals())) {
+            // Stage343-362: original TC4 recipe selection is locked to the
+            // catalyst plus component pedestals at start. Do not silently drift
+            // to another recipe sharing the same catalyst before the first
+            // pedestal item has been pulled.
+            InfusionProcessHelper.instabilityEvent(level, worldPosition, owner, recipe, report, auxiliary.effectiveStabilizers(), Math.max(1, currentInstability));
+            failInfusion(owner, "Infusion recipe lock no longer matches catalyst and component pedestals.");
             return;
         }
 
@@ -416,7 +519,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         // TC4 rolls instability inside craftCycle, not every render/progress tick.
         // A triggered event consumes this cycle and delays normal drain/pull work.
         if (currentInstability > 0 && InfusionProcessHelper.instabilityEvent(level, worldPosition, owner, recipe, report, auxiliary.effectiveStabilizers(), currentInstability)) {
-            cycleDelay = TC4InfusionRuntime.CRAFT_CYCLE_DELAY;
+            cycleDelay = TC4InfusionCraftCycleParity.CRAFT_CYCLE_DELAY;
             setChangedAndSync();
             return;
         }
@@ -443,6 +546,35 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         setChangedAndSync();
     }
 
+    private void rememberInfusionStabilitySnapshot(InfusionStructureReport report, MatrixAuxiliaryReport auxiliary) {
+        lastStabilizerSignature = auxiliary.stabilizerSignature() == null ? "" : auxiliary.stabilizerSignature();
+        lastSymmetryPenalty = report == null ? 0 : report.originalSymmetryPenalty();
+        lastStabilizerPairs = auxiliary.symmetricStabilizers();
+        lastUnpairedStabilizers = auxiliary.unpairedStabilizers();
+    }
+
+    private void updateRunningStabilitySnapshot(InfusionStructureReport report, MatrixAuxiliaryReport auxiliary) {
+        if (report == null || auxiliary == null) {
+            return;
+        }
+        String signature = auxiliary.stabilizerSignature() == null ? "" : auxiliary.stabilizerSignature();
+        int currentSymmetry = report.originalSymmetryPenalty();
+        boolean changed = !signature.equals(lastStabilizerSignature)
+                || currentSymmetry != lastSymmetryPenalty
+                || auxiliary.symmetricStabilizers() != lastStabilizerPairs
+                || auxiliary.unpairedStabilizers() != lastUnpairedStabilizers;
+        if (!changed) {
+            return;
+        }
+
+        // TC4 re-checks altar symmetry during craftCycle.  Do not silently lower
+        // instability mid-craft when a player adds stabilizers; only raise/keep it
+        // if symmetry/stabilizers become worse or move, preserving original risk.
+        int recalculated = TC4InfusionRuntime.clampInstability(currentSymmetry + recipeInstability + auxiliary.unpairedInstabilityPenalty() - auxiliary.effectiveStabilizers());
+        currentInstability = Math.max(currentInstability, recalculated);
+        rememberInfusionStabilitySnapshot(report, auxiliary);
+    }
+
     private boolean drainEnchantmentXp(InfusionRecipe recipe, Player owner) {
         if (!recipe.isInfusionEnchantment() || recipeXP <= 0) {
             return false;
@@ -456,7 +588,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
                     target.hurt(DamageSource.MAGIC, level.random.nextInt(2));
                 }
                 recipeXP -= 1;
-                cycleDelay = 20;
+                cycleDelay = TC4InfusionCraftCycleParity.ENCHANTMENT_XP_DELAY;
                 level.playSound(null, target.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 2.0F + level.random.nextFloat() * 0.4F);
                 if (level instanceof ServerLevel serverLevel) {
                     ThaumcraftNetwork.sendInfusionSourceFromEntity(serverLevel, worldPosition, target.getId());
@@ -479,10 +611,10 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             }
         }
 
-        if (owner != null && level.getGameTime() % 60L == 0L) {
+        if (TC4InfusionCraftCycleParity.SHOW_WAITING_DEBUG_MESSAGES && owner != null && level.getGameTime() % 60L == 0L) {
             owner.displayClientMessage(Component.literal("Infusion enchantment is waiting for XP levels: " + recipeXP).withStyle(ChatFormatting.DARK_PURPLE), true);
         }
-        cycleDelay = 20;
+        cycleDelay = TC4InfusionCraftCycleParity.ENCHANTMENT_XP_DELAY;
         return true;
     }
 
@@ -495,7 +627,9 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         List<EssentiaJarBlockEntity> jars = InfusionProcessHelper.findJars(level, worldPosition);
 
-        if (InfusionProcessHelper.consumeOneAspect(jars, aspect)) {
+        BlockPos essentiaSource = InfusionProcessHelper.consumeOneAspectSource(jars, aspect);
+
+        if (essentiaSource != null) {
             int left = pendingAspects.getOrDefault(aspect, 0) - 1;
 
             if (left <= 0) {
@@ -504,11 +638,11 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
                 pendingAspects.put(aspect, left);
             }
 
-            cycleDelay = TC4InfusionRuntime.CRAFT_CYCLE_DELAY;
-            level.playSound(null, worldPosition, TC4Sounds.event("infuser"), SoundSource.BLOCKS, 0.35F, 0.85F + level.random.nextFloat() * 0.25F);
+            cycleDelay = TC4InfusionCraftCycleParity.CRAFT_CYCLE_DELAY;
+            level.playSound(null, worldPosition, TC4Sounds.event(TC4InfusionCraftCycleParity.SOUND_ESSENTIA_DRAIN), SoundSource.BLOCKS, 0.35F, 0.85F + level.random.nextFloat() * 0.25F);
 
             if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(ParticleTypes.PORTAL, worldPosition.getX() + 0.5D, worldPosition.getY() + 0.75D, worldPosition.getZ() + 0.5D, 12, 0.9D, 0.35D, 0.9D, 0.06D);
+                InfusionProcessHelper.spawnSourceParticles(serverLevel, essentiaSource, worldPosition, false);
             }
 
             return true;
@@ -518,11 +652,11 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             currentInstability = TC4InfusionRuntime.clampInstability(currentInstability + 1);
         }
 
-        if (owner != null && level.getGameTime() % 60L == 0L) {
+        if (TC4InfusionCraftCycleParity.SHOW_WAITING_DEBUG_MESSAGES && owner != null && level.getGameTime() % 60L == 0L) {
             owner.displayClientMessage(Component.literal("Infusion is waiting for essentia: " + InfusionProcessHelper.pendingAspectText(pendingAspects)).withStyle(ChatFormatting.DARK_PURPLE), true);
         }
 
-        cycleDelay = 10;
+        cycleDelay = TC4InfusionCraftCycleParity.WAITING_RETRY_DELAY;
         return true;
     }
 
@@ -532,20 +666,32 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         }
 
         if (travellingComponent != null) {
-            if (InfusionProcessHelper.consumeSingleComponent(report.componentPedestals(), travellingComponent, recipe)) {
-                pendingComponents.remove(travellingComponent);
+            if (consumeTravellingComponentFromLockedPedestal(recipe)) {
+                removeTravellingComponentFromPending();
                 travellingComponent = null;
-                cycleDelay = TC4InfusionRuntime.CRAFT_CYCLE_DELAY;
-                level.playSound(null, worldPosition, TC4Sounds.event("craftstart"), SoundSource.BLOCKS, 0.45F, 0.9F + level.random.nextFloat() * 0.2F);
+                travellingComponentSource = null;
+                travellingComponentSnapshot = ItemStack.EMPTY;
+                travellingComponentIndex = -1;
+                cycleDelay = TC4InfusionCraftCycleParity.CRAFT_CYCLE_DELAY;
+                level.playSound(null, worldPosition, TC4Sounds.event(TC4InfusionCraftCycleParity.SOUND_COMPONENT_PULL), SoundSource.BLOCKS, 0.45F, 0.9F + level.random.nextFloat() * 0.2F);
                 return true;
             }
 
+            // Stage363-382: original craftCycle sources a concrete pedestal before it consumes the item.
+            // Do not silently consume a duplicate component from a different pedestal if the source was moved.
+            currentInstability = TC4InfusionRuntime.clampInstability(currentInstability + 1);
             travellingComponent = null;
+            travellingComponentSource = null;
+            travellingComponentSnapshot = ItemStack.EMPTY;
+            travellingComponentIndex = -1;
+            cycleDelay = TC4InfusionCraftCycleParity.CRAFT_CYCLE_DELAY;
+            return true;
         }
 
         for (int i = 0; i < pendingComponents.size(); i++) {
             ResourceLocation componentId = pendingComponents.get(i);
-            ArcanePedestalBlockEntity pedestal = InfusionProcessHelper.findComponentPedestal(report.componentPedestals(), componentId, recipe);
+            InfusionRecipe.ComponentSpec componentSpec = pendingComponentSpecAt(i, componentId);
+            ArcanePedestalBlockEntity pedestal = InfusionProcessHelper.findComponentPedestal(report.componentPedestals(), componentSpec, recipe);
 
             if (pedestal != null) {
                 if (level instanceof ServerLevel serverLevel) {
@@ -553,7 +699,11 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
                 }
 
                 travellingComponent = componentId;
-                cycleDelay = TC4InfusionRuntime.ITEM_PULL_DELAY;
+                travellingComponentSource = pedestal.getBlockPos();
+                travellingComponentSnapshot = pedestal.stored().copy();
+                travellingComponentSnapshot.setCount(1);
+                travellingComponentIndex = i;
+                cycleDelay = TC4InfusionCraftCycleParity.ITEM_PULL_DELAY;
                 return true;
             }
         }
@@ -570,12 +720,76 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             currentInstability = TC4InfusionRuntime.clampInstability(currentInstability + 1);
         }
 
-        if (owner != null && level.getGameTime() % 60L == 0L) {
+        if (TC4InfusionCraftCycleParity.SHOW_WAITING_DEBUG_MESSAGES && owner != null && level.getGameTime() % 60L == 0L) {
             owner.displayClientMessage(Component.literal("Infusion is waiting for components: " + InfusionProcessHelper.pendingComponentText(pendingComponents)).withStyle(ChatFormatting.DARK_PURPLE), true);
         }
 
-        cycleDelay = 10;
+        cycleDelay = TC4InfusionCraftCycleParity.WAITING_RETRY_DELAY;
         return true;
+    }
+
+    private boolean consumeTravellingComponentFromLockedPedestal(InfusionRecipe recipe) {
+        if (level == null || travellingComponent == null || travellingComponentSource == null) {
+            return false;
+        }
+        if (!(level.getBlockEntity(travellingComponentSource) instanceof ArcanePedestalBlockEntity pedestal)) {
+            return false;
+        }
+        InfusionRecipe.ComponentSpec lockedSpec = pendingComponentSpecAt(travellingComponentIndex, travellingComponent);
+        if (!recipe.componentMatches(pedestal.stored(), lockedSpec)) {
+            return false;
+        }
+        if (!travellingComponentSnapshot.isEmpty() && !componentStackStillMatchesLockedSource(pedestal.stored(), travellingComponentSnapshot)) {
+            return false;
+        }
+        InfusionProcessHelper.consumePedestalComponentPreservingContainer(level, pedestal);
+        return true;
+    }
+
+    private void removeTravellingComponentFromPending() {
+        if (travellingComponent == null) {
+            return;
+        }
+        if (travellingComponentIndex >= 0
+                && travellingComponentIndex < pendingComponents.size()
+                && travellingComponent.equals(pendingComponents.get(travellingComponentIndex))) {
+            pendingComponents.remove(travellingComponentIndex);
+            removePendingComponentSpecAt(travellingComponentIndex);
+            return;
+        }
+        for (int i = 0; i < pendingComponents.size(); i++) {
+            if (travellingComponent.equals(pendingComponents.get(i))) {
+                pendingComponents.remove(i);
+                removePendingComponentSpecAt(i);
+                return;
+            }
+        }
+    }
+
+    private InfusionRecipe.ComponentSpec pendingComponentSpecAt(int index, ResourceLocation fallbackId) {
+        if (index >= 0 && index < pendingComponentSpecs.size()) {
+            InfusionRecipe.ComponentSpec spec = pendingComponentSpecs.get(index);
+            if (spec != null && spec.itemId() != null) {
+                return spec;
+            }
+        }
+        return new InfusionRecipe.ComponentSpec(fallbackId, com.darkifov.thaumcraft.infusion.TC4InfusionItemMatcher.ANY_DAMAGE, null);
+    }
+
+    private void removePendingComponentSpecAt(int index) {
+        if (index >= 0 && index < pendingComponentSpecs.size()) {
+            pendingComponentSpecs.remove(index);
+        }
+    }
+
+    private boolean componentStackStillMatchesLockedSource(ItemStack current, ItemStack locked) {
+        if (current == null || current.isEmpty() || locked == null || locked.isEmpty()) {
+            return false;
+        }
+        // v8.22: TC4 craftCycle first chooses a concrete source pedestal, then later consumes that source.
+        // Keep the selected stack identity (item + damage/NBT, count ignored) so a same-id replacement
+        // or NBT/meta swap cannot satisfy the already travelling component.
+        return ItemStack.isSameItemSameTags(current, locked);
     }
 
     private void finishInfusion(Player owner, InfusionRecipe recipe, ArcanePedestalBlockEntity catalystPedestal, InfusionStructureReport report) {
@@ -630,13 +844,13 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             }
         }
 
-        level.playSound(null, worldPosition, TC4Sounds.event("infuserstart"), SoundSource.BLOCKS, 0.5F, 1.0F);
+        level.playSound(null, worldPosition, TC4Sounds.event(TC4InfusionCraftCycleParity.SOUND_FINISH), SoundSource.BLOCKS, 0.5F, 1.0F);
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.END_ROD, worldPosition.getX() + 0.5D, worldPosition.getY() + 0.95D, worldPosition.getZ() + 0.5D, 60, 0.6D, 0.6D, 0.6D, 0.04D);
             serverLevel.sendParticles(ParticleTypes.ENCHANT, worldPosition.getX() + 0.5D, worldPosition.getY() + 0.75D, worldPosition.getZ() + 0.5D, 100, 1.4D, 0.4D, 1.4D, 0.08D);
         }
 
-        if (owner != null) {
+        if (TC4InfusionCraftCycleParity.SHOW_START_COMPLETE_DEBUG_MESSAGES && owner != null) {
             owner.displayClientMessage(Component.literal("Infusion complete: ").append(result.getHoverName()).withStyle(ChatFormatting.GOLD), false);
         }
 
@@ -644,8 +858,19 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
     }
 
     private void failInfusion(Player owner, String reason) {
+        lastFailureReason = reason == null ? "" : reason;
+        lastFailureInstability = Math.max(0, currentInstability);
+        lastFailureTravellingComponent = travellingComponent;
+        lastFailureTravellingSource = travellingComponentSource;
+        lastFailureTravellingSnapshot = travellingComponentSnapshot.isEmpty() ? ItemStack.EMPTY : travellingComponentSnapshot.copy();
+
+        InfusionRecipe failureRecipe = recipeId == null ? null : InfusionRecipes.findById(recipeId);
+        ArcanePedestalBlockEntity catalystPedestal = level == null ? null : InfusionProcessHelper.findCatalystPedestal(level, worldPosition);
+        InfusionStructureReport failureReport = level == null ? null : InfusionAltarStructure.analyze(level, worldPosition, catalystPedestal);
+        TC4InfusionFailureParity.applyTerminalFailure(level, worldPosition, owner, failureRecipe, failureReport, currentInstability, lastFailureReason);
+
         if (level != null) {
-            level.playSound(null, worldPosition, TC4Sounds.event("craftfail"), SoundSource.BLOCKS, 0.9F, 0.9F);
+            level.playSound(null, worldPosition, TC4Sounds.event(TC4InfusionCraftCycleParity.SOUND_FAIL), SoundSource.BLOCKS, 0.9F, 0.9F);
         }
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.SMOKE, worldPosition.getX() + 0.5D, worldPosition.getY() + 0.75D, worldPosition.getZ() + 0.5D, 70, 1.2D, 0.4D, 1.2D, 0.06D);
@@ -653,14 +878,16 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         if (owner != null) {
             PlayerThaumData.addWarp(owner, 1);
-            owner.displayClientMessage(Component.literal("Infusion failed: " + reason).withStyle(ChatFormatting.RED), false);
+            if (TC4InfusionCraftCycleParity.SHOW_START_COMPLETE_DEBUG_MESSAGES) {
+                owner.displayClientMessage(Component.literal("Infusion failed: " + reason).withStyle(ChatFormatting.RED), false);
+            }
 
             if (owner instanceof ServerPlayer serverPlayer) {
                 ThaumcraftNetwork.syncResearch(serverPlayer);
             }
         }
 
-        clearCraftingState(true);
+        clearCraftingState(true, false);
     }
 
     private void deactivateMatrix() {
@@ -669,6 +896,10 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
     }
 
     private void clearCraftingState(boolean keepActive) {
+        clearCraftingState(keepActive, true);
+    }
+
+    private void clearCraftingState(boolean keepActive, boolean clearLastFailure) {
         active = keepActive && active;
         crafting = false;
         checkSurroundings = true;
@@ -681,8 +912,25 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         recipeType = 0;
         recipeId = null;
         travellingComponent = null;
+        travellingComponentSource = null;
+        travellingComponentSnapshot = ItemStack.EMPTY;
+        travellingComponentIndex = -1;
+        lockedCatalystId = null;
+        lockedCatalystSnapshot = ItemStack.EMPTY;
+        lastStabilizerSignature = "";
+        lastSymmetryPenalty = 0;
+        lastStabilizerPairs = 0;
+        lastUnpairedStabilizers = 0;
+        if (clearLastFailure) {
+            lastFailureReason = "";
+            lastFailureInstability = 0;
+            lastFailureTravellingComponent = null;
+            lastFailureTravellingSource = null;
+            lastFailureTravellingSnapshot = ItemStack.EMPTY;
+        }
         pendingAspects.clear();
         pendingComponents.clear();
+        pendingComponentSpecs.clear();
     }
 
     private Player getOwner() {
@@ -730,6 +978,23 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         tag.putInt("recipetype", recipeType);
         tag.putInt("recipexp", recipeXP);
         tag.putString("recipeplayer", ownerName == null ? "" : ownerName);
+        tag.putString(TC4InfusionStabilityParity.NBT_RECIPE_STABILIZERS, lastStabilizerSignature == null ? "" : lastStabilizerSignature);
+        tag.putInt(TC4InfusionStabilityParity.NBT_RECIPE_SYMMETRY, lastSymmetryPenalty);
+        tag.putInt(TC4InfusionStabilityParity.NBT_RECIPE_STABILIZER_PAIRS, lastStabilizerPairs);
+        tag.putInt(TC4InfusionStabilityParity.NBT_RECIPE_UNPAIRED_STABILIZERS, lastUnpairedStabilizers);
+        tag.putString(TC4InfusionFailureParity.NBT_LAST_FAILURE_REASON, lastFailureReason == null ? "" : lastFailureReason);
+        tag.putInt(TC4InfusionFailureParity.NBT_LAST_FAILURE_INSTABILITY, lastFailureInstability);
+        if (lastFailureTravellingComponent != null) {
+            tag.putString("recipefailurecomponent", lastFailureTravellingComponent.toString());
+        }
+        if (lastFailureTravellingSource != null) {
+            tag.putInt("recipefailureSourceX", lastFailureTravellingSource.getX());
+            tag.putInt("recipefailureSourceY", lastFailureTravellingSource.getY());
+            tag.putInt("recipefailureSourceZ", lastFailureTravellingSource.getZ());
+        }
+        if (!lastFailureTravellingSnapshot.isEmpty()) {
+            tag.put("recipefailureSourceStack", lastFailureTravellingSnapshot.save(new CompoundTag()));
+        }
 
         if (recipeId != null) {
             tag.putString("RecipeId", recipeId.toString());
@@ -737,6 +1002,29 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         if (travellingComponent != null) {
             tag.putString("TravellingComponent", travellingComponent.toString());
+        }
+
+        if (travellingComponentSource != null) {
+            tag.putInt("TravellingComponentSourceX", travellingComponentSource.getX());
+            tag.putInt("TravellingComponentSourceY", travellingComponentSource.getY());
+            tag.putInt("TravellingComponentSourceZ", travellingComponentSource.getZ());
+            tag.putString("sourcePedestal", travellingComponentSource.getX() + "," + travellingComponentSource.getY() + "," + travellingComponentSource.getZ());
+        }
+        if (!travellingComponentSnapshot.isEmpty()) {
+            tag.put("TravellingComponentSnapshot", travellingComponentSnapshot.save(new CompoundTag()));
+            tag.put("sourceStack", travellingComponentSnapshot.save(new CompoundTag()));
+        }
+        tag.putInt("TravellingComponentIndex", travellingComponentIndex);
+
+        if (lockedCatalystId != null) {
+            tag.putString("LockedCatalystId", lockedCatalystId.toString());
+            // Original TC4 debug parity: recipe object/catalyst are fixed once craftCycle starts.
+            tag.putString("recipeobject", lockedCatalystId.toString());
+        }
+        if (!lockedCatalystSnapshot.isEmpty()) {
+            tag.put("LockedCatalystSnapshot", lockedCatalystSnapshot.save(new CompoundTag()));
+            // TC4 TileInfusionMatrix writes recipeinput as the exact ItemStack copy.
+            tag.put("recipeinput", lockedCatalystSnapshot.save(new CompoundTag()));
         }
 
         if (ownerId != null) {
@@ -751,6 +1039,28 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         }
         tag.put("PendingAspects", aspects);
         tag.putString("PendingComponents", TC4InfusionRuntime.serializeComponents(pendingComponents));
+        tag.putString("PendingComponentSpecs", TC4InfusionRuntime.serializeComponentSpecs(pendingComponentSpecs));
+        ListTag pendingSpecList = new ListTag();
+        for (InfusionRecipe.ComponentSpec spec : pendingComponentSpecs) {
+            if (spec == null || spec.itemId() == null) {
+                continue;
+            }
+            CompoundTag specTag = new CompoundTag();
+            specTag.putString("id", spec.itemId().toString());
+            specTag.putInt("damage", spec.damage());
+            if (spec.tag() != null && !spec.tag().isEmpty()) {
+                specTag.put("nbt", spec.tag().copy());
+            }
+            pendingSpecList.add(specTag);
+        }
+        tag.put("PendingComponentSpecList", pendingSpecList);
+        // Stage683-702: keep original-style recipe snapshot fields alongside the
+        // typed Forge 1.19.2 fields.  These are not new mechanics; they preserve
+        // the TC4 craftCycle state for debugging/save migration without allowing
+        // catalyst-only recipe drift.
+        tag.putString("recipeingredients", TC4InfusionRuntime.serializeComponents(pendingComponents));
+        tag.putString("recipeessentia", serializePendingAspects());
+        tag.putInt("recipeinstability", recipeInstability);
     }
 
     @Override
@@ -771,10 +1081,47 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         recipeType = tag.contains("RecipeType") ? tag.getInt("RecipeType") : tag.getInt("recipetype");
         recipeId = tag.contains("RecipeId") ? new ResourceLocation(tag.getString("RecipeId")) : null;
         travellingComponent = tag.contains("TravellingComponent") && !tag.getString("TravellingComponent").isEmpty() ? new ResourceLocation(tag.getString("TravellingComponent")) : null;
+        if (tag.contains("TravellingComponentSourceX") && tag.contains("TravellingComponentSourceY") && tag.contains("TravellingComponentSourceZ")) {
+            travellingComponentSource = new BlockPos(tag.getInt("TravellingComponentSourceX"), tag.getInt("TravellingComponentSourceY"), tag.getInt("TravellingComponentSourceZ"));
+        } else {
+            travellingComponentSource = null;
+        }
+        if (tag.contains("TravellingComponentSnapshot")) {
+            travellingComponentSnapshot = ItemStack.of(tag.getCompound("TravellingComponentSnapshot"));
+        } else if (tag.contains("sourceStack")) {
+            travellingComponentSnapshot = ItemStack.of(tag.getCompound("sourceStack"));
+        } else {
+            travellingComponentSnapshot = ItemStack.EMPTY;
+        }
+        travellingComponentIndex = tag.contains("TravellingComponentIndex") ? tag.getInt("TravellingComponentIndex") : -1;
+        String catalystId = tag.contains("LockedCatalystId") ? tag.getString("LockedCatalystId") : tag.getString("recipeobject");
+        lockedCatalystId = catalystId == null || catalystId.isEmpty() ? null : new ResourceLocation(catalystId);
+        if (tag.contains("LockedCatalystSnapshot")) {
+            lockedCatalystSnapshot = ItemStack.of(tag.getCompound("LockedCatalystSnapshot"));
+        } else if (tag.contains("recipeinput")) {
+            lockedCatalystSnapshot = ItemStack.of(tag.getCompound("recipeinput"));
+        } else {
+            lockedCatalystSnapshot = ItemStack.EMPTY;
+        }
         ownerId = tag.hasUUID("OwnerId") ? tag.getUUID("OwnerId") : null;
         ownerName = tag.contains("OwnerName") ? tag.getString("OwnerName") : tag.getString("recipeplayer");
+        lastStabilizerSignature = tag.getString(TC4InfusionStabilityParity.NBT_RECIPE_STABILIZERS);
+        lastSymmetryPenalty = tag.getInt(TC4InfusionStabilityParity.NBT_RECIPE_SYMMETRY);
+        lastStabilizerPairs = tag.getInt(TC4InfusionStabilityParity.NBT_RECIPE_STABILIZER_PAIRS);
+        lastUnpairedStabilizers = tag.getInt(TC4InfusionStabilityParity.NBT_RECIPE_UNPAIRED_STABILIZERS);
+        lastFailureReason = tag.getString(TC4InfusionFailureParity.NBT_LAST_FAILURE_REASON);
+        lastFailureInstability = tag.getInt(TC4InfusionFailureParity.NBT_LAST_FAILURE_INSTABILITY);
+        String failedComponent = tag.getString("recipefailurecomponent");
+        lastFailureTravellingComponent = failedComponent == null || failedComponent.isBlank() ? null : new ResourceLocation(failedComponent);
+        if (tag.contains("recipefailureSourceX") && tag.contains("recipefailureSourceY") && tag.contains("recipefailureSourceZ")) {
+            lastFailureTravellingSource = new BlockPos(tag.getInt("recipefailureSourceX"), tag.getInt("recipefailureSourceY"), tag.getInt("recipefailureSourceZ"));
+        } else {
+            lastFailureTravellingSource = null;
+        }
+        lastFailureTravellingSnapshot = tag.contains("recipefailureSourceStack") ? ItemStack.of(tag.getCompound("recipefailureSourceStack")) : ItemStack.EMPTY;
         pendingAspects.clear();
         pendingComponents.clear();
+        pendingComponentSpecs.clear();
 
         if (tag.contains("PendingAspects")) {
             CompoundTag aspects = tag.getCompound("PendingAspects");
@@ -787,6 +1134,9 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
         }
 
         String componentString = tag.getString("PendingComponents");
+        if (componentString.isEmpty()) {
+            componentString = tag.getString("recipeingredients");
+        }
         if (!componentString.isEmpty()) {
             for (String part : componentString.split("\\|")) {
                 if (part.isEmpty()) {
@@ -798,6 +1148,64 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
                 }
             }
         }
+        restorePendingComponentSpecs(tag);
+    }
+
+    private void restorePendingComponentSpecs(CompoundTag tag) {
+        pendingComponentSpecs.clear();
+        if (tag.contains("PendingComponentSpecList")) {
+            ListTag specs = tag.getList("PendingComponentSpecList", 10);
+            for (int i = 0; i < specs.size(); i++) {
+                CompoundTag specTag = specs.getCompound(i);
+                try {
+                    ResourceLocation id = new ResourceLocation(specTag.getString("id"));
+                    int damage = specTag.contains("damage") ? specTag.getInt("damage") : com.darkifov.thaumcraft.infusion.TC4InfusionItemMatcher.ANY_DAMAGE;
+                    CompoundTag nbt = specTag.contains("nbt") ? specTag.getCompound("nbt") : null;
+                    pendingComponentSpecs.add(new InfusionRecipe.ComponentSpec(id, damage, nbt));
+                } catch (Exception ignored) {
+                }
+            }
+        } else {
+            String serialized = tag.getString("PendingComponentSpecs");
+            if (serialized != null && !serialized.isBlank()) {
+                for (String part : serialized.split("\\|")) {
+                    String[] pieces = part.split("@", 3);
+                    if (pieces.length == 0 || pieces[0].isBlank()) {
+                        continue;
+                    }
+                    try {
+                        ResourceLocation id = new ResourceLocation(pieces[0]);
+                        int damage = pieces.length > 1 && !pieces[1].isBlank()
+                                ? Integer.parseInt(pieces[1])
+                                : com.darkifov.thaumcraft.infusion.TC4InfusionItemMatcher.ANY_DAMAGE;
+                        pendingComponentSpecs.add(new InfusionRecipe.ComponentSpec(id, damage, null));
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+        while (pendingComponentSpecs.size() < pendingComponents.size()) {
+            ResourceLocation id = pendingComponents.get(pendingComponentSpecs.size());
+            pendingComponentSpecs.add(new InfusionRecipe.ComponentSpec(id, com.darkifov.thaumcraft.infusion.TC4InfusionItemMatcher.ANY_DAMAGE, null));
+        }
+        while (pendingComponentSpecs.size() > pendingComponents.size()) {
+            pendingComponentSpecs.remove(pendingComponentSpecs.size() - 1);
+        }
+    }
+
+
+    private String serializePendingAspects() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<Aspect, Integer> entry : pendingAspects.entrySet()) {
+            if (entry.getValue() <= 0) {
+                continue;
+            }
+            if (builder.length() > 0) {
+                builder.append('|');
+            }
+            builder.append(entry.getKey().id()).append(':').append(entry.getValue());
+        }
+        return builder.toString();
     }
 
     @Override

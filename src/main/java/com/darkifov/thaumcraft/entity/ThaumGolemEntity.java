@@ -28,6 +28,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -63,13 +64,20 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
+import java.util.Map;
+import java.util.Iterator;
 
 public class ThaumGolemEntity extends PathfinderMob {
+    /** TC4 GolemHelper.itemTimeout equivalent: per-golem stack backoff for sorting failures. */
+    private static final List<SortingItemTimeout> SORTING_ITEM_TIMEOUTS = new ArrayList<>();
     private UUID ownerUuid;
     private BlockPos homePos = BlockPos.ZERO;
     private BlockPos inputPos = null;
@@ -95,6 +103,7 @@ public class ThaumGolemEntity extends PathfinderMob {
     private boolean filterAllowList = false;
     private boolean waiting = false;
     private boolean patrolToWork = true;
+    private ListTag originalMarkers = new ListTag();
     private int taskRadius = 8;
     private int taskPriority = 0;
 
@@ -512,12 +521,29 @@ public class ThaumGolemEntity extends PathfinderMob {
 
     private void runOriginalSortingPlace() {
         if (!itemCarried.isEmpty()) {
-            if (!runOriginalHomeDrop()) {
-                runOriginalHomeReplace();
+            // v10.62 strict TC4 AISortingPlace parity: a sorting golem carrying
+            // an item must first try marked output inventories and their marked
+            // sides. Older compact builds fell back to the home/output position
+            // immediately, which made sorting cores behave like gather/empty
+            // golems and ignored the original GolemHelper.getMarkedSides path.
+            if (!runOriginalSortingPlaceIntoMarkedOutput()) {
+                // TC4 GolemHelper.validTargetForItem/findSomethingSortCore adds
+                // itemTimeout when no valid marked output exists, preventing a
+                // sorting golem from repeatedly picking/throwing the same stack.
+                addSortingItemTimeoutLikeTC4(itemCarried);
+                if (!runOriginalHomeDrop()) {
+                    runOriginalHomeReplace();
+                }
             }
             return;
         }
-        runOriginalItemPickup();
+        // v9.62: TC4 sorting cores include AIHomeTakeSorting before ordinary
+        // item pickup. v10.62 makes its needed-list home-inventory based like
+        // GolemHelper.getItemsInHomeContainer + filterSortCore, not only ghost
+        // filter-slot based.
+        if (!runOriginalHomeTakeSorting()) {
+            runOriginalItemPickup();
+        }
     }
 
     private void runOriginalUseHomeTakeReplace() {
@@ -536,7 +562,33 @@ public class ThaumGolemEntity extends PathfinderMob {
             return false;
         }
         Container container = originalHomeContainer();
-        return container != null && takeOneAcceptedStackFromContainer(container);
+        return container != null && takeOneAcceptedStackFromContainer(container, Direction.from3DDataValue(homeFacing));
+    }
+
+    private boolean runOriginalHomeTakeSorting() {
+        if (!itemCarried.isEmpty() || coreType != GolemCoreType.SORTING || !nearOriginalHome()) {
+            moveTowardHomeIfNeeded();
+            return false;
+        }
+        Container home = originalHomeContainer();
+        if (home == null) {
+            return false;
+        }
+        Direction homeSide = Direction.from3DDataValue(homeFacing);
+        List<ItemStack> needed = sortingNeededListLikeTC4(home, homeSide);
+        if (needed.isEmpty()) {
+            return false;
+        }
+        for (ItemStack sample : needed) {
+            if (sample.isEmpty() || !acceptsItem(sample)) {
+                continue;
+            }
+            if (takeMatchingStackFromContainer(home, sample, Direction.from3DDataValue(homeFacing))) {
+                lastOriginalTask = "AIHomeTakeSorting";
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean runOriginalInputTake() {
@@ -551,8 +603,12 @@ public class ThaumGolemEntity extends PathfinderMob {
         if (itemCarried.isEmpty()) {
             return false;
         }
+        BlockPos targetPos = outputPos == null ? originalHomeContainerPos() : outputPos;
         Container container = outputPos == null ? originalHomeContainer() : findNearbyContainer(outputPos, 1);
         if (container == null) {
+            if (dropCarriedTowardTargetLikeTC4(targetPos)) {
+                return true;
+            }
             moveTowardHomeIfNeeded();
             return false;
         }
@@ -600,37 +656,475 @@ public class ThaumGolemEntity extends PathfinderMob {
             return;
         }
         items.sort(Comparator.comparingDouble(this::distanceToSqr));
-        ItemEntity target = items.get(0);
-        if (distanceToSqr(target) > 2.25D) {
-            getNavigation().moveTo(target, hasUpgrade(GolemUpgradeType.AIR) ? 1.25D : 1.1D);
+        for (ItemEntity target : items) {
+            ItemStack stack = target.getItem();
+            if (coreType == GolemCoreType.SORTING && !sortingValidTargetForItemLikeTC4(stack)) {
+                continue;
+            }
+            if (distanceToSqr(target) > 2.25D) {
+                getNavigation().moveTo(target, hasUpgrade(GolemUpgradeType.AIR) ? 1.25D : 1.1D);
+                return;
+            }
+            int move = Math.min(stack.getCount(), Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades)));
+            itemCarried = stack.copy();
+            itemCarried.setCount(move);
+            stack.shrink(move);
+            if (stack.isEmpty()) {
+                target.discard();
+            } else {
+                target.setItem(stack);
+            }
+            lastOriginalTask = coreType == GolemCoreType.SORTING ? "AIItemPickup:validTargetForItem" : "AIItemPickup";
             return;
-        }
-        ItemStack stack = target.getItem();
-        int move = Math.min(stack.getCount(), Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades)));
-        itemCarried = stack.copy();
-        itemCarried.setCount(move);
-        stack.shrink(move);
-        if (stack.isEmpty()) {
-            target.discard();
-        } else {
-            target.setItem(stack);
         }
     }
 
     private boolean takeOneAcceptedStackFromContainer(Container container) {
-        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+        return takeOneAcceptedStackFromContainer(container, null);
+    }
+
+    private boolean takeOneAcceptedStackFromContainer(Container container, Direction side) {
+        if (container == null) {
+            return false;
+        }
+        for (int slot : slotsForContainerSide(container, side)) {
             ItemStack stored = container.getItem(slot);
-            if (!stored.isEmpty() && acceptsItem(stored)) {
+            if (!stored.isEmpty() && acceptsItem(stored) && canTakeThroughSide(container, stored, slot, side)) {
                 int move = Math.min(stored.getCount(), Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades)));
                 itemCarried = stored.copy();
                 itemCarried.setCount(move);
                 stored.shrink(move);
+                if (stored.isEmpty()) {
+                    container.setItem(slot, ItemStack.EMPTY);
+                }
                 container.setChanged();
                 originalChestInteractTicks = GolemTaskAIRuntime.ORIGINAL_CHEST_INTERACT_TICKS;
                 return true;
             }
         }
         return false;
+    }
+
+    private boolean takeMatchingStackFromContainer(Container container, ItemStack sample, Direction side) {
+        if (container == null || sample == null || sample.isEmpty()) {
+            return false;
+        }
+        for (int slot : slotsForContainerSide(container, side)) {
+            ItemStack stored = container.getItem(slot);
+            if (!stored.isEmpty()
+                    && sortingItemMatchesLikeTC4(stored, sample)
+                    && canTakeThroughSide(container, stored, slot, side)) {
+                int move = Math.min(stored.getCount(), Math.min(Math.max(1, sample.getCount()), Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades))));
+                itemCarried = stored.copy();
+                itemCarried.setCount(move);
+                stored.shrink(move);
+                if (stored.isEmpty()) {
+                    container.setItem(slot, ItemStack.EMPTY);
+                }
+                container.setChanged();
+                originalChestInteractTicks = GolemTaskAIRuntime.ORIGINAL_CHEST_INTERACT_TICKS;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<ItemStack> sortingNeededListLikeTC4(Container home, Direction homeSide) {
+        // v10.62 strict original comparison: TC4 sorting core does not build its
+        // AIHomeTakeSorting list only from ghost/filter slots. GolemHelper first
+        // scans the home container through homeFacing (getItemsInHomeContainer),
+        // then filterSortCore keeps only stacks that already have a marked output
+        // inventory with room and a matching item on the marked side. The actual
+        // extraction then sets needed.count = getCarrySpace(), so we request up
+        // to the carry limit rather than the exact missing amount from v10.42.
+        List<ItemStack> samples = sortingHomeCandidatesLikeTC4(home, homeSide);
+        if (samples.isEmpty()) {
+            samples = sortingFilterSamplesLikeTC4(); // compatibility fallback for legacy compact saves with no visible home inventory.
+        }
+        if (samples.isEmpty()) {
+            return List.of();
+        }
+
+        List<ItemStack> needed = new ArrayList<>();
+        int carryLimit = Math.max(1, GolemOriginalRuntime.carryLimit(material, upgrades));
+        for (ItemStack sample : samples) {
+            if (sample.isEmpty() || !acceptsItem(sample) || sortingIsOnTimeoutLikeTC4(sample)) {
+                continue;
+            }
+            if (sortingHasMarkedOutputWithRoomLikeTC4(sample)) {
+                ItemStack stack = sample.copy();
+                stack.setCount(carryLimit); // TC4 AIHomeTakeSorting: needed.stackSize = getCarrySpace()
+                needed.add(stack);
+            } else {
+                // Mirrors GolemHelper.filterSortCore -> findSomethingSortCore:
+                // no marked output with room means the stack is ignored for
+                // Config.golemIgnoreDelay instead of being re-requested every AI tick.
+                addSortingItemTimeoutLikeTC4(sample);
+            }
+        }
+        return needed;
+    }
+
+    private List<ItemStack> sortingHomeCandidatesLikeTC4(Container home, Direction homeSide) {
+        List<ItemStack> samples = new ArrayList<>();
+        if (home == null) {
+            return samples;
+        }
+        for (int slot : slotsForContainerSide(home, homeSide)) {
+            ItemStack stack = home.getItem(slot);
+            if (stack.isEmpty() || !canTakeThroughSide(home, stack, slot, homeSide)) {
+                continue;
+            }
+            boolean duplicate = false;
+            for (ItemStack sample : samples) {
+                if (sortingItemMatchesLikeTC4(sample, stack)) {
+                    duplicate = true;
+                    break;
+                }
+            }
+            if (!duplicate) {
+                ItemStack copy = stack.copy();
+                copy.setCount(1);
+                samples.add(copy);
+            }
+        }
+        return samples;
+    }
+
+    private List<ItemStack> sortingFilterSamplesLikeTC4() {
+        List<ItemStack> samples = new ArrayList<>();
+        if (!filterStack.isEmpty()) {
+            samples.add(filterStack.copy());
+        }
+        int slots = Math.min(activeSlots(), colors.length);
+        for (int slot = 0; slot < slots; slot++) {
+            ItemStack stack = inventory.get(slot);
+            if (stack.isEmpty()) {
+                continue;
+            }
+            boolean duplicate = false;
+            for (ItemStack sample : samples) {
+                if (sortingItemMatchesLikeTC4(sample, stack)) {
+                    duplicate = true;
+                    break;
+                }
+            }
+            if (!duplicate) {
+                ItemStack copy = stack.copy();
+                copy.setCount(1);
+                samples.add(copy);
+            }
+        }
+        return samples;
+    }
+
+    private int missingAmountForOutputsLikeTC4(List<MarkedOutputContainer> outputs, ItemStack sample, int targetCount) {
+        // v10.02 audit compatibility tokens after v10.42 exact missing rewrite:
+        // outputNeedsItemLikeTC4(outputs, sample, carryLimit)
+        // private boolean outputNeedsItemLikeTC4(List<MarkedOutputContainer> outputs, ItemStack sample, int targetCount)
+        // v10.42: sorting needed-list now carries an exact missing amount up to
+        // carryLimit instead of always requesting a full stack whenever any output
+        // is underfilled. This keeps multi-output sorting from over-pulling from
+        // the home inventory while still matching TC4's repeated small trips.
+        int totalMissing = 0;
+        int perOutputTarget = Math.max(1, targetCount);
+        for (MarkedOutputContainer output : outputs) {
+            int present = countMatchingItems(output.container(), sample, output.sides());
+            if (present < perOutputTarget) {
+                totalMissing += perOutputTarget - present;
+            }
+        }
+        return Math.min(Math.max(1, targetCount), totalMissing);
+    }
+
+    private List<MarkedOutputContainer> sortingOutputContainersLikeTC4(int color) {
+        Map<BlockPos, Container> containers = new HashMap<>();
+        Map<BlockPos, List<Direction>> markedSides = new HashMap<>();
+        for (GolemBellMarkerRuntime.Marker marker : GolemBellMarkerRuntime.readMarkers(originalMarkers)) {
+            if (!markerMatchesGolemColorLikeTC4(marker.color(), color)) {
+                continue;
+            }
+            BlockPos markerPos = new BlockPos(marker.x(), marker.y(), marker.z());
+            BlockEntity be = level.getBlockEntity(markerPos);
+            // v10.22 strict GolemHelper parity: markers point at the inventory
+            // block itself. The marker side is an access side for sided inventories;
+            // do not also treat markerPos.relative(side) as a second output chest.
+            if (be instanceof Container container) {
+                Direction side = Direction.from3DDataValue(marker.side() & 255);
+                containers.putIfAbsent(markerPos.immutable(), container);
+                markedSides.computeIfAbsent(markerPos.immutable(), ignored -> new ArrayList<>())
+                        .add(side);
+                // v11.42 TC4 InventoryUtils.getInventoryAt parity bridge:
+                // 1.7.10 large chests are exposed as one InventoryLargeChest.
+                // Forge 1.19.2 exposes each half as its own block entity, so a
+                // marker on one half must still see the adjacent same-block half
+                // as part of the marked output set.
+                addAdjacentSameBlockContainersLikeTC4(markerPos, side, containers, markedSides);
+            }
+        }
+        List<MarkedOutputContainer> outputs = new ArrayList<>();
+        for (Map.Entry<BlockPos, Container> entry : containers.entrySet()) {
+            outputs.add(new MarkedOutputContainer(entry.getValue(), entry.getKey(), markedSides.getOrDefault(entry.getKey(), List.of())));
+        }
+        return outputs;
+    }
+
+
+    private void addAdjacentSameBlockContainersLikeTC4(BlockPos markerPos, Direction side,
+                                                       Map<BlockPos, Container> containers,
+                                                       Map<BlockPos, List<Direction>> markedSides) {
+        if (markerPos == null || level == null) {
+            return;
+        }
+        Block markerBlock = level.getBlockState(markerPos).getBlock();
+        for (Direction horizontal : new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST}) {
+            BlockPos neighbourPos = markerPos.relative(horizontal);
+            if (containers.containsKey(neighbourPos)) {
+                continue;
+            }
+            if (level.getBlockState(neighbourPos).getBlock() != markerBlock) {
+                continue;
+            }
+            BlockEntity neighbour = level.getBlockEntity(neighbourPos);
+            if (neighbour instanceof Container neighbourContainer) {
+                containers.put(neighbourPos.immutable(), neighbourContainer);
+                markedSides.computeIfAbsent(neighbourPos.immutable(), ignored -> new ArrayList<>()).add(side);
+            }
+        }
+    }
+
+    private boolean sortingHasMarkedOutputWithRoomLikeTC4(ItemStack sample) {
+        // v11.02 strict GolemHelper.findSomethingSortCore parity: target
+        // discovery uses getContainersWithRoom(..., (byte)-1, itemToMatch), not
+        // only the golem filter colors. The actual AISortingPlace still uses
+        // getColorsMatching(carried), but the pickup/home-take pre-check must be
+        // broad enough to see any marked inventory that already contains the
+        // item on one of its marked sides and has room for more.
+        for (MarkedOutputContainer output : sortingOutputContainersLikeTC4(-1)) {
+            if (isOriginalHomeContainerPos(output.pos())) {
+                continue;
+            }
+            if (outputDistanceTooFarLikeTC4(output.pos())) {
+                continue;
+            }
+            if (!containerContainsItem(output.container(), sample, output.sides())) {
+                continue;
+            }
+            if (containerHasRoomForItemThroughMarkedSides(output.container(), sample, output.sides())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean runOriginalSortingPlaceIntoMarkedOutput() {
+        if (itemCarried.isEmpty()) {
+            return false;
+        }
+        for (int color : colorsMatchingStackLikeTC4(itemCarried)) {
+            List<MarkedOutputContainer> outputs = sortingOutputContainersLikeTC4(color);
+            outputs.sort(Comparator.comparingDouble(output -> distanceToSqr(output.pos().getX() + 0.5D, output.pos().getY() + 0.5D, output.pos().getZ() + 0.5D)));
+            for (MarkedOutputContainer output : outputs) {
+                if (isOriginalHomeContainerPos(output.pos()) || outputDistanceTooFarLikeTC4(output.pos())) {
+                    continue;
+                }
+                ItemStack remainder = insertIntoContainerThroughSides(output.container(), itemCarried.copy(), output.sides());
+                if (remainder.getCount() != itemCarried.getCount()
+                        && containerContainsItem(output.container(), itemCarried, output.sides())) {
+                    itemCarried = remainder;
+                    if (itemCarried.isEmpty()) {
+                        itemCarried = ItemStack.EMPTY;
+                    }
+                    originalChestInteractTicks = GolemTaskAIRuntime.ORIGINAL_CHEST_INTERACT_TICKS;
+                    lastOriginalTask = "AISortingPlace";
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean sortingValidTargetForItemLikeTC4(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return false;
+        }
+        if (sortingIsOnTimeoutLikeTC4(stack)) {
+            return false;
+        }
+        if (sortingHasMarkedOutputWithRoomLikeTC4(stack)) {
+            return true;
+        }
+        addSortingItemTimeoutLikeTC4(stack);
+        return false;
+    }
+
+    private boolean sortingIsOnTimeoutLikeTC4(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return false;
+        }
+        long now = System.currentTimeMillis();
+        Iterator<SortingItemTimeout> iterator = SORTING_ITEM_TIMEOUTS.iterator();
+        while (iterator.hasNext()) {
+            SortingItemTimeout timeout = iterator.next();
+            if (now >= timeout.expiresAtMillis()) {
+                iterator.remove();
+                continue;
+            }
+            if (timeout.golemId() == getId() && sortingTimeoutStackEqualsLikeTC4(timeout.stack(), stack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void addSortingItemTimeoutLikeTC4(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return;
+        }
+        ItemStack copy = stack.copy();
+        copy.setCount(1);
+        long expires = System.currentTimeMillis() + GolemTaskAIRuntime.ORIGINAL_GOLEM_IGNORE_DELAY_MS;
+        SORTING_ITEM_TIMEOUTS.removeIf(timeout -> timeout.golemId() == getId() && sortingTimeoutStackEqualsLikeTC4(timeout.stack(), copy));
+        SORTING_ITEM_TIMEOUTS.add(new SortingItemTimeout(getId(), copy, expires));
+    }
+
+    private boolean sortingTimeoutStackEqualsLikeTC4(ItemStack left, ItemStack right) {
+        return left != null && right != null && !left.isEmpty() && !right.isEmpty()
+                && ItemStack.isSameItemSameTags(left, right);
+    }
+
+    private List<Integer> colorsMatchingStackLikeTC4(ItemStack stack) {
+        List<Integer> matches = new ArrayList<>();
+        if (stack == null || stack.isEmpty()) {
+            return matches;
+        }
+        int slots = Math.min(activeSlots(), colors.length);
+        for (int slot = 0; slot < slots; slot++) {
+            ItemStack filter = inventory.get(slot);
+            if (!filter.isEmpty() && sortingItemMatchesLikeTC4(stack, filter)) {
+                int color = getGolemColor(slot);
+                if (!matches.contains(color)) {
+                    matches.add(color);
+                }
+            }
+        }
+        if (!filterStack.isEmpty() && sortingItemMatchesLikeTC4(stack, filterStack)) {
+            int color = getGolemColor(0);
+            if (!matches.contains(color)) {
+                matches.add(color);
+            }
+        }
+        if (matches.isEmpty()) {
+            matches.add(-1);
+        }
+        return matches;
+    }
+
+    private boolean outputDistanceTooFarLikeTC4(BlockPos pos) {
+        double range = workRange();
+        return pos == null || distanceToSqr(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D) > range * range;
+    }
+
+    private boolean isOriginalHomeContainerPos(BlockPos pos) {
+        BlockPos homeContainer = originalHomeContainerPos();
+        return pos != null && homeContainer != null && pos.equals(homeContainer);
+    }
+
+    private boolean containerContainsItem(Container container, ItemStack sample, List<Direction> sides) {
+        return countMatchingItems(container, sample, sides) > 0;
+    }
+
+    private boolean containerHasRoomForItemThroughMarkedSides(Container container, ItemStack sample, List<Direction> sides) {
+        return insertIntoContainerThroughSides(container, sample.copy(), sides, false).getCount() < sample.getCount();
+    }
+
+    private boolean markerMatchesGolemColorLikeTC4(byte markerColor, int color) {
+        return markerColor == -1 || color == -1 || markerColor == (byte) color;
+    }
+
+    private void addContainerAt(List<Container> outputs, Set<BlockPos> seen, BlockPos pos) {
+        if (pos == null || !seen.add(pos.immutable())) {
+            return;
+        }
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof Container container) {
+            outputs.add(container);
+        }
+    }
+
+    private boolean containerContainsItem(Container container, ItemStack sample) {
+        return containerContainsItem(container, sample, List.of());
+    }
+
+    private int countMatchingItems(Container container, ItemStack sample, List<Direction> sides) {
+        if (container == null || sample == null || sample.isEmpty()) {
+            return 0;
+        }
+        int count = 0;
+        Set<Integer> countedSlots = new HashSet<>();
+        if (sides == null || sides.isEmpty()) {
+            for (int slot : slotsForContainerSide(container, null)) {
+                countedSlots.add(slot);
+            }
+        } else {
+            for (Direction side : sides) {
+                for (int slot : slotsForContainerSide(container, side)) {
+                    countedSlots.add(slot);
+                }
+            }
+        }
+        for (int slot : countedSlots) {
+            ItemStack stored = container.getItem(slot);
+            if (!stored.isEmpty() && sortingItemMatchesLikeTC4(stored, sample)) {
+                count += stored.getCount();
+            }
+        }
+        return count;
+    }
+
+    private int[] slotsForContainerSide(Container container, Direction side) {
+        if (container instanceof WorldlyContainer worldly && side != null) {
+            return worldly.getSlotsForFace(side);
+        }
+        int[] slots = new int[container.getContainerSize()];
+        for (int i = 0; i < slots.length; i++) {
+            slots[i] = i;
+        }
+        return slots;
+    }
+
+    private boolean canTakeThroughSide(Container container, ItemStack stored, int slot, Direction side) {
+        return !(container instanceof WorldlyContainer worldly) || side == null || worldly.canTakeItemThroughFace(slot, stored, side);
+    }
+
+    private boolean sortingItemMatchesLikeTC4(ItemStack stored, ItemStack sample) {
+        if (stored == null || sample == null || stored.isEmpty() || sample.isEmpty()) {
+            return false;
+        }
+        // TC4 sorting has toggles for fuzzy matching. The compact 1.19.2 bridge
+        // maps them conservatively: toggle[0] ignores durability, toggle[1]
+        // ignores NBT/tag differences. With both off, matching remains exact
+        // ItemStack.isSameItemSameTags parity from previous builds.
+        boolean ignoreDamage = originalToggleEnabled(0);
+        boolean ignoreNbt = originalToggleEnabled(1);
+        if (!ItemStack.isSameItem(stored, sample)) {
+            return false;
+        }
+        if (!ignoreDamage && (stored.isDamageableItem() || sample.isDamageableItem())
+                && stored.getDamageValue() != sample.getDamageValue()) {
+            return false;
+        }
+        return ignoreNbt || ItemStack.isSameItemSameTags(stored, sample);
+    }
+
+    private boolean originalToggleEnabled(int index) {
+        return originalToggles != null && index >= 0 && index < originalToggles.length && originalToggles[index] != 0;
+    }
+
+    private record SortingItemTimeout(int golemId, ItemStack stack, long expiresAtMillis) {
+    }
+
+    private record MarkedOutputContainer(Container container, BlockPos pos, List<Direction> sides) {
     }
 
     private boolean nearOriginalHome() {
@@ -647,13 +1141,42 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     private Container originalHomeContainer() {
+        BlockPos chestPos = originalHomeContainerPos();
+        if (chestPos == null) {
+            return null;
+        }
+        BlockEntity be = level.getBlockEntity(chestPos);
+        return be instanceof Container container ? container : null;
+    }
+
+    private BlockPos originalHomeContainerPos() {
         if (homePos == null || homePos.equals(BlockPos.ZERO)) {
             return null;
         }
         Direction facing = Direction.from3DDataValue(homeFacing);
-        BlockPos chestPos = homePos.subtract(new net.minecraft.core.Vec3i(facing.getStepX(), facing.getStepY(), facing.getStepZ()));
-        BlockEntity be = level.getBlockEntity(chestPos);
-        return be instanceof Container container ? container : null;
+        return homePos.subtract(new net.minecraft.core.Vec3i(facing.getStepX(), facing.getStepY(), facing.getStepZ()));
+    }
+
+    private boolean dropCarriedTowardTargetLikeTC4(BlockPos targetPos) {
+        if (itemCarried.isEmpty() || targetPos == null) {
+            return false;
+        }
+        if (distanceToSqr(targetPos.getX() + 0.5D, targetPos.getY() + 0.5D, targetPos.getZ() + 0.5D) > GolemTaskAIRuntime.ORIGINAL_HOME_INTERACT_DISTANCE_SQ) {
+            return false;
+        }
+        ItemEntity item = new ItemEntity(level, getX(), getY() + getBbHeight() / 2.0F, getZ(), itemCarried.copy());
+        double distance = Math.sqrt(distanceToSqr(targetPos.getX() + 0.5D, targetPos.getY() + 0.5D, targetPos.getZ() + 0.5D));
+        item.setDeltaMovement(
+                (targetPos.getX() + 0.5D - getX()) * (distance / 3.0D),
+                0.1D + (targetPos.getY() + 0.5D - (getY() + getBbHeight() / 2.0F)) * (distance / 3.0D),
+                (targetPos.getZ() + 0.5D - getZ()) * (distance / 3.0D)
+        );
+        item.setPickUpDelay(10);
+        level.addFreshEntity(item);
+        itemCarried = ItemStack.EMPTY;
+        originalChestInteractTicks = GolemTaskAIRuntime.ORIGINAL_HOME_DROP_THROW_LOCK_TICKS;
+        lastOriginalTask = "AIHomeDrop:dropItem";
+        return true;
     }
 
     private int workRange() {
@@ -1170,6 +1693,76 @@ public class ThaumGolemEntity extends PathfinderMob {
         return null;
     }
 
+    private ItemStack insertIntoContainerThroughSides(Container container, ItemStack stack, List<Direction> sides) {
+        return insertIntoContainerThroughSides(container, stack, sides, true);
+    }
+
+    private ItemStack insertIntoContainerThroughSides(Container container, ItemStack stack, List<Direction> sides, boolean commit) {
+        if (container == null || stack == null || stack.isEmpty()) {
+            return stack == null ? ItemStack.EMPTY : stack;
+        }
+        Set<Integer> candidateSlots = new HashSet<>();
+        if (sides == null || sides.isEmpty()) {
+            for (int slot : slotsForContainerSide(container, null)) {
+                candidateSlots.add(slot);
+            }
+        } else {
+            for (Direction side : sides) {
+                for (int slot : slotsForContainerSide(container, side)) {
+                    candidateSlots.add(slot);
+                }
+            }
+        }
+        ItemStack working = stack.copy();
+        for (int slot : candidateSlots) {
+            ItemStack stored = container.getItem(slot);
+            if (!stored.isEmpty() && sortingItemMatchesLikeTC4(stored, working) && canPlaceThroughAnyMarkedSide(container, working, slot, sides)) {
+                int space = Math.min(stored.getMaxStackSize(), container.getMaxStackSize()) - stored.getCount();
+                if (space > 0) {
+                    int move = Math.min(space, working.getCount());
+                    if (commit) {
+                        stored.grow(move);
+                        container.setChanged();
+                    }
+                    working.shrink(move);
+                    if (working.isEmpty()) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            }
+        }
+        for (int slot : candidateSlots) {
+            ItemStack stored = container.getItem(slot);
+            if (stored.isEmpty() && canPlaceThroughAnyMarkedSide(container, working, slot, sides)) {
+                int move = Math.min(container.getMaxStackSize(), working.getCount());
+                if (commit) {
+                    ItemStack copy = working.copy();
+                    copy.setCount(move);
+                    container.setItem(slot, copy);
+                    container.setChanged();
+                }
+                working.shrink(move);
+                if (working.isEmpty()) {
+                    return ItemStack.EMPTY;
+                }
+            }
+        }
+        return working;
+    }
+
+    private boolean canPlaceThroughAnyMarkedSide(Container container, ItemStack stack, int slot, List<Direction> sides) {
+        // WorldlyContainer.canPlaceItemThroughFace side gate mirrors TC4 InventoryUtils.placeItemStackIntoInventory(side).
+        if (!(container instanceof WorldlyContainer worldly) || sides == null || sides.isEmpty()) {
+            return true;
+        }
+        for (Direction side : sides) {
+            if (worldly.canPlaceItemThroughFace(slot, stack, side)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private ItemStack insertIntoContainer(Container container, ItemStack stack) {
         for (int slot = 0; slot < container.getContainerSize(); slot++) {
             ItemStack stored = container.getItem(slot);
@@ -1434,6 +2027,9 @@ public class ThaumGolemEntity extends PathfinderMob {
 
 
     public ListTag originalMarkerListSnapshot() {
+        if (originalMarkers != null && !originalMarkers.isEmpty()) {
+            return originalMarkers.copy();
+        }
         return GolemBellMarkerRuntime.markerListFromTaskPositions(homePos, inputPos, outputPos, guardPos, workPos, homeFacing, level);
     }
 
@@ -1441,6 +2037,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         if (markers == null) {
             return;
         }
+        originalMarkers = markers.copy();
         for (GolemBellMarkerRuntime.Marker marker : GolemBellMarkerRuntime.readMarkers(markers)) {
             BlockPos pos = new BlockPos(marker.x(), marker.y(), marker.z());
             switch (marker.color()) {

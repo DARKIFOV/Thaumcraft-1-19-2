@@ -1,0 +1,50 @@
+{
+  "compact_label": "v8.02",
+  "previous_compact_label": "v7.82",
+  "legacy_stage_range": "783-802",
+  "mc_version": "1.19.2",
+  "base": "thaumcraft_legacy_rebuild_v7.82_TC4_INFUSION_MATRIX_ARCANE_NODE_1192.zip",
+  "scope": "Short parity-only batch for Infusion Matrix catalyst NBT/damage lock, Arcane Workbench virtual output hardening, and explicit progress tracking.",
+  "no_new_items": true,
+  "no_new_blocks": true,
+  "no_new_recipes": true,
+  "no_new_progression": true,
+  "porting_progress_estimate": {
+    "complete_percent": 72,
+    "remaining_percent": 28,
+    "confidence": "medium",
+    "basis": "Functional TC4 parity bucket estimate, not a file-count metric. Full runtime parity still needs GitHub/local Gradle build and in-game smoke testing."
+  },
+  "plan_used": [
+    "Keep v8.02 short and parity-only.",
+    "Fix high-risk runtime duplication/drift before adding any broader features.",
+    "Preserve v7.82 Infusion Matrix failure/stabilizer/symmetry and Thaumometer scan fixes.",
+    "Add a progress document and next-batch plan so future answers include percent-to-100 tracking."
+  ],
+  "changes": [
+    "InfusionMatrixBlockEntity now stores lockedCatalystSnapshot as an exact ItemStack copy at craft start, matching TC4 TileInfusionMatrix recipeInput semantics.",
+    "Running catalyst validation now calls lockedCatalystStackStillMatches(...), checking item id, damage wildcard semantics, and NBT against the locked recipe input copy.",
+    "Infusion Matrix save/load writes and reads LockedCatalystSnapshot plus legacy-style recipeinput for audit and migration parity.",
+    "TC4InfusionRuntime now exposes sameCraftingCatalyst(...) for strict TC4 recipeInput comparison in modern 1.19.2 ItemStack terms.",
+    "ArcaneWorkbenchBlockEntity now treats SLOT_OUTPUT as virtual preview only: it is skipped during save, cleared on load, and excluded from block-break drops.",
+    "ArcaneWorkbenchBlock now calls dropRealContents(...) instead of generic Containers.dropContents(...), preventing stale preview duplication.",
+    "docs/PORTING_PROGRESS_V8_02.md records the working estimate: 72% complete / 28% remaining.",
+    "docs/NEXT_CHAT_PROMPT_V8_02.md defines next v8.22 targets and requires progress/plan reporting in future responses."
+  ],
+  "remaining_to_100_percent": [
+    "Infusion Matrix exact component source locks, cancellation/failure semantics, source FX and special recipe edge cases.",
+    "Arcane Workbench vanilla remaining-items parity, exact slot interaction/hover/sound behaviour.",
+    "Aura Node/Thaumometer/Goggles scan distance/raycast/HUD/rendering parity.",
+    "Research/Thaumonomicon micro-layout and hidden/lost/stub cleanup.",
+    "Essentia/alchemy/golem/eldritch/worldgen runtime QA and final jar/in-game smoke testing."
+  ],
+  "audit": [
+    "python scripts/java_syntax_guard.py",
+    "python scripts/github_static_audit.py",
+    "python scripts/github_ci_guard.py",
+    "python scripts/tc4_v7_62_infusion_failure_arcane_node_audit.py",
+    "python scripts/tc4_v7_82_infusion_matrix_arcane_node_parity_audit.py",
+    "python scripts/tc4_v8_02_infusion_arcane_progress_audit.py"
+  ],
+  "compile_note": "Gradle wrapper compile may fail in restricted sandboxes if external DNS/network access to services.gradle.org is blocked. Run GitHub Actions/local Gradle to build the jar. Static Java syntax guard passes."
+}

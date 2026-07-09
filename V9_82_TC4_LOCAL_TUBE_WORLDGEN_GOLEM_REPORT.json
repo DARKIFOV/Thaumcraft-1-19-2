@@ -1,0 +1,15 @@
+{
+  "version": "v9.82",
+  "goal": "TC4 local tube equalize, persistent worldgen ledger, spider Greatwood, marker-aware sorting bridge",
+  "checks": {
+    "normal_tube_local_equalize": true,
+    "no_whole_network_normal_tube_shortcut": true,
+    "persistent_worldgen_chunk_ledger": true,
+    "greatwood_spider_dungeon": true,
+    "sorting_marker_color_side_bridge": true,
+    "strict_worldgen_lifecycle_retained": true,
+    "no_new_registry_content": true
+  },
+  "passed": true,
+  "errors": []
+}

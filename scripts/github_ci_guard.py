@@ -80,6 +80,8 @@ REQUIRED_FILES = [
     "scripts/tc4_stage201_golem_gui_container_audit.py",
     "scripts/tc4_stage202_jar_tube_interaction_audit.py",
     "scripts/tc4_stage203_golem_ghost_slot_audit.py",
+    "scripts/tc4_v8_62_scan_infusion_research_audit.py",
+    "scripts/tc4_v8_82_strict_worldgen_lifecycle_audit.py",
 ]
 
 REQUIRED_WORKFLOW_SNIPPETS = [
@@ -158,6 +160,8 @@ REQUIRED_WORKFLOW_SNIPPETS = [
     "python scripts/tc4_stage202_jar_tube_interaction_audit.py",
     "python scripts/tc4_stage203_golem_ghost_slot_audit.py",
     "python scripts/tc4_stage205_hard_parity_reset_audit.py",
+    "python scripts/tc4_v8_62_scan_infusion_research_audit.py",
+    "python scripts/tc4_v8_82_strict_worldgen_lifecycle_audit.py",
     "thaumcraft-legacy-rebuild-stage205-jars",
 ]
 

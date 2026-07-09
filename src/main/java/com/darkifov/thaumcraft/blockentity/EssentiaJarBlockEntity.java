@@ -5,16 +5,19 @@ import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.EssentiaJarBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.Level;
 
 public class EssentiaJarBlockEntity extends BlockEntity {
     private final AspectList aspects = new AspectList();
     private Aspect filterAspect = null;
+    private Direction labelFacing = Direction.NORTH;
 
     public EssentiaJarBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), pos, state);
@@ -30,6 +33,17 @@ public class EssentiaJarBlockEntity extends BlockEntity {
 
     public boolean hasFilter() {
         return filterAspect != null;
+    }
+
+    public Direction labelFacing() {
+        return labelFacing;
+    }
+
+    public void setLabelFacing(Direction direction) {
+        if (direction != null && direction.getAxis().isHorizontal()) {
+            labelFacing = direction;
+            setChangedAndSync();
+        }
     }
 
     public void setFilterAspect(Aspect aspect) {
@@ -128,6 +142,47 @@ public class EssentiaJarBlockEntity extends BlockEntity {
     }
 
 
+
+    /** v9.22: original TileJarFillable.fillJar lifecycle.
+     * TC4 jars are active every 5 ticks and pull from the connectable transport above
+     * when the jar suction is stronger than the neighbour suction. Earlier builds only
+     * let the tube network push into jars, so isolated buffered-tube-over-jar setups
+     * missed the original self-pull path. */
+    public static void serverTick(Level level, BlockPos pos, BlockState state, EssentiaJarBlockEntity jar) {
+        if (level.isClientSide || level.getGameTime() % 5L != 0L || jar.amount() >= jar.capacity()) {
+            return;
+        }
+        boolean voidJar = state.is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+        jar.fillJarFromAboveLikeTC4(voidJar);
+    }
+
+    private void fillJarFromAboveLikeTC4(boolean voidJar) {
+        if (level == null) {
+            return;
+        }
+        BlockEntity above = level.getBlockEntity(worldPosition.above());
+        if (!(above instanceof EssentiaTubeBlockEntity tube) || !tube.allowsOutputTo(Direction.DOWN)) {
+            return;
+        }
+        Aspect target = null;
+        if (filterAspect != null) {
+            target = filterAspect;
+        } else if (storedAspect() != null && amount() > 0) {
+            target = storedAspect();
+        } else if (tube.getTransportEssentiaAmount(Direction.DOWN) > 0
+                && tube.getSuctionAmount(Direction.DOWN) < originalSuctionAmount(voidJar)
+                && originalSuctionAmount(voidJar) >= tube.getMinimumSuction()) {
+            target = tube.getTransportEssentiaType(Direction.DOWN);
+        }
+
+        if (target != null && tube.getSuctionAmount(Direction.DOWN) < originalSuctionAmount(voidJar)) {
+            int taken = tube.takeEssentiaOriginal(target, 1, Direction.DOWN);
+            if (taken > 0) {
+                addToContainerOriginal(target, taken, voidJar);
+            }
+        }
+    }
+
     public Aspect storedAspect() {
         return aspects.firstAspect();
     }
@@ -162,7 +217,7 @@ public class EssentiaJarBlockEntity extends BlockEntity {
             tag.putString("Aspect", stored.id());
         }
         tag.putShort("Amount", (short) amount());
-        tag.putByte("facing", (byte) 2);
+        tag.putByte("facing", (byte) labelFacing.get3DDataValue());
 
         if (filterAspect != null) {
             tag.putString("FilterAspect", filterAspect.name());
@@ -187,6 +242,16 @@ public class EssentiaJarBlockEntity extends BlockEntity {
         }
 
         filterAspect = null;
+        if (tag.contains("facing")) {
+            try {
+                Direction loadedFacing = Direction.from3DDataValue(tag.getByte("facing"));
+                if (loadedFacing.getAxis().isHorizontal()) {
+                    labelFacing = loadedFacing;
+                }
+            } catch (IllegalArgumentException ignored) {
+                labelFacing = Direction.NORTH;
+            }
+        }
 
         if (tag.contains("FilterAspect")) {
             try {

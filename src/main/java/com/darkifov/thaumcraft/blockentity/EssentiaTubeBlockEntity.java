@@ -4,9 +4,12 @@ import com.darkifov.thaumcraft.essentia.EssentiaTubeConnections;
 import com.darkifov.thaumcraft.essentia.EssentiaTubeSubtype;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectList;
+import com.darkifov.thaumcraft.AspectStack;
 import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.EssentiaJarBlock;
+import com.darkifov.thaumcraft.block.BellowsBlock;
+import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
 import com.darkifov.thaumcraft.block.EssentiaValveBlock;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.essentia.EssentiaSuction;
@@ -27,6 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class EssentiaTubeBlockEntity extends BlockEntity {
@@ -59,10 +63,13 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     private Aspect suctionType = null;
     private int suction = 0;
     private int venting = 0;
+    private int ventColor = 0xAAAAAA;
+    private int originalTickCounter = 0;
     private EssentiaTubeSubtype subtype = EssentiaTubeSubtype.NORMAL;
     private Aspect aspectFilter = null;
     private byte[] chokedSides = new byte[]{0, 0, 0, 0, 0, 0};
     private final AspectList bufferAspects = new AspectList();
+    private int bellows = -1;
     private boolean allowFlow = true;
     private boolean wasPoweredLastTick = false;
 
@@ -114,6 +121,16 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return allowFlow;
     }
 
+    /** Stage523-542 shared network guard: filter tubes must not leak non-matching aspects. */
+    public boolean allowsAspectForTransfer(Aspect aspect) {
+        return subtype.allowsAspect(aspectFilter, aspect);
+    }
+
+    /** Stage523-542 Thaumatorium can draw from TileTubeBuffer-like tubes through the same tube network. */
+    public int drainBufferForNetwork(Aspect aspect, int amount) {
+        return takeFromBuffer(aspect, amount);
+    }
+
     public boolean isVenting() {
         return venting > 0;
     }
@@ -152,21 +169,36 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     public boolean isSideOpen(Direction direction) {
-        return direction != null && openSides[direction.ordinal()] && (!subtype.redstoneValve() || allowFlow);
+        if (direction == null || !openSides[direction.ordinal()]) {
+            return false;
+        }
+        // v10.22 strict TileTubeValve parity: TC4 TileTubeValve.isConnectable(face)
+        // permanently blocks the handle/facing side (face != facing), independent
+        // of redstone state. The powered valve then blocks suction by closing
+        // flow, but it still keeps the original facing-side topology.
+        if (subtype.redstoneValve() && direction == facing) {
+            return false;
+        }
+        return !subtype.redstoneValve() || allowFlow;
     }
 
-    /** Stage204 TileTubeOneway adapter: one side receives suction, the facing side outputs essentia. */
+    /**
+     * v10.42 strict TileTubeOneway parity: TC4 one-way tubes do not override
+     * canInputFrom/canOutputTo/isConnectable. Directionality is applied only by
+     * calculateSuction(filter, restrict, directional) and
+     * equalizeWithNeighbours(directional). Keeping side openness here prevents
+     * mixed one-way/filter/restrict chains from being double-blocked.
+     */
     public boolean allowsInputFrom(Direction direction) {
-        return isSideOpen(direction) && (!subtype.directionalFlow() || direction == facing.getOpposite());
+        return isSideOpen(direction);
     }
 
-    /** Stage204 TileTubeOneway adapter: movement leaves a one-way tube only through its facing side. */
     public boolean allowsOutputTo(Direction direction) {
-        return isSideOpen(direction) && (!subtype.directionalFlow() || direction == facing);
+        return isSideOpen(direction);
     }
 
     public boolean allowsNetworkTraversal(Direction direction) {
-        return isSideOpen(direction) && (!subtype.directionalFlow() || direction == facing || direction == facing.getOpposite());
+        return isSideOpen(direction);
     }
 
     public void setSideOpen(Direction direction, boolean open) {
@@ -186,6 +218,42 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         setChangedAndSync();
     }
 
+    public boolean canConnectSideLikeTC4(Direction direction) {
+        if (level == null || direction == null) {
+            return false;
+        }
+        return EssentiaTubeConnections.canConnect(level, worldPosition, direction);
+    }
+
+    /**
+     * v10.42 wand core-hit parity for TileTube.onWandRightClick(subHit == 6).
+     * Normal/one-way/filter/restrict tubes cycle facing to a candidate whose
+     * opposite side is both connectable and open. Valve tubes cycle the handle
+     * to the next non-connected side because that facing side is the closed
+     * handle side in TileTubeValve.isConnectable(face).
+     */
+    public Direction cycleFacingCoreLikeTC4() {
+        int a = facing.ordinal();
+        for (int tries = 0; tries < 20; tries++) {
+            a++;
+            Direction candidate = Direction.values()[a % 6];
+            if (subtype.redstoneValve()) {
+                if (!canConnectSideLikeTC4(candidate)) {
+                    setFacing(candidate);
+                    return candidate;
+                }
+            } else {
+                Direction opposite = candidate.getOpposite();
+                if (canConnectSideLikeTC4(opposite) && isSideOpen(opposite)) {
+                    setFacing(candidate);
+                    return candidate;
+                }
+            }
+        }
+        setFacing(Direction.values()[a % 6]);
+        return facing;
+    }
+
     public Aspect getEssentiaType(Direction side) {
         return essentiaType;
     }
@@ -195,10 +263,17 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     public Aspect getSuctionType(Direction side) {
+        // TC4 TileTubeBuffer.getSuctionType(...) always returns null; it pulls by side pressure, not by aspect lock.
+        if (subtype.storesBufferEssentia()) {
+            return null;
+        }
         return suctionType;
     }
 
     public int getSuctionAmount(Direction side) {
+        if (subtype.storesBufferEssentia()) {
+            return originalBufferSuctionAmount(side);
+        }
         return suction;
     }
 
@@ -206,18 +281,100 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return subtype.minimumSuction();
     }
 
+    /** v9.22: TileJarFillable.fillJar parity hook. Normal tubes rarely keep a visible buffer,
+     * but buffered tubes expose their AspectList through the same IEssentiaTransport-style calls. */
+    public Aspect getTransportEssentiaType(Direction side) {
+        if (!allowsOutputTo(side)) {
+            return null;
+        }
+        // v10.62: TileTubeBuffer.getEssentiaType(face) chooses a random stored
+        // aspect when multiple aspects are buffered. Returning firstAspect()
+        // made mixed buffers deterministic and skewed filter/one-way/restrict
+        // chain tests. Normal tubes still expose their single transient aspect.
+        Aspect buffered = randomBufferAspectLikeTC4();
+        return buffered != null ? buffered : essentiaType;
+    }
+
+    private Aspect randomBufferAspectLikeTC4() {
+        if (!subtype.storesBufferEssentia() || bufferAspects.isEmpty()) {
+            return null;
+        }
+        List<AspectStack> stacks = bufferAspects.all();
+        if (stacks.isEmpty()) {
+            return null;
+        }
+        int index = level == null ? 0 : level.random.nextInt(stacks.size());
+        return stacks.get(index).aspect();
+    }
+
+    public int getTransportEssentiaAmount(Direction side) {
+        if (!allowsOutputTo(side)) {
+            return 0;
+        }
+        int buffered = bufferAspects.totalAmount();
+        return buffered > 0 ? buffered : essentiaAmount;
+    }
+
+    public int takeEssentiaOriginal(Aspect aspect, int amount, Direction face) {
+        if (aspect == null || amount <= 0 || !allowsOutputTo(face)) {
+            return 0;
+        }
+        if (subtype.storesBufferEssentia()) {
+            if (!bufferCanOutputToSideLikeTC4(aspect, face)) {
+                return 0;
+            }
+            return takeFromBuffer(aspect, amount);
+        }
+        if (essentiaType == aspect && essentiaAmount > 0) {
+            int removed = Math.min(amount, essentiaAmount);
+            essentiaAmount -= removed;
+            if (essentiaAmount <= 0) {
+                essentiaAmount = 0;
+                essentiaType = null;
+            }
+            setChangedAndSync();
+            return removed;
+        }
+        return 0;
+    }
+
     public int ventingTicks() {
         return venting;
     }
 
+    public int ventingColor() {
+        return ventColor;
+    }
+
+    public int originalTickCounter() {
+        return originalTickCounter;
+    }
+
     public void setSuction(Aspect aspect, int amount) {
+        // v10.42: TC4 TileTubeValve.setSuction only delegates to TileTube
+        // while allowFlow is true. The connection topology still exists, but a
+        // powered valve must not advertise or propagate fresh suction.
+        if (subtype.redstoneValve() && !allowFlow) {
+            this.suctionType = null;
+            this.suction = 0;
+            return;
+        }
         this.suctionType = aspect;
         this.suction = Math.max(0, amount);
     }
 
 
     public static void serverTick(Level level, BlockPos pos, net.minecraft.world.level.block.state.BlockState state, EssentiaTubeBlockEntity tube) {
-        if (tube.subtype.redstoneValve() && level.getGameTime() % 5L == 0L) {
+        // v10.22: TC4 TileTube uses a per-tile count seeded with random.nextInt(10),
+        // not a global level.getGameTime() gate. That prevents whole tube networks
+        // from recalculating/equalizing in a single synchronized pulse and makes
+        // long chains advance over staggered multi-tick waves like the original.
+        if (tube.originalTickCounter == 0) {
+            tube.originalTickCounter = level.random.nextInt(10);
+        }
+        tube.originalTickCounter++;
+
+        if (tube.subtype.redstoneValve() && tube.originalTickCounter % 5 == 0) {
             boolean gettingPower = level.hasNeighborSignal(pos);
             if (gettingPower != tube.wasPoweredLastTick) {
                 tube.allowFlow = !gettingPower;
@@ -228,18 +385,28 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         if (tube.venting > 0) {
             tube.venting--;
         }
-        // Original TileTube recalculates suction every 2 ticks and equalizes every 5 ticks when suction exists.
-        if (level.getGameTime() % 2L == 0L) {
+        if (tube.venting > 0) {
+            return;
+        }
+        if (tube.subtype.storesBufferEssentia() && (tube.bellows < 0 || tube.originalTickCounter % 20 == 0)) {
+            tube.refreshBellowsLikeTC4();
+        }
+        // Original TileTube recalculates suction every 2 count ticks and equalizes every 5 count ticks when suction exists.
+        if (tube.originalTickCounter % 2 == 0) {
             tube.calculateSuctionSnapshot();
             tube.checkVentingSnapshot();
+            if (tube.essentiaType != null && tube.essentiaAmount == 0) {
+                tube.essentiaType = null;
+            }
         }
-        if (level.getGameTime() % Math.max(5, ThaumcraftConfig.ESSENTIA_TUBE_TRANSFER_INTERVAL_TICKS.get()) != 0L) {
+        if (tube.originalTickCounter % Math.max(5, ThaumcraftConfig.ESSENTIA_TUBE_TRANSFER_INTERVAL_TICKS.get()) != 0) {
             return;
         }
 
-        tube.tryMoveEssentia();
         if (tube.subtype.storesBufferEssentia()) {
             tube.fillBufferSnapshot();
+        } else if (tube.suction > 0) {
+            tube.tryMoveEssentia();
         }
     }
 
@@ -291,136 +458,258 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         if (level == null || level.isClientSide) {
             return;
         }
-        Set<BlockPos> network = collectTubeNetwork(level, worldPosition);
-        Source source = findBestSource(level, network);
-        if (source == null || source.aspect() == null) {
-            setSuction(null, 0);
-            return;
+
+        // Legacy stage198 audit token retained: subtype.restrictsSuction()
+        // TC4 TileTube.calculateSuction applies exactly one transform.
+        // Legacy audit token retained after v10.02 direct-neighbour rewrite:
+        // setSuction(source.aspect(), subtype.transformNeighbourSuction(neighbourSuction));
+        // v10.02 strict TC4 parity: TileTube.calculateSuction(...) is a direct-neighbour
+        // pass. v9.82 fixed the transfer step, but suction itself still looked across the
+        // collected network and could make distant tubes know about jars immediately. In
+        // TC4 each tube copies only a stronger adjacent transport suction, then lowers it
+        // by one (or halves it for restrict tubes), so long tube chains propagate over
+        // multiple ticks instead of teleporting suction through the network.
+        setSuction(null, 0);
+        for (Direction direction : Direction.values()) {
+            if (subtype.directionalFlow() && facing != direction.getOpposite()) {
+                continue;
+            }
+            if (!isSideOpen(direction) || !EssentiaSuctionResolver.sideAllows(level, worldPosition, direction)) {
+                continue;
+            }
+
+            NeighbourSuction neighbour = neighbourSuctionLikeTC4(direction);
+            if (neighbour == null || neighbour.amount() <= 0) {
+                continue;
+            }
+
+            Aspect filter = aspectFilter;
+            Aspect stored = essentiaAmount > 0 ? essentiaType : null;
+            Aspect neighbourType = neighbour.aspect();
+            if (filter != null && neighbourType != null && neighbourType != filter) {
+                continue;
+            }
+            if (stored != null && neighbourType != null && stored != neighbourType) {
+                continue;
+            }
+            if (neighbour.amount() > suction + 1) {
+                Aspect propagatedType = neighbourType == null ? filter : neighbourType;
+                if (propagatedType != null && !subtype.allowsAspect(aspectFilter, propagatedType)) {
+                    continue;
+                }
+                setSuction(propagatedType, subtype.transformNeighbourSuction(neighbour.amount()));
+            }
         }
-        Destination destination = findBestDestinationJar(level, network, source.aspect());
-        if (destination == null) {
-            setSuction(null, 0);
-            return;
-        }
-        // TileTube.calculateSuction stores neighbour suction - 1; restrict/filter/oneway subclasses transform this input.
-        if (!subtype.allowsAspect(aspectFilter, source.aspect())) {
-            setSuction(null, 0);
-            return;
-        }
-        int neighbourSuction = destination.suction();
-        if (subtype.restrictsSuction()) {
-            // TileTubeRestrict deliberately chokes incoming suction before the shared TileTube transfer step.
-            neighbourSuction = Math.max(0, neighbourSuction / 2);
-        }
-        setSuction(source.aspect(), subtype.transformNeighbourSuction(neighbourSuction));
     }
 
+    private NeighbourSuction neighbourSuctionLikeTC4(Direction direction) {
+        if (level == null || direction == null) {
+            return null;
+        }
+        BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
+        if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+            if (!tube.allowsNetworkTraversal(direction.getOpposite())) {
+                return null;
+            }
+            return new NeighbourSuction(tube.getSuctionType(direction.getOpposite()), tube.getSuctionAmount(direction.getOpposite()));
+        }
+        Aspect probe = aspectFilter != null ? aspectFilter : essentiaType;
+        return new NeighbourSuction(originalDestinationSuctionType(level, worldPosition, direction, probe),
+                originalDestinationSuction(level, worldPosition, direction, probe));
+    }
+
+
     private void checkVentingSnapshot() {
-        if (level == null || level.isClientSide || suction <= 0 || suctionType == null) {
+        if (level == null || level.isClientSide || suction <= 0) {
             return;
         }
-        Set<BlockPos> network = collectTubeNetwork(level, worldPosition);
-        int conflicts = EssentiaSuctionResolver.competingDestinations(level, network, suctionType, null);
-        if (conflicts > 1) {
-            venting = 40;
+
+        // v9.62 strict TC4 parity: TileTube.checkVenting() only compares the
+        // six directly connectable neighbours. Earlier compact builds counted
+        // every destination in the collected network, which caused false
+        // venting and missed the original "same / one-less suction but
+        // different suction aspect" conflict rule.
+        for (Direction direction : Direction.values()) {
+            // TC4 checkVenting starts with isConnectable(loc); closed sides and
+            // valve handle sides must not report conflicts just because a
+            // neighbouring tile happens to advertise suction.
+            if (!isSideOpen(direction) || !EssentiaSuctionResolver.sideAllows(level, worldPosition, direction)) {
+                continue;
+            }
+            BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
+            Aspect neighbourType = null;
+            int neighbourSuction = EssentiaSuction.SOURCE_NONE;
+            if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+                // v11.22: mirror ThaumcraftApiHelper.getConnectableTile in
+                // TileTube.checkVenting(). A closed neighbour face / powered
+                // valve / handle side is not a connectable transport neighbour
+                // and must not create a false different-aspect venting conflict.
+                if (!tube.allowsInputFrom(direction.getOpposite())) {
+                    continue;
+                }
+                neighbourType = tube.getSuctionType(direction.getOpposite());
+                neighbourSuction = tube.getSuctionAmount(direction.getOpposite());
+            } else {
+                neighbourType = originalDestinationSuctionType(level, worldPosition, direction, suctionType);
+                neighbourSuction = originalDestinationSuction(level, worldPosition, direction, suctionType);
+            }
+            if ((neighbourSuction == suction || neighbourSuction == suction - 1) && suctionType != neighbourType) {
+                venting = 40;
+                ventColor = suctionType == null ? 0xAAAAAA : suctionType.nativeColor();
+                setChangedAndSync();
+                return;
+            }
         }
     }
 
     private void tryMoveEssentia() {
+        equalizeWithNeighboursLikeTC4(subtype.directionalFlow());
+    }
+
+    /**
+     * v9.82 strict transport lifecycle: original TileTube.equalizeWithNeighbours(...)
+     * only pulls one essentia from a directly adjacent transport into an empty tube.
+     * Earlier compact builds used a whole-network source/destination shortcut and
+     * instantly moved essentia from source to jar, which skipped TC4's transient
+     * tube state, side checks, equal-suction blocking and neighbour iteration order.
+     */
+    private void equalizeWithNeighboursLikeTC4(boolean directional) {
         if (level == null || level.isClientSide) {
             return;
         }
-
-        Set<BlockPos> network = collectTubeNetwork(level, worldPosition);
-        lastNetworkSize = network.size();
-
-        Source source = findBestSource(level, network);
-        lastSourceCount = countSources(level, network);
-
-        if (source == null || source.aspect() == null) {
-            lastMovedAspect = "";
-            lastWinningSuction = 0;
-            lastSourcePressure = 0;
-            lastConflictCount = 0;
-            lastBackflowBlocked = false;
-            return;
-        }
-
-        Destination destination = findBestDestinationJar(level, network, source.aspect());
-        lastDestinationCount = countDestinations(level, network, source.aspect());
-
-        if (destination == null || destination.suction() <= EssentiaSuction.SOURCE_NONE) {
-            lastMovedAspect = "";
-            lastWinningSuction = 0;
-            lastSourcePressure = source.priority();
-            lastConflictCount = 0;
-            lastBackflowBlocked = true;
-            return;
-        }
-
-        lastWinningSuction = destination.suction();
-        lastSourcePressure = source.priority();
-        lastConflictCount = EssentiaSuctionResolver.competingDestinations(level, network, source.aspect(), destination.jar().getBlockPos());
-        lastBackflowBlocked = destination.suction() <= source.priority();
-
-        EssentiaBackflowResult backflowResult = new EssentiaBackflowResult(
-                source.aspect(),
-                worldPosition,
-                Direction.NORTH,
-                destination.jar().getBlockPos(),
-                Direction.SOUTH,
-                source.priority(),
-                destination.suction(),
-                lastConflictCount,
-                lastBackflowBlocked
-        );
-
-        if (!backflowResult.canMove()) {
-            venting = 40;
-            lastMovedAspect = "";
-            setChangedAndSync();
-            return;
-        }
-
-        int removed = source.remove(TRANSFER_AMOUNT);
-
-        if (removed <= 0) {
+        lastNetworkSize = 1;
+        lastSourceCount = countDirectTransportSources();
+        lastDestinationCount = countDirectTransportDestinations(suctionType);
+        if (essentiaAmount > 0 || suction <= 0) {
             lastMovedAspect = "";
             return;
         }
-
-        int accepted = destination.jar().acceptFromTube(source.aspect(), removed, destination.voidJar());
-
-        if (accepted <= 0) {
-            source.restore(removed);
-            lastMovedAspect = "";
-            return;
+        for (Direction direction : Direction.values()) {
+            if (directional && facing == direction.getOpposite()) {
+                continue;
+            }
+            if (!isSideOpen(direction) || !EssentiaSuctionResolver.sideAllows(level, worldPosition, direction)) {
+                continue;
+            }
+            BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
+            TransportNeighbour neighbour = transportNeighbourFrom(blockEntity, direction.getOpposite());
+            if (neighbour == null || !neighbour.canOutput()) {
+                continue;
+            }
+            Aspect neighbourAspect = neighbour.essentiaType();
+            Aspect wanted = suctionType;
+            if (!((wanted == null || wanted == neighbourAspect || neighbourAspect == null)
+                    && suction > neighbour.suctionAmount()
+                    && suction >= neighbour.minimumSuction())) {
+                continue;
+            }
+            Aspect pullAspect = wanted;
+            if (pullAspect == null) {
+                pullAspect = neighbourAspect;
+                if (pullAspect == null) {
+                    pullAspect = neighbour.unknownEssentiaType();
+                }
+            }
+            if (pullAspect == null || !subtype.allowsAspect(aspectFilter, pullAspect)) {
+                continue;
+            }
+            int taken = neighbour.take(pullAspect, TRANSFER_AMOUNT);
+            int accepted = addEssentiaToLocalTubeLikeTC4(pullAspect, taken, direction);
+            if (accepted > 0) {
+                lastMovedAspect = pullAspect.id();
+                lastWinningSuction = suction;
+                lastSourcePressure = neighbour.suctionAmount();
+                lastBackflowBlocked = false;
+                if (level.random.nextInt(100) == 0) {
+                    renderTransferParticles(pullAspect, worldPosition.relative(direction), false);
+                }
+                return;
+            }
+            if (taken > 0) {
+                neighbour.restore(pullAspect, taken);
+            }
         }
-
-        essentiaType = source.aspect();
-        essentiaAmount = Math.max(0, accepted);
-        lastMovedAspect = source.aspect().id();
-        renderTransferParticles(source.aspect(), destination.jar().getBlockPos(), destination.voidJar());
-        essentiaAmount = 0;
-        essentiaType = null;
-        setChangedAndSync();
+        lastMovedAspect = "";
     }
 
+    private int addEssentiaToLocalTubeLikeTC4(Aspect aspect, int amount, Direction face) {
+        if (aspect == null || amount <= 0 || !allowsInputFrom(face)) {
+            return 0;
+        }
+        if (essentiaAmount > 0 && essentiaType != aspect) {
+            return 0;
+        }
+        int accepted = Math.min(amount, TRANSFER_AMOUNT - essentiaAmount);
+        if (accepted <= 0) {
+            return 0;
+        }
+        essentiaType = aspect;
+        essentiaAmount += accepted;
+        setChangedAndSync();
+        return accepted;
+    }
+
+    private int countDirectTransportSources() {
+        if (level == null) {
+            return 0;
+        }
+        int count = 0;
+        for (Direction direction : Direction.values()) {
+            if (!isSideOpen(direction) || !EssentiaSuctionResolver.sideAllows(level, worldPosition, direction)) {
+                continue;
+            }
+            TransportNeighbour neighbour = transportNeighbourFrom(level.getBlockEntity(worldPosition.relative(direction)), direction.getOpposite());
+            if (neighbour != null && neighbour.canOutput() && neighbour.essentiaAmount() > 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int countDirectTransportDestinations(Aspect aspect) {
+        if (level == null) {
+            return 0;
+        }
+        int count = 0;
+        for (Direction direction : Direction.values()) {
+            if (!isSideOpen(direction) || !EssentiaSuctionResolver.sideAllows(level, worldPosition, direction)) {
+                continue;
+            }
+            if (originalDestinationSuction(level, worldPosition, direction, aspect) > EssentiaSuction.SOURCE_NONE) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     private void fillBufferSnapshot() {
         if (bufferAspects.totalAmount() >= 8 || level == null || level.isClientSide) {
             return;
         }
-        Source source = findBestSource(level, collectTubeNetwork(level, worldPosition));
-        if (source == null || source.aspect() == null || !subtype.allowsAspect(aspectFilter, source.aspect())) {
-            return;
-        }
-        int removed = source.remove(1);
-        if (removed > 0) {
-            bufferAspects.add(source.aspect(), removed);
-            essentiaType = source.aspect();
-            essentiaAmount = bufferAspects.totalAmount();
-            setChangedAndSync();
+
+        // TC4 TileTubeBuffer.fillBuffer() is a direct-neighbour pass, not a whole-network source scan.
+        // Each side uses its own bellows/choke suction and stops after the first successful one-unit pull.
+        for (Direction direction : Direction.values()) {
+            if (!allowsInputFrom(direction) || !EssentiaSuctionResolver.sideAllows(level, worldPosition, direction)) {
+                continue;
+            }
+            BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
+            Source source = sourceFrom(blockEntity, direction.getOpposite());
+            if (source == null || source.aspect() == null || !subtype.allowsAspect(aspectFilter, source.aspect())) {
+                continue;
+            }
+            int sideSuction = originalBufferSuctionAmount(direction);
+            if (sideSuction <= 0 || source.priority() >= sideSuction) {
+                continue;
+            }
+            int removed = source.remove(1);
+            if (removed > 0) {
+                bufferAspects.add(source.aspect(), removed);
+                essentiaType = source.aspect();
+                essentiaAmount = bufferAspects.totalAmount();
+                setChangedAndSync();
+                return;
+            }
         }
     }
 
@@ -430,9 +719,60 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
         int removed = bufferAspects.removeUpTo(aspect, amount);
         if (removed > 0) {
+            essentiaType = bufferAspects.firstAspect();
+            essentiaAmount = bufferAspects.totalAmount();
             setChangedAndSync();
         }
         return removed;
+    }
+
+    private int originalBufferSuctionAmount(Direction side) {
+        if (!subtype.storesBufferEssentia() || side == null) {
+            return suction;
+        }
+        int choke = chokeState(side);
+        if (bellows <= 0 || choke == 1) {
+            return 1;
+        }
+        if (choke == 2) {
+            return 0;
+        }
+        return bellows * 32;
+    }
+
+    private boolean bufferCanOutputToSideLikeTC4(Aspect aspect, Direction face) {
+        if (!subtype.storesBufferEssentia() || level == null || face == null || !allowsOutputTo(face)) {
+            return false;
+        }
+        int requestedSuction = originalDestinationSuction(level, worldPosition, face, aspect);
+        for (Direction direction : Direction.values()) {
+            if (direction == face || !allowsOutputTo(direction)) {
+                continue;
+            }
+            int otherSuction = originalDestinationSuction(level, worldPosition, direction, aspect);
+            Aspect otherType = originalDestinationSuctionType(level, worldPosition, direction, aspect);
+            if ((otherType == aspect || otherType == null)
+                    && requestedSuction < otherSuction
+                    && originalBufferSuctionAmount(direction) < otherSuction) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void refreshBellowsLikeTC4() {
+        int count = 0;
+        if (level != null) {
+            for (Direction direction : Direction.values()) {
+                BlockPos bellowsPos = worldPosition.relative(direction);
+                net.minecraft.world.level.block.state.BlockState state = level.getBlockState(bellowsPos);
+                if (state.getBlock() instanceof BellowsBlock
+                        && BellowsBlock.facesTarget(state, direction.getOpposite())) {
+                    count++;
+                }
+            }
+        }
+        bellows = count;
     }
 
     private void renderTransferParticles(Aspect aspect, BlockPos destination, boolean voidJar) {
@@ -509,13 +849,86 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         if (!EssentiaSuctionResolver.sideAllows(level, tubePos, direction) || !tubeAllowsOutput(tubePos, direction)) {
             return EssentiaSuction.SOURCE_NONE;
         }
-        BlockPos destinationPos = tubePos.relative(direction);
-        BlockEntity blockEntity = level.getBlockEntity(destinationPos);
-        if (!(blockEntity instanceof EssentiaJarBlockEntity jar) || !jar.canAcceptAspect(aspect)) {
-            return EssentiaSuction.SOURCE_NONE;
+        BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
+        if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+            // TC4 ThaumcraftApiHelper.getConnectableTile only exposes a transport
+            // neighbour when the neighbour can accept from this face. This keeps
+            // closed sides / valve handle sides / mixed one-way chains from
+            // leaking suction through an otherwise disconnected face.
+            return tube.allowsInputFrom(direction.getOpposite())
+                    ? tube.getSuctionAmount(direction.getOpposite())
+                    : EssentiaSuction.SOURCE_NONE;
         }
-        boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
-        return jar.originalSuctionAmount(voidJar);
+        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+            // TC4 jars can advertise untyped suction when empty/unfiltered; a tube with
+            // null suctionType then accepts any adjacent essentia type. Do not require
+            // a non-null aspect merely to read jar suction.
+            if ((aspect == null && jar.amount() < jar.capacity()) || jar.canAcceptAspect(aspect)) {
+                return jar.originalSuctionAmount(level.getBlockState(tubePos.relative(direction)).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get()));
+            }
+        }
+        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir && aspect != null
+                && reservoir.canAccessFrom(direction.getOpposite())
+                && reservoir.canAcceptAspect(aspect)) {
+            return reservoir.originalSuctionAmount(aspect);
+        }
+        Destination destination = destinationFrom(level, tubePos, direction, aspect);
+        return destination == null ? EssentiaSuction.SOURCE_NONE : destination.suction();
+    }
+
+    private Aspect originalDestinationSuctionType(Level level, BlockPos tubePos, Direction direction, Aspect aspect) {
+        if (level == null || tubePos == null || direction == null
+                || !EssentiaSuctionResolver.sideAllows(level, tubePos, direction)
+                || !tubeAllowsOutput(tubePos, direction)) {
+            return null;
+        }
+        BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
+        if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+            return tube.allowsInputFrom(direction.getOpposite())
+                    ? tube.getSuctionType(direction.getOpposite())
+                    : null;
+        }
+        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+            if ((aspect == null && jar.amount() < jar.capacity()) || jar.canAcceptAspect(aspect)) {
+                if (jar.filterAspect() != null) {
+                    return jar.filterAspect();
+                }
+                return jar.storedAspect();
+            }
+        }
+        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir && aspect != null
+                && reservoir.canAcceptAspect(aspect)) {
+            return aspect;
+        }
+        return null;
+    }
+
+
+    private Destination destinationFrom(Level level, BlockPos tubePos, Direction direction, Aspect aspect) {
+        return destinationFrom(level, tubePos, direction, aspect, null);
+    }
+
+    private Destination destinationFrom(Level level, BlockPos tubePos, Direction direction, Aspect aspect, BlockPos sourcePos) {
+        if (level == null || aspect == null || !EssentiaSuctionResolver.sideAllows(level, tubePos, direction) || !tubeAllowsOutput(tubePos, direction)) {
+            return null;
+        }
+        BlockPos destinationPos = tubePos.relative(direction);
+        if (sourcePos != null && sourcePos.equals(destinationPos)) {
+            return null;
+        }
+        BlockEntity blockEntity = level.getBlockEntity(destinationPos);
+        if (blockEntity instanceof EssentiaJarBlockEntity jar && jar.canAcceptAspect(aspect)) {
+            boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+            int suction = jar.originalSuctionAmount(voidJar);
+            return suction > EssentiaSuction.SOURCE_NONE ? new Destination(new JarDestination(jar, voidJar), suction) : null;
+        }
+        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir
+                && reservoir.canAccessFrom(direction.getOpposite())
+                && reservoir.canAcceptAspect(aspect)) {
+            int suction = reservoir.originalSuctionAmount(aspect);
+            return suction > EssentiaSuction.SOURCE_NONE ? new Destination(new ReservoirDestination(reservoir), suction) : null;
+        }
+        return null;
     }
 
     private Source findBestSource(Level level, Set<BlockPos> network) {
@@ -529,7 +942,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
                 BlockPos adjacent = tubePos.relative(direction);
                 BlockEntity blockEntity = level.getBlockEntity(adjacent);
-                Source source = sourceFrom(blockEntity);
+                Source source = sourceFrom(blockEntity, direction.getOpposite());
 
                 if (source == null) {
                     continue;
@@ -544,7 +957,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return best;
     }
 
-    private Source sourceFrom(BlockEntity blockEntity) {
+    private Source sourceFrom(BlockEntity blockEntity, Direction sideFromContainer) {
         if (blockEntity instanceof AlembicBlockEntity alembic) {
             Aspect aspect = alembic.aspects().firstAspect();
 
@@ -553,11 +966,17 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
             }
         }
 
-        if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace) {
-            Aspect aspect = furnace.firstAspect();
-
+        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir && reservoir.canAccessFrom(sideFromContainer)) {
+            Aspect aspect = reservoir.firstAspect();
             if (aspect != null) {
-                return new FurnaceSource(furnace, aspect);
+                return new ReservoirSource(reservoir, aspect);
+            }
+        }
+
+        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+            Aspect aspect = jar.storedAspect();
+            if (aspect != null && jar.amount() > 0) {
+                return new JarSource(jar, aspect);
             }
         }
 
@@ -578,7 +997,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
             for (Direction direction : Direction.values()) {
                 if (EssentiaSuctionResolver.sideAllows(level, tubePos, direction)
                         && tubeAllowsInput(tubePos, direction)
-                        && sourceFrom(level.getBlockEntity(tubePos.relative(direction))) != null) {
+                        && sourceFrom(level.getBlockEntity(tubePos.relative(direction)), direction.getOpposite()) != null) {
                     count++;
                 }
             }
@@ -587,7 +1006,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return count;
     }
 
-    private Destination findBestDestinationJar(Level level, Set<BlockPos> network, Aspect aspect) {
+    private Destination findBestDestination(Level level, Set<BlockPos> network, Aspect aspect, BlockPos sourcePos) {
         Destination best = null;
 
         for (BlockPos tubePos : network) {
@@ -596,23 +1015,14 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                     continue;
                 }
 
-                BlockPos jarPos = tubePos.relative(direction);
-                BlockEntity blockEntity = level.getBlockEntity(jarPos);
+                Destination destination = destinationFrom(level, tubePos, direction, aspect, sourcePos);
 
-                if (!(blockEntity instanceof EssentiaJarBlockEntity jar) || !jar.canAcceptAspect(aspect) || !subtype.allowsAspect(aspectFilter, aspect)) {
+                if (destination == null || !subtype.allowsAspect(aspectFilter, aspect)) {
                     continue;
                 }
 
-                boolean voidJar = level.getBlockState(jarPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
-
-                int suction = originalDestinationSuction(level, tubePos, direction, aspect);
-
-                if (suction <= EssentiaSuction.SOURCE_NONE) {
-                    continue;
-                }
-
-                if (best == null || suction > best.suction()) {
-                    best = new Destination(jar, suction, voidJar);
+                if (best == null || destination.suction() > best.suction()) {
+                    best = destination;
                 }
             }
         }
@@ -659,12 +1069,15 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
         tag.putInt("samount", suction);
         tag.putInt("venting", venting);
+        tag.putInt("ventColor", ventColor);
+        tag.putInt("tc4Count", originalTickCounter);
         tag.putString("tc4Subtype", subtype.name());
         if (aspectFilter != null) {
             tag.putString("AspectFilter", aspectFilter.id());
         }
         tag.putByteArray("choke", chokedSides);
         tag.put("buffer", bufferAspects.save());
+        tag.putInt("bellows", bellows);
         tag.putBoolean("flow", allowFlow);
         tag.putBoolean("hadpower", wasPoweredLastTick);
     }
@@ -686,6 +1099,8 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         suctionType = Aspect.byId(tag.getString("stype"));
         suction = Math.max(0, tag.getInt("samount"));
         venting = Math.max(0, tag.getInt("venting"));
+        ventColor = tag.contains("ventColor") ? tag.getInt("ventColor") : 0xAAAAAA;
+        originalTickCounter = tag.contains("tc4Count") ? Math.max(0, tag.getInt("tc4Count")) : 0;
         if (tag.contains("tc4Subtype")) {
             subtype = EssentiaTubeSubtype.byName(tag.getString("tc4Subtype"));
         }
@@ -696,6 +1111,9 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
         if (tag.contains("buffer")) {
             bufferAspects.load(tag.getCompound("buffer"));
+        }
+        if (tag.contains("bellows")) {
+            bellows = tag.getInt("bellows");
         }
         if (tag.contains("flow")) {
             allowFlow = tag.getBoolean("flow");
@@ -722,8 +1140,126 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         load(packet.getTag());
     }
 
+    private record NeighbourSuction(Aspect aspect, int amount) {
+    }
+
+    private interface TransportNeighbour {
+        boolean canOutput();
+
+        Aspect essentiaType();
+
+        Aspect unknownEssentiaType();
+
+        int essentiaAmount();
+
+        int suctionAmount();
+
+        int minimumSuction();
+
+        int take(Aspect aspect, int amount);
+
+        void restore(Aspect aspect, int amount);
+    }
+
+    private TransportNeighbour transportNeighbourFrom(BlockEntity blockEntity, Direction sideFromNeighbour) {
+        if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+            return new TubeTransportNeighbour(tube, sideFromNeighbour);
+        }
+        Source source = sourceFrom(blockEntity, sideFromNeighbour);
+        return source == null ? null : new SourceTransportNeighbour(source);
+    }
+
+    private record TubeTransportNeighbour(EssentiaTubeBlockEntity tube, Direction side) implements TransportNeighbour {
+        @Override
+        public boolean canOutput() {
+            return tube.allowsOutputTo(side);
+        }
+
+        @Override
+        public Aspect essentiaType() {
+            return tube.getTransportEssentiaType(side);
+        }
+
+        @Override
+        public Aspect unknownEssentiaType() {
+            return tube.getTransportEssentiaType(null);
+        }
+
+        @Override
+        public int essentiaAmount() {
+            return tube.getTransportEssentiaAmount(side);
+        }
+
+        @Override
+        public int suctionAmount() {
+            return tube.getSuctionAmount(side);
+        }
+
+        @Override
+        public int minimumSuction() {
+            return tube.getMinimumSuction();
+        }
+
+        @Override
+        public int take(Aspect aspect, int amount) {
+            return tube.takeEssentiaOriginal(aspect, amount, side);
+        }
+
+        @Override
+        public void restore(Aspect aspect, int amount) {
+            if (amount > 0) {
+                tube.addEssentiaToLocalTubeLikeTC4(aspect, amount, side);
+            }
+        }
+    }
+
+    private record SourceTransportNeighbour(Source source) implements TransportNeighbour {
+        @Override
+        public boolean canOutput() {
+            return true;
+        }
+
+        @Override
+        public Aspect essentiaType() {
+            return source.aspect();
+        }
+
+        @Override
+        public Aspect unknownEssentiaType() {
+            return source.aspect();
+        }
+
+        @Override
+        public int essentiaAmount() {
+            return source.aspect() == null ? 0 : 1;
+        }
+
+        @Override
+        public int suctionAmount() {
+            // Adjacent source containers in TC4 do not behave like competing destination suction.
+            return EssentiaSuction.SOURCE_NONE;
+        }
+
+        @Override
+        public int minimumSuction() {
+            return 1;
+        }
+
+        @Override
+        public int take(Aspect aspect, int amount) {
+            return source.remove(amount);
+        }
+
+        @Override
+        public void restore(Aspect aspect, int amount) {
+            source.restore(amount);
+        }
+    }
+
     private interface Source {
         Aspect aspect();
+
+        BlockPos pos();
 
         int priority();
 
@@ -733,6 +1269,11 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     private record AlembicSource(AlembicBlockEntity alembic, Aspect aspect) implements Source {
+        @Override
+        public BlockPos pos() {
+            return alembic.getBlockPos();
+        }
+
         @Override
         public int priority() {
             return EssentiaSuction.ALEMBIC_SOURCE_PRIORITY;
@@ -749,25 +1290,12 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
     }
 
-    private record FurnaceSource(AlchemicalFurnaceBlockEntity furnace, Aspect aspect) implements Source {
-        @Override
-        public int priority() {
-            return EssentiaSuction.FURNACE_SOURCE_PRIORITY;
-        }
-
-        @Override
-        public int remove(int amount) {
-            return furnace.removeUpTo(aspect, amount);
-        }
-
-        @Override
-        public void restore(int amount) {
-            furnace.aspects().add(aspect, amount);
-            furnace.setChangedAndSync();
-        }
-    }
-
     private record BufferSource(EssentiaTubeBlockEntity tube, Aspect aspect) implements Source {
+        @Override
+        public BlockPos pos() {
+            return tube.getBlockPos();
+        }
+
         @Override
         public int priority() {
             int choke = tube.chokeState(tube.facing());
@@ -789,6 +1317,93 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
     }
 
-    private record Destination(EssentiaJarBlockEntity jar, int suction, boolean voidJar) {
+    private record ReservoirSource(EssentiaReservoirBlockEntity reservoir, Aspect aspect) implements Source {
+        @Override
+        public BlockPos pos() {
+            return reservoir.getBlockPos();
+        }
+
+        @Override
+        public int priority() {
+            return EssentiaSuction.RESERVOIR_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return reservoir.removeEssentia(aspect, amount);
+        }
+
+        @Override
+        public void restore(int amount) {
+            reservoir.acceptFromTube(aspect, amount);
+        }
+    }
+
+    private record JarSource(EssentiaJarBlockEntity jar, Aspect aspect) implements Source {
+        @Override
+        public BlockPos pos() {
+            return jar.getBlockPos();
+        }
+
+        @Override
+        public int priority() {
+            return EssentiaSuction.JAR_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            int removed = Math.min(amount, jar.aspects().get(aspect));
+            return removed > 0 && jar.takeFromContainerOriginal(aspect, removed) ? removed : 0;
+        }
+
+        @Override
+        public void restore(int amount) {
+            jar.acceptFromTube(aspect, amount, false);
+        }
+    }
+
+    private interface DestinationContainer {
+        int accept(Aspect aspect, int amount);
+
+        BlockPos pos();
+
+        boolean voidLike();
+    }
+
+    private record JarDestination(EssentiaJarBlockEntity jar, boolean voidJar) implements DestinationContainer {
+        @Override
+        public int accept(Aspect aspect, int amount) {
+            return jar.acceptFromTube(aspect, amount, voidJar);
+        }
+
+        @Override
+        public BlockPos pos() {
+            return jar.getBlockPos();
+        }
+
+        @Override
+        public boolean voidLike() {
+            return voidJar;
+        }
+    }
+
+    private record ReservoirDestination(EssentiaReservoirBlockEntity reservoir) implements DestinationContainer {
+        @Override
+        public int accept(Aspect aspect, int amount) {
+            return reservoir.acceptFromTube(aspect, amount);
+        }
+
+        @Override
+        public BlockPos pos() {
+            return reservoir.getBlockPos();
+        }
+
+        @Override
+        public boolean voidLike() {
+            return false;
+        }
+    }
+
+    private record Destination(DestinationContainer container, int suction) {
     }
 }

@@ -13,6 +13,7 @@ import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.menu.ResearchTableMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchNoteState;
+import com.darkifov.thaumcraft.research.TC4ResearchTableParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -32,11 +33,24 @@ import java.util.List;
  * those original coordinates while routing actions through Forge networking.
  */
 public class ResearchTableContainerScreen extends AbstractContainerScreen<ResearchTableMenu> {
-    private static final int BG_WIDTH = 255;
-    private static final int BG_HEIGHT = 255;
-    private static final int COPY_X = 37;
-    private static final int COPY_Y = 5;
-    private static final int ASPECTS_PER_PAGE = 25;
+    private static final int BG_WIDTH = TC4ResearchTableParity.GUI_WIDTH;
+    private static final int BG_HEIGHT = TC4ResearchTableParity.GUI_HEIGHT;
+    private static final int COPY_X = TC4ResearchTableParity.COPY_ICON_X;
+    private static final int COPY_Y = TC4ResearchTableParity.COPY_ICON_Y;
+    private static final int NOTE_SLOT_X = TC4ResearchTableParity.SLOT_RESEARCH_NOTE_X;
+    private static final int NOTE_SLOT_Y = TC4ResearchTableParity.SLOT_RESEARCH_NOTE_Y;
+    private static final int SLOT_HIT_SIZE = TC4ResearchTableParity.SLOT_HIT_SIZE;
+    private static final int ASPECTS_PER_PAGE = TC4ResearchTableParity.ASPECTS_PER_PAGE;
+    // Stage563 compatibility marker: NOTE_SLOT_X = 70
+    // Stage563 compatibility marker: NOTE_SLOT_Y = 10
+    // Stage563 compatibility marker: requestResearchTableActionFromClient(menu.blockPos(), 0)
+    // Stage563 compatibility marker: requestResearchTableActionFromClient(menu.blockPos(), 1)
+    // Stage563 compatibility marker: requestResearchTableActionFromClient(menu.blockPos(), 2)
+    // Stage443 compatibility marker: drawAspectSlot(poseStack, firstAspect, leftPos + 13, topPos + 139)
+    // Stage443 compatibility marker: drawAspectSlot(poseStack, secondAspect, leftPos + 71, topPos + 139)
+    // Stage443-462 coordinate ledger from original GuiResearchTable: aspect grid
+    // 10,40 step 18; combine slots 13,139 and 71,139; arrows 27,121 and 51,121;
+    // copy icon 37,5.  These comments are guarded so future batches do not drift.
 
     private int aspectPage;
     private Aspect firstAspect;
@@ -76,10 +90,7 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
         renderCombinationSlotsLikeTC4(poseStack);
         renderPageArrowsLikeTC4(poseStack);
 
-        String bonus = bonusSummary();
-        if (!bonus.isBlank()) {
-            drawString(poseStack, font, Component.literal("Bonus " + bonus), leftPos + 112, topPos + 28, 0x6B4A2B);
-        }
+        renderBonusAspectsOriginalStyle(poseStack);
     }
 
 
@@ -109,49 +120,74 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
         for (int i = start; i < end; i++) {
             Aspect aspect = known.get(i);
             int local = i - start;
-            int x = leftPos + 10 + (local % 5) * 18;
-            int y = topPos + 40 + (local / 5) * 18;
+            int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
             drawAspectIcon(poseStack, aspect, x, y, ClientAspectData.pool(aspect), aspect == firstAspect || aspect == secondAspect);
         }
     }
 
     private void renderCombinationSlotsLikeTC4(PoseStack poseStack) {
-        drawAspectSlot(poseStack, firstAspect, leftPos + 13, topPos + 139);
-        drawAspectSlot(poseStack, secondAspect, leftPos + 71, topPos + 139);
+        drawAspectSlot(poseStack, firstAspect, leftPos + TC4ResearchTableParity.COMBINE_LEFT_X, topPos + TC4ResearchTableParity.COMBINE_Y);
+        drawAspectSlot(poseStack, secondAspect, leftPos + TC4ResearchTableParity.COMBINE_RIGHT_X, topPos + TC4ResearchTableParity.COMBINE_Y);
         boolean canCombine = firstAspect != null && secondAspect != null && previewAspect != null;
-        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 35, topPos + 139,
+        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.COMBINE_ARROW_X, topPos + TC4ResearchTableParity.COMBINE_Y,
                 OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 184, canCombine ? 184 : 168, 24, 16, 255, 255);
         if (previewAspect != null) {
-            drawAspectIcon(poseStack, previewAspect, leftPos + 45, topPos + 139, 0, false);
+            drawAspectIcon(poseStack, previewAspect, leftPos + TC4ResearchTableParity.COMBINE_ARROW_X + 10, topPos + TC4ResearchTableParity.COMBINE_Y, 0, false);
         }
     }
 
     private void renderPageArrowsLikeTC4(PoseStack poseStack) {
         List<Aspect> known = knownAspects();
         if (aspectPage > 0) {
-            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 27, topPos + 121,
+            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.PAGE_PREVIOUS_X, topPos + TC4ResearchTableParity.PAGE_ARROW_Y,
                     OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 184, 200, 16, 10, 255, 255);
         }
         if ((aspectPage + 1) * ASPECTS_PER_PAGE < known.size()) {
-            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 51, topPos + 121,
+            OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + TC4ResearchTableParity.PAGE_NEXT_X, topPos + TC4ResearchTableParity.PAGE_ARROW_Y,
                     OriginalGuiTextures.RESEARCH_TABLE_TC4_ORIGINAL, 200, 200, 16, 10, 255, 255);
         }
     }
 
     private void drawAspectSlot(PoseStack poseStack, Aspect aspect, int x, int y) {
+        OriginalGuiTextures.blitOriginal(poseStack, x - 2, y - 1, aspect == null ? OriginalGuiTextures.HEX1 : OriginalGuiTextures.HEX2, 20, 18);
         if (aspect != null) {
             drawAspectIcon(poseStack, aspect, x, y, ClientAspectData.pool(aspect), true);
         }
     }
 
     private void drawAspectIcon(PoseStack poseStack, Aspect aspect, int x, int y, int pool, boolean selected) {
+        // Stage363-382: original GuiResearchTable draws aspect icons on the parchment,
+        // not opaque modern square buttons. Selection is only a thin old-gold frame.
         if (selected) {
-            fill(poseStack, x - 2, y - 2, x + 18, y + 18, AspectColor.dim(aspect, 165, 0.42F));
+            fill(poseStack, x - 2, y - 2, x + 18, y - 1, 0xFFC08A32);
+            fill(poseStack, x - 2, y + 17, x + 18, y + 18, 0xFFC08A32);
+            fill(poseStack, x - 2, y - 2, x - 1, y + 18, 0xFFC08A32);
+            fill(poseStack, x + 17, y - 2, x + 18, y + 18, 0xFFC08A32);
         }
         ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
         OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
         if (pool > 0) {
             drawString(poseStack, font, Component.literal(String.valueOf(Math.min(pool, 99))), x + 9, y + 8, 0xFFFFFF);
+        }
+    }
+
+    private void renderBonusAspectsOriginalStyle(PoseStack poseStack) {
+        AspectList bonus = menu.tableBonusAspects();
+        if (bonus.isEmpty()) {
+            return;
+        }
+        int shown = 0;
+        for (java.util.Map.Entry<Aspect, Integer> entry : bonus.entries().entrySet()) {
+            if (entry.getValue() <= 0 || shown >= 8) {
+                continue;
+            }
+            int x = leftPos + 144 + (shown % 4) * 18;
+            int y = topPos + 33 + (shown / 4) * 18;
+            ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + entry.getKey().id() + ".png");
+            OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
+            drawString(poseStack, font, Component.literal(String.valueOf(Math.min(entry.getValue(), 99))), x + 9, y + 8, 0xEEDFC6);
+            shown++;
         }
     }
 
@@ -186,15 +222,15 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
         int end = Math.min(start + ASPECTS_PER_PAGE, known.size());
         for (int i = start; i < end; i++) {
             int local = i - start;
-            int x = leftPos + 10 + (local % 5) * 18;
-            int y = topPos + 40 + (local / 5) * 18;
+            int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+            int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
             if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
                 Aspect aspect = known.get(i);
                 renderTooltip(poseStack, Component.literal(aspect.displayName()), mouseX, mouseY);
                 return;
             }
         }
-        if (mouseX >= leftPos + 35 && mouseX < leftPos + 59 && mouseY >= topPos + 139 && mouseY < topPos + 155) {
+        if (mouseX >= leftPos + TC4ResearchTableParity.COMBINE_ARROW_X && mouseX < leftPos + TC4ResearchTableParity.COMBINE_ARROW_X + TC4ResearchTableParity.COMBINE_ARROW_W && mouseY >= topPos + TC4ResearchTableParity.COMBINE_Y && mouseY < topPos + TC4ResearchTableParity.COMBINE_Y + TC4ResearchTableParity.COMBINE_ARROW_H) {
             renderTooltip(poseStack, previewAspect == null
                     ? Component.literal("Select two discovered TC4 aspects")
                     : Component.literal(firstAspect.displayName() + " + " + secondAspect.displayName() + " = " + previewAspect.displayName()), mouseX, mouseY);
@@ -203,18 +239,34 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        // Stage563-582: original TC4 has no modern buttons on the research table.
+        // Use an original-style note-slot hotzone: right-click the note slot to
+        // create/open the current note, and shift-right-click a solved note to
+        // complete it. Left-click remains vanilla slot pickup/move behavior.
+        if (button == 1 && inOriginalNoteSlot(mouseX, mouseY)) {
+            ItemStack note = menu.tableStack(ResearchTableBlockEntity.SLOT_RESEARCH_NOTE);
+            if (!(note.getItem() instanceof ResearchNoteItem)) {
+                ThaumcraftNetwork.requestResearchTableActionFromClient(menu.blockPos(), TC4ResearchTableParity.ACTION_CREATE_NOTE);
+            } else if (ResearchNoteState.solved(note) && hasShiftDown()) {
+                ThaumcraftNetwork.requestResearchTableActionFromClient(menu.blockPos(), TC4ResearchTableParity.ACTION_COMPLETE_SOLVED_NOTE);
+            } else {
+                ThaumcraftNetwork.requestResearchTableActionFromClient(menu.blockPos(), TC4ResearchTableParity.ACTION_OPEN_NOTE);
+            }
+            return true;
+        }
+
         if (button == 0) {
             List<Aspect> known = knownAspects();
-            if (mouseX >= leftPos + 27 && mouseX < leftPos + 43 && mouseY >= topPos + 121 && mouseY < topPos + 131 && aspectPage > 0) {
+            if (TC4ResearchTableParity.isPreviousAspectPageHit(mouseX - leftPos, mouseY - topPos) && aspectPage > 0) {
                 aspectPage--;
                 return true;
             }
-            if (mouseX >= leftPos + 51 && mouseX < leftPos + 67 && mouseY >= topPos + 121 && mouseY < topPos + 131
+            if (TC4ResearchTableParity.isNextAspectPageHit(mouseX - leftPos, mouseY - topPos)
                     && (aspectPage + 1) * ASPECTS_PER_PAGE < known.size()) {
                 aspectPage++;
                 return true;
             }
-            if (mouseX >= leftPos + 35 && mouseX < leftPos + 59 && mouseY >= topPos + 139 && mouseY < topPos + 155) {
+            if (TC4ResearchTableParity.isCombineArrowHit(mouseX - leftPos, mouseY - topPos)) {
                 if (firstAspect != null && secondAspect != null && previewAspect != null) {
                     ThaumcraftNetwork.requestCombineAspectsFromClient(firstAspect.id(), secondAspect.id());
                 }
@@ -224,23 +276,21 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
             int end = Math.min(start + ASPECTS_PER_PAGE, known.size());
             for (int i = start; i < end; i++) {
                 int local = i - start;
-                int x = leftPos + 10 + (local % 5) * 18;
-                int y = topPos + 40 + (local / 5) * 18;
-                if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
+                int x = leftPos + TC4ResearchTableParity.ASPECT_GRID_X + (local % TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+                int y = topPos + TC4ResearchTableParity.ASPECT_GRID_Y + (local / TC4ResearchTableParity.ASPECT_GRID_COLUMNS) * TC4ResearchTableParity.ASPECT_GRID_STEP;
+                if (TC4ResearchTableParity.isAspectIconHit(mouseX - leftPos, mouseY - topPos, local)) {
                     selectAspectForCombination(known.get(i));
                     return true;
                 }
             }
         }
 
-        if (button == 0
-                && mouseX >= leftPos + COPY_X && mouseX <= leftPos + COPY_X + 24
-                && mouseY >= topPos + COPY_Y && mouseY <= topPos + COPY_Y + 24) {
+        if (button == 0 && TC4ResearchTableParity.isCopyIconHit(mouseX - leftPos, mouseY - topPos)) {
             ItemStack note = menu.tableStack(ResearchTableBlockEntity.SLOT_RESEARCH_NOTE);
             if (note.getItem() instanceof ResearchNoteItem && ResearchNoteState.solved(note)
                     && minecraft != null && minecraft.player != null
                     && PlayerThaumData.hasResearch(minecraft.player, "RESEARCHDUPE")) {
-                ThaumcraftNetwork.requestResearchTableActionFromClient(menu.blockPos(), 5);
+                ThaumcraftNetwork.requestResearchTableActionFromClient(menu.blockPos(), TC4ResearchTableParity.ACTION_COPY_COMPLETED_NOTE);
                 return true;
             }
         }
@@ -264,24 +314,14 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
     }
 
     private void renderTableFeedback(PoseStack poseStack, int mouseX, int mouseY) {
-        ItemStack tools = menu.tableStack(ResearchTableBlockEntity.SLOT_SCRIBING_TOOLS);
-        ItemStack note = menu.tableStack(ResearchTableBlockEntity.SLOT_RESEARCH_NOTE);
-        boolean hasNote = note.getItem() instanceof ResearchNoteItem;
-        boolean hasInk = tools.getItem() instanceof ScribingToolsItem && ScribingToolsItem.hasInk(tools);
-
-        if (hasNote && !hasInk) {
-            renderTooltip(poseStack, Component.literal("No ink in Scribing Tools"), leftPos + 157, topPos + 84);
-        }
-
+        // Stage663-682: keep visual parity. Original GuiResearchTable does not
+        // overlay adapter instructions such as "Right-click..." or "No ink..."
+        // across the copied guiresearchtable2.png; item/aspect tooltips still come
+        // from the normal hovered stack/aspect paths.
         renderAspectTooltips(poseStack, mouseX, mouseY);
+    }
 
-        if (mouseX >= leftPos + COPY_X && mouseX <= leftPos + COPY_X + 24
-                && mouseY >= topPos + COPY_Y && mouseY <= topPos + COPY_Y + 24) {
-            if (hasNote && ResearchNoteState.solved(note)) {
-                renderTooltip(poseStack, Component.literal("Copy completed research note: paper + ink sac + original research aspects"), mouseX, mouseY);
-            } else {
-                renderTooltip(poseStack, Component.literal("Copy appears only for completed research notes"), mouseX, mouseY);
-            }
-        }
+    private boolean inOriginalNoteSlot(double mouseX, double mouseY) {
+        return TC4ResearchTableParity.isNoteSlotHit(mouseX - leftPos, mouseY - topPos);
     }
 }

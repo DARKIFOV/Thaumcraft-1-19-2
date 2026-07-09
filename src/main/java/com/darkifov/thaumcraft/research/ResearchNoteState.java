@@ -26,6 +26,13 @@ public final class ResearchNoteState {
     public static final String TAG_REQUIRED = "Required";
     public static final String TAG_COMPLETION_CLEANED = "CompletionCleaned";
     public static final String TAG_COPIES = "copies";
+    public static final String TAG_TC4_CATEGORY = "tc4Category";
+    public static final String TAG_TC4_PARENTS = "tc4Parents";
+    public static final String TAG_TC4_HIDDEN_PARENTS = "tc4HiddenParents";
+    public static final String TAG_TC4_SIBLINGS = "tc4Siblings";
+    public static final String TAG_TC4_FLAGS = "tc4Flags";
+    public static final String TAG_TC4_WARP = "tc4Warp";
+    public static final String TAG_TC4_COMPLEXITY = "tc4Complexity";
 
     private ResearchNoteState() {
     }
@@ -48,6 +55,7 @@ public final class ResearchNoteState {
                 || root.getInt(TAG_RADIUS) <= 0;
 
         root.putString(TAG_TARGET, target);
+        putOriginalResearchMetadata(root, target);
         if (!root.contains(TAG_PROGRESS)) {
             root.putInt(TAG_PROGRESS, 0);
         }
@@ -90,10 +98,34 @@ public final class ResearchNoteState {
         root.put(TAG_SLOTS, slots);
         root.put(TAG_TYPES, types);
         root.putInt(TAG_RADIUS, radius);
+        putOriginalResearchMetadata(root, target);
         root.putBoolean(TAG_SOLVED, false);
         root.putBoolean(TAG_COMPLETION_CLEANED, false);
         root.putString(TAG_REQUIRED, requiredString(target));
         root.putInt(TAG_PROGRESS, 0);
+    }
+
+
+    private static void putOriginalResearchMetadata(CompoundTag root, String target) {
+        Optional<ResearchEntry> entry = target == null || target.isBlank() ? Optional.empty() : ResearchRegistry.byKey(target);
+        if (entry.isEmpty()) {
+            root.putString(TAG_TC4_CATEGORY, "");
+            root.putString(TAG_TC4_PARENTS, "");
+            root.putString(TAG_TC4_HIDDEN_PARENTS, "");
+            root.putString(TAG_TC4_SIBLINGS, "");
+            root.putString(TAG_TC4_FLAGS, "");
+            root.putInt(TAG_TC4_WARP, 0);
+            root.putInt(TAG_TC4_COMPLEXITY, 1);
+            return;
+        }
+        ResearchEntry research = entry.get();
+        root.putString(TAG_TC4_CATEGORY, research.category());
+        root.putString(TAG_TC4_PARENTS, String.join(",", research.requirements()));
+        root.putString(TAG_TC4_HIDDEN_PARENTS, String.join(",", research.hiddenRequirements()));
+        root.putString(TAG_TC4_SIBLINGS, String.join(",", research.siblings()));
+        root.putString(TAG_TC4_FLAGS, TC4ResearchFlagPolicy.joinedFlags(research));
+        root.putInt(TAG_TC4_WARP, research.warp());
+        root.putInt(TAG_TC4_COMPLEXITY, research.complexity());
     }
 
     /**

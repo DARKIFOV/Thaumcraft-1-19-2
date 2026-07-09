@@ -68,6 +68,12 @@ public class AlembicBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.put("Aspects", aspects.save());
+        Aspect stored = aspects.firstAspect();
+        if (stored != null && aspects.totalAmount() > 0) {
+            tag.putString("Aspect", stored.id());
+            tag.putShort("Amount", (short) aspects.totalAmount());
+        }
+        tag.putByte("facing", (byte) 2);
     }
 
     @Override
@@ -76,6 +82,13 @@ public class AlembicBlockEntity extends BlockEntity {
 
         if (tag.contains("Aspects")) {
             aspects.load(tag.getCompound("Aspects"));
+        }
+        if (!tag.contains("Aspects") && tag.contains("Aspect")) {
+            Aspect originalAspect = Aspect.byId(tag.getString("Aspect"));
+            int originalAmount = Math.max(0, tag.getShort("Amount"));
+            if (originalAspect != null && originalAmount > 0) {
+                aspects.add(originalAspect, originalAmount);
+            }
         }
     }
 }

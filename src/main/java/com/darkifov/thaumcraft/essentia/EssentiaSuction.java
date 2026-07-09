@@ -9,6 +9,8 @@ public record EssentiaSuction(Aspect aspect, int strength, String reason) {
     public static final int JAR_VOID = 32;
     public static final int JAR_VOID_FILTERED = 48;
     public static final int ALEMBIC_SOURCE_PRIORITY = 96;
+    public static final int RESERVOIR_SOURCE_PRIORITY = 24;
+    public static final int JAR_SOURCE_PRIORITY = 16;
     public static final int FURNACE_SOURCE_PRIORITY = 48;
 
     public boolean beats(EssentiaSuction other) {

@@ -1,0 +1,27 @@
+{
+  "stage": "423-442",
+  "base": "Stage403-422",
+  "version": "4.42.0",
+  "policy": "strict original TC4 parity; no new mechanics/items/recipes/progression added",
+  "changes": [
+    "Fixed Aura Node revealer HUD atlas sampling: node_bubble.png is now scaled from the complete original 256x256 texture instead of cropped from the upper-left corner.",
+    "Fixed Aura Node revealer HUD atlas sampling: nodes.png now draws the full 64x64 TC4 frame scaled to 32x32 instead of cropping a 32x32 corner from the 2048x2048 sheet.",
+    "Removed the leftover in-world Aura Node crossing-plane depth adapter so nodes render as camera-facing original TC4 translucent layers instead of stick/plate-like side planes.",
+    "Mirrored every original TC4 core GUI PNG into active textures/gui by exact filename, including gui_wandtable, thaumatorium, focus pouch, pech, golem and arcane workbench assets.",
+    "Mirrored original scanner/goggles/wand model assets into active textures/models, including scanner.obj and all rod/cap model textures.",
+    "Replaced wand item fallback textures with the original TC4 wand model texture so builtin/entity render fallback no longer shows unrelated placeholder art.",
+    "Rebuilt deterministic texture mirror manifest for this stage."
+  ],
+  "not_changed": [
+    "No new recipes were invented.",
+    "No new research keys, pages, parents, hidden parents or warp data were invented.",
+    "No new items or GUI flows were added.",
+    "Infusion Matrix recipe behavior from Stage343-382 is preserved; this stage is visual/asset parity only."
+  ],
+  "known_remaining": [
+    "Thaumometer still uses a Forge 1.19.2 renderer adapter around original scanner.obj; further pass must compare exact TC4 hand transforms frame-by-frame.",
+    "Goggles use original texture and a multi-plane head layer, but exact old ModelGoggles geometry still needs deeper numeric porting.",
+    "Research Table and Arcane Workbench use original backgrounds, but slot/text/icon offsets still need pixel audit against TC4 1.7.10 screenshots/source.",
+    "Infusion Matrix craft exists, but instability event parity, all ConfigRecipes edge cases and FX still need additional stages."
+  ]
+}

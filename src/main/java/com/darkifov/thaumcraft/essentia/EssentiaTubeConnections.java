@@ -1,8 +1,9 @@
 package com.darkifov.thaumcraft.essentia;
 
 import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
-import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ThaumatoriumBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,14 +23,18 @@ public final class EssentiaTubeConnections {
         }
 
         BlockEntity neighbor = level.getBlockEntity(pos.relative(direction));
+        if (neighbor instanceof EssentiaReservoirBlockEntity reservoir) {
+            return reservoir.canAccessFrom(direction.getOpposite());
+        }
         return isTransportEndpoint(neighbor);
     }
 
     public static boolean isTransportEndpoint(BlockEntity entity) {
         return entity instanceof EssentiaTubeBlockEntity
                 || entity instanceof EssentiaJarBlockEntity
-                || entity instanceof AlembicBlockEntity
-                || entity instanceof AlchemicalFurnaceBlockEntity;
+                || entity instanceof EssentiaReservoirBlockEntity
+                || entity instanceof ThaumatoriumBlockEntity
+                || entity instanceof AlembicBlockEntity;
     }
 
     public static Map<Direction, Boolean> scan(Level level, BlockPos pos) {

@@ -1,0 +1,30 @@
+{
+  "version": "v10.62",
+  "progress_estimate": "85% complete / 15% remaining",
+  "scope": [
+    "TC4 TileTubeBuffer random stored-aspect exposure",
+    "TC4 AIHomeTakeSorting home-inventory needed-list parity",
+    "TC4 AISortingPlace marked-output/marked-side placement parity",
+    "Audit hardening for behavior lifecycle instead of token-only drift"
+  ],
+  "no_new_content": true,
+  "changed_runtime_behaviors": {
+    "essentia_tube_buffer": [
+      "getTransportEssentiaType now uses randomBufferAspectLikeTC4 for mixed buffers",
+      "normal transient tube aspect behavior preserved"
+    ],
+    "sorting_golem": [
+      "needed list is built from the home container through homeFacing",
+      "home extraction requests carryLimit like original AIHomeTakeSorting",
+      "carried sorting stacks try marked output inventories/sides before fallback",
+      "WorldlyContainer canPlaceItemThroughFace is respected"
+    ]
+  },
+  "next_plan": [
+    "Tube conflict matrix for filter/one-way/restrict/valve/buffer combinations",
+    "Sorting golem timeout/backoff parity",
+    "Worldgen node/taint/ore rarity and biome blacklist deeper comparison",
+    "Research/Thaumonomicon payload and visual drift pass",
+    "Infusion failure side-effect recheck"
+  ]
+}

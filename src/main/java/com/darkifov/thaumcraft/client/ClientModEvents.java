@@ -11,11 +11,13 @@ import com.darkifov.thaumcraft.client.screen.OsmoticEnchanterScreen;
 import com.darkifov.thaumcraft.client.screen.PechTradeScreen;
 import com.darkifov.thaumcraft.client.screen.ResearchTableContainerScreen;
 import com.darkifov.thaumcraft.client.screen.TransvectorInterfaceScreen;
+import com.darkifov.thaumcraft.client.screen.ThaumatoriumScreen;
 import com.darkifov.thaumcraft.client.render.ArcanePedestalRenderer;
 import com.darkifov.thaumcraft.client.render.CrucibleRenderer;
 import com.darkifov.thaumcraft.client.render.AlembicRenderer;
 import com.darkifov.thaumcraft.client.render.AuraNodeRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaJarRenderer;
+import com.darkifov.thaumcraft.client.render.EssentiaReservoirRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaTubeRenderer;
 import com.darkifov.thaumcraft.client.render.InfusionMatrixRenderer;
 import com.darkifov.thaumcraft.client.render.PechRenderer;
@@ -34,6 +36,7 @@ import com.darkifov.thaumcraft.client.render.TC4TaintacleRenderer;
 import com.darkifov.thaumcraft.client.render.TC4MindSpiderRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchTileRenderer;
 import com.darkifov.thaumcraft.client.render.TC4FortressArmorLayer;
+import com.darkifov.thaumcraft.client.render.TC4GogglesLayer;
 import com.darkifov.thaumcraft.client.render.ThaumGolemRenderer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -57,6 +60,7 @@ public final class ClientModEvents {
             BlockEntityRenderers.register(ThaumcraftMod.ALEMBIC_BLOCK_ENTITY.get(), AlembicRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), AuraNodeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), EssentiaJarRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_RESERVOIR_BLOCK_ENTITY.get(), EssentiaReservoirRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_TUBE_BLOCK_ENTITY.get(), EssentiaTubeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.CRUCIBLE_BLOCK_ENTITY.get(), CrucibleRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.INFUSION_MATRIX_BLOCK_ENTITY.get(), InfusionMatrixRenderer::new);
@@ -89,6 +93,7 @@ public final class ClientModEvents {
             EntityRenderers.register(ThaumcraftMod.GOLEM_ORB.get(), ctx -> new TC4EldritchOrbRenderer<>(ctx));
             MenuScreens.register(ThaumcraftMod.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchContainerScreen::new);
             MenuScreens.register(ThaumcraftMod.RESEARCH_TABLE_MENU.get(), ResearchTableContainerScreen::new);
+            MenuScreens.register(ThaumcraftMod.THAUMATORIUM_MENU.get(), ThaumatoriumScreen::new);
             MenuScreens.register(ThaumcraftMod.PECH_TRADE_MENU.get(), PechTradeScreen::new);
             MenuScreens.register(ThaumcraftMod.ESSENTIA_TERMINAL_MENU.get(), EssentiaTerminalScreen::new);
             MenuScreens.register(ThaumcraftMod.ESSENTIA_DRIVE_MENU.get(), EssentiaDriveScreen::new);
@@ -114,6 +119,7 @@ public final class ClientModEvents {
         for (String skin : event.getSkins()) {
             PlayerRenderer renderer = event.getSkin(skin);
             if (renderer != null) {
+                renderer.addLayer(new TC4GogglesLayer(renderer));
                 renderer.addLayer(new TC4FortressArmorLayer(renderer));
             }
         }

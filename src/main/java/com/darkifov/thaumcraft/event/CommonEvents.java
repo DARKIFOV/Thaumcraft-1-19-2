@@ -2,7 +2,6 @@ package com.darkifov.thaumcraft.event;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
-import com.darkifov.thaumcraft.aura.AuraNodeWorldRuntime;
 import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -19,9 +18,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.level.ChunkEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -37,12 +38,18 @@ public final class CommonEvents {
 
 
     @SubscribeEvent
+    public static void onChunkLoad(ChunkEvent.Load event) {
+        if (!event.isNewChunk() || !(event.getChunk() instanceof LevelChunk chunk) || !(chunk.getLevel() instanceof ServerLevel level)) {
+            return;
+        }
+        TC4WorldgenRuntime.generateNewChunk(level, chunk.getPos());
+    }
+
+    @SubscribeEvent
     public static void onLevelTick(TickEvent.LevelTickEvent event) {
         if (event.phase != TickEvent.Phase.END || event.level.isClientSide || !(event.level instanceof ServerLevel level)) {
             return;
         }
-        AuraNodeWorldRuntime.seedNearbyNaturalNodes(level);
-
         for (ServerPlayer player : level.players()) {
             TC4RunicShieldRuntime.tick(player);
         }
@@ -52,7 +59,6 @@ public final class CommonEvents {
         }
 
         for (ServerPlayer player : level.players()) {
-            TC4WorldgenRuntime.tickPlayerArea(level, player);
             AuraVisRelayNetwork.tickPlayerRecharge(level, player);
             AABB scan = player.getBoundingBox().inflate(24.0D);
             for (ItemEntity itemEntity : level.getEntitiesOfClass(ItemEntity.class, scan, ItemEntity::isAlive)) {

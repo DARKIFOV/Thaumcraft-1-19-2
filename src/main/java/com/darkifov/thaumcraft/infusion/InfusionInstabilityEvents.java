@@ -48,7 +48,26 @@ public final class InfusionInstabilityEvents {
             return false;
         }
 
+        return triggerWeightedEvent(level, matrixPos, player, recipe, report);
+    }
+
+    /**
+     * v7.82: direct TC4 weighted table entry point for terminal recipe failure.
+     * craftCycle keeps the original nextInt(500) roll gate via maybeTrigger(...),
+     * but invalid catalyst/recipe failure in TC4 immediately enters the same
+     * weighted event table instead of rolling a second probability gate.
+     */
+    public static boolean triggerWeightedEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report) {
+        return triggerWeightedEvent(level, matrixPos, player, recipe, report, 0);
+    }
+
+    public static boolean triggerWeightedEvent(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int instabilityContext) {
+        if (level == null || matrixPos == null || report == null) {
+            return false;
+        }
+
         int roll = level.random.nextInt(EVENT_ROLL_BOUND);
+        int severity = TC4InfusionRuntime.clampInstability(instabilityContext);
 
         switch (roll) {
             case 0, 2, 10, 13 -> ejectItem(level, matrixPos, player, report, 0);
@@ -61,7 +80,7 @@ public final class InfusionInstabilityEvents {
             case 7 -> ejectItem(level, matrixPos, player, report, 4);
             case 4, 15 -> ejectItem(level, matrixPos, player, report, 5);
             case 18 -> harm(level, matrixPos, player, true);
-            case 9 -> explosion(level, matrixPos, player);
+            case 9 -> explosion(level, matrixPos, player, severity);
             case 20 -> warp(level, matrixPos, player);
             default -> surge(level, matrixPos, player);
         }
@@ -187,8 +206,14 @@ public final class InfusionInstabilityEvents {
         Player target = targets.isEmpty() ? fallbackPlayer : targets.get(level.random.nextInt(targets.size()));
 
         if (target != null) {
-            int warp = level.random.nextFloat() < 0.25F ? 1 : 1 + level.random.nextInt(5);
-            PlayerThaumData.addWarp(target, warp);
+            // TC4 inEvWarp: 25% chance is sticky warp +1; otherwise ordinary
+            // permanent warp 1..5. Older compact code used the generic permanent
+            // bucket for both branches, which changed long-term warp behavior.
+            if (level.random.nextFloat() < 0.25F) {
+                PlayerThaumData.addWarpSticky(target, 1);
+            } else {
+                PlayerThaumData.addWarpPermanent(target, 1 + level.random.nextInt(5));
+            }
 
             if (target instanceof ServerPlayer serverPlayer) {
                 ThaumcraftNetwork.syncResearch(serverPlayer);
@@ -202,8 +227,11 @@ public final class InfusionInstabilityEvents {
         }
     }
 
-    private static void explosion(Level level, BlockPos matrixPos, Player player) {
-        level.explode(null, matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D, 1.5F + level.random.nextFloat(), Explosion.BlockInteraction.NONE);
+    private static void explosion(Level level, BlockPos matrixPos, Player player, int severity) {
+        // v11.22 strict TileInfusionMatrix parity: case 9 uses exactly
+        // 1.5F + random.nextFloat() and ignores instability magnitude.
+        float strength = 1.5F + level.random.nextFloat();
+        level.explode(null, matrixPos.getX() + 0.5D, matrixPos.getY() + 0.5D, matrixPos.getZ() + 0.5D, strength, Explosion.BlockInteraction.NONE);
         message(player, "Infusion instability! The altar releases a violent blast.");
     }
 
@@ -216,16 +244,20 @@ public final class InfusionInstabilityEvents {
     }
 
     private static void placeFluxLikeGoo(Level level, BlockPos pos) {
-        // TC4 inEvEjectItem type 1/3 places ConfigBlocks.blockFluxGoo metadata 7.
-        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).isAir()) {
+        // TC4 inEvEjectItem type 1/3 calls setBlock(..., blockFluxGoo, 7, 3)
+        // rather than only filling air. Preserve safety for unreplaceable blocks,
+        // but allow replaceable fluid/plant space so failed altars actually leave
+        // the same visible goo side effect.
+        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).canBeReplaced()) {
             level.setBlock(pos, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
             level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.3F, 1.0F);
         }
     }
 
     private static void gasBurst(Level level, BlockPos pos) {
-        // TC4 inEvEjectItem type 2/4 places ConfigBlocks.blockFluxGas metadata 7.
-        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).isAir()) {
+        // TC4 inEvEjectItem type 2/4 calls setBlock(..., blockFluxGas, 7, 3);
+        // match that replaceable-space behavior instead of air-only placement.
+        if (!level.isOutsideBuildHeight(pos) && level.getBlockState(pos).canBeReplaced()) {
             level.setBlock(pos, ThaumcraftMod.FLUX_GAS.get().defaultBlockState(), 3);
             level.playSound(null, pos, TC4Sounds.event("spill"), SoundSource.BLOCKS, 0.3F, 1.0F);
         }

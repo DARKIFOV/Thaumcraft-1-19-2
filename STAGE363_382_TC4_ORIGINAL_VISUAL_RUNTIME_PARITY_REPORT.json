@@ -1,0 +1,29 @@
+{
+  "stage": "363-382",
+  "version": "3.82.0",
+  "input_stage": "343-362",
+  "strict_original_tc4_parity": true,
+  "no_invented_mechanics_or_items": true,
+  "changes": [
+    "AuraNodeRenderer now uses original_tc4_1710 nodes.png through textures/original/thaumcraft4/misc/nodes.png plus original node_bubble.png.",
+    "Aura node core and wisps are camera-facing translucent billboards to better match TC4 TileNodeRenderer instead of block-like crossed planes only.",
+    "TC4RevealerHudAdapter now draws the original hud.png ring and side column for Goggles/Helmet/Thaumometer node HUD instead of a modern rectangular debug box.",
+    "Arcane Workbench screen now binds textures/gui/thaumcraft_core_original/gui_arcaneworkbench.png through OriginalGuiTextures.",
+    "Research Table screen removes the modern Bonus text label and renders table bonus aspects as original-style aspect icons on parchment.",
+    "Research Table combine slots now use original hex1/hex2 underlays and aspect icons instead of opaque modern square buttons.",
+    "Infusion Matrix now stores travellingComponentSource and consumes the travelling component only from the pedestal that emitted the source FX.",
+    "Infusion Matrix saves sourcePedestal / travelling source coordinates for runtime parity debugging and avoids duplicate-component pedestal drift."
+  ],
+  "known_not_complete": [
+    "Research note is still a Forge screen adapter and not yet fully identical to original in-table manipulation.",
+    "Aura node renderer is closer but still must be compared against original TileNodeRenderer frame/strip math and all node modifiers.",
+    "Arcane Workbench still needs full slot-coordinate/craft-consume/research-gate comparison against ContainerArcaneWorkbench and ConfigRecipes.",
+    "Infusion Matrix craft exists and now drains/pulls/finishes, but not every TC4 instability event, special output path, and visual packet is fully exact yet.",
+    "Wand/staff/sceptre renderer and many item/block textures still need pass-by-pass original comparison."
+  ],
+  "realistic_remaining_estimate": {
+    "percent_complete_estimate": "about 40-45% of strict TC4 parity, not counting optional addons",
+    "major_stage_batches_remaining": "roughly 30-45 batches of 20 stages if each batch keeps the current depth",
+    "reason": "core registries, many recipes/research records, several systems and assets exist, but visual parity, full recipe/materialization coverage, exact GUIs, matrix instability/fx, wands, nodes, thaumonomicon pages, and many edge cases remain visibly incomplete."
+  }
+}

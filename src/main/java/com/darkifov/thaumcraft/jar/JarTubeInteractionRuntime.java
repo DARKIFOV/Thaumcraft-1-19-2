@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -24,8 +25,15 @@ public final class JarTubeInteractionRuntime {
     }
 
     public static boolean applyLabelToJar(EssentiaJarBlockEntity jar, Player player, ItemStack held, ItemStack otherHand) {
+        return applyLabelToJar(jar, player, held, otherHand, null);
+    }
+
+    public static boolean applyLabelToJar(EssentiaJarBlockEntity jar, Player player, ItemStack held, ItemStack otherHand, Direction clickedFace) {
         if (jar == null || player == null) {
             return false;
+        }
+        if (clickedFace != null) {
+            jar.setLabelFacing(clickedFace);
         }
         if (player.isShiftKeyDown()) {
             jar.clearFilter();

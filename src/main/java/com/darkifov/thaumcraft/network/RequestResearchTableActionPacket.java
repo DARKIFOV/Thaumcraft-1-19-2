@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.network;
 
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
+import com.darkifov.thaumcraft.research.TC4ResearchTableParity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -44,13 +45,13 @@ public class RequestResearchTableActionPacket {
                 player.displayClientMessage(Component.literal("Research Table is missing.").withStyle(ChatFormatting.RED), false);
                 return;
             }
-            if (packet.action == 0) {
+            if (packet.action == TC4ResearchTableParity.ACTION_CREATE_NOTE) {
                 table.createResearchNote(player);
-            } else if (packet.action == 1) {
+            } else if (packet.action == TC4ResearchTableParity.ACTION_OPEN_NOTE) {
                 table.openResearchNote(player);
-            } else if (packet.action == 2) {
+            } else if (packet.action == TC4ResearchTableParity.ACTION_COMPLETE_SOLVED_NOTE) {
                 table.completeResearchNote(player);
-            } else if (packet.action == 3 || packet.action == 5) {
+            } else if (TC4ResearchTableParity.isCopyAction(packet.action)) {
                 table.copyCompletedResearchNote(player);
             }
         });

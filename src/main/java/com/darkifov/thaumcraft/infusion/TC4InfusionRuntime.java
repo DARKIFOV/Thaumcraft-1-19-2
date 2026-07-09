@@ -2,7 +2,9 @@ package com.darkifov.thaumcraft.infusion;
 
 import com.darkifov.thaumcraft.Aspect;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,21 @@ public final class TC4InfusionRuntime {
         return estimateDuration(recipe, report, recipe.aspectCost(), recipe.components(), recipe.instability());
     }
 
+    public static List<ResourceLocation> orderedComponentPullList(InfusionRecipe recipe, ItemStack catalyst) {
+        // Stage343-362 TC4 craftCycle adapter: keep the recipe's original
+        // ConfigRecipes component order.  The matrix may animate/source-pull
+        // one item at a time, but it must not sort, dedupe, or select by any
+        // invented modern priority.
+        return new ArrayList<>(recipe.componentsFor(catalyst));
+    }
+
+    public static List<InfusionRecipe.ComponentSpec> orderedComponentSpecList(InfusionRecipe recipe, ItemStack catalyst) {
+        // v8.42: keep an ItemStack-like component ledger in recipe order so
+        // same item ids with different damage/NBT cannot be coalesced by the
+        // legacy ResourceLocation-only pending list.
+        return new ArrayList<>(recipe.componentSpecsFor(catalyst));
+    }
+
     public static int estimateDuration(InfusionRecipe recipe, InfusionStructureReport report, Map<Aspect, Integer> aspectCost, List<ResourceLocation> components, int recipeInstability) {
         int essentia = totalEssentia(aspectCost);
         int componentCount = components == null ? 0 : components.size();
@@ -56,6 +73,29 @@ public final class TC4InfusionRuntime {
 
     public static int clampInstability(int value) {
         return Math.max(0, Math.min(MAX_INSTABILITY, value));
+    }
+
+    /**
+     * TC4 TileInfusionMatrix keeps a concrete recipeInput ItemStack and validates
+     * the catalyst against it during every craftCycle.  The comparison is strict
+     * for the item id and NBT, while damage 32767 is still treated as wildcard
+     * for legacy metadata recipes.
+     */
+    public static boolean sameCraftingCatalyst(ItemStack current, ItemStack recipeInput) {
+        if (current == null || current.isEmpty() || recipeInput == null || recipeInput.isEmpty()) {
+            return false;
+        }
+        if (!current.is(recipeInput.getItem())) {
+            return false;
+        }
+        if (recipeInput.getDamageValue() != TC4InfusionItemMatcher.WILDCARD_DAMAGE
+                && current.getDamageValue() != recipeInput.getDamageValue()) {
+            return false;
+        }
+        if (recipeInput.hasTag()) {
+            return current.hasTag() && current.getTag().equals(recipeInput.getTag());
+        }
+        return !current.hasTag();
     }
 
     public static int totalEssentia(Map<Aspect, Integer> aspects) {
@@ -89,6 +129,23 @@ public final class TC4InfusionRuntime {
             builder.append(id);
         }
 
+        return builder.toString();
+    }
+
+    public static String serializeComponentSpecs(List<InfusionRecipe.ComponentSpec> specs) {
+        StringBuilder builder = new StringBuilder();
+        for (InfusionRecipe.ComponentSpec spec : specs) {
+            if (spec == null || spec.itemId() == null) {
+                continue;
+            }
+            if (builder.length() > 0) {
+                builder.append('|');
+            }
+            builder.append(spec.itemId()).append('@').append(spec.damage());
+            if (spec.tag() != null && !spec.tag().isEmpty()) {
+                builder.append('@').append(spec.tag().getAsString().replace('|', ' '));
+            }
+        }
         return builder.toString();
     }
 }

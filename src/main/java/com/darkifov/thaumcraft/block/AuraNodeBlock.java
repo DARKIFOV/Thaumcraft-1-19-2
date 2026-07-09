@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import com.darkifov.thaumcraft.aura.AuraNodeScan;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
-import com.darkifov.thaumcraft.data.NodeScanData;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -124,9 +123,9 @@ public class AuraNodeBlock extends BaseEntityBlock {
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
-        String itemId = stack.getItem().builtInRegistryHolder().key().location().toString();
-
-        if (!itemId.contains("thaumometer") && !itemId.contains("goggles")) {
+        if (!(stack.is(ThaumcraftMod.THAUMOMETER.get())
+                || stack.is(ThaumcraftMod.GOGGLES_OF_REVEALING.get())
+                || stack.is(ThaumcraftMod.HELMET_OF_REVEALING.get()))) {
             return InteractionResult.PASS;
         }
 

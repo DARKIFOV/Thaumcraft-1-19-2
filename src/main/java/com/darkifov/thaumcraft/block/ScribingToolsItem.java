@@ -11,6 +11,8 @@ import java.util.List;
 
 public class ScribingToolsItem extends Item {
     public static final int MAX_INK = 100;
+    public static final int TC4_INK_SAC_REFILL_AMOUNT = MAX_INK;
+    public static final String TC4_ORIGINAL_REFILL_RECIPE_ID = "scribing_tools_refill_original_tc4_style";
 
     public ScribingToolsItem(Properties properties) {
         super(properties.durability(MAX_INK));
@@ -47,6 +49,20 @@ public class ScribingToolsItem extends Item {
         }
     }
 
+    /**
+     * Stage623-642: original TC4 inkwell/scribing-tools refill is treated as a
+     * crafting-table refill path, not as a new right-click mechanic.  The helper
+     * is intentionally small so custom recipes/audits can validate the same
+     * damage semantics: one ink sac restores the original inkwell to full ink.
+     */
+    public static boolean refillFromInkSac(ItemStack stack) {
+        if (!(stack.getItem() instanceof ScribingToolsItem) || inkLeft(stack) >= MAX_INK) {
+            return false;
+        }
+        stack.setDamageValue(0);
+        return true;
+    }
+
     @Override
     public boolean isBarVisible(ItemStack stack) {
         return stack.getDamageValue() > 0;
@@ -60,6 +76,6 @@ public class ScribingToolsItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.literal("Ink: " + inkLeft(stack) + " / " + MAX_INK).withStyle(ChatFormatting.DARK_AQUA));
-        tooltip.add(Component.literal("Used with paper on a Research Table.").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("TC4 refill: craft with an ink sac.").withStyle(ChatFormatting.GRAY));
     }
 }

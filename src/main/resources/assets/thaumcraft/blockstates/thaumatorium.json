@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "thaumcraft:block/thaumatorium" },
+    "facing=south": { "model": "thaumcraft:block/thaumatorium", "y": 180 },
+    "facing=west": { "model": "thaumcraft:block/thaumatorium", "y": 270 },
+    "facing=east": { "model": "thaumcraft:block/thaumatorium", "y": 90 }
+  }
+}

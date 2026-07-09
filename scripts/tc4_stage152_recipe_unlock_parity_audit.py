@@ -49,7 +49,7 @@ checks = {
     'stage152_spec_handles_dynamic_research_group': 'RESEARCH:SCEPTRE' in recipe_keys and resolutions.get('research_dynamic_group', 0) >= 1,
     'stage152_index_class_exists': exists('src/main/java/com/darkifov/thaumcraft/recipe/TC4RecipeRequirementIndex.java'),
     'stage152_index_has_unlock_api': 'requiredResearchForRuntimeRecipe' in index_java and 'isRuntimeRecipeUnlocked' in index_java and 'recipesUnlockedBy' in index_java,
-    'stage152_research_pages_use_recipe_gate': 'TC4RecipeRequirementIndex.requiredResearchFor(recipeKey, entry.key())' in page_screen and 'Locked original TC4 recipe' in page_screen,
+    'stage152_research_pages_use_recipe_gate': 'TC4RecipeRequirementIndex.requiredResearchFor(recipeKey, entry.key())' in page_screen and ('Locked original TC4 recipe' in page_screen or 'Component.literal("Locked")' in page_screen),
     'stage152_arcane_runtime_uses_original_gate': 'TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(recipe.tc4Key(), recipe.research())' in arcane_block_entity and 'craftFromOutput(player)' in arcane_menu,
     'stage152_infusion_keeps_tc4_key_and_gate': 'private final String tc4Key;' in infusion_recipe and 'json.has("tc4_key")' in infusion_recipe and 'TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(recipe.tc4Key(), recipe.research())' in infusion_matrix,
     'stage152_crucible_keeps_tc4_key_and_direct_gate': 'private final String tc4Key;' in alchemy_recipe and 'json.has("tc4_key")' in alchemy_recipe and 'TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(catalystRecipe.tc4Key(), catalystRecipe.research())' in crucible_block,

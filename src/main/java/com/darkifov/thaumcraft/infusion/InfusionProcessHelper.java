@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -83,10 +84,10 @@ public final class InfusionProcessHelper {
             }
         }
 
-        for (ResourceLocation componentId : recipe.componentsFor(catalyst)) {
+        for (InfusionRecipe.ComponentSpec componentSpec : recipe.componentSpecsFor(catalyst)) {
             boolean matched = false;
             for (int i = 0; i < available.size(); i++) {
-                if (recipe.componentMatches(available.get(i), componentId)) {
+                if (recipe.componentMatches(available.get(i), componentSpec)) {
                     available.remove(i);
                     matched = true;
                     break;
@@ -158,8 +159,12 @@ public final class InfusionProcessHelper {
 
 
     public static boolean consumeOneAspect(List<EssentiaJarBlockEntity> jars, Aspect aspect) {
+        return consumeOneAspectSource(jars, aspect) != null;
+    }
+
+    public static BlockPos consumeOneAspectSource(List<EssentiaJarBlockEntity> jars, Aspect aspect) {
         if (aspect == null) {
-            return false;
+            return null;
         }
 
         for (EssentiaJarBlockEntity jar : jars) {
@@ -167,11 +172,11 @@ public final class InfusionProcessHelper {
 
             if (removed > 0) {
                 jar.setChangedAndSync();
-                return true;
+                return jar.getBlockPos();
             }
         }
 
-        return false;
+        return null;
     }
 
     public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
@@ -197,6 +202,23 @@ public final class InfusionProcessHelper {
         return null;
     }
 
+    public static ArcanePedestalBlockEntity findComponentPedestal(List<ArcanePedestalBlockEntity> pedestals, InfusionRecipe.ComponentSpec componentSpec, InfusionRecipe recipe) {
+        if (componentSpec == null || componentSpec.itemId() == null) {
+            return null;
+        }
+        for (ArcanePedestalBlockEntity pedestal : pedestals) {
+            if (recipe == null) {
+                ResourceLocation id = ForgeRegistries.ITEMS.getKey(pedestal.stored().getItem());
+                if (componentSpec.itemId().equals(id)) {
+                    return pedestal;
+                }
+            } else if (recipe.componentMatches(pedestal.stored(), componentSpec)) {
+                return pedestal;
+            }
+        }
+        return null;
+    }
+
     public static boolean consumeSingleComponent(List<ArcanePedestalBlockEntity> pedestals, ResourceLocation componentId) {
         return consumeSingleComponent(pedestals, componentId, null);
     }
@@ -208,16 +230,29 @@ public final class InfusionProcessHelper {
             return false;
         }
 
-        ItemStack stack = pedestal.stored();
-        ItemStack container = stack.getCraftingRemainingItem();
-
-        if (!container.isEmpty()) {
-            pedestal.setStored(container);
-        } else {
-            pedestal.setStored(ItemStack.EMPTY);
-        }
+        consumePedestalComponentPreservingContainer(pedestal.getLevel(), pedestal);
 
         return true;
+    }
+
+    public static void consumePedestalComponentPreservingContainer(Level level, ArcanePedestalBlockEntity pedestal) {
+        if (pedestal == null || pedestal.stored().isEmpty()) {
+            return;
+        }
+        ItemStack stack = pedestal.stored().copy();
+        ItemStack container = stack.getCraftingRemainingItem();
+        stack.shrink(1);
+
+        if (stack.isEmpty()) {
+            pedestal.setStored(container.isEmpty() ? ItemStack.EMPTY : container.copy());
+            return;
+        }
+
+        pedestal.setStored(stack);
+        if (!container.isEmpty() && level != null) {
+            BlockPos p = pedestal.getBlockPos();
+            Containers.dropItemStack(level, p.getX() + 0.5D, p.getY() + 1.1D, p.getZ() + 0.5D, container.copy());
+        }
     }
 
     public static Aspect firstPendingAspect(Map<Aspect, Integer> pendingAspects) {
@@ -320,9 +355,9 @@ public final class InfusionProcessHelper {
             level.sendParticles(ParticleTypes.END_ROD, matrixPos.getX() + 0.5D, matrixPos.getY() + 0.9D, matrixPos.getZ() + 0.5D, 6, 0.25D, 0.25D, 0.25D, 0.01D);
         }
 
-        if (progress % 30 == 0) {
-            level.sendParticles(ParticleTypes.HAPPY_VILLAGER, matrixPos.getX() + 0.5D, matrixPos.getY() + 1.05D, matrixPos.getZ() + 0.5D, 2, 0.15D, 0.15D, 0.15D, 0.01D);
-        }
+        // Stage703-722: do not add non-TC4 happy-villager progress markers.
+        // Original craftCycle feedback is handled by the matrix swirl plus
+        // source-to-matrix FX packets for jars/pedestals/entities.
     }
 
     private static void spawnParticleLine(ServerLevel level, double sx, double sy, double sz,

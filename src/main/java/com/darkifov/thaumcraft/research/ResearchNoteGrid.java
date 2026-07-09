@@ -156,7 +156,7 @@ public final class ResearchNoteGrid {
                 best = slot;
             }
         }
-        return best != null && bestDistance <= 144.0D ? Optional.of(best) : Optional.empty();
+        return best != null && bestDistance <= TC4ResearchTableParity.NOTE_HEX_HIT_RADIUS_SQ ? Optional.of(best) : Optional.empty();
     }
 
     public static int x(int index) {

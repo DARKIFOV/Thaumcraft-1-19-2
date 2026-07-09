@@ -1,0 +1,16 @@
+{
+  "stage": "Stage683-702",
+  "version": "7.02.0",
+  "base": "Stage663-682",
+  "scope": [
+    "Arcane Workbench coordinate/output gate parity",
+    "Infusion Matrix original-style snapshot NBT",
+    "Aura Node HUD/renderer shared atlas parity"
+  ],
+  "new_survival_mechanics_added": false,
+  "new_items_added": false,
+  "new_recipes_added": false,
+  "still_not_100_percent": true,
+  "estimated_strict_tc4_parity_percent_after_stage": "62-67%",
+  "remaining_major_batches_estimate": "22-34"
+}

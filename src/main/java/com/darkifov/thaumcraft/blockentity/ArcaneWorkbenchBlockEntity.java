@@ -8,6 +8,7 @@ import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.wand.WandCraftingRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.sounds.SoundSource;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
@@ -138,9 +140,9 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
         if (!player.getAbilities().instabuild) {
             consumeArcaneVisCost(wand, recipe);
-            getItem(catalystSlot).shrink(1);
-            if (!consumePatternIngredients(recipe, catalystSlot)) {
-                consumeIngredients(recipe.ingredients(), catalystSlot);
+            consumeSlotPreservingContainer(player, catalystSlot);
+            if (!consumePatternIngredients(recipe, catalystSlot, player)) {
+                consumeIngredients(recipe.ingredients(), catalystSlot, player);
             }
         }
 
@@ -215,7 +217,9 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             return;
         }
 
-        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipe(player, false);
+        // Stage683-702: original TC4 GUI still previews an arcane output even when the wand lacks enough vis.
+        // Taking the preview is blocked by Slot#mayPickup / craftFromOutput until the wand can pay.
+        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipe(player, false, false);
         setOutputPreview(previewResult(recipe));
     }
 
@@ -228,11 +232,12 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         // arcane results.  Vanilla recipes win before arcane recipes and still
         // consume the 3x3 matrix with container item handling.
         if (tryConsumeVanillaCraftingResult(player)) {
+            playOriginalCraftSound(0.35F);
             updateOutputPreview(player);
             return;
         }
 
-        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipe(player, true);
+        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipe(player, true, true);
         if (recipe == null) {
             clearOutputPreview();
             return;
@@ -243,7 +248,15 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             consumeOriginalCraftMatrix(player);
         }
 
+        playOriginalCraftSound(0.45F);
         updateOutputPreview(player);
+    }
+
+
+    private void playOriginalCraftSound(float volume) {
+        if (level != null && !level.isClientSide) {
+            level.playSound(null, worldPosition, TC4Sounds.event("craftstart"), SoundSource.BLOCKS, volume, 0.95F + level.random.nextFloat() * 0.1F);
+        }
     }
 
     private void setOutputPreview(ItemStack preview) {
@@ -278,7 +291,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             return false;
         }
         if (!player.getAbilities().instabuild) {
-            consumeOriginalCraftMatrix(player);
+            consumeVanillaCraftingMatrix(recipe.get(), player);
         }
         return true;
     }
@@ -301,21 +314,69 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
     private void consumeOriginalCraftMatrix(Player player) {
         for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
+            consumeSlotPreservingContainer(player, slot);
+        }
+        setChanged();
+    }
+
+    private void consumeVanillaCraftingMatrix(CraftingRecipe recipe, Player player) {
+        CraftingContainer crafting = createCraftingContainer();
+        NonNullList<ItemStack> remainingItems = recipe.getRemainingItems(crafting);
+
+        for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
             ItemStack stack = getItem(slot);
             if (stack.isEmpty()) {
                 continue;
             }
-            ItemStack remaining = stack.getCraftingRemainingItem();
+
             stack.shrink(1);
-            if (!remaining.isEmpty()) {
-                if (stack.isEmpty()) {
-                    items.set(slot, remaining.copy());
-                } else if (!player.getInventory().add(remaining.copy())) {
-                    Containers.dropItemStack(level, player.getX(), player.getY(), player.getZ(), remaining.copy());
-                }
+            ItemStack remainder = slot < remainingItems.size() ? remainingItems.get(slot) : ItemStack.EMPTY;
+            applyCraftingRemainder(player, slot, remainder);
+
+            if (stack.isEmpty() && remainder.isEmpty()) {
+                items.set(slot, ItemStack.EMPTY);
             }
         }
+
         setChanged();
+    }
+
+    private void applyCraftingRemainder(Player player, int slot, ItemStack remainder) {
+        if (remainder == null || remainder.isEmpty()) {
+            return;
+        }
+
+        ItemStack stack = getItem(slot);
+        ItemStack copy = remainder.copy();
+        if (stack.isEmpty()) {
+            items.set(slot, copy);
+            return;
+        }
+
+        if (ItemStack.isSameItemSameTags(stack, copy) && stack.getCount() + copy.getCount() <= stack.getMaxStackSize()) {
+            stack.grow(copy.getCount());
+            return;
+        }
+
+        if (player != null && !player.getInventory().add(copy)) {
+            Containers.dropItemStack(level, player.getX(), player.getY(), player.getZ(), copy);
+        }
+    }
+
+    private void consumeSlotPreservingContainer(Player player, int slot) {
+        ItemStack stack = getItem(slot);
+        if (stack.isEmpty()) {
+            return;
+        }
+        ItemStack remaining = stack.getCraftingRemainingItem();
+        stack.shrink(1);
+        if (!remaining.isEmpty()) {
+            if (stack.isEmpty()) {
+                items.set(slot, remaining.copy());
+            } else if (player != null && !player.getInventory().add(remaining.copy())) {
+                Containers.dropItemStack(level, player.getX(), player.getY(), player.getZ(), remaining.copy());
+            }
+        }
     }
 
     private void clearOutputPreview() {
@@ -335,7 +396,37 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return recipe.result();
     }
 
+    public boolean canTakeOutput(Player player) {
+        if (player == null || level == null || getItem(SLOT_OUTPUT).isEmpty()) {
+            return false;
+        }
+
+        Optional<CraftingRecipe> vanilla = findMatchingVanillaCraftingRecipe();
+        if (vanilla.isPresent()) {
+            ItemStack vanillaResult = vanilla.get().assemble(createCraftingContainer());
+            if (!vanillaResult.isEmpty() && sameItemSameTagsAndCount(vanillaResult, getItem(SLOT_OUTPUT))) {
+                return true;
+            }
+        }
+
+        ArcaneWorkbenchRecipe arcane = findMatchingArcaneRecipe(player, false, true);
+        return arcane != null && sameItemSameTagsAndCount(previewResult(arcane), getItem(SLOT_OUTPUT));
+    }
+
+    private boolean sameItemSameTagsAndCount(ItemStack expected, ItemStack actual) {
+        // v7.62: TC4 SlotCraftingArcaneWorkbench consumes the exact current preview.
+        // Do not let an over-stacked stale preview survive a recipe/grid/vis change.
+        return !expected.isEmpty()
+                && !actual.isEmpty()
+                && expected.getCount() == actual.getCount()
+                && ItemStack.isSameItemSameTags(expected, actual);
+    }
+
     public ArcaneWorkbenchRecipe findMatchingArcaneRecipe(Player player, boolean message) {
+        return findMatchingArcaneRecipe(player, message, true);
+    }
+
+    public ArcaneWorkbenchRecipe findMatchingArcaneRecipe(Player player, boolean message, boolean requireVis) {
         ItemStack wand = getItem(SLOT_WAND);
         if (!(wand.getItem() instanceof WandItem)) {
             return null;
@@ -347,7 +438,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
                 continue;
             }
 
-            if (!hasArcaneVisCost(wand, recipe, message ? player : null)) {
+            if (requireVis && !hasArcaneVisCost(wand, recipe, message ? player : null)) {
                 continue;
             }
 
@@ -566,7 +657,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return true;
     }
 
-    private boolean consumePatternIngredients(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
+    private boolean consumePatternIngredients(ArcaneWorkbenchRecipe recipe, int catalystSlot, Player player) {
         if (recipe.pattern().isEmpty() || recipe.inferredPatternMap().isEmpty()) {
             return false;
         }
@@ -591,14 +682,14 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
                     continue;
                 }
 
-                getItem(slot).shrink(1);
+                consumeSlotPreservingContainer(player, slot);
             }
         }
 
         return true;
     }
 
-    private void consumeIngredients(List<ResourceLocation> ingredients, int catalystSlot) {
+    private void consumeIngredients(List<ResourceLocation> ingredients, int catalystSlot, Player player) {
         for (ResourceLocation needed : ingredients) {
             for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
                 if (slot == catalystSlot && getItem(slot).getCount() <= 0) {
@@ -609,7 +700,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
                 ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
 
                 if (id != null && id.equals(needed)) {
-                    stack.shrink(1);
+                    consumeSlotPreservingContainer(player, slot);
                     break;
                 }
             }
@@ -698,10 +789,31 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         setChanged();
     }
 
+    public void dropRealContents(Level level, BlockPos pos) {
+        for (int slot = 0; slot < items.size(); slot++) {
+            if (slot == SLOT_OUTPUT) {
+                continue;
+            }
+            ItemStack stack = items.get(slot);
+            if (!stack.isEmpty()) {
+                Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack.copy());
+                items.set(slot, ItemStack.EMPTY);
+            }
+        }
+        clearOutputPreview();
+        setChanged();
+    }
+
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
+        // TC4's output slot is a virtual preview produced by the container.
+        // Never serialize it as a real inventory stack, otherwise a stale preview
+        // can survive world reloads and become collectible without crafting.
+        ItemStack preview = items.get(SLOT_OUTPUT);
+        items.set(SLOT_OUTPUT, ItemStack.EMPTY);
         ContainerHelper.saveAllItems(tag, items);
+        items.set(SLOT_OUTPUT, preview);
     }
 
     @Override
@@ -713,6 +825,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         }
 
         ContainerHelper.loadAllItems(tag, items);
+        items.set(SLOT_OUTPUT, ItemStack.EMPTY);
     }
     /**
      * Forge 1.19.2 adapter for the original ContainerDummy used only to ask

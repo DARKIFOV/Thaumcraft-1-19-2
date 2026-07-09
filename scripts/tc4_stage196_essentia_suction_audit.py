@@ -35,7 +35,7 @@ checks = {
         'private Direction facing = Direction.NORTH', 'private boolean[] openSides', 'private Aspect essentiaType', 'private int essentiaAmount', 'private Aspect suctionType', 'private int suction', 'private int venting', 'tag.putString("type"', 'tag.putInt("amount"', 'tag.putInt("side"', 'tag.putByteArray("open"', 'tag.putString("stype"', 'tag.putInt("samount"'
     ]),
     'tube_tick_cadence_and_venting': all(token in tube for token in [
-        'calculateSuctionSnapshot()', 'checkVentingSnapshot()', 'level.getGameTime() % 2L == 0L', 'Math.max(5, ThaumcraftConfig.ESSENTIA_TUBE_TRANSFER_INTERVAL_TICKS.get())', 'venting = 40'
+        'calculateSuctionSnapshot()', 'checkVentingSnapshot()', 'tube.originalTickCounter % 2 == 0', 'tube.originalTickCounter % Math.max(5, ThaumcraftConfig.ESSENTIA_TUBE_TRANSFER_INTERVAL_TICKS.get())', 'venting = 40'
     ]),
     'jar_original_nbt': all(token in jar for token in [
         'tag.putString("Aspect"', 'tag.putString("AspectFilter"', 'tag.putShort("Amount"', 'tag.putByte("facing"', 'Aspect.byId(tag.getString("Aspect"))', 'Aspect.byId(tag.getString("AspectFilter"))'

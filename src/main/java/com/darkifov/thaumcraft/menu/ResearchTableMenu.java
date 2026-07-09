@@ -5,6 +5,7 @@ import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
 import com.darkifov.thaumcraft.research.ResearchTableInventoryRuntime;
+import com.darkifov.thaumcraft.research.TC4ResearchTableParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -30,14 +31,14 @@ public class ResearchTableMenu extends AbstractContainerMenu {
         this.blockPos = table instanceof BlockEntity blockEntity ? blockEntity.getBlockPos() : BlockPos.ZERO;
         table.startOpen(playerInventory.player);
 
-        addSlot(new Slot(table, ResearchTableBlockEntity.SLOT_SCRIBING_TOOLS, 14, 10) {
+        addSlot(new Slot(table, ResearchTableBlockEntity.SLOT_SCRIBING_TOOLS, TC4ResearchTableParity.SLOT_SCRIBING_TOOLS_X, TC4ResearchTableParity.SLOT_SCRIBING_TOOLS_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return ResearchTableInventoryRuntime.isScribingTools(stack);
             }
         });
 
-        addSlot(new Slot(table, ResearchTableBlockEntity.SLOT_RESEARCH_NOTE, 70, 10) {
+        addSlot(new Slot(table, ResearchTableBlockEntity.SLOT_RESEARCH_NOTE, TC4ResearchTableParity.SLOT_RESEARCH_NOTE_X, TC4ResearchTableParity.SLOT_RESEARCH_NOTE_Y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return ResearchTableInventoryRuntime.isResearchNote(stack);
@@ -46,12 +47,12 @@ public class ResearchTableMenu extends AbstractContainerMenu {
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
-                addSlot(new Slot(playerInventory, col + row * 9 + 9, 48 + col * 18, 175 + row * 18));
+                addSlot(new Slot(playerInventory, col + row * 9 + 9, TC4ResearchTableParity.PLAYER_INVENTORY_X + col * 18, TC4ResearchTableParity.PLAYER_INVENTORY_Y + row * 18));
             }
         }
 
         for (int col = 0; col < 9; col++) {
-            addSlot(new Slot(playerInventory, col, 48 + col * 18, 233));
+            addSlot(new Slot(playerInventory, col, TC4ResearchTableParity.PLAYER_INVENTORY_X + col * 18, TC4ResearchTableParity.PLAYER_HOTBAR_Y));
         }
     }
 

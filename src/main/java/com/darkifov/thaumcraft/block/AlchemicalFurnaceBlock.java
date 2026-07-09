@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.block;
 import com.darkifov.thaumcraft.AspectDatabase;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.essentia.TC4DistillationRuntime;
 import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -80,10 +81,12 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
 
         if (held.isEmpty()) {
             int pct = furnace.burnDuration() <= 0 ? 0 : Math.min(100, furnace.burnProgress() * 100 / furnace.burnDuration());
+            int alembics = TC4DistillationRuntime.countAlembicsAbove(level, pos);
             player.displayClientMessage(
                     Component.literal("Alchemical Furnace | Stored: " + furnace.aspects().totalAmount() + "/" + AlchemicalFurnaceBlockEntity.CAPACITY)
                             .append(Component.literal(" | Fuel: " + furnace.fuelTime()))
                             .append(Component.literal(" | Burn: " + pct + "%"))
+                            .append(Component.literal(" | Alembics above: " + alembics))
                             .append(Component.literal(" | Aspects: "))
                             .append(furnace.aspects().toComponent()),
                     false
@@ -122,7 +125,7 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
         }
 
         if (!furnace.canAccept(aspects)) {
-            player.displayClientMessage(Component.literal("The furnace is too full for those aspects. Connect jars with Essentia Tubes.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.literal("The furnace is too full. In original TC4, place alembics above it, then connect tubes from alembics to jars.").withStyle(ChatFormatting.RED), false);
             return InteractionResult.CONSUME;
         }
 

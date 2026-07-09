@@ -57,7 +57,7 @@ public final class OriginalResearchBridge {
     public static Optional<ResearchEntry> firstAvailable(Player player) {
         OriginalResearchProgression.seedAutoUnlocks(player);
         for (ResearchEntry entry : ResearchRegistry.originalEntries()) {
-            if (canUnlock(player, entry)) {
+            if (canUnlock(player, entry) && TC4ResearchFlagPolicy.canCreateNormalResearchNote(player, entry)) {
                 return Optional.of(entry);
             }
         }
@@ -67,7 +67,9 @@ public final class OriginalResearchBridge {
 
     public static Optional<ResearchEntry> selectedOrFirstAvailable(Player player) {
         Optional<ResearchEntry> selected = OriginalResearchSelection.getEntry(player);
-        if (selected.isPresent() && canUnlock(player, selected.get())) {
+        if (selected.isPresent()
+                && canUnlock(player, selected.get())
+                && TC4ResearchFlagPolicy.canCreateNormalResearchNote(player, selected.get())) {
             return selected;
         }
 
@@ -81,6 +83,19 @@ public final class OriginalResearchBridge {
         }
 
         OriginalResearchSelection.set(player, key);
+        return true;
+    }
+
+    public static boolean canSelectForResearchTable(Player player, ResearchEntry entry) {
+        return canUnlock(player, entry) && TC4ResearchFlagPolicy.canCreateNormalResearchNote(player, entry);
+    }
+
+    public static boolean selectForResearchTable(Player player, String key) {
+        Optional<ResearchEntry> entry = byKey(key);
+        if (entry.isEmpty() || !canSelectForResearchTable(player, entry.get())) {
+            return false;
+        }
+        OriginalResearchSelection.set(player, entry.get().key());
         return true;
     }
 

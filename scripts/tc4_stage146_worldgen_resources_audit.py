@@ -53,7 +53,7 @@ required_resources = [
 
 checks = {
     "version_stage146": any((f"version = '{v}'" in files["build"] and f'version="{v}"' in files["mods"]) for v in ["2.04.0", "2.02.0", "2.00.0", "1.98.0", "1.78.0", "1.76.0", "1.70.0", "1.65.0", "1.64.0", "1.63.0", "1.62.0", "1.61.0", "1.60.0", "1.59.0", "1.58.0", "1.57.0", "1.56.0", "1.55.0", "1.54.0", "1.53.0", "1.52.0", "1.51.0", "1.50.0", "1.49.0", "1.48.0", "1.47.0", "1.46.0"]),
-    "worldgen_runtime_hooked": "TC4WorldgenRuntime.tickPlayerArea" in files["events"] and "seedChunkOnce" in files["worldgen"],
+    "worldgen_runtime_hooked": "TC4WorldgenRuntime.generateNewChunk(level, chunk.getPos())" in files["events"] and "event.isNewChunk()" in files["events"] and "public static void generateNewChunk" in files["worldgen"],
     "tc4_generation_chances_present": all(x in files["worldgen"] for x in ["random.nextInt(60) == 3", "random.nextInt(25) == 7", "for (int i = 0; i < 18; i++)", "for (int i = 0; i < 20; i++)"]),
     "ore_generation_bridge": all(x in files["worldgen"] for x in ["CINNABAR_ORE", "AMBER_ORE", "randomInfusedCrystal", "tryPlaceOreBlob"]),
     "taint_pocket_bridge": "generateTaintPockets" in files["worldgen"] and "TaintSpreadRuntime.trySpreadNear" in files["worldgen"],

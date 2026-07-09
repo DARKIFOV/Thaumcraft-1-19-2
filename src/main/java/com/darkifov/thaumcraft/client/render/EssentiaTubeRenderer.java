@@ -77,7 +77,7 @@ public class EssentiaTubeRenderer implements BlockEntityRenderer<EssentiaTubeBlo
 
     private void renderValveOrChoke(EssentiaTubeBlockEntity tube, PoseStack poseStack, MultiBufferSource buffer, int light) {
         int alpha = tube.isFlowAllowed() ? 135 : 210;
-        int rgb = tube.isVenting() ? 0xFF5533 : tube.isFlowAllowed() ? 0x3366FF : 0xAA2222;
+        int rgb = tube.isVenting() ? tube.ventingColor() : tube.isFlowAllowed() ? 0x3366FF : 0xAA2222;
         int color = (alpha << 24) | rgb;
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.5D, 0.5D);

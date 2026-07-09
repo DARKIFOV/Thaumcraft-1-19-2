@@ -13,10 +13,14 @@ public final class GolemTaskAIRuntime {
     public static final int ORIGINAL_GOLEM_DELAY_TICKS = 5;
     public static final double ORIGINAL_HOME_INTERACT_DISTANCE_SQ = 5.0D;
     public static final int ORIGINAL_CHEST_INTERACT_TICKS = 5;
+    public static final int ORIGINAL_HOME_DROP_THROW_LOCK_TICKS = 200;
+    /** TC4 Config.golemIgnoreDelay default, clamped to at least 1000ms. */
+    public static final long ORIGINAL_GOLEM_IGNORE_DELAY_MS = 10_000L;
 
     public enum OriginalTask {
         AIHomeReplace(3),
         AIHomeTake(3),
+        AIHomeTakeSorting(3),
         AIHomeDrop(3),
         AIItemPickup(2),
         AIFillGoto(2),
@@ -42,7 +46,7 @@ public final class GolemTaskAIRuntime {
         TASKS.put(GolemCoreType.FILL, List.of(OriginalTask.AIFillGoto, OriginalTask.AIFillTake, OriginalTask.AIHomeDrop));
         TASKS.put(GolemCoreType.EMPTY, List.of(OriginalTask.AIEmptyGoto, OriginalTask.AIEmptyPlace, OriginalTask.AIHomeDrop));
         TASKS.put(GolemCoreType.GATHER, List.of(OriginalTask.AIItemPickup, OriginalTask.AIHomeDrop));
-        TASKS.put(GolemCoreType.SORTING, List.of(OriginalTask.AIItemPickup, OriginalTask.AISortingPlace, OriginalTask.AIHomeReplace));
+        TASKS.put(GolemCoreType.SORTING, List.of(OriginalTask.AIHomeTakeSorting, OriginalTask.AIItemPickup, OriginalTask.AISortingPlace, OriginalTask.AIHomeReplace));
         TASKS.put(GolemCoreType.USE, List.of(OriginalTask.AIHomeTake, OriginalTask.AIHomeReplace));
         TASKS.put(GolemCoreType.LIQUID, List.of(OriginalTask.AIHomeTake, OriginalTask.AIHomeDrop));
         TASKS.put(GolemCoreType.ESSENTIA, List.of(OriginalTask.AIHomeTake, OriginalTask.AIHomeDrop));

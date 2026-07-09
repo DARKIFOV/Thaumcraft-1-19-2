@@ -165,6 +165,14 @@ public final class ThaumcraftNetwork {
 
         CHANNEL.registerMessage(
                 packetId++,
+                RequestThaumatoriumFormulaPacket.class,
+                RequestThaumatoriumFormulaPacket::encode,
+                RequestThaumatoriumFormulaPacket::decode,
+                RequestThaumatoriumFormulaPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
                 RequestEssentiaTerminalScanPacket.class,
                 RequestEssentiaTerminalScanPacket::encode,
                 RequestEssentiaTerminalScanPacket::decode,
@@ -499,6 +507,10 @@ public final class ThaumcraftNetwork {
 
     public static void requestPechGiftFromClient(int pechEntityId) {
         CHANNEL.sendToServer(new RequestPechGiftPacket(pechEntityId));
+    }
+
+    public static void requestThaumatoriumFormulaFromClient(net.minecraft.core.BlockPos pos, int formulaIndex) {
+        CHANNEL.sendToServer(new RequestThaumatoriumFormulaPacket(pos, formulaIndex));
     }
 
     public static void requestEssentiaTerminalScan(net.minecraft.core.BlockPos pos) {

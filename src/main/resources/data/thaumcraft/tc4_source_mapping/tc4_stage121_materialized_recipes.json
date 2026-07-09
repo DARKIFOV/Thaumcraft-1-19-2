@@ -3214,7 +3214,7 @@
       "IAI"
     ],
     "source": "addArcaneCraftingRecipe",
-    "resolved_result": "thaumcraft:tc4_block_mnemonic_matrix",
+    "resolved_result": "thaumcraft:mnemonic_matrix",
     "resolved_catalyst": "thaumcraft:tc4_brain",
     "resolved_components": [
       "thaumcraft:tc4_amber",

@@ -7,6 +7,8 @@ import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+import net.minecraft.core.Direction;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -44,18 +46,33 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
         }
 
         if (jar.hasFilter()) {
-            renderJarLabel(jar.filterAspect(), poseStack, buffer, packedLight);
+            renderJarLabel(jar.filterAspect(), jar.labelFacing(), poseStack, buffer, packedLight);
         }
     }
 
 
-    private void renderJarLabel(Aspect filter, PoseStack poseStack, MultiBufferSource buffer, int light) {
+    private void renderJarLabel(Aspect filter, Direction facing, PoseStack poseStack, MultiBufferSource buffer, int light) {
         if (filter == null) {
             return;
         }
         int color = AspectColor.argb(filter, 235);
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.40D, 0.185D);
+        Direction safeFacing = facing == null || !facing.getAxis().isHorizontal() ? Direction.NORTH : facing;
+        switch (safeFacing) {
+            case SOUTH -> {
+                poseStack.translate(0.5D, 0.40D, 0.815D);
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+            }
+            case EAST -> {
+                poseStack.translate(0.815D, 0.40D, 0.5D);
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(270.0F));
+            }
+            case WEST -> {
+                poseStack.translate(0.185D, 0.40D, 0.5D);
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+            }
+            default -> poseStack.translate(0.5D, 0.40D, 0.185D);
+        }
         VertexConsumer label = buffer.getBuffer(RenderType.entityTranslucent(ORIGINAL_LABEL_TEXTURE));
         Matrix4f matrix = poseStack.last().pose();
         quad(matrix, label,

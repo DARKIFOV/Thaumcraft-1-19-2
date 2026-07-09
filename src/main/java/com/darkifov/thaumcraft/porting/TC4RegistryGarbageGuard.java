@@ -20,7 +20,7 @@ public final class TC4RegistryGarbageGuard {
     public static final Set<String> EXACT = Set.of(
             "tc4_focus", "tc4_focus_fire", "tc4_focus_frost", "tc4_focus_shock", "tc4_focus_excavation",
             "tc4_focus_trade", "tc4_focus_portablehole", "tc4_focus_warding", "tc4_focus_primal",
-            "tc4_focuspouch", "tc4_focuspouchbauble", "tc4_gogglesrevealing",
+            "tc4_focuspouch", "tc4_focuspouchbauble", "tc4_gogglesrevealing", "tc4_block_mnemonic_matrix",
             "addon_completion_ledger", "porting_ledger", "avaritia_creative_wand", "pech_ledger",
             "pech_trade_tier_1", "pech_trade_tier_2", "pech_trade_tier_3", "pech_trade_tier_4", "pech_trade_tier_5",
             "vitreus_shard", "metallum_shard", "praecantatio_shard", "vacuos_shard", "herba_shard", "lux_shard", "potentia_shard",

@@ -19,6 +19,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+/** Stage443-462 wand visual parity: active renderer must use original TC4 model textures, not item-icon placeholders. */
 public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation ORIGINAL_FOCUS_MODEL = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/wand.png");
     private static final ResourceLocation ORIGINAL_SCRIPT = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/script.png");
