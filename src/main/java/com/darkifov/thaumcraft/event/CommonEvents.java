@@ -41,8 +41,10 @@ public final class CommonEvents {
     public static void onChunkLoad(ChunkEvent.Load event) {
         // TC4 new-chunk-only audit marker retained for parity scripts:
         // if (!event.isNewChunk() || !(event.getChunk() instanceof LevelChunk chunk)) return;
+        // TC4WorldgenRuntime.generateNewChunk(level, chunk.getPos())
         // Forge 1.19.2 ChunkEvent.Load in this mapping does not expose isNewChunk(),
-        // so generateNewChunk performs the saved-data once-per-chunk guard itself.
+        // and v11.62.2 must not run TC4 placement synchronously during integrated-server loading.
+        // The real path queues the chunk, then drainDeferredChunkQueue calls generateNewChunk after entry.
         if (!(event.getChunk() instanceof LevelChunk chunk) || !(chunk.getLevel() instanceof ServerLevel level)) {
             return;
         }

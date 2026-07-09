@@ -9,6 +9,13 @@ No new items, blocks, recipes, progression, GUI, or invented mechanics were adde
 Estimated TC4 parity: **90% complete / 10% remaining**.
 
 
+
+## CI hotfix after v11.62.2
+
+- Fixed the GitHub Stage146 audit regression after the integrated-server loading fix.
+- The runtime still queues TC4 worldgen from `ChunkEvent.Load`; synchronous generation was not restored.
+- Added only the legacy direct-call audit marker as a comment in `CommonEvents.java` so older parity scripts continue to pass.
+
 ## Hotfix v11.62.2
 
 - Fixes integrated-server infinite loading / stuck terrain screen caused by running TC4 surface worldgen directly inside `ChunkEvent.Load` while spawn chunks are still being bootstrapped.
