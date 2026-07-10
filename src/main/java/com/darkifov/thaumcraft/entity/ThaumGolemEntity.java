@@ -97,6 +97,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 
@@ -2008,7 +2009,7 @@ public class ThaumGolemEntity extends PathfinderMob {
                 }
             } else {
                 BlockState state = serverLevel.getBlockState(pos);
-                InteractionResult result = state.use(serverLevel, pos, fake, InteractionHand.MAIN_HAND, hit);
+                InteractionResult result = state.use(serverLevel, fake, InteractionHand.MAIN_HAND, hit);
                 if (!result.consumesAction()) {
                     UseOnContext context = new UseOnContext(fake, InteractionHand.MAIN_HAND, hit);
                     result = fake.getMainHandItem().useOn(context);
@@ -2068,7 +2069,7 @@ public class ThaumGolemEntity extends PathfinderMob {
                     return;
                 }
             }
-            if (out != null && level.getBlockState(out).canBeReplaced() && carriedFluidAmount >= 1000
+            if (out != null && level.getBlockState(out).getMaterial().isReplaceable() && carriedFluidAmount >= 1000
                     && (fluid == Fluids.WATER || fluid == Fluids.LAVA)) {
                 level.setBlock(out, fluid.defaultFluidState().createLegacyBlock(), Block.UPDATE_ALL);
                 carriedFluidAmount -= 1000;
@@ -2137,7 +2138,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         if (fluid == null || fluid == Fluids.EMPTY) return false;
         ItemStack filter = firstGhostFilter();
         if (filter.isEmpty()) return fluid == Fluids.WATER || fluid == Fluids.LAVA;
-        LazyOptional<IFluidHandler> capability = filter.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+        LazyOptional<IFluidHandlerItem> capability = filter.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
         Fluid expected = capability.map(handler -> {
             for (int tank = 0; tank < handler.getTanks(); tank++) {
                 FluidStack contained = handler.getFluidInTank(tank);

@@ -380,6 +380,48 @@ public final class TC4TreeGenerator {
         }
     }
 
+    /** Adds the low flared roots visible on TC4 greatwood trunks. */
+    private static void makeGreatwoodButtressRootsLikeTC4(ServerLevel level, BlockPos base, RandomSource random) {
+        BlockState log = ThaumcraftMod.GREATWOOD_LOG.get().defaultBlockState();
+        BlockPos[] edgeStarts = {
+                base, base.south(),
+                base.east(), base.east().south(),
+                base, base.east(),
+                base.south(), base.east().south()
+        };
+        net.minecraft.core.Direction[] directions = {
+                net.minecraft.core.Direction.WEST, net.minecraft.core.Direction.WEST,
+                net.minecraft.core.Direction.EAST, net.minecraft.core.Direction.EAST,
+                net.minecraft.core.Direction.NORTH, net.minecraft.core.Direction.NORTH,
+                net.minecraft.core.Direction.SOUTH, net.minecraft.core.Direction.SOUTH
+        };
+        for (int i = 0; i < edgeStarts.length; i++) {
+            net.minecraft.core.Direction direction = directions[i];
+            int length = 1 + random.nextInt(3);
+            BlockPos from = edgeStarts[i];
+            for (int step = 1; step <= length; step++) {
+                BlockPos root = from.relative(direction, step).above(Math.max(0, 2 - step));
+                setReplaceableLog(level, root, log, direction.getAxis());
+            }
+        }
+    }
+
+    /** Finishes the single-pass greatwood with a compact top flare and leaf cap. */
+    private static void makeGreatwoodCrownCapLikeTC4(ServerLevel level, BlockPos crownCenter, RandomSource random) {
+        BlockState log = ThaumcraftMod.GREATWOOD_LOG.get().defaultBlockState();
+        BlockState leaves = ThaumcraftMod.GREATWOOD_LEAVES.get().defaultBlockState();
+        setReplaceableLog(level, crownCenter, log, Axis.Y);
+        setReplaceableLog(level, crownCenter.east(), log, Axis.X);
+        setReplaceableLog(level, crownCenter.west(), log, Axis.X);
+        setReplaceableLog(level, crownCenter.north(), log, Axis.Z);
+        setReplaceableLog(level, crownCenter.south(), log, Axis.Z);
+        genGreatwoodTreeLayerLikeTC4(level, crownCenter, 2.4F, leaves);
+        genGreatwoodTreeLayerLikeTC4(level, crownCenter.above(), 2.0F, leaves);
+        if (random.nextBoolean()) {
+            genGreatwoodTreeLayerLikeTC4(level, crownCenter.above(2), 1.4F, leaves);
+        }
+    }
+
     private static void placeGreatwoodTrunkLikeTC4(ServerLevel level, BlockPos base, int trunkHeight, BlockState log) {
         placeGreatwoodLine(level, base, base.above(trunkHeight), log);
         placeGreatwoodLine(level, base.east(), base.east().above(trunkHeight), log);

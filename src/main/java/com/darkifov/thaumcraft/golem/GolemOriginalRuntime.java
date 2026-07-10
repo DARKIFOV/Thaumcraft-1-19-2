@@ -235,7 +235,7 @@ public final class GolemOriginalRuntime {
         return upgradeAmount(slots, GolemUpgradeType.FIRE) * 4;
     }
 
-    public static float entropyRetaliationDamage(byte[] slots, java.util.Random random) {
+    public static float entropyRetaliationDamage(byte[] slots, net.minecraft.util.RandomSource random) {
         int entropy = upgradeAmount(slots, GolemUpgradeType.ENTROPY);
         if (entropy <= 0) {
             return 0.0F;

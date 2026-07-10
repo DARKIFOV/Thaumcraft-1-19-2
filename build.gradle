@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.24' // v11.62.24 Research Matrix/Thaumonomicon/Deconstruction/Crystalizer/Advanced Furnace controller parity; compatibility marker: version = '11.62.23' // v11.62.23 Essentia transport/Thaumatorium/alchemical infrastructure original parity; compatibility marker: version = '11.62.22' // v11.62.22 Golemancy progression/infrastructure original parity; v11.62.21 compatibility marker: version = '11.62.21'; Golemancy core original parity; v11.62.20 compatibility marker: version = '11.62.20'; v11.62.19 compatibility marker: version = '11.62.19'; v11.62.18 compatibility marker: version = '11.62.18'; v11.62.17 compatibility marker: version = '11.62.17'; v11.62.16 compatibility marker: version = '11.62.16'
+version = '11.62.25' // v11.62.25 GitHub compile/API fix; compatibility marker: version = '11.62.24' // v11.62.24 Research Matrix/Thaumonomicon/Deconstruction/Crystalizer/Advanced Furnace controller parity; compatibility marker: version = '11.62.23' // v11.62.23 Essentia transport/Thaumatorium/alchemical infrastructure original parity; compatibility marker: version = '11.62.22' // v11.62.22 Golemancy progression/infrastructure original parity; v11.62.21 compatibility marker: version = '11.62.21'; Golemancy core original parity; v11.62.20 compatibility marker: version = '11.62.20'; v11.62.19 compatibility marker: version = '11.62.19'; v11.62.18 compatibility marker: version = '11.62.18'; v11.62.17 compatibility marker: version = '11.62.17'; v11.62.16 compatibility marker: version = '11.62.16'
 // v11.62.15 audit compatibility marker: version = '11.62.15'
 // v11.62 audit compatibility marker: version = '11.62.0'
 // v11.62.1 audit compatibility marker: version = '11.62.1'
@@ -411,9 +411,11 @@ tasks.register('copyGithubOutputJar', Copy) {
 
 tasks.named('build') {
     dependsOn 'verifyJarResources'
-    finalizedBy 'copyGithubOutputJar'
+    dependsOn 'copyGithubOutputJar'
 }
 
-jar.finalizedBy('reobfJar')
+// reobfJar is already reached through copyGithubOutputJar. Avoid a finalizer
+// cycle (jar -> reobfJar -> jar) that can overflow Gradle's execution graph
+// while reporting an unrelated compile failure.
 
 // compatibility marker for audits: version = '10.62.0'

@@ -223,7 +223,7 @@ public class TC4FireBatEntity extends Monster {
     protected float getSoundVolume() { return 0.1F; }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putByte("tc4Flags", entityData.get(DATA_FLAGS));
         tag.putInt("tc4Potency", potency());
@@ -234,7 +234,7 @@ public class TC4FireBatEntity extends Monster {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         entityData.set(DATA_FLAGS, tag.getByte("tc4Flags"));
         entityData.set(DATA_POTENCY, tag.getInt("tc4Potency"));

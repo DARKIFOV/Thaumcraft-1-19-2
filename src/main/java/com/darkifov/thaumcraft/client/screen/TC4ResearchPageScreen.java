@@ -16,7 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Window;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -417,6 +417,24 @@ public class TC4ResearchPageScreen extends Screen {
         renderBookSlot(poseStack, x + 111, y + 52, true);
         renderResolvedItemIcon(poseStack, recipe.resultExpression(), x + 113, y + 54);
         renderRecipeVisuals(poseStack, x + 16, y + 92, recipe);
+    }
+
+    /**
+     * Fallback visual card for compound ConfigResearch pages. Dedicated recipe
+     * kinds use their own TC4 layouts; this path only draws resolved component
+     * slots and aspect icons, never raw adapter/debug expressions.
+     */
+    private void renderRecipeVisuals(PoseStack poseStack, int x, int y, TC4RecipeRuntimeBridge.OriginalRecipe recipe) {
+        int limit = Math.min(6, recipe.components().length);
+        for (int i = 0; i < limit; i++) {
+            int sx = x + (i % 3) * 28;
+            int sy = y + (i / 3) * 26;
+            renderBookSlot(poseStack, sx, sy, false);
+            renderResolvedItemIcon(poseStack, recipe.components()[i], sx + 2, sy + 2);
+        }
+        if (recipe.aspectCosts().length > 0) {
+            renderAspectCostIcons(poseStack, x + 92, y, recipe);
+        }
     }
 
     private void renderRecipeFrameTitle(PoseStack poseStack, int x, int y, String title) {

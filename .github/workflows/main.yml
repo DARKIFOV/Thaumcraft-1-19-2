@@ -103,6 +103,10 @@ jobs:
       - name: TC4 v11.62.24 Research Matrix + Thaumonomicon + machines audit
         run: python scripts/tc4_v11_62_24_research_matrix_thaumonomicon_deconstruction_crystalizer_advanced_furnace_audit.py
 
+
+      - name: TC4 v11.62.25 GitHub compile API regression audit
+        run: python scripts/tc4_v11_62_25_github_compile_api_audit.py
+
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
@@ -135,7 +139,8 @@ jobs:
           # thaumcraft-legacy-rebuild-1.19.2-v11.62.21-github-jar compatibility marker
           # v11.62.22-github-jar compatibility marker
           # v11.62.23-github-jar compatibility marker
-          name: thaumcraft-legacy-rebuild-1.19.2-v11.62.24-github-jar
+          # v11.62.24-github-jar compatibility marker
+          name: thaumcraft-legacy-rebuild-1.19.2-v11.62.25-github-jar
           path: |
             build/libs/*-github.jar
           if-no-files-found: warn
@@ -152,7 +157,8 @@ jobs:
           # v11.62.21-build-reports compatibility marker
           # v11.62.22-build-reports compatibility marker
           # v11.62.23-build-reports compatibility marker
-          name: v11.62.24-build-reports
+          # v11.62.24-build-reports compatibility marker
+          name: v11.62.25-build-reports
           path: |
             build/reports/**
             build/tmp/**

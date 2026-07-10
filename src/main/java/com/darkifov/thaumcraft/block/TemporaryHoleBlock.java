@@ -48,7 +48,9 @@ public class TemporaryHoleBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (!(level instanceof ServerLevel)) return null;
-        return createTickerHelper(type, ThaumcraftMod.TEMPORARY_HOLE_BLOCK_ENTITY.get(), TemporaryHoleBlockEntity::serverTick);
+        return createTickerHelper(type, ThaumcraftMod.TEMPORARY_HOLE_BLOCK_ENTITY.get(),
+                (tickerLevel, tickerPos, tickerState, hole) -> TemporaryHoleBlockEntity.serverTick(
+                        (ServerLevel) tickerLevel, tickerPos, tickerState, hole));
     }
 
     /**
@@ -78,7 +80,8 @@ public class TemporaryHoleBlock extends BaseEntityBlock {
     }
 
     public static boolean canReplace(Level level, BlockPos pos, BlockState state, Player owner) {
-        if (state.isAir() || state.canBeReplaced() || state.is(Blocks.BEDROCK)
+        // Forge 1.19.2 equivalent of the legacy state.canBeReplaced() check.
+        if (state.isAir() || state.getMaterial().isReplaceable() || state.is(Blocks.BEDROCK)
                 || state.is(ThaumcraftMod.TEMPORARY_HOLE.get())
                 || state.is(PORTABLE_HOLE_BLACKLIST)) return false;
         if (state.getDestroySpeed(level, pos) < 0.0F || state.hasBlockEntity()) return false;
