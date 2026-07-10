@@ -63,6 +63,13 @@ for snippet in REQUIRED_WORKFLOW_SNIPPETS:
     if snippet not in workflow_text:
         errors.append(f"workflow missing required snippet: {snippet}")
 
+# ZIP uploads through GitHub can lose Unix mode bits. The workflow must restore
+# gradlew's executable bit before this guard checks it.
+chmod_pos = workflow_text.find("chmod +x ./gradlew")
+guard_pos = workflow_text.find("python scripts/github_ci_guard.py")
+if chmod_pos >= 0 and guard_pos >= 0 and chmod_pos > guard_pos:
+    errors.append("workflow must chmod gradlew before running github_ci_guard.py")
+
 if "build/libs/*.jar" in workflow_text and "build/libs/*-github.jar" not in workflow_text:
     errors.append("workflow uploads all jars instead of only the playable *-github.jar")
 
@@ -87,7 +94,7 @@ if mods_toml.exists() and 'version="11.62.12"' not in mods_toml.read_text(encodi
 if os.name != "nt":
     gradlew = ROOT / "gradlew"
     if gradlew.exists() and not os.access(gradlew, os.X_OK):
-        errors.append("gradlew must be executable in the archive")
+        errors.append("gradlew must be executable before the GitHub CI guard runs")
 
 if errors:
     for error in errors:

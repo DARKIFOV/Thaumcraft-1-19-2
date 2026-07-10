@@ -22,6 +22,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      # GitHub web uploads and ZIP extraction can lose the Unix executable bit.
+      # Restore it before github_ci_guard.py validates the wrapper.
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x ./gradlew
+
       - name: Static source/resource audit
         run: python scripts/github_static_audit.py
 
@@ -107,9 +112,6 @@ jobs:
 
       - name: Setup Gradle cache and wrapper validation
         uses: gradle/actions/setup-gradle@v4
-
-      - name: Ensure Gradle wrapper is executable
-        run: chmod +x ./gradlew
 
       - name: Show Gradle wrapper version
         run: ./gradlew --version
