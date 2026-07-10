@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -48,6 +49,11 @@ public class AuraNodeBlockEntity extends BlockEntity {
     private boolean jarred;
     private int energizedTicks;
     private int hungerCooldown;
+    private int lastDrainColor = 0xFFFFFF;
+    private long lastDrainGameTime = Long.MIN_VALUE / 4L;
+    private int lastDrainerEntityId = -1;
+    private long lastActiveMillis = System.currentTimeMillis();
+    private boolean catchUpPending;
 
     public AuraNodeBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), pos, state);
@@ -160,6 +166,8 @@ public class AuraNodeBlockEntity extends BlockEntity {
         energized = false;
         jarred = false;
         energizedTicks = 0;
+        lastActiveMillis = System.currentTimeMillis();
+        catchUpPending = false;
         initialized = true;
         setChangedAndSync();
     }
@@ -184,6 +192,8 @@ public class AuraNodeBlockEntity extends BlockEntity {
         } else {
             baseAspects.addAll(aspects);
         }
+        lastActiveMillis = System.currentTimeMillis();
+        catchUpPending = false;
         initialized = true;
         setChangedAndSync();
     }
@@ -202,58 +212,158 @@ public class AuraNodeBlockEntity extends BlockEntity {
     }
 
     public int drainToWand(Aspect aspect, int amount) {
-        if (aspect == null || !aspect.isPrimal()) {
+        if (aspect == null || !aspect.isPrimal() || amount <= 0) {
             return 0;
         }
-        int drainCap = Math.max(1, Math.round(amount * (typedNodeModifier() == AuraNodeModifier.BRIGHT ? 1.15F : 1.0F)));
-        int removed = aspects.removeUpTo(aspect, drainCap);
 
+        // Original TileNode.takeFromContainer removes exactly the amount accepted by the wand.
+        // Bright nodes regenerate faster; they do not multiply a single tap or damage an invented stability meter.
+        int removed = aspects.removeUpTo(aspect, amount);
         if (removed > 0) {
-            if (!isStabilized()) {
-                stability = Math.max(0, stability - (typedNodeType() == AuraNodeType.UNSTABLE ? 2 : 1));
-            }
             setChangedAndSync();
         }
-
         return removed;
     }
 
+    public void markWandDrain(Aspect aspect, Player drainer) {
+        if (aspect == null) {
+            return;
+        }
+        lastDrainColor = aspect.nativeColor();
+        lastDrainGameTime = level == null ? 0L : level.getGameTime();
+        lastDrainerEntityId = drainer == null ? -1 : drainer.getId();
+        setChangedAndSync();
+    }
+
+    public int lastDrainColor() {
+        return lastDrainColor;
+    }
+
+    public int lastDrainerEntityId() {
+        return lastDrainerEntityId;
+    }
+
+    public boolean isRecentlyDrained() {
+        return level != null && level.getGameTime() - lastDrainGameTime <= 10L;
+    }
+
+    private int regenerationInterval() {
+        int interval = switch (typedNodeModifier()) {
+            case BRIGHT -> 400;
+            case PALE -> 900;
+            case FADING -> 0;
+            default -> 600;
+        };
+
+        // TC4 node stabilizers protect nodes at the cost of slower natural recharge.
+        int stabilizer = stabilizerStrength();
+        if (interval > 0 && stabilizer >= 2) {
+            interval *= 20;
+        } else if (interval > 0 && stabilizer == 1) {
+            interval *= 2;
+        }
+        return interval;
+    }
+
     public void regenerateSlowly() {
+        if (level == null) {
+            return;
+        }
         if (baseAspects.isEmpty()) {
             baseAspects.addAll(aspects);
         }
 
-        if (typedNodeModifier() == AuraNodeModifier.FADING && (level == null || level.getGameTime() % 1600L != 0L)) {
+        if (regenerateOneMissingAspect()) {
+            setChangedAndSync();
+        }
+        lastActiveMillis = System.currentTimeMillis();
+    }
+
+    private boolean regenerateOneMissingAspect() {
+        if (level == null) {
+            return false;
+        }
+        List<Aspect> candidates = new java.util.ArrayList<>();
+        for (var entry : baseAspects.entries().entrySet()) {
+            if (entry.getValue() > 0 && aspects.get(entry.getKey()) < entry.getValue()) {
+                candidates.add(entry.getKey());
+            }
+        }
+        if (candidates.isEmpty()) {
+            return false;
+        }
+        Aspect aspect = candidates.get(level.random.nextInt(candidates.size()));
+        aspects.add(aspect, 1);
+        return true;
+    }
+
+    /**
+     * TC4 catch-up recharge: after a world was closed, one missing aspect may be
+     * restored per regeneration*75 ms, capped by the base vis size.
+     */
+    private void applyCatchUpRecharge(int regeneration) {
+        if (!catchUpPending || level == null || level.isClientSide()) {
+            return;
+        }
+        catchUpPending = false;
+        long now = System.currentTimeMillis();
+        if (regeneration <= 0 || lastActiveMillis <= 0L || now <= lastActiveMillis) {
+            lastActiveMillis = now;
+            return;
+        }
+        long intervalMillis = Math.max(1L, regeneration * 75L);
+        int restores = (int) Math.min(baseAspects.totalAmount(), (now - lastActiveMillis) / intervalMillis);
+        boolean changed = false;
+        for (int index = 0; index < restores; index++) {
+            if (!regenerateOneMissingAspect()) {
+                break;
+            }
+            changed = true;
+        }
+        lastActiveMillis = now;
+        if (changed) {
+            setChangedAndSync();
+        }
+    }
+
+    private void handleDepletedBaseAspect() {
+        if (level == null || level.isClientSide()) {
             return;
         }
 
-        int regenAmount = typedNodeModifier() == AuraNodeModifier.BRIGHT ? 2 : 1;
-        if (typedNodeType() == AuraNodeType.PURE) {
-            regenAmount += 1;
-        }
-        if (energized) {
-            regenAmount += 2;
-        }
-        if (stabilizerStrength() >= 2) {
-            regenAmount += 1;
-        } else if (isStabilized() && typedNodeType() == AuraNodeType.UNSTABLE) {
-            regenAmount += 1;
-        }
-
-        int seed = Math.abs(worldPosition.getX() * 11 + worldPosition.getY() * 19 + worldPosition.getZ() * 23 + (int) (level == null ? 0 : level.getGameTime()));
-        for (int offset = 0; offset < PRIMARY.length; offset++) {
-            Aspect aspect = PRIMARY[(seed + offset) % PRIMARY.length];
-            int max = Math.max(0, baseAspects.get(aspect));
-            if (max > 0 && aspects.get(aspect) < max) {
-                aspects.add(aspect, Math.min(regenAmount, max - aspects.get(aspect)));
-                setChangedAndSync();
-                return;
+        // Original AspectList keeps zero-valued entries; this port removes them.
+        // Iterating the base list therefore preserves the same depleted-aspect test.
+        for (Aspect aspect : new java.util.ArrayList<>(baseAspects.entries().keySet())) {
+            int base = baseAspects.get(aspect);
+            if (base <= 0 || aspects.get(aspect) > 0) {
+                continue;
             }
-        }
 
-        if (typedNodeType() == AuraNodeType.PURE && baseAspects.get(Aspect.PRAECANTATIO) > 0 && aspects.get(Aspect.PRAECANTATIO) < baseAspects.get(Aspect.PRAECANTATIO)) {
-            aspects.add(Aspect.PRAECANTATIO, 1);
+            baseAspects.remove(aspect, 1);
+            int remainingBase = baseAspects.get(aspect);
+            if (level.random.nextInt(20) == 0 || remainingBase <= 0) {
+                // TileNode.handleRecharge uses separate if statements, allowing a
+                // freshly pale node to become fading in the same rare decay event.
+                if (level.random.nextInt(5) == 0) {
+                    AuraNodeModifier modifier = typedNodeModifier();
+                    if (modifier == AuraNodeModifier.BRIGHT) {
+                        nodeModifier = AuraNodeModifier.NORMAL.name();
+                    } else if (modifier == AuraNodeModifier.NORMAL) {
+                        nodeModifier = AuraNodeModifier.PALE.name();
+                    }
+                    if (typedNodeModifier() == AuraNodeModifier.PALE && level.random.nextInt(5) == 0) {
+                        nodeModifier = AuraNodeModifier.FADING.name();
+                    }
+                }
+
+                if (aspects.isEmpty()) {
+                    level.removeBlock(worldPosition, false);
+                    return;
+                }
+            }
+
             setChangedAndSync();
+            return;
         }
     }
 
@@ -395,8 +505,13 @@ public class AuraNodeBlockEntity extends BlockEntity {
             node.initializeFromPosition();
         }
 
-        if (level.getGameTime() % 320L == 0L) {
+        int regeneration = node.regenerationInterval();
+        node.applyCatchUpRecharge(regeneration);
+        if (regeneration > 0 && level.getGameTime() % regeneration == 0L) {
             node.regenerateSlowly();
+        }
+        if (level.getGameTime() % 1200L == 0L) {
+            node.handleDepletedBaseAspect();
         }
 
         node.tickNodeEffect(level);
@@ -479,6 +594,10 @@ public class AuraNodeBlockEntity extends BlockEntity {
         tag.putBoolean("Energized", energized);
         tag.putBoolean("Jarred", jarred);
         tag.putInt("EnergizedTicks", energizedTicks);
+        tag.putInt("LastDrainColor", lastDrainColor);
+        tag.putLong("LastDrainGameTime", lastDrainGameTime);
+        tag.putInt("LastDrainerEntityId", lastDrainerEntityId);
+        tag.putLong("LastActiveMillis", lastActiveMillis);
         tag.put("Aspects", aspects.save());
         tag.put("BaseAspects", baseAspects.save());
     }
@@ -495,6 +614,11 @@ public class AuraNodeBlockEntity extends BlockEntity {
         energized = tag.getBoolean("Energized");
         jarred = tag.getBoolean("Jarred");
         energizedTicks = tag.contains("EnergizedTicks") ? tag.getInt("EnergizedTicks") : (energized ? 100 : 0);
+        lastDrainColor = tag.contains("LastDrainColor") ? tag.getInt("LastDrainColor") : 0xFFFFFF;
+        lastDrainGameTime = tag.contains("LastDrainGameTime") ? tag.getLong("LastDrainGameTime") : Long.MIN_VALUE / 4L;
+        lastDrainerEntityId = tag.contains("LastDrainerEntityId") ? tag.getInt("LastDrainerEntityId") : -1;
+        lastActiveMillis = tag.contains("LastActiveMillis") ? tag.getLong("LastActiveMillis") : System.currentTimeMillis();
+        catchUpPending = initialized;
         aspects.clear();
         aspects.load(tag.getCompound("Aspects"));
         baseAspects.clear();

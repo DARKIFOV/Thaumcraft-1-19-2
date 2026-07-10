@@ -3,6 +3,16 @@ package com.darkifov.thaumcraft.porting;
 import com.darkifov.thaumcraft.block.TC4FortressArmorItem;
 import com.darkifov.thaumcraft.block.TC4FortressMaskItem;
 import com.darkifov.thaumcraft.item.TC4ResearchComponentItem;
+import com.darkifov.thaumcraft.item.TC4GolemPlacerItem;
+import com.darkifov.thaumcraft.item.TC4GolemCoreComponentItem;
+import com.darkifov.thaumcraft.block.GolemUpgradeItem;
+import com.darkifov.thaumcraft.block.GolemDecorationItem;
+import com.darkifov.thaumcraft.golem.GolemMaterial;
+import com.darkifov.thaumcraft.golem.GolemCoreType;
+import com.darkifov.thaumcraft.golem.GolemUpgradeType;
+import com.darkifov.thaumcraft.golem.GolemDecorationType;
+import com.darkifov.thaumcraft.block.WandFocusItem;
+import com.darkifov.thaumcraft.wand.WandFocusType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -483,6 +493,9 @@ public final class TC4ResearchItems {
     public static Map<String, RegistryObject<Item>> registerAll(DeferredRegister<Item> items, CreativeModeTab tab) {
         Map<String, RegistryObject<Item>> out = new LinkedHashMap<>();
         for (Entry entry : ENTRIES) {
+            // v11.62.14: metadata 13 is now a real block + BlockItem. Do not
+            // double-register the old flat research-component placeholder.
+            if (entry.id().equals("tc4_block_focal_manipulator")) continue;
             out.put(entry.id(), items.register(entry.id(), () -> createItem(entry, tab)));
         }
         registered = Collections.unmodifiableMap(out);
@@ -498,6 +511,45 @@ public final class TC4ResearchItems {
             case "tc4_mask_grinning_devil" -> new TC4FortressMaskItem(properties, 0, entry.originalSource(), entry.legacyTexture());
             case "tc4_mask_angry_ghost" -> new TC4FortressMaskItem(properties, 1, entry.originalSource(), entry.legacyTexture());
             case "tc4_mask_sipping_fiend" -> new TC4FortressMaskItem(properties, 2, entry.originalSource(), entry.legacyTexture());
+            case "tc4_focus_hellbat" -> new WandFocusItem(properties, WandFocusType.HELLBAT);
+            case "tc4_focus_pech" -> new WandFocusItem(properties, WandFocusType.PECH_CURSE);
+            case "tc4_golem_straw" -> new TC4GolemPlacerItem(properties, GolemMaterial.STRAW, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_wood" -> new TC4GolemPlacerItem(properties, GolemMaterial.WOOD, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_tallow" -> new TC4GolemPlacerItem(properties, GolemMaterial.TALLOW, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_clay" -> new TC4GolemPlacerItem(properties, GolemMaterial.CLAY, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_flesh" -> new TC4GolemPlacerItem(properties, GolemMaterial.FLESH, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_stone" -> new TC4GolemPlacerItem(properties, GolemMaterial.STONE, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_iron" -> new TC4GolemPlacerItem(properties, GolemMaterial.IRON, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_thaumium" -> new TC4GolemPlacerItem(properties, GolemMaterial.THAUMIUM, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_blank" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.BLANK, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_fill" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.FILL, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_empty" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.EMPTY, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_gather" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.GATHER, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_harvest" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.HARVEST, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_guard" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.GUARD, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_liquid" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.LIQUID, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_essentia" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.ESSENTIA, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_lumber" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.LUMBER, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_use" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.USE, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_butcher" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.BUTCHER, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_sorting" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.SORTING, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_fish" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.FISH, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_bodyguard" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.BODYGUARD, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_patrol" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.PATROL, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_upgrade_air" -> new GolemUpgradeItem(properties, GolemUpgradeType.AIR);
+            case "tc4_golem_upgrade_earth" -> new GolemUpgradeItem(properties, GolemUpgradeType.EARTH);
+            case "tc4_golem_upgrade_fire" -> new GolemUpgradeItem(properties, GolemUpgradeType.FIRE);
+            case "tc4_golem_upgrade_water" -> new GolemUpgradeItem(properties, GolemUpgradeType.WATER);
+            case "tc4_golem_upgrade_order" -> new GolemUpgradeItem(properties, GolemUpgradeType.ORDER);
+            case "tc4_golem_upgrade_entropy" -> new GolemUpgradeItem(properties, GolemUpgradeType.ENTROPY);
+            case "tc4_golemdecotophat" -> new GolemDecorationItem(properties, GolemDecorationType.TOP_HAT);
+            case "tc4_golemdecoglasses" -> new GolemDecorationItem(properties, GolemDecorationType.GLASSES);
+            case "tc4_golemdecobowtie" -> new GolemDecorationItem(properties, GolemDecorationType.BOWTIE);
+            case "tc4_golemdecofez" -> new GolemDecorationItem(properties, GolemDecorationType.FEZ);
+            case "tc4_golemdecodart" -> new GolemDecorationItem(properties, GolemDecorationType.DART_LAUNCHER);
+            case "tc4_golemdecovisor" -> new GolemDecorationItem(properties, GolemDecorationType.VISOR);
+            case "tc4_golemdecoarmor" -> new GolemDecorationItem(properties, GolemDecorationType.ARMOR);
+            case "tc4_golemdecomace" -> new GolemDecorationItem(properties, GolemDecorationType.MACE);
             default -> new TC4ResearchComponentItem(properties, entry.originalSource(), entry.legacyTexture());
         };
     }

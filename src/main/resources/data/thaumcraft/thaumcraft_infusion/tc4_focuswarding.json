@@ -7,11 +7,11 @@
   "components": [
     "thaumcraft:quicksilver_drop",
     "thaumcraft:terra_shard",
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:ordo_shard",
     "thaumcraft:quicksilver_drop",
     "thaumcraft:terra_shard",
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:ordo_shard"
   ],
   "aspects": {

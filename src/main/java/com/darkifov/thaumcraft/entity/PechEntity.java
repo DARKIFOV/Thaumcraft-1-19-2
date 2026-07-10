@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.PechTradeTokenItem;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
+import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -183,6 +184,11 @@ public class PechEntity extends PathfinderMob {
 
     private void completeTrade(Player player, int tier) {
         ItemStack reward = PechTradeTokenItem.rewardForTier(tier, random);
+        if (variant == Variant.ELDRITCH && tier >= 5 && random.nextInt(100) < 20) {
+            reward = TC4ResearchItems.registered("tc4_focus_pech")
+                    .map(item -> new ItemStack(item.get()))
+                    .orElse(reward);
+        }
         int favor = PlayerThaumData.getPechFavor(player);
         boolean bonus = random.nextInt(100) < Math.min(45, favor / 2 + tier * 3);
 
@@ -190,7 +196,7 @@ public class PechEntity extends PathfinderMob {
             reward.grow(2);
         }
 
-        if (variant == Variant.ELDRITCH && tier >= 3 && random.nextInt(100) < 20) {
+        if (variant == Variant.ELDRITCH && tier >= 3 && !reward.is(TC4ResearchItems.registered("tc4_focus_pech").map(r -> r.get()).orElse(Items.AIR)) && random.nextInt(100) < 20) {
             reward = new ItemStack(ThaumcraftMod.ELDRITCH_RELIC.get(), 1);
         }
 

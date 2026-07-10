@@ -5,13 +5,17 @@ import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import com.darkifov.thaumcraft.porting.TC4ClientFocusFxBridge;
 import com.darkifov.thaumcraft.entity.projectile.TC4EmberEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ExplosiveOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4FocusProjectileEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4FrostShardEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PrimalOrbEntity;
+import com.darkifov.thaumcraft.entity.projectile.TC4PechBlastEntity;
+import com.darkifov.thaumcraft.entity.TC4FireBatEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ShockOrbEntity;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsDimensionAdapter;
 import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -19,13 +23,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -39,11 +50,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +84,7 @@ public final class WandFocusRuntime {
     private static final Map<String, Long> WARDING_DELAY = new HashMap<>();
     private static final Map<String, Float> EXCAVATION_BREAKCOUNT = new HashMap<>();
     private static final Map<String, BlockPos> EXCAVATION_LAST_BLOCK = new HashMap<>();
+    private static final Map<String, Long> FOCUS_NEXT_CAST_TICK = new HashMap<>();
 
     private WandFocusRuntime() {
     }
@@ -159,14 +176,14 @@ public final class WandFocusRuntime {
             return true;
         }
         for (var entry : cost.entries().entrySet()) {
-            int needed = focusModifiedVisCost(wandStack, entry.getKey(), entry.getValue());
+            int needed = modifiedFocusVisCost(wandStack, entry.getKey(), entry.getValue());
             if (WandItem.getVis(wandStack, entry.getKey()) < needed) {
-                player.displayClientMessage(Component.literal("Not enough " + entry.getKey().displayName() + " vis for " + type.displayName() + ": need " + needed + " after cap modifier.").withStyle(ChatFormatting.RED), true);
+                player.displayClientMessage(Component.literal("Not enough " + entry.getKey().displayName() + " vis for " + type.displayName() + ": need " + WandItem.formatVis(needed) + " after cap modifier.").withStyle(ChatFormatting.RED), true);
                 return false;
             }
         }
         for (var entry : cost.entries().entrySet()) {
-            WandItem.consumeVis(wandStack, entry.getKey(), focusModifiedVisCost(wandStack, entry.getKey(), entry.getValue()));
+            WandItem.consumeVis(wandStack, entry.getKey(), modifiedFocusVisCost(wandStack, entry.getKey(), entry.getValue()));
         }
         return true;
     }
@@ -177,28 +194,39 @@ public final class WandFocusRuntime {
             return InteractionResult.PASS;
         }
 
-        AspectList resolvedCost = focusVisCost(wandStack, type, level.random);
-        if (!consumeFocusVis(wandStack, player, type, resolvedCost)) {
-            level.playSound(null, player.blockPosition(), TC4Sounds.event("wandfail"), SoundSource.PLAYERS, 0.55F, 1.0F);
-            return InteractionResult.CONSUME;
+        // These foci price their actual successful server operations internally.
+        // Charging here caused free secondary operations, paid failures and paid ward removal.
+        boolean internallyPriced = type == WandFocusType.EXCAVATION
+                || type == WandFocusType.PORTABLE_HOLE
+                || type == WandFocusType.EQUAL_TRADE
+                || type == WandFocusType.WARDING
+                || type == WandFocusType.HELLBAT;
+        if (!internallyPriced) {
+            AspectList resolvedCost = focusVisCost(wandStack, type, level.random);
+            if (!consumeFocusVis(wandStack, player, type, resolvedCost)) {
+                level.playSound(null, player.blockPosition(), TC4Sounds.event("wandfail"), SoundSource.PLAYERS, 0.55F, 1.0F);
+                return InteractionResult.CONSUME;
+            }
         }
 
         boolean success = switch (type) {
-            case FIRE -> castFire(level, player);
-            case FROST -> castFrost(level, player);
-            case SHOCK -> castShock(level, player);
-            case EXCAVATION -> castExcavation(level, player);
-            case PORTABLE_HOLE -> castPortableHole(level, player);
-            case EQUAL_TRADE -> castEqualTrade(level, player);
-            case WARDING -> castWarding(level, player);
-            case PRIMAL -> castPrimal(level, player);
+            case FIRE -> castFire(wandStack, level, player);
+            case FROST -> castFrost(wandStack, level, player);
+            case SHOCK -> castShock(wandStack, level, player);
+            case EXCAVATION -> castExcavation(wandStack, level, player);
+            case PORTABLE_HOLE -> castPortableHole(wandStack, level, player);
+            case EQUAL_TRADE -> castEqualTrade(wandStack, level, player);
+            case WARDING -> castWarding(wandStack, level, player);
+            case HELLBAT -> castHellbat(wandStack, level, player);
+            case PECH_CURSE -> castPechCurse(wandStack, level, player);
+            case PRIMAL -> castPrimal(wandStack, level, player);
         };
 
         int cooldown = activationCooldown(wandStack, type);
         if (success && cooldown > 0) {
             player.getCooldowns().addCooldown(wandStack.getItem(), cooldown);
         }
-        if (!playsOwnActivationSound(wandStack, type)) {
+        if (!level.isClientSide && success && !playsOwnActivationSound(wandStack, type)) {
             level.playSound(null, player.blockPosition(), soundFor(type), SoundSource.PLAYERS, 0.65F, pitchFor(type));
         }
         return InteractionResult.CONSUME;
@@ -206,7 +234,7 @@ public final class WandFocusRuntime {
 
     private static boolean playsOwnActivationSound(ItemStack wandStack, WandFocusType type) {
         return switch (type) {
-            case FROST, PORTABLE_HOLE, PRIMAL -> true;
+            case FROST, PORTABLE_HOLE, WARDING, HELLBAT, PECH_CURSE, PRIMAL -> true;
             case FIRE -> focusHasUpgrade(wandStack, FocusUpgradeType.FIREBALL);
             case SHOCK -> focusHasUpgrade(wandStack, FocusUpgradeType.EARTH_SHOCK);
             default -> false;
@@ -237,6 +265,15 @@ public final class WandFocusRuntime {
             player.stopUsingItem();
             return;
         }
+        int cooldown = activationCooldown(wandStack, type);
+        if (cooldown > 0) {
+            String cooldownKey = focusUseKey(level, player) + ":" + type.id() + ":" + (level.isClientSide ? "client" : "server");
+            long gameTime = level.getGameTime();
+            if (FOCUS_NEXT_CAST_TICK.getOrDefault(cooldownKey, Long.MIN_VALUE) > gameTime) {
+                return;
+            }
+            FOCUS_NEXT_CAST_TICK.put(cooldownKey, gameTime + cooldown);
+        }
         switch (type) {
             case FIRE -> onUsingFireFocusTick(wandStack, level, player, count);
             case SHOCK -> onUsingShockFocusTick(wandStack, level, player, count);
@@ -247,9 +284,7 @@ public final class WandFocusRuntime {
 
     public static void onPlayerStoppedUsingFocus(ItemStack wandStack, Level level, Player player, int count) {
         if (getFocus(wandStack) == WandFocusType.EXCAVATION) {
-            String pp = focusUseKey(level, player);
-            EXCAVATION_BREAKCOUNT.put(pp, 0.0F);
-            EXCAVATION_LAST_BLOCK.put(pp, BlockPos.ZERO);
+            clearExcavationUse(level, player);
         }
     }
 
@@ -289,6 +324,14 @@ public final class WandFocusRuntime {
                     ? cost(Aspect.PERDITIO, 6, Aspect.TERRA, 6, Aspect.ORDO, 6, Aspect.AER, 1, Aspect.IGNIS, 1, Aspect.AQUA, 1)
                     : cost(Aspect.PERDITIO, 5, Aspect.TERRA, 5, Aspect.ORDO, 5);
             case WARDING -> cost(Aspect.TERRA, 25, Aspect.ORDO, 25, Aspect.AQUA, 10);
+            case HELLBAT -> focusHasUpgrade(wandStack, FocusUpgradeType.DEVIL_BATS)
+                    ? cost(Aspect.IGNIS, 100, Aspect.PERDITIO, 100, Aspect.AER, 100, Aspect.TERRA, 100)
+                    : focusHasUpgrade(wandStack, FocusUpgradeType.BAT_BOMBS)
+                    ? cost(Aspect.IGNIS, 100, Aspect.PERDITIO, 200, Aspect.AER, 100)
+                    : cost(Aspect.IGNIS, 200, Aspect.PERDITIO, 100, Aspect.AER, 100);
+            case PECH_CURSE -> focusHasUpgrade(wandStack, FocusUpgradeType.NIGHTSHADE)
+                    ? cost(Aspect.AER, 10, Aspect.IGNIS, 10, Aspect.TERRA, 10, Aspect.ORDO, 10, Aspect.PERDITIO, 10, Aspect.AQUA, 10)
+                    : cost(Aspect.TERRA, 10, Aspect.PERDITIO, 10, Aspect.AQUA, 10);
             case PRIMAL -> primalCost(random);
         };
         return cost;
@@ -296,10 +339,12 @@ public final class WandFocusRuntime {
 
     public static int activationCooldown(ItemStack wandStack, WandFocusType type) {
         return switch (type) {
-            case FIRE -> focusHasUpgrade(wandStack, FocusUpgradeType.FIREBALL) ? 1000 : 0;
-            case FROST -> focusHasUpgrade(wandStack, FocusUpgradeType.SCATTERSHOT) || focusHasUpgrade(wandStack, FocusUpgradeType.ICE_BOULDER) ? 500 : 200;
-            case SHOCK -> focusHasUpgrade(wandStack, FocusUpgradeType.EARTH_SHOCK) ? 1000 : focusHasUpgrade(wandStack, FocusUpgradeType.CHAIN_LIGHTNING) ? 500 : 250;
-            case PRIMAL -> 500;
+            case FIRE -> focusHasUpgrade(wandStack, FocusUpgradeType.FIREBALL) ? 20 : 0;
+            case FROST -> focusHasUpgrade(wandStack, FocusUpgradeType.SCATTERSHOT) || focusHasUpgrade(wandStack, FocusUpgradeType.ICE_BOULDER) ? 10 : 4;
+            case SHOCK -> focusHasUpgrade(wandStack, FocusUpgradeType.EARTH_SHOCK) ? 20 : focusHasUpgrade(wandStack, FocusUpgradeType.CHAIN_LIGHTNING) ? 10 : 5;
+            case HELLBAT -> 20;
+            case PECH_CURSE -> 5;
+            case PRIMAL -> 10;
             default -> type.cooldownTicks();
         };
     }
@@ -312,7 +357,7 @@ public final class WandFocusRuntime {
         return list;
     }
 
-    private static int focusModifiedVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
+    public static int modifiedFocusVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
         if (baseAmount <= 0 || WandItem.hasInfiniteVis(wandStack)) {
             return 0;
         }
@@ -330,43 +375,38 @@ public final class WandFocusRuntime {
             case PORTABLE_HOLE -> new ItemStack(ThaumcraftMod.FOCUS_PORTABLE_HOLE.get());
             case EQUAL_TRADE -> new ItemStack(ThaumcraftMod.FOCUS_EQUAL_TRADE.get());
             case WARDING -> new ItemStack(ThaumcraftMod.FOCUS_WARDING.get());
+            case HELLBAT -> TC4ResearchItems.registered("tc4_focus_hellbat").map(o -> new ItemStack(o.get())).orElse(ItemStack.EMPTY);
+            case PECH_CURSE -> TC4ResearchItems.registered("tc4_focus_pech").map(o -> new ItemStack(o.get())).orElse(ItemStack.EMPTY);
             case PRIMAL -> new ItemStack(ThaumcraftMod.FOCUS_PRIMAL.get());
         };
     }
 
-    private static boolean castFire(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
-        if (focusHasUpgrade(wandStack, FocusUpgradeType.FIREBALL)) {
-            if (!level.isClientSide) {
-                TC4ExplosiveOrbEntity orb = new TC4ExplosiveOrbEntity(ThaumcraftMod.FOCUS_EXPLOSIVE_ORB.get(), level, player);
-                orb.setStrength(1.0F + focusUpgradeLevel(wandStack, FocusUpgradeType.POTENCY) * 0.4F);
-                orb.setAlchemistsFire(focusHasUpgrade(wandStack, FocusUpgradeType.ALCHEMISTS_FIRE));
-                shootProjectile(orb, player, 1.15F, 0.0F);
-                level.addFreshEntity(orb);
-                level.levelEvent(null, 1009, player.blockPosition(), 0);
-            }
-            return true;
+    private static boolean castFire(ItemStack wandStack, Level level, Player player) {
+        if (!focusHasUpgrade(wandStack, FocusUpgradeType.FIREBALL)) {
+            // Base fire and Firebeam are continuous-use effects and are handled by
+            // onUsingFireFocusTick, matching ItemFocusFire#onFocusRightClick.
+            return false;
         }
-        HitBundle hit = ray(level, player, 17.0D);
-        beam(level, player.getEyePosition(), hit.end(), Aspect.IGNIS.argbColor(), ParticleTypes.FLAME);
-        if (!level.isClientSide && hit.entityHit() != null && hit.entityHit().getEntity() instanceof LivingEntity living) {
-            living.setSecondsOnFire(5);
-            living.hurt(DamageSource.ON_FIRE, 4.0F);
-            return true;
-        }
-        if (!level.isClientSide && hit.blockHit() != null) {
-            BlockPos firePos = hit.blockHit().getBlockPos().relative(hit.blockHit().getDirection());
-            if (level.getBlockState(firePos).isAir()) {
-                level.setBlock(firePos, Blocks.FIRE.defaultBlockState(), 11);
-                return true;
-            }
+        if (!level.isClientSide) {
+            TC4ExplosiveOrbEntity orb = new TC4ExplosiveOrbEntity(ThaumcraftMod.FOCUS_EXPLOSIVE_ORB.get(), level, player);
+            orb.setStrength(1.0F + focusPotency(wandStack) * 0.4F);
+            orb.setAlchemistsFire(focusHasUpgrade(wandStack, FocusUpgradeType.ALCHEMISTS_FIRE));
+            shootProjectile(orb, player, 1.5F, 1.0F);
+            level.addFreshEntity(orb);
+            level.levelEvent(null, 1009, player.blockPosition(), 0);
         }
         return true;
     }
 
-    private static boolean castFrost(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
+    /** Original ItemWandCasting#getFocusPotency includes one free potency for runed primal staffs. */
+    private static int focusPotency(ItemStack wandStack) {
         int potency = focusUpgradeLevel(wandStack, FocusUpgradeType.POTENCY);
+        if (WandComponentData.from(wandStack).hasRunes()) potency++;
+        return potency;
+    }
+
+    private static boolean castFrost(ItemStack wandStack, Level level, Player player) {
+        int potency = focusPotency(wandStack);
         int frosty = focusUpgradeLevel(wandStack, FocusUpgradeType.ALCHEMISTS_FROST);
         if (!level.isClientSide) {
             Entity soundSource = player;
@@ -377,7 +417,7 @@ public final class WandFocusRuntime {
                     shard.setDamage(1.0F);
                     shard.setFragile(true);
                     shard.setFrosty(frosty);
-                    shootProjectile(shard, player, 1.1F, 8.0F);
+                    shootProjectile(shard, player, 1.5F, 8.0F);
                     level.addFreshEntity(shard);
                     soundSource = shard;
                 }
@@ -386,10 +426,10 @@ public final class WandFocusRuntime {
                 if (focusHasUpgrade(wandStack, FocusUpgradeType.ICE_BOULDER)) {
                     shard.setDamage(4.0F + potency * 2.0F);
                     shard.setBounce(0.8D, 6);
-                    shootProjectile(shard, player, 0.75F, 1.0F);
+                    shootProjectile(shard, player, 1.5F, 1.0F);
                 } else {
                     shard.setDamage((float) (3.0D + potency * 1.5D));
-                    shootProjectile(shard, player, 1.15F, 1.0F);
+                    shootProjectile(shard, player, 1.5F, 1.0F);
                 }
                 shard.setFrosty(frosty);
                 level.addFreshEntity(shard);
@@ -397,38 +437,41 @@ public final class WandFocusRuntime {
             }
             level.playSound(null, soundSource.getX(), soundSource.getY(), soundSource.getZ(), TC4Sounds.event("ice"), SoundSource.PLAYERS, 0.4F, 1.0F + level.random.nextFloat() * 0.1F);
         }
+        InteractionHand hand = player.getOffhandItem() == wandStack ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+        player.swing(hand, true);
         return true;
     }
 
-    private static boolean castShock(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
-        int potency = focusUpgradeLevel(wandStack, FocusUpgradeType.POTENCY);
+    private static boolean castShock(ItemStack wandStack, Level level, Player player) {
+        int potency = focusPotency(wandStack);
         if (focusHasUpgrade(wandStack, FocusUpgradeType.EARTH_SHOCK)) {
             if (!level.isClientSide) {
                 TC4ShockOrbEntity orb = new TC4ShockOrbEntity(ThaumcraftMod.FOCUS_SHOCK_ORB.get(), level, player);
                 orb.setArea(4.0F + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 2.0F);
                 orb.setDamage((int) (5 + potency * 1.33D));
-                shootProjectile(orb, player, 0.85F, 0.0F);
+                shootProjectile(orb, player, 1.5F, 1.0F);
                 level.addFreshEntity(orb);
                 level.playSound(null, player.blockPosition(), TC4Sounds.event("zap"), SoundSource.PLAYERS, 1.0F, 1.0F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F);
             }
             return true;
         }
-        HitBundle hit = ray(level, player, 10.0D);
+        HitBundle hit = ray(level, player, 20.0D);
         beam(level, player.getEyePosition(), hit.end(), Aspect.AER.argbColor(), ParticleTypes.ELECTRIC_SPARK);
         if (!level.isClientSide && hit.entityHit() != null && hit.entityHit().getEntity() instanceof LivingEntity living) {
             int chainLevel = focusUpgradeLevel(wandStack, FocusUpgradeType.CHAIN_LIGHTNING);
-            living.hurt(DamageSource.LIGHTNING_BOLT, (chainLevel > 0 ? 6.0F : 4.0F) + potency);
+            if (!canShockTarget(level, player, living)) {
+                return true;
+            }
+            living.hurt(DamageSource.playerAttack(player), (chainLevel > 0 ? 6.0F : 4.0F) + potency);
             if (chainLevel > 0) {
-                chainShock(level, living, chainLevel * 2 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 2, potency, List.of(living.getId()));
+                chainShock(level, player, living, chainLevel * 2 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 2, potency, List.of(living.getId()));
             }
             return true;
         }
         return true;
     }
 
-    private static boolean castExcavation(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
+    private static boolean castExcavation(ItemStack wandStack, Level level, Player player) {
         HitBundle hit = ray(level, player, 8.0D);
         beam(level, player.getEyePosition(), hit.end(), Aspect.TERRA.argbColor(), ParticleTypes.CRIT);
         if (!level.isClientSide && hit.blockHit() != null) {
@@ -438,133 +481,225 @@ public final class WandFocusRuntime {
         return true;
     }
 
-    private static boolean castPortableHole(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
+    private static boolean castPortableHole(ItemStack wandStack, Level level, Player player) {
         HitBundle hit = ray(level, player, 16.0D);
         beam(level, player.getEyePosition(), hit.end(), Aspect.PERDITIO.argbColor(), ParticleTypes.PORTAL);
-        if (!level.isClientSide && hit.blockHit() != null) {
-            Direction direction = hit.blockHit().getDirection();
-            BlockPos cursor = hit.blockHit().getBlockPos();
-            int maxDistance = 33 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 8;
-            int duration = 120 + focusUpgradeLevel(wandStack, FocusUpgradeType.EXTEND) * 60;
-            List<BlockPos> tunnel = new ArrayList<>();
-            for (int i = 0; i < maxDistance; i++) {
-                BlockPos p = cursor.relative(direction.getOpposite(), i);
-                BlockState state = level.getBlockState(p);
-                if (state.isAir() || state.getDestroySpeed(level, p) < 0.0F || state.getDestroySpeed(level, p) > 12.0F || !WardedBlockRuntime.mayEdit(level, p, player)) {
+        if (level.isClientSide || hit.blockHit() == null || !(level instanceof ServerLevel server)) {
+            return true;
+        }
+        Direction face = hit.blockHit().getDirection();
+        BlockPos origin = hit.blockHit().getBlockPos();
+        if (TC4OuterLandsDimensionAdapter.isOuterLands(level.dimension())) {
+            level.playSound(null, origin, TC4Sounds.event("wandfail"), SoundSource.BLOCKS, 1.0F, 1.0F);
+            return false;
+        }
+        int maxDistance = 33 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 8;
+        int distance = 0;
+        for (; distance < maxDistance; distance++) {
+            BlockPos cursor = origin.relative(face.getOpposite(), distance);
+            if (!com.darkifov.thaumcraft.block.TemporaryHoleBlock.canReplace(level, cursor, level.getBlockState(cursor), player)) {
+                break;
+            }
+        }
+        if (distance <= 0) {
+            level.playSound(null, origin, TC4Sounds.event("wandfail"), SoundSource.BLOCKS, 0.7F, 1.0F);
+            return false;
+        }
+        AspectList totalCost = scaledCost(focusVisCost(wandStack, WandFocusType.PORTABLE_HOLE, level.random), distance);
+        if (!hasFocusVis(wandStack, player, WandFocusType.PORTABLE_HOLE, totalCost)) {
+            level.playSound(null, origin, TC4Sounds.event("wandfail"), SoundSource.BLOCKS, 0.7F, 1.0F);
+            return false;
+        }
+        int duration = 120 + focusUpgradeLevel(wandStack, FocusUpgradeType.EXTEND) * 60;
+        BlockState rememberedOrigin = level.getBlockState(origin);
+        boolean opened = com.darkifov.thaumcraft.block.TemporaryHoleBlock.createHole(
+                server, origin, duration, distance + 1, face, player);
+        if (!opened) {
+            level.playSound(null, origin, TC4Sounds.event("wandfail"), SoundSource.BLOCKS, 0.7F, 1.0F);
+            return false;
+        }
+        if (!consumeFocusVis(wandStack, player, WandFocusType.PORTABLE_HOLE, totalCost)) {
+            // A protection event is allowed to mutate player inventory. Keep the
+            // operation atomic if that invalidates the vis check after creation.
+            level.setBlock(origin, rememberedOrigin, Block.UPDATE_ALL);
+            level.playSound(null, origin, TC4Sounds.event("wandfail"), SoundSource.BLOCKS, 0.7F, 1.0F);
+            return false;
+        }
+        level.playSound(null, origin, SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 1.0F, 1.0F);
+        return true;
+    }
+
+    private static boolean castEqualTrade(ItemStack wandStack, Level level, Player player) {
+        HitBundle hit = ray(level, player, equalTradeReach(player));
+        beam(level, player.getEyePosition(), hit.end(), 0x857B93, ParticleTypes.ENCHANT); // TC4 ItemFocusTrade#getFocusColor = 8747923
+        if (level.isClientSide || hit.blockHit() == null || !(level instanceof ServerLevel server)
+                || !(player instanceof ServerPlayer serverPlayer)) {
+            return true;
+        }
+        BlockPos origin = hit.blockHit().getBlockPos();
+        BlockState source = level.getBlockState(origin);
+        if (player.isShiftKeyDown()) {
+            if (source.isAir() || source.hasBlockEntity() || source.getBlock().asItem() == Items.AIR) {
+                player.displayClientMessage(Component.translatable("message.thaumcraft.equal_trade.pick_failed").withStyle(ChatFormatting.GRAY), true);
+                return false;
+            }
+            ItemStack picked = source.getBlock().asItem().getDefaultInstance();
+            storePickedBlock(wandStack, picked, source);
+            player.displayClientMessage(Component.translatable("message.thaumcraft.equal_trade.picked", source.getBlock().getName()).withStyle(ChatFormatting.GRAY), true);
+            return true;
+        }
+
+        ItemStack picked = getPickedBlock(wandStack);
+        BlockState targetState = getPickedState(wandStack);
+        if (picked.isEmpty() || !(picked.getItem() instanceof BlockItem) || targetState.isAir()) {
+            player.displayClientMessage(Component.translatable("message.thaumcraft.equal_trade.needs_pick").withStyle(ChatFormatting.GRAY), true);
+            return false;
+        }
+        if (source.isAir() || source.hasBlockEntity() || source.getDestroySpeed(level, origin) < 0.0F
+                || source.equals(targetState) || WardedBlockRuntime.isWarded(level, origin)) {
+            return false;
+        }
+
+        int slot = wandInventorySlot(player, wandStack);
+        if (focusHasUpgrade(wandStack, FocusUpgradeType.ARCHITECT)) {
+            List<BlockPos> targets = FocusArchitectRuntime.equalTradeArchitectBlocks(wandStack, level, hit.blockHit(), player);
+            for (BlockPos target : targets) {
+                EqualTradeSwapRuntime.enqueue(server, serverPlayer, slot, target, source, targetState, picked, 0);
+            }
+            if (!targets.isEmpty()) {
+                level.playSound(null, origin, TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.25F, 1.0F);
+            }
+            return !targets.isEmpty();
+        }
+        EqualTradeSwapRuntime.enqueue(server, serverPlayer, slot, origin, source, targetState, picked,
+                3 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE));
+        level.playSound(null, origin, TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.25F, 1.0F);
+        return true;
+    }
+
+    /** Original ItemFocusTrade#onEntitySwing: one queued replacement on left-click. */
+    public static boolean queueEqualTradeSwing(ServerPlayer player, InteractionHand hand, BlockPos target) {
+        ItemStack wandStack = player.getItemInHand(hand);
+        if (!(wandStack.getItem() instanceof WandItem) || getFocus(wandStack) != WandFocusType.EQUAL_TRADE) return false;
+        ItemStack picked = getPickedBlock(wandStack);
+        BlockState targetState = getPickedState(wandStack);
+        BlockState source = player.level.getBlockState(target);
+        if (picked.isEmpty() || targetState.isAir() || source.isAir() || source.hasBlockEntity()
+                || source.getDestroySpeed(player.level, target) < 0.0F || source.equals(targetState)
+                || WardedBlockRuntime.isWarded(player.level, target)) return false;
+        int slot = hand == InteractionHand.OFF_HAND ? -1 : player.getInventory().selected;
+        EqualTradeSwapRuntime.enqueue((ServerLevel) player.level, player, slot, target, source, targetState, picked, 0);
+        player.level.playSound(null, target, TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.25F, 1.0F);
+        return true;
+    }
+
+    private static boolean castWarding(ItemStack wandStack, Level level, Player player) {
+        HitBundle hit = ray(level, player, 10.0D);
+        beam(level, player.getEyePosition(), hit.end(), 0xFFE9CF, ParticleTypes.ENCHANT); // TC4 ItemFocusWarding#getFocusColor = 16771535
+        if (level.isClientSide || hit.blockHit() == null) return true;
+
+        BlockPos origin = hit.blockHit().getBlockPos();
+        String wardKey = origin.getX() + ":" + origin.getY() + ":" + origin.getZ() + ":" + level.dimension().location();
+        long now = System.currentTimeMillis();
+        if (WARDING_DELAY.size() > 4096) {
+            WARDING_DELAY.entrySet().removeIf(entry -> entry.getValue() <= now);
+        }
+        if (WARDING_DELAY.getOrDefault(wardKey, 0L) > now) return true;
+        WARDING_DELAY.put(wardKey, now + 500L);
+
+        boolean removing = WardedBlockRuntime.isWarded(level, origin);
+        List<BlockPos> targets = FocusArchitectRuntime.wardingArchitectBlocks(wandStack, level, hit.blockHit(), player, removing);
+        int changed = 0;
+        for (BlockPos target : targets) {
+            if (removing) {
+                // Original removal is free and only succeeds for the ward owner.
+                if (WardedBlockRuntime.unward(level, target, player)) {
+                    changed++;
+                    sparkleBlock(level, target, 0xFCA000); // TC4 PacketFXBlockSparkle = 16556032
+                }
+                continue;
+            }
+            AspectList cost = focusVisCost(wandStack, WandFocusType.WARDING, level.random);
+            if (!hasFocusVis(wandStack, player, WandFocusType.WARDING, cost)) break;
+            if (WardedBlockRuntime.ward(level, target, player, wandStack)) {
+                if (!consumeFocusVis(wandStack, player, WandFocusType.WARDING, cost)) {
+                    WardedBlockRuntime.rollbackWard(level, target, player);
                     break;
                 }
-                tunnel.add(p);
-            }
-            int opened = tunnel.size();
-            if (opened > 1) {
-                // Original ItemFocusPortableHole multiplies the base vis list by tunnel distance after measuring the tunnel.
-                // Forge 1.19.2 adapter: cast() has already paid one base cost, so only the measured extra distance is charged here before the tunnel is opened.
-                AspectList extraCost = scaledCost(focusVisCost(wandStack, WandFocusType.PORTABLE_HOLE, level.random), opened - 1);
-                if (!consumeFocusVis(wandStack, player, WandFocusType.PORTABLE_HOLE, extraCost)) {
-                    return false;
-                }
-            }
-            for (BlockPos p : tunnel) {
-                level.setBlock(p, ThaumcraftMod.TEMPORARY_HOLE.get().defaultBlockState(), 3);
-                if (level instanceof ServerLevel server) {
-                    server.scheduleTick(p, ThaumcraftMod.TEMPORARY_HOLE.get(), duration);
-                    server.sendParticles(ParticleTypes.PORTAL, p.getX() + 0.5D, p.getY() + 0.5D, p.getZ() + 0.5D, 6, 0.25D, 0.25D, 0.25D, 0.02D);
-                }
-            }
-            if (opened > 0) {
-                level.playSound(null, cursor, TC4Sounds.event("hhon"), SoundSource.BLOCKS, 1.0F, 1.0F);
+                changed++;
+                sparkleBlock(level, target, 0xFCA000); // TC4 PacketFXBlockSparkle = 16556032
             }
         }
+        if (changed > 0) {
+            level.playSound(null, origin, TC4Sounds.event("zap"), SoundSource.BLOCKS, 0.25F, 1.0F);
+            player.displayClientMessage(Component.translatable(removing
+                            ? "message.thaumcraft.warding.removed"
+                            : "message.thaumcraft.warding.bound", changed)
+                    .withStyle(ChatFormatting.BLUE), true);
+            return true;
+        }
+        if (removing) {
+            String message = WardedBlockRuntime.isOwner(level, origin, player)
+                    ? "message.thaumcraft.warding.release_failed"
+                    : "message.thaumcraft.warding.owned_other";
+            player.displayClientMessage(Component.translatable(message).withStyle(ChatFormatting.RED), true);
+        }
+        return false;
+    }
+
+    private static boolean castHellbat(ItemStack wandStack, Level level, Player player) {
+        HitBundle hit = ray(level, player, 32.0D);
+        if (!(hit.entityHit() != null && hit.entityHit().getEntity() instanceof LivingEntity target)
+                || target instanceof TC4FireBatEntity) {
+            return false;
+        }
+        if (target instanceof Player && (level.getServer() == null || !level.getServer().isPvpAllowed())) {
+            return false;
+        }
+        if (level.isClientSide) {
+            player.swing(player.getOffhandItem() == wandStack ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND, true);
+            return true;
+        }
+        AspectList cost = focusVisCost(wandStack, WandFocusType.HELLBAT, level.random);
+        if (!hasFocusVis(wandStack, player, WandFocusType.HELLBAT, cost)
+                || !consumeFocusVis(wandStack, player, WandFocusType.HELLBAT, cost)) {
+            level.playSound(null, player.blockPosition(), TC4Sounds.event("wandfail"), SoundSource.PLAYERS, 0.1F, 0.8F + level.random.nextFloat() * 0.1F);
+            return false;
+        }
+        TC4FireBatEntity firebat = ThaumcraftMod.FIREBAT.get().create(level);
+        if (firebat == null) return false;
+        Vec3 look = player.getViewVector(1.0F);
+        Vec3 spawn = player.getEyePosition().add(look.scale(0.5D)).add(0.0D, 0.25D, 0.0D);
+        firebat.moveTo(spawn.x, spawn.y, spawn.z, player.getYRot(), 0.0F);
+        firebat.configure(player, target, focusPotency(wandStack),
+                focusHasUpgrade(wandStack, FocusUpgradeType.BAT_BOMBS),
+                focusHasUpgrade(wandStack, FocusUpgradeType.DEVIL_BATS),
+                focusHasUpgrade(wandStack, FocusUpgradeType.VAMPIRE_BATS));
+        if (!level.addFreshEntity(firebat)) return false;
+        level.levelEvent(null, 2004, firebat.blockPosition(), 0);
+        level.playSound(null, firebat.getX(), firebat.getY(), firebat.getZ(), TC4Sounds.event("ice"), SoundSource.PLAYERS, 0.2F, 0.95F + level.random.nextFloat() * 0.1F);
+        player.swing(player.getOffhandItem() == wandStack ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND, true);
         return true;
     }
 
-    private static boolean castEqualTrade(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
-        HitBundle hit = ray(level, player, 12.0D);
-        beam(level, player.getEyePosition(), hit.end(), Aspect.PERMUTATIO.argbColor(), ParticleTypes.ENCHANT);
-        if (!level.isClientSide && hit.blockHit() != null) {
-            BlockPos origin = hit.blockHit().getBlockPos();
-            if (player.isShiftKeyDown()) {
-                if (level.getBlockState(origin).hasBlockEntity()) {
-                    player.displayClientMessage(Component.literal("Equal Trade cannot pick tile entities.").withStyle(ChatFormatting.GRAY), true);
-                    return true;
-                }
-                storePickedBlock(wandStack, level.getBlockState(origin).getBlock().asItem().getDefaultInstance());
-                player.displayClientMessage(Component.literal("Equal Trade picked " + level.getBlockState(origin).getBlock().getName().getString() + ".").withStyle(ChatFormatting.GRAY), true);
-                return true;
-            }
-            ItemStack picked = getPickedBlock(wandStack);
-            if (picked.isEmpty()) {
-                picked = player.getOffhandItem(); // Forge 1.19.2 adapter until TC4 focus radial/pick UI is fully restored.
-            }
-            if (!picked.isEmpty() && picked.getItem() instanceof BlockItem blockItem) {
-                List<BlockPos> targets = focusHasUpgrade(wandStack, FocusUpgradeType.ARCHITECT)
-                        ? FocusArchitectRuntime.equalTradeArchitectBlocks(wandStack, level, hit.blockHit(), player)
-                        : FocusArchitectRuntime.equalTradeLinkedBlocks(level, origin, 3 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 2, player);
-                int changed = 0;
-                for (BlockPos target : targets) {
-                    if (changed > 0 && !consumeFocusVis(wandStack, player, WandFocusType.EQUAL_TRADE, focusVisCost(wandStack, WandFocusType.EQUAL_TRADE, level.random))) {
-                        break;
-                    }
-                    if (replaceBlockWithEqualTrade(level, player, target, blockItem, picked, wandStack)) {
-                        changed++;
-                    }
-                }
-                return changed > 0;
-            }
-            player.displayClientMessage(Component.literal("Equal Trade needs a picked block; sneak-use a block first.").withStyle(ChatFormatting.GRAY), true);
+    private static boolean castPechCurse(ItemStack wandStack, Level level, Player player) {
+        if (!level.isClientSide) {
+            TC4PechBlastEntity blast = new TC4PechBlastEntity(ThaumcraftMod.FOCUS_PECH_BLAST.get(), level, player);
+            blast.configure(focusPotency(wandStack), focusUpgradeLevel(wandStack, FocusUpgradeType.EXTEND),
+                    focusHasUpgrade(wandStack, FocusUpgradeType.NIGHTSHADE));
+            shootProjectile(blast, player, 1.5F, 1.0F);
+            level.addFreshEntity(blast);
+            level.playSound(null, blast.getX(), blast.getY(), blast.getZ(), TC4Sounds.event("ice"), SoundSource.PLAYERS, 0.4F, 1.0F + level.random.nextFloat() * 0.1F);
         }
+        player.swing(player.getOffhandItem() == wandStack ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND, true);
         return true;
     }
 
-    private static boolean castWarding(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
-        HitBundle hit = ray(level, player, 10.0D);
-        beam(level, player.getEyePosition(), hit.end(), Aspect.ORDO.argbColor(), ParticleTypes.ENCHANT);
-        if (!level.isClientSide && hit.blockHit() != null) {
-            BlockPos origin = hit.blockHit().getBlockPos();
-            String wardKey = origin.getX() + ":" + origin.getY() + ":" + origin.getZ() + ":" + level.dimension().location();
-            long now = System.currentTimeMillis();
-            if (WARDING_DELAY.getOrDefault(wardKey, 0L) > now) {
-                return true;
-            }
-            WARDING_DELAY.put(wardKey, now + 500L);
-            boolean removing = WardedBlockRuntime.isWarded(level, origin);
-            List<BlockPos> targets = FocusArchitectRuntime.wardingArchitectBlocks(wandStack, level, hit.blockHit(), player, removing);
-            int changed = 0;
-            for (BlockPos target : targets) {
-                if (removing) {
-                    if (WardedBlockRuntime.unward(level, target, player)) {
-                        changed++;
-                        sparkleBlock(level, target, Aspect.ORDO.argbColor());
-                    }
-                } else {
-                    if (changed > 0 && !consumeFocusVis(wandStack, player, WandFocusType.WARDING, focusVisCost(wandStack, WandFocusType.WARDING, level.random))) {
-                        break;
-                    }
-                    if (WardedBlockRuntime.ward(level, target, player)) {
-                        changed++;
-                        sparkleBlock(level, target, Aspect.ORDO.argbColor());
-                    }
-                }
-            }
-            if (changed > 0) {
-                level.playSound(null, origin, TC4Sounds.event("zap"), SoundSource.BLOCKS, 0.25F, 1.0F);
-                player.displayClientMessage(Component.literal((removing ? "The ward fades from " : "Warding binds ") + changed + " block(s).").withStyle(ChatFormatting.BLUE), true);
-            } else if (removing) {
-                player.displayClientMessage(Component.literal("Another thaumaturge owns this ward.").withStyle(ChatFormatting.RED), true);
-            }
-        }
-        return true;
-    }
-
-    private static boolean castPrimal(Level level, Player player) {
-        ItemStack wandStack = player.getMainHandItem();
+    private static boolean castPrimal(ItemStack wandStack, Level level, Player player) {
         if (!level.isClientSide) {
             TC4PrimalOrbEntity orb = new TC4PrimalOrbEntity(ThaumcraftMod.FOCUS_PRIMAL_ORB.get(), level, player);
             orb.setSeeker(focusHasUpgrade(wandStack, FocusUpgradeType.SEEKER));
-            shootProjectile(orb, player, 1.0F, 0.0F);
+            shootProjectile(orb, player, 0.5F, 1.0F);
             level.addFreshEntity(orb);
             level.playSound(null, orb.getX(), orb.getY(), orb.getZ(), TC4Sounds.event("ice"), SoundSource.PLAYERS, 0.3F, 0.8F + level.random.nextFloat() * 0.1F);
         }
@@ -591,7 +726,7 @@ public final class WandFocusRuntime {
             level.playSound(null, player.getX(), player.getY(), player.getZ(), TC4Sounds.event("fireloop"), SoundSource.PLAYERS, 0.33F, 2.0F);
             FIRE_SOUND_DELAY.put(pp, now + 500L);
         }
-        int potency = focusUpgradeLevel(wandStack, FocusUpgradeType.POTENCY);
+        int potency = focusPotency(wandStack);
         boolean fireBeam = focusHasUpgrade(wandStack, FocusUpgradeType.FIREBEAM);
         float scatter = fireBeam ? 0.25F : 15.0F;
         int firey = focusUpgradeLevel(wandStack, FocusUpgradeType.ALCHEMISTS_FIRE);
@@ -630,11 +765,14 @@ public final class WandFocusRuntime {
         }
         level.playSound(null, player.getX(), player.getY(), player.getZ(), TC4Sounds.event("shock"), SoundSource.PLAYERS, 0.25F, 1.0F);
         if (hit.entityHit() != null && hit.entityHit().getEntity() instanceof LivingEntity living) {
-            int potency = focusUpgradeLevel(wandStack, FocusUpgradeType.POTENCY);
+            int potency = focusPotency(wandStack);
             int chainLevel = focusUpgradeLevel(wandStack, FocusUpgradeType.CHAIN_LIGHTNING);
-            living.hurt(DamageSource.LIGHTNING_BOLT, (chainLevel > 0 ? 6.0F : 4.0F) + potency);
+            if (!canShockTarget(level, player, living)) {
+                return;
+            }
+            living.hurt(DamageSource.playerAttack(player), (chainLevel > 0 ? 6.0F : 4.0F) + potency);
             if (chainLevel > 0) {
-                chainShock(level, living, chainLevel * 2 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 2, potency, List.of(living.getId()));
+                chainShock(level, player, living, chainLevel * 2 + focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE) * 2, potency, List.of(living.getId()));
             }
         }
     }
@@ -642,58 +780,73 @@ public final class WandFocusRuntime {
     private static void onUsingExcavationFocusTick(ItemStack wandStack, Level level, Player player, int count) {
         AspectList cost = focusVisCost(wandStack, WandFocusType.EXCAVATION, level.random);
         if (!hasFocusVis(wandStack, player, WandFocusType.EXCAVATION, cost)) {
+            clearExcavationUse(level, player);
             player.stopUsingItem();
             return;
         }
+
         String pp = focusUseKey(level, player);
-        HitBundle hit = ray(level, player, 10.0D);
-        Vec3 end = hit.end();
-        int impact = hit.blockHit() == null ? 0 : 5;
+        BlockHitResult blockHit = blockRay(level, player, 10.0D);
+        Vec3 end = blockHit == null
+                ? player.getEyePosition().add(player.getViewVector(1.0F).scale(10.0D))
+                : blockHit.getLocation();
+        int impact = blockHit == null ? 0 : 5;
         if (level.isClientSide) {
             TC4ClientFocusFxBridge.beamCont(level, player, end, 2, 65382, false, impact > 0 ? 2.0F : 0.0F, impact);
-        } else {
-            beam(level, player.getEyePosition(), end, Aspect.TERRA.argbColor(), ParticleTypes.CRIT);
         }
-        if (hit.blockHit() == null) {
-            EXCAVATION_LAST_BLOCK.put(pp, BlockPos.ZERO);
-            EXCAVATION_BREAKCOUNT.put(pp, 0.0F);
-            EXCAVATION_SOUND_DELAY.put(pp, 0L);
+
+        if (blockHit == null) {
+            resetExcavationProgress(level, player, pp, true);
             return;
         }
-        BlockPos target = hit.blockHit().getBlockPos();
+
+        BlockPos target = blockHit.getBlockPos();
         BlockState state = level.getBlockState(target);
         float hardness = state.getDestroySpeed(level, target);
-        if (state.isAir() || hardness < 0.0F || !WardedBlockRuntime.mayEdit(level, target, player)) {
-            EXCAVATION_LAST_BLOCK.put(pp, BlockPos.ZERO);
-            EXCAVATION_BREAKCOUNT.put(pp, 0.0F);
+        if (state.isAir() || hardness < 0.0F || !mayExcavate(level, player, target, blockHit.getDirection())) {
+            resetExcavationProgress(level, player, pp, false);
             return;
         }
+
         long now = System.currentTimeMillis();
         if (!level.isClientSide && EXCAVATION_SOUND_DELAY.getOrDefault(pp, 0L) < now) {
             level.playSound(null, target, TC4Sounds.event("rumble"), SoundSource.BLOCKS, 0.3F, 1.0F);
             EXCAVATION_SOUND_DELAY.put(pp, now + 1200L);
         }
-        int potency = focusUpgradeLevel(wandStack, FocusUpgradeType.POTENCY);
+
+        int potency = focusPotency(wandStack);
         float speed = excavationSpeed(state, potency);
-        BlockPos last = EXCAVATION_LAST_BLOCK.getOrDefault(pp, BlockPos.ZERO);
-        if (!last.equals(target)) {
+        BlockPos last = EXCAVATION_LAST_BLOCK.get(pp);
+        if (last == null || !last.equals(target)) {
+            if (level.isClientSide && last != null) {
+                TC4ClientFocusFxBridge.excavateFX(level, last, player, -1);
+            }
             EXCAVATION_LAST_BLOCK.put(pp, target);
             EXCAVATION_BREAKCOUNT.put(pp, 0.0F);
             return;
         }
-        float bc = EXCAVATION_BREAKCOUNT.getOrDefault(pp, 0.0F);
-        if (level.isClientSide && bc > 0.0F) {
-            int progress = Math.min(9, Math.max(0, (int) (bc / hardness * 9.0F)));
+
+        float breakCount = EXCAVATION_BREAKCOUNT.getOrDefault(pp, 0.0F);
+        if (level.isClientSide && breakCount > 0.0F) {
+            int progress = Math.min(9, Math.max(0, (int) (breakCount / hardness * 9.0F)));
             TC4ClientFocusFxBridge.excavateFX(level, target, player, progress);
         }
-        if (bc >= hardness) {
-            if (!level.isClientSide && consumeFocusVis(wandStack, player, WandFocusType.EXCAVATION, cost)) {
-                excavateBlock(level, player, target, wandStack);
+
+        if (level.isClientSide) {
+            EXCAVATION_BREAKCOUNT.put(pp, breakCount >= hardness ? 0.0F : breakCount + speed);
+            return;
+        }
+
+        if (breakCount >= hardness) {
+            if (!consumeFocusVis(wandStack, player, WandFocusType.EXCAVATION, cost)) {
+                clearExcavationUse(level, player);
+                player.stopUsingItem();
+                return;
             }
-            EXCAVATION_LAST_BLOCK.put(pp, BlockPos.ZERO);
-            EXCAVATION_BREAKCOUNT.put(pp, 0.0F);
+            excavateBlock(level, player, target, wandStack);
+            resetExcavationProgress(level, player, pp, false);
         } else {
-            EXCAVATION_BREAKCOUNT.put(pp, bc + speed);
+            EXCAVATION_BREAKCOUNT.put(pp, breakCount + speed);
         }
     }
 
@@ -703,117 +856,198 @@ public final class WandFocusRuntime {
     }
 
     private static boolean excavateBlock(Level level, Player player, BlockPos target, ItemStack wandStack) {
-        BlockState state = level.getBlockState(target);
-        Block block = state.getBlock();
-        float hardness = state.getDestroySpeed(level, target);
-        if (state.isAir() || hardness < 0.0F || hardness > 20.0F || !WardedBlockRuntime.mayEdit(level, target, player)) {
+        BlockState originalState = level.getBlockState(target);
+        if (!excavateSingleBlock(level, player, target, wandStack)) {
             return false;
         }
-        int treasure = focusUpgradeLevel(wandStack, FocusUpgradeType.TREASURE);
-        boolean silkTouch = focusHasUpgrade(wandStack, FocusUpgradeType.SILK_TOUCH);
-        if (silkTouch || treasure > 0) {
-            // Original ItemFocusExcavation passes silkTouch/fortune into BlockUtils.harvestBlock.
-            // Forge 1.19.2 adapter: use the vanilla loot-context path with an enchanted tool stack, then remove the block without duplicate drops.
-            ItemStack lootTool = new ItemStack(Items.NETHERITE_PICKAXE);
-            if (silkTouch) {
-                EnchantmentHelper.setEnchantments(java.util.Map.of(Enchantments.SILK_TOUCH, 1), lootTool);
-            } else {
-                EnchantmentHelper.setEnchantments(java.util.Map.of(Enchantments.BLOCK_FORTUNE, treasure), lootTool);
-            }
-            Block.dropResources(state, level, target, state.hasBlockEntity() ? level.getBlockEntity(target) : null, player, lootTool);
-            level.levelEvent(null, 2001, target, Block.getId(state));
-            level.destroyBlock(target, false, player);
-        } else {
-            level.destroyBlock(target, true, player);
-        }
+
         int enlarge = focusUpgradeLevel(wandStack, FocusUpgradeType.ENLARGE);
-        for (int i = 0; i < enlarge; i++) {
-            BlockPos n = matchingNeighbour(level, target, block);
-            if (n == null || !consumeFocusVis(wandStack, player, WandFocusType.EXCAVATION, focusVisCost(wandStack, WandFocusType.EXCAVATION, level.random))) {
+        for (int attempt = 0; attempt < enlarge; attempt++) {
+            BlockPos neighbour = matchingNeighbour(level, target, originalState);
+            if (neighbour == null) {
                 break;
             }
-            excavateBlock(level, player, n, wandStack);
+            AspectList neighbourCost = focusVisCost(wandStack, WandFocusType.EXCAVATION, level.random);
+            if (!hasFocusVis(wandStack, player, WandFocusType.EXCAVATION, neighbourCost)) {
+                break;
+            }
+            if (excavateSingleBlock(level, player, neighbour, wandStack)) {
+                consumeFocusVis(wandStack, player, WandFocusType.EXCAVATION, neighbourCost);
+            }
         }
         return true;
     }
 
-    private static BlockPos matchingNeighbour(Level level, BlockPos origin, Block block) {
+    private static boolean excavateSingleBlock(Level level, Player player, BlockPos target, ItemStack wandStack) {
+        if (!(level instanceof ServerLevel server) || !(player instanceof ServerPlayer serverPlayer)) {
+            return false;
+        }
+        BlockState state = level.getBlockState(target);
+        float hardness = state.getDestroySpeed(level, target);
+        if (state.isAir() || hardness < 0.0F || !mayExcavate(level, player, target, Direction.UP)) {
+            return false;
+        }
+
+        int experience = excavationBreakExperience(server, serverPlayer, target, state);
+        if (experience < 0) {
+            return false;
+        }
+
+        int treasure = focusUpgradeLevel(wandStack, FocusUpgradeType.TREASURE);
+        boolean silkTouch = focusHasUpgrade(wandStack, FocusUpgradeType.SILK_TOUCH);
+        boolean dowsing = focusHasUpgrade(wandStack, FocusUpgradeType.DOWSING);
+        ItemStack lootTool = new ItemStack(Items.NETHERITE_PICKAXE);
+        if (silkTouch) {
+            EnchantmentHelper.setEnchantments(java.util.Map.of(Enchantments.SILK_TOUCH, 1), lootTool);
+        } else if (treasure > 0) {
+            EnchantmentHelper.setEnchantments(java.util.Map.of(Enchantments.BLOCK_FORTUNE, treasure), lootTool);
+        }
+
+        BlockEntity blockEntity = level.getBlockEntity(target);
+        List<ItemStack> drops = Block.getDrops(state, server, target, blockEntity, player, lootTool);
+        for (ItemStack drop : drops) {
+            ItemStack resolved = dowsing ? applyDowsing(drop, treasure, level.random) : drop.copy();
+            if (!resolved.isEmpty()) {
+                if (dowsing && !ItemStack.isSameItemSameTags(drop, resolved)) {
+                    level.playSound(null, target, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.2F, 0.7F + level.random.nextFloat() * 0.2F);
+                }
+                Block.popResource(level, target, resolved);
+            }
+        }
+        if (experience > 0) {
+            ExperienceOrb.award(server, Vec3.atCenterOf(target), experience);
+        }
+
+        level.removeBlock(target, false);
+        level.levelEvent(null, 2001, target, Block.getId(state));
+        return true;
+    }
+
+    private static int excavationBreakExperience(ServerLevel level, ServerPlayer player, BlockPos target, BlockState state) {
+        if (player.getUsedItemHand() != InteractionHand.OFF_HAND) {
+            return ForgeHooks.onBlockBreakEvent(level, player.gameMode.getGameModeForPlayer(), player, target);
+        }
+        // ForgeHooks checks the main-hand item before posting BreakEvent. TC4 had no offhand,
+        // so the 1.19.2 adapter posts the same event directly when the wand is used offhand.
+        BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(level, target, state, player);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event.isCanceled() ? -1 : event.getExpToDrop();
+    }
+
+    private static BlockPos matchingNeighbour(Level level, BlockPos origin, BlockState state) {
         List<Direction> directions = new ArrayList<>(List.of(Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST));
         java.util.Collections.shuffle(directions, new java.util.Random(level.random.nextLong()));
-        for (Direction dir : directions) {
-            BlockPos p = origin.relative(dir);
-            if (level.getBlockState(p).getBlock() == block) {
-                return p;
+        for (Direction direction : directions) {
+            BlockPos candidate = origin.relative(direction);
+            if (level.getBlockState(candidate).equals(state)) {
+                return candidate;
             }
         }
         return null;
     }
 
-    private static void storePickedBlock(ItemStack wandStack, ItemStack picked) {
-        if (picked.isEmpty()) {
-            wandStack.getOrCreateTag().remove(FocusArchitectRuntime.TAG_PICKED_BLOCK);
-            return;
+    private static ItemStack applyDowsing(ItemStack drop, int treasure, RandomSource random) {
+        if (drop.isEmpty()) {
+            return ItemStack.EMPTY;
         }
+        net.minecraft.resources.ResourceLocation key = ForgeRegistries.ITEMS.getKey(drop.getItem());
+        String path = key == null ? "" : key.getPath();
+        String clusterId = null;
+        float specialChance = 1.0F;
+
+        if (drop.is(Items.RAW_IRON) || isOreLike(path, "iron")) {
+            clusterId = "tc4_clusteriron";
+        } else if (drop.is(Items.RAW_GOLD) || isOreLike(path, "gold")) {
+            clusterId = "tc4_clustergold";
+            specialChance = 0.9F;
+        } else if (drop.is(Items.RAW_COPPER) || isOreLike(path, "copper")) {
+            clusterId = "tc4_clustercopper";
+        } else if (isOreLike(path, "tin")) {
+            clusterId = "tc4_clustertin";
+        } else if (isOreLike(path, "silver")) {
+            clusterId = "tc4_clustersilver";
+        } else if (isOreLike(path, "lead")) {
+            clusterId = "tc4_clusterlead";
+        } else if (path.contains("cinnabar")) {
+            clusterId = "tc4_clustercinnabar";
+            specialChance = 0.9F;
+        }
+
+        float chance = (0.2F + treasure * 0.075F) * specialChance;
+        if (clusterId == null || random.nextFloat() > chance) {
+            return drop.copy();
+        }
+        ItemStack cluster = TC4ResearchItems.registered(clusterId)
+                .map(holder -> new ItemStack(holder.get(), drop.getCount()))
+                .orElse(ItemStack.EMPTY);
+        return cluster.isEmpty() ? drop.copy() : cluster;
+    }
+
+    private static boolean isOreLike(String path, String metal) {
+        return path.contains(metal) && (path.contains("ore") || path.startsWith("raw_") || path.endsWith("_raw"));
+    }
+
+    private static boolean mayExcavate(Level level, Player player, BlockPos target, Direction face) {
+        return level.mayInteract(player, target)
+                && player.mayUseItemAt(target, face, player.getUseItem())
+                && WardedBlockRuntime.mayEdit(level, target, player);
+    }
+
+    private static BlockHitResult blockRay(Level level, Player player, double distance) {
+        Vec3 start = player.getEyePosition();
+        Vec3 end = start.add(player.getViewVector(1.0F).scale(distance));
+        BlockHitResult hit = level.clip(new ClipContext(start, end, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player));
+        return hit.getType() == HitResult.Type.MISS ? null : hit;
+    }
+
+    private static void clearExcavationUse(Level level, Player player) {
+        resetExcavationProgress(level, player, focusUseKey(level, player), true);
+    }
+
+    private static void resetExcavationProgress(Level level, Player player, String key, boolean resetSound) {
+        BlockPos previous = EXCAVATION_LAST_BLOCK.remove(key);
+        EXCAVATION_BREAKCOUNT.remove(key);
+        if (resetSound) {
+            EXCAVATION_SOUND_DELAY.put(key, 0L);
+        }
+        if (level.isClientSide && previous != null) {
+            TC4ClientFocusFxBridge.excavateFX(level, previous, player, -1);
+        }
+    }
+
+    private static void storePickedBlock(ItemStack wandStack, ItemStack picked, BlockState state) {
         ItemStack one = picked.copy();
         one.setCount(1);
         wandStack.getOrCreateTag().put(FocusArchitectRuntime.TAG_PICKED_BLOCK, one.save(new CompoundTag()));
+        wandStack.getOrCreateTag().put(FocusArchitectRuntime.TAG_PICKED_STATE, NbtUtils.writeBlockState(state));
     }
 
     private static ItemStack getPickedBlock(ItemStack wandStack) {
         CompoundTag tag = wandStack.getTag();
         if (tag != null && tag.contains(FocusArchitectRuntime.TAG_PICKED_BLOCK, 10)) {
             ItemStack picked = ItemStack.of(tag.getCompound(FocusArchitectRuntime.TAG_PICKED_BLOCK));
-            if (!picked.isEmpty()) {
-                return picked;
-            }
+            if (!picked.isEmpty()) return picked;
         }
         return ItemStack.EMPTY;
     }
 
-    private static boolean replaceBlockWithEqualTrade(Level level, Player player, BlockPos target, BlockItem blockItem, ItemStack picked, ItemStack wandStack) {
-        BlockState old = level.getBlockState(target);
-        if (old.isAir() || old.hasBlockEntity() || old.getDestroySpeed(level, target) < 0.0F || old.getBlock() == blockItem.getBlock() || !WardedBlockRuntime.mayEdit(level, target, player)) {
-            return false;
+    private static BlockState getPickedState(ItemStack wandStack) {
+        CompoundTag tag = wandStack.getTag();
+        if (tag != null && tag.contains(FocusArchitectRuntime.TAG_PICKED_STATE, 10)) {
+            return NbtUtils.readBlockState(tag.getCompound(FocusArchitectRuntime.TAG_PICKED_STATE));
         }
-        if (!player.getAbilities().instabuild && !consumePickedBlock(player, picked)) {
-            return false;
-        }
-        int treasure = focusUpgradeLevel(wandStack, FocusUpgradeType.TREASURE);
-        boolean silkTouch = focusHasUpgrade(wandStack, FocusUpgradeType.SILK_TOUCH);
-        if (silkTouch || treasure > 0) {
-            ItemStack lootTool = new ItemStack(Items.NETHERITE_PICKAXE);
-            if (silkTouch) {
-                EnchantmentHelper.setEnchantments(java.util.Map.of(Enchantments.SILK_TOUCH, 1), lootTool);
-            } else {
-                EnchantmentHelper.setEnchantments(java.util.Map.of(Enchantments.BLOCK_FORTUNE, treasure), lootTool);
-            }
-            Block.dropResources(old, level, target, old.hasBlockEntity() ? level.getBlockEntity(target) : null, player, lootTool);
-            level.levelEvent(null, 2001, target, Block.getId(old));
-            level.destroyBlock(target, false, player);
-        } else {
-            level.destroyBlock(target, true, player);
-        }
-        level.setBlock(target, blockItem.getBlock().defaultBlockState(), 3);
-        sparkleBlock(level, target, Aspect.PERMUTATIO.argbColor());
-        return true;
+        ItemStack picked = getPickedBlock(wandStack);
+        return picked.getItem() instanceof BlockItem blockItem
+                ? blockItem.getBlock().defaultBlockState()
+                : Blocks.AIR.defaultBlockState();
     }
 
-    private static boolean consumePickedBlock(Player player, ItemStack picked) {
-        if (!picked.isEmpty() && picked == player.getOffhandItem()) {
-            picked.shrink(1);
-            return true;
-        }
-        for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
-            ItemStack stack = player.getInventory().getItem(slot);
-            if (!stack.isEmpty() && ItemStack.isSameItemSameTags(stack, picked)) {
-                stack.shrink(1);
-                return true;
-            }
-        }
-        return false;
+    private static int wandInventorySlot(Player player, ItemStack wandStack) {
+        if (player.getOffhandItem() == wandStack) return -1;
+        return player.getInventory().selected;
     }
 
-    private static void sparkleBlock(Level level, BlockPos pos, int color) {
+    static void sparkleBlock(Level level, BlockPos pos, int color) {
         if (level instanceof ServerLevel server) {
             double r = ((color >> 16) & 255) / 255.0D;
             double g = ((color >> 8) & 255) / 255.0D;
@@ -822,12 +1056,12 @@ public final class WandFocusRuntime {
         }
     }
 
-    private static boolean hasFocusVis(ItemStack wandStack, Player player, WandFocusType type, AspectList cost) {
+    static boolean hasFocusVis(ItemStack wandStack, Player player, WandFocusType type, AspectList cost) {
         if (player.getAbilities().instabuild || WandItem.hasInfiniteVis(wandStack)) {
             return true;
         }
         for (var entry : cost.entries().entrySet()) {
-            if (WandItem.getVis(wandStack, entry.getKey()) < focusModifiedVisCost(wandStack, entry.getKey(), entry.getValue())) {
+            if (WandItem.getVis(wandStack, entry.getKey()) < modifiedFocusVisCost(wandStack, entry.getKey(), entry.getValue())) {
                 return false;
             }
         }
@@ -840,9 +1074,11 @@ public final class WandFocusRuntime {
 
     private static float excavationSpeed(BlockState state, int potency) {
         float speed = 0.05F + potency * 0.1F;
-        if (state.getMaterial() == net.minecraft.world.level.material.Material.STONE
-                || state.getMaterial() == net.minecraft.world.level.material.Material.METAL
-                || state.getMaterial() == net.minecraft.world.level.material.Material.GLASS) {
+        net.minecraft.world.level.material.Material material = state.getMaterial();
+        if (material == net.minecraft.world.level.material.Material.STONE
+                || material == net.minecraft.world.level.material.Material.GRASS
+                || material == net.minecraft.world.level.material.Material.DIRT
+                || material == net.minecraft.world.level.material.Material.SAND) {
             speed = 0.25F + potency * 0.25F;
         }
         if (state.is(Blocks.OBSIDIAN)) {
@@ -859,14 +1095,19 @@ public final class WandFocusRuntime {
         return out;
     }
 
-    private static void chainShock(Level level, LivingEntity source, int remaining, int potency, List<Integer> alreadyHit) {
+    private static void chainShock(Level level, Player caster, LivingEntity source, int remaining, int potency, List<Integer> alreadyHit) {
         if (remaining <= 0 || level.isClientSide) {
             return;
         }
-        AABB area = source.getBoundingBox().inflate(7.0D);
+        AABB area = source.getBoundingBox().inflate(8.0D);
         LivingEntity closest = null;
         double distance = Double.MAX_VALUE;
-        for (LivingEntity nearby : level.getEntitiesOfClass(LivingEntity.class, area, e -> e.isAlive() && !alreadyHit.contains(e.getId()))) {
+        for (LivingEntity nearby : level.getEntitiesOfClass(LivingEntity.class, area,
+                e -> e.isAlive()
+                        && e != caster
+                        && !alreadyHit.contains(e.getId())
+                        && source.distanceToSqr(e) <= 64.0D
+                        && canShockTarget(level, caster, e))) {
             double d = source.distanceToSqr(nearby);
             if (d < distance) {
                 closest = nearby;
@@ -874,14 +1115,21 @@ public final class WandFocusRuntime {
             }
         }
         if (closest != null) {
-            closest.hurt(DamageSource.LIGHTNING_BOLT, 4.0F + potency);
+            closest.hurt(DamageSource.playerAttack(caster), 4.0F + potency);
             if (level instanceof ServerLevel server) {
                 beam(server, source.getEyePosition(), closest.getEyePosition(), Aspect.AER.argbColor(), ParticleTypes.ELECTRIC_SPARK);
             }
             List<Integer> next = new ArrayList<>(alreadyHit);
             next.add(closest.getId());
-            chainShock(level, closest, remaining - 1, potency, next);
+            chainShock(level, caster, closest, remaining - 1, potency, next);
         }
+    }
+
+    private static boolean canShockTarget(Level level, Player caster, LivingEntity target) {
+        if (!(target instanceof Player)) {
+            return true;
+        }
+        return level.getServer() != null && level.getServer().isPvpAllowed();
     }
 
     private static AspectList primalCost(RandomSource random) {
@@ -897,6 +1145,19 @@ public final class WandFocusRuntime {
         cost.add(Aspect.ORDO, 50 + tc4Random.nextInt(5) * 50);
         cost.add(Aspect.PERDITIO, 50 + tc4Random.nextInt(5) * 50);
         return cost;
+    }
+
+    private static double equalTradeReach(Player player) {
+        // ItemFocusTrade uses the server interaction manager's current block
+        // reach instead of the longer generic focus ray. Resolve Forge's reach
+        // attribute by registry id so altered reach values remain compatible.
+        for (String id : new String[] {"block_reach", "reach_distance"}) {
+            Attribute attribute = ForgeRegistries.ATTRIBUTES.getValue(new net.minecraft.resources.ResourceLocation("forge", id));
+            if (attribute == null) continue;
+            AttributeInstance instance = player.getAttribute(attribute);
+            if (instance != null) return Math.max(1.0D, instance.getValue());
+        }
+        return 5.0D;
     }
 
     private static HitBundle ray(Level level, Player player, double distance) {
@@ -937,6 +1198,7 @@ public final class WandFocusRuntime {
             case PORTABLE_HOLE -> TC4Sounds.event("wind");
             case EQUAL_TRADE -> TC4Sounds.event("wand");
             case WARDING -> TC4Sounds.event("runicShieldEffect");
+            case HELLBAT, PECH_CURSE -> TC4Sounds.event("ice");
             case PRIMAL -> TC4Sounds.event("zap");
         };
     }

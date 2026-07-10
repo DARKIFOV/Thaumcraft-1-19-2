@@ -39,5 +39,7 @@ report = {
         'already processed chunks are skipped before queueing'
     ]
 }
-(ROOT / 'V11_62_2_INTEGRATED_SERVER_WORLD_LOAD_HOTFIX_REPORT.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+report_path = ROOT / 'build/reports/audits/V11_62_2_INTEGRATED_SERVER_WORLD_LOAD_HOTFIX_REPORT.json'
+report_path.parent.mkdir(parents=True, exist_ok=True)
+report_path.write_text(json.dumps(report, indent=2), encoding='utf-8')
 print('TC4 v11.62.2 integrated-server world-load hotfix audit: OK')

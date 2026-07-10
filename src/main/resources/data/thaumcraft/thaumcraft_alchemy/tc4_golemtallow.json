@@ -3,7 +3,7 @@
   "tc4_source": "addCrucibleRecipe",
   "research": "GOLEMTALLOW",
   "kind": "CRUCIBLE",
-  "catalyst": "thaumcraft:tc4_block_obsidian_totem_4",
+  "catalyst": "thaumcraft:tc4_block_tallow",
   "result": {
     "item": "thaumcraft:tc4_golem_tallow",
     "count": 1
@@ -12,5 +12,6 @@
     "HUMANUS": 8,
     "MOTUS": 8,
     "SPIRITUS": 8
-  }
+  },
+  "v11_62_22_strict_original": true
 }

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "thaumcraft:block/essentia_crystalizer",
+    "side": "thaumcraft:block/essentia_crystalizer",
+    "top": "thaumcraft:block/essentia_crystalizer",
+    "particle": "thaumcraft:block/essentia_crystalizer"
+  }
+}

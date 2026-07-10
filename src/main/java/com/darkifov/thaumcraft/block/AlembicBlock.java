@@ -1,8 +1,10 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
+import com.darkifov.thaumcraft.block.WandItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -50,11 +52,55 @@ public class AlembicBlock extends BaseEntityBlock {
         }
 
         if (held.isEmpty()) {
+            if (player.isShiftKeyDown()) {
+                if (alembic.aspectFilter() != null) {
+                    alembic.clearAspectFilter();
+                    ItemStack label = new ItemStack(ThaumcraftMod.JAR_LABEL.get());
+                    if (!player.getInventory().add(label)) {
+                        player.drop(label, false);
+                    }
+                    player.displayClientMessage(Component.literal("Alembic filter removed.").withStyle(ChatFormatting.GRAY), false);
+                    return InteractionResult.CONSUME;
+                }
+                if (!alembic.aspects().isEmpty()) {
+                    alembic.clearEssentia();
+                    player.displayClientMessage(Component.literal("Alembic emptied.").withStyle(ChatFormatting.DARK_PURPLE), false);
+                    return InteractionResult.CONSUME;
+                }
+            }
             player.displayClientMessage(
-                    Component.literal("Alembic | Capacity: " + alembic.aspects().totalAmount() + "/" + AlembicBlockEntity.CAPACITY + " | Aspects: ")
+                    Component.literal("Alembic | Capacity: " + alembic.aspects().totalAmount() + "/" + AlembicBlockEntity.CAPACITY
+                                    + " | Filter: " + (alembic.aspectFilter() == null ? "none" : alembic.aspectFilter().displayName())
+                                    + " | Blocked face: " + alembic.facing().getName() + " | Aspects: ")
                             .append(alembic.aspects().toComponent()),
                     false
             );
+            return InteractionResult.CONSUME;
+        }
+
+        if (held.getItem() instanceof WandItem && hit.getDirection().getAxis().isHorizontal()) {
+            alembic.setFacing(hit.getDirection());
+            player.swing(hand);
+            player.displayClientMessage(Component.literal("Alembic output face blocked: " + hit.getDirection().getName()).withStyle(ChatFormatting.AQUA), false);
+            return InteractionResult.CONSUME;
+        }
+
+        if (held.is(ThaumcraftMod.JAR_LABEL.get())) {
+            Aspect filter = alembic.storedAspect();
+            ItemStack other = player.getItemInHand(hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
+            if (filter == null && other.getItem() instanceof EssentiaPhialItem) {
+                filter = EssentiaPhialItem.getAspect(other);
+            }
+            if (filter == null) {
+                player.displayClientMessage(Component.literal("Fill the alembic, or hold a filled phial in the other hand, before applying a label.").withStyle(ChatFormatting.GRAY), false);
+                return InteractionResult.CONSUME;
+            }
+            if (alembic.setAspectFilter(filter)) {
+                if (!player.getAbilities().instabuild) {
+                    held.shrink(1);
+                }
+                player.displayClientMessage(Component.literal("Alembic filtered to " + filter.displayName()).withStyle(filter.color()), false);
+            }
             return InteractionResult.CONSUME;
         }
 

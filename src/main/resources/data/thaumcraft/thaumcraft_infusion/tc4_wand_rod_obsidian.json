@@ -1,0 +1,21 @@
+{
+  "tc4_key": "WandRodObsidian",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_obsidian",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:obsidian",
+  "components": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:terra_shard"
+  ],
+  "aspects": {
+    "TERRA": 12,
+    "PRAECANTATIO": 6,
+    "TENEBRAE": 6
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_obsidian",
+    "count": 1
+  }
+}

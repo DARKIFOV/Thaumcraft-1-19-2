@@ -1,0 +1,124 @@
+{
+  "version": "11.62.17",
+  "title": "Focus Shock and Focus Primal original parity map",
+  "strict_original": true,
+  "source_truth": [
+    "thaumcraft/common/items/wands/foci/ItemFocusShock.java",
+    "thaumcraft/common/entities/projectile/EntityShockOrb.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusPrimal.java",
+    "thaumcraft/common/entities/projectile/EntityPrimalOrb.java",
+    "thaumcraft/client/renderers/entity/RenderPrimalOrb.java",
+    "thaumcraft/common/blocks/BlockAiry.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java"
+  ],
+  "shock": {
+    "cooldown_ticks": {
+      "base": 5,
+      "chain": 10,
+      "earth": 20
+    },
+    "vis_centivis": {
+      "base": {
+        "AER": 25
+      },
+      "chain": {
+        "AER": 40,
+        "AQUA": 10
+      },
+      "earth": {
+        "AER": 75,
+        "TERRA": 25
+      }
+    },
+    "direct": {
+      "range": 20.0,
+      "base_damage": 4,
+      "chain_initial_damage": 6,
+      "potency_added": true,
+      "damage_source": "player attack",
+      "pvp_gate": true
+    },
+    "chain": {
+      "targets_per_level": 2,
+      "enlarge_targets_per_level": 2,
+      "hop_radius": 8.0,
+      "hop_damage": 4,
+      "nearest_unhit_target": true
+    },
+    "earth": {
+      "speed": 1.5,
+      "inaccuracy": 1.0,
+      "gravity": 0.05,
+      "lifetime_ticks": 500,
+      "base_area": 4,
+      "enlarge_area_per_level": 2,
+      "base_damage": 5,
+      "potency_multiplier": 1.33,
+      "electric_cells_attempted": 20,
+      "redirect_speed": 0.9
+    },
+    "adapter_difference": "Legacy FXLightningBolt tessellation is represented by the modern beam/particle bridge."
+  },
+  "primal": {
+    "cooldown_ticks": 10,
+    "vis_centivis_each_primal": "50 + random(0..4) * 50, stable within a 200 ms seed window",
+    "projectile": {
+      "speed": 0.5,
+      "inaccuracy": 1.0,
+      "gravity": 0.001,
+      "lifetime_ticks": 5000,
+      "wander_after_ticks": 20,
+      "wander_seed": "entity id + count",
+      "seek_radius": 16.0,
+      "steer_factor": 0.2,
+      "velocity_clamp": 0.2
+    },
+    "impact": {
+      "normal_explosion": 2.0,
+      "water_explosion": 4.0,
+      "normal_special_probability": "2% (nextInt(100) <= 1)",
+      "water_special_probability": "11% (nextInt(100) <= 10)",
+      "seeker_disables_special": true
+    },
+    "adapter_differences": [
+      "Taint fibres are placed, but live biome mutation is not yet implemented on the modern biome API.",
+      "Legacy GL11 twelve-ray renderer is approximated with modern additive-style billboards."
+    ]
+  },
+  "recipes": {
+    "shock": {
+      "pattern": [
+        "CQC",
+        "Q#Q",
+        "CQC"
+      ],
+      "#": "minecraft:cauldron",
+      "Q": "minecraft:quartz",
+      "C": "thaumcraft:aer_shard",
+      "aspects": {
+        "AER": 10,
+        "ORDO": 10,
+        "PERDITIO": 10
+      }
+    },
+    "primal": {
+      "pattern": [
+        "CQC",
+        "Q#Q",
+        "CQC"
+      ],
+      "#": "thaumcraft:primal_charm",
+      "Q": "minecraft:quartz",
+      "C": "minecraft:diamond",
+      "aspects": {
+        "AER": 25,
+        "AQUA": 25,
+        "TERRA": 25,
+        "IGNIS": 25,
+        "ORDO": 25,
+        "PERDITIO": 25
+      }
+    }
+  }
+}

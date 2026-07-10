@@ -12,13 +12,14 @@
   "pattern": [
     "III",
     "III",
-    "I"
+    " I "
   ],
   "key": {
     "I": "minecraft:iron_ingot"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecoarmor",
+    "item": "thaumcraft:tc4_golemdecomace",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

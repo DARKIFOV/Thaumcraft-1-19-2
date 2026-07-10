@@ -7,8 +7,14 @@ final class TC4ResearchText {
     private TC4ResearchText() {}
 
     static String pageText(String key) {
-        String raw = Component.translatable(key).getString();
-        return clean(raw);
+        return clean(rawPageText(key));
+    }
+
+    static String rawPageText(String key) {
+        if (key == null || key.isBlank()) {
+            return "";
+        }
+        return Component.translatable(key).getString();
     }
 
     static String clean(String raw) {
@@ -18,9 +24,24 @@ final class TC4ResearchText {
         String text = raw;
         text = text.replaceAll("(?i)<BR\\s*/?>", "\n");
         text = text.replaceAll("(?i)<LINE\\s*/?>", "\n\n");
-        text = text.replaceAll("(?i)<IMG>.*?</IMG>", "\n[image]\n");
+        text = text.replaceAll("(?i)<IMG>.*?</IMG>", "\n");
         text = text.replaceAll("(?i)<[^>]+>", "");
-        text = text.replace("§0", "").replace("§r", "");
+        text = stripMinecraftFormatting(text);
         return text.trim();
+    }
+
+    static String cleanInline(String raw) {
+        if (raw == null || raw.isBlank()) {
+            return "";
+        }
+        String text = raw;
+        text = text.replaceAll("(?i)<BR\\s*/?>", "\n");
+        text = text.replaceAll("(?i)<LINE\\s*/?>", "\n\n");
+        text = text.replaceAll("(?i)<[^>]+>", "");
+        return stripMinecraftFormatting(text).trim();
+    }
+
+    private static String stripMinecraftFormatting(String text) {
+        return text.replaceAll("§[0-9A-FK-ORa-fk-or]", "");
     }
 }

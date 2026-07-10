@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "thaumcraft:nitor_light"
+          "name": "thaumcraft:nitor"
         }
       ]
     }

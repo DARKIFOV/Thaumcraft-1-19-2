@@ -5,22 +5,23 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:stick",
   "ingredients": [
-    "minecraft:nether_wart"
+    "minecraft:quartz"
   ],
   "aspects": {
     "ORDO": 5
   },
   "pattern": [
-    "QQ",
-    "QQ",
-    "S"
+    " QQ",
+    " QQ",
+    "S  "
   ],
   "key": {
-    "Q": "minecraft:nether_wart",
+    "Q": "minecraft:quartz",
     "S": "minecraft:stick"
   },
   "result": {
     "item": "thaumcraft:tc4_ironbell",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

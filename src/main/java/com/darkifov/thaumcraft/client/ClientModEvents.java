@@ -4,30 +4,40 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.screen.ArcaneWorkbenchContainerScreen;
 import com.darkifov.thaumcraft.client.screen.BottomlessPouchScreen;
 import com.darkifov.thaumcraft.client.screen.FocusPouchScreen;
+import com.darkifov.thaumcraft.client.screen.FocalManipulatorScreen;
 import com.darkifov.thaumcraft.client.screen.GolemScreen;
 import com.darkifov.thaumcraft.client.screen.EssentiaDriveScreen;
 import com.darkifov.thaumcraft.client.screen.EssentiaTerminalScreen;
 import com.darkifov.thaumcraft.client.screen.OsmoticEnchanterScreen;
 import com.darkifov.thaumcraft.client.screen.PechTradeScreen;
 import com.darkifov.thaumcraft.client.screen.ResearchTableContainerScreen;
+import com.darkifov.thaumcraft.client.screen.DeconstructionTableScreen;
 import com.darkifov.thaumcraft.client.screen.TransvectorInterfaceScreen;
 import com.darkifov.thaumcraft.client.screen.ThaumatoriumScreen;
 import com.darkifov.thaumcraft.client.render.ArcanePedestalRenderer;
 import com.darkifov.thaumcraft.client.render.CrucibleRenderer;
 import com.darkifov.thaumcraft.client.render.AlembicRenderer;
+import com.darkifov.thaumcraft.client.render.AlchemicalCentrifugeRenderer;
+import com.darkifov.thaumcraft.client.render.EssentiaCrystalizerRenderer;
 import com.darkifov.thaumcraft.client.render.AuraNodeRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaJarRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaReservoirRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaTubeRenderer;
 import com.darkifov.thaumcraft.client.render.InfusionMatrixRenderer;
+import com.darkifov.thaumcraft.client.render.FocalManipulatorRenderer;
 import com.darkifov.thaumcraft.client.render.PechRenderer;
 import com.darkifov.thaumcraft.client.render.TaintCrawlerRenderer;
 import com.darkifov.thaumcraft.client.render.TC4BlockMobRenderer;
 import com.darkifov.thaumcraft.client.render.TC4FocusProjectileRenderer;
+import com.darkifov.thaumcraft.client.render.TC4FireBatRenderer;
+import com.darkifov.thaumcraft.client.render.TC4FrostShardRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchOrbRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchGuardianRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchCrabRenderer;
 import com.darkifov.thaumcraft.client.render.model.TC4EldritchBossLayerDefinitions;
+import com.darkifov.thaumcraft.client.render.model.TC4FireBatModel;
+import com.darkifov.thaumcraft.client.render.model.TC4ThaumGolemModel;
+import com.darkifov.thaumcraft.client.render.model.TC4GolemAccessoriesModel;
 import com.darkifov.thaumcraft.client.render.TC4EldritchWardenRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchGolemRenderer;
 import com.darkifov.thaumcraft.client.render.TC4CultistPortalRenderer;
@@ -38,12 +48,17 @@ import com.darkifov.thaumcraft.client.render.TC4EldritchTileRenderer;
 import com.darkifov.thaumcraft.client.render.TC4FortressArmorLayer;
 import com.darkifov.thaumcraft.client.render.TC4GogglesLayer;
 import com.darkifov.thaumcraft.client.render.ThaumGolemRenderer;
+import com.darkifov.thaumcraft.client.render.WardedBlockRenderer;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -56,14 +71,28 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
+            // v11.62.8 jar visual parity: TC4 jars use translucent glass and a
+            // block-entity liquid/label overlay, not an opaque full cube.
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.ESSENTIA_JAR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.VOID_ESSENTIA_JAR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.NITOR_LIGHT.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.GREATWOOD_LEAVES.get(), RenderType.cutoutMipped());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.SILVERWOOD_LEAVES.get(), RenderType.cutoutMipped());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.GREATWOOD_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.SILVERWOOD_SAPLING.get(), RenderType.cutout());
             BlockEntityRenderers.register(ThaumcraftMod.ARCANE_PEDESTAL_BLOCK_ENTITY.get(), ArcanePedestalRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ALEMBIC_BLOCK_ENTITY.get(), AlembicRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.ALCHEMICAL_CENTRIFUGE_BLOCK_ENTITY.get(), AlchemicalCentrifugeRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_CRYSTALIZER_BLOCK_ENTITY.get(), EssentiaCrystalizerRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), AuraNodeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), EssentiaJarRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_RESERVOIR_BLOCK_ENTITY.get(), EssentiaReservoirRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_TUBE_BLOCK_ENTITY.get(), EssentiaTubeRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.CRUCIBLE_BLOCK_ENTITY.get(), CrucibleRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.INFUSION_MATRIX_BLOCK_ENTITY.get(), InfusionMatrixRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.FOCAL_MANIPULATOR_BLOCK_ENTITY.get(), FocalManipulatorRenderer::new);
+            BlockEntityRenderers.register(ThaumcraftMod.WARDED_BLOCK_ENTITY.get(), WardedBlockRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ELDRITCH_CAP_BLOCK_ENTITY.get(), TC4EldritchTileRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ELDRITCH_LOCK_BLOCK_ENTITY.get(), TC4EldritchTileRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ELDRITCH_TRAP_BLOCK_ENTITY.get(), TC4EldritchTileRenderer::new);
@@ -84,15 +113,19 @@ public final class ClientModEvents {
             EntityRenderers.register(ThaumcraftMod.TAINTACLE.get(), ctx -> new TC4TaintacleRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.TAINTACLE_SMALL.get(), ctx -> new TC4TaintacleRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.TAINTACLE_GIANT.get(), TC4TaintacleGiantRenderer::new);
+            EntityRenderers.register(ThaumcraftMod.FIREBAT.get(), TC4FireBatRenderer::new);
+            EntityRenderers.register(ThaumcraftMod.FOCUS_PECH_BLAST.get(), ctx -> new TC4FocusProjectileRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.FOCUS_EMBER.get(), ctx -> new TC4FocusProjectileRenderer<>(ctx));
-            EntityRenderers.register(ThaumcraftMod.FOCUS_FROST_SHARD.get(), ctx -> new TC4FocusProjectileRenderer<>(ctx));
+            EntityRenderers.register(ThaumcraftMod.FOCUS_FROST_SHARD.get(), TC4FrostShardRenderer::new);
             EntityRenderers.register(ThaumcraftMod.FOCUS_EXPLOSIVE_ORB.get(), ctx -> new TC4FocusProjectileRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.FOCUS_SHOCK_ORB.get(), ctx -> new TC4FocusProjectileRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.FOCUS_PRIMAL_ORB.get(), ctx -> new TC4FocusProjectileRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.ELDRITCH_ORB.get(), ctx -> new TC4EldritchOrbRenderer<>(ctx));
             EntityRenderers.register(ThaumcraftMod.GOLEM_ORB.get(), ctx -> new TC4EldritchOrbRenderer<>(ctx));
             MenuScreens.register(ThaumcraftMod.ARCANE_WORKBENCH_MENU.get(), ArcaneWorkbenchContainerScreen::new);
+            MenuScreens.register(ThaumcraftMod.FOCAL_MANIPULATOR_MENU.get(), FocalManipulatorScreen::new);
             MenuScreens.register(ThaumcraftMod.RESEARCH_TABLE_MENU.get(), ResearchTableContainerScreen::new);
+            MenuScreens.register(ThaumcraftMod.DECONSTRUCTION_TABLE_MENU.get(), DeconstructionTableScreen::new);
             MenuScreens.register(ThaumcraftMod.THAUMATORIUM_MENU.get(), ThaumatoriumScreen::new);
             MenuScreens.register(ThaumcraftMod.PECH_TRADE_MENU.get(), PechTradeScreen::new);
             MenuScreens.register(ThaumcraftMod.ESSENTIA_TERMINAL_MENU.get(), EssentiaTerminalScreen::new);
@@ -106,8 +139,37 @@ public final class ClientModEvents {
     }
 
 
+    private static final int TC4_GREATWOOD_LEAF_TINT = 0x4F7E38;
+    private static final int TC4_SILVERWOOD_LEAF_TINT = 0xD9F0F0;
+
+    @SubscribeEvent
+    public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
+        // v11.62.7 magic-tree parity: TC4 greatwood leaves are a greyscale
+        // foliage mask and must be tinted on the client. Without this handler
+        // the block renders pale/white in-game. Keep silverwood nearly white-blue
+        // so its already-blue TC4 texture is preserved.
+        event.register((state, level, pos, tintIndex) -> tintIndex == 0 ? TC4_GREATWOOD_LEAF_TINT : FoliageColor.getDefaultColor(),
+                ThaumcraftMod.GREATWOOD_LEAVES.get());
+        event.register((state, level, pos, tintIndex) -> tintIndex == 0 ? TC4_SILVERWOOD_LEAF_TINT : 0xFFFFFF,
+                ThaumcraftMod.SILVERWOOD_LEAVES.get());
+    }
+
+    @SubscribeEvent
+    public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {
+        event.register((stack, tintIndex) -> tintIndex == 0 ? TC4_GREATWOOD_LEAF_TINT : 0xFFFFFF,
+                ThaumcraftMod.GREATWOOD_LEAVES.get());
+        event.register((stack, tintIndex) -> tintIndex == 0 ? TC4_SILVERWOOD_LEAF_TINT : 0xFFFFFF,
+                ThaumcraftMod.SILVERWOOD_LEAVES.get());
+        event.register((stack, tintIndex) -> tintIndex == 0 ? com.darkifov.thaumcraft.block.EssentiaCrystalItem.tint(stack) : 0xFFFFFF,
+                ThaumcraftMod.ESSENTIA_CRYSTAL.get());
+    }
+
+
     @SubscribeEvent
     public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(TC4FireBatModel.LAYER, TC4FireBatModel::createBodyLayer);
+        event.registerLayerDefinition(TC4ThaumGolemModel.LAYER, TC4ThaumGolemModel::createBodyLayer);
+        event.registerLayerDefinition(TC4GolemAccessoriesModel.LAYER, TC4GolemAccessoriesModel::createBodyLayer);
         event.registerLayerDefinition(TC4EldritchBossLayerDefinitions.ELDRITCH_GUARDIAN, TC4EldritchBossLayerDefinitions::createGuardianBodyLayer);
         event.registerLayerDefinition(TC4EldritchBossLayerDefinitions.ELDRITCH_WARDEN, TC4EldritchBossLayerDefinitions::createGuardianBodyLayer);
         event.registerLayerDefinition(TC4EldritchBossLayerDefinitions.ELDRITCH_GOLEM, TC4EldritchBossLayerDefinitions::createGolemBodyLayer);

@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "all": "thaumcraft:models/centrifuge",
+    "particle": "thaumcraft:models/centrifuge"
+  },
+  "elements": [
+    {
+      "from": [4, 0, 4],
+      "to": [12, 4, 12],
+      "faces": {
+        "north": {"texture": "#all"}, "south": {"texture": "#all"},
+        "east": {"texture": "#all"}, "west": {"texture": "#all"},
+        "up": {"texture": "#all"}, "down": {"texture": "#all"}
+      }
+    },
+    {
+      "from": [4, 12, 4],
+      "to": [12, 16, 12],
+      "faces": {
+        "north": {"texture": "#all"}, "south": {"texture": "#all"},
+        "east": {"texture": "#all"}, "west": {"texture": "#all"},
+        "up": {"texture": "#all"}, "down": {"texture": "#all"}
+      }
+    }
+  ]
+}

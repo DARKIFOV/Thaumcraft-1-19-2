@@ -1,7 +1,0 @@
-{
-  "stage": 166,
-  "status": "checked",
-  "drift_found": "Stage163 virtual inventory adapter was architectural drift from TC4 TileResearchTable",
-  "drift_fixed": "Stage165 real table BE/container now primary",
-  "remaining_adapters": "modern Forge API wrappers only"
-}

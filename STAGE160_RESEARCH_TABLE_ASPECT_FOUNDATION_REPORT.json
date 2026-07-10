@@ -1,8 +1,0 @@
-{
-  "stage": 160,
-  "title": "Research Table aspect decomposition foundation",
-  "version": "1.60.0",
-  "total_aspects": 48,
-  "compound_aspects": 42,
-  "summary": "AspectCombinationRegistry now exposes exact original TC4 decomposition/component-pair helpers and Research Note links use direct component/decomposition relations."
-}

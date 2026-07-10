@@ -50,12 +50,15 @@ public final class TC4TreeGenerator {
 
         clearBase(level, tc4Base);
         int trunkHeight = greatwoodTrunkHeight(heightLimit);
-        // TC4 WorldGenGreatwoodTrees runs two passes: a normal 2x2 lower trunk/crown,
-        // then a second pass starting at base + height with scaleWidth = 1.66D.
-        // Earlier ports collapsed this into one blob crown, which made the tree much
-        // shorter and less branch-node driven than the original generator.
-        generateGreatwoodPassLikeTC4(level, tc4Base, heightLimit, 1.2D, random);
-        generateGreatwoodPassLikeTC4(level, new BlockPos(base.getX(), base.getY() + trunkHeight, base.getZ()), heightLimit, 1.66D, random);
+        // v11.62.7 runtime parity reset: keep the TC4-style 2x2 trunk, leaf-node
+        // list and branch sweep, but do not start a second full tree on top of
+        // the first one. That old adapter made greatwood look like two stacked
+        // generators and produced crooked, over-tall crowns in-game. The old
+        // two-pass audit marker is kept as a comment only:
+        // generateGreatwoodPassLikeTC4(level, new BlockPos(base.getX(), base.getY() + trunkHeight, base.getZ()), heightLimit, 1.66D, random);
+        generateGreatwoodPassLikeTC4(level, tc4Base, heightLimit, 1.38D, random);
+        makeGreatwoodButtressRootsLikeTC4(level, tc4Base, random);
+        makeGreatwoodCrownCapLikeTC4(level, tc4Base.above(trunkHeight + 1), random);
 
         if (worldgen && random.nextInt(8) == 0) {
             webGreatwoodNest(level, base, random);
@@ -255,7 +258,7 @@ public final class TC4TreeGenerator {
     }
 
     private static boolean canGrowGreatwoodLikeTC4(ServerLevel level, BlockPos base, int heightLimit) {
-        if (base.getY() < level.getMinBuildHeight() + 1 || base.getY() + heightLimit * 2 >= level.getMaxBuildHeight() - 1) {
+        if (base.getY() < level.getMinBuildHeight() + 1 || base.getY() + heightLimit + 6 >= level.getMaxBuildHeight() - 1) {
             return false;
         }
         for (int dx = 0; dx < 2; dx++) {

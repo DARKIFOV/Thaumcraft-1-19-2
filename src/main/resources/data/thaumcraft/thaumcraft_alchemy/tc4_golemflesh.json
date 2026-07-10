@@ -1,0 +1,17 @@
+{
+  "tc4_key": "GolemFlesh",
+  "tc4_source": "addCrucibleRecipe",
+  "research": "GOLEMFLESH",
+  "kind": "CRUCIBLE",
+  "catalyst": "thaumcraft:flesh_block",
+  "result": {
+    "item": "thaumcraft:tc4_golem_flesh",
+    "count": 1
+  },
+  "aspects": {
+    "HUMANUS": 8,
+    "MOTUS": 8,
+    "SPIRITUS": 8
+  },
+  "v11_62_22_strict_original": true
+}

@@ -1,0 +1,22 @@
+{
+  "tc4_key": "TubeOneway",
+  "tc4_source": "addShapelessArcaneCraftingRecipe",
+  "research": "TUBEFILTER",
+  "tc4_kind": "ARCANE_SHAPELESS",
+  "catalyst": "thaumcraft:essentia_tube",
+  "ingredients": [
+    "thaumcraft:essentia_tube",
+    "minecraft:blue_dye"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 8,
+    "PERDITIO": 8
+  },
+  "pattern": [],
+  "result": {
+    "item": "thaumcraft:essentia_tube_oneway",
+    "count": 1
+  },
+  "v11_62_23_strict_original": true
+}

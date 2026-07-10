@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.block;
 import com.darkifov.thaumcraft.menu.FocusPouchContainer;
 import com.darkifov.thaumcraft.menu.FocusPouchMenu;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
+import com.darkifov.thaumcraft.wand.FocusUpgradeRuntime;
 import com.darkifov.thaumcraft.wand.WandFocusType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
@@ -302,8 +303,20 @@ public class FocusPouchItem extends Item {
     }
 
     private static String sortKey(WandFocusType type, ItemStack stack) {
-        // Original getSortingHelper is focus-defined; use original focus id plus saved NBT as a deterministic 1.19.2 adapter.
-        return type.id() + ":" + stack.getHoverName().getString();
+        // Exact original focus-defined prefixes followed by ItemFocusBasic#getSortingHelper.
+        String prefix = switch (type) {
+            case FIRE -> "AF";
+            case EXCAVATION -> "BE";
+            case FROST -> "BF";
+            case SHOCK -> "BL";
+            case EQUAL_TRADE -> "BT";
+            case PORTABLE_HOLE -> "BPH";
+            case WARDING -> "BWA";
+            case HELLBAT -> "HH";
+            case PECH_CURSE -> "PP";
+            case PRIMAL -> "FP";
+        };
+        return prefix + FocusUpgradeRuntime.sortingHelper(stack);
     }
 
     @Override

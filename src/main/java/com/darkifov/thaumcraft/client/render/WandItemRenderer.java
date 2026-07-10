@@ -292,6 +292,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
             case PORTABLE_HOLE -> originalItemTexture("focus_portablehole_depth");
             case WARDING -> originalItemTexture("focus_warding_depth");
             case PRIMAL -> originalItemTexture("focus_primal_depth");
+            case PECH_CURSE -> originalItemTexture("focus_pech_depth");
             default -> null;
         };
     }
@@ -300,6 +301,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         return switch (focus) {
             case EQUAL_TRADE -> originalItemTexture("focus_trade_orn");
             case WARDING -> originalItemTexture("focus_warding_orn");
+            case HELLBAT -> originalItemTexture("focus_hellbat_orn");
             default -> null;
         };
     }

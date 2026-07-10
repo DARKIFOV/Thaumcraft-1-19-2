@@ -6,24 +6,25 @@
   "catalyst": "thaumcraft:table",
   "ingredients": [
     "thaumcraft:thaumometer",
-    "minecraft:flint_and_steel",
-    "minecraft:apple"
+    "minecraft:golden_axe",
+    "thaumcraft:table",
+    "minecraft:golden_pickaxe"
   ],
   "aspects": {
     "PERDITIO": 20
   },
   "pattern": [
-    "S",
+    " S ",
     "ATP"
   ],
   "key": {
     "S": "thaumcraft:thaumometer",
-    "A": "minecraft:flint_and_steel",
+    "A": "minecraft:golden_axe",
     "T": "thaumcraft:table",
-    "P": "minecraft:apple"
+    "P": "minecraft:golden_pickaxe"
   },
   "result": {
-    "item": "thaumcraft:table",
+    "item": "thaumcraft:deconstruction_table",
     "count": 1
   }
 }

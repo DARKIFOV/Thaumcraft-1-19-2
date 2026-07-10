@@ -1,0 +1,20 @@
+{
+  "tc4_key": "WandCapSilver",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "CAP_silver",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_wand_cap_silver_inert",
+  "components": [
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_dust"
+  ],
+  "aspects": {
+    "POTENTIA": 8,
+    "AURAM": 4
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_wand_cap_silver",
+    "count": 1
+  }
+}

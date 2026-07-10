@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:tc4_block_thaumium"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:tc4_thaumiumingot",
+    "count": 9
+  }
+}

@@ -9,6 +9,9 @@ import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.ResearchRegistry;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLootAdapter;
+import com.darkifov.thaumcraft.wand.WandCapType;
+import com.darkifov.thaumcraft.wand.WandComponentData;
+import com.darkifov.thaumcraft.wand.WandRodType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -126,8 +129,60 @@ public class TC4ResearchComponentItem extends Item {
             tooltip.add(Component.literal("No recipes are added; original progression remains untouched unless you use it.")
                     .withStyle(ChatFormatting.GRAY));
         }
-        tooltip.add(Component.literal("TC4 1.7.10 source: " + originalSource).withStyle(ChatFormatting.DARK_PURPLE));
-        tooltip.add(Component.literal("Legacy sprite: " + legacyTexture).withStyle(ChatFormatting.DARK_GRAY));
+
+        WandComponentData.rodFromComponent(stack).ifPresent(rod -> appendRodTooltip(tooltip, rod));
+        WandComponentData.capFromComponent(stack).ifPresent(cap -> appendCapTooltip(tooltip, cap, false));
+        inertCap().ifPresent(cap -> appendCapTooltip(tooltip, cap, true));
+
+        // Source/debug metadata is useful for porting, but it should not clutter
+        // normal survival tooltips. Hold F3+H to see it through advanced tooltips.
+        if (flag.isAdvanced()) {
+            tooltip.add(Component.literal("TC4 1.7.10 source: " + originalSource).withStyle(ChatFormatting.DARK_PURPLE));
+            tooltip.add(Component.literal("Legacy sprite: " + legacyTexture).withStyle(ChatFormatting.DARK_GRAY));
+        }
         TC4RunicArmorHelper.appendTooltip(stack, tooltip);
+    }
+
+    private void appendRodTooltip(List<Component> tooltip, WandRodType rod) {
+        tooltip.add(Component.literal((rod.staff() ? "Staff rod" : "Wand rod")
+                + " • " + rod.baseCapacity() + " vis per primal aspect")
+                .withStyle(ChatFormatting.GOLD));
+        tooltip.add(Component.literal("Assembly cost: " + rod.craftCost() + " of each primal vis • Research: " + rod.researchKey())
+                .withStyle(ChatFormatting.GRAY));
+        if (rod.regeneratesAllPrimals()) {
+            tooltip.add(Component.literal("Regenerates every primal aspect up to 10% capacity.")
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
+        } else if (rod.regeneratedAspect() != null) {
+            tooltip.add(Component.literal("Regenerates " + rod.regeneratedAspect().displayName() + " up to 10% capacity.")
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
+        }
+    }
+
+    private void appendCapTooltip(List<Component> tooltip, WandCapType cap, boolean inert) {
+        if (inert) {
+            tooltip.add(Component.literal("Inert wand cap • activate it through the original infusion recipe.")
+                    .withStyle(ChatFormatting.DARK_GRAY));
+        } else {
+            tooltip.add(Component.literal("Wand cap • base vis cost " + Math.round(cap.visCostModifier() * 100.0F) + "%")
+                    .withStyle(ChatFormatting.GOLD));
+        }
+        tooltip.add(Component.literal("Assembly cost: " + cap.craftCost() + " of each primal vis • Research: " + cap.researchKey())
+                .withStyle(ChatFormatting.GRAY));
+        if (!inert && cap == WandCapType.COPPER) {
+            tooltip.add(Component.literal("Ordo and Perditio cost 100% instead of 110%.")
+                    .withStyle(ChatFormatting.AQUA));
+        } else if (!inert && cap == WandCapType.SILVER) {
+            tooltip.add(Component.literal("Aer, Terra, Ignis and Aqua cost 95%.")
+                    .withStyle(ChatFormatting.AQUA));
+        }
+    }
+
+    private java.util.Optional<WandCapType> inertCap() {
+        return switch (legacyTexture) {
+            case "wand_cap_silver_inert" -> java.util.Optional.of(WandCapType.SILVER);
+            case "wand_cap_thaumium_inert" -> java.util.Optional.of(WandCapType.THAUMIUM);
+            case "wand_cap_void_inert" -> java.util.Optional.of(WandCapType.VOID);
+            default -> java.util.Optional.empty();
+        };
     }
 }

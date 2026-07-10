@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cross",
   "textures": {
-    "all": "thaumcraft:block/nitor_light"
+    "cross": "thaumcraft:item/nitor",
+    "particle": "thaumcraft:item/nitor"
   }
 }

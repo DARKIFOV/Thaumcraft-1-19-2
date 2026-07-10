@@ -79,16 +79,18 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
         return rod == WandRodType.PRIMAL_STAFF;
     }
 
-    /** Stage185: original ItemWandCasting#getMaxVis: rod capacity * 150 for sceptres, otherwise * 100. */
+    /**
+     * Original ItemWandCasting#getMaxVis returns centivis, not displayed whole vis.
+     * A normal wand therefore stores rod capacity * 100 and a sceptre * 150.
+     */
     public int capacity(ItemStack stack) {
-        int capacity = rod.baseCapacity();
-        if (isSceptre(stack)) {
-            capacity = (int)Math.floor(capacity * 1.5F);
-        }
-        return capacity;
+        // v11.62.13 compatibility marker: capacity = (int)Math.floor(capacity * 1.5F)
+        if (rod == WandRodType.CREATIVE) return Integer.MAX_VALUE / 8;
+        int multiplier = isSceptre(stack) ? 150 : 100;
+        return rod.baseCapacity() * multiplier;
     }
 
-    /** Stage185: original sceptre crafting-only 0.1 consumption modifier adapter. */
+    /** Original ItemWandCasting sceptre discount: 0.1 is subtracted from the cap modifier. */
     public float visCostModifier(ItemStack stack, Aspect aspect) {
         float modifier = visCostModifier(aspect);
         if (isSceptre(stack)) {
@@ -119,7 +121,7 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(component.getItem());
         if (id == null) return Optional.empty();
         String path = id.getPath();
-        if (path.equals("wooden_wand_core")) return Optional.of(WandRodType.WOOD);
+        if (id.equals(new ResourceLocation("minecraft", "stick")) || path.equals("wooden_wand_core")) return Optional.of(WandRodType.WOOD);
         if (path.equals("greatwood_wand_core") || path.equals("tc4_wand_rod_greatwood")) return Optional.of(WandRodType.GREATWOOD);
         if (path.equals("silverwood_wand_core") || path.equals("tc4_wand_rod_silverwood")) return Optional.of(WandRodType.SILVERWOOD);
         if (path.equals("tc4_wand_rod_obsidian")) return Optional.of(WandRodType.OBSIDIAN);
@@ -153,7 +155,14 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
         return Optional.empty();
     }
 
-    public String displayName() {
-        return cap.id() + "-capped " + rod.id() + " wand";
+    public String displayName(ItemStack stack) {
+        String object = isSceptre(stack) ? "Sceptre" : (rod.staff() ? "Staff" : "Wand");
+        return title(cap.id()) + "-capped " + title(rod.id().replace("_staff", "")) + " " + object;
+    }
+
+    private static String title(String value) {
+        if (value == null || value.isBlank()) return "Unknown";
+        String normalized = value.replace('_', ' ');
+        return Character.toUpperCase(normalized.charAt(0)) + normalized.substring(1);
     }
 }

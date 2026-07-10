@@ -46,13 +46,22 @@ public final class TC4ResearchNoteCreator {
             return ItemStack.EMPTY;
         }
 
+        ItemStack paperSnapshot = paperSlot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(paperSlot).copy();
+        ItemStack toolsSnapshot = toolsSlot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(toolsSlot).copy();
         if (!creative) {
-            player.getInventory().getItem(paperSlot).shrink(1);
-            ScribingToolsItem.consumeInk(player.getInventory().getItem(toolsSlot), INK_COST);
+            ItemStack paper = player.getInventory().getItem(paperSlot);
+            ItemStack tools = player.getInventory().getItem(toolsSlot);
+            if (paper.isEmpty() || !paper.is(Items.PAPER) || !ScribingToolsItem.consumeInk(tools, INK_COST)) {
+                player.getInventory().setItem(paperSlot, paperSnapshot);
+                player.getInventory().setItem(toolsSlot, toolsSnapshot);
+                player.displayClientMessage(Component.literal("Research note creation failed; resources were restored.").withStyle(ChatFormatting.RED), false);
+                return ItemStack.EMPTY;
+            }
+            paper.shrink(1);
         }
 
         ItemStack note = new ItemStack(ThaumcraftMod.RESEARCH_NOTE.get());
-        ResearchNoteState.initialize(note, entry.key());
+        ResearchNoteState.initialize(note, entry.key(), player.getRandom().nextLong());
         note.setHoverName(Component.literal("Research Notes - " + entry.title()).withStyle(ChatFormatting.DARK_PURPLE));
         if (!player.getInventory().add(note)) {
             player.drop(note, false);

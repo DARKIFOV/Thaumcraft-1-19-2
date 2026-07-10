@@ -1,8 +1,10 @@
 package com.darkifov.thaumcraft.menu;
 
+import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
+import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipe;
 import com.darkifov.thaumcraft.arcane.TC4ArcaneWorkbenchParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,14 +13,35 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import com.darkifov.thaumcraft.wand.WandComponentData;
+import com.darkifov.thaumcraft.wand.WandCapType;
+import com.darkifov.thaumcraft.wand.WandRodType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
     private final Container workbench;
     private final Inventory playerInventory;
     private final BlockPos blockPos;
+    private final ContainerData arcaneData;
+
+    // v11.62.11: server-authoritative GuiArcaneWorkbench state. TC4 shows
+    // recipe costs even without a wand, while the real output slot exists only
+    // when the inserted non-staff wand can pay. These data slots synchronize the
+    // exact matched result/cost instead of re-guessing recipes on the client.
+    public static final int DATA_RECIPE_PRESENT = 0;
+    public static final int DATA_AFFORDABLE = 1;
+    public static final int DATA_GHOST_ITEM_ID = 2;
+    public static final int DATA_GHOST_COUNT = 3;
+    public static final int DATA_GHOST_ROD = 4;
+    public static final int DATA_GHOST_CAP = 5;
+    public static final int DATA_GHOST_SCEPTRE = 6;
+    public static final int DATA_COST_START = 7;
+    public static final int DATA_COUNT = DATA_COST_START + 6;
 
     /** Menu indices mirror original TC4 ContainerArcaneWorkbench. */
     public static final int MENU_SLOT_OUTPUT = 0;
@@ -31,15 +54,24 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
     public static final int MENU_HOTBAR_END = 46;
 
     public ArcaneWorkbenchMenu(int containerId, Inventory playerInventory, FriendlyByteBuf data) {
-        this(containerId, playerInventory, getContainer(playerInventory, data.readBlockPos()));
+        this(containerId, playerInventory, getContainer(playerInventory, data.readBlockPos()), new SimpleContainerData(DATA_COUNT));
     }
 
     public ArcaneWorkbenchMenu(int containerId, Inventory playerInventory, Container workbench) {
+        this(containerId, playerInventory, workbench, new SimpleContainerData(DATA_COUNT));
+    }
+
+    public ArcaneWorkbenchMenu(int containerId, Inventory playerInventory, Container workbench, ContainerData arcaneData) {
         super(ThaumcraftMod.ARCANE_WORKBENCH_MENU.get(), containerId);
         checkContainerSize(workbench, ArcaneWorkbenchBlockEntity.SIZE);
+        if (arcaneData.getCount() != DATA_COUNT) {
+            throw new IllegalArgumentException("Arcane Workbench data size must be " + DATA_COUNT);
+        }
         this.workbench = workbench;
         this.playerInventory = playerInventory;
         this.blockPos = workbench instanceof BlockEntity blockEntity ? blockEntity.getBlockPos() : BlockPos.ZERO;
+        this.arcaneData = arcaneData;
+        addDataSlots(arcaneData);
         workbench.startOpen(playerInventory.player);
 
         addSlot(new Slot(workbench, ArcaneWorkbenchBlockEntity.SLOT_OUTPUT, TC4ArcaneWorkbenchParity.OUTPUT_SLOT_X, TC4ArcaneWorkbenchParity.OUTPUT_SLOT_Y) {
@@ -89,6 +121,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         if (workbench instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench) {
             arcaneWorkbench.updateOutputPreview(playerInventory.player);
         }
+        refreshArcaneState();
     }
 
     private static Container getContainer(Inventory playerInventory, BlockPos pos) {
@@ -110,7 +143,92 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
         super.slotsChanged(container);
         if (container == workbench && workbench instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench) {
             arcaneWorkbench.updateOutputPreview(playerInventory.player);
+            refreshArcaneState();
         }
+    }
+
+    @Override
+    public void broadcastChanges() {
+        refreshArcaneState();
+        super.broadcastChanges();
+    }
+
+    private void refreshArcaneState() {
+        Player player = playerInventory.player;
+        if (player == null || player.level.isClientSide || !(workbench instanceof ArcaneWorkbenchBlockEntity arcaneWorkbench)) {
+            return;
+        }
+
+        for (int i = 0; i < DATA_COUNT; i++) {
+            arcaneData.set(i, 0);
+        }
+
+        ArcaneWorkbenchRecipe recipe = arcaneWorkbench.findMatchingArcaneRecipeForGrid(player);
+        if (recipe == null) {
+            return;
+        }
+
+        ItemStack result = arcaneWorkbench.previewArcaneResult(recipe);
+        if (result.isEmpty()) {
+            return;
+        }
+
+        arcaneData.set(DATA_RECIPE_PRESENT, 1);
+        arcaneData.set(DATA_AFFORDABLE, arcaneWorkbench.canAffordArcaneRecipe(player, recipe) ? 1 : 0);
+        arcaneData.set(DATA_GHOST_ITEM_ID, Math.max(0, Item.getId(result.getItem())));
+        arcaneData.set(DATA_GHOST_COUNT, Math.max(1, result.getCount()));
+
+        if (result.getItem() instanceof WandItem) {
+            WandComponentData components = WandComponentData.from(result);
+            arcaneData.set(DATA_GHOST_ROD, components.rod().ordinal() + 1);
+            arcaneData.set(DATA_GHOST_CAP, components.cap().ordinal() + 1);
+            arcaneData.set(DATA_GHOST_SCEPTRE, WandComponentData.isSceptre(result) ? 1 : 0);
+        }
+
+        for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
+            Aspect aspect = TC4ArcaneWorkbenchParity.PRIMALS[i];
+            arcaneData.set(DATA_COST_START + i, arcaneWorkbench.modifiedArcaneCost(recipe, aspect));
+        }
+    }
+
+    public boolean hasArcaneRecipe() {
+        return arcaneData.get(DATA_RECIPE_PRESENT) != 0;
+    }
+
+    public boolean canAffordArcaneRecipe() {
+        return arcaneData.get(DATA_AFFORDABLE) != 0;
+    }
+
+    public int arcaneCost(Aspect aspect) {
+        if (aspect == null) {
+            return 0;
+        }
+        for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
+            if (TC4ArcaneWorkbenchParity.PRIMALS[i] == aspect) {
+                return arcaneData.get(DATA_COST_START + i);
+            }
+        }
+        return 0;
+    }
+
+    public ItemStack ghostArcaneResult() {
+        if (!hasArcaneRecipe()) {
+            return ItemStack.EMPTY;
+        }
+        Item item = Item.byId(arcaneData.get(DATA_GHOST_ITEM_ID));
+        if (item == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack result = new ItemStack(item, Math.max(1, arcaneData.get(DATA_GHOST_COUNT)));
+        int rodIndex = arcaneData.get(DATA_GHOST_ROD) - 1;
+        int capIndex = arcaneData.get(DATA_GHOST_CAP) - 1;
+        if (result.getItem() instanceof WandItem
+                && rodIndex >= 0 && rodIndex < WandRodType.values().length
+                && capIndex >= 0 && capIndex < WandCapType.values().length) {
+            WandComponentData.write(result, WandRodType.values()[rodIndex], WandCapType.values()[capIndex]);
+            WandComponentData.setSceptre(result, arcaneData.get(DATA_GHOST_SCEPTRE) != 0);
+        }
+        return result;
     }
 
     @Override

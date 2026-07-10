@@ -1,0 +1,21 @@
+{
+  "tc4_key": "WandRodBlaze",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_blaze",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:blaze_rod",
+  "components": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:ignis_shard"
+  ],
+  "aspects": {
+    "IGNIS": 12,
+    "PRAECANTATIO": 6,
+    "BESTIA": 6
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_blaze",
+    "count": 1
+  }
+}

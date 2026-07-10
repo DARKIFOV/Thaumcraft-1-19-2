@@ -5,6 +5,13 @@ import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
+import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
+import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
+import com.darkifov.thaumcraft.blockentity.AlchemicalCentrifugeBlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import net.minecraft.ChatFormatting;
@@ -182,6 +189,59 @@ public final class InfusionProcessHelper {
             }
         }
 
+        return null;
+    }
+
+    /**
+     * v11.62.24 EssentiaHandler.drainEssentia parity adapter. The original matrix
+     * may begin before all essentia exists and each craftCycle searches nearby
+     * transport containers. Scan every supported TC4 endpoint in range instead of
+     * restricting the altar to ordinary jars only.
+     */
+    public static BlockPos consumeOneAspectSource(Level level, BlockPos matrixPos, Aspect aspect) {
+        if (level == null || matrixPos == null || aspect == null) {
+            return null;
+        }
+        List<BlockPos> candidates = new ArrayList<>();
+        for (BlockPos scan : BlockPos.betweenClosed(
+                matrixPos.offset(-RADIUS, -3, -RADIUS), matrixPos.offset(RADIUS, 3, RADIUS))) {
+            BlockEntity blockEntity = level.getBlockEntity(scan);
+            if (blockEntity instanceof EssentiaJarBlockEntity
+                    || blockEntity instanceof EssentiaReservoirBlockEntity
+                    || blockEntity instanceof AlembicBlockEntity
+                    || blockEntity instanceof EssentiaTubeBlockEntity
+                    || blockEntity instanceof AlchemicalCentrifugeBlockEntity
+                    || (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace && furnace.isAdvanced())) {
+                candidates.add(scan.immutable());
+            }
+        }
+        candidates.sort(Comparator
+                .comparingDouble((BlockPos pos) -> pos.distSqr(matrixPos))
+                .thenComparingInt(BlockPos::getY)
+                .thenComparingInt(BlockPos::getX)
+                .thenComparingInt(BlockPos::getZ));
+
+        for (BlockPos sourcePos : candidates) {
+            BlockEntity blockEntity = level.getBlockEntity(sourcePos);
+            int removed = 0;
+            if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+                removed = jar.takeFromContainerOriginal(aspect, 1) ? 1 : 0;
+            } else if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir) {
+                removed = reservoir.removeEssentia(aspect, 1);
+            } else if (blockEntity instanceof AlembicBlockEntity alembic) {
+                removed = alembic.removeEssentia(aspect, 1);
+            } else if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+                removed = tube.drainBufferForNetwork(aspect, 1);
+            } else if (blockEntity instanceof AlchemicalCentrifugeBlockEntity centrifuge
+                    && centrifuge.outputType(Direction.UP) == aspect) {
+                removed = centrifuge.takeOutput(aspect, 1, Direction.UP);
+            } else if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace && furnace.isAdvanced()) {
+                removed = furnace.removeUpTo(aspect, 1);
+            }
+            if (removed > 0) {
+                return sourcePos;
+            }
+        }
         return null;
     }
 

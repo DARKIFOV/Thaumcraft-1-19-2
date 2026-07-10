@@ -43,8 +43,10 @@ public final class AuraVisRelayNetwork {
     };
 
     private static final int PLAYER_RELAY_RADIUS = 8;
+    private static final int MACHINE_NETWORK_RADIUS = 8;
     private static final int RELAY_CHAIN_LIMIT = 32;
     private static final int NODE_SCAN_RADIUS = 12;
+    private static final int CENTIVIS_PER_NODE_POINT = 100;
 
     private AuraVisRelayNetwork() {
     }
@@ -96,7 +98,7 @@ public final class AuraVisRelayNetwork {
             if (current >= capacity) {
                 continue;
             }
-            int space = capacity - current;
+            int space = Math.max(0, (capacity - current + 99) / 100);
             int drained = source.drainToWand(aspect, Math.min(perAspectDrain, space));
             if (drained > 0) {
                 WandItem.addVis(wandStack, aspect, drained);
@@ -112,6 +114,45 @@ public final class AuraVisRelayNetwork {
 
         return movedTotal;
     }
+
+    /**
+     * 1.19.2 adapter for original VisNetHandler.drainVis used by machines such as
+     * the Focal Manipulator. Original energized nodes and relays expose an
+     * eight-block vis-network range and machine costs are measured in centivis.
+     * The local aura-node storage is whole vis points, so one point equals 100 cv.
+     */
+    public static int drainMachineVis(ServerLevel level, BlockPos machinePos, Aspect aspect, int requestCentivis) {
+        if (level == null || machinePos == null || aspect == null || !aspect.isPrimal()
+                || requestCentivis < CENTIVIS_PER_NODE_POINT) {
+            return 0;
+        }
+
+        int requestedPoints = Math.max(1, requestCentivis / CENTIVIS_PER_NODE_POINT);
+        Optional<AuraNodeBlockEntity> source = findEnergizedNodeNearWithAspect(
+                level, machinePos, MACHINE_NETWORK_RADIUS, aspect);
+        BlockPos relayPos = null;
+
+        if (source.isEmpty()) {
+            Optional<BlockPos> relay = findNearestRelay(level, machinePos, MACHINE_NETWORK_RADIUS);
+            if (relay.isPresent()) {
+                Optional<AuraNodeBlockEntity> connected = findConnectedEnergizedNodeWithAspect(level, relay.get(), aspect);
+                if (connected.isPresent()) {
+                    source = connected;
+                    relayPos = relay.get();
+                }
+            }
+        }
+
+        if (source.isEmpty()) return 0;
+        AuraNodeBlockEntity node = source.get();
+        int drainedPoints = node.drainToWand(aspect, requestedPoints);
+        if (drainedPoints <= 0) return 0;
+
+        node.markWandDrain(aspect, null);
+        playMachineRelayFx(level, machinePos, relayPos, node.getBlockPos(), aspect);
+        return Math.min(requestCentivis, drainedPoints * CENTIVIS_PER_NODE_POINT);
+    }
+
 
     public static Optional<BlockPos> findNearestRelay(ServerLevel level, BlockPos origin, int radius) {
         BlockPos best = null;
@@ -130,6 +171,29 @@ public final class AuraVisRelayNetwork {
         }
 
         return Optional.ofNullable(best);
+    }
+
+    private static Optional<AuraNodeBlockEntity> findConnectedEnergizedNodeWithAspect(
+            ServerLevel level, BlockPos relayStart, Aspect aspect) {
+        Set<BlockPos> visited = new HashSet<>();
+        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
+        queue.add(relayStart.immutable());
+        visited.add(relayStart.immutable());
+
+        while (!queue.isEmpty() && visited.size() <= RELAY_CHAIN_LIMIT) {
+            BlockPos relay = queue.removeFirst();
+            Optional<AuraNodeBlockEntity> nearbyNode = findEnergizedNodeNearWithAspect(
+                    level, relay, NODE_SCAN_RADIUS, aspect);
+            if (nearbyNode.isPresent()) return nearbyNode;
+
+            for (Direction direction : Direction.values()) {
+                BlockPos next = relay.relative(direction);
+                if (visited.contains(next) || !isRelay(level, next)) continue;
+                visited.add(next.immutable());
+                queue.add(next.immutable());
+            }
+        }
+        return Optional.empty();
     }
 
     public static Optional<AuraNodeBlockEntity> findConnectedEnergizedNode(ServerLevel level, BlockPos relayStart) {
@@ -157,6 +221,27 @@ public final class AuraVisRelayNetwork {
         }
 
         return Optional.empty();
+    }
+
+    private static Optional<AuraNodeBlockEntity> findEnergizedNodeNearWithAspect(
+            ServerLevel level, BlockPos origin, int radius, Aspect aspect) {
+        AuraNodeBlockEntity best = null;
+        double bestDistance = Double.MAX_VALUE;
+        for (BlockPos mutable : BlockPos.betweenClosed(
+                origin.offset(-radius, -radius, -radius), origin.offset(radius, radius, radius))) {
+            BlockPos pos = mutable.immutable();
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (!(blockEntity instanceof AuraNodeBlockEntity node)
+                    || !node.isEnergized() || node.aspects().get(aspect) <= 0) {
+                continue;
+            }
+            double distance = distanceSquared(pos, origin);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                best = node;
+            }
+        }
+        return Optional.ofNullable(best);
     }
 
     private static Optional<AuraNodeBlockEntity> findEnergizedNodeNear(ServerLevel level, BlockPos relayPos, int radius) {
@@ -222,6 +307,27 @@ public final class AuraVisRelayNetwork {
         double dy = a.getY() - b.getY();
         double dz = a.getZ() - b.getZ();
         return dx * dx + dy * dy + dz * dz;
+    }
+
+    private static void playMachineRelayFx(ServerLevel level, BlockPos machinePos, BlockPos relayPos,
+                                           BlockPos nodePos, Aspect aspect) {
+        int color = aspect.nativeColor();
+        Vector3f rgb = new Vector3f(
+                ((color >> 16) & 0xFF) / 255.0F,
+                ((color >> 8) & 0xFF) / 255.0F,
+                (color & 0xFF) / 255.0F);
+        level.playSound(null, machinePos, TC4Sounds.event("wand"), SoundSource.BLOCKS, 0.12F, 1.25F);
+        level.sendParticles(new DustParticleOptions(rgb, 0.75F),
+                machinePos.getX() + 0.5D, machinePos.getY() + 1.05D, machinePos.getZ() + 0.5D,
+                3, 0.18D, 0.15D, 0.18D, 0.01D);
+        if (relayPos != null) {
+            level.sendParticles(new DustParticleOptions(rgb, 0.65F),
+                    relayPos.getX() + 0.5D, relayPos.getY() + 0.55D, relayPos.getZ() + 0.5D,
+                    2, 0.12D, 0.12D, 0.12D, 0.01D);
+        }
+        level.sendParticles(new DustParticleOptions(rgb, 0.65F),
+                nodePos.getX() + 0.5D, nodePos.getY() + 0.5D, nodePos.getZ() + 0.5D,
+                2, 0.16D, 0.16D, 0.16D, 0.01D);
     }
 
     private static void playRelayFx(ServerLevel level, BlockPos relayPos, BlockPos nodePos, BlockPos playerPos) {

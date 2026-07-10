@@ -1,44 +1,33 @@
 package com.darkifov.thaumcraft.client.screen;
 
 import com.darkifov.thaumcraft.Aspect;
-import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.block.WandItem;
-import com.darkifov.thaumcraft.client.ClientResearchData;
-import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipePage;
-import com.darkifov.thaumcraft.client.arcane.ClientArcaneRecipeRegistry;
 import com.darkifov.thaumcraft.arcane.TC4ArcaneWorkbenchParity;
+import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.EnumMap;
-import java.util.Locale;
-import java.util.Map;
 
 /**
- * Stage189 original TC4 GuiArcaneWorkbench adapter.
+ * v11.62.11 strict port of TC4 GuiArcaneWorkbench.
  *
- * Source of truth: thaumcraft.client.gui.GuiArcaneWorkbench.
- * There is no recipe browser, search field or client-side Craft button in TC4.
- * The server-side container previews the current 3x3 grid output and this screen
- * only renders gui_arcaneworkbench plus the six primal aspect costs around it.
+ * The server menu synchronizes the exact matched recipe, modified primal costs,
+ * affordability and ghost result. The client no longer tries to infer a recipe
+ * from loose item ids, which was the main source of wrong icons/costs and stale
+ * output in the previous rebuild.
  */
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-    /**
-     * Stage683 compatibility markers: TC4ArcaneWorkbenchParity.GUI_WIDTH / TC4ArcaneWorkbenchParity.ASPECT_LOCS.
-     * Stage189 GitHub audit marker and runtime source for original TC4 aspect icon centers.
-     * Original GuiArcaneWorkbench uses these exact six coordinates around the crafting grid.
-     */
     private static final int[][] ORIGINAL_ASPECT_LOCS = new int[][]{
             {72, 21},
             {24, 43},
@@ -50,112 +39,159 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
 
     public ArcaneWorkbenchContainerScreen(ArcaneWorkbenchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        imageWidth = 190;
-        imageHeight = 234;
+        imageWidth = TC4ArcaneWorkbenchParity.GUI_WIDTH;
+        imageHeight = TC4ArcaneWorkbenchParity.GUI_HEIGHT;
         inventoryLabelY = TC4ArcaneWorkbenchParity.PLAYER_INV_Y;
     }
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos, topPos, OriginalGuiTextures.ARCANE_WORKBENCH, 0, 0, imageWidth, imageHeight, 256, 256);
+        OriginalGuiTextures.blitOriginalRegion(
+                poseStack,
+                leftPos,
+                topPos,
+                OriginalGuiTextures.ARCANE_WORKBENCH,
+                0,
+                0,
+                imageWidth,
+                imageHeight,
+                256,
+                256
+        );
     }
 
     @Override
     protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-        // Original GuiArcaneWorkbench leaves the foreground layer empty.
+        // Original GuiArcaneWorkbench has no foreground title labels.
     }
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderBackground(poseStack);
         super.render(poseStack, mouseX, mouseY, partialTick);
-        renderOriginalAspectCosts(poseStack, partialTick);
-        renderOriginalInsufficientVis(poseStack);
+        renderOriginalAspectCosts(poseStack);
+        renderOriginalInsufficientVisGhost(poseStack);
         renderTooltip(poseStack, mouseX, mouseY);
         renderOriginalAspectHover(poseStack, mouseX, mouseY);
+        renderGhostResultHover(poseStack, mouseX, mouseY);
     }
 
-    private void renderOriginalAspectCosts(PoseStack poseStack, float partialTick) {
-        // Stage443-462: original GuiArcaneWorkbench shows the primal aspect cost
-        // for the shaped grid as soon as the recipe is present.  Do not wait for
-        // a non-empty output slot only; fall back to output lookup for server
-        // preview desync cases, but keep all crafting logic server-side.
-        ClientArcaneRecipePage recipe = recipeForVisibleGrid();
-        if (recipe == null) {
-            recipe = recipeForOutput();
-        }
-        if (recipe == null) {
-            return;
-        }
-
-        Map<Aspect, Integer> costs = parseAspectCosts(recipe.visCost());
-        if (costs.isEmpty()) {
+    private void renderOriginalAspectCosts(PoseStack poseStack) {
+        if (!menu.hasArcaneRecipe()) {
             return;
         }
 
         ItemStack wand = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_WAND).getItem();
+        int ticks = Minecraft.getInstance().player == null ? 0 : Minecraft.getInstance().player.tickCount;
+
         for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
             Aspect aspect = TC4ArcaneWorkbenchParity.PRIMALS[i];
-            int baseAmount = costs.getOrDefault(aspect, 0);
-            if (baseAmount <= 0) {
+            int amount = menu.arcaneCost(aspect);
+            if (amount <= 0) {
                 continue;
             }
 
-            int amount = wand.getItem() instanceof WandItem ? WandItem.modifiedVisCost(wand, aspect, baseAmount) : baseAmount;
-            boolean enough = !(wand.getItem() instanceof WandItem) || WandItem.getVis(wand, aspect) >= amount || WandItem.hasInfiniteVis(wand);
+            boolean enough = wand.getItem() instanceof WandItem
+                    && (WandItem.hasInfiniteVis(wand) || WandItem.getVis(wand, aspect) >= amount);
+            float alpha = enough ? 1.0F : 0.3F + Mth.sin((ticks + i * 10) / 2.0F) * 0.2F;
             int x = leftPos + ORIGINAL_ASPECT_LOCS[i][0] - 8;
             int y = topPos + ORIGINAL_ASPECT_LOCS[i][1] - 8;
-            // Stage383-402: original GuiArcaneWorkbench displays primal aspect icons from
-            // the TC4 aspect texture set, not modern flat color boxes.
-            ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
+            ResourceLocation texture = new ResourceLocation(
+                    ThaumcraftMod.MOD_ID,
+                    "textures/aspects/" + aspect.id() + ".png"
+            );
+
+            RenderSystem.enableBlend();
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, Mth.clamp(alpha, 0.1F, 1.0F));
             OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
-            if (!enough) {
-                fill(poseStack, x, y, x + 16, y + 16, 0x88000000);
-            }
-            drawString(poseStack, font, Component.literal(String.valueOf(amount)), x + 11, y + 9, enough ? 0xFFFFFF : 0x9E5A3B);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+            int textColor = enough ? 0xFFFFFF : 0x9A6A62;
+            drawString(poseStack, font, Component.literal(WandItem.formatVis(amount)), x + 11, y + 9, textColor);
         }
     }
 
-    private void renderOriginalInsufficientVis(PoseStack poseStack) {
-        // Stage683-702: original TC4 does not draw a modern text warning inside
-        // GuiArcaneWorkbench.  The output slot may still preview the recipe while
-        // the server-side Slot#mayPickup gate blocks taking it without enough vis.
+    /**
+     * Original TC4 leaves the real output slot empty when the wand cannot pay,
+     * then draws a dim non-collectible recipe result and the tiny warning text.
+     */
+    private void renderOriginalInsufficientVisGhost(PoseStack poseStack) {
+        if (!menu.hasArcaneRecipe() || menu.canAffordArcaneRecipe()) {
+            return;
+        }
+
+        ItemStack wand = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_WAND).getItem();
+        if (!(wand.getItem() instanceof WandItem)) {
+            return;
+        }
+
+        ItemStack ghost = menu.ghostArcaneResult();
+        if (ghost.isEmpty()) {
+            return;
+        }
+
+        int x = leftPos + TC4ArcaneWorkbenchParity.OUTPUT_SLOT_X;
+        int y = topPos + TC4ArcaneWorkbenchParity.OUTPUT_SLOT_Y;
+        // GuiArcaneWorkbench used GL color (0.33, 0.33, 0.33, 0.66) for the
+        // unaffordable result. Tint the item itself instead of covering it with
+        // the previous rebuild's opaque debug rectangle.
+        RenderSystem.enableBlend();
+        RenderSystem.setShaderColor(0.33F, 0.33F, 0.33F, 0.66F);
+        itemRenderer.renderAndDecorateItem(ghost, x, y);
+        itemRenderer.renderGuiItemDecorations(font, ghost, x, y);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        poseStack.pushPose();
+        poseStack.translate(leftPos + 168.0F, topPos + 46.0F, 300.0F);
+        poseStack.scale(0.5F, 0.5F, 1.0F);
+        Component warning = Component.literal("Insufficient vis");
+        int width = font.width(warning);
+        drawString(poseStack, font, warning, -width / 2, 0, 0xEE6E6E);
+        poseStack.popPose();
     }
 
-
     private void renderOriginalAspectHover(PoseStack poseStack, int mouseX, int mouseY) {
-        int localX = mouseX - leftPos;
-        int localY = mouseY - topPos;
-        Aspect hovered = aspectAtOriginalArcaneLoc(localX, localY);
+        if (!menu.hasArcaneRecipe()) {
+            return;
+        }
+
+        Aspect hovered = aspectAtOriginalArcaneLoc(mouseX - leftPos, mouseY - topPos);
         if (hovered == null) {
             return;
         }
-        ClientArcaneRecipePage recipe = recipeForVisibleGrid();
-        if (recipe == null) {
-            recipe = recipeForOutput();
-        }
-        if (recipe == null) {
+
+        int amount = menu.arcaneCost(hovered);
+        if (amount <= 0) {
             return;
         }
-        int baseAmount = parseAspectCosts(recipe.visCost()).getOrDefault(hovered, 0);
-        if (baseAmount <= 0) {
-            return;
-        }
+
         ItemStack wand = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_WAND).getItem();
-        int amount = wand.getItem() instanceof WandItem ? WandItem.modifiedVisCost(wand, hovered, baseAmount) : baseAmount;
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.literal(hovered.displayName() + " " + amount).withStyle(ChatFormatting.LIGHT_PURPLE));
+        lines.add(Component.literal(hovered.displayName() + " " + WandItem.formatVis(amount)).withStyle(ChatFormatting.LIGHT_PURPLE));
         if (wand.getItem() instanceof WandItem && !WandItem.hasInfiniteVis(wand)) {
             int stored = WandItem.getVis(wand, hovered);
-            lines.add(Component.literal(String.valueOf(stored)).withStyle(ChatFormatting.DARK_PURPLE));
-            if (stored < amount) {
-                // Stage683-702 keeps original TC4 behaviour: no modern missing-vis text is drawn here.
-            }
+            lines.add(Component.literal(WandItem.formatVis(stored) + " / " + WandItem.formatVis(amount)).withStyle(
+                    stored >= amount ? ChatFormatting.DARK_PURPLE : ChatFormatting.RED
+            ));
         }
         renderComponentTooltip(poseStack, lines, mouseX, mouseY);
     }
 
-    // Stage703 audit marker: TC4ArcaneWorkbenchParity.aspectAt
+    private void renderGhostResultHover(PoseStack poseStack, int mouseX, int mouseY) {
+        if (!menu.hasArcaneRecipe() || menu.canAffordArcaneRecipe()) {
+            return;
+        }
+        int localX = mouseX - leftPos;
+        int localY = mouseY - topPos;
+        if (!TC4ArcaneWorkbenchParity.insideOutputSlot(localX, localY)) {
+            return;
+        }
+        ItemStack ghost = menu.ghostArcaneResult();
+        if (!ghost.isEmpty()) {
+            renderTooltip(poseStack, ghost, mouseX, mouseY);
+        }
+    }
+
     private Aspect aspectAtOriginalArcaneLoc(int mouseX, int mouseY) {
         for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
             int x = ORIGINAL_ASPECT_LOCS[i][0] - TC4ArcaneWorkbenchParity.ASPECT_HOVER_RADIUS;
@@ -166,146 +202,5 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
             }
         }
         return null;
-    }
-
-    private ClientArcaneRecipePage recipeForOutput() {
-        ItemStack output = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_OUTPUT).getItem();
-        if (output.isEmpty()) {
-            return null;
-        }
-        ResourceLocation outputId = ForgeRegistries.ITEMS.getKey(output.getItem());
-        if (outputId == null) {
-            return null;
-        }
-        for (ClientArcaneRecipePage page : ClientArcaneRecipeRegistry.pages()) {
-            if (!ClientResearchData.hasResearch(page.research())) {
-                continue;
-            }
-            if (outputId.toString().equals(page.resultId())) {
-                return page;
-            }
-        }
-        return null;
-    }
-
-    private ClientArcaneRecipePage recipeForVisibleGrid() {
-        for (ClientArcaneRecipePage page : ClientArcaneRecipeRegistry.pages()) {
-            if (!ClientResearchData.hasResearch(page.research())) {
-                continue;
-            }
-            if (matchesVisibleGrid(page)) {
-                return page;
-            }
-        }
-        return null;
-    }
-
-    private boolean matchesVisibleGrid(ClientArcaneRecipePage page) {
-        String[] rows = page.patternRows();
-        if (rows == null || rows.length == 0) {
-            return false;
-        }
-        Map<Character, String> key = inferredPatternMap(page);
-        for (int row = 0; row < 3; row++) {
-            String line = row < rows.length ? rows[row] : "";
-            for (int col = 0; col < 3; col++) {
-                char symbol = col < line.length() ? line.charAt(col) : ' ';
-                Slot slot = menu.getSlot(ArcaneWorkbenchMenu.MENU_SLOT_GRID_START + row * 3 + col);
-                ItemStack stack = slot.getItem();
-                if (symbol == ' ') {
-                    if (!stack.isEmpty()) return false;
-                    continue;
-                }
-                String required = key.get(symbol);
-                ResourceLocation actual = ForgeRegistries.ITEMS.getKey(stack.getItem());
-                if (required == null || actual == null || !required.equals(actual.toString())) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private Map<Character, String> inferredPatternMap(ClientArcaneRecipePage page) {
-        Map<Character, String> result = new java.util.LinkedHashMap<>();
-        java.util.List<Character> symbols = new java.util.ArrayList<>();
-        for (String row : page.patternRows()) {
-            for (int i = 0; i < row.length(); i++) {
-                char symbol = row.charAt(i);
-                if (symbol != ' ' && !symbols.contains(symbol)) {
-                    symbols.add(symbol);
-                }
-            }
-        }
-        Character catalyst = inferCatalystSymbol(page.patternRows(), symbols, page.ingredientIds().length);
-        int ingredientIndex = 0;
-        for (Character symbol : symbols) {
-            if (catalyst != null && catalyst.equals(symbol)) {
-                result.put(symbol, page.catalystId());
-            } else if (page.ingredientIds().length == 1) {
-                result.put(symbol, page.ingredientIds()[0]);
-            } else if (ingredientIndex < page.ingredientIds().length) {
-                result.put(symbol, page.ingredientIds()[ingredientIndex++]);
-            }
-        }
-        return result;
-    }
-
-    private Character inferCatalystSymbol(String[] rows, java.util.List<Character> symbols, int ingredientCount) {
-        if (symbols.isEmpty()) return null;
-        if (ingredientCount == 0 && symbols.size() == 1) return symbols.get(0);
-        if (symbols.size() == ingredientCount + 1 || (ingredientCount == 1 && symbols.size() == 2)) {
-            if (rows.length > 1 && rows[1].length() > 1) {
-                char center = rows[1].charAt(1);
-                if (center != ' ' && countSymbol(rows, center) == 1) return center;
-            }
-            Character rarest = null;
-            int rarestCount = Integer.MAX_VALUE;
-            for (Character symbol : symbols) {
-                int count = countSymbol(rows, symbol);
-                if (count < rarestCount) {
-                    rarest = symbol;
-                    rarestCount = count;
-                }
-            }
-            return rarest;
-        }
-        return null;
-    }
-
-    private int countSymbol(String[] rows, char symbol) {
-        int count = 0;
-        for (String row : rows) {
-            for (int i = 0; i < row.length(); i++) {
-                if (row.charAt(i) == symbol) count++;
-            }
-        }
-        return count;
-    }
-
-    private Map<Aspect, Integer> parseAspectCosts(String text) {
-        Map<Aspect, Integer> costs = new EnumMap<>(Aspect.class);
-        if (text == null || text.isBlank() || text.equals("none")) {
-            return costs;
-        }
-        String lower = text.toLowerCase(Locale.ROOT);
-        for (Aspect aspect : TC4ArcaneWorkbenchParity.PRIMALS) {
-            String display = aspect.displayName().toLowerCase(Locale.ROOT);
-            String id = aspect.id().toLowerCase(Locale.ROOT);
-            int idx = lower.indexOf(display);
-            if (idx < 0) idx = lower.indexOf(id);
-            if (idx < 0) continue;
-            String tail = lower.substring(idx + (lower.startsWith(display, idx) ? display.length() : id.length())).trim();
-            StringBuilder digits = new StringBuilder();
-            for (int i = 0; i < tail.length(); i++) {
-                char ch = tail.charAt(i);
-                if (Character.isDigit(ch)) digits.append(ch);
-                else if (digits.length() > 0) break;
-            }
-            if (digits.length() > 0) {
-                costs.put(aspect, Integer.parseInt(digits.toString()));
-            }
-        }
-        return costs;
     }
 }

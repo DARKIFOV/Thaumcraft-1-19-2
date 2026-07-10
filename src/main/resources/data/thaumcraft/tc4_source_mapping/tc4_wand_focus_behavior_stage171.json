@@ -30,11 +30,10 @@
       ]
     },
     "shock": {
-      "original_cost": "AIR 25",
-      "adapter": "ray lightning damage, weakness, chain pulse",
+      "original_cost": "AIR 25; chain AIR 40 + WATER 10; earth AIR 75 + EARTH 25",
+      "adapter": "v11.62.17 direct lightning, recursive nearest-target chain and redirectable Earth Shock projectile with BlockAiry-meta-10 electric ground adapter",
       "upgrades_unresolved": [
-        "chainlightning",
-        "earthshock"
+        "legacy FXLightningBolt geometry is represented through the modern synchronized beam/particle bridge"
       ]
     },
     "excavation": {
@@ -53,13 +52,17 @@
       ]
     },
     "primal": {
-      "original_cost": "random 50..250 of each primal aspect",
-      "adapter": "TC4PrimalOrbEntity projectile impact/seeker behavior adapter; no Stage171 fake ray effect remains"
+      "original_cost": "stable 200 ms random 50..250 of each primal aspect",
+      "adapter": "v11.62.17 TC4PrimalOrbEntity with original speed/gravity, deterministic wandering, squared-distance seeker steering, water explosion and rare node/taint branches",
+      "upgrades_unresolved": [
+        "runtime biome mutation for taint splosion; exact legacy GL ray geometry"
+      ]
     }
   },
   "no_fake_replacements": true,
   "stage177_update": {
     "equal_trade_adapter": "replaced Stage171 3x3 planar placeholder with original WandManager/IArchitect area NBT and connected-swap traversal in FocusArchitectRuntime",
-    "primal_adapter": "Stage178 moved primal impact behavior into TC4PrimalOrbEntity and removed Stage171 placeholder ray effect methods"
+    "primal_adapter": "Stage178 moved primal impact behavior into TC4PrimalOrbEntity and removed Stage171 placeholder ray effect methods",
+    "stage_v11_62_17": "Shock and Primal temporary behaviors were replaced by original-source-derived 1.19.2 adapters; no weakness effect or invented primal aspect/color remains."
   }
 }

@@ -845,11 +845,29 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return !(blockEntity instanceof EssentiaTubeBlockEntity tube) || tube.allowsOutputTo(direction);
     }
 
+    private static boolean jarFaceIsOriginalTop(Direction sideFromJar) {
+        return EssentiaTubeConnections.isOriginalJarTopFace(sideFromJar);
+    }
+
     private int originalDestinationSuction(Level level, BlockPos tubePos, Direction direction, Aspect aspect) {
         if (!EssentiaSuctionResolver.sideAllows(level, tubePos, direction) || !tubeAllowsOutput(tubePos, direction)) {
             return EssentiaSuction.SOURCE_NONE;
         }
-        BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
+        BlockPos targetPos = tubePos.relative(direction);
+        Direction targetFace = direction.getOpposite();
+        ThaumatoriumBlockEntity thaumatorium = ThaumatoriumBlockEntity.resolveAt(level, targetPos);
+        if (thaumatorium != null) {
+            Aspect wanted = thaumatorium.suctionTypeAt(targetPos, targetFace);
+            if (wanted != null && (aspect == null || wanted == aspect)) {
+                return thaumatorium.suctionAmountAt(targetPos, targetFace);
+            }
+        }
+        BlockEntity blockEntity = level.getBlockEntity(targetPos);
+        if (blockEntity instanceof AlchemicalCentrifugeBlockEntity centrifuge
+                && (aspect == null || !aspect.isPrimal())
+                && centrifuge.canInputFrom(targetFace)) {
+            return centrifuge.suctionAmount(targetFace);
+        }
         if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
             // TC4 ThaumcraftApiHelper.getConnectableTile only exposes a transport
             // neighbour when the neighbour can accept from this face. This keeps
@@ -859,10 +877,11 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                     ? tube.getSuctionAmount(direction.getOpposite())
                     : EssentiaSuction.SOURCE_NONE;
         }
-        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+        if (blockEntity instanceof EssentiaJarBlockEntity jar && jarFaceIsOriginalTop(direction.getOpposite())) {
             // TC4 jars can advertise untyped suction when empty/unfiltered; a tube with
             // null suctionType then accepts any adjacent essentia type. Do not require
             // a non-null aspect merely to read jar suction.
+            // v11.62.9: TileJarFillable.isConnectable/canInput/canOutput == UP only.
             if ((aspect == null && jar.amount() < jar.capacity()) || jar.canAcceptAspect(aspect)) {
                 return jar.originalSuctionAmount(level.getBlockState(tubePos.relative(direction)).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get()));
             }
@@ -882,13 +901,23 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                 || !tubeAllowsOutput(tubePos, direction)) {
             return null;
         }
-        BlockEntity blockEntity = level.getBlockEntity(tubePos.relative(direction));
+        BlockPos targetPos = tubePos.relative(direction);
+        Direction targetFace = direction.getOpposite();
+        ThaumatoriumBlockEntity thaumatorium = ThaumatoriumBlockEntity.resolveAt(level, targetPos);
+        if (thaumatorium != null) {
+            return thaumatorium.suctionTypeAt(targetPos, targetFace);
+        }
+        BlockEntity blockEntity = level.getBlockEntity(targetPos);
+        if (blockEntity instanceof AlchemicalCentrifugeBlockEntity centrifuge
+                && centrifuge.canInputFrom(targetFace)) {
+            return null;
+        }
         if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
             return tube.allowsInputFrom(direction.getOpposite())
                     ? tube.getSuctionType(direction.getOpposite())
                     : null;
         }
-        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+        if (blockEntity instanceof EssentiaJarBlockEntity jar && jarFaceIsOriginalTop(direction.getOpposite())) {
             if ((aspect == null && jar.amount() < jar.capacity()) || jar.canAcceptAspect(aspect)) {
                 if (jar.filterAspect() != null) {
                     return jar.filterAspect();
@@ -917,7 +946,9 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
             return null;
         }
         BlockEntity blockEntity = level.getBlockEntity(destinationPos);
-        if (blockEntity instanceof EssentiaJarBlockEntity jar && jar.canAcceptAspect(aspect)) {
+        if (blockEntity instanceof EssentiaJarBlockEntity jar
+                && jarFaceIsOriginalTop(direction.getOpposite())
+                && jar.canAcceptAspect(aspect)) {
             boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
             int suction = jar.originalSuctionAmount(voidJar);
             return suction > EssentiaSuction.SOURCE_NONE ? new Destination(new JarDestination(jar, voidJar), suction) : null;
@@ -958,7 +989,23 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
     }
 
     private Source sourceFrom(BlockEntity blockEntity, Direction sideFromContainer) {
-        if (blockEntity instanceof AlembicBlockEntity alembic) {
+        if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace
+                && furnace.isAdvanced() && furnace.canAdvancedOutputTo(sideFromContainer)) {
+            Aspect aspect = furnace.advancedOutputType(sideFromContainer);
+            if (aspect != null) {
+                return new AdvancedFurnaceSource(furnace, aspect, sideFromContainer);
+            }
+        }
+
+        if (blockEntity instanceof AlchemicalCentrifugeBlockEntity centrifuge
+                && centrifuge.canOutputTo(sideFromContainer)) {
+            Aspect aspect = centrifuge.outputType(sideFromContainer);
+            if (aspect != null) {
+                return new CentrifugeSource(centrifuge, aspect, sideFromContainer);
+            }
+        }
+
+        if (blockEntity instanceof AlembicBlockEntity alembic && alembic.canOutputTo(sideFromContainer)) {
             Aspect aspect = alembic.aspects().firstAspect();
 
             if (aspect != null) {
@@ -973,7 +1020,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
             }
         }
 
-        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+        if (blockEntity instanceof EssentiaJarBlockEntity jar && jarFaceIsOriginalTop(sideFromContainer)) {
             Aspect aspect = jar.storedAspect();
             if (aspect != null && jar.amount() > 0) {
                 return new JarSource(jar, aspect);
@@ -1267,6 +1314,50 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         int remove(int amount);
 
         void restore(int amount);
+    }
+
+    private record AdvancedFurnaceSource(AlchemicalFurnaceBlockEntity furnace, Aspect aspect, Direction face) implements Source {
+        @Override
+        public BlockPos pos() {
+            return furnace.getBlockPos();
+        }
+
+        @Override
+        public int priority() {
+            return EssentiaSuction.ALEMBIC_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return furnace.takeAdvancedOutput(aspect, amount, face);
+        }
+
+        @Override
+        public void restore(int amount) {
+            furnace.restoreAdvancedOutput(aspect, amount);
+        }
+    }
+
+    private record CentrifugeSource(AlchemicalCentrifugeBlockEntity centrifuge, Aspect aspect, Direction face) implements Source {
+        @Override
+        public BlockPos pos() {
+            return centrifuge.getBlockPos();
+        }
+
+        @Override
+        public int priority() {
+            return EssentiaSuction.ALEMBIC_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return centrifuge.takeOutput(aspect, amount, face);
+        }
+
+        @Override
+        public void restore(int amount) {
+            centrifuge.restoreOutput(aspect, amount);
+        }
     }
 
     private record AlembicSource(AlembicBlockEntity alembic, Aspect aspect) implements Source {

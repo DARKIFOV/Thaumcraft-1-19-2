@@ -19,13 +19,15 @@ import java.util.Locale;
  */
 public enum WandFocusType {
     FIRE("fire", "Focus: Fire", "focus_fire", 15028484, 0, true, cost(Aspect.IGNIS, 10)),
-    FROST("frost", "Focus: Frost", "focus_frost", 5204428, 200, false, cost(Aspect.AQUA, 5, Aspect.IGNIS, 2, Aspect.PERDITIO, 2)),
-    SHOCK("shock", "Focus: Shock", "focus_shock", 10466239, 250, false, cost(Aspect.AER, 25)),
+    FROST("frost", "Focus: Frost", "focus_frost", 5204428, 4, false, cost(Aspect.AQUA, 5, Aspect.IGNIS, 2, Aspect.PERDITIO, 2)),
+    SHOCK("shock", "Focus: Shock", "focus_shock", 10466239, 5, false, cost(Aspect.AER, 25)),
     EXCAVATION("excavation", "Focus: Excavation", "focus_excavation", 409606, 0, true, cost(Aspect.TERRA, 15)),
     PORTABLE_HOLE("portable_hole", "Focus: Portable Hole", "focus_portablehole", 594985, 0, false, cost(Aspect.PERDITIO, 10, Aspect.AER, 10)),
     EQUAL_TRADE("equal_trade", "Focus: Equal Trade", "focus_trade", 8747923, 0, false, cost(Aspect.PERDITIO, 5, Aspect.TERRA, 5, Aspect.ORDO, 5)),
     WARDING("warding", "Focus: Warding", "focus_warding", 16771535, 0, false, cost(Aspect.TERRA, 25, Aspect.ORDO, 25, Aspect.AQUA, 10)),
-    PRIMAL("primal", "Focus: Primal", "focus_primal", 10854849, 500, false, cost(Aspect.AQUA, 50, Aspect.AER, 50, Aspect.TERRA, 50, Aspect.IGNIS, 50, Aspect.ORDO, 50, Aspect.PERDITIO, 50));
+    HELLBAT("hellbat", "Wand Focus: Nine Hells", "focus_hellbat", 14431746, 20, false, cost(Aspect.IGNIS, 200, Aspect.PERDITIO, 100, Aspect.AER, 100)),
+    PECH_CURSE("pech_curse", "Wand Focus: Pech's Curse", "focus_pech", 2267460, 5, false, cost(Aspect.TERRA, 10, Aspect.PERDITIO, 10, Aspect.AQUA, 10)),
+    PRIMAL("primal", "Focus: Primal", "focus_primal", 10854849, 10, false, cost(Aspect.AQUA, 50, Aspect.AER, 50, Aspect.TERRA, 50, Aspect.IGNIS, 50, Aspect.ORDO, 50, Aspect.PERDITIO, 50));
 
     private final String id;
     private final String displayName;

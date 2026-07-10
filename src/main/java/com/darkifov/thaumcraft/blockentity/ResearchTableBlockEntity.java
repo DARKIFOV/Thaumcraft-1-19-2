@@ -161,21 +161,24 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
             player.displayClientMessage(Component.literal("A sheet of paper is required for a research note.").withStyle(ChatFormatting.RED), false);
             return false;
         }
-        // Stage603-622: original table creation is all-or-nothing: paper and
-        // scribing ink are checked before either resource is consumed.
-        if (!consumeInk(ResearchTableInventoryRuntime.INK_PER_NOTE_CREATE, player)) {
-            player.displayClientMessage(Component.literal("Your Scribing Tools are out of ink.").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-        if (!consumePaper(player)) {
-            player.displayClientMessage(Component.literal("A sheet of paper is required for a research note.").withStyle(ChatFormatting.RED), false);
+        // v11.62.24 transaction: snapshot both resources before mutation so a
+        // packet race or depleted tool can never consume only one half.
+        ItemStack toolsSnapshot = getItem(SLOT_SCRIBING_TOOLS).copy();
+        int paperSlot = findInventoryItemSlot(player, Items.PAPER);
+        ItemStack paperSnapshot = paperSlot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(paperSlot).copy();
+        if (!consumeInk(ResearchTableInventoryRuntime.INK_PER_NOTE_CREATE, player) || !consumePaper(player)) {
+            setItem(SLOT_SCRIBING_TOOLS, toolsSnapshot);
+            if (paperSlot >= 0) {
+                player.getInventory().setItem(paperSlot, paperSnapshot);
+            }
+            player.displayClientMessage(Component.literal("Research note creation failed; paper and ink were restored.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         ResearchTableFoundation.seed(player);
         ItemStack note = new ItemStack(ThaumcraftMod.RESEARCH_NOTE.get());
         ResearchEntry target = OriginalResearchBridge.selectedOrFirstAvailable(player).orElse(null);
-        ResearchNoteState.initialize(note, target == null ? "" : target.key());
+        ResearchNoteState.initialize(note, target == null ? "" : target.key(), player.getRandom().nextLong());
         setItem(SLOT_RESEARCH_NOTE, note);
 
         recalculateBonusNow();
@@ -298,6 +301,18 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
                 PlayerAspectKnowledge.consumePool(player, aspect, cost);
             }
         }
+    }
+
+    private static int findInventoryItemSlot(Player player, net.minecraft.world.item.Item item) {
+        if (player == null || item == null) {
+            return -1;
+        }
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            if (player.getInventory().getItem(i).is(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private boolean hasInventoryItem(Player player, net.minecraft.world.item.Item item) {
@@ -473,4 +488,5 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
         load(packet.getTag());
     }
+
 }

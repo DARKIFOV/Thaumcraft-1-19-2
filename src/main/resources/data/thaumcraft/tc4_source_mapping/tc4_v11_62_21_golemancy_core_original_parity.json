@@ -1,0 +1,55 @@
+{
+  "version": "11.62.21",
+  "strict_original": true,
+  "title": "Golemancy core original parity",
+  "reference": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    "thaumcraft/common/entities/golems/EntityGolemBase.java",
+    "thaumcraft/common/entities/golems/EnumGolemType.java",
+    "thaumcraft/common/entities/ai/interact/AIUseItem.java",
+    "thaumcraft/common/entities/ai/interact/AIHarvestCrops.java",
+    "thaumcraft/common/entities/ai/interact/AIHarvestLogs.java",
+    "thaumcraft/common/entities/ai/combat/AIGolemAttack.java",
+    "thaumcraft/common/entities/ai/combat/AIRangedAttack.java",
+    "thaumcraft/common/items/ItemGolem.java",
+    "thaumcraft/common/items/ItemGolemCore.java",
+    "thaumcraft/common/items/ItemGolemUpgrade.java",
+    "thaumcraft/common/items/ItemGolemDecoration.java",
+    "thaumcraft/common/items/ItemGolemBell.java",
+    "thaumcraft/common/container/ContainerGolem.java",
+    "thaumcraft/common/container/slot/SlotGhost.java",
+    "thaumcraft/client/gui/GuiGolem.java",
+    "thaumcraft/client/renderers/entity/RenderGolemBase.java",
+    "thaumcraft/client/renderers/models/ModelGolem.java",
+    "thaumcraft/client/renderers/models/ModelGolemAccessories.java"
+  ],
+  "ported_subsystems": [
+    "authoritative byte upgrade slots with duplicate stacking",
+    "original material stats and derived attributes",
+    "functional original golem body, core, upgrade and decoration items",
+    "server/client synchronization of material, core, upgrades, decorations, colors, toggles and carried item",
+    "bell binding, colored markers and both dismantling modes",
+    "ghost filter container semantics",
+    "carried item, carried fluid and carried essentia separation",
+    "gather, fill, empty, sorting, harvest, lumber, guard, butcher, use, fishing, liquid and essentia core foundations",
+    "Use core marker selection and FakePlayer block/item interaction",
+    "original decoration attribute effects and dart launcher",
+    "original 128x128 body/accessory models and material textures",
+    "damage and carried-item render passes"
+  ],
+  "modern_adapters": [
+    "SynchedEntityData replaces legacy data watcher fields",
+    "Forge FakePlayer replaces legacy FakePlayer interaction manager",
+    "modern loot and Forge break events replace 1.7.10 harvesting hooks",
+    "ModelPart and RenderLayer replace GL11 model passes",
+    "fluid and essentia storage use 1.19.2 block-entity adapters"
+  ],
+  "known_runtime_checks": [
+    "Forge compile in GitHub Actions",
+    "dedicated-server pathfinding and claim-mod behavior",
+    "Use core interaction compatibility with third-party blocks/items",
+    "large marker networks and chunk unload/reload",
+    "visual alignment of accessories and carried items",
+    "liquid and essentia interoperability with external mods"
+  ]
+}

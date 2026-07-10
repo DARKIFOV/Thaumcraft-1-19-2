@@ -53,6 +53,16 @@ public final class TC4RevealerHudAdapter {
     private TC4RevealerHudAdapter() {
     }
 
+    /**
+     * v11.62.10: TC4 IGoggles / ItemGoggles.showIngamePopups parity.
+     * The old ItemGoggles returned true for world popups from the head slot;
+     * holding a Thaumometer reveals/scans nodes, but it should not enable the
+     * jar/tube debug popup.
+     */
+    public static boolean hasIngamePopupRevealer(Player player) {
+        return player != null && isHeadRevealerStack(player.getItemBySlot(EquipmentSlot.HEAD));
+    }
+
     public static boolean isRevealer(Player player) {
         if (player == null) {
             return false;

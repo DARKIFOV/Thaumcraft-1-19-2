@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "TINYFEZ",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:white_wool",
+  "catalyst": "minecraft:string",
   "ingredients": [
-    "minecraft:string"
+    "minecraft:red_wool"
   ],
   "aspects": {
     "AQUA": 4,
@@ -14,14 +14,15 @@
   "pattern": [
     "CCS",
     "CCS",
-    "S"
+    "  S"
   ],
   "key": {
-    "C": "minecraft:string",
-    "S": "minecraft:white_wool"
+    "C": "minecraft:red_wool",
+    "S": "minecraft:string"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecoarmor",
+    "item": "thaumcraft:tc4_golemdecofez",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

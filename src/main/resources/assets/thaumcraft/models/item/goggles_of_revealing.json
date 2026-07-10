@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "thaumcraft:item/goggles_of_revealing"
+    "layer0": "thaumcraft:item/tc4/gogglesrevealing"
   }
 }

@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "TINYVISOR",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:iron_ingot",
+  "catalyst": "minecraft:iron_helmet",
   "ingredients": [
-    "minecraft:flint"
+    "minecraft:iron_ingot"
   ],
   "aspects": {
     "TERRA": 4,
@@ -15,11 +15,12 @@
     "IHI"
   ],
   "key": {
-    "I": "minecraft:flint",
-    "H": "minecraft:iron_ingot"
+    "I": "minecraft:iron_ingot",
+    "H": "minecraft:iron_helmet"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecoarmor",
+    "item": "thaumcraft:tc4_golemdecovisor",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

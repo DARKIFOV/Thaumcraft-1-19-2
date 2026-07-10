@@ -1,37 +1,38 @@
 {
   "textures": {
-    "side": "thaumcraft:block/jar_side_void",
-    "top": "thaumcraft:block/jar_top",
-    "bottom": "thaumcraft:block/jar_bottom",
-    "particle": "thaumcraft:block/jar_side_void"
+    "side": "thaumcraft:block/tc4/jar_side_void",
+    "top": "thaumcraft:block/tc4/jar_top_void",
+    "bottom": "thaumcraft:block/tc4/jar_bottom",
+    "band": "thaumcraft:block/tc4/jar_top_void",
+    "particle": "thaumcraft:block/tc4/jar_side_void"
   },
   "elements": [
     {
       "from": [
-        4,
-        1,
-        4
+        4.0,
+        0.0,
+        4.0
       ],
       "to": [
-        12,
-        13,
-        12
+        12.0,
+        1.0,
+        12.0
       ],
       "faces": {
         "north": {
-          "texture": "#side"
+          "texture": "#bottom"
         },
         "south": {
-          "texture": "#side"
+          "texture": "#bottom"
         },
         "east": {
-          "texture": "#side"
+          "texture": "#bottom"
         },
         "west": {
-          "texture": "#side"
+          "texture": "#bottom"
         },
         "up": {
-          "texture": "#top"
+          "texture": "#bottom"
         },
         "down": {
           "texture": "#bottom"
@@ -40,45 +41,13 @@
     },
     {
       "from": [
-        5,
-        13,
-        5
-      ],
-      "to": [
-        11,
-        15,
-        11
-      ],
-      "faces": {
-        "north": {
-          "texture": "#side"
-        },
-        "south": {
-          "texture": "#side"
-        },
-        "east": {
-          "texture": "#side"
-        },
-        "west": {
-          "texture": "#side"
-        },
-        "up": {
-          "texture": "#top"
-        },
-        "down": {
-          "texture": "#top"
-        }
-      }
-    },
-    {
-      "from": [
         3.5,
-        0,
+        1.0,
         3.5
       ],
       "to": [
         12.5,
-        1,
+        2.0,
         12.5
       ],
       "faces": {
@@ -101,6 +70,134 @@
           "texture": "#bottom"
         }
       }
+    },
+    {
+      "from": [
+        3.5,
+        2.0,
+        3.5
+      ],
+      "to": [
+        12.5,
+        11.5,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "from": [
+        4.3,
+        11.5,
+        4.3
+      ],
+      "to": [
+        11.7,
+        13.0,
+        11.7
+      ],
+      "faces": {
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#top"
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        13.0,
+        5.0
+      ],
+      "to": [
+        11.0,
+        14.1,
+        11.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#top"
+        },
+        "south": {
+          "texture": "#top"
+        },
+        "east": {
+          "texture": "#top"
+        },
+        "west": {
+          "texture": "#top"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#top"
+        }
+      }
+    },
+    {
+      "from": [
+        5.6,
+        14.1,
+        5.6
+      ],
+      "to": [
+        10.4,
+        15.0,
+        10.4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#top"
+        },
+        "south": {
+          "texture": "#top"
+        },
+        "east": {
+          "texture": "#top"
+        },
+        "west": {
+          "texture": "#top"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "down": {
+          "texture": "#top"
+        }
+      }
     }
   ],
   "display": {
@@ -116,9 +213,9 @@
         0
       ],
       "scale": [
-        0.9,
-        0.9,
-        0.9
+        0.82,
+        0.82,
+        0.82
       ]
     },
     "fixed": {
@@ -136,6 +233,40 @@
         1,
         1,
         1
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.52,
+        0.52,
+        0.52
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.55,
+        0.55,
+        0.55
       ]
     }
   }

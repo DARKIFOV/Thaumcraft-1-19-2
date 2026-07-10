@@ -5,9 +5,10 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:tc4_block_greatwood_planks",
   "ingredients": [
-    "thaumcraft:tc4_block_essentia_tube",
-    "thaumcraft:tc4_block_essentia_tube",
-    "thaumcraft:tc4_filter"
+    "thaumcraft:essentia_valve",
+    "thaumcraft:essentia_tube",
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_block_greatwood_planks"
   ],
   "aspects": {
     "AQUA": 5,
@@ -19,13 +20,14 @@
     "FTV"
   ],
   "key": {
-    "V": "thaumcraft:tc4_block_essentia_tube",
-    "T": "thaumcraft:tc4_block_essentia_tube",
-    "F": "thaumcraft:tc4_filter",
-    "W": "thaumcraft:tc4_block_greatwood_planks"
+    "W": "thaumcraft:tc4_block_greatwood_planks",
+    "V": "thaumcraft:essentia_valve",
+    "T": "thaumcraft:essentia_tube",
+    "F": "thaumcraft:tc4_filter"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_alchemical_construct",
+    "item": "thaumcraft:thaumatorium",
     "count": 1
-  }
+  },
+  "v11_62_23_strict_original": true
 }

@@ -1,0 +1,26 @@
+{
+  "version": "11.62.24",
+  "strict_original": true,
+  "original": "Thaumcraft 4.2.3.5 ResearchManager/ResearchNoteData/GuiResearchBrowser/TileDeconstructionTable/TileEssentiaCrystalizer/TileAlchemyFurnaceAdvanced",
+  "scope": [
+    "world-random research note seed persisted on the item",
+    "TC4 hexgrid q/r/type/aspect NBT mirror and legacy note import",
+    "complexity radius, stable evenly spaced ring anchors with the original unused random-start quirk, and protected blank removal",
+    "transactional paper and scribing-tool consumption",
+    "Thaumonomicon 224x196 clipped viewport, proportional background and per-category pan memory",
+    "Infusion Matrix starts with missing essentia and waits during craftCycle exactly like TC4 craftingStart",
+    "Infusion Matrix craftCycle drains one aspect from nearby jars, reservoirs, alembics, tube buffers, centrifuges and advanced furnaces",
+    "drag threshold preventing accidental research opening",
+    "Deconstruction Table 40-tick breakdown and primal knowledge output",
+    "Essentia Crystalizer suction 128/64, direct endpoint input, 200 progress, Terra vis acceleration and inventory ejection",
+    "Advanced Alchemical Furnace 500 essentia capacity, three aura power stores, item-entity intake and cooldown formula",
+    "advanced furnace horizontal essentia output into the tube runtime",
+    "exact Deconstructor and Essentia Crystalizer Arcane Workbench recipes",
+    "recipe resolver mappings for blockTable meta 14 and blockTube meta 2/7"
+  ],
+  "known_limits": [
+    "the advanced furnace controller core is functional but the exact 3x2x3 metadata shell and separate nozzle block geometry still need a dedicated visual/multiblock pass",
+    "original GL11 research and crystalizer render effects are adapted to modern 1.19.2 rendering",
+    "full Forge compile and multiplayer validation require GitHub Actions and in-game testing"
+  ]
+}

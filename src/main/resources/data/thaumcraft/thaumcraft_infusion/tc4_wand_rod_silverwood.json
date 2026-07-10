@@ -1,0 +1,30 @@
+{
+  "tc4_key": "WandRodSilverwood",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_silverwood",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:silverwood_log",
+  "components": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:aer_shard",
+    "thaumcraft:ignis_shard",
+    "thaumcraft:aqua_shard",
+    "thaumcraft:terra_shard",
+    "thaumcraft:ordo_shard",
+    "thaumcraft:perditio_shard"
+  ],
+  "aspects": {
+    "AER": 9,
+    "IGNIS": 9,
+    "AQUA": 9,
+    "TERRA": 9,
+    "ORDO": 9,
+    "PERDITIO": 9,
+    "PRAECANTATIO": 9
+  },
+  "instability": 5,
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_silverwood",
+    "count": 1
+  }
+}

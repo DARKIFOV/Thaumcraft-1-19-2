@@ -5,8 +5,9 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:tc4_brain",
   "ingredients": [
-    "thaumcraft:tc4_amber",
-    "minecraft:iron_ingot"
+    "minecraft:iron_ingot",
+    "thaumcraft:tc4_brain",
+    "thaumcraft:tc4_amber"
   ],
   "aspects": {
     "IGNIS": 5,
@@ -19,12 +20,13 @@
     "IAI"
   ],
   "key": {
-    "I": "thaumcraft:tc4_amber",
-    "A": "minecraft:iron_ingot",
+    "I": "minecraft:iron_ingot",
+    "A": "thaumcraft:tc4_amber",
     "B": "thaumcraft:tc4_brain"
   },
   "result": {
     "item": "thaumcraft:mnemonic_matrix",
     "count": 1
-  }
+  },
+  "v11_62_23_strict_original": true
 }

@@ -1,11 +1,11 @@
 {
   "tc4_key": "FocusPrimal",
-  "tc4_source": "addArcaneCraftingRecipe",
+  "tc4_source": "ThaumcraftApi.addArcaneCraftingRecipe",
   "research": "FOCUSPRIMAL",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:warp_charm",
+  "catalyst": "thaumcraft:primal_charm",
   "ingredients": [
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "minecraft:diamond"
   ],
   "aspects": {
@@ -22,8 +22,8 @@
     "CQC"
   ],
   "key": {
-    "#": "thaumcraft:warp_charm",
-    "Q": "minecraft:nether_wart",
+    "#": "thaumcraft:primal_charm",
+    "Q": "minecraft:quartz",
     "C": "minecraft:diamond"
   },
   "result": {

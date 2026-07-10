@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.research;
 
 import com.darkifov.thaumcraft.Aspect;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -33,6 +34,8 @@ public final class ResearchNoteState {
     public static final String TAG_TC4_FLAGS = "tc4Flags";
     public static final String TAG_TC4_WARP = "tc4Warp";
     public static final String TAG_TC4_COMPLEXITY = "tc4Complexity";
+    public static final String TAG_GRID_SEED = "GridSeed";
+    public static final String TAG_TC4_HEXGRID = "hexgrid";
 
     private ResearchNoteState() {
     }
@@ -42,12 +45,28 @@ public final class ResearchNoteState {
     }
 
     public static void initialize(ItemStack stack, String targetResearch) {
+        initialize(stack, targetResearch, 0L);
+    }
+
+    /**
+     * v11.62.24: exact TC4 note generation needs a world random stream.  The
+     * seed is stored on the note so server/client reloads never regenerate a
+     * different matrix. A zero seed preserves existing worlds and derives one
+     * only when a new grid actually has to be created.
+     */
+    public static void initialize(ItemStack stack, String targetResearch, long requestedSeed) {
         CompoundTag root = root(stack);
+        CompoundTag top = stack.getOrCreateTag();
         String existingTarget = root.getString(TAG_TARGET);
+        if (existingTarget.isBlank() && top.contains("key")) {
+            existingTarget = top.getString("key");
+        }
         String target = targetResearch == null || targetResearch.isBlank() ? existingTarget : targetResearch;
         if (target == null) {
             target = "";
         }
+
+        importOriginalHexGrid(stack, root, target);
 
         boolean rebuild = !root.contains(TAG_SLOTS)
                 || !root.contains(TAG_TYPES)
@@ -61,14 +80,21 @@ public final class ResearchNoteState {
         }
 
         if (rebuild) {
-            rebuildOriginalGrid(root, target);
+            long seed = requestedSeed != 0L ? requestedSeed : root.getLong(TAG_GRID_SEED);
+            if (seed == 0L) {
+                seed = 0x5443344D41545249L ^ ((long) target.hashCode() << 32) ^ System.nanoTime();
+            }
+            root.putLong(TAG_GRID_SEED, seed);
+            rebuildOriginalGrid(stack, root, target, seed);
         } else {
             root.putString(TAG_REQUIRED, requiredString(target));
             root.putInt(TAG_PROGRESS, completionPercent(stack));
+            writeOriginalHexGridMirror(root);
+            syncOriginalTopLevel(stack, root);
         }
     }
 
-    private static void rebuildOriginalGrid(CompoundTag root, String target) {
+    private static void rebuildOriginalGrid(ItemStack stack, CompoundTag root, String target, long seed) {
         int radius = ResearchNoteGrid.radiusForResearch(target);
         List<Aspect> anchors = new ArrayList<>(ResearchNoteRequirements.requiredFor(target));
         if (anchors.isEmpty()) {
@@ -85,7 +111,8 @@ public final class ResearchNoteState {
             types.putInt(String.valueOf(slot.index()), ResearchNoteGrid.TYPE_EMPTY);
         }
 
-        List<ResearchNoteGrid.GridSlot> anchorSlots = ResearchNoteGrid.distributeRing(radius, anchors.size());
+        java.util.Random random = new java.util.Random(seed);
+        List<ResearchNoteGrid.GridSlot> anchorSlots = ResearchNoteGrid.distributeRingRandomly(radius, anchors.size(), random);
         for (int i = 0; i < Math.min(anchors.size(), anchorSlots.size()); i++) {
             ResearchNoteGrid.GridSlot slot = anchorSlots.get(i);
             Aspect aspect = anchors.get(i);
@@ -93,7 +120,7 @@ public final class ResearchNoteState {
             types.putInt(String.valueOf(slot.index()), ResearchNoteGrid.TYPE_RESEARCH_ANCHOR);
         }
 
-        removeOriginalComplexityBlanks(target, radius, types);
+        removeOriginalComplexityBlanks(target, radius, types, random);
 
         root.put(TAG_SLOTS, slots);
         root.put(TAG_TYPES, types);
@@ -103,6 +130,8 @@ public final class ResearchNoteState {
         root.putBoolean(TAG_COMPLETION_CLEANED, false);
         root.putString(TAG_REQUIRED, requiredString(target));
         root.putInt(TAG_PROGRESS, 0);
+        writeOriginalHexGridMirror(root);
+        syncOriginalTopLevel(stack, root);
     }
 
 
@@ -131,10 +160,10 @@ public final class ResearchNoteState {
     /**
      * Mirrors the original TC4 note generation pass that removes complexity*2 blank
      * cells for complexity > 1 while avoiding deletion that would strand a fixed
-     * research-tag anchor. 1.7.10 used world RNG; this adapter uses target hash so
-     * generated notes are stable across client/server sync and saves.
+     * research-tag anchor. 1.7.10 used world RNG; v11.62.24 stores that random
+     * stream as GridSeed so the generated note remains stable across sync and saves.
      */
-    private static void removeOriginalComplexityBlanks(String target, int radius, CompoundTag types) {
+    private static void removeOriginalComplexityBlanks(String target, int radius, CompoundTag types, java.util.Random random) {
         Optional<ResearchEntry> entry = target == null || target.isBlank() ? Optional.empty() : ResearchRegistry.byKey(target);
         int complexity = entry.map(ResearchEntry::complexity).orElse(1);
         if (complexity <= 1) {
@@ -142,8 +171,8 @@ public final class ResearchNoteState {
         }
 
         int blanks = complexity * 2;
-        java.util.Random random = new java.util.Random((target == null ? "" : target).hashCode() * 31L + radius);
-        while (blanks > 0) {
+        int guard = Math.max(64, ResearchNoteGrid.activeSlotsForRadius(radius).size() * 32);
+        while (blanks > 0 && guard-- > 0) {
             List<Integer> candidates = new ArrayList<>();
             for (ResearchNoteGrid.GridSlot slot : ResearchNoteGrid.activeSlotsForRadius(radius)) {
                 String id = String.valueOf(slot.index());
@@ -162,6 +191,7 @@ public final class ResearchNoteState {
         }
     }
 
+    /** Mirrors the exact TC4 anchor protection check used while cutting holes. */
     private static boolean canRemoveBlank(int slot, CompoundTag types) {
         for (int neighbor : ResearchNoteGrid.neighbors(slot)) {
             if (!types.contains(String.valueOf(neighbor))) {
@@ -170,7 +200,10 @@ public final class ResearchNoteState {
             if (types.getInt(String.valueOf(neighbor)) == ResearchNoteGrid.TYPE_RESEARCH_ANCHOR) {
                 int activeAroundAnchor = 0;
                 for (int around : ResearchNoteGrid.neighbors(neighbor)) {
-                    if (around != slot && types.contains(String.valueOf(around))) {
+                    // TC4 counts the candidate while testing and removes it only
+                    // after the check. Therefore >=2 here leaves at least one
+                    // active neighbour after the chosen blank is cut away.
+                    if (types.contains(String.valueOf(around))) {
                         activeAroundAnchor++;
                     }
                 }
@@ -180,6 +213,99 @@ public final class ResearchNoteState {
             }
         }
         return true;
+    }
+
+    /** Imports a genuine 1.7.10 research note when only its top-level hexgrid exists. */
+    private static void importOriginalHexGrid(ItemStack stack, CompoundTag root, String fallbackTarget) {
+        if (root.contains(TAG_SLOTS) || root.contains(TAG_TYPES)) {
+            return;
+        }
+        CompoundTag top = stack.getOrCreateTag();
+        if (!top.contains(TAG_TC4_HEXGRID)) {
+            return;
+        }
+        ListTag grid = top.getList(TAG_TC4_HEXGRID, 10);
+        if (grid.isEmpty()) {
+            return;
+        }
+        CompoundTag slots = new CompoundTag();
+        CompoundTag types = new CompoundTag();
+        int radius = ResearchNoteGrid.MIN_RADIUS;
+        for (int i = 0; i < grid.size(); i++) {
+            CompoundTag hex = grid.getCompound(i);
+            int q = hex.getByte("hexq");
+            int r = hex.getByte("hexr");
+            Optional<ResearchNoteGrid.GridSlot> found = ResearchNoteGrid.byHex(q, r);
+            if (found.isEmpty()) {
+                continue;
+            }
+            ResearchNoteGrid.GridSlot slot = found.get();
+            String id = String.valueOf(slot.index());
+            types.putInt(id, hex.getByte("type"));
+            if (hex.contains("aspect")) {
+                Aspect aspect = Aspect.byId(hex.getString("aspect"));
+                if (aspect != null) {
+                    slots.putString(id, aspect.id());
+                }
+            }
+            radius = Math.max(radius, ResearchNoteGrid.distance(q, r, 0, 0));
+        }
+        String key = top.getString("key");
+        root.putString(TAG_TARGET, key.isBlank() ? fallbackTarget : key);
+        root.put(TAG_SLOTS, slots);
+        root.put(TAG_TYPES, types);
+        root.putInt(TAG_RADIUS, ResearchNoteGrid.clampRadius(radius));
+        root.putBoolean(TAG_SOLVED, top.getBoolean("complete"));
+        root.putInt(TAG_COPIES, Math.max(0, top.getInt(TAG_COPIES)));
+        root.putBoolean(TAG_COMPLETION_CLEANED, top.getBoolean("complete"));
+        root.putString(TAG_REQUIRED, requiredString(root.getString(TAG_TARGET)));
+        root.putInt(TAG_PROGRESS, top.getBoolean("complete") ? 100 : 0);
+        putOriginalResearchMetadata(root, root.getString(TAG_TARGET));
+    }
+
+    /** Keeps the legacy fields at the real item root, exactly where TC4 readers expect them. */
+    private static void syncOriginalTopLevel(ItemStack stack, CompoundTag root) {
+        CompoundTag top = stack.getOrCreateTag();
+        top.put(TAG_TC4_HEXGRID, root.getList(TAG_TC4_HEXGRID, 10).copy());
+        top.putString("key", root.getString("key"));
+        top.putBoolean("complete", root.getBoolean("complete"));
+        top.putInt(TAG_COPIES, root.getInt(TAG_COPIES));
+        top.putInt("color", root.getInt("color"));
+    }
+
+    /**
+     * Writes the original 1.7.10 NBT representation in parallel with the indexed
+     * modern representation.  This makes notes inspectable by parity tooling and
+     * prevents q/r information from being lost when copied between implementations.
+     */
+    private static void writeOriginalHexGridMirror(CompoundTag root) {
+        CompoundTag slots = root.getCompound(TAG_SLOTS);
+        CompoundTag types = root.getCompound(TAG_TYPES);
+        ListTag grid = new ListTag();
+        for (String id : types.getAllKeys()) {
+            int index;
+            try {
+                index = Integer.parseInt(id);
+            } catch (NumberFormatException ignored) {
+                continue;
+            }
+            ResearchNoteGrid.GridSlot slot = ResearchNoteGrid.slot(index);
+            CompoundTag hex = new CompoundTag();
+            hex.putByte("hexq", (byte) slot.q());
+            hex.putByte("hexr", (byte) slot.r());
+            hex.putByte("type", (byte) types.getInt(id));
+            String aspect = slots.getString(id);
+            if (!aspect.isBlank()) {
+                hex.putString("aspect", aspect);
+            }
+            grid.add(hex);
+        }
+        root.put(TAG_TC4_HEXGRID, grid);
+        root.putString("key", root.getString(TAG_TARGET));
+        root.putBoolean("complete", root.getBoolean(TAG_SOLVED));
+        root.putInt("copies", root.getInt(TAG_COPIES));
+        Aspect primary = Aspect.byId(root.getString(TAG_REQUIRED).split(",", 2)[0]);
+        root.putInt("color", primary == null ? Aspect.PRAECANTATIO.nativeColor() : primary.nativeColor());
     }
 
     public static String target(ItemStack stack) {
@@ -284,6 +410,8 @@ public final class ResearchNoteState {
         root.putBoolean(TAG_SOLVED, false);
         root.putBoolean(TAG_COMPLETION_CLEANED, false);
         root.putInt(TAG_PROGRESS, completionPercent(stack));
+        writeOriginalHexGridMirror(root);
+        syncOriginalTopLevel(stack, root);
         return true;
     }
 
@@ -334,6 +462,8 @@ public final class ResearchNoteState {
         root.putBoolean(TAG_SOLVED, false);
         root.putBoolean(TAG_COMPLETION_CLEANED, false);
         root.putInt(TAG_PROGRESS, completionPercent(stack));
+        writeOriginalHexGridMirror(root);
+        syncOriginalTopLevel(stack, root);
         return Optional.of(existing);
     }
 
@@ -448,6 +578,8 @@ public final class ResearchNoteState {
         root.putBoolean(TAG_SOLVED, true);
         root.putBoolean(TAG_COMPLETION_CLEANED, true);
         root.putInt(TAG_PROGRESS, 100);
+        writeOriginalHexGridMirror(root);
+        syncOriginalTopLevel(stack, root);
     }
 
     private static void pruneDisconnectedNonAnchors(ItemStack stack) {
@@ -468,6 +600,8 @@ public final class ResearchNoteState {
         }
         root.put(TAG_SLOTS, slots);
         root.put(TAG_TYPES, types);
+        writeOriginalHexGridMirror(root);
+        syncOriginalTopLevel(stack, root);
     }
 
     public static int copyCount(ItemStack stack) {
@@ -490,6 +624,9 @@ public final class ResearchNoteState {
         root(stack).putInt(TAG_COPIES, value);
         // Compatibility mirror for old TC4 NBT readers and previous stage tooling.
         stack.getOrCreateTag().putInt(TAG_COPIES, value);
+        CompoundTag root = root(stack);
+        writeOriginalHexGridMirror(root);
+        syncOriginalTopLevel(stack, root);
     }
 
     public static int incrementCopyCount(ItemStack stack) {

@@ -6,9 +6,9 @@
   "catalyst": "thaumcraft:tc4_brain",
   "components": [
     "thaumcraft:tc4_golem_core_fill",
-    "minecraft:quartz",
+    "minecraft:comparator",
     "thaumcraft:tc4_golem_core_empty",
-    "minecraft:cookie"
+    "minecraft:paper"
   ],
   "aspects": {
     "VACUOS": 16,
@@ -20,5 +20,6 @@
   "result": {
     "item": "thaumcraft:tc4_golem_core_sorting",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

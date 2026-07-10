@@ -27,5 +27,6 @@
     "item": "thaumcraft:advanced_alchemical_furnace",
     "count": 4
   },
-  "stage503_522_resolved_to_runtime_block": true
+  "stage503_522_resolved_to_runtime_block": true,
+  "v11_62_23_strict_original": true
 }

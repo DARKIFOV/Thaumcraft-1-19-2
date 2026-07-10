@@ -105,7 +105,7 @@ public final class TC4ClientFocusFx {
         if (mc.levelRenderer == null || player == null) {
             return;
         }
-        mc.levelRenderer.destroyBlockProgress(player.getId(), pos, Math.max(0, Math.min(9, progress)));
+        mc.levelRenderer.destroyBlockProgress(player.getId(), pos, progress < 0 ? -1 : Math.max(0, Math.min(9, progress)));
     }
 
     public static void renderSegment(Vec3 start, Vec3 end, int color, int density) {

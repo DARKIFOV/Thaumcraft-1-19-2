@@ -43,4 +43,9 @@ final class OriginalGuiTextures {
         bind(texture);
         GuiComponent.blit(poseStack, x, y, u, v, width, height, sheetWidth, sheetHeight);
     }
+    static void blitOriginalScaledRegion(PoseStack poseStack, int x, int y, ResourceLocation texture, int u, int v, int sourceWidth, int sourceHeight, int destWidth, int destHeight, int sheetWidth, int sheetHeight) {
+        bind(texture);
+        GuiComponent.blit(poseStack, x, y, destWidth, destHeight, (float) u, (float) v, sourceWidth, sourceHeight, sheetWidth, sheetHeight);
+    }
+
 }

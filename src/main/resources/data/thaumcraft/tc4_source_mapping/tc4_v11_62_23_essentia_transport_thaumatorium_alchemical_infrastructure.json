@@ -1,0 +1,27 @@
+{
+  "version": "11.62.23",
+  "strict_original": true,
+  "original": "Thaumcraft 4.2.3.5 TileTube/TileCentrifuge/TileThaumatorium/TileAlchemyFurnace/TileAlembic + ConfigRecipes",
+  "scope": [
+    "Thaumatorium suction 128 and one-point five-tick essentia intake",
+    "internal recipe essentia storage and transactional item output",
+    "Mnemonic Matrix formula capacity",
+    "Alchemical Centrifuge suction 64, process 39 and random component output",
+    "rotating original centrifuge geometry and pump sound",
+    "ordinary Alchemical Furnace two-sided slots, 50 essentia capacity and bellows timing",
+    "Alumentum 6400-tick fuel and 20-tick distillation interval",
+    "advanced furnace compatibility storage capacity 500",
+    "Alembic 32-point single-aspect storage, labels and blocked output side",
+    "exact 40/20-tick furnace-to-alembic distribution",
+    "tube endpoint directions for Thaumatorium, Centrifuge and Alembic",
+    "Essentia Golem transfer to Thaumatorium and Centrifuge",
+    "Forge item handler output from Thaumatorium",
+    "exact arcane recipes for furnace, alembic, tubes, valve, filter, restrictor, one-way tube, buffer, construct, centrifuge and mnemonic matrix"
+  ],
+  "known_limits": [
+    "complete Advanced Alchemical Furnace multiblock/aura behavior remains a separate stage",
+    "Thaumatorium uses one functional controller block instead of separate construct metadata blocks",
+    "old GL11 tube and machine effects are adapted to modern 1.19.2 renderers",
+    "full Forge compile and multiplayer runtime validation require GitHub Actions and in-game testing"
+  ]
+}

@@ -3,14 +3,15 @@
   "tc4_source": "addCrucibleRecipe",
   "research": "GOLEMIRON",
   "kind": "CRUCIBLE",
-  "catalyst": "minecraft:glass",
+  "catalyst": "minecraft:iron_block",
   "result": {
-    "item": "thaumcraft:tc4_golem_wood",
+    "item": "thaumcraft:tc4_golem_iron",
     "count": 1
   },
   "aspects": {
     "HUMANUS": 4,
     "MOTUS": 4,
     "SPIRITUS": 4
-  }
+  },
+  "v11_62_22_strict_original": true
 }

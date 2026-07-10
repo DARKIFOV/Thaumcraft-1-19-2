@@ -1,0 +1,21 @@
+{
+  "tc4_key": "WandRodIce",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_ice",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:packed_ice",
+  "components": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:aqua_shard"
+  ],
+  "aspects": {
+    "AQUA": 12,
+    "PRAECANTATIO": 6,
+    "GELUM": 6
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_ice",
+    "count": 1
+  }
+}

@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "UPGRADEAIR",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:gold_nugget",
+  "catalyst": "thaumcraft:aer_shard",
   "ingredients": [
-    "thaumcraft:aer_shard"
+    "minecraft:gold_nugget"
   ],
   "aspects": {
     "AER": 10
@@ -16,11 +16,12 @@
     "NNN"
   ],
   "key": {
-    "N": "thaumcraft:aer_shard",
-    "C": "minecraft:gold_nugget"
+    "N": "minecraft:gold_nugget",
+    "C": "thaumcraft:aer_shard"
   },
   "result": {
     "item": "thaumcraft:tc4_golem_upgrade_air",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

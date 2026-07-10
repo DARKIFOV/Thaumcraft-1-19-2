@@ -131,6 +131,33 @@ public final class ResearchNoteGrid {
         return result;
     }
 
+
+    public static List<GridSlot> distributeRingRandomly(int radius, int entries, java.util.Random random) {
+        List<GridSlot> ring = ring(radius);
+        if (entries <= 0 || ring.isEmpty()) {
+            return List.of();
+        }
+        if (entries >= ring.size()) {
+            return new ArrayList<>(ring);
+        }
+        // Strict TC4 HexUtils.distributeRingRandomly parity. The original code
+        // consumes one random start value but never applies it to the ring. Keep
+        // that historical quirk: anchors are evenly spaced at stable positions,
+        // while the same RNG stream continues into complexity-hole selection.
+        if (random != null) {
+            random.nextInt(ring.size());
+        }
+        List<GridSlot> result = new ArrayList<>();
+        float spacing = ring.size() / (float) entries;
+        float pos = 0.0F;
+        for (int i = 0; i < entries; i++) {
+            int idx = Math.max(0, Math.min(ring.size() - 1, Math.round(pos)));
+            result.add(ring.get(idx));
+            pos += spacing;
+        }
+        return result;
+    }
+
     public static List<Integer> neighbors(int index) {
         GridSlot source = slot(index);
         List<Integer> result = new ArrayList<>();

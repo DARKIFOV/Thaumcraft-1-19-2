@@ -5,11 +5,11 @@
   "tc4_kind": "INFUSION",
   "catalyst": "minecraft:ender_eye",
   "components": [
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:terra_shard",
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:aer_shard",
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:perditio_shard"
   ],
   "aspects": {

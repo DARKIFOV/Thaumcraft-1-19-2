@@ -3,12 +3,12 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "DISTILESSENTIA",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:iron_ingot",
+  "catalyst": "minecraft:bucket",
   "ingredients": [
-    "minecraft:compass",
-    "minecraft:gold_ingot",
     "thaumcraft:tc4_filter",
-    "thaumcraft:tc4_block_silverwood_leaves"
+    "minecraft:iron_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:bucket"
   ],
   "aspects": {
     "AER": 5,
@@ -20,13 +20,14 @@
     "I I"
   ],
   "key": {
-    "F": "minecraft:compass",
-    "I": "minecraft:gold_ingot",
-    "G": "thaumcraft:tc4_filter",
-    "B": "thaumcraft:tc4_block_silverwood_leaves"
+    "F": "thaumcraft:tc4_filter",
+    "I": "minecraft:iron_ingot",
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:bucket"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_alembic",
+    "item": "thaumcraft:alembic",
     "count": 1
-  }
+  },
+  "v11_62_23_strict_original": true
 }

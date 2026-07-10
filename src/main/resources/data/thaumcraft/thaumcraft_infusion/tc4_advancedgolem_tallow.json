@@ -1,0 +1,28 @@
+{
+  "tc4_key": "AdvancedGolem_tallow",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "ADVANCEDGOLEM",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_golem_tallow",
+  "components": [
+    "minecraft:redstone",
+    "minecraft:glowstone_dust",
+    "minecraft:gunpowder",
+    "thaumcraft:essentia_jar",
+    "thaumcraft:tc4_brain"
+  ],
+  "aspects": {
+    "COGNITIO": 8,
+    "SENSUS": 8,
+    "VICTUS": 8
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_golem_tallow",
+    "count": 1,
+    "output_nbt_label": "advanced",
+    "output_nbt_type": "byte",
+    "output_nbt_value": 1
+  },
+  "v11_62_22_strict_original": true
+}

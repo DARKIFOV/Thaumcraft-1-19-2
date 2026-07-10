@@ -3,25 +3,26 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "TINYHAT",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:white_wool",
+  "catalyst": "minecraft:gold_ingot",
   "ingredients": [
-    "minecraft:gold_ingot"
+    "minecraft:black_wool"
   ],
   "aspects": {
     "ORDO": 8,
     "IGNIS": 8
   },
   "pattern": [
-    "C",
-    "G",
+    " C ",
+    " G ",
     "CCC"
   ],
   "key": {
-    "C": "minecraft:gold_ingot",
-    "G": "minecraft:white_wool"
+    "C": "minecraft:black_wool",
+    "G": "minecraft:gold_ingot"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecoarmor",
+    "item": "thaumcraft:tc4_golemdecotophat",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

@@ -44,9 +44,8 @@ public class RequestWandArchitectTogglePacket {
                 return;
             }
             ItemStack held = player.getMainHandItem();
-            if (!(held.getItem() instanceof WandItem)) {
-                return;
-            }
+            if (!(held.getItem() instanceof WandItem)) held = player.getOffhandItem();
+            if (!(held.getItem() instanceof WandItem)) return;
             FocusArchitectRuntime.toggleMisc(held, player);
             player.level.playSound(null, player.blockPosition(), TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.35F, 1.0F);
             player.displayClientMessage(Component.literal(FocusArchitectRuntime.architectStatusLine(held)).withStyle(ChatFormatting.GRAY), true);

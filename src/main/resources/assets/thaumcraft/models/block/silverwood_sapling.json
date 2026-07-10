@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "thaumcraft:block/silverwood_sapling"
+    "cross": "thaumcraft:block/tc4/silverwoodsapling"
   }
 }

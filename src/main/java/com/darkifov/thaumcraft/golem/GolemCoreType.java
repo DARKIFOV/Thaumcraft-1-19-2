@@ -9,6 +9,8 @@ import net.minecraft.network.chat.Component;
  * 6 essentia, 7 lumber, 8 use, 9 butcher, 10 sorting, 11 fish, 100 blank.
  */
 public enum GolemCoreType {
+    /** Original EntityGolemBase state before a functional core is installed. */
+    BLANK("blank", -1, false, false, false, ChatFormatting.GRAY),
     FILL("fill", 0, true, true, true, ChatFormatting.AQUA),
     EMPTY("empty", 1, true, true, true, ChatFormatting.BLUE),
     GATHER("gather", 2, true, true, true, ChatFormatting.GREEN),
@@ -23,9 +25,9 @@ public enum GolemCoreType {
     FISH("fish", 11, false, false, false, ChatFormatting.BLUE),
 
     /** Existing pre-Stage195 migration adapter: not an original TC4 itemGolemCore metadata. */
-    BODYGUARD("bodyguard", -1, false, false, false, ChatFormatting.DARK_RED),
+    BODYGUARD("bodyguard", -2, false, false, false, ChatFormatting.DARK_RED),
     /** Existing pre-Stage195 migration adapter: not an original TC4 itemGolemCore metadata. */
-    PATROL("patrol", -1, false, false, false, ChatFormatting.GRAY);
+    PATROL("patrol", -3, false, false, false, ChatFormatting.GRAY);
 
     private final String id;
     private final int originalId;
@@ -84,7 +86,7 @@ public enum GolemCoreType {
                 return type;
             }
         }
-        return GATHER;
+        return metadata == -1 ? BLANK : GATHER;
     }
 
     public static GolemCoreType byName(String id) {

@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +29,7 @@ public class ThaumonomiconScreen extends Screen {
     private static final ResourceLocation GUI_RESEARCH = new ResourceLocation("thaumcraft", "textures/gui/gui_research.png");
     private static final int PANE_WIDTH = 256;
     private static final int PANE_HEIGHT = 230;
+    private static final double DRAG_THRESHOLD_SQUARED = 16.0D;
 
     private int leftPos;
     private int topPos;
@@ -36,8 +39,14 @@ public class ThaumonomiconScreen extends Screen {
     private int panX = -5 * OriginalResearchLayout.CELL - 141 / 2 - 12;
     private int panY = -6 * OriginalResearchLayout.CELL - 141 / 2;
     private boolean dragging;
+    private boolean draggedBeyondClick;
+    private ResearchEntry pressedEntry;
+    private double pressMouseX;
+    private double pressMouseY;
     private double lastMouseX;
     private double lastMouseY;
+    private final Map<OriginalResearchCategory, Integer> categoryPanX = new EnumMap<>(OriginalResearchCategory.class);
+    private final Map<OriginalResearchCategory, Integer> categoryPanY = new EnumMap<>(OriginalResearchCategory.class);
     private long popupUntil;
     private String popupText = "";
 
@@ -50,6 +59,11 @@ public class ThaumonomiconScreen extends Screen {
         this.leftPos = (this.width - PANE_WIDTH) / 2;
         this.topPos = (this.height - PANE_HEIGHT) / 2;
         this.clearWidgets();
+        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
+            categoryPanX.putIfAbsent(value, panX);
+            categoryPanY.putIfAbsent(value, panY);
+        }
+        restoreCategoryPan();
         clampPan();
     }
 
@@ -96,12 +110,14 @@ public class ThaumonomiconScreen extends Screen {
         Set<String> unlocked = unlockedResearch();
         List<ResearchEntry> entries = OriginalResearchLayout.entriesFor(category);
 
-        // Original TC4 background is a sampled 224x196 region from a 512 texture,
-        // drawn behind the browser frame.
-        int bgU = Math.max(0, Math.min(288, panX + 160));
-        int bgV = Math.max(0, Math.min(316, panY + 190));
+        // Exact GuiResearchBrowser background sampling: convert the category's
+        // clamped research-space pan into the 288x316 movable area of the 512 texture.
+        OriginalResearchLayout.Bounds bounds = OriginalResearchLayout.boundsFor(category);
+        int bgU = proportionalBackgroundCoordinate(panX, bounds.minPanX(), bounds.maxPanX(), 288);
+        int bgV = proportionalBackgroundCoordinate(panY, bounds.minPanY(), bounds.maxPanY(), 316);
         OriginalGuiTextures.blitOriginalRegion(poseStack, mapLeft, mapTop, category.background(), bgU, bgV, 224, 196, 512, 512);
 
+        enableMapScissor(mapLeft, mapTop, OriginalResearchLayout.VIEW_WIDTH, OriginalResearchLayout.VIEW_HEIGHT);
         // Parent and sibling links are drawn before nodes, just like TC4.
         for (ResearchEntry entry : entries) {
             if (!OriginalResearchLayout.visible(unlocked, entry)) continue;
@@ -140,6 +156,26 @@ public class ThaumonomiconScreen extends Screen {
                 highlighted = entry;
             }
         }
+        RenderSystem.disableScissor();
+    }
+
+    private static int proportionalBackgroundCoordinate(int pan, int minPan, int maxPan, int travel) {
+        int low = Math.min(minPan, maxPan);
+        int high = Math.max(minPan, maxPan);
+        int span = Math.max(1, high - low);
+        float normalized = (Math.max(low, Math.min(high, pan)) - low) / (float) span;
+        return Math.max(0, Math.min(travel, Math.round(normalized * travel)));
+    }
+
+    private void enableMapScissor(int x, int y, int width, int height) {
+        Minecraft minecraft = Minecraft.getInstance();
+        double scale = minecraft.getWindow().getGuiScale();
+        int framebufferHeight = minecraft.getWindow().getHeight();
+        int sx = (int) Math.floor(x * scale);
+        int sy = framebufferHeight - (int) Math.ceil((y + height) * scale);
+        int sw = (int) Math.ceil(width * scale);
+        int sh = (int) Math.ceil(height * scale);
+        RenderSystem.enableScissor(sx, sy, sw, sh);
     }
 
     private ResearchEntry find(List<ResearchEntry> entries, String key) {
@@ -286,36 +322,24 @@ public class ThaumonomiconScreen extends Screen {
             int x = leftPos - 24;
             int y = topPos + i * 24;
             if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
+                saveCategoryPan();
                 category = OriginalResearchCategory.values()[i];
                 selected = null;
+                restoreCategoryPan();
                 clampPan();
                 return true;
             }
         }
 
-        if (highlighted != null) {
-            selected = highlighted;
-            Set<String> unlocked = unlockedResearch();
-            OriginalClientResearchSelection.set(selected.key());
-            ThaumcraftNetwork.requestSelectResearchFromClient(selected.key());
-            if (OriginalResearchLayout.unlocked(unlocked, selected) && TC4ResearchFlagPolicy.hasOriginalPagePayload(selected)) {
-                Minecraft.getInstance().setScreen(new TC4ResearchPageScreen(this, selected));
-            } else if (!OriginalResearchLayout.unlocked(unlocked, selected) && OriginalResearchLayout.available(unlocked, selected)) {
-                ThaumcraftNetwork.requestCompleteSelectedResearchFromClient();
-                popupUntil = 0L;
-                popupText = "";
-            } else {
-                popupUntil = 0L;
-                popupText = "";
-            }
-            return true;
-        }
-
         int mapLeft = leftPos + OriginalResearchLayout.VIEW_X;
         int mapTop = topPos + OriginalResearchLayout.VIEW_Y;
-        if (mouseX >= mapLeft && mouseX < mapLeft + OriginalResearchLayout.VIEW_WIDTH
+        if (button == 0 && mouseX >= mapLeft && mouseX < mapLeft + OriginalResearchLayout.VIEW_WIDTH
                 && mouseY >= mapTop && mouseY < mapTop + OriginalResearchLayout.VIEW_HEIGHT) {
             dragging = true;
+            draggedBeyondClick = false;
+            pressedEntry = highlighted;
+            pressMouseX = mouseX;
+            pressMouseY = mouseY;
             lastMouseX = mouseX;
             lastMouseY = mouseY;
             return true;
@@ -323,14 +347,42 @@ public class ThaumonomiconScreen extends Screen {
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
+    private void activateResearch(ResearchEntry entry) {
+        if (entry == null) {
+            return;
+        }
+        selected = entry;
+        Set<String> unlocked = unlockedResearch();
+        OriginalClientResearchSelection.set(selected.key());
+        ThaumcraftNetwork.requestSelectResearchFromClient(selected.key());
+        if (OriginalResearchLayout.unlocked(unlocked, selected) && TC4ResearchFlagPolicy.hasOriginalPagePayload(selected)) {
+            Minecraft.getInstance().setScreen(new TC4ResearchPageScreen(this, selected));
+        } else if (!OriginalResearchLayout.unlocked(unlocked, selected) && OriginalResearchLayout.available(unlocked, selected)) {
+            ThaumcraftNetwork.requestCompleteSelectedResearchFromClient();
+            popupUntil = 0L;
+            popupText = "";
+        } else {
+            popupUntil = 0L;
+            popupText = "";
+        }
+    }
+
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (dragging) {
-            panX -= (int)(mouseX - lastMouseX);
-            panY -= (int)(mouseY - lastMouseY);
+            double totalDx = mouseX - pressMouseX;
+            double totalDy = mouseY - pressMouseY;
+            if (totalDx * totalDx + totalDy * totalDy >= DRAG_THRESHOLD_SQUARED) {
+                draggedBeyondClick = true;
+            }
+            if (draggedBeyondClick) {
+                panX -= (int)(mouseX - lastMouseX);
+                panY -= (int)(mouseY - lastMouseY);
+                clampPan();
+                saveCategoryPan();
+            }
             lastMouseX = mouseX;
             lastMouseY = mouseY;
-            clampPan();
             return true;
         }
         return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
@@ -338,7 +390,18 @@ public class ThaumonomiconScreen extends Screen {
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (dragging && button == 0) {
+            ResearchEntry clicked = !draggedBeyondClick ? pressedEntry : null;
+            dragging = false;
+            draggedBeyondClick = false;
+            pressedEntry = null;
+            if (clicked != null) {
+                activateResearch(clicked);
+            }
+            return true;
+        }
         dragging = false;
+        pressedEntry = null;
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
@@ -346,7 +409,18 @@ public class ThaumonomiconScreen extends Screen {
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
         panY -= (int)(delta * 18);
         clampPan();
+        saveCategoryPan();
         return true;
+    }
+
+    private void saveCategoryPan() {
+        categoryPanX.put(category, panX);
+        categoryPanY.put(category, panY);
+    }
+
+    private void restoreCategoryPan() {
+        panX = categoryPanX.getOrDefault(category, panX);
+        panY = categoryPanY.getOrDefault(category, panY);
     }
 
     private void clampPan() {

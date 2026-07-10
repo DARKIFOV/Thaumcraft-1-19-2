@@ -26,12 +26,12 @@ public class GolemUpgradeItem extends Item {
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         tooltip.add(Component.literal("Golem upgrade: ").append(upgradeType.displayName()));
         switch (upgradeType) {
-            case AIR -> tooltip.add(Component.literal("TC4: faster movement and wider work range.").withStyle(ChatFormatting.GRAY));
-            case FIRE -> tooltip.add(Component.literal("TC4: stronger combat and faster destructive work.").withStyle(ChatFormatting.GRAY));
-            case WATER -> tooltip.add(Component.literal("TC4: careful harvesting and better item handling.").withStyle(ChatFormatting.GRAY));
-            case EARTH -> tooltip.add(Component.literal("TC4: tougher body and larger carrying capacity.").withStyle(ChatFormatting.GRAY));
-            case ORDER -> tooltip.add(Component.literal("TC4: precise sorting/filter work.").withStyle(ChatFormatting.GRAY));
-            case ENTROPY -> tooltip.add(Component.literal("TC4: aggressive work with risky combat power.").withStyle(ChatFormatting.GRAY));
+            case AIR -> tooltip.add(Component.literal("TC4: +15% movement speed per installed rune.").withStyle(ChatFormatting.GRAY));
+            case EARTH -> tooltip.add(Component.literal("TC4: more carry space and +1 strength; two runes stack.").withStyle(ChatFormatting.GRAY));
+            case FIRE -> tooltip.add(Component.literal("TC4: melee attacks ignite targets; improves destructive jobs.").withStyle(ChatFormatting.GRAY));
+            case WATER -> tooltip.add(Component.literal("TC4: larger work range and more accurate dart attacks.").withStyle(ChatFormatting.GRAY));
+            case ORDER -> tooltip.add(Component.literal("TC4: coloured markers, precision targets and crop replanting.").withStyle(ChatFormatting.GRAY));
+            case ENTROPY -> tooltip.add(Component.literal("TC4: advanced item matching and retaliatory combat effects.").withStyle(ChatFormatting.GRAY));
         }
     }
 }

@@ -29,6 +29,7 @@ public final class FocusArchitectRuntime {
     public static final String TAG_AREA_Z = "areaz";
     public static final String TAG_AREA_DIM = "aread";
     public static final String TAG_PICKED_BLOCK = "picked";
+    public static final String TAG_PICKED_STATE = "picked_state";
 
     private FocusArchitectRuntime() {}
 
@@ -246,7 +247,7 @@ public final class FocusArchitectRuntime {
         BlockState state = level.getBlockState(pos);
         boolean warded = com.darkifov.thaumcraft.ward.WardedBlockRuntime.isWarded(level, pos);
         if (tiles) {
-            if (!warded || !com.darkifov.thaumcraft.ward.WardedBlockRuntime.mayEdit(level, pos, player)) return;
+            if (!warded || !com.darkifov.thaumcraft.ward.WardedBlockRuntime.isOwner(level, pos, player)) return;
         } else if (state.isAir() || state.hasBlockEntity() || !state.isSolidRender(level, pos)) {
             return;
         }

@@ -1,0 +1,24 @@
+{
+  "tc4_key": "CoreFishing",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "COREFISHING",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_golem_core_harvest",
+  "components": [
+    "minecraft:fishing_rod",
+    "minecraft:cod",
+    "minecraft:pufferfish",
+    "minecraft:salmon"
+  ],
+  "aspects": {
+    "AQUA": 16,
+    "METO": 16,
+    "BESTIA": 16
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_fish",
+    "count": 1
+  },
+  "v11_62_22_strict_original": true
+}

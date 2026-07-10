@@ -1,0 +1,224 @@
+{
+  "version": "11.62.19",
+  "target": "Forge 1.19.2",
+  "original": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "scope": [
+    "Focus Equal Trade",
+    "Focus Portable Hole",
+    "Focus Warding",
+    "counted ore-cluster smelting"
+  ],
+  "sources": {
+    "equal_trade": [
+      "thaumcraft/common/items/wands/foci/ItemFocusTrade.java",
+      "thaumcraft/common/lib/events/ServerTickEventsFML.java#tickBlockSwap",
+      "thaumcraft/common/lib/events/ServerTickEventsFML.java#VirtualSwapper"
+    ],
+    "portable_hole": [
+      "thaumcraft/common/items/wands/foci/ItemFocusPortableHole.java",
+      "thaumcraft/common/blocks/BlockHole.java",
+      "thaumcraft/common/tiles/TileHole.java"
+    ],
+    "warding": [
+      "thaumcraft/common/items/wands/foci/ItemFocusWarding.java",
+      "thaumcraft/common/blocks/BlockWarded.java",
+      "thaumcraft/common/tiles/TileWarded.java"
+    ],
+    "cluster_smelting": [
+      "thaumcraft/common/config/ConfigRecipes.java",
+      "ThaumcraftApi.addSmeltingBonus / ore cluster furnace recipes"
+    ]
+  },
+  "equal_trade": {
+    "base_cost_cv": {
+      "PERDITIO": 5,
+      "TERRA": 5,
+      "ORDO": 5
+    },
+    "silk_touch_total_cost_cv": {
+      "AER": 1,
+      "IGNIS": 1,
+      "TERRA": 6,
+      "AQUA": 1,
+      "ORDO": 6,
+      "PERDITIO": 6
+    },
+    "focus_color_decimal": 8747923,
+    "focus_color_hex": "0x857B93",
+    "swap_sparkle_decimal": 12632319,
+    "server_queue": true,
+    "one_successful_swap_per_level_tick": true,
+    "discard_invalid_tasks_without_spending_tick": true,
+    "source_matching": "complete BlockState replaces block + metadata",
+    "normal_lifespan": "3 + Enlarge",
+    "linked_neighbours": 26,
+    "neighbour_must_be_exposed": true,
+    "architect_lifespan": 0,
+    "left_click_single_swap": true,
+    "target_item_exact_nbt_match": true,
+    "creative_consumes_target_item": false,
+    "creative_generates_old_block_drops": false,
+    "treasure": "synthetic Fortune level matching focus upgrade",
+    "silk_touch": "synthetic Silk Touch I loot context",
+    "forge_break_event": true,
+    "claim_and_ward_checks": true,
+    "offhand_wand_slot": -1,
+    "transactional_modern_safety": "target item and world state are rolled back if placement or vis payment fails",
+    "recipe": {
+      "research": "FOCUSTRADE",
+      "pattern": ["CQE", "Q#Q", "CQE"],
+      "key": {
+        "#": "thaumcraft:quicksilver_drop",
+        "Q": "minecraft:quartz",
+        "C": "thaumcraft:balanced_shard",
+        "E": "thaumcraft:balanced_shard"
+      },
+      "aspects": {
+        "ORDO": 15,
+        "PERDITIO": 15,
+        "TERRA": 10
+      }
+    }
+  },
+  "portable_hole": {
+    "base_cost_per_layer_cv": {
+      "PERDITIO": 10,
+      "AER": 10
+    },
+    "focus_color_decimal": 594985,
+    "focus_color_hex": "0x091429",
+    "sparkle_decimal": 4194368,
+    "sparkle_hex": "0x400040",
+    "max_depth": "33 + Enlarge * 8",
+    "duration_ticks": "120 + Extend * 60",
+    "initial_layer_count": "measured distance + 1",
+    "growth": "eight side cells plus one next center cell, one center layer per tick",
+    "plane": "3x3 perpendicular to clicked face",
+    "growth_direction": "opposite clicked face",
+    "exact_state_persistence": true,
+    "chunk_save_load_persistence": true,
+    "owner_uuid_persistence": true,
+    "temporary_block": {
+      "invisible": true,
+      "collision": false,
+      "replaceable_by_normal_placement": false,
+      "unbreakable": true,
+      "explosion_proof": true,
+      "piston_reaction": "BLOCK",
+      "light_emission": 10
+    },
+    "datapack_blacklist": "thaumcraft:portable_hole_blacklist",
+    "block_entities_rejected": true,
+    "forge_break_event_per_cell": true,
+    "claim_and_ward_checks_per_cell": true,
+    "outer_lands_disabled": true,
+    "sound": "minecraft:entity.enderman.teleport",
+    "modern_safety_difference": "if the owner is unavailable after a chunk reload, delayed expansion waits and the cell restores instead of opening unprotected neighbours",
+    "recipe": {
+      "research": "FOCUSPORTABLEHOLE",
+      "catalyst": "minecraft:ender_eye",
+      "components": [
+        "minecraft:quartz",
+        "thaumcraft:terra_shard",
+        "minecraft:quartz",
+        "thaumcraft:aer_shard",
+        "minecraft:quartz",
+        "thaumcraft:perditio_shard"
+      ],
+      "aspects": {
+        "ITER": 25,
+        "ALIENIS": 10,
+        "PERMUTATIO": 10,
+        "PERDITIO": 25
+      },
+      "instability": 3
+    }
+  },
+  "warding": {
+    "creation_cost_cv": {
+      "TERRA": 25,
+      "ORDO": 25,
+      "AQUA": 10
+    },
+    "removal_cost_cv": {},
+    "focus_color_decimal": 16771535,
+    "focus_color_hex": "0xFFE9CF",
+    "sparkle_decimal": 16556032,
+    "sparkle_hex": "0xFCA000",
+    "coordinate_dimension_delay_ms": 500,
+    "exact_state_persistence": true,
+    "owner_identity": "UUID replaces the original player-name hash",
+    "chunk_save_load_persistence": true,
+    "owner_only_removal": true,
+    "creative_can_remove": true,
+    "ordinary_breaking_blocked_even_for_owner": true,
+    "explosion_proof": true,
+    "piston_reaction": "BLOCK",
+    "right_click_not_forwarded": "prevents doors, levers and other self-replacing states from bypassing the wrapper",
+    "delegated_properties": [
+      "shape",
+      "collision",
+      "occlusion",
+      "visual shape",
+      "skylight",
+      "shade brightness",
+      "light emission",
+      "friction",
+      "sound",
+      "ladder",
+      "plant support",
+      "fertility",
+      "enchanting power",
+      "step and fall behaviour",
+      "redstone weak/direct/analog output",
+      "creative pick block"
+    ],
+    "architect_max_area": "3 + Enlarge",
+    "enlarge_requires_architect": true,
+    "forge_break_event": true,
+    "transactional_modern_safety": "new ward is rolled back if vis payment fails",
+    "renderer": "stored BlockState plus owner-only outline while a Warding focus is held in either hand",
+    "recipe": {
+      "research": "FOCUSWARDING",
+      "catalyst": "minecraft:fire_charge",
+      "components": [
+        "thaumcraft:quicksilver_drop",
+        "thaumcraft:terra_shard",
+        "minecraft:quartz",
+        "thaumcraft:ordo_shard",
+        "thaumcraft:quicksilver_drop",
+        "thaumcraft:terra_shard",
+        "minecraft:quartz",
+        "thaumcraft:ordo_shard"
+      ],
+      "aspects": {
+        "TERRA": 25,
+        "TUTAMEN": 25,
+        "ORDO": 25,
+        "COGNITIO": 10
+      },
+      "instability": 4
+    }
+  },
+  "cluster_smelting": {
+    "serializer": "thaumcraft:counted_smelting",
+    "network_preserves_result_stack_count": true,
+    "two_output_recipes": {
+      "thaumcraft:tc4_clusteriron": "2 minecraft:iron_ingot",
+      "thaumcraft:tc4_clustergold": "2 minecraft:gold_ingot",
+      "thaumcraft:tc4_clustercinnabar": "2 thaumcraft:quicksilver_drop",
+      "thaumcraft:tc4_clustercopper": "2 minecraft:copper_ingot"
+    },
+    "remaining_mod_compatibility": [
+      "tin cluster needs a canonical modded tin-ingot target",
+      "silver cluster needs a canonical modded silver-ingot target",
+      "lead cluster needs a canonical modded lead-ingot target"
+    ]
+  },
+  "known_limits": [
+    "legacy GL11 ward runes and focus effects are modern renderer/particle adaptations and require in-game brightness/geometry comparison",
+    "the full Forge Java compile still requires GitHub Actions because the local environment cannot download Gradle 7.5.1",
+    "multiplayer claim-mod compatibility and chunk-unload recovery require real dedicated-server tests",
+    "tin, silver and lead counted-smelting outputs need a tag-aware mod compatibility layer"
+  ]
+}

@@ -9,6 +9,10 @@ import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipeManager;
 import com.darkifov.thaumcraft.block.AddonCompletionLedgerItem;
 import com.darkifov.thaumcraft.block.AdvancedNodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.AlchemicalFurnaceBlock;
+import com.darkifov.thaumcraft.block.AlchemicalCentrifugeBlock;
+import com.darkifov.thaumcraft.block.DeconstructionTableBlock;
+import com.darkifov.thaumcraft.block.EssentiaCrystalizerBlock;
+import com.darkifov.thaumcraft.block.EssentiaCrystalItem;
 import com.darkifov.thaumcraft.block.AlembicBlock;
 import com.darkifov.thaumcraft.block.EssentiaReservoirBlock;
 import com.darkifov.thaumcraft.block.ThaumatoriumBlock;
@@ -45,6 +49,7 @@ import com.darkifov.thaumcraft.block.FluxGasBlock;
 import com.darkifov.thaumcraft.block.FluxGooBlock;
 import com.darkifov.thaumcraft.block.FocusPouchItem;
 import com.darkifov.thaumcraft.block.FocusPouchBaubleItem;
+import com.darkifov.thaumcraft.block.FocalManipulatorBlock;
 import com.darkifov.thaumcraft.block.HelmetOfRevealingItem;
 import com.darkifov.thaumcraft.block.IchorArmorItem;
 import com.darkifov.thaumcraft.block.IchorPickaxeItem;
@@ -53,6 +58,7 @@ import com.darkifov.thaumcraft.block.IchorGearItem;
 import com.darkifov.thaumcraft.block.KamiResearchCoreItem;
 import com.darkifov.thaumcraft.block.MatrixAuxiliaryBlock;
 import com.darkifov.thaumcraft.block.EtherealPlatformBlock;
+import com.darkifov.thaumcraft.block.ElectricShockBlock;
 import com.darkifov.thaumcraft.block.EssentiaUpgradeCardItem;
 import com.darkifov.thaumcraft.block.EssentiaPhialItem;
 import com.darkifov.thaumcraft.block.GogglesOfRevealingItem;
@@ -71,6 +77,8 @@ import com.darkifov.thaumcraft.block.PechTradeTokenItem;
 import com.darkifov.thaumcraft.block.NodeJarItem;
 import com.darkifov.thaumcraft.block.NodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.NodeTransducerBlock;
+import com.darkifov.thaumcraft.block.NitorLightBlock;
+import com.darkifov.thaumcraft.block.NitorItem;
 import com.darkifov.thaumcraft.block.VisRelayBlock;
 import com.darkifov.thaumcraft.block.PortingLedgerItem;
 import com.darkifov.thaumcraft.block.TableBlock;
@@ -104,11 +112,15 @@ import com.darkifov.thaumcraft.block.ThaumcraftExtrasElementalBlock;
 import com.darkifov.thaumcraft.block.ThaumometerItem;
 import com.darkifov.thaumcraft.block.ThaumonomiconItem;
 import com.darkifov.thaumcraft.block.TemporaryHoleBlock;
+import com.darkifov.thaumcraft.block.WardedBlock;
 import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.block.WandFocusItem;
 import com.darkifov.thaumcraft.block.WarpWardTalismanItem;
 import com.darkifov.thaumcraft.block.WarpCharmItem;
 import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
+import com.darkifov.thaumcraft.blockentity.AlchemicalCentrifugeBlockEntity;
+import com.darkifov.thaumcraft.blockentity.DeconstructionTableBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaCrystalizerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
@@ -121,6 +133,7 @@ import com.darkifov.thaumcraft.blockentity.EldritchTrapBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchLockBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchCapBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaDriveBlockEntity;
+import com.darkifov.thaumcraft.blockentity.FocalManipulatorBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
@@ -128,6 +141,8 @@ import com.darkifov.thaumcraft.blockentity.ThaumatoriumBlockEntity;
 import com.darkifov.thaumcraft.blockentity.TransvectorInterfaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TemporaryHoleBlockEntity;
+import com.darkifov.thaumcraft.blockentity.WardedBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
@@ -141,6 +156,7 @@ import com.darkifov.thaumcraft.entity.TaintacleSmallEntity;
 import com.darkifov.thaumcraft.entity.TaintacleEntity;
 import com.darkifov.thaumcraft.entity.PechEntity;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
+import com.darkifov.thaumcraft.entity.TC4FireBatEntity;
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EmberEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EldritchOrbEntity;
@@ -148,6 +164,7 @@ import com.darkifov.thaumcraft.entity.projectile.TC4ExplosiveOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4FrostShardEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4GolemOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PrimalOrbEntity;
+import com.darkifov.thaumcraft.entity.projectile.TC4PechBlastEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ShockOrbEntity;
 import com.darkifov.thaumcraft.infusion.InfusionRecipeManager;
 import com.darkifov.thaumcraft.essentia.EssentiaTubeSubtype;
@@ -157,17 +174,20 @@ import com.darkifov.thaumcraft.menu.EssentiaDriveMenu;
 import com.darkifov.thaumcraft.menu.EssentiaTerminalMenu;
 import com.darkifov.thaumcraft.menu.BottomlessPouchMenu;
 import com.darkifov.thaumcraft.menu.FocusPouchMenu;
+import com.darkifov.thaumcraft.menu.FocalManipulatorMenu;
 import com.darkifov.thaumcraft.menu.GolemMenu;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
 import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
 import com.darkifov.thaumcraft.menu.ResearchTableMenu;
+import com.darkifov.thaumcraft.menu.DeconstructionTableMenu;
 import com.darkifov.thaumcraft.menu.ThaumatoriumMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.porting.TC4RegistryGarbageGuard;
 import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import com.darkifov.thaumcraft.recipe.CountedSmeltingRecipeSerializer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -178,6 +198,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -218,6 +240,12 @@ public class ThaumcraftMod {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);
+
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS =
+            DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MOD_ID);
+
+    public static final RegistryObject<RecipeSerializer<SmeltingRecipe>> COUNTED_SMELTING =
+            RECIPE_SERIALIZERS.register("counted_smelting", CountedSmeltingRecipeSerializer::new);
 
     public static final CreativeModeTab THAUMCRAFT_TAB = new CreativeModeTab("thaumcraft") {
         @Override
@@ -263,6 +291,8 @@ public class ThaumcraftMod {
             () -> new GogglesOfRevealingItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> RESEARCH_NOTE = specialItem("research_note",
             () -> new ResearchNoteItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Item> ESSENTIA_CRYSTAL = specialItem("tc4_crystalessence",
+            () -> new EssentiaCrystalItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> RESEARCH_POINT = specialItem("research_point",
             () -> new ResearchPointItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
@@ -396,7 +426,8 @@ public class ThaumcraftMod {
     public static final RegistryObject<Item> AMBER = item("amber");
     public static final RegistryObject<Item> QUICKSILVER_DROP = item("quicksilver_drop");
     public static final RegistryObject<Item> PRIMORDIAL_PEARL = item("primordial_pearl");
-    public static final RegistryObject<Item> NITOR = item("nitor");
+    public static final RegistryObject<Item> NITOR = specialItem("nitor",
+            () -> new NitorItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> ALCHEMY_DUST = item("alchemy_dust");
     public static final RegistryObject<Item> ESSENTIA_PHIAL = specialItem("essentia_phial",
             () -> new EssentiaPhialItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
@@ -648,7 +679,11 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> FLUX_GAS = fluxGasBlock("flux_gas",
             BlockBehaviour.Properties.of(Material.AIR).strength(0.0F).randomTicks().noCollission().noOcclusion().lightLevel(state -> 3));
     public static final RegistryObject<Block> TEMPORARY_HOLE = temporaryHoleBlock("temporary_hole",
-            BlockBehaviour.Properties.of(Material.AIR).strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 10));
+            BlockBehaviour.Properties.of(Material.STONE).strength(-1.0F, 6000000.0F).noCollission().noOcclusion().lightLevel(state -> 10));
+    public static final RegistryObject<Block> WARDED_BLOCK = BLOCKS.register("warded_block", () -> new WardedBlock(
+            BlockBehaviour.Properties.of(Material.STONE).strength(-1.0F, 3600000.0F).noOcclusion()));
+    public static final RegistryObject<Block> ELECTRIC_SHOCK = electricShockBlock("electric_shock",
+            BlockBehaviour.Properties.of(Material.AIR).strength(100.0F, 50.0F).randomTicks().noCollission().noOcclusion().lightLevel(state -> 8));
     public static final RegistryObject<Block> GREATWOOD_LOG = pillarBlock("greatwood_log",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
 
@@ -677,8 +712,14 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> RESEARCH_TABLE = researchTableBlock("research_table",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
 
+    public static final RegistryObject<Block> DECONSTRUCTION_TABLE = deconstructionTableBlock("deconstruction_table",
+            BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion());
+
     public static final RegistryObject<Block> ARCANE_WORKBENCH = arcaneWorkbenchBlock("arcane_workbench",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F, 4.0F));
+
+    public static final RegistryObject<Block> FOCAL_MANIPULATOR = focalManipulatorBlock("tc4_block_focal_manipulator",
+            BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
 
     public static final RegistryObject<Block> CRUCIBLE = crucibleBlock("crucible",
             BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 6.0F).requiresCorrectToolForDrops());
@@ -699,6 +740,12 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> ALEMBIC = alembicBlock("alembic",
             BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    public static final RegistryObject<Block> ALCHEMICAL_CENTRIFUGE = alchemicalCentrifugeBlock("alchemical_centrifuge",
+            BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 8.0F).requiresCorrectToolForDrops().noOcclusion());
+
+    public static final RegistryObject<Block> ESSENTIA_CRYSTALIZER = essentiaCrystalizerBlock("essentia_crystalizer",
+            BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 8.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 3));
 
     public static final RegistryObject<Block> ESSENTIA_TUBE = essentiaTubeBlock("essentia_tube",
             BlockBehaviour.Properties.of(Material.GLASS).strength(1.0F, 2.0F).requiresCorrectToolForDrops().noOcclusion());
@@ -765,8 +812,12 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.STONE).strength(10.0F, 1200.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> OBSIDIAN_TOTEM = block("obsidian_totem",
             BlockBehaviour.Properties.of(Material.STONE).strength(12.0F, 1200.0F).requiresCorrectToolForDrops());
-    public static final RegistryObject<Block> NITOR_LIGHT = block("nitor_light",
-            BlockBehaviour.Properties.of(Material.GLASS).strength(0.8F, 2.0F).lightLevel(state -> 14));
+    public static final RegistryObject<Block> NITOR_LIGHT = nitorLightBlock("nitor_light",
+            BlockBehaviour.Properties.of(Material.FIRE)
+                    .strength(0.0F, 0.0F)
+                    .noCollission()
+                    .noOcclusion()
+                    .lightLevel(state -> 15));
     public static final RegistryObject<Block> TT_MOB_MAGNET = ttParityBlock("tt_mob_magnet", ThaumicTinkererParityBlock.Mode.MOB_MAGNET,
             BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 3));
     public static final RegistryObject<Block> TT_REPAIRER = ttParityBlock("tt_repairer", ThaumicTinkererParityBlock.Mode.REPAIRER,
@@ -951,11 +1002,24 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> ORDO_CRYSTAL = crystalBlock("ordo_crystal", 11);
     public static final RegistryObject<Block> PERDITIO_CRYSTAL = crystalBlock("perditio_crystal", 7);
 
+    public static final RegistryObject<BlockEntityType<TemporaryHoleBlockEntity>> TEMPORARY_HOLE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("temporary_hole", () -> BlockEntityType.Builder.of(TemporaryHoleBlockEntity::new, TEMPORARY_HOLE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<WardedBlockEntity>> WARDED_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("warded_block", () -> BlockEntityType.Builder.of(WardedBlockEntity::new, WARDED_BLOCK.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ArcaneWorkbenchBlockEntity>> ARCANE_WORKBENCH_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("arcane_workbench", () -> BlockEntityType.Builder.of(ArcaneWorkbenchBlockEntity::new, ARCANE_WORKBENCH.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<FocalManipulatorBlockEntity>> FOCAL_MANIPULATOR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("focal_manipulator", () -> BlockEntityType.Builder.of(
+                    FocalManipulatorBlockEntity::new, FOCAL_MANIPULATOR.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<ResearchTableBlockEntity>> RESEARCH_TABLE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("research_table", () -> BlockEntityType.Builder.of(ResearchTableBlockEntity::new, RESEARCH_TABLE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<DeconstructionTableBlockEntity>> DECONSTRUCTION_TABLE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("deconstruction_table", () -> BlockEntityType.Builder.of(DeconstructionTableBlockEntity::new, DECONSTRUCTION_TABLE.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<CrucibleBlockEntity>> CRUCIBLE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("crucible", () -> BlockEntityType.Builder.of(CrucibleBlockEntity::new, CRUCIBLE.get()).build(null));
@@ -967,6 +1031,12 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<BlockEntityType<AlembicBlockEntity>> ALEMBIC_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("alembic", () -> BlockEntityType.Builder.of(AlembicBlockEntity::new, ALEMBIC.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<AlchemicalCentrifugeBlockEntity>> ALCHEMICAL_CENTRIFUGE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("alchemical_centrifuge", () -> BlockEntityType.Builder.of(AlchemicalCentrifugeBlockEntity::new, ALCHEMICAL_CENTRIFUGE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<EssentiaCrystalizerBlockEntity>> ESSENTIA_CRYSTALIZER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("essentia_crystalizer", () -> BlockEntityType.Builder.of(EssentiaCrystalizerBlockEntity::new, ESSENTIA_CRYSTALIZER.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<EssentiaTubeBlockEntity>> ESSENTIA_TUBE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("essentia_tube", () -> BlockEntityType.Builder.of(EssentiaTubeBlockEntity::new,
@@ -1019,8 +1089,15 @@ public class ThaumcraftMod {
     public static final RegistryObject<MenuType<ArcaneWorkbenchMenu>> ARCANE_WORKBENCH_MENU =
             MENUS.register("arcane_workbench", () -> IForgeMenuType.create((windowId, inv, data) -> new ArcaneWorkbenchMenu(windowId, inv, data)));
 
+    public static final RegistryObject<MenuType<FocalManipulatorMenu>> FOCAL_MANIPULATOR_MENU =
+            MENUS.register("focal_manipulator", () -> IForgeMenuType.create(
+                    (windowId, inv, data) -> new FocalManipulatorMenu(windowId, inv, data)));
+
     public static final RegistryObject<MenuType<ResearchTableMenu>> RESEARCH_TABLE_MENU =
             MENUS.register("research_table", () -> IForgeMenuType.create((windowId, inv, data) -> new ResearchTableMenu(windowId, inv, data)));
+
+    public static final RegistryObject<MenuType<DeconstructionTableMenu>> DECONSTRUCTION_TABLE_MENU =
+            MENUS.register("deconstruction_table", () -> IForgeMenuType.create((windowId, inv, data) -> new DeconstructionTableMenu(windowId, inv, data)));
 
     public static final RegistryObject<MenuType<ThaumatoriumMenu>> THAUMATORIUM_MENU =
             MENUS.register("thaumatorium", () -> IForgeMenuType.create((windowId, inv, data) -> new ThaumatoriumMenu(windowId, inv, data)));
@@ -1149,39 +1226,54 @@ public class ThaumcraftMod {
                     .build(MOD_ID + ":taintacle_giant"));
 
 
+    public static final RegistryObject<EntityType<TC4FireBatEntity>> FIREBAT =
+            ENTITY_TYPES.register("firebat", () -> EntityType.Builder.<TC4FireBatEntity>of(TC4FireBatEntity::new, MobCategory.MONSTER)
+                    .sized(0.5F, 0.9F)
+                    .fireImmune()
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
+                    .build(MOD_ID + ":firebat"));
+
+    public static final RegistryObject<EntityType<TC4PechBlastEntity>> FOCUS_PECH_BLAST =
+            ENTITY_TYPES.register("focus_pech_blast", () -> EntityType.Builder.<TC4PechBlastEntity>of(TC4PechBlastEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
+                    .build(MOD_ID + ":focus_pech_blast"));
+
     public static final RegistryObject<EntityType<TC4EmberEntity>> FOCUS_EMBER =
             ENTITY_TYPES.register("focus_ember", () -> EntityType.Builder.<TC4EmberEntity>of(TC4EmberEntity::new, MobCategory.MISC)
                     .sized(0.2F, 0.2F)
                     .clientTrackingRange(4)
-                    .updateInterval(20)
+                    .updateInterval(1)
                     .build(MOD_ID + ":focus_ember"));
 
     public static final RegistryObject<EntityType<TC4FrostShardEntity>> FOCUS_FROST_SHARD =
             ENTITY_TYPES.register("focus_frost_shard", () -> EntityType.Builder.<TC4FrostShardEntity>of(TC4FrostShardEntity::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .updateInterval(1)
                     .build(MOD_ID + ":focus_frost_shard"));
 
     public static final RegistryObject<EntityType<TC4ExplosiveOrbEntity>> FOCUS_EXPLOSIVE_ORB =
             ENTITY_TYPES.register("focus_explosive_orb", () -> EntityType.Builder.<TC4ExplosiveOrbEntity>of(TC4ExplosiveOrbEntity::new, MobCategory.MISC)
                     .sized(0.35F, 0.35F)
                     .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .updateInterval(1)
                     .build(MOD_ID + ":focus_explosive_orb"));
 
     public static final RegistryObject<EntityType<TC4ShockOrbEntity>> FOCUS_SHOCK_ORB =
             ENTITY_TYPES.register("focus_shock_orb", () -> EntityType.Builder.<TC4ShockOrbEntity>of(TC4ShockOrbEntity::new, MobCategory.MISC)
                     .sized(0.35F, 0.35F)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
                     .build(MOD_ID + ":focus_shock_orb"));
 
     public static final RegistryObject<EntityType<TC4PrimalOrbEntity>> FOCUS_PRIMAL_ORB =
             ENTITY_TYPES.register("focus_primal_orb", () -> EntityType.Builder.<TC4PrimalOrbEntity>of(TC4PrimalOrbEntity::new, MobCategory.MISC)
                     .sized(0.4F, 0.4F)
-                    .clientTrackingRange(4)
-                    .updateInterval(10)
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
                     .build(MOD_ID + ":focus_primal_orb"));
 
     public static final RegistryObject<EntityType<TC4EldritchOrbEntity>> ELDRITCH_ORB =
@@ -1207,6 +1299,7 @@ public class ThaumcraftMod {
         ENTITY_TYPES.register(modBus);
         MENUS.register(modBus);
         SOUND_EVENTS.register(modBus);
+        RECIPE_SERIALIZERS.register(modBus);
         modBus.addListener(this::onEntityAttributeCreation);
         MinecraftForge.EVENT_BUS.addListener(this::onAddReloadListeners);
         ThaumcraftNetwork.register();
@@ -1215,6 +1308,7 @@ public class ThaumcraftMod {
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
         event.put(THAUM_GOLEM.get(), ThaumGolemEntity.createAttributes().build());
         event.put(TAINT_CRAWLER.get(), TaintCrawlerEntity.createAttributes().build());
+        event.put(FIREBAT.get(), TC4FireBatEntity.createAttributes().build());
         event.put(PECH.get(), PechEntity.createAttributes().build());
         event.put(ELDRITCH_GUARDIAN.get(), EldritchGuardianEntity.createAttributes().build());
         event.put(ELDRITCH_CRAB.get(), EldritchCrabEntity.createAttributes().build());
@@ -1261,10 +1355,18 @@ public class ThaumcraftMod {
         return BLOCKS.register(name, () -> new TemporaryHoleBlock(properties));
     }
 
+    private static RegistryObject<Block> electricShockBlock(String name, BlockBehaviour.Properties properties) {
+        return BLOCKS.register(name, () -> new ElectricShockBlock(properties));
+    }
+
     private static RegistryObject<Block> block(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new Block(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
+    }
+
+    private static RegistryObject<Block> nitorLightBlock(String name, BlockBehaviour.Properties properties) {
+        return BLOCKS.register(name, () -> new NitorLightBlock(properties));
     }
 
     private static RegistryObject<Block> pillarBlock(String name, BlockBehaviour.Properties properties) {
@@ -1333,8 +1435,20 @@ public class ThaumcraftMod {
         return block;
     }
 
+    private static RegistryObject<Block> deconstructionTableBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new DeconstructionTableBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
     private static RegistryObject<Block> arcaneWorkbenchBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new ArcaneWorkbenchBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> focalManipulatorBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new FocalManipulatorBlock(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
@@ -1384,6 +1498,18 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> alembicBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new AlembicBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> alchemicalCentrifugeBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new AlchemicalCentrifugeBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+    private static RegistryObject<Block> essentiaCrystalizerBlock(String name, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new EssentiaCrystalizerBlock(properties));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }

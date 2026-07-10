@@ -1,0 +1,31 @@
+{
+  "tc4_key": "AlchemyFurnace",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "DISTILESSENTIA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:crucible",
+  "ingredients": [
+    "thaumcraft:arcane_stone",
+    "thaumcraft:crucible",
+    "minecraft:furnace"
+  ],
+  "aspects": {
+    "IGNIS": 5,
+    "AQUA": 5
+  },
+  "pattern": [
+    "SCS",
+    "SFS",
+    "SSS"
+  ],
+  "key": {
+    "S": "thaumcraft:arcane_stone",
+    "C": "thaumcraft:crucible",
+    "F": "minecraft:furnace"
+  },
+  "result": {
+    "item": "thaumcraft:alchemical_furnace",
+    "count": 1
+  },
+  "v11_62_23_strict_original": true
+}

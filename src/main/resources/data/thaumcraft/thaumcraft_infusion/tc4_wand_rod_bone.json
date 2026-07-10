@@ -1,0 +1,21 @@
+{
+  "tc4_key": "WandRodBone",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_bone",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:bone",
+  "components": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:perditio_shard"
+  ],
+  "aspects": {
+    "PERDITIO": 12,
+    "PRAECANTATIO": 6,
+    "EXANIMIS": 6
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_bone",
+    "count": 1
+  }
+}

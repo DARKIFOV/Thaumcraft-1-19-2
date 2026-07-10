@@ -50,6 +50,7 @@ public abstract class TC4FocusProjectileEntity extends Projectile {
     public void tick() {
         super.tick();
         life++;
+        beforeTc4Move();
         HitResult hit = ProjectileUtil.getHitResult(this, this::canHitEntity);
         if (hit.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hit)) {
             onHit(hit);
@@ -58,7 +59,7 @@ public abstract class TC4FocusProjectileEntity extends Projectile {
         if (!isNoGravity()) {
             setDeltaMovement(getDeltaMovement().add(0.0D, -tc4Gravity(), 0.0D));
         }
-        setDeltaMovement(getDeltaMovement().scale(0.99D));
+        setDeltaMovement(getDeltaMovement().scale(tc4Drag()));
         if (!level.isClientSide && life > maxLife) {
             discard();
         }
@@ -83,8 +84,15 @@ public abstract class TC4FocusProjectileEntity extends Projectile {
         return true;
     }
 
+    protected void beforeTc4Move() {
+    }
+
     protected double tc4Gravity() {
         return 0.03D;
+    }
+
+    protected double tc4Drag() {
+        return 0.99D;
     }
 
     protected void onHitBlockTC4(BlockHitResult hit) {

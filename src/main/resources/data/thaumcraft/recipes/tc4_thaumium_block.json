@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "thaumcraft:tc4_thaumiumingot"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_thaumium",
+    "count": 1
+  }
+}

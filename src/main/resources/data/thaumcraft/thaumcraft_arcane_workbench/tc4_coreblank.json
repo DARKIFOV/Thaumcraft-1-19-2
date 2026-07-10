@@ -3,25 +3,26 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "COREGATHER",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:red_bed",
+  "catalyst": "thaumcraft:tc4_nitor",
   "ingredients": [
-    "thaumcraft:tc4_nitor"
+    "minecraft:brick"
   ],
   "aspects": {
     "ORDO": 5,
     "IGNIS": 5
   },
   "pattern": [
-    "C",
+    " C ",
     "CNC",
-    "C"
+    " C "
   ],
   "key": {
-    "C": "thaumcraft:tc4_nitor",
-    "N": "minecraft:red_bed"
+    "C": "minecraft:brick",
+    "N": "thaumcraft:tc4_nitor"
   },
   "result": {
     "item": "thaumcraft:tc4_golem_core_blank",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

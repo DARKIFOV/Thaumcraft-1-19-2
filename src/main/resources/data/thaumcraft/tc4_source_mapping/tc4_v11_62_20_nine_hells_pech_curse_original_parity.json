@@ -1,0 +1,94 @@
+{
+  "version": "11.62.20",
+  "title": "Nine Hells and Pech's Curse original parity",
+  "strict_original": true,
+  "source_truth": [
+    "thaumcraft/common/items/wands/foci/ItemFocusHellbat.java",
+    "thaumcraft/common/items/wands/foci/ItemFocusPech.java",
+    "thaumcraft/common/entities/monster/EntityFireBat.java",
+    "thaumcraft/common/entities/projectile/EntityPechBlast.java",
+    "thaumcraft/client/renderers/entity/RenderFireBat.java",
+    "thaumcraft/client/renderers/models/ModelFireBat.java",
+    "thaumcraft/common/config/ConfigResearch.java",
+    "thaumcraft/common/entities/monster/EntityPech.java"
+  ],
+  "nine_hells": {
+    "original_item_class": "ItemFocusHellbat",
+    "modern_focus_type": "WandFocusType.HELLBAT",
+    "range_blocks": 32,
+    "cooldown_ticks": 20,
+    "focus_color_decimal": 14431746,
+    "base_cost_cv": {
+      "IGNIS": 200,
+      "PERDITIO": 100,
+      "AER": 100
+    },
+    "bat_bombs_cost_cv": {
+      "IGNIS": 100,
+      "PERDITIO": 200,
+      "AER": 100
+    },
+    "devil_bats_cost_cv": {
+      "IGNIS": 100,
+      "PERDITIO": 100,
+      "AER": 100,
+      "TERRA": 100
+    },
+    "entity_adapter": "TC4FireBatEntity",
+    "renderer_adapter": "TC4FireBatRenderer + TC4FireBatModel",
+    "variants": [
+      "Bat Bombs",
+      "Devil Bats",
+      "Vampire Bats"
+    ],
+    "upgrade_research_gate": "VAMPBAT"
+  },
+  "pech_curse": {
+    "original_item_class": "ItemFocusPech",
+    "modern_focus_type": "WandFocusType.PECH_CURSE",
+    "cooldown_ticks": 5,
+    "focus_color_decimal": 2267460,
+    "base_cost_cv": {
+      "TERRA": 10,
+      "PERDITIO": 10,
+      "AQUA": 10
+    },
+    "nightshade_cost_cv": {
+      "AER": 10,
+      "IGNIS": 10,
+      "TERRA": 10,
+      "AQUA": 10,
+      "ORDO": 10,
+      "PERDITIO": 10
+    },
+    "projectile_adapter": "TC4PechBlastEntity",
+    "speed": 1.5,
+    "gravity": 0.025,
+    "max_life_ticks": 500,
+    "impact_radius": 2.0,
+    "damage_formula": "2 + potency",
+    "effect_duration_formula_ticks": "100 + extend * 40",
+    "normal_effect": "one random effect: hunger, slowness or weakness",
+    "nightshade_effect": "all three effects",
+    "acquisition": "one of five tier-5 Pech Mage trade rewards; adapted as 20 percent high-tier mage-Pech reward"
+  },
+  "recipe_and_research": {
+    "nine_hells_recipe": "infusion with carrot catalyst; quartz/ignis shard/quartz/aer shard/quartz/perditio shard",
+    "nine_hells_aspects": {
+      "IGNIS": 25,
+      "AER": 15,
+      "BESTIA": 15,
+      "PERDITIO": 25
+    },
+    "nine_hells_instability": 3,
+    "nine_hells_warp": 2,
+    "nine_hells_item_warp": 1,
+    "pech_curse_recipe": "none in original TC4; Pech Mage trade reward only"
+  },
+  "modern_adaptation_notes": [
+    "Legacy GL11 entity and particle rendering is translated to Forge 1.19.2 ModelPart and translucent billboard rendering.",
+    "Owner and target UUIDs are persisted so summoned and vampire bat state survives chunk save/load.",
+    "PvP is checked before summoning a firebat against another player.",
+    "No fake vanilla recipe is created for Pech's Curse."
+  ]
+}

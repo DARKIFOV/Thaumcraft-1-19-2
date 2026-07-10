@@ -1,0 +1,21 @@
+{
+  "tc4_key": "WandCapThaumium",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "CAP_thaumium",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_wand_cap_thaumium_inert",
+  "components": [
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_dust"
+  ],
+  "aspects": {
+    "POTENTIA": 12,
+    "AURAM": 6
+  },
+  "instability": 5,
+  "result": {
+    "item": "thaumcraft:tc4_wand_cap_thaumium",
+    "count": 1
+  }
+}

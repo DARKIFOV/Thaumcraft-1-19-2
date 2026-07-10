@@ -1,7 +1,0 @@
-Продолжай строго от архива Stage463–482. Правило: это parity-порт оригинального Thaumcraft 4 на Forge 1.19.2, без новых survival-механик, рецептов, предметов, GUI или поведения, если это не точный перенос оригинала или явно помеченный Forge 1.19.2 adapter.
-
-В Stage463–482 добавлено поведение для уже существующего оригинального mirror-item `thaumcraft:tc4_thaumonomiconcheat`: ПКМ выдаёт все зарегистрированные research keys, синхронизирует research/aspect knowledge и не добавляет рецепт. Это debug/creative adapter по просьбе пользователя, не часть survival-прогрессии. Не добавляй вторую книгу-дубль.
-
-Следующий Stage483–502: расширь проверку соответствия порта: mechanics/textures/GUI/recipes. Добивай Research Table и Arcane Workbench под оригинальный TC4 1.7.10, Aura Node HUD/GUI/renderer, Thaumometer/Goggles/Wand geometry/UV/transforms, Infusion Matrix recipe/failure/FX parity и ConfigRecipes coverage. Если находишь fake/placeholder/drift — исправляй или явно помечай как Forge 1.19.2 adapter. Не ломай golems, wands, aura/nodes, crucible, infusion, infusion enchantment index, taint, eldritch, worldgen, Thaumonomicon pages/icons/research progression/recipe gates/materialized recipes/object aspects/entity scan runtime/player scan knowledge/aspect decomposition/research note grid/completion/research table container/copy behavior/bonus aspects/wand focus base behavior/focus upgrade NBT/projectile entities/output textures.
-
-В конце выдай новый ZIP, отчёт, сколько реально осталось до 100%, и следующий universal prompt.

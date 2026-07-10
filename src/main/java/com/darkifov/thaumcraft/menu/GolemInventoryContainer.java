@@ -42,24 +42,14 @@ public class GolemInventoryContainer implements Container {
 
     @Override
     public ItemStack removeItem(int slot, int amount) {
-        ItemStack stack = getItem(slot);
-        if (stack.isEmpty() || amount <= 0) {
-            return ItemStack.EMPTY;
-        }
-        ItemStack split = stack.split(amount);
-        if (stack.isEmpty()) {
-            setItem(slot, ItemStack.EMPTY);
-        } else {
-            setChanged();
-        }
-        return split;
+        // Original ContainerGolem exposes SlotGhost / SlotGhostFluid. A generic
+        // Container caller must never extract a real stack from these filters.
+        return ItemStack.EMPTY;
     }
 
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
-        ItemStack stack = getItem(slot);
-        setItem(slot, ItemStack.EMPTY);
-        return stack;
+        return ItemStack.EMPTY;
     }
 
     @Override

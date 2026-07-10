@@ -5,27 +5,29 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:iron_ingot",
   "ingredients": [
-    "minecraft:gold_nugget",
+    "thaumcraft:tc4_nuggetquicksilver",
+    "minecraft:iron_ingot",
     "minecraft:glass",
-    "thaumcraft:tc4_nuggetquicksilver"
+    "minecraft:gold_nugget"
   ],
   "aspects": {
     "AQUA": 5,
     "ORDO": 5
   },
   "pattern": [
-    "Q",
+    " Q ",
     "IGI",
-    "B"
+    " B "
   ],
   "key": {
-    "Q": "minecraft:gold_nugget",
-    "I": "minecraft:glass",
-    "G": "minecraft:iron_ingot",
-    "B": "thaumcraft:tc4_nuggetquicksilver"
+    "Q": "thaumcraft:tc4_nuggetquicksilver",
+    "I": "minecraft:iron_ingot",
+    "G": "minecraft:glass",
+    "B": "minecraft:gold_nugget"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_essentia_tube",
+    "item": "thaumcraft:essentia_tube",
     "count": 8
-  }
+  },
+  "v11_62_23_strict_original": true
 }

@@ -1,15 +1,16 @@
 {
   "tc4_key": "FocalManipulator",
-  "tc4_source": "addArcaneCraftingRecipe",
+  "tc4_source": "ConfigRecipes.java:788 addArcaneCraftingRecipe",
   "research": "FOCALMANIPULATION",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_block_arcane_stone_slab",
+  "catalyst": "thaumcraft:tc4_charm",
   "ingredients": [
-    "thaumcraft:tc4_block_arcane_stone",
-    "thaumcraft:table",
     "minecraft:iron_ingot",
+    "thaumcraft:tc4_block_arcane_stone_slab",
+    "thaumcraft:tc4_block_arcane_stone",
+    "thaumcraft:tc4_charm",
     "minecraft:gold_ingot",
-    "thaumcraft:warp_charm"
+    "thaumcraft:table"
   ],
   "aspects": {
     "IGNIS": 32,
@@ -25,12 +26,12 @@
     "GTG"
   ],
   "key": {
-    "I": "thaumcraft:tc4_block_arcane_stone",
-    "Q": "thaumcraft:table",
-    "S": "minecraft:iron_ingot",
-    "P": "thaumcraft:tc4_block_arcane_stone_slab",
+    "I": "minecraft:iron_ingot",
+    "Q": "thaumcraft:tc4_block_arcane_stone_slab",
+    "S": "thaumcraft:tc4_block_arcane_stone",
+    "P": "thaumcraft:tc4_charm",
     "G": "minecraft:gold_ingot",
-    "T": "thaumcraft:warp_charm"
+    "T": "thaumcraft:table"
   },
   "result": {
     "item": "thaumcraft:tc4_block_focal_manipulator",

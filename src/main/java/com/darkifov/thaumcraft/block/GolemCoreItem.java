@@ -44,11 +44,19 @@ public class GolemCoreItem extends Item {
             CompoundTag tag = stack.getOrCreateTag();
             ItemStack other = hand == InteractionHand.MAIN_HAND ? player.getOffhandItem() : player.getMainHandItem();
             if (other.getItem() instanceof GolemUpgradeItem upgradeItem) {
-                addUpgrade(tag, upgradeItem.getUpgradeType());
-                if (!player.getAbilities().instabuild) {
-                    other.shrink(1);
+                if (addUpgrade(tag, upgradeItem.getUpgradeType())) {
+                    if (!player.getAbilities().instabuild) {
+                        other.shrink(1);
+                    }
+                    int count = GolemOriginalRuntime.upgradeAmount(
+                            tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES), upgradeItem.getUpgradeType());
+                    player.displayClientMessage(Component.literal("Added golem upgrade: ")
+                            .append(upgradeItem.getUpgradeType().displayName())
+                            .append(Component.literal(" (" + count + "/2)")), true);
+                } else {
+                    player.displayClientMessage(Component.literal("No free upgrade slot, or that upgrade is already installed twice.")
+                            .withStyle(ChatFormatting.RED), true);
                 }
-                player.displayClientMessage(Component.literal("Added golem upgrade: ").append(upgradeItem.getUpgradeType().displayName()), true);
             } else if (other.getItem() instanceof GolemFilterItem) {
                 ItemStack filter = GolemFilterItem.getFilterStack(other);
                 if (!filter.isEmpty()) {
@@ -59,11 +67,16 @@ public class GolemCoreItem extends Item {
                     player.displayClientMessage(Component.literal("Attached golem filter: ").append(filter.getHoverName()), true);
                 }
             } else if (other.getItem() instanceof GolemDecorationItem decorationItem) {
-                addDecoration(tag, decorationItem.getDecorationType());
-                if (!player.getAbilities().instabuild) {
-                    other.shrink(1);
+                if (addDecoration(tag, decorationItem.getDecorationType())) {
+                    if (!player.getAbilities().instabuild) {
+                        other.shrink(1);
+                    }
+                    player.displayClientMessage(Component.literal("Added golem decoration: ")
+                            .append(decorationItem.getDecorationType().displayName()), true);
+                } else {
+                    player.displayClientMessage(Component.literal("That decoration is already installed or conflicts with another one.")
+                            .withStyle(ChatFormatting.RED), true);
                 }
-                player.displayClientMessage(Component.literal("Added golem decoration: ").append(decorationItem.getDecorationType().displayName()), true);
             } else if (other.getItem() instanceof GolemTaskMarkerItem) {
                 BlockPos pos = GolemTaskMarkerItem.getPosition(other);
                 GolemMarkerMode mode = GolemTaskMarkerItem.getMode(other);
@@ -81,6 +94,11 @@ public class GolemCoreItem extends Item {
                     GolemMaterial next = GolemMaterial.byName(tag.getString(TAG_MATERIAL)).next();
                     tag.putString(TAG_MATERIAL, next.id());
                     tag.putByte(GolemOriginalRuntime.NBT_GOLEM_TYPE, (byte) next.ordinal());
+                    byte[] normalized = GolemOriginalRuntime.normalizeUpgradeSlots(
+                            tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES), next,
+                            tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED));
+                    tag.putByteArray(GolemOriginalRuntime.NBT_UPGRADES, normalized);
+                    tag.putString(TAG_UPGRADES, GolemOriginalRuntime.upgradeDescription(normalized));
                     player.displayClientMessage(Component.literal("Golem body: ").append(next.displayName()).append(Component.literal(" [TC4 type " + next.ordinal() + "]")), true);
                 }
             }
@@ -132,8 +150,18 @@ public class GolemCoreItem extends Item {
         golem.setAdvancedGolem(tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED));
         golem.setGolemProfile(material, core);
         golem.loadGolemConfiguration(tag);
+        if (stack.hasCustomHoverName()) {
+            golem.setCustomName(stack.getHoverName());
+        }
         golem.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, context.getPlayer().getYRot(), 0.0F);
-        level.addFreshEntity(golem);
+        if (!level.noCollision(golem) || !level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
+            context.getPlayer().displayClientMessage(Component.literal("Not enough room to place this golem.")
+                    .withStyle(ChatFormatting.RED), true);
+            return InteractionResult.CONSUME;
+        }
+        if (!level.addFreshEntity(golem)) {
+            return InteractionResult.PASS;
+        }
 
         if (!context.getPlayer().getAbilities().instabuild) {
             context.getItemInHand().shrink(1);
@@ -173,43 +201,73 @@ public class GolemCoreItem extends Item {
         tooltip.add(Component.literal("Shift + right-click off-hand: cycle core").withStyle(ChatFormatting.GRAY));
     }
 
-    private static void addUpgrade(CompoundTag tag, GolemUpgradeType upgradeType) {
-        String current = tag.getString(TAG_UPGRADES);
-        String id = upgradeType.id();
-        for (String part : current.split(",")) {
-            if (part.equalsIgnoreCase(id)) {
-                return;
-            }
-        }
-        tag.putString(TAG_UPGRADES, current == null || current.isBlank() ? id : current + "," + id);
-        byte[] slots = tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES);
-        if (slots.length == 0) {
-            GolemMaterial material = tag.contains(GolemOriginalRuntime.NBT_GOLEM_TYPE)
-                    ? GolemMaterial.values()[Math.max(0, Math.min(GolemMaterial.values().length - 1, tag.getByte(GolemOriginalRuntime.NBT_GOLEM_TYPE) & 255))]
-                    : GolemMaterial.byName(tag.getString(TAG_MATERIAL));
-            slots = GolemOriginalRuntime.defaultUpgrades(material, tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED));
-        }
-        for (int i = 0; i < slots.length; i++) {
-            if (slots[i] == -1) {
-                slots[i] = upgradeType.originalId();
-                break;
-            }
+    private static boolean addUpgrade(CompoundTag tag, GolemUpgradeType upgradeType) {
+        GolemMaterial material = tag.contains(GolemOriginalRuntime.NBT_GOLEM_TYPE)
+                ? GolemMaterial.values()[Math.max(0, Math.min(GolemMaterial.values().length - 1,
+                tag.getByte(GolemOriginalRuntime.NBT_GOLEM_TYPE) & 255))]
+                : GolemMaterial.byName(tag.getString(TAG_MATERIAL));
+        byte[] slots = GolemOriginalRuntime.normalizeUpgradeSlots(
+                tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES), material,
+                tag.getBoolean(GolemOriginalRuntime.NBT_ADVANCED));
+        if (!GolemOriginalRuntime.installUpgrade(slots, upgradeType)) {
+            return false;
         }
         tag.putByteArray(GolemOriginalRuntime.NBT_UPGRADES, slots);
+        tag.putString(TAG_UPGRADES, GolemOriginalRuntime.upgradeDescription(slots));
+        return true;
     }
 
-    private static void addDecoration(CompoundTag tag, GolemDecorationType decorationType) {
+    private static boolean addDecoration(CompoundTag tag, GolemDecorationType decorationType) {
         String current = tag.getString(TAG_DECORATIONS);
-        String id = decorationType.id();
+        java.util.EnumSet<GolemDecorationType> installed = java.util.EnumSet.noneOf(GolemDecorationType.class);
         for (String part : current.split(",")) {
-            if (part.equalsIgnoreCase(id)) {
-                return;
+            if (!part.isBlank()) {
+                installed.add(GolemDecorationType.byName(part));
             }
         }
-        tag.putString(TAG_DECORATIONS, current == null || current.isBlank() ? id : current + "," + id);
+        if (installed.contains(decorationType)) {
+            return false;
+        }
+        if ((decorationType == GolemDecorationType.FEZ || decorationType == GolemDecorationType.TOP_HAT)
+                && (installed.contains(GolemDecorationType.FEZ) || installed.contains(GolemDecorationType.TOP_HAT))) {
+            return false;
+        }
+        if ((decorationType == GolemDecorationType.GLASSES || decorationType == GolemDecorationType.VISOR)
+                && (installed.contains(GolemDecorationType.GLASSES) || installed.contains(GolemDecorationType.VISOR))) {
+            return false;
+        }
+        if ((decorationType == GolemDecorationType.BOWTIE || decorationType == GolemDecorationType.ARMOR)
+                && (installed.contains(GolemDecorationType.BOWTIE) || installed.contains(GolemDecorationType.ARMOR))) {
+            return false;
+        }
+        installed.add(decorationType);
+        StringBuilder names = new StringBuilder();
+        StringBuilder code = new StringBuilder();
+        for (GolemDecorationType type : GolemDecorationType.values()) {
+            if (!installed.contains(type)) continue;
+            if (names.length() > 0) names.append(',');
+            names.append(type.id());
+            code.append(switch (type) {
+                case TOP_HAT -> 'H';
+                case GLASSES -> 'G';
+                case BOWTIE -> 'B';
+                case FEZ -> 'F';
+                case DART_LAUNCHER -> 'R';
+                case VISOR -> 'V';
+                case ARMOR -> 'P';
+                case MACE -> 'M';
+                case WIRELESS_BACKPACK -> 'W';
+            });
+        }
+        tag.putString(TAG_DECORATIONS, names.toString());
+        tag.putString(GolemOriginalRuntime.NBT_DECORATION, code.toString());
+        return true;
     }
 
     private static String describeUpgrades(CompoundTag tag) {
+        if (tag.contains(GolemOriginalRuntime.NBT_UPGRADES)) {
+            return GolemOriginalRuntime.upgradeDescription(tag.getByteArray(GolemOriginalRuntime.NBT_UPGRADES));
+        }
         String current = tag.getString(TAG_UPGRADES);
         return current == null || current.isBlank() ? "none" : current;
     }

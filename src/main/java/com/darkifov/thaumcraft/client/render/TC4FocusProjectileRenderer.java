@@ -5,8 +5,8 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.entity.projectile.TC4EmberEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ExplosiveOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4FocusProjectileEntity;
-import com.darkifov.thaumcraft.entity.projectile.TC4FrostShardEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PrimalOrbEntity;
+import com.darkifov.thaumcraft.entity.projectile.TC4PechBlastEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ShockOrbEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -29,7 +29,6 @@ import net.minecraft.util.Mth;
  * projectile-specific color logic on a modern translucent quad renderer.
  */
 public class TC4FocusProjectileRenderer<T extends TC4FocusProjectileEntity> extends EntityRenderer<T> {
-    private static final ResourceLocation FROST_TEXTURE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/blocks/frostshard.png");
     private static final ResourceLocation PARTICLES = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/particles.png");
     private static final ResourceLocation PARTICLES2 = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/particles2.png");
 
@@ -42,14 +41,14 @@ public class TC4FocusProjectileRenderer<T extends TC4FocusProjectileEntity> exte
         poseStack.pushPose();
         if (entity instanceof TC4EmberEntity ember) {
             renderEmber(ember, poseStack, buffer);
-        } else if (entity instanceof TC4FrostShardEntity frost) {
-            renderFrostShard(frost, yaw, partialTicks, poseStack, buffer, packedLight);
         } else if (entity instanceof TC4ExplosiveOrbEntity explosive) {
             renderExplosiveOrb(explosive, poseStack, buffer);
         } else if (entity instanceof TC4ShockOrbEntity shock) {
             renderShockOrb(shock, partialTicks, poseStack, buffer);
         } else if (entity instanceof TC4PrimalOrbEntity primal) {
             renderPrimalOrb(primal, partialTicks, poseStack, buffer);
+        } else if (entity instanceof TC4PechBlastEntity pech) {
+            renderPechBlast(pech, partialTicks, poseStack, buffer);
         }
         poseStack.popPose();
         super.render(entity, yaw, partialTicks, poseStack, buffer, packedLight);
@@ -57,26 +56,21 @@ public class TC4FocusProjectileRenderer<T extends TC4FocusProjectileEntity> exte
 
     private void renderEmber(TC4EmberEntity entity, PoseStack poseStack, MultiBufferSource buffer) {
         poseStack.mulPose(entityRenderDispatcher.cameraOrientation());
-        float frameU = (entity.tickCount % 8) / 16.0F;
-        int alpha = entity.getDuration() <= 20 ? 190 : 220;
-        renderBillboard(poseStack, buffer, PARTICLES2, 0.32F + entity.getDamage() * 0.05F, frameU, 0.875F, frameU + 0.0625F, 0.9375F, 255, 128, 32, alpha, 220);
-    }
-
-    private void renderFrostShard(TC4FrostShardEntity entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        float scale = Math.max(0.12F, entity.getVisualDamage() * 0.1F + 0.06F);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
-        poseStack.scale(scale, scale, scale);
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(FROST_TEXTURE));
-        Matrix4f matrix = poseStack.last().pose();
-        quad(matrix, consumer, -0.5F, -0.5F, 0.0F, 0.5F, 0.5F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, 255, 230, packedLight);
+        float duration = Math.max(1.0F, entity.getDuration());
+        float progress = Mth.clamp(entity.tickCount / duration, 0.0F, 1.0F);
+        int frame = Mth.clamp((int)(8.0F * progress), 0, 8);
+        float u0 = (7 + frame) / 16.0F;
+        float scale = 0.25F + progress;
+        renderBillboard(poseStack, buffer, PARTICLES2, scale, u0, 0.5625F,
+                u0 + 0.0625F, 0.625F, 255, 255, 255, 230, 220);
     }
 
     private void renderExplosiveOrb(TC4ExplosiveOrbEntity entity, PoseStack poseStack, MultiBufferSource buffer) {
         poseStack.mulPose(entityRenderDispatcher.cameraOrientation());
-        float frameU = (entity.tickCount % 4) / 16.0F;
-        float scale = 0.7F * Math.max(0.8F, entity.getStrength());
-        renderBillboard(poseStack, buffer, PARTICLES2, scale, frameU, 0.8125F, frameU + 0.0625F, 0.875F, 255, 255, 255, 204, 220);
+        float frameU = 7.0F / 16.0F;
+        float scale = (2.0F + Mth.sin(entity.tickCount * 0.35F) * 0.15F) * Math.max(0.75F, entity.getStrength());
+        renderBillboard(poseStack, buffer, PARTICLES2, scale, frameU, 9.0F / 16.0F,
+                frameU + 0.0625F, 10.0F / 16.0F, 255, 255, 255, 204, 220);
     }
 
     private void renderShockOrb(TC4ShockOrbEntity entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer) {
@@ -88,6 +82,7 @@ public class TC4FocusProjectileRenderer<T extends TC4FocusProjectileEntity> exte
 
     private void renderPrimalOrb(TC4PrimalOrbEntity entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer) {
         float age = entity.tickCount + partialTicks;
+        float ramp = Mth.clamp(age / 10.0F, 0.0F, 1.0F);
         int[] colors = {
                 Aspect.AER.argbColor(), Aspect.TERRA.argbColor(), Aspect.IGNIS.argbColor(),
                 Aspect.AQUA.argbColor(), Aspect.ORDO.argbColor(), Aspect.PERDITIO.argbColor()
@@ -100,14 +95,24 @@ public class TC4FocusProjectileRenderer<T extends TC4FocusProjectileEntity> exte
             int r = (color >> 16) & 255;
             int g = (color >> 8) & 255;
             int b = color & 255;
-            renderBillboard(poseStack, buffer, PARTICLES, 0.35F + i * 0.015F, 0.0F, 0.125F, 0.0625F, 0.1875F, r, g, b, 105, 220);
+            renderBillboard(poseStack, buffer, PARTICLES, (0.35F + i * 0.015F) * ramp, 0.0F, 0.125F, 0.0625F, 0.1875F, r, g, b, 105, 220);
             poseStack.popPose();
         }
         poseStack.mulPose(entityRenderDispatcher.cameraOrientation());
         float frameU = (entity.tickCount % 13) / 16.0F;
-        int color = entity.getAspect().argbColor();
         renderBillboard(poseStack, buffer, PARTICLES, 0.5F, frameU, 0.125F, frameU + 0.0625F, 0.1875F,
-                (color >> 16) & 255, (color >> 8) & 255, color & 255, 230, 220);
+                255, 255, 255, 204, 220);
+    }
+
+
+    private void renderPechBlast(TC4PechBlastEntity entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer) {
+        poseStack.mulPose(entityRenderDispatcher.cameraOrientation());
+        float pulse = 0.9F + Mth.sin((entity.tickCount + partialTicks) * 0.45F) * 0.15F;
+        int r = entity.nightshade() ? 90 : 120;
+        int g = entity.nightshade() ? 20 : 75;
+        int b = entity.nightshade() ? 130 : 175;
+        float frameU = (entity.tickCount % 8) / 16.0F;
+        renderBillboard(poseStack, buffer, PARTICLES, pulse, frameU, 0.125F, frameU + 0.0625F, 0.1875F, r, g, b, 220, 220);
     }
 
     private void renderBillboard(PoseStack poseStack, MultiBufferSource buffer, ResourceLocation texture, float scale,
@@ -144,7 +149,6 @@ public class TC4FocusProjectileRenderer<T extends TC4FocusProjectileEntity> exte
     @Override
     public ResourceLocation getTextureLocation(T entity) {
         if (entity instanceof TC4EmberEntity) return PARTICLES2;
-        if (entity instanceof TC4FrostShardEntity) return FROST_TEXTURE;
         if (entity instanceof TC4ExplosiveOrbEntity) return PARTICLES2;
         return PARTICLES;
     }

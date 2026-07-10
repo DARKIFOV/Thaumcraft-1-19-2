@@ -295,13 +295,10 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
                 ? TC4InfusionEnchantmentAdapter.scaledAspects(recipe, catalystPedestal.stored())
                 : recipe.aspectCostFor(catalystPedestal.stored());
 
-        List<EssentiaJarBlockEntity> jars = InfusionProcessHelper.findJars(level, worldPosition);
-
-        if (!InfusionProcessHelper.hasAspects(jars, requiredAspects)) {
-            player.displayClientMessage(Component.literal("Missing essentia: " + InfusionProcessHelper.aspectText(recipe, catalystPedestal.stored())).withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-
+        // TC4 craftingStart locks the recipe and begins immediately; it does not
+        // require the full essentia bill to be present beforehand. craftCycle then
+        // waits and retries one aspect at a time, allowing jars/tubes/golems to feed
+        // a running altar. The old preflight check incorrectly blocked that behavior.
         MatrixAuxiliaryReport auxiliary = InfusionMatrixAuxiliaryHelper.analyze(level, worldPosition, catalystPedestal, recipe);
         active = true;
         crafting = true;
@@ -627,9 +624,7 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
             return false;
         }
 
-        List<EssentiaJarBlockEntity> jars = InfusionProcessHelper.findJars(level, worldPosition);
-
-        BlockPos essentiaSource = InfusionProcessHelper.consumeOneAspectSource(jars, aspect, worldPosition);
+        BlockPos essentiaSource = InfusionProcessHelper.consumeOneAspectSource(level, worldPosition, aspect);
 
         if (essentiaSource != null) {
             int left = pendingAspects.getOrDefault(aspect, 0) - 1;

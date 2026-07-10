@@ -3,10 +3,12 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "CENTRIFUGE",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_block_essentia_tube",
+  "catalyst": "thaumcraft:essentia_tube",
   "ingredients": [
-    "thaumcraft:tc4_block_essentia_tube",
-    "thaumcraft:tc4_essence"
+    "thaumcraft:tc4_essence",
+    "thaumcraft:essentia_valve",
+    "thaumcraft:essentia_tube",
+    "thaumcraft:essentia_tube_restrict"
   ],
   "aspects": {
     "AQUA": 5,
@@ -18,11 +20,14 @@
     "PRP"
   ],
   "key": {
-    "P": "thaumcraft:tc4_block_essentia_tube",
-    "V": "thaumcraft:tc4_essence"
+    "P": "thaumcraft:tc4_essence",
+    "V": "thaumcraft:essentia_valve",
+    "T": "thaumcraft:essentia_tube",
+    "R": "thaumcraft:essentia_tube_restrict"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_essentia_tube",
+    "item": "thaumcraft:essentia_tube_buffer",
     "count": 1
-  }
+  },
+  "v11_62_23_strict_original": true
 }

@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "UPGRADEEARTH",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:gold_nugget",
+  "catalyst": "thaumcraft:terra_shard",
   "ingredients": [
-    "thaumcraft:terra_shard"
+    "minecraft:gold_nugget"
   ],
   "aspects": {
     "TERRA": 10
@@ -16,11 +16,12 @@
     "NNN"
   ],
   "key": {
-    "N": "thaumcraft:terra_shard",
-    "C": "minecraft:gold_nugget"
+    "N": "minecraft:gold_nugget",
+    "C": "thaumcraft:terra_shard"
   },
   "result": {
     "item": "thaumcraft:tc4_golem_upgrade_earth",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

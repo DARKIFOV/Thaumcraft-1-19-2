@@ -1,0 +1,24 @@
+{
+  "tc4_key": "CoreLumber",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "CORELUMBER",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_golem_core_harvest",
+  "components": [
+    "thaumcraft:tc4_elementalaxe",
+    "minecraft:iron_axe",
+    "minecraft:iron_axe",
+    "minecraft:iron_axe"
+  ],
+  "aspects": {
+    "INSTRUMENTUM": 16,
+    "ARBOR": 16,
+    "METO": 16
+  },
+  "instability": 2,
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_lumber",
+    "count": 1
+  },
+  "v11_62_22_strict_original": true
+}

@@ -68,7 +68,9 @@ public final class WandCraftingRuntime {
                         "ArcaneSceptreRecipe:" + cap.originalTag() + ":" + rod.originalTag(),
                         TC4_KIND_SCEPTRE_ASSEMBLY
                 );
-                sceptre.patternRow("  C").patternRow("CR ").patternRow("HC ")
+                // Original ArcaneSceptreRecipe coordinates (x,y):
+                // cap (1,0), cap (2,1), cap (0,2), rod (1,1), charm (2,0).
+                sceptre.patternRow(" CH").patternRow(" RC").patternRow("C  ")
                         .patternKey('C', capItem).patternKey('R', rodItem).patternKey('H', CHARM_ITEM);
                 addAllPrimalCost(sceptre, (int)(cap.craftCost() * rod.craftCost() * 1.5F));
                 recipes.add(sceptre);
@@ -126,11 +128,12 @@ public final class WandCraftingRuntime {
             table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(2, 0)).shrink(1);
             return true;
         }
-        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(0, 2)).shrink(1);
-        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(1, 0)).shrink(1);
-        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(1, 1)).shrink(1);
-        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(2, 0)).shrink(1);
-        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(2, 1)).shrink(1);
+        // ArcaneSceptreRecipe exact original slot consumption.
+        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(0, 1)).shrink(1); // cap1 (x=1,y=0)
+        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(0, 2)).shrink(1); // charm (x=2,y=0)
+        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(1, 1)).shrink(1); // rod (x=1,y=1)
+        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(1, 2)).shrink(1); // cap2 (x=2,y=1)
+        table.getItem(ArcaneWorkbenchBlockEntity.slotForGrid(2, 0)).shrink(1); // cap3 (x=0,y=2)
         return true;
     }
 
@@ -143,9 +146,9 @@ public final class WandCraftingRuntime {
     }
 
     private static boolean matchesSceptrePattern(ArcaneWorkbenchBlockEntity table, Assembly assembly) {
-        return isEmpty(table, 0, 0) && isEmpty(table, 0, 1) && isCap(table, 0, 2, assembly.cap())
-                && isCap(table, 1, 0, assembly.cap()) && isRod(table, 1, 1, assembly.rod()) && isEmpty(table, 1, 2)
-                && hasItem(table, 2, 0, CHARM_ITEM) && isCap(table, 2, 1, assembly.cap()) && isEmpty(table, 2, 2);
+        return isEmpty(table, 0, 0) && isCap(table, 0, 1, assembly.cap()) && hasItem(table, 0, 2, CHARM_ITEM)
+                && isEmpty(table, 1, 0) && isRod(table, 1, 1, assembly.rod()) && isCap(table, 1, 2, assembly.cap())
+                && isCap(table, 2, 0, assembly.cap()) && isEmpty(table, 2, 1) && isEmpty(table, 2, 2);
     }
 
     private static void addAllPrimalCost(ArcaneWorkbenchRecipe recipe, int cost) {
@@ -204,7 +207,8 @@ public final class WandCraftingRuntime {
 
     public static ResourceLocation rodItemId(WandRodType rod) {
         String id = switch (rod) {
-            case WOOD -> "wooden_wand_core";
+            // Original WandRod("wood") uses the vanilla stick directly.
+            case WOOD -> "stick";
             case GREATWOOD -> "tc4_wand_rod_greatwood";
             case OBSIDIAN -> "tc4_wand_rod_obsidian";
             case BLAZE -> "tc4_wand_rod_blaze";
@@ -224,7 +228,10 @@ public final class WandCraftingRuntime {
             case PRIMAL_STAFF -> "tc4_staff_rod_primal";
             default -> null;
         };
-        return id == null ? null : new ResourceLocation(ThaumcraftMod.MOD_ID, id);
+        if (id == null) return null;
+        return rod == WandRodType.WOOD
+                ? new ResourceLocation("minecraft", id)
+                : new ResourceLocation(ThaumcraftMod.MOD_ID, id);
     }
 
     private record Assembly(WandRodType rod, WandCapType cap) {}

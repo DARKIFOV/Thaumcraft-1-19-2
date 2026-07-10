@@ -3,7 +3,7 @@
   "tc4_source": "addCrucibleRecipe",
   "research": "GOLEMWOOD",
   "kind": "CRUCIBLE",
-  "catalyst": "thaumcraft:tc4_block_greatwood_log",
+  "catalyst": "thaumcraft:greatwood_log",
   "result": {
     "item": "thaumcraft:tc4_golem_wood",
     "count": 1
@@ -12,5 +12,6 @@
     "HUMANUS": 4,
     "MOTUS": 4,
     "SPIRITUS": 4
-  }
+  },
+  "v11_62_22_strict_original": true
 }

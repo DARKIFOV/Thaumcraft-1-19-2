@@ -1,0 +1,24 @@
+{
+  "tc4_key": "WandCapVoid",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "CAP_void",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_wand_cap_void_inert",
+  "components": [
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_dust"
+  ],
+  "aspects": {
+    "POTENTIA": 18,
+    "VACUOS": 18,
+    "ALIENIS": 18,
+    "AURAM": 18
+  },
+  "instability": 8,
+  "result": {
+    "item": "thaumcraft:tc4_wand_cap_void",
+    "count": 1
+  }
+}

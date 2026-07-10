@@ -53,16 +53,16 @@ public final class ClientWandArchitectEvents {
             return;
         }
         while (ClientWandArchitectKeybinds.KEY_CHANGE_WAND_FOCUS.consumeClick()) {
-            ItemStack held = minecraft.player.getMainHandItem();
-            if (held.getItem() instanceof WandItem && !WandComponentData.isSceptre(held)) {
+            ItemStack held = heldWand(minecraft.player);
+            if (!held.isEmpty() && !WandComponentData.isSceptre(held)) {
                 String focus = minecraft.player.isShiftKeyDown() ? WandManagerRuntime.REMOVE : WandManagerRuntime.currentFocusSortKey(held);
                 ThaumcraftNetwork.requestFocusChangeFromClient(focus);
             }
         }
 
         while (ClientWandArchitectKeybinds.KEY_MISC_WAND_TOGGLE.consumeClick()) {
-            ItemStack held = minecraft.player.getMainHandItem();
-            if (held.getItem() instanceof WandItem) {
+            ItemStack held = heldWand(minecraft.player);
+            if (!held.isEmpty()) {
                 ThaumcraftNetwork.requestWandArchitectToggleFromClient();
             }
         }
@@ -122,10 +122,10 @@ public final class ClientWandArchitectEvents {
         if (minecraft.level == null || minecraft.player == null || minecraft.hitResult == null) {
             return null;
         }
-        if (!(minecraft.player.getMainHandItem().getItem() instanceof WandItem)) {
+        ItemStack wandStack = heldWand(minecraft.player);
+        if (wandStack.isEmpty()) {
             return null;
         }
-        ItemStack wandStack = minecraft.player.getMainHandItem();
         WandFocusType focus = WandFocusRuntime.getFocus(wandStack);
         if ((focus != WandFocusType.EQUAL_TRADE && focus != WandFocusType.WARDING)
                 || !WandFocusRuntime.focusHasUpgrade(wandStack, FocusUpgradeType.ARCHITECT)) {
@@ -140,6 +140,13 @@ public final class ClientWandArchitectEvents {
                 ? FocusArchitectRuntime.equalTradeArchitectBlocks(wandStack, minecraft.level, hit, minecraft.player)
                 : FocusArchitectRuntime.wardingArchitectBlocks(wandStack, minecraft.level, hit, minecraft.player, removing);
         return new Preview(wandStack, focus, hit, blocks, FocusArchitectRuntime.pickedBlock(wandStack));
+    }
+
+    private static ItemStack heldWand(net.minecraft.world.entity.player.Player player) {
+        ItemStack main = player.getMainHandItem();
+        if (main.getItem() instanceof WandItem) return main;
+        ItemStack off = player.getOffhandItem();
+        return off.getItem() instanceof WandItem ? off : ItemStack.EMPTY;
     }
 
     private static String axisLine(Preview preview) {

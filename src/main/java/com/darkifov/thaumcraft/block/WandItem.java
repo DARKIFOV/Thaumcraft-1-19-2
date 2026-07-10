@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.block;
 
 import java.util.function.Consumer;
+import java.text.DecimalFormat;
 import com.darkifov.thaumcraft.client.render.WandItemRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -10,13 +11,18 @@ import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
 import com.darkifov.thaumcraft.wand.WandFocusType;
 import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
+import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
@@ -32,11 +38,25 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WandItem extends Item {
     private static final String TAG_VIS = "Vis";
+    private static final String TAG_VIS_FORMAT = "TC4VisCentivis";
+    private static final byte VIS_FORMAT_CENTIVIS = 1;
+    private static final DecimalFormat VIS_FORMAT = new DecimalFormat("0.##");
+    // Original TC4 ItemWandCasting stores the active IWandable coordinates at the root.
+    private static final String TAG_NODE_X = "IIUX";
+    private static final String TAG_NODE_Y = "IIUY";
+    private static final String TAG_NODE_Z = "IIUZ";
+    private static final String TAG_NODE_DIMENSION = "IIUD";
+    private static final int NODE_TAP_INTERVAL = 5;
+    private static final double NODE_TAP_REACH_SQR = 64.0D;
     private static final Aspect[] PRIMAL_VIS = new Aspect[]{Aspect.AER, Aspect.TERRA, Aspect.IGNIS, Aspect.AQUA, Aspect.ORDO, Aspect.PERDITIO};
     public static final int INFINITE_VIS_DISPLAY = Integer.MAX_VALUE / 8;
 
@@ -88,41 +108,107 @@ public class WandItem extends Item {
         return stack.getItem() instanceof WandItem wandItem && wandItem.isInfiniteVis(stack);
     }
 
+    /**
+     * Compatibility helper for relay/legacy calls.  Actual player tapping is handled by
+     * the continuous-use path below and transfers one random primal every five ticks,
+     * matching TileNode#onUsingWandTick from TC4 1.7.10.
+     */
     public int chargeFromNode(ItemStack wandStack, AuraNodeBlockEntity node) {
-        if (hasInfiniteVis(wandStack)) {
+        if (hasInfiniteVis(wandStack) || node == null) {
             return 0;
         }
-
-        int movedTotal = 0;
-
-        for (Aspect aspect : PRIMAL_VIS) {
-            int current = getVis(wandStack, aspect);
-
-            if (current >= stackVisCapacity(wandStack)) {
-                continue;
-            }
-
-            int capacity = stackVisCapacity(wandStack);
-            int space = capacity - current;
-            int maxDrain = node.isStabilized() ? 2 : 4;
-            int drained = node.drainToWand(aspect, Math.min(maxDrain, space));
-
-            if (drained > 0) {
-                addVis(wandStack, aspect, drained);
-                movedTotal += drained;
-            }
+        List<Aspect> candidates = aspectsWithRoom(wandStack, node, false);
+        if (candidates.isEmpty()) {
+            return 0;
         }
+        Aspect aspect = candidates.get(0);
+        int room = Math.max(0, (stackVisCapacity(wandStack) - getVis(wandStack, aspect) + 99) / 100);
+        int drained = node.drainToWand(aspect, Math.min(1, room));
+        if (drained > 0) {
+            addVis(wandStack, aspect, drained);
+        }
+        return drained;
+    }
 
-        return movedTotal;
+    public static Aspect[] primalVisAspects() {
+        return PRIMAL_VIS.clone();
     }
 
     public static int getVis(ItemStack stack, Aspect aspect) {
         if (hasInfiniteVis(stack)) {
             return INFINITE_VIS_DISPLAY;
         }
+        if (stack == null || stack.isEmpty() || aspect == null) {
+            return 0;
+        }
+        ensureCentivisStorage(stack);
+        return readStoredVis(stack, aspect);
+    }
 
-        CompoundTag vis = stack.getOrCreateTagElement(TAG_VIS);
-        return vis.getInt(aspect.name());
+    private static int readStoredVis(ItemStack stack, Aspect aspect) {
+        CompoundTag root = stack.getTag();
+        if (root == null) return 0;
+        if (root.contains(aspect.id())) {
+            return Math.max(0, root.getInt(aspect.id()));
+        }
+        if (root.contains(TAG_VIS)) {
+            CompoundTag vis = root.getCompound(TAG_VIS);
+            if (vis.contains(aspect.name())) return Math.max(0, vis.getInt(aspect.name()));
+            if (vis.contains(aspect.id())) return Math.max(0, vis.getInt(aspect.id()));
+        }
+        return 0;
+    }
+
+    private static void storeVisRaw(ItemStack stack, Aspect aspect, int amount) {
+        int value = Math.max(0, amount);
+        CompoundTag root = stack.getOrCreateTag();
+        root.putInt(aspect.id(), value);
+        CompoundTag nested = root.contains(TAG_VIS) ? root.getCompound(TAG_VIS) : new CompoundTag();
+        nested.putInt(aspect.name(), value);
+        nested.putInt(aspect.id(), value);
+        root.put(TAG_VIS, nested);
+    }
+
+    private static void storeVis(ItemStack stack, Aspect aspect, int amount) {
+        if (stack == null || stack.isEmpty() || aspect == null || hasInfiniteVis(stack)) return;
+        ensureCentivisStorage(stack);
+        storeVisRaw(stack, aspect, amount);
+    }
+
+    /**
+     * Save migration from the early rebuild's displayed-whole-vis storage to TC4's
+     * original centivis NBT. Existing values at or below the old displayed capacity
+     * are multiplied by 100 exactly once and marked with TC4VisCentivis=1.
+     */
+    private static void ensureCentivisStorage(ItemStack stack) {
+        if (stack == null || stack.isEmpty() || hasInfiniteVis(stack)) return;
+        CompoundTag root = stack.getOrCreateTag();
+        if (root.getByte(TAG_VIS_FORMAT) >= VIS_FORMAT_CENTIVIS) return;
+
+        CompoundTag nested = root.contains(TAG_VIS) ? root.getCompound(TAG_VIS) : new CompoundTag();
+        WandComponentData components = WandComponentData.from(stack);
+        int oldWholeCapacity = components.rod().baseCapacity();
+        if (WandComponentData.isSceptre(stack)) {
+            oldWholeCapacity = (int)Math.floor(oldWholeCapacity * 1.5F);
+        }
+
+        for (Aspect aspect : PRIMAL_VIS) {
+            int raw;
+            if (root.contains(aspect.id())) raw = Math.max(0, root.getInt(aspect.id()));
+            else if (nested.contains(aspect.name())) raw = Math.max(0, nested.getInt(aspect.name()));
+            else if (nested.contains(aspect.id())) raw = Math.max(0, nested.getInt(aspect.id()));
+            else raw = 0;
+            int centivis = raw > 0 && raw <= oldWholeCapacity ? raw * 100 : raw;
+            root.putInt(aspect.id(), centivis);
+            nested.putInt(aspect.name(), centivis);
+            nested.putInt(aspect.id(), centivis);
+        }
+        root.put(TAG_VIS, nested);
+        root.putByte(TAG_VIS_FORMAT, VIS_FORMAT_CENTIVIS);
+    }
+
+    private static void migrateLegacyVisStorage(ItemStack stack) {
+        ensureCentivisStorage(stack);
     }
 
     public static int modifiedVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
@@ -146,26 +232,27 @@ public class WandItem extends Item {
             return;
         }
         int capacity = wandItem.stackVisCapacity(stack);
-        CompoundTag vis = stack.getOrCreateTagElement(TAG_VIS);
         for (Aspect aspect : PRIMAL_VIS) {
-            int current = vis.getInt(aspect.name());
+            int current = getVis(stack, aspect);
             if (current > capacity) {
-                vis.putInt(aspect.name(), capacity);
+                storeVis(stack, aspect, capacity);
             }
         }
     }
 
+    /** Original ItemWandCasting#addVis: amount is displayed whole vis. */
     public static void addVis(ItemStack stack, Aspect aspect, int amount) {
-        if (amount <= 0 || hasInfiniteVis(stack)) {
-            return;
-        }
+        addRealVis(stack, aspect, amount * 100);
+    }
 
-        CompoundTag vis = stack.getOrCreateTagElement(TAG_VIS);
-        int next = Math.max(0, vis.getInt(aspect.name()) + amount);
+    /** Original addRealVis path: amount is already centivis. */
+    public static void addRealVis(ItemStack stack, Aspect aspect, int centivis) {
+        if (centivis <= 0 || hasInfiniteVis(stack)) return;
+        int next = Math.max(0, getVis(stack, aspect) + centivis);
         if (stack.getItem() instanceof WandItem wandItem && isPrimalVis(aspect)) {
             next = Math.min(next, wandItem.stackVisCapacity(stack));
         }
-        vis.putInt(aspect.name(), next);
+        storeVis(stack, aspect, next);
     }
 
     private static boolean isPrimalVis(Aspect aspect) {
@@ -180,14 +267,12 @@ public class WandItem extends Item {
             return true;
         }
 
-        CompoundTag vis = stack.getOrCreateTagElement(TAG_VIS);
-        int current = vis.getInt(aspect.name());
-
+        int current = getVis(stack, aspect);
         if (current < amount) {
             return false;
         }
 
-        vis.putInt(aspect.name(), current - amount);
+        storeVis(stack, aspect, current - amount);
         return true;
     }
 
@@ -216,13 +301,13 @@ public class WandItem extends Item {
             return true;
         }
 
-        int realCost = modifiedVisCost(stack, aspect, amount);
+        int realCost = modifiedVisCost(stack, aspect, amount * 100);
         if (consumeVis(stack, aspect, realCost)) {
             return true;
         }
 
         player.displayClientMessage(
-                Component.literal("Not enough vis in wand. Need " + aspect.displayName() + " " + realCost + " after cap discount. Charge it from an Aura Node.").withStyle(ChatFormatting.RED),
+                Component.literal("Not enough vis in wand. Need " + aspect.displayName() + " " + formatVis(realCost) + " after cap discount. Charge it from an Aura Node.").withStyle(ChatFormatting.RED),
                 false
         );
 
@@ -242,47 +327,177 @@ public class WandItem extends Item {
             if (i > 0) {
                 builder.append(", ");
             }
-            builder.append(aspect.displayName()).append(" ").append(getVis(stack, aspect)).append("/").append(capacity);
+            builder.append(aspect.displayName()).append(" ")
+                    .append(formatVis(getVis(stack, aspect))).append("/").append(formatVis(capacity));
         }
 
         return builder.toString();
     }
 
+    public static String formatVis(int centivis) {
+        if (centivis >= INFINITE_VIS_DISPLAY) return "∞";
+        return VIS_FORMAT.format(centivis / 100.0D);
+    }
 
-    private boolean tryInstallWandComponent(ItemStack wandStack, ItemStack componentStack, Player player) {
-        if (componentStack.isEmpty() || player.isShiftKeyDown()) {
+    public void beginNodeUse(ItemStack wandStack, Level level, BlockPos nodePos) {
+        CompoundTag root = wandStack.getOrCreateTag();
+        root.putInt(TAG_NODE_X, nodePos.getX());
+        root.putInt(TAG_NODE_Y, nodePos.getY());
+        root.putInt(TAG_NODE_Z, nodePos.getZ());
+        root.putString(TAG_NODE_DIMENSION, level.dimension().location().toString());
+    }
+
+    public static boolean hasNodeTarget(ItemStack wandStack) {
+        CompoundTag root = wandStack.getTag();
+        return root != null && root.contains(TAG_NODE_X) && root.contains(TAG_NODE_Y) && root.contains(TAG_NODE_Z);
+    }
+
+    public static void clearNodeUse(ItemStack wandStack) {
+        CompoundTag root = wandStack.getTag();
+        if (root == null) {
+            return;
+        }
+        root.remove(TAG_NODE_X);
+        root.remove(TAG_NODE_Y);
+        root.remove(TAG_NODE_Z);
+        root.remove(TAG_NODE_DIMENSION);
+    }
+
+    private static BlockPos nodeTarget(ItemStack wandStack, Level level) {
+        CompoundTag root = wandStack.getTag();
+        if (root == null || !hasNodeTarget(wandStack)) {
+            return null;
+        }
+        if (root.contains(TAG_NODE_DIMENSION)
+                && !level.dimension().location().toString().equals(root.getString(TAG_NODE_DIMENSION))) {
+            return null;
+        }
+        return new BlockPos(root.getInt(TAG_NODE_X), root.getInt(TAG_NODE_Y), root.getInt(TAG_NODE_Z));
+    }
+
+    private static boolean playerStillTargetsNode(Player player, BlockPos target) {
+        if (player.distanceToSqr(target.getX() + 0.5D, target.getY() + 0.5D, target.getZ() + 0.5D) > NODE_TAP_REACH_SQR) {
             return false;
         }
+        HitResult hit = player.pick(8.0D, 1.0F, false);
+        return hit instanceof BlockHitResult blockHit && blockHit.getBlockPos().equals(target);
+    }
 
-        var rod = WandComponentData.rodFromComponent(componentStack);
-        if (rod.isPresent()) {
-            WandComponentData.writeRod(wandStack, rod.get());
-            clampVisToCapacity(wandStack);
-            if (!player.getAbilities().instabuild) {
-                componentStack.shrink(1);
+    private List<Aspect> aspectsWithRoom(ItemStack wandStack, AuraNodeBlockEntity node, boolean preserve) {
+        List<Aspect> candidates = new ArrayList<>();
+        int capacity = stackVisCapacity(wandStack);
+        int minimumLeftInNode = preserve ? 1 : 0;
+        for (Aspect aspect : PRIMAL_VIS) {
+            if (getVis(wandStack, aspect) < capacity && node.aspects().get(aspect) > minimumLeftInNode) {
+                candidates.add(aspect);
             }
-            player.displayClientMessage(Component.literal("Installed TC4 wand rod: " + rod.get().id()).withStyle(ChatFormatting.DARK_AQUA), true);
-            return true;
+        }
+        return candidates;
+    }
+
+    private NodeTapResult tapNode(ItemStack wandStack, AuraNodeBlockEntity node, Player player) {
+        if (hasInfiniteVis(wandStack)) {
+            return NodeTapResult.NONE;
         }
 
-        var cap = WandComponentData.capFromComponent(componentStack);
-        if (cap.isPresent()) {
-            WandComponentData.writeCap(wandStack, cap.get());
-            clampVisToCapacity(wandStack);
-            if (!player.getAbilities().instabuild) {
-                componentStack.shrink(1);
-            }
-            player.displayClientMessage(Component.literal("Installed TC4 wand caps: " + cap.get().id()).withStyle(ChatFormatting.GOLD), true);
-            return true;
+        WandComponentData components = WandComponentData.from(wandStack);
+        boolean preserve = !player.isShiftKeyDown()
+                && PlayerThaumData.hasResearch(player, "NODEPRESERVE")
+                && components.rod() != WandRodType.WOOD
+                && components.cap() != WandCapType.IRON;
+
+        List<Aspect> candidates = aspectsWithRoom(wandStack, node, preserve);
+        if (candidates.isEmpty()) {
+            return NodeTapResult.NONE;
         }
 
-        return false;
+        Aspect aspect = candidates.get(player.getRandom().nextInt(candidates.size()));
+        int tap = 1;
+        if (PlayerThaumData.hasResearch(player, "NODETAPPER1")) {
+            tap++;
+        }
+        if (PlayerThaumData.hasResearch(player, "NODETAPPER2")) {
+            tap++;
+        }
+
+        int nodeAmount = node.aspects().get(aspect);
+        int leaveBehind = preserve ? 1 : 0;
+        int capacityRoom = Math.max(0, (stackVisCapacity(wandStack) - getVis(wandStack, aspect) + 99) / 100);
+        int requested = Math.min(tap, Math.min(capacityRoom, Math.max(0, nodeAmount - leaveBehind)));
+        if (requested <= 0) {
+            return NodeTapResult.NONE;
+        }
+
+        int drained = node.drainToWand(aspect, requested);
+        if (drained <= 0) {
+            return NodeTapResult.NONE;
+        }
+
+        addVis(wandStack, aspect, drained);
+        node.markWandDrain(aspect, player);
+        return new NodeTapResult(aspect, drained);
+    }
+
+    private static void emitNodeTapFx(ServerLevel level, Player player, BlockPos nodePos, Aspect aspect) {
+        int color = aspect.nativeColor();
+        Vector3f rgb = new Vector3f(((color >> 16) & 255) / 255.0F, ((color >> 8) & 255) / 255.0F, (color & 255) / 255.0F);
+        DustParticleOptions dust = new DustParticleOptions(rgb, 0.75F);
+        Vec3 from = Vec3.atCenterOf(nodePos);
+        Vec3 to = player.getEyePosition().add(0.0D, -0.25D, 0.0D);
+        for (int step = 0; step <= 8; step++) {
+            double t = step / 8.0D;
+            Vec3 point = from.lerp(to, t);
+            level.sendParticles(dust, point.x, point.y, point.z, 1, 0.015D, 0.015D, 0.015D, 0.0D);
+        }
+        if (player.getTicksUsingItem() % 10 == 0) {
+            level.playSound(null, nodePos, TC4Sounds.event("wand"), net.minecraft.sounds.SoundSource.PLAYERS, 0.20F, 1.25F);
+        }
+    }
+
+    private void stopNodeUse(Player player, ItemStack wandStack) {
+        clearNodeUse(wandStack);
+        player.stopUsingItem();
+    }
+
+    private record NodeTapResult(Aspect aspect, int moved) {
+        private static final NodeTapResult NONE = new NodeTapResult(null, 0);
+    }
+
+
+
+    @Override
+    public void onCraftedBy(ItemStack stack, Level level, Player player) {
+        super.onCraftedBy(stack, level, player);
+        WandComponentData data = WandComponentData.from(stack);
+        // Vanilla JSON recipes cannot attach the original ItemWandCasting root
+        // rod/cap tags, so write them immediately after the basic wand is crafted.
+        WandComponentData.write(stack, data.rod(), data.cap());
+        stack.getOrCreateTag().putByte(TAG_VIS_FORMAT, VIS_FORMAT_CENTIVIS);
+        clampVisToCapacity(stack);
     }
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, level, entity, slot, selected);
-        if (level.isClientSide || !(entity instanceof Player player) || hasInfiniteVis(stack)) {
+        if (!(entity instanceof Player player)) {
+            return;
+        }
+
+        if (!level.isClientSide) {
+            CompoundTag root = stack.getTag();
+            if (root == null || !root.contains(WandComponentData.ORIGINAL_TAG_ROD) || !root.contains(WandComponentData.ORIGINAL_TAG_CAP)) {
+                WandComponentData data = WandComponentData.from(stack);
+                WandComponentData.write(stack, data.rod(), data.cap());
+            }
+            migrateLegacyVisStorage(stack);
+            clampVisToCapacity(stack);
+        }
+
+        if (hasNodeTarget(stack) && (!player.isUsingItem() || player.getUseItem() != stack)) {
+            clearNodeUse(stack);
+        }
+
+        if (level.isClientSide || hasInfiniteVis(stack)) {
             return;
         }
 
@@ -311,6 +526,11 @@ public class WandItem extends Item {
     }
 
     @Override
+    public Component getName(ItemStack stack) {
+        return Component.literal(WandComponentData.from(stack).displayName(stack));
+    }
+
+    @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             @Override
@@ -325,10 +545,14 @@ public class WandItem extends Item {
         WandComponentData data = WandComponentData.from(stack);
         tooltip.add(Component.literal("Rod: " + data.rod().id()).withStyle(ChatFormatting.DARK_AQUA));
         tooltip.add(Component.literal("Caps: " + data.cap().id()).withStyle(ChatFormatting.GOLD));
-        tooltip.add(Component.literal("Capacity: " + stackVisCapacity(stack)).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Capacity: " + formatVis(stackVisCapacity(stack))).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.literal("Cap cost: x" + data.visCostModifier(stack, Aspect.AER) + " base").withStyle(ChatFormatting.GRAY));
-        if (data.rod().staff()) {
-            tooltip.add(Component.literal("Staff-class rod").withStyle(ChatFormatting.DARK_PURPLE));
+        if (WandComponentData.isSceptre(stack)) {
+            tooltip.add(Component.literal("Sceptre: +50% capacity, -10% vis cost, focus-capable")
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
+        } else if (data.rod().staff()) {
+            tooltip.add(Component.literal("Staff: focus-capable, cannot occupy the Arcane Workbench wand slot")
+                    .withStyle(ChatFormatting.DARK_PURPLE));
         }
         if (data.rod().hasRodRegen()) {
             tooltip.add(Component.literal("TC4 rod recharge: up to 10% capacity").withStyle(ChatFormatting.DARK_GREEN));
@@ -340,7 +564,17 @@ public class WandItem extends Item {
         WandFocusType focus = WandFocusRuntime.getFocus(stack);
         if (focus != null) {
             tooltip.add(Component.literal("Focus: " + focus.displayName()).withStyle(ChatFormatting.LIGHT_PURPLE));
-            tooltip.add(focus.visCost().toComponent().withStyle(ChatFormatting.DARK_GRAY));
+            com.darkifov.thaumcraft.AspectList focusCost = WandFocusRuntime.focusVisCost(stack, focus, net.minecraft.util.RandomSource.create());
+            net.minecraft.network.chat.MutableComponent costLine = Component.literal("Vis cost: ");
+            boolean firstCost = true;
+            for (var entry : focusCost.entries().entrySet()) {
+                if (!firstCost) costLine.append(Component.literal(", "));
+                int modified = WandFocusRuntime.modifiedFocusVisCost(stack, entry.getKey(), entry.getValue());
+                costLine.append(Component.literal(entry.getKey().displayName() + " " + formatVis(modified))
+                        .withStyle(style -> style.withColor(entry.getKey().textColor())));
+                firstCost = false;
+            }
+            tooltip.add(costLine.withStyle(ChatFormatting.DARK_GRAY));
         } else {
             tooltip.add(Component.literal("Focus: none").withStyle(ChatFormatting.DARK_GRAY));
         }
@@ -348,7 +582,9 @@ public class WandItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return !WandComponentData.isSceptre(stack) && WandFocusRuntime.shouldUseContinuously(stack) ? Integer.MAX_VALUE : 0;
+        return hasNodeTarget(stack) || WandFocusRuntime.shouldUseContinuously(stack)
+                ? Integer.MAX_VALUE
+                : 0;
     }
 
     @Override
@@ -360,24 +596,59 @@ public class WandItem extends Item {
 
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
-        if (livingEntity instanceof Player player && !WandComponentData.isSceptre(stack)) {
-            WandFocusRuntime.onUsingFocusTick(stack, level, player, remainingUseDuration);
+        if (!(livingEntity instanceof Player player)) {
+            return;
         }
+
+        BlockPos target = nodeTarget(stack, level);
+        if (target != null) {
+            if (!(level.getBlockEntity(target) instanceof AuraNodeBlockEntity node) || !playerStillTargetsNode(player, target)) {
+                stopNodeUse(player, stack);
+                return;
+            }
+
+            // Original TileNode#onUsingWandTick taps one random eligible primal every five ticks.
+            if (!level.isClientSide && player.getTicksUsingItem() % NODE_TAP_INTERVAL == 0) {
+                NodeTapResult result = tapNode(stack, node, player);
+                // TC4 keeps the use action active when the wand is full or the node
+                // has no eligible primal.  It only clears the beam until a transfer
+                // becomes possible or the player releases/looks away.
+                if (result.moved() <= 0 || result.aspect() == null) {
+                    return;
+                }
+                if (level instanceof ServerLevel serverLevel) {
+                    emitNodeTapFx(serverLevel, player, target, result.aspect());
+                }
+            }
+            return;
+        }
+
+        // Original ItemWandCasting lets sceptres equip and cast foci; their
+        // advantages are +50% capacity and -0.1 vis cost, not a focus ban.
+        WandFocusRuntime.onUsingFocusTick(stack, level, player, remainingUseDuration);
     }
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int remainingUseDuration) {
-        if (livingEntity instanceof Player player && !WandComponentData.isSceptre(stack)) {
-            WandFocusRuntime.onPlayerStoppedUsingFocus(stack, level, player, remainingUseDuration);
+        if (!(livingEntity instanceof Player player)) {
+            return;
         }
+        if (hasNodeTarget(stack)) {
+            clearNodeUse(stack);
+            return;
+        }
+        WandFocusRuntime.onPlayerStoppedUsingFocus(stack, level, player, remainingUseDuration);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack wandStack = player.getItemInHand(hand);
+        if (hasNodeTarget(wandStack) && !player.isUsingItem()) {
+            clearNodeUse(wandStack);
+        }
 
         if (level.isClientSide) {
-            if (!WandComponentData.isSceptre(wandStack) && WandFocusRuntime.shouldUseContinuously(wandStack)) {
+            if (WandFocusRuntime.shouldUseContinuously(wandStack)) {
                 player.startUsingItem(hand);
                 return InteractionResultHolder.consume(wandStack);
             }
@@ -385,29 +656,6 @@ public class WandItem extends Item {
         }
 
         ItemStack offhand = player.getOffhandItem();
-
-        if (hand == InteractionHand.MAIN_HAND && tryInstallWandComponent(wandStack, offhand, player)) {
-            return InteractionResultHolder.consume(wandStack);
-        }
-
-        if (WandComponentData.isSceptre(wandStack) && player.isShiftKeyDown() && WandFocusRuntime.hasFocus(wandStack)) {
-            WandFocusType oldFocus = WandFocusRuntime.getFocus(wandStack);
-            ItemStack focusStack = WandFocusRuntime.getFocusStack(wandStack);
-            WandFocusRuntime.setFocus(wandStack, null);
-            if (focusStack.isEmpty()) {
-                focusStack = WandFocusRuntime.focusStack(oldFocus);
-            }
-            if (!player.getInventory().add(focusStack)) {
-                player.drop(focusStack, false);
-            }
-            player.displayClientMessage(Component.literal("Removed " + oldFocus.displayName() + " from sceptre adapter NBT.").withStyle(ChatFormatting.GRAY), true);
-            return InteractionResultHolder.consume(wandStack);
-        }
-
-        if (WandComponentData.isSceptre(wandStack) && (offhand.getItem() instanceof FocusPouchItem || offhand.getItem() instanceof WandFocusItem || WandFocusRuntime.hasFocus(wandStack))) {
-            player.displayClientMessage(Component.literal("Original TC4 sceptres are crafting-only and cannot equip or cast wand foci.").withStyle(ChatFormatting.RED), true);
-            return InteractionResultHolder.consume(wandStack);
-        }
 
         if (hand == InteractionHand.MAIN_HAND && offhand.getItem() instanceof FocusPouchItem) {
             if (FocusPouchItem.equipNextFocusFromPouch(offhand, wandStack, player, player.isShiftKeyDown())) {
@@ -464,25 +712,20 @@ public class WandItem extends Item {
 
         Player player = context.getPlayer();
         ItemStack wandStack = context.getItemInHand();
-
-        if (level.isClientSide) {
-            if (!WandComponentData.isSceptre(wandStack) && WandFocusRuntime.shouldUseContinuously(wandStack)) {
-                player.startUsingItem(context.getHand());
-            }
-            return InteractionResult.SUCCESS;
-        }
-
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
-        if (level.getBlockEntity(pos) instanceof AuraNodeBlockEntity node) {
-            int moved = chargeFromNode(wandStack, node);
-            if (moved > 0) {
-                player.displayClientMessage(Component.literal("Wand draws " + moved + " primal vis from the aura node.").withStyle(ChatFormatting.AQUA), true);
-            } else {
-                player.displayClientMessage(Component.literal("No compatible primal vis moved. Wand may be full or node depleted.").withStyle(ChatFormatting.GRAY), true);
+        if (level.getBlockEntity(pos) instanceof AuraNodeBlockEntity) {
+            beginNodeUse(wandStack, level, pos);
+            player.startUsingItem(context.getHand());
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (level.isClientSide) {
+            if (WandFocusRuntime.shouldUseContinuously(wandStack)) {
+                player.startUsingItem(context.getHand());
             }
-            return InteractionResult.CONSUME;
+            return InteractionResult.SUCCESS;
         }
 
         if (player.isShiftKeyDown() && level.getBlockEntity(pos) instanceof CrucibleBlockEntity crucible) {
@@ -531,12 +774,8 @@ public class WandItem extends Item {
         }
 
         WandFocusType focus = WandFocusRuntime.getFocus(wandStack);
-        if (focus != null && WandComponentData.isSceptre(wandStack)) {
-            player.displayClientMessage(Component.literal("Original TC4 sceptres are crafting-only and cannot cast wand foci.").withStyle(ChatFormatting.RED), true);
-            return InteractionResult.CONSUME;
-        }
         if (focus != null) {
-            if (!WandComponentData.isSceptre(wandStack) && WandFocusRuntime.shouldUseContinuously(wandStack)) {
+            if (WandFocusRuntime.shouldUseContinuously(wandStack)) {
                 player.startUsingItem(context.getHand());
                 WandFocusRuntime.beginContinuousUse(wandStack, level, player);
                 return InteractionResult.CONSUME;

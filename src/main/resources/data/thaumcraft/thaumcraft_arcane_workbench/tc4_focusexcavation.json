@@ -5,7 +5,7 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:emerald",
   "ingredients": [
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:terra_shard"
   ],
   "aspects": {
@@ -20,7 +20,7 @@
   ],
   "key": {
     "#": "minecraft:emerald",
-    "Q": "minecraft:nether_wart",
+    "Q": "minecraft:quartz",
     "C": "thaumcraft:terra_shard"
   },
   "result": {

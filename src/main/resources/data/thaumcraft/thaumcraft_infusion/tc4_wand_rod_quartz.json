@@ -1,0 +1,21 @@
+{
+  "tc4_key": "WandRodQuartz",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_quartz",
+  "tc4_kind": "INFUSION",
+  "catalyst": "minecraft:quartz_block",
+  "components": [
+    "thaumcraft:balanced_shard",
+    "thaumcraft:ordo_shard"
+  ],
+  "aspects": {
+    "ORDO": 12,
+    "PRAECANTATIO": 6,
+    "VITREUS": 6
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_wand_rod_quartz",
+    "count": 1
+  }
+}

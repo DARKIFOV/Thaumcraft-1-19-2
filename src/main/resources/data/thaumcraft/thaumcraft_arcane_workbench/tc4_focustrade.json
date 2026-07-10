@@ -5,7 +5,7 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:quicksilver_drop",
   "ingredients": [
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:balanced_shard"
   ],
   "aspects": {
@@ -20,7 +20,7 @@
   ],
   "key": {
     "#": "thaumcraft:quicksilver_drop",
-    "Q": "minecraft:nether_wart",
+    "Q": "minecraft:quartz",
     "C": "thaumcraft:balanced_shard",
     "E": "thaumcraft:balanced_shard"
   },

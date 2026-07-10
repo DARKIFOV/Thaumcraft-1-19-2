@@ -1,0 +1,83 @@
+{
+  "version": "11.62.18",
+  "focus": "EXCAVATION",
+  "original_version": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "sources": [
+    "thaumcraft/common/items/wands/foci/ItemFocusExcavation.java",
+    "thaumcraft/common/lib/events/EventHandlerWorld.java",
+    "thaumcraft/common/lib/utils/Utils.java",
+    "thaumcraft/common/config/Config.java"
+  ],
+  "continuous_use": {
+    "range_blocks": 10.0,
+    "base_cost_centivis": {"TERRA": 15},
+    "dowsing_cost_centivis": {"TERRA": 15, "IGNIS": 2, "ORDO": 2},
+    "silk_touch_cost_centivis": {"TERRA": 16, "AER": 1, "IGNIS": 1, "AQUA": 1, "ORDO": 1, "PERDITIO": 1},
+    "cost_is_checked_while_charging": true,
+    "cost_is_consumed_when_a_block_is_broken": true,
+    "rumble_interval_ms": 1200,
+    "base_speed": "0.05 + potency * 0.1",
+    "fast_material_speed": "0.25 + potency * 0.25",
+    "fast_materials_1192_adapter": ["STONE", "GRASS", "DIRT", "SAND"],
+    "obsidian_multiplier": 3.0,
+    "progress_resets_when_target_changes": true,
+    "animation": "CHARGE"
+  },
+  "breaking": {
+    "forge_break_event_respected": true,
+    "offhand_adapter": "ForgeHooks checks the main-hand tool, so an equivalent cancellable BreakEvent is posted directly for an offhand wand.",
+    "treasure_adapter": "Fortune level equals the Treasure focus-upgrade level.",
+    "silk_touch_adapter": "Silk Touch level 1 is applied to the loot-context tool.",
+    "experience_is_preserved": true,
+    "invented_hardness_20_limit_removed": true,
+    "warded_and_permission_checks_preserved": true
+  },
+  "enlarge": {
+    "attempts": "exactly one random adjacent attempt per Enlarge level",
+    "directions": ["DOWN", "UP", "NORTH", "SOUTH", "EAST", "WEST"],
+    "matching_rule": "full BlockState equality (modern equivalent of original block + metadata)",
+    "recursive_cascade": false,
+    "extra_cost": "one full focus cost for each successfully broken adjacent block"
+  },
+  "dowsing": {
+    "base_formula": "0.2 + treasure * 0.075",
+    "standard_special_multiplier": 1.0,
+    "gold_special_multiplier": 0.9,
+    "cinnabar_special_multiplier": 0.9,
+    "cluster_count": "replacement cluster count is multiplied by the original drop-stack count",
+    "mapped_metals": ["iron", "gold", "copper", "tin", "silver", "lead", "cinnabar"],
+    "success_sound": "experience_orb_pickup (modern equivalent of random.orb)",
+    "compatibility_strategy": "vanilla raw metals plus registry-path ore/raw matching for modded metals"
+  },
+  "recipe": {
+    "research": "FOCUSEXCAVATION",
+    "pattern": ["CQC", "Q#Q", "CQC"],
+    "key": {"#": "minecraft:emerald", "Q": "minecraft:quartz", "C": "thaumcraft:terra_shard"},
+    "aspects": {"TERRA": 20, "PERDITIO": 5, "ORDO": 5}
+  },
+  "upgrade_ranks": {
+    "1": ["FRUGAL", "POTENCY", "TREASURE"],
+    "2": ["FRUGAL", "POTENCY", "ENLARGE"],
+    "3": ["FRUGAL", "POTENCY", "TREASURE", "DOWSING"],
+    "4": ["FRUGAL", "POTENCY", "ENLARGE"],
+    "5": ["FRUGAL", "POTENCY", "TREASURE", "SILK_TOUCH"]
+  },
+  "cross_system_fixes": {
+    "field_151128_bU": "minecraft:quartz",
+    "corrected_materialized_recipes": [
+      "FocusExcavation",
+      "FocusTrade",
+      "GolemBell",
+      "Resonator",
+      "FocusHellbat",
+      "FocusPortableHole",
+      "FocusWarding"
+    ]
+  },
+  "known_limits": [
+    "The 1.19.2 client beam and crack overlay are modern renderer adapters rather than copied legacy OpenGL classes.",
+    "Vanilla 1.19.2 cooking JSON stores only a result item id, so the three currently materialized cluster-smelting recipes still output one item until a counted cooking-recipe serializer is added.",
+    "Tin, silver and lead cluster smelting remains dependent on future ore-tag/mod-compat recipe adapters because vanilla Minecraft has no canonical ingots for those metals.",
+    "A real client/server playtest is still required after the GitHub Forge build."
+  ]
+}

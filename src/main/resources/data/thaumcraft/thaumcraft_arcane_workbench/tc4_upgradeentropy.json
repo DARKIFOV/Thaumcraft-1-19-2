@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "UPGRADEENTROPY",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:gold_nugget",
+  "catalyst": "thaumcraft:perditio_shard",
   "ingredients": [
-    "thaumcraft:perditio_shard"
+    "minecraft:gold_nugget"
   ],
   "aspects": {
     "PERDITIO": 10
@@ -16,11 +16,12 @@
     "NNN"
   ],
   "key": {
-    "N": "thaumcraft:perditio_shard",
-    "C": "minecraft:gold_nugget"
+    "N": "minecraft:gold_nugget",
+    "C": "thaumcraft:perditio_shard"
   },
   "result": {
     "item": "thaumcraft:tc4_golem_upgrade_entropy",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

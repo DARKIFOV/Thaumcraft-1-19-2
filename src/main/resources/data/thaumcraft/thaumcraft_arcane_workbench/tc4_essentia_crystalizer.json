@@ -1,0 +1,37 @@
+{
+  "tc4_key": "EssentiaCrystalizer",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "ESSENTIACRYSTAL",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_block_alchemical_construct",
+  "ingredients": [
+    "thaumcraft:essentia_tube",
+    "minecraft:dispenser",
+    "thaumcraft:tc4_balanced_shard",
+    "minecraft:iron_ingot",
+    "minecraft:oak_planks",
+    "thaumcraft:tc4_block_alchemical_construct"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "TERRA": 15,
+    "ORDO": 5
+  },
+  "pattern": [
+    "IDI",
+    "QCQ",
+    "WTW"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "D": "minecraft:dispenser",
+    "Q": "thaumcraft:tc4_balanced_shard",
+    "C": "thaumcraft:tc4_block_alchemical_construct",
+    "W": "minecraft:oak_planks",
+    "T": "thaumcraft:essentia_tube"
+  },
+  "result": {
+    "item": "thaumcraft:essentia_crystalizer",
+    "count": 1
+  }
+}

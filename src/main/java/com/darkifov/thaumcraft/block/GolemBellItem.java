@@ -1,18 +1,20 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
-import com.darkifov.thaumcraft.golem.GolemBellMode;
-import com.darkifov.thaumcraft.golem.GolemCoreType;
-import com.darkifov.thaumcraft.golem.GolemMarkerMode;
 import com.darkifov.thaumcraft.golem.GolemBellMarkerRuntime;
+import com.darkifov.thaumcraft.golem.GolemUpgradeType;
+import com.darkifov.thaumcraft.golem.GolemCoreType;
+import com.darkifov.thaumcraft.porting.TC4ResearchItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,12 +22,15 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import java.util.Comparator;
 import java.util.List;
 
+/**
+ * TC4 ItemGolemBell parity adapter.
+ * Right-clicking a golem binds it, right-clicking a block edits that bound
+ * golem's marker list, and left-clicking the owned golem dismantles it into a
+ * placer while preserving configuration and inventory.
+ */
 public class GolemBellItem extends Item {
-    private static final String TAG_MODE = "TC4GolemBellMode";
-
     public GolemBellItem(Properties properties) {
         super(properties.stacksTo(1));
     }
@@ -33,142 +38,159 @@ public class GolemBellItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
-
-        if (level.isClientSide || context.getPlayer() == null) {
+        Player player = context.getPlayer();
+        if (player == null) {
+            return InteractionResult.PASS;
+        }
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
 
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return InteractionResult.CONSUME;
-        }
-
-        Player player = context.getPlayer();
         ItemStack bell = context.getItemInHand();
-        GolemBellMode mode = getMode(bell);
-        BlockPos target = context.getClickedPos().relative(context.getClickedFace());
-        BlockPos markerTarget = context.getClickedPos();
-        List<ThaumGolemEntity> owned = ownedGolems(serverLevel, player, 32.0D);
-
-        if (owned.isEmpty()) {
-            player.displayClientMessage(Component.literal("No owned golems nearby.").withStyle(ChatFormatting.GRAY), false);
+        ThaumGolemEntity golem = GolemBellMarkerRuntime.boundGolem(bell, level);
+        if (golem == null) {
+            player.displayClientMessage(Component.literal("Bind this bell to a golem first.")
+                    .withStyle(ChatFormatting.GRAY), true);
+            return InteractionResult.CONSUME;
+        }
+        if (!owns(player, golem)) {
+            player.displayClientMessage(Component.literal("That golem belongs to another thaumaturge.")
+                    .withStyle(ChatFormatting.RED), true);
             return InteractionResult.CONSUME;
         }
 
-        switch (mode) {
-            case HOME -> {
-                int changed = 0;
-                for (ThaumGolemEntity golem : owned) {
-                    golem.setHomePos(target);
-                    golem.getNavigation().moveTo(target.getX() + 0.5D, target.getY(), target.getZ() + 0.5D, 1.0D);
-                    changed++;
-                }
-                player.displayClientMessage(Component.literal("Set home position for owned golems: " + changed).withStyle(ChatFormatting.GOLD), false);
-            }
-            case MARKER -> {
-                ThaumGolemEntity bound = GolemBellMarkerRuntime.boundGolem(bell, level);
-                boolean multiColor = bound != null && bound.hasUpgrade(com.darkifov.thaumcraft.golem.GolemUpgradeType.ORDER);
-                GolemBellMarkerRuntime.ToggleResult result = GolemBellMarkerRuntime.changeMarkers(bell, player, level, markerTarget, context.getClickedFace(), multiColor);
-                ItemStack offhand = player.getOffhandItem();
-                GolemMarkerMode markerMode = offhand.getItem() instanceof GolemTaskMarkerItem ? GolemTaskMarkerItem.getMode(offhand) : GolemMarkerMode.WORK;
-                BlockPos markerPos = offhand.getItem() instanceof GolemTaskMarkerItem && GolemTaskMarkerItem.getPosition(offhand) != null ? GolemTaskMarkerItem.getPosition(offhand) : markerTarget;
-                int changed = 0;
-                for (ThaumGolemEntity golem : owned) {
-                    golem.setTaskMarker(markerMode, markerPos);
-                    golem.applyOriginalMarkerList(GolemBellMarkerRuntime.getMarkersTag(bell));
-                    changed++;
-                }
-                player.displayClientMessage(Component.literal("TC4 marker " + result.action() + " | markers=" + result.count() + " | synced golems=" + changed).withStyle(ChatFormatting.YELLOW), false);
-            }
-            case RETASK -> {
-                GolemCoreType next = null;
-                ItemStack offhand = player.getOffhandItem();
-                if (offhand.getItem() instanceof GolemCoreItem) {
-                    CompoundTag tag = offhand.getOrCreateTag();
-                    next = GolemCoreType.byName(tag.getString(GolemCoreItem.TAG_CORE));
-                }
-                if (next == null) {
-                    next = GolemCoreType.GATHER;
-                }
-                int changed = 0;
-                for (ThaumGolemEntity golem : owned) {
-                    golem.setCoreType(next);
-                    changed++;
-                }
-                player.displayClientMessage(Component.literal("Retasked owned golems to ").append(next.displayName()).append(Component.literal(": " + changed)).withStyle(ChatFormatting.LIGHT_PURPLE), false);
-            }
-            case STATUS -> {
-                player.displayClientMessage(Component.literal("Owned golems nearby: " + owned.size()).withStyle(ChatFormatting.GREEN), false);
-                for (ThaumGolemEntity golem : owned) {
-                    player.displayClientMessage(golem.statusSummary(), false);
-                }
-            }
-            case RECALL, WAIT -> {
-                // handled by use(); keep useOn from also setting home in these modes.
-                return use(level, player, context.getHand()).getResult();
-            }
-        }
-
+        boolean multipleColors = golem.getUpgradeAmount(GolemUpgradeType.ORDER) > 0;
+        GolemBellMarkerRuntime.ToggleResult result = GolemBellMarkerRuntime.changeMarkers(
+                bell, player, level, context.getClickedPos(), context.getClickedFace(), multipleColors);
+        level.playSound(null, context.getClickedPos(), SoundEvents.EXPERIENCE_ORB_PICKUP,
+                SoundSource.PLAYERS, 0.7F, 1.0F + level.random.nextFloat() * 0.1F);
+        player.displayClientMessage(Component.literal("Marker " + result.action() + " (" + result.count() + ")")
+                .withStyle(ChatFormatting.GOLD), true);
         return InteractionResult.CONSUME;
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack stack = player.getItemInHand(hand);
-
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        ItemStack bell = player.getItemInHand(hand);
+        if (!level.isClientSide) {
+            ThaumGolemEntity golem = GolemBellMarkerRuntime.boundGolem(bell, level);
             if (player.isShiftKeyDown()) {
-                GolemBellMode next = getMode(stack).next();
-                stack.getOrCreateTag().putString(TAG_MODE, next.id());
-                player.displayClientMessage(Component.literal("Golem bell mode: ").append(next.displayName()), true);
-                return InteractionResultHolder.consume(stack);
-            }
-
-            GolemBellMode mode = getMode(stack);
-            List<ThaumGolemEntity> owned = ownedGolems(serverLevel, player, 32.0D);
-            if (mode == GolemBellMode.STATUS) {
-                player.displayClientMessage(Component.literal("Owned golems nearby: " + owned.size()).withStyle(ChatFormatting.GREEN), false);
-                for (ThaumGolemEntity golem : owned) {
-                    player.displayClientMessage(golem.statusSummary(), false);
+                if (golem != null && owns(player, golem)) {
+                    GolemBellMarkerRuntime.setMarkers(bell, List.of());
+                    golem.applyOriginalMarkerList(GolemBellMarkerRuntime.getMarkersTag(bell));
+                    level.playSound(null, player.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP,
+                            SoundSource.PLAYERS, 0.7F, 0.9F);
+                    player.displayClientMessage(Component.literal("Cleared all golem markers.")
+                            .withStyle(ChatFormatting.YELLOW), true);
+                } else {
+                    GolemBellMarkerRuntime.clearBinding(bell);
+                    player.displayClientMessage(Component.literal("Cleared stale golem binding.")
+                            .withStyle(ChatFormatting.GRAY), true);
                 }
-            } else if (mode == GolemBellMode.WAIT) {
-                int changed = 0;
-                for (ThaumGolemEntity golem : owned) {
-                    golem.setWaiting(!golem.isWaiting());
-                    changed++;
-                }
-                player.displayClientMessage(Component.literal("Toggled waiting for owned golems: " + changed).withStyle(ChatFormatting.GRAY), false);
+            } else if (golem != null) {
+                player.displayClientMessage(golem.statusSummary(), false);
             } else {
-                int recalled = 0;
-                for (ThaumGolemEntity golem : owned) {
-                    golem.setWaiting(false);
-                    golem.getNavigation().moveTo(player, 1.2D);
-                    recalled++;
-                }
-                player.displayClientMessage(Component.literal("Recalled nearby golems: " + recalled).withStyle(ChatFormatting.AQUA), false);
+                player.displayClientMessage(Component.literal("Unbound Golem Bell")
+                        .withStyle(ChatFormatting.GRAY), true);
             }
         }
-
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+        return InteractionResultHolder.sidedSuccess(bell, level.isClientSide);
     }
 
-    private List<ThaumGolemEntity> ownedGolems(ServerLevel serverLevel, Player player, double radius) {
-        List<ThaumGolemEntity> golems = serverLevel.getEntitiesOfClass(ThaumGolemEntity.class, player.getBoundingBox().inflate(radius), golem -> player.getUUID().equals(golem.getOwnerUuid()));
-        golems.sort(Comparator.comparingDouble(player::distanceToSqr));
-        return golems;
+    @Override
+    public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        if (!(target instanceof ThaumGolemEntity golem)) {
+            return InteractionResult.PASS;
+        }
+        if (player.level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        if (!owns(player, golem)) {
+            player.displayClientMessage(Component.literal("That golem belongs to another thaumaturge.")
+                    .withStyle(ChatFormatting.RED), true);
+            return InteractionResult.CONSUME;
+        }
+        GolemBellMarkerRuntime.bindGolem(stack, golem);
+        player.level.playSound(null, golem.blockPosition(), SoundEvents.EXPERIENCE_ORB_PICKUP,
+                SoundSource.PLAYERS, 0.7F, 1.0F + player.level.random.nextFloat() * 0.1F);
+        player.displayClientMessage(Component.literal("Golem Bell bound. Markers: ")
+                .append(Component.literal(String.valueOf(GolemBellMarkerRuntime.getMarkers(stack).size())))
+                .withStyle(ChatFormatting.GOLD), true);
+        return InteractionResult.CONSUME;
     }
 
-    private GolemBellMode getMode(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        return tag == null ? GolemBellMode.RECALL : GolemBellMode.byName(tag.getString(TAG_MODE));
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (!(entity instanceof ThaumGolemEntity golem) || golem.isRemoved()) {
+            return false;
+        }
+        if (player.level.isClientSide) {
+            player.swing(InteractionHand.MAIN_HAND);
+            return true;
+        }
+        if (!owns(player, golem)) {
+            player.displayClientMessage(Component.literal("You cannot dismantle another thaumaturge's golem.")
+                    .withStyle(ChatFormatting.RED), true);
+            return true;
+        }
+
+        // TC4 bell parity: normal dismantling serializes the whole configured
+        // golem into its exact body item. Sneak-dismantling salvages the bare
+        // body, drops the core separately and gives each installed upgrade its
+        // original 50% recovery chance.
+        ItemStack placer = player.isShiftKeyDown()
+                ? golem.createBareGolemBodyStack()
+                : golem.createGolemPlacerStack();
+        if (golem.isAdvancedGolem()) {
+            placer.getOrCreateTag().putBoolean("advanced", true);
+        }
+        golem.spawnAtLocation(placer, 0.5F);
+        if (player.isShiftKeyDown()) {
+            dropOriginalCore(golem);
+            dropRecoveredUpgrades(golem);
+        }
+        golem.dropCarriedStackAfterDismantle();
+        player.level.playSound(null, golem.blockPosition(), SoundEvents.LIGHTNING_BOLT_IMPACT,
+                SoundSource.NEUTRAL, 0.35F, 1.6F);
+        GolemBellMarkerRuntime.clearBinding(stack);
+        golem.discard();
+        return true;
+    }
+
+
+    private static void dropOriginalCore(ThaumGolemEntity golem) {
+        GolemCoreType core = golem.getCoreType();
+        if (core == null || core == GolemCoreType.BLANK || core.originalId() < 0) {
+            return;
+        }
+        TC4ResearchItems.registered("tc4_golem_core_" + core.id())
+                .ifPresent(entry -> golem.spawnAtLocation(new ItemStack(entry.get()), 0.5F));
+    }
+
+    private static void dropRecoveredUpgrades(ThaumGolemEntity golem) {
+        for (byte raw : golem.getOriginalUpgradeSlotsCopy()) {
+            GolemUpgradeType type = GolemUpgradeType.byOriginalId(raw);
+            if (type == null || !golem.getRandom().nextBoolean()) {
+                continue;
+            }
+            TC4ResearchItems.registered("tc4_golem_upgrade_" + type.id())
+                    .ifPresent(entry -> golem.spawnAtLocation(new ItemStack(entry.get()), 0.5F));
+        }
+    }
+
+    private static boolean owns(Player player, ThaumGolemEntity golem) {
+        return player.getAbilities().instabuild || golem.getOwnerUuid() == null
+                || player.getUUID().equals(golem.getOwnerUuid());
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        GolemBellMode mode = getMode(stack);
-        tooltip.add(Component.literal("Mode: ").append(mode.displayName()));
-        tooltip.add(Component.literal("Shift + right-click: cycle mode.").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("Right-click air recalls/toggles wait/status. Right-click block assigns mode target.").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Right-click a golem: bind bell").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Right-click a block: add/remove marker").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Order upgrade: cycle marker colors; sneak removes").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Left-click owned golem: preserve it in its original body item").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Sneak + left-click: salvage body/core and 50% of upgrades").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.literal("Sneak + right-click air: clear markers/binding").withStyle(ChatFormatting.DARK_GRAY));
         tooltip.add(GolemBellMarkerRuntime.markerSummary(stack).withStyle(ChatFormatting.DARK_AQUA));
-        tooltip.add(Component.literal("Right-click a golem binds original golemid/home/markers NBT.").withStyle(ChatFormatting.DARK_GRAY));
     }
 }

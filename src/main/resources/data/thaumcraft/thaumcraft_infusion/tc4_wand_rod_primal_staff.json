@@ -1,0 +1,31 @@
+{
+  "tc4_key": "WandRodPrimalStaff",
+  "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
+  "research": "ROD_primal_staff",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_wand_rod_silverwood",
+  "components": [
+    "thaumcraft:tc4_charm",
+    "thaumcraft:tc4_wand_rod_obsidian",
+    "thaumcraft:tc4_wand_rod_ice",
+    "thaumcraft:tc4_wand_rod_quartz",
+    "thaumcraft:tc4_charm",
+    "thaumcraft:tc4_wand_rod_reed",
+    "thaumcraft:tc4_wand_rod_blaze",
+    "thaumcraft:tc4_wand_rod_bone"
+  ],
+  "aspects": {
+    "AER": 32,
+    "IGNIS": 32,
+    "AQUA": 32,
+    "TERRA": 32,
+    "ORDO": 32,
+    "PERDITIO": 32,
+    "PRAECANTATIO": 64
+  },
+  "instability": 8,
+  "result": {
+    "item": "thaumcraft:tc4_staff_rod_primal",
+    "count": 1
+  }
+}

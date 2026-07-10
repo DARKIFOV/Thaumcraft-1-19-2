@@ -1,0 +1,21 @@
+{
+  "tc4_key": "TubeFilter",
+  "tc4_source": "addShapelessArcaneCraftingRecipe",
+  "research": "TUBEFILTER",
+  "tc4_kind": "ARCANE_SHAPELESS",
+  "catalyst": "thaumcraft:essentia_tube",
+  "ingredients": [
+    "thaumcraft:essentia_tube",
+    "thaumcraft:tc4_filter"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 16
+  },
+  "pattern": [],
+  "result": {
+    "item": "thaumcraft:essentia_tube_filter",
+    "count": 1
+  },
+  "v11_62_23_strict_original": true
+}

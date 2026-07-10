@@ -5,7 +5,7 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:diamond",
   "ingredients": [
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:aqua_shard"
   ],
   "aspects": {
@@ -20,7 +20,7 @@
   ],
   "key": {
     "#": "minecraft:diamond",
-    "Q": "minecraft:nether_wart",
+    "Q": "minecraft:quartz",
     "C": "thaumcraft:aqua_shard"
   },
   "result": {

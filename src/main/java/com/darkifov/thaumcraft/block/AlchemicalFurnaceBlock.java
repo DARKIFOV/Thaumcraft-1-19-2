@@ -11,11 +11,16 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -50,6 +55,22 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moving) {
+        if (!state.is(newState.getBlock())) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace) {
+                if (!furnace.inputStack().isEmpty()) {
+                    Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, furnace.inputStack().copy());
+                }
+                if (!furnace.fuelStack().isEmpty()) {
+                    Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, furnace.fuelStack().copy());
+                }
+            }
+        }
+        super.onRemove(state, level, pos, newState, moving);
+    }
+
+    @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextFloat() < 0.35F) {
             level.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.05D, pos.getZ() + 0.5D, 0.0D, 0.02D, 0.0D);
@@ -65,6 +86,26 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (!level.isClientSide && state.is(ThaumcraftMod.ADVANCED_ALCHEMICAL_FURNACE.get())
+                && entity instanceof ItemEntity itemEntity
+                && level.getBlockEntity(pos) instanceof AlchemicalFurnaceBlockEntity furnace) {
+            ItemStack stack = itemEntity.getItem();
+            if (!stack.isEmpty() && furnace.processAdvancedItem(stack)) {
+                stack.shrink(1);
+                if (stack.isEmpty()) {
+                    itemEntity.discard();
+                } else {
+                    itemEntity.setItem(stack);
+                }
+                level.playSound(null, pos, SoundEvents.BUBBLE_COLUMN_BUBBLE_POP,
+                        SoundSource.BLOCKS, 0.2F, 1.0F + level.random.nextFloat() * 0.4F);
+            }
+        }
+        super.entityInside(state, level, pos, entity);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) {
@@ -72,21 +113,56 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
         }
 
         BlockEntity blockEntity = level.getBlockEntity(pos);
-
         if (!(blockEntity instanceof AlchemicalFurnaceBlockEntity furnace)) {
             return InteractionResult.PASS;
         }
 
         ItemStack held = player.getItemInHand(hand);
-
+        if (furnace.isAdvanced()) {
+            if (held.isEmpty()) {
+                player.displayClientMessage(Component.literal("Advanced Alchemical Furnace | Essentia: "
+                        + furnace.aspects().totalAmount() + "/" + furnace.capacity()
+                        + " | Heat: " + furnace.advancedHeat() + "/500"
+                        + " | Perditio: " + furnace.advancedEntropy() + "/500"
+                        + " | Aqua: " + furnace.advancedWater() + "/500"
+                        + " | Cooldown: " + furnace.advancedProcessedCooldown()), false);
+                return InteractionResult.CONSUME;
+            }
+            AspectList advancedAspects = AspectDatabase.getAspectsForItem(held);
+            if (advancedAspects == null || advancedAspects.isEmpty()) {
+                player.displayClientMessage(Component.literal("No essentia can be extracted from this item.")
+                        .withStyle(ChatFormatting.GRAY), false);
+                return InteractionResult.CONSUME;
+            }
+            if (!furnace.processAdvancedItem(held)) {
+                player.displayClientMessage(Component.literal("The advanced furnace is cooling down, full, or lacks Ignis/Perditio/Aqua power.")
+                        .withStyle(ChatFormatting.YELLOW), false);
+                return InteractionResult.CONSUME;
+            }
+            if (!player.getAbilities().instabuild) {
+                held.shrink(1);
+            }
+            return InteractionResult.CONSUME;
+        }
         if (held.isEmpty()) {
+            if (player.isShiftKeyDown()) {
+                ItemStack extracted = !furnace.inputStack().isEmpty() ? furnace.extractInput() : furnace.extractFuel();
+                if (!extracted.isEmpty()) {
+                    if (!player.getInventory().add(extracted)) {
+                        player.drop(extracted, false);
+                    }
+                    return InteractionResult.CONSUME;
+                }
+            }
             int pct = furnace.burnDuration() <= 0 ? 0 : Math.min(100, furnace.burnProgress() * 100 / furnace.burnDuration());
             int alembics = TC4DistillationRuntime.countAlembicsAbove(level, pos);
             player.displayClientMessage(
-                    Component.literal("Alchemical Furnace | Stored: " + furnace.aspects().totalAmount() + "/" + AlchemicalFurnaceBlockEntity.CAPACITY)
+                    Component.literal("Alchemical Furnace | Stored: " + furnace.aspects().totalAmount() + "/" + furnace.capacity())
                             .append(Component.literal(" | Fuel: " + furnace.fuelTime()))
                             .append(Component.literal(" | Burn: " + pct + "%"))
-                            .append(Component.literal(" | Alembics above: " + alembics))
+                            .append(Component.literal(" | Bellows: " + furnace.bellows()))
+                            .append(Component.literal(" | Alembics: " + alembics))
+                            .append(Component.literal(" | Input: " + (furnace.inputStack().isEmpty() ? "empty" : furnace.inputStack().getHoverName().getString())))
                             .append(Component.literal(" | Aspects: "))
                             .append(furnace.aspects().toComponent()),
                     false
@@ -94,72 +170,32 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
             return InteractionResult.CONSUME;
         }
 
-        int fuel = fuelValue(held);
-
-        if (fuel > 0) {
-            furnace.addFuel(fuel);
-
+        if (furnace.insertFuel(held)) {
             if (!player.getAbilities().instabuild) {
                 held.shrink(1);
             }
-
-            player.displayClientMessage(Component.literal("Added alchemical fuel: +" + fuel).withStyle(ChatFormatting.GOLD), false);
-            return InteractionResult.CONSUME;
-        }
-
-        if (furnace.active()) {
-            player.displayClientMessage(Component.literal("The furnace is already processing an item.").withStyle(ChatFormatting.YELLOW), false);
-            return InteractionResult.CONSUME;
-        }
-
-        if (furnace.fuelTime() <= 0) {
-            player.displayClientMessage(Component.literal("The furnace needs fuel first. Use coal, charcoal, coal block or blaze powder.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.literal("Fuel placed into the alchemical furnace.").withStyle(ChatFormatting.GOLD), false);
             return InteractionResult.CONSUME;
         }
 
         AspectList aspects = AspectDatabase.getAspectsForItem(held);
-
-        if (aspects.isEmpty()) {
+        if (aspects == null || aspects.isEmpty()) {
             player.displayClientMessage(Component.literal("No essentia can be extracted from this item.").withStyle(ChatFormatting.GRAY), false);
             return InteractionResult.CONSUME;
         }
-
-        if (!furnace.canAccept(aspects)) {
-            player.displayClientMessage(Component.literal("The furnace is too full. In original TC4, place alembics above it, then connect tubes from alembics to jars.").withStyle(ChatFormatting.RED), false);
+        if (aspects.totalAmount() > furnace.space()) {
+            player.displayClientMessage(Component.literal("The furnace cannot hold the essentia from this item.").withStyle(ChatFormatting.RED), false);
             return InteractionResult.CONSUME;
         }
-
-        furnace.startBurn(aspects);
-
+        if (!furnace.insertInput(held)) {
+            player.displayClientMessage(Component.literal("The input slot contains another item.").withStyle(ChatFormatting.YELLOW), false);
+            return InteractionResult.CONSUME;
+        }
         if (!player.getAbilities().instabuild) {
             held.shrink(1);
         }
-
-        player.displayClientMessage(
-                Component.literal("The furnace begins extracting essentia: ").append(aspects.toComponent()),
-                false
-        );
-
+        player.displayClientMessage(Component.literal("Item placed into the alchemical furnace: ").append(aspects.toComponent()), false);
         return InteractionResult.CONSUME;
     }
 
-    private int fuelValue(ItemStack stack) {
-        if (stack.is(Items.COAL) || stack.is(Items.CHARCOAL)) {
-            return 320;
-        }
-
-        if (stack.is(Items.COAL_BLOCK)) {
-            return 3200;
-        }
-
-        if (stack.is(Items.BLAZE_POWDER)) {
-            return 180;
-        }
-
-        if (stack.is(ThaumcraftMod.IGNIS_FUEL.get())) {
-            return 640;
-        }
-
-        return 0;
-    }
 }

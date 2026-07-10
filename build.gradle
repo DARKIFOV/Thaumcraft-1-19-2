@@ -5,9 +5,31 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.2'
+version = '11.62.24' // v11.62.24 Research Matrix/Thaumonomicon/Deconstruction/Crystalizer/Advanced Furnace controller parity; compatibility marker: version = '11.62.23' // v11.62.23 Essentia transport/Thaumatorium/alchemical infrastructure original parity; compatibility marker: version = '11.62.22' // v11.62.22 Golemancy progression/infrastructure original parity; v11.62.21 compatibility marker: version = '11.62.21'; Golemancy core original parity; v11.62.20 compatibility marker: version = '11.62.20'; v11.62.19 compatibility marker: version = '11.62.19'; v11.62.18 compatibility marker: version = '11.62.18'; v11.62.17 compatibility marker: version = '11.62.17'; v11.62.16 compatibility marker: version = '11.62.16'
+// v11.62.15 audit compatibility marker: version = '11.62.15'
 // v11.62 audit compatibility marker: version = '11.62.0'
 // v11.62.1 audit compatibility marker: version = '11.62.1'
+// v11.62.2 audit compatibility marker: version = '11.62.2'
+// v11.62.3 runtime parity marker: nitor_placeable_complete
+// v11.62.4 audit compatibility marker: version = '11.62.4'
+// v11.62.5 audit compatibility marker: version = '11.62.5'
+// v11.62.4 runtime parity marker: thaumonomicon_page_layout_reset_complete
+// v11.62.5 runtime parity marker: thaumonomicon_recipe_page_cards_complete
+// v11.62.6 audit compatibility marker: version = '11.62.6'
+// v11.62.6 runtime parity marker: thaumonomicon_page_tooltips_and_scissor_complete
+// v11.62.7 audit compatibility marker: version = '11.62.7'
+// v11.62.7 magic trees runtime parity marker: greatwood_silverwood_leaf_tint_and_shape_reset
+// v11.62.8 essentia jar runtime parity marker: tc4_essentia_jar_visual_suction_label_reset
+// v11.62.9 essentia tube runtime parity marker: tc4_jar_top_only_tube_transport
+// v11.62.10 revealing/jar GUI parity marker: tc4_revealing_jar_gui_original_hud_reset
+// v11.62.10 audit compatibility marker: version = '11.62.10'
+// v11.62.11 compatibility marker: version = '11.62.11'
+// v11.62.11 arcane workbench parity marker: tc4_arcane_workbench_server_authoritative_ghost_vis_reset
+// v11.62.12 wand/node parity marker: tc4_wand_node_continuous_tap_root_vis_hud_recharge
+// v11.62.12 audit compatibility marker: version = '11.62.12'
+// v11.62.14 audit compatibility marker: version = '11.62.14'
+// v11.62.13 audit compatibility marker: version = '11.62.13'
+// v11.62.13 wand component parity marker: tc4_wand_components_exact_recipes_sceptre_focus_parity
 // compact-batch compatibility marker: version = '11.02.0'
 // compact-batch compatibility marker: version = '10.82.0'
 // compact-batch compatibility marker: version = '10.42.0'

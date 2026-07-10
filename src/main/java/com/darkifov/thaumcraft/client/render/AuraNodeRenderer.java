@@ -15,6 +15,11 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * TC4 1.7.10 TileNodeRenderer adapter.
@@ -53,6 +58,10 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         renderFullTexturePlane(poseStack, buffer, packedLight, size * 1.42F, TC4AuraNodeHudParity.ORIGINAL_NODE_BUBBLE, colorFor(node.typedNodeType()), TC4AuraNodeHudParity.alphaFor(node.typedNodeModifier(), TC4AuraNodeHudParity.WORLD_BUBBLE_ALPHA));
         poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotation * 0.36F));
         renderSheetPlane(poseStack, buffer, packedLight, size, aspectColor, 0.58F, frame, 0);
+        if (node.isRecentlyDrained()) {
+            renderSheetPlane(poseStack, buffer, packedLight, size * 0.82F, 0xFF000000 | node.lastDrainColor(), 0.42F,
+                    (frame + 7) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, 0);
+        }
         poseStack.mulPose(Vector3f.ZP.rotationDegrees(-rotation * 0.72F));
         renderSheetPlane(poseStack, buffer, packedLight, size * 1.08F, colorFor(node.typedNodeType()), 0.32F, frame, typeStrip);
         poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotation * 0.18F));
@@ -60,10 +69,82 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         renderSheetPlane(poseStack, buffer, packedLight, size * 0.72F, 0xFFFFFFFF, modifierAlpha, (frame + 13) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, typeStrip);
         poseStack.popPose();
 
+        // Original TileNodeRenderer draws textures/misc/wispy.png from the node
+        // to the hand of the player currently tapping it.  Keep it transient and
+        // synchronized by the block entity's last drainer id/color.
+        renderWandDrainBeam(node, partialTick, poseStack, buffer, packedLight, time);
+
         // Stage403-422: do not render non-TC4 fake aspect-icon orbitals here.
         // Stage423-442: do not render crossing billboard adapters either; visible node
         // stays restricted to original nodes.png + node_bubble.png camera-facing layers.
         poseStack.popPose();
+    }
+
+    private void renderWandDrainBeam(AuraNodeBlockEntity node, float partialTick, PoseStack poseStack,
+                                     MultiBufferSource buffer, int packedLight, long time) {
+        if (!node.isRecentlyDrained() || node.getLevel() == null || node.lastDrainerEntityId() < 0) {
+            return;
+        }
+        Entity entity = node.getLevel().getEntity(node.lastDrainerEntityId());
+        if (!(entity instanceof Player player) || !player.isUsingItem()) {
+            return;
+        }
+
+        double playerX = Mth.lerp(partialTick, player.xOld, player.getX());
+        double playerY = Mth.lerp(partialTick, player.yOld, player.getY());
+        double playerZ = Mth.lerp(partialTick, player.zOld, player.getZ());
+        Vec3 look = player.getViewVector(partialTick);
+        Vec3 right = look.cross(new Vec3(0.0D, 1.0D, 0.0D));
+        if (right.lengthSqr() < 1.0E-6D) {
+            right = new Vec3(1.0D, 0.0D, 0.0D);
+        } else {
+            right = right.normalize();
+        }
+        double handSide = player.getMainArm() == HumanoidArm.RIGHT ? -0.16D : 0.16D;
+        Vec3 handWorld = new Vec3(playerX, playerY + player.getEyeHeight() * 0.72D, playerZ)
+                .add(look.scale(0.28D))
+                .add(right.scale(handSide));
+        Vec3 nodeCenter = Vec3.atCenterOf(node.getBlockPos());
+        Vec3 end = handWorld.subtract(nodeCenter);
+        if (end.lengthSqr() < 0.04D) {
+            return;
+        }
+
+        Vec3 direction = end.normalize();
+        Vec3 cameraDirection = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition().subtract(nodeCenter).normalize();
+        Vec3 side = direction.cross(cameraDirection);
+        if (side.lengthSqr() < 1.0E-6D) {
+            side = direction.cross(new Vec3(0.0D, 1.0D, 0.0D));
+        }
+        if (side.lengthSqr() < 1.0E-6D) {
+            side = new Vec3(1.0D, 0.0D, 0.0D);
+        }
+        side = side.normalize();
+        Vec3 waveAxis = side.cross(direction).normalize();
+
+        int segments = 12;
+        float width = 0.026F;
+        float useFade = Math.min(10, player.getTicksUsingItem()) / 10.0F;
+        VertexData color = VertexData.from(0xFF000000 | node.lastDrainColor(), 0.78F * useFade);
+        com.mojang.blaze3d.vertex.VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_WISPY));
+        Matrix4f matrix = poseStack.last().pose();
+        Vec3 previous = Vec3.ZERO;
+        for (int segment = 1; segment <= segments; segment++) {
+            double t0 = (segment - 1) / (double) segments;
+            double t1 = segment / (double) segments;
+            double wave = Math.sin((time + partialTick) * 0.28D + t1 * 13.0D) * 0.045D * Math.sin(Math.PI * t1);
+            Vec3 current = end.scale(t1).add(waveAxis.scale(wave));
+            Vec3 side0 = side.scale(width * (0.85D + 0.15D * Math.sin(Math.PI * t0)));
+            Vec3 side1 = side.scale(width * (0.85D + 0.15D * Math.sin(Math.PI * t1)));
+            VertexConsumerHelper.quad(matrix, consumer,
+                    (float) previous.add(side0).x, (float) previous.add(side0).y, (float) previous.add(side0).z,
+                    (float) current.add(side1).x, (float) current.add(side1).y, (float) current.add(side1).z,
+                    (float) current.subtract(side1).x, (float) current.subtract(side1).y, (float) current.subtract(side1).z,
+                    (float) previous.subtract(side0).x, (float) previous.subtract(side0).y, (float) previous.subtract(side0).z,
+                    (float) t0, 0.0F, (float) t1, 1.0F,
+                    color.r, color.g, color.b, color.a, packedLight);
+            previous = current;
+        }
     }
 
     private void renderAspectWisps(AuraNodeBlockEntity node, long time, float partialTick, PoseStack poseStack,

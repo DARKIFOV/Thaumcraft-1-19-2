@@ -69,7 +69,9 @@ public final class TC4ConfigRecipesWandIndex {
     }
 
     private static void addGreatwoodRodRecipe(List<ArcaneWorkbenchRecipe> recipes) {
-        ResourceLocation log = item("thaumcraft", "tc4_block_greatwood_log");
+        // Original ConfigRecipes.WandRodGreatwood uses two real magical-log
+        // block stacks (meta 0), not the old research-icon compatibility item.
+        ResourceLocation log = item("thaumcraft", "greatwood_log");
         ArcaneWorkbenchRecipe recipe = recipe("tc4_configrecipes_rod_greatwood", log, item("thaumcraft", "tc4_wand_rod_greatwood"), "ROD_greatwood", "ConfigRecipes.WandRodGreatwood")
                 .patternRow(" G").patternRow("G ").patternKey('G', log)
                 .require(Aspect.PERDITIO, WandRodType.GREATWOOD.craftCost());

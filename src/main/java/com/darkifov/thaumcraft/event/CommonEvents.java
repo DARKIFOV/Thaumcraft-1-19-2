@@ -12,6 +12,8 @@ import com.darkifov.thaumcraft.runic.TC4FortressMaskRuntime;
 import com.darkifov.thaumcraft.runic.TC4RunicShieldRuntime;
 import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
 import com.darkifov.thaumcraft.world.TC4WorldgenRuntime;
+import com.darkifov.thaumcraft.wand.EqualTradeSwapRuntime;
+import com.darkifov.thaumcraft.wand.WandFocusRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,6 +26,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ChunkEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -57,6 +60,7 @@ public final class CommonEvents {
             return;
         }
         TC4WorldgenRuntime.drainDeferredChunkQueue(level);
+        EqualTradeSwapRuntime.tick(level);
 
         for (ServerPlayer player : level.players()) {
             TC4RunicShieldRuntime.tick(player);
@@ -106,11 +110,23 @@ public final class CommonEvents {
     }
 
     @SubscribeEvent
+    public static void onEqualTradeLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+        net.minecraft.world.item.ItemStack held = event.getEntity().getItemInHand(event.getHand());
+        if (WandFocusRuntime.getFocus(held) != com.darkifov.thaumcraft.wand.WandFocusType.EQUAL_TRADE) return;
+        // Cancel on both logical sides so the client does not show normal mining cracks.
+        event.setCanceled(true);
+        if (event.getEntity() instanceof ServerPlayer player) {
+            WandFocusRuntime.queueEqualTradeSwing(player, event.getHand(), event.getPos());
+        }
+    }
+
+    @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         if (!(event.getPlayer() instanceof ServerPlayer player) || !(event.getLevel() instanceof Level level)) {
             return;
         }
-        if (WardedBlockRuntime.cancelIfProtected(level, event.getPos(), player)) {
+        if (!WardedBlockRuntime.isInternalWardMutation()
+                && WardedBlockRuntime.cancelIfProtected(level, event.getPos(), player)) {
             event.setCanceled(true);
         }
     }

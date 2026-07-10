@@ -5,12 +5,13 @@
   "kind": "CRUCIBLE",
   "catalyst": "minecraft:stone_bricks",
   "result": {
-    "item": "thaumcraft:tc4_golem_wood",
+    "item": "thaumcraft:tc4_golem_stone",
     "count": 1
   },
   "aspects": {
     "HUMANUS": 4,
     "MOTUS": 4,
     "SPIRITUS": 4
-  }
+  },
+  "v11_62_22_strict_original": true
 }

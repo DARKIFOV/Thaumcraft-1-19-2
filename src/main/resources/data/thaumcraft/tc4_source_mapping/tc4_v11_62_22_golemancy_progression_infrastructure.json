@@ -1,0 +1,23 @@
+{
+  "version": "11.62.22",
+  "strict_original": true,
+  "original": "Thaumcraft 4.2.3.5 ConfigRecipes + EntityGolemBase / golem AI",
+  "scope": [
+    "8 exact crucible golem body recipes",
+    "blank core plus 12 functional core progression",
+    "6 exact arcane upgrade recipes",
+    "8 exact decoration recipes",
+    "8 central-item Advanced Golem NBT infusions",
+    "MCP vanilla field resolver correction",
+    "Forge IItemHandler inventory interoperability",
+    "Forge IFluidHandler liquid interoperability",
+    "jar, reservoir and alembic essentia interoperability",
+    "task backoff and sustained stuck recovery"
+  ],
+  "known_limits": [
+    "full Forge compile requires GitHub Actions in the current environment",
+    "Liquid core capability behavior needs in-game testing against third-party tanks",
+    "Essentia core does not yet use every addon-defined essentia capability",
+    "synthetic pre-port golem items remain migration-only compatibility objects"
+  ]
+}

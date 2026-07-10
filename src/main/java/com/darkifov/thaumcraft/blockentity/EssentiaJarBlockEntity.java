@@ -132,8 +132,12 @@ public class EssentiaJarBlockEntity extends BlockEntity {
     }
 
     public int originalSuctionAmount(boolean voidJar) {
+        // v11.62.8 jar runtime parity: a void jar must keep suction even when
+        // visually capped at 64 essentia. Earlier builds stopped pulling from
+        // tubes once the display amount reached capacity, so a void jar behaved
+        // like a normal full jar instead of consuming overflow like TC4.
         if (voidJar) {
-            return filterAspect != null && amount() < capacity() ? 48 : 32;
+            return filterAspect != null ? 48 : 32;
         }
         if (amount() < capacity()) {
             return filterAspect != null ? 64 : 32;
@@ -149,10 +153,10 @@ public class EssentiaJarBlockEntity extends BlockEntity {
      * let the tube network push into jars, so isolated buffered-tube-over-jar setups
      * missed the original self-pull path. */
     public static void serverTick(Level level, BlockPos pos, BlockState state, EssentiaJarBlockEntity jar) {
-        if (level.isClientSide || level.getGameTime() % 5L != 0L || jar.amount() >= jar.capacity()) {
+        boolean voidJar = state.is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+        if (level.isClientSide || level.getGameTime() % 5L != 0L || (!voidJar && jar.amount() >= jar.capacity())) {
             return;
         }
-        boolean voidJar = state.is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
         jar.fillJarFromAboveLikeTC4(voidJar);
     }
 

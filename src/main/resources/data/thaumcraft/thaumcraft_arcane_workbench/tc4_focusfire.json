@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "FOCUSFIRE",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:quartz",
+  "catalyst": "minecraft:fire_charge",
   "ingredients": [
-    "minecraft:nether_wart",
+    "minecraft:quartz",
     "thaumcraft:ignis_shard"
   ],
   "aspects": {
@@ -18,8 +18,8 @@
     "CQC"
   ],
   "key": {
-    "#": "minecraft:quartz",
-    "Q": "minecraft:nether_wart",
+    "#": "minecraft:fire_charge",
+    "Q": "minecraft:quartz",
     "C": "thaumcraft:ignis_shard"
   },
   "result": {

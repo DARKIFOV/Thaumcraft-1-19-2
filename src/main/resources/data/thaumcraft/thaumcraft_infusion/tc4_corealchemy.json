@@ -5,10 +5,10 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_golem_core_liquid",
   "components": [
-    "thaumcraft:tc4_block_essentia_jar",
-    "minecraft:emerald",
-    "minecraft:emerald",
-    "minecraft:emerald"
+    "thaumcraft:essentia_jar",
+    "minecraft:potion",
+    "minecraft:potion",
+    "minecraft:potion"
   ],
   "aspects": {
     "PRAECANTATIO": 15,
@@ -19,5 +19,6 @@
   "result": {
     "item": "thaumcraft:tc4_golem_core_essentia",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

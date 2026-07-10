@@ -3,9 +3,9 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "TINYGLASSES",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:glass",
+  "catalyst": "minecraft:iron_ingot",
   "ingredients": [
-    "minecraft:iron_ingot"
+    "minecraft:glass"
   ],
   "aspects": {
     "AER": 4,
@@ -15,11 +15,12 @@
     "GIG"
   ],
   "key": {
-    "G": "minecraft:iron_ingot",
-    "I": "minecraft:glass"
+    "G": "minecraft:glass",
+    "I": "minecraft:iron_ingot"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecoarmor",
+    "item": "thaumcraft:tc4_golemdecoglasses",
     "count": 1
-  }
+  },
+  "v11_62_22_strict_original": true
 }

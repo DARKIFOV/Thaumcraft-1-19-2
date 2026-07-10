@@ -1,0 +1,21 @@
+{
+  "tc4_key": "TubeRestrict",
+  "tc4_source": "addShapelessArcaneCraftingRecipe",
+  "research": "TUBEFILTER",
+  "tc4_kind": "ARCANE_SHAPELESS",
+  "catalyst": "thaumcraft:essentia_tube",
+  "ingredients": [
+    "thaumcraft:essentia_tube",
+    "minecraft:stone"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "TERRA": 16
+  },
+  "pattern": [],
+  "result": {
+    "item": "thaumcraft:essentia_tube_restrict",
+    "count": 1
+  },
+  "v11_62_23_strict_original": true
+}

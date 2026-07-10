@@ -1,10 +1,15 @@
 package com.darkifov.thaumcraft.wand;
 
+import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.AspectList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import com.darkifov.thaumcraft.data.PlayerThaumData;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 /** Stage173 original ItemFocusBasic upgrade NBT adapter. */
 public final class FocusUpgradeRuntime {
@@ -31,6 +36,115 @@ public final class FocusUpgradeRuntime {
             list.add(entry);
         }
         focusStack.getOrCreateTag().put(TAG_UPGRADE, list);
+    }
+
+
+    /** Original TileFocalManipulator: first empty upgrade slot is the next rank (1..5). */
+    public static int nextRank(ItemStack focusStack) {
+        short[] upgrades = getAppliedUpgrades(focusStack);
+        for (int i = 0; i < upgrades.length; i++) {
+            if (upgrades[i] < 0) return i + 1;
+        }
+        return -1;
+    }
+
+    /** Compatibility name used by the real Focal Manipulator runtime. */
+    public static int nextOpenRank(ItemStack focusStack) {
+        return nextRank(focusStack);
+    }
+
+    /** Original TileFocalManipulator XP_MULT = 8. */
+    public static int experienceCostForRank(int rank) {
+        return rank < 1 || rank > MAX_RANK ? 0 : rank * 8;
+    }
+
+    /** Original TileFocalManipulator VIS_MULT = 200, doubled for every prior rank. */
+    public static int compoundAspectAmountForRank(int rank) {
+        if (rank < 1 || rank > MAX_RANK) return 0;
+        return 200 << (rank - 1);
+    }
+
+    /**
+     * Exact 1.7.10 focal-manipulator cost path: upgrade compound aspects are expanded
+     * recursively to primal vis after applying 200 * 2^(rank-1).
+     */
+    public static AspectList primalVisCost(FocusUpgradeType type, int rank) {
+        AspectList out = new AspectList();
+        if (type == null) return out;
+        int amount = compoundAspectAmountForRank(rank);
+        if (amount <= 0) return out;
+        for (String originalName : type.originalAspects().split(",")) {
+            Aspect aspect = originalAspect(originalName.trim());
+            if (aspect != null) reduceToPrimals(out, aspect, amount);
+        }
+        return out;
+    }
+
+    public static FocusUpgradeType[] validNextUpgrades(ItemStack focusStack) {
+        if (focusStack.isEmpty() || !(focusStack.getItem() instanceof com.darkifov.thaumcraft.block.WandFocusItem item)) {
+            return new FocusUpgradeType[0];
+        }
+        int rank = nextRank(focusStack);
+        if (rank < 1) return new FocusUpgradeType[0];
+        return Arrays.stream(possibleUpgrades(item.focusType(), rank))
+                .filter(type -> canApplyUpgrade(focusStack, item.focusType(), type))
+                .toArray(FocusUpgradeType[]::new);
+    }
+
+    /** ItemFocusBasic#getSortingHelper concatenates the five signed upgrade IDs. */
+    public static String originalSortingHelper(ItemStack focusStack) {
+        StringBuilder out = new StringBuilder();
+        for (short id : getAppliedUpgrades(focusStack)) out.append(id);
+        return out.toString();
+    }
+
+    /** Original ItemFocusBasic#getSortingHelper alias. */
+    public static String sortingHelper(ItemStack focusStack) {
+        return originalSortingHelper(focusStack);
+    }
+
+    private static void reduceToPrimals(AspectList out, Aspect aspect, int amount) {
+        if (aspect == null || amount <= 0) return;
+        if (aspect.isPrimal()) {
+            out.add(aspect, amount);
+            return;
+        }
+        reduceToPrimals(out, aspect.firstComponent(), amount);
+        reduceToPrimals(out, aspect.secondComponent(), amount);
+    }
+
+    private static Aspect originalAspect(String name) {
+        if (name == null || name.isBlank()) return null;
+        return switch (name.toUpperCase(Locale.ROOT)) {
+            case "AIR" -> Aspect.AER;
+            case "EARTH" -> Aspect.TERRA;
+            case "FIRE" -> Aspect.IGNIS;
+            case "WATER" -> Aspect.AQUA;
+            case "ORDER" -> Aspect.ORDO;
+            case "ENTROPY" -> Aspect.PERDITIO;
+            case "WEAPON" -> Aspect.TELUM;
+            case "HUNGER" -> Aspect.FAMES;
+            case "GREED" -> Aspect.LUCRUM;
+            case "TRAVEL" -> Aspect.ITER;
+            case "ENERGY" -> Aspect.POTENTIA;
+            case "SLIME" -> Aspect.LIMUS;
+            case "COLD" -> Aspect.GELUM;
+            case "TRAP" -> Aspect.VINCULUM;
+            case "CRAFT" -> Aspect.FABRICO;
+            case "EXCHANGE" -> Aspect.PERMUTATIO;
+            case "DARKNESS" -> Aspect.TENEBRAE;
+            case "LIGHT" -> Aspect.LUX;
+            case "CRYSTAL" -> Aspect.VITREUS;
+            case "ARMOR" -> Aspect.TUTAMEN;
+            case "LIFE" -> Aspect.VICTUS;
+            case "POISON" -> Aspect.VENENUM;
+            case "MAGIC" -> Aspect.PRAECANTATIO;
+            case "SENSES" -> Aspect.SENSUS;
+            case "MIND" -> Aspect.COGNITIO;
+            case "WEATHER" -> Aspect.TEMPESTAS;
+            case "MINE" -> Aspect.PERFODIO;
+            default -> Aspect.byId(name);
+        };
     }
 
     public static boolean applyUpgrade(ItemStack focusStack, FocusUpgradeType type, int rank) {
@@ -98,6 +212,18 @@ public final class FocusUpgradeRuntime {
                 case 3, 4, 5 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.ENLARGE);
                 default -> new FocusUpgradeType[0];
             };
+            case HELLBAT -> switch (rank) {
+                case 1, 2, 4 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.POTENCY);
+                case 3 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.POTENCY, FocusUpgradeType.BAT_BOMBS, FocusUpgradeType.DEVIL_BATS);
+                case 5 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.POTENCY, FocusUpgradeType.VAMPIRE_BATS);
+                default -> new FocusUpgradeType[0];
+            };
+            case PECH_CURSE -> switch (rank) {
+                case 1, 3 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.POTENCY);
+                case 2, 4 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.POTENCY, FocusUpgradeType.EXTEND);
+                case 5 -> a(FocusUpgradeType.FRUGAL, FocusUpgradeType.POTENCY, FocusUpgradeType.NIGHTSHADE);
+                default -> new FocusUpgradeType[0];
+            };
             case PRIMAL -> rank == 3 ? a(FocusUpgradeType.FRUGAL, FocusUpgradeType.SEEKER) : a(FocusUpgradeType.FRUGAL);
         };
     }
@@ -107,6 +233,19 @@ public final class FocusUpgradeRuntime {
     }
 
     /** Stage177: original canApplyUpgrade gates that affect architect/enlarge parity. */
+    public static boolean canApplyUpgrade(ItemStack focusStack, WandFocusType focus, FocusUpgradeType type, int rank) {
+        return rank >= 1 && rank <= MAX_RANK
+                && isPossible(focus, type, rank)
+                && canApplyUpgrade(focusStack, focus, type);
+    }
+
+
+    public static boolean canApplyUpgrade(ItemStack focusStack, WandFocusType focus, FocusUpgradeType type, int rank, Player player) {
+        if (!canApplyUpgrade(focusStack, focus, type, rank)) return false;
+        return focus != WandFocusType.HELLBAT || type != FocusUpgradeType.VAMPIRE_BATS
+                || player == null || PlayerThaumData.hasResearch(player, "VAMPBAT");
+    }
+
     public static boolean canApplyUpgrade(ItemStack focusStack, WandFocusType focus, FocusUpgradeType type) {
         if (focus == WandFocusType.WARDING && type == FocusUpgradeType.ENLARGE) {
             return isUpgradedWith(focusStack, FocusUpgradeType.ARCHITECT);
@@ -115,10 +254,10 @@ public final class FocusUpgradeRuntime {
             return isUpgradedWith(focusStack, FocusUpgradeType.CHAIN_LIGHTNING) || isUpgradedWith(focusStack, FocusUpgradeType.EARTH_SHOCK);
         }
         if (focus == WandFocusType.FIRE && type == FocusUpgradeType.ALCHEMISTS_FIRE) {
-            return isUpgradedWith(focusStack, FocusUpgradeType.FIREBALL) || isUpgradedWith(focusStack, FocusUpgradeType.FIREBEAM);
-        }
-        if (focus == WandFocusType.FROST && type == FocusUpgradeType.ALCHEMISTS_FROST) {
-            return isUpgradedWith(focusStack, FocusUpgradeType.SCATTERSHOT) || isUpgradedWith(focusStack, FocusUpgradeType.ICE_BOULDER);
+            // Original ItemFocusFire only blocks a second Alchemist's Fire rank
+            // when Fireball is already installed. Rank two must remain selectable.
+            return !(isUpgradedWith(focusStack, FocusUpgradeType.FIREBALL)
+                    && isUpgradedWith(focusStack, FocusUpgradeType.ALCHEMISTS_FIRE));
         }
         return true;
     }

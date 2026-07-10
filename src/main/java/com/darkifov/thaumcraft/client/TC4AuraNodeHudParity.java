@@ -21,6 +21,7 @@ public final class TC4AuraNodeHudParity {
     public static final ResourceLocation ORIGINAL_HUD = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/thaumcraft_core_original/hud.png");
     public static final ResourceLocation ORIGINAL_NODES = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/nodes.png");
     public static final ResourceLocation ORIGINAL_NODE_BUBBLE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/node_bubble.png");
+    public static final ResourceLocation ORIGINAL_WISPY = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/misc/wispy.png");
     public static final int NODE_SHEET_FRAMES = 32;
     public static final int NODE_FRAME_PIXELS = 64;
     public static final int NODE_SHEET_PIXELS = 2048;

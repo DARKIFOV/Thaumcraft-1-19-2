@@ -2067,7 +2067,7 @@
     ],
     "source": "addArcaneCraftingRecipe",
     "resolved_result": "thaumcraft:tc4_focus_excavation",
-    "resolved_catalyst": "minecraft:nether_wart",
+    "resolved_catalyst": "minecraft:quartz",
     "resolved_components": [
       "thaumcraft:tc4_shard_terra"
     ]

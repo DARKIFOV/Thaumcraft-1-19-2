@@ -1,0 +1,24 @@
+{
+  "tc4_key": "CoreUse",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "COREUSE",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_golem_core_empty",
+  "components": [
+    "minecraft:comparator",
+    "minecraft:flint_and_steel",
+    "minecraft:shears",
+    "minecraft:lever"
+  ],
+  "aspects": {
+    "INSTRUMENTUM": 20,
+    "MACHINA": 20,
+    "HUMANUS": 20
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_golem_core_use",
+    "count": 1
+  },
+  "v11_62_22_strict_original": true
+}

@@ -218,10 +218,18 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             return;
         }
 
-        // Stage683-702: original TC4 GUI still previews an arcane output even when the wand lacks enough vis.
-        // Taking the preview is blocked by Slot#mayPickup / craftFromOutput until the wand can pay.
-        // Stage191 audit marker for original two-argument flow: findMatchingArcaneRecipe(player, false)
-        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipe(player, false, false);
+        // v11.62.11: strict original TC4 container behaviour. The actual output
+        // slot is populated only when a non-staff wand is present and can pay the
+        // complete arcane cost. GuiArcaneWorkbench renders a separate dim ghost
+        // result plus "Insufficient vis" when the grid matches but the wand cannot
+        // pay; that ghost is synchronized by ArcaneWorkbenchMenu and is not a real
+        // collectible stack.
+        // Original audit marker: findMatchingArcaneRecipe(player, false)
+        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipeForGrid(player);
+        if (recipe == null || !canAffordArcaneRecipe(player, recipe)) {
+            clearOutputPreview();
+            return;
+        }
         setOutputPreview(previewResult(recipe));
     }
 
@@ -398,6 +406,10 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         setChanged();
     }
 
+    public ItemStack previewArcaneResult(ArcaneWorkbenchRecipe recipe) {
+        return previewResult(recipe);
+    }
+
     private ItemStack previewResult(ArcaneWorkbenchRecipe recipe) {
         if (recipe == null) {
             return ItemStack.EMPTY;
@@ -406,6 +418,40 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             return WandCraftingRuntime.resultFor(recipe, this);
         }
         return recipe.result();
+    }
+
+    /**
+     * Server-authoritative affordability check used by both the real output slot
+     * and the synchronized original-style client ghost. This intentionally still
+     * requires a real non-staff wand, matching SlotLimitedByWand in TC4.
+     */
+    public boolean canAffordArcaneRecipe(Player player, ArcaneWorkbenchRecipe recipe) {
+        if (recipe == null) {
+            return false;
+        }
+        ItemStack wand = getItem(SLOT_WAND);
+        return wand.getItem() instanceof WandItem
+                && !WandItem.isStaffStack(wand)
+                && hasArcaneVisCost(wand, recipe, null);
+    }
+
+    public int baseArcaneCost(ArcaneWorkbenchRecipe recipe, Aspect aspect) {
+        if (recipe == null || aspect == null) {
+            return 0;
+        }
+        if (recipe.aspectCost().isEmpty()) {
+            return aspect == Aspect.ORDO ? ORDO_COST : 0;
+        }
+        return Math.max(0, recipe.aspectCost().getOrDefault(aspect, 0));
+    }
+
+    public int modifiedArcaneCost(ArcaneWorkbenchRecipe recipe, Aspect aspect) {
+        int base = baseArcaneCost(recipe, aspect);
+        if (base <= 0) {
+            return 0;
+        }
+        ItemStack wand = getItem(SLOT_WAND);
+        return wand.getItem() instanceof WandItem ? WandItem.modifiedVisCost(wand, aspect, base * 100) : base * 100;
     }
 
     public boolean canTakeOutput(Player player) {
@@ -438,19 +484,19 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return findMatchingArcaneRecipe(player, message, true);
     }
 
-    public ArcaneWorkbenchRecipe findMatchingArcaneRecipe(Player player, boolean message, boolean requireVis) {
-        ItemStack wand = getItem(SLOT_WAND);
-        if (!(wand.getItem() instanceof WandItem)) {
+    /**
+     * Original ThaumcraftCraftingManager-style grid matcher. It deliberately does
+     * not require a wand, because GuiArcaneWorkbench must still know which recipe
+     * and aspect costs are under the cursor before a wand is inserted.
+     */
+    public ArcaneWorkbenchRecipe findMatchingArcaneRecipeForGrid(Player player) {
+        if (player == null) {
             return null;
         }
 
         for (ArcaneWorkbenchRecipe recipe : ArcaneWorkbenchRecipes.recipes()) {
             String requiredResearch = TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(recipe.tc4Key(), recipe.research());
             if (!requiredResearch.isBlank() && !PlayerThaumData.hasResearch(player, requiredResearch)) {
-                continue;
-            }
-
-            if (requireVis && !hasArcaneVisCost(wand, recipe, message ? player : null)) {
                 continue;
             }
 
@@ -479,25 +525,41 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return null;
     }
 
+    public ArcaneWorkbenchRecipe findMatchingArcaneRecipe(Player player, boolean message, boolean requireVis) {
+        ItemStack wand = getItem(SLOT_WAND);
+        if (!(wand.getItem() instanceof WandItem) || WandItem.isStaffStack(wand)) {
+            return null;
+        }
+
+        ArcaneWorkbenchRecipe recipe = findMatchingArcaneRecipeForGrid(player);
+        if (recipe == null) {
+            return null;
+        }
+        if (requireVis && !hasArcaneVisCost(wand, recipe, message ? player : null)) {
+            return null;
+        }
+        return recipe;
+    }
+
     private boolean hasArcaneVisCost(ItemStack wand, ArcaneWorkbenchRecipe recipe, Player player) {
         if (player != null && player.getAbilities().instabuild) {
             return true;
         }
         if (recipe.aspectCost().isEmpty()) {
-            int needed = WandItem.modifiedVisCost(wand, Aspect.ORDO, ORDO_COST);
+            int needed = WandItem.modifiedVisCost(wand, Aspect.ORDO, ORDO_COST * 100);
             if (WandItem.getVis(wand, Aspect.ORDO) < needed) {
                 if (player != null) {
-                    player.displayClientMessage(Component.literal("Not enough Ordo vis in wand. Need Ordo " + needed + " after cap modifier.").withStyle(ChatFormatting.RED), false);
+                    player.displayClientMessage(Component.literal("Not enough Ordo vis in wand. Need Ordo " + WandItem.formatVis(needed) + " after cap modifier.").withStyle(ChatFormatting.RED), false);
                 }
                 return false;
             }
             return true;
         }
         for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
-            int needed = WandItem.modifiedVisCost(wand, entry.getKey(), entry.getValue());
+            int needed = WandItem.modifiedVisCost(wand, entry.getKey(), entry.getValue() * 100);
             if (WandItem.getVis(wand, entry.getKey()) < needed) {
                 if (player != null) {
-                    player.displayClientMessage(Component.literal("Not enough vis in wand. Need " + entry.getKey().displayName() + " " + needed + " after cap modifier.").withStyle(ChatFormatting.RED), false);
+                    player.displayClientMessage(Component.literal("Not enough vis in wand. Need " + entry.getKey().displayName() + " " + WandItem.formatVis(needed) + " after cap modifier.").withStyle(ChatFormatting.RED), false);
                 }
                 return false;
             }
@@ -507,11 +569,11 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
     private void consumeArcaneVisCost(ItemStack wand, ArcaneWorkbenchRecipe recipe) {
         if (recipe.aspectCost().isEmpty()) {
-            WandItem.consumeVisCost(wand, Aspect.ORDO, ORDO_COST);
+            WandItem.consumeVisCost(wand, Aspect.ORDO, ORDO_COST * 100);
             return;
         }
         for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
-            WandItem.consumeVisCost(wand, entry.getKey(), entry.getValue());
+            WandItem.consumeVisCost(wand, entry.getKey(), entry.getValue() * 100);
         }
     }
 
@@ -532,106 +594,125 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return -1;
     }
 
+    /**
+     * Exact 1.7.10 ShapedArcaneRecipe matching: every shaped recipe can be
+     * shifted inside the 3x3 grid and is mirrored by default. The previous
+     * rebuild only checked the pattern at the top-left corner, so valid TC4
+     * layouts such as the two-log Greatwood rod failed in three of four offsets
+     * and in their mirrored orientation.
+     */
     private boolean matchesRecipeGrid(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
         if (recipe.pattern().isEmpty()) {
             return true;
         }
+        return findPatternPlacement(recipe, catalystSlot) != null;
+    }
 
+    private PatternPlacement findPatternPlacement(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
         Map<Character, ResourceLocation> symbolMap = recipe.inferredPatternMap();
-
-        if (symbolMap.isEmpty()) {
-            return true;
+        if (symbolMap.isEmpty() || recipe.pattern().isEmpty()) {
+            return null;
         }
 
-        for (int row = 0; row < 3; row++) {
-            String patternRow = row < recipe.pattern().size() ? recipe.pattern().get(row) : "";
-            for (int col = 0; col < 3; col++) {
-                int slot = SLOT_INGREDIENT_START + row * 3 + col;
-                char symbol = col < patternRow.length() ? patternRow.charAt(col) : ' ';
-                ItemStack stack = getItem(slot);
+        int height = recipe.pattern().size();
+        int width = 0;
+        for (String row : recipe.pattern()) {
+            width = Math.max(width, row.length());
+        }
+        if (width <= 0 || height <= 0 || width > 3 || height > 3) {
+            return null;
+        }
 
+        // Original ShapedArcaneRecipe.matches(): x offset first, then y; normal
+        // orientation before the default mirrored orientation.
+        for (int offsetX = 0; offsetX <= 3 - width; offsetX++) {
+            for (int offsetY = 0; offsetY <= 3 - height; offsetY++) {
+                PatternPlacement normal = checkPatternPlacement(recipe, symbolMap, catalystSlot, width, height, offsetX, offsetY, false);
+                if (normal != null) {
+                    return normal;
+                }
+                PatternPlacement mirrored = checkPatternPlacement(recipe, symbolMap, catalystSlot, width, height, offsetX, offsetY, true);
+                if (mirrored != null) {
+                    return mirrored;
+                }
+            }
+        }
+        return null;
+    }
+
+    private PatternPlacement checkPatternPlacement(
+            ArcaneWorkbenchRecipe recipe,
+            Map<Character, ResourceLocation> symbolMap,
+            int catalystSlot,
+            int width,
+            int height,
+            int offsetX,
+            int offsetY,
+            boolean mirrored
+    ) {
+        int legacySubstitutionGridSlot = -1;
+
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                int subX = x - offsetX;
+                int subY = y - offsetY;
+                char symbol = ' ';
+
+                if (subX >= 0 && subY >= 0 && subX < width && subY < height) {
+                    String row = recipe.pattern().get(subY);
+                    int patternX = mirrored ? width - subX - 1 : subX;
+                    if (patternX >= 0 && patternX < row.length()) {
+                        symbol = row.charAt(patternX);
+                    }
+                }
+
+                int slot = slotForGrid(y, x);
+                ItemStack stack = getItem(slot);
                 if (symbol == ' ') {
-                    if (slot != catalystSlot && !stack.isEmpty()) {
-                        return false;
+                    if (!stack.isEmpty()) {
+                        return null;
                     }
                     continue;
                 }
 
                 ResourceLocation needed = symbolMap.get(symbol);
                 if (needed == null) {
-                    return true;
+                    return null;
                 }
 
-                // Stage138: keep the old optional catalyst slot, but only for the
-                // symbol inferred as the TC4 catalyst. If the catalyst is in the
-                // separate slot, the matching grid position may stay empty.
-                if (needed.equals(recipe.catalystItemId()) && catalystSlot == SLOT_LEGACY_CATALYST && stack.isEmpty()) {
+                ResourceLocation actual = stack.isEmpty() ? null : ForgeRegistries.ITEMS.getKey(stack.getItem());
+                if (needed.equals(actual)) {
                     continue;
                 }
 
-                ResourceLocation actual = ForgeRegistries.ITEMS.getKey(stack.getItem());
-                if (actual == null || !actual.equals(needed)) {
-                    return false;
+                // Save-migration only: one old hidden catalyst stack may stand in
+                // for one matching grid occurrence. New gameplay always uses the
+                // visible original 3x3 grid.
+                if (stack.isEmpty()
+                        && catalystSlot == SLOT_LEGACY_CATALYST
+                        && legacySubstitutionGridSlot < 0
+                        && needed.equals(recipe.catalystItemId())) {
+                    legacySubstitutionGridSlot = slot;
+                    continue;
                 }
+                return null;
             }
         }
 
-        return true;
+        return new PatternPlacement(offsetX, offsetY, mirrored, legacySubstitutionGridSlot);
+    }
+
+    private record PatternPlacement(int offsetX, int offsetY, boolean mirrored, int legacySubstitutionGridSlot) {
     }
 
     private boolean hasRequiredItems(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
         if (!recipe.pattern().isEmpty() && !recipe.inferredPatternMap().isEmpty()) {
-            return hasPatternRequiredItems(recipe, catalystSlot);
+            // Exact placement matching already verifies every occupied and empty
+            // slot, including shifted/mirrored layouts.
+            return findPatternPlacement(recipe, catalystSlot) != null;
         }
 
         return hasLooseIngredients(recipe.ingredients(), catalystSlot);
-    }
-
-    private boolean hasPatternRequiredItems(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
-        Map<ResourceLocation, Integer> needed = new HashMap<>();
-        Map<Character, ResourceLocation> symbolMap = recipe.inferredPatternMap();
-
-        for (int row = 0; row < 3; row++) {
-            String patternRow = row < recipe.pattern().size() ? recipe.pattern().get(row) : "";
-            for (int col = 0; col < 3; col++) {
-                int slot = SLOT_INGREDIENT_START + row * 3 + col;
-                char symbol = col < patternRow.length() ? patternRow.charAt(col) : ' ';
-                if (symbol == ' ') {
-                    continue;
-                }
-
-                ResourceLocation id = symbolMap.get(symbol);
-                if (id == null) {
-                    return hasLooseIngredients(recipe.ingredients(), catalystSlot);
-                }
-
-                if (id.equals(recipe.catalystItemId()) && (slot == catalystSlot || catalystSlot == SLOT_LEGACY_CATALYST)) {
-                    continue;
-                }
-
-                needed.put(id, needed.getOrDefault(id, 0) + 1);
-            }
-        }
-
-        Map<ResourceLocation, Integer> available = new HashMap<>();
-        for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
-            if (slot == catalystSlot) {
-                continue;
-            }
-            ItemStack stack = getItem(slot);
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-            if (id != null && needed.containsKey(id)) {
-                available.put(id, available.getOrDefault(id, 0) + stack.getCount());
-            }
-        }
-
-        for (Map.Entry<ResourceLocation, Integer> entry : needed.entrySet()) {
-            if (available.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private boolean hasLooseIngredients(List<ResourceLocation> ingredients, int catalystSlot) {
@@ -670,34 +751,33 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
     }
 
     private boolean consumePatternIngredients(ArcaneWorkbenchRecipe recipe, int catalystSlot, Player player) {
-        if (recipe.pattern().isEmpty() || recipe.inferredPatternMap().isEmpty()) {
+        PatternPlacement placement = findPatternPlacement(recipe, catalystSlot);
+        if (placement == null) {
             return false;
         }
 
-        Map<Character, ResourceLocation> symbolMap = recipe.inferredPatternMap();
+        int height = recipe.pattern().size();
+        int width = 0;
+        for (String row : recipe.pattern()) {
+            width = Math.max(width, row.length());
+        }
 
-        for (int row = 0; row < 3; row++) {
-            String patternRow = row < recipe.pattern().size() ? recipe.pattern().get(row) : "";
-            for (int col = 0; col < 3; col++) {
-                int slot = SLOT_INGREDIENT_START + row * 3 + col;
-                char symbol = col < patternRow.length() ? patternRow.charAt(col) : ' ';
+        for (int subY = 0; subY < height; subY++) {
+            String row = recipe.pattern().get(subY);
+            for (int subX = 0; subX < width; subX++) {
+                int patternX = placement.mirrored() ? width - subX - 1 : subX;
+                char symbol = patternX < row.length() ? row.charAt(patternX) : ' ';
                 if (symbol == ' ') {
                     continue;
                 }
 
-                ResourceLocation id = symbolMap.get(symbol);
-                if (id == null) {
-                    return false;
-                }
-
-                if (id.equals(recipe.catalystItemId()) && (slot == catalystSlot || catalystSlot == SLOT_LEGACY_CATALYST)) {
+                int slot = slotForGrid(placement.offsetY() + subY, placement.offsetX() + subX);
+                if (slot == catalystSlot || slot == placement.legacySubstitutionGridSlot()) {
                     continue;
                 }
-
                 consumeSlotPreservingContainer(player, slot);
             }
         }
-
         return true;
     }
 
