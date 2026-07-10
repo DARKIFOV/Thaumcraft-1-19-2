@@ -491,11 +491,34 @@ public final class TC4ResearchItems {
     }
 
     public static Map<String, RegistryObject<Item>> registerAll(DeferredRegister<Item> items, CreativeModeTab tab) {
+        return registerAll(items, tab, Map.of());
+    }
+
+    /**
+     * Registers the legacy research-item mirror while reusing functional items
+     * that were already registered by the main mod class.
+     *
+     * <p>Forge's {@link DeferredRegister} rejects the same registry id twice.
+     * Functional replacements such as {@code tc4_crystalessence} therefore have
+     * to be supplied here instead of being registered again as flat placeholders.</p>
+     */
+    public static Map<String, RegistryObject<Item>> registerAll(
+            DeferredRegister<Item> items,
+            CreativeModeTab tab,
+            Map<String, RegistryObject<Item>> preRegistered
+    ) {
         Map<String, RegistryObject<Item>> out = new LinkedHashMap<>();
+        if (preRegistered != null) out.putAll(preRegistered);
+
         for (Entry entry : ENTRIES) {
             // v11.62.14: metadata 13 is now a real block + BlockItem. Do not
             // double-register the old flat research-component placeholder.
             if (entry.id().equals("tc4_block_focal_manipulator")) continue;
+
+            // v11.62.26: a functional replacement may already own this exact
+            // registry id. Keep it in the lookup map and never register it twice.
+            if (out.containsKey(entry.id())) continue;
+
             out.put(entry.id(), items.register(entry.id(), () -> createItem(entry, tab)));
         }
         registered = Collections.unmodifiableMap(out);

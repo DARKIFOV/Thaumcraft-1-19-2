@@ -1,6 +1,15 @@
-# Thaumcraft Legacy Rebuild — v11.62.24
+# Thaumcraft Legacy Rebuild — v11.62.26
 
 Forge 1.19.2 rebuild of Thaumcraft 4 mechanics, progressed subsystem by subsystem against the supplied TC4 4.2.3.5 source.
+
+## Runtime hotfix v11.62.26
+
+- fixed Forge startup failure `Duplicate registration tc4_crystalessence`;
+- the functional essentia crystal now owns the registry id exactly once;
+- the legacy research-item lookup reuses that existing registry object;
+- added a duplicate-registry regression audit before Gradle compilation.
+
+See `REPORT_V11_62_26_DUPLICATE_REGISTRY_RUNTIME_FIX.md`.
 
 ## Current large batch
 
@@ -24,7 +33,7 @@ See `REPORT_V11_62_24_RESEARCH_MATRIX_THAUMONOMICON_INFUSION_MATRIX_MACHINES_ORI
 
 ## Build
 
-GitHub Actions runs all preserved guards and 22 subsystem audits through v11.62.24, then Forge Gradle on Java 17. The playable artifact contains only:
+GitHub Actions runs all preserved guards and 22 subsystem audits through v11.62.26, then Forge Gradle on Java 17. The playable artifact contains only:
 
 ```text
 build/libs/*-github.jar

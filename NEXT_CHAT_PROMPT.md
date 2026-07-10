@@ -1,4 +1,4 @@
-Продолжить с `thaumcraft_legacy_rebuild_v11.62.24_RESEARCH_MATRIX_THAUMONOMICON_INFUSION_MATRIX_MACHINES_ORIGINAL_PARITY.zip`.
+Продолжить с `thaumcraft_legacy_rebuild_v11.62.26_DUPLICATE_REGISTRY_RUNTIME_FIXED.zip`.
 
 Следующий большой блок: **Eldritch Progression + Outer Lands + Warp + Advanced Alchemical Furnace Multiblock**.
 

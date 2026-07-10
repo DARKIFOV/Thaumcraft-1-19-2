@@ -5,7 +5,8 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="thaumcraft"
-version="11.62.25"
+# v11.62.25 compatibility marker: version="11.62.25"
+version="11.62.26"
 # v11.62.24 compatibility marker: version="11.62.24"
 # v11.62.23 compatibility marker: version="11.62.23"
 # v11.62.22 compatibility marker: version="11.62.22"

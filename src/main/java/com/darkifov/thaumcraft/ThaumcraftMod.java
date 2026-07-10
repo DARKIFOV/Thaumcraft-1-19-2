@@ -299,7 +299,11 @@ public class ThaumcraftMod {
     public static final RegistryObject<Item> SCRIBING_TOOLS = specialItem("scribing_tools",
             () -> new ScribingToolsItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
-    public static final Map<String, RegistryObject<Item>> TC4_RESEARCH_ITEMS = TC4ResearchItems.registerAll(ITEMS, THAUMCRAFT_TAB);
+    public static final Map<String, RegistryObject<Item>> TC4_RESEARCH_ITEMS = TC4ResearchItems.registerAll(
+            ITEMS,
+            THAUMCRAFT_TAB,
+            Map.of("tc4_crystalessence", ESSENTIA_CRYSTAL)
+    );
     public static final Map<String, RegistryObject<SoundEvent>> TC4_SOUND_EVENTS = TC4Sounds.registerAll(SOUND_EVENTS);
 
     public static final RegistryObject<Item> IRON_WAND_CAP = item("iron_wand_cap");
