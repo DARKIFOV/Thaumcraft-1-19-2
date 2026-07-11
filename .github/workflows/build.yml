@@ -1,0 +1,93 @@
+name: Build and audit
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle cache
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Validate Forge-only project
+        run: python3 tools/forge_only_guard.py
+
+      - name: Validate Java source text
+        run: python3 tools/java_syntax_guard.py
+
+      - name: Validate JSON resources
+        run: python3 tools/validate_json_resources.py
+
+      - name: Validate TC4 visual paths
+        run: python3 tools/visual_parity_guard.py
+
+      - name: Validate integrated Research Table
+        run: python3 tools/research_table_guard.py
+
+      - name: Validate Research Table opening path
+        run: python3 tools/research_table_open_guard.py
+
+      - name: Validate Magical Forest worldgen path
+        run: python3 tools/worldgen_guard.py
+
+      - name: Validate Thaumometer scanning path
+        run: python3 tools/thaumometer_scan_guard.py
+
+      - name: Validate screenshot-driven runtime visuals
+        run: python3 tools/runtime_visual_guard.py
+
+      - name: Validate magical leaves, wand UV and Research Table renderer
+        run: python3 tools/leaves_wand_table_guard.py
+
+      - name: Validate registry and resources
+        run: python3 tools/audit_registry.py --fail-on-unexpected
+
+      - name: Build Forge JAR
+        run: |
+          chmod +x gradlew
+          ./gradlew clean build --stacktrace --no-daemon
+
+      - name: Calculate checksums
+        shell: bash
+        run: |
+          mkdir -p build/release
+          find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
+            | sort -z \
+            | xargs -0 sha256sum > build/release/SHA256SUMS.txt
+          cp REPORT_V11_62_41_LEAVES_WAND_RESEARCH_TABLE_FIXES.md build/release/
+          cp GITHUB_UPLOAD_V11_62_41.md build/release/
+          cp STATIC_VALIDATION_V11_62_41.txt build/release/
+          cp reports/REGISTRY_AUDIT_V11_62_41.md build/release/
+          cp reports/registry_audit_v11.62.41.json build/release/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: thaumcraft-legacy-rebuild-v11.62.41
+          if-no-files-found: error
+          path: |
+            build/libs/*.jar
+            build/release/SHA256SUMS.txt
+            build/release/REPORT_V11_62_41_LEAVES_WAND_RESEARCH_TABLE_FIXES.md
+            build/release/GITHUB_UPLOAD_V11_62_41.md
+            build/release/STATIC_VALIDATION_V11_62_41.txt
+            build/release/REGISTRY_AUDIT_V11_62_41.md
+            build/release/registry_audit_v11.62.41.json

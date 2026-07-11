@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.client.screen;
 
+import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchEntry;
@@ -8,6 +9,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -96,7 +98,7 @@ public class ThaumonomiconScreen extends Screen {
         // Stage663-682: keep the browser frame visually original. Completion and
         // availability counts remain derivable from ClientResearchData, but are
         // not painted as rebuild/debug text over gui_research.png.
-        drawString(poseStack, font, Component.literal(category.title()), leftPos + 12, topPos + 8, 0x2D1B0B);
+        drawString(poseStack, font, categoryTitle(category), leftPos + 12, topPos + 8, 0x2D1B0B);
     }
 
     private void renderSelectedPage(PoseStack poseStack) {
@@ -209,7 +211,12 @@ public class ThaumonomiconScreen extends Screen {
         // Until every exact icon stack is registered, use the first required aspect
         // as TC4-flavored icon instead of the previous fake square placeholder.
         ResourceLocation icon = iconFor(entry);
-        OriginalGuiTextures.blitOriginal(poseStack, x + 3, y + 3, icon, 16, 16);
+        Aspect iconAspect = aspectForIcon(entry, icon);
+        if (iconAspect != null) {
+            OriginalGuiTextures.blitOriginalTinted(poseStack, x + 3, y + 3, icon, 16, 16, iconAspect.nativeColor());
+        } else {
+            OriginalGuiTextures.blitOriginal(poseStack, x + 3, y + 3, icon, 16, 16);
+        }
 
         if (selected != null && selected.key().equals(entry.key())) {
             fill(poseStack, x - 4, y - 4, x + 26, y - 2, 0xAAFFE08A);
@@ -217,6 +224,35 @@ public class ThaumonomiconScreen extends Screen {
             fill(poseStack, x - 4, y - 4, x - 2, y + 26, 0xAAFFE08A);
             fill(poseStack, x + 24, y - 4, x + 26, y + 26, 0xAAFFE08A);
         }
+    }
+
+
+    private Component categoryTitle(OriginalResearchCategory value) {
+        return Component.translatable("thaumcraft.category." + value.key().toLowerCase(java.util.Locale.ROOT));
+    }
+
+    private Component researchName(ResearchEntry entry) {
+        String key = "tc.research_name." + entry.key();
+        return I18n.exists(key) ? Component.translatable(key) : Component.literal(entry.title());
+    }
+
+    private Component researchDescription(ResearchEntry entry) {
+        String key = "tc.research_text." + entry.key();
+        return I18n.exists(key) ? Component.translatable(key) : Component.literal(entry.description());
+    }
+
+    private Aspect aspectForIcon(ResearchEntry entry, ResourceLocation icon) {
+        if (icon == null || !icon.getPath().contains("textures/aspects/")) {
+            return null;
+        }
+        if (!entry.aspects().isEmpty()) {
+            return Aspect.byId(entry.aspects().keySet().iterator().next());
+        }
+        String path = icon.getPath();
+        int slash = path.lastIndexOf('/');
+        int dot = path.lastIndexOf('.');
+        String id = path.substring(slash + 1, dot > slash ? dot : path.length());
+        return Aspect.byId(id);
     }
 
     private ResourceLocation iconFor(ResearchEntry entry) {
@@ -282,7 +318,7 @@ public class ThaumonomiconScreen extends Screen {
                 int x = leftPos - 24;
                 int y = topPos + i * 24;
                 if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
-                    renderTooltip(poseStack, Component.literal(OriginalResearchCategory.values()[i].title()), mouseX, mouseY);
+                    renderTooltip(poseStack, categoryTitle(OriginalResearchCategory.values()[i]), mouseX, mouseY);
                     return;
                 }
             }
@@ -292,8 +328,9 @@ public class ThaumonomiconScreen extends Screen {
         boolean complete = OriginalResearchLayout.unlocked(unlocked, highlighted);
         boolean available = OriginalResearchLayout.available(unlocked, highlighted);
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.literal(highlighted.title()));
-        String desc = OriginalResearchLayout.shortTitle(highlighted.description());
+        lines.add(researchName(highlighted));
+        Component description = researchDescription(highlighted);
+        String desc = OriginalResearchLayout.shortTitle(description.getString());
         if (!desc.isBlank()) {
             lines.add(Component.literal(desc));
         }

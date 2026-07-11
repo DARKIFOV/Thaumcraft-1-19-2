@@ -29,20 +29,21 @@ public final class TC4ResearchTableParity {
     public static final int ASPECT_GRID_Y = 40;
     public static final int ASPECT_GRID_COLUMNS = 5;
     public static final int ASPECT_GRID_ROWS = 5;
-    public static final int ASPECT_GRID_STEP = 18;
+    public static final int ASPECT_GRID_STEP = 16;
+    public static final int ASPECT_PAGE_SHIFT = 5;
     public static final int ASPECTS_PER_PAGE = ASPECT_GRID_COLUMNS * ASPECT_GRID_ROWS;
 
     public static final int PAGE_PREVIOUS_X = 27;
     public static final int PAGE_NEXT_X = 51;
     public static final int PAGE_ARROW_Y = 121;
-    public static final int PAGE_ARROW_W = 16;
-    public static final int PAGE_ARROW_H = 10;
+    public static final int PAGE_ARROW_W = 24;
+    public static final int PAGE_ARROW_H = 8;
 
     public static final int COMBINE_LEFT_X = 13;
     public static final int COMBINE_RIGHT_X = 71;
     public static final int COMBINE_ARROW_X = 35;
     public static final int COMBINE_Y = 139;
-    public static final int COMBINE_ARROW_W = 24;
+    public static final int COMBINE_ARROW_W = 32;
     public static final int COMBINE_ARROW_H = 16;
 
     public static final int PLAYER_INVENTORY_X = 48;
@@ -53,6 +54,8 @@ public final class TC4ResearchTableParity {
     public static final int ACTION_OPEN_NOTE = 1;
     public static final int ACTION_COMPLETE_SOLVED_NOTE = 2;
     public static final int ACTION_COPY_COMPLETED_NOTE = 3;
+    /** Syncs the note NBT into the already-open research table without opening a second GUI. */
+    public static final int ACTION_SYNC_NOTE = 4;
     public static final int ACTION_COPY_COMPLETED_NOTE_LEGACY = 5;
 
     private TC4ResearchTableParity() {
@@ -86,13 +89,32 @@ public final class TC4ResearchTableParity {
         return inside(localMouseX, localMouseY, COMBINE_ARROW_X, COMBINE_Y, COMBINE_ARROW_W, COMBINE_ARROW_H);
     }
 
+    /**
+     * TC4 fills the 5x5 aspect palette column-first and shifts only one column
+     * (five aspects) per page. This intentionally creates the same 20-aspect
+     * overlap between adjacent pages as GuiResearchTable 4.2.3.5.
+     */
+    public static int aspectPageStart(int page) {
+        return Math.max(0, page) * ASPECT_PAGE_SHIFT;
+    }
+
+    public static int lastAspectPage(int aspectCount) {
+        return Math.max(0, (aspectCount - 20) / ASPECT_PAGE_SHIFT);
+    }
+
+    public static int aspectX(int localAspectIndex) {
+        return ASPECT_GRID_X + (localAspectIndex / ASPECT_GRID_ROWS) * ASPECT_GRID_STEP;
+    }
+
+    public static int aspectY(int localAspectIndex) {
+        return ASPECT_GRID_Y + (localAspectIndex % ASPECT_GRID_ROWS) * ASPECT_GRID_STEP;
+    }
+
     public static boolean isAspectIconHit(double localMouseX, double localMouseY, int localAspectIndex) {
         if (localAspectIndex < 0 || localAspectIndex >= ASPECTS_PER_PAGE) {
             return false;
         }
-        int x = ASPECT_GRID_X + (localAspectIndex % ASPECT_GRID_COLUMNS) * ASPECT_GRID_STEP;
-        int y = ASPECT_GRID_Y + (localAspectIndex / ASPECT_GRID_COLUMNS) * ASPECT_GRID_STEP;
-        return inside(localMouseX, localMouseY, x, y, 16, 16);
+        return inside(localMouseX, localMouseY, aspectX(localAspectIndex), aspectY(localAspectIndex), 16, 16);
     }
 
     private static boolean inside(double localMouseX, double localMouseY, int x, int y, int w, int h) {

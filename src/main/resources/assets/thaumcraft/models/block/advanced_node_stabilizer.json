@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "ambientocclusion": false,
   "textures": {
-    "all": "thaumcraft:block/advanced_node_stabilizer"
-  }
+    "particle": "thaumcraft:original/thaumcraft4/models/node_stabilizer"
+  },
+  "elements": []
 }

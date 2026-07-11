@@ -6,6 +6,9 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 public final class NodeScanData {
     private static final String ROOT = "ThaumcraftLegacy";
     private static final String SCANNED_NODES = "ScannedAuraNodes";
@@ -49,5 +52,14 @@ public final class NodeScanData {
         list.add(StringTag.valueOf(key(pos)));
         root(player).put(SCANNED_NODES, list);
         return true;
+    }
+
+    public static Set<String> getScannedNodeKeys(Player player) {
+        Set<String> result = new LinkedHashSet<>();
+        ListTag list = root(player).getList(SCANNED_NODES, 8);
+        for (int i = 0; i < list.size(); i++) {
+            result.add(list.getString(i));
+        }
+        return result;
     }
 }

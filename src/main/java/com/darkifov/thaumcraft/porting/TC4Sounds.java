@@ -94,13 +94,27 @@ public final class TC4Sounds {
 
     private static final Map<String, RegistryObject<SoundEvent>> REGISTERED = new LinkedHashMap<>();
 
+    /**
+     * Minecraft 1.19 resource identifiers must be lower-case.  TC4 shipped two
+     * camel-case sound keys, so keep those legacy keys as lookup aliases while
+     * registering modern, valid paths.
+     */
+    private static String registryPath(String legacyKey) {
+        return switch (legacyKey) {
+            case "runicShieldCharge" -> "runic_shield_charge";
+            case "runicShieldEffect" -> "runic_shield_effect";
+            default -> legacyKey;
+        };
+    }
+
     public static Map<String, RegistryObject<SoundEvent>> registerAll(DeferredRegister<SoundEvent> register) {
         if (!REGISTERED.isEmpty()) {
             return Collections.unmodifiableMap(REGISTERED);
         }
         for (String key : ORIGINAL_SOUND_KEYS) {
-            ResourceLocation id = new ResourceLocation(ThaumcraftMod.MOD_ID, key);
-            REGISTERED.put(key, register.register(key, () -> new SoundEvent(id)));
+            String path = registryPath(key);
+            ResourceLocation id = new ResourceLocation(ThaumcraftMod.MOD_ID, path);
+            REGISTERED.put(key, register.register(path, () -> new SoundEvent(id)));
         }
         return Collections.unmodifiableMap(REGISTERED);
     }

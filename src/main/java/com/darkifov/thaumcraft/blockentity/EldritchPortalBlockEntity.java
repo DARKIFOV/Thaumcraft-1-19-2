@@ -6,6 +6,7 @@ import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsBossRoomMetadata;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsBossRoomPlacer;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsTeleporter;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import java.util.UUID;
 
@@ -136,6 +138,15 @@ public class EldritchPortalBlockEntity extends BlockEntity {
     private void tickServer() {
         if (level == null) {
             return;
+        }
+
+        if (level instanceof ServerLevel serverLevel && level.getGameTime() % 5L == 0L && !encounterActive) {
+            for (ServerPlayer player : serverLevel.getEntitiesOfClass(
+                    ServerPlayer.class,
+                    new AABB(worldPosition).inflate(0.35D, 0.75D, 0.35D),
+                    player -> player.isAlive() && !player.isPassenger())) {
+                TC4OuterLandsTeleporter.tryTeleport(player, worldPosition);
+            }
         }
 
         if (cooldown > 0) {

@@ -1,22 +1,24 @@
 package com.darkifov.thaumcraft.client.render;
 
 import com.darkifov.thaumcraft.AspectStack;
-import com.darkifov.thaumcraft.AspectVisuals;
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.TC4AuraNodeHudParity;
+import com.darkifov.thaumcraft.aura.AuraNodeModifier;
 import com.darkifov.thaumcraft.aura.AuraNodeType;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -26,7 +28,8 @@ import net.minecraft.world.phys.Vec3;
  * Uses the original textures/misc/nodes.png 32-frame sprite sheet instead of fake block sprites.
  * Stage683-702 shared ledger paths kept here for old audits/parity review:
  * textures/original/thaumcraft4/misc/nodes.png
- * textures/original/thaumcraft4/misc/node_bubble.png
+ * v11.62.28: world rendering follows original TileNodeRenderer: one coloured
+ * strip-0 layer per aspect plus one node-type strip; no giant node_bubble plane.
  * Stage683 compatibility tokens: NODE_SHEET_CELL_UV = 1.0F / FRAMES; original nodes.png is 32x32 cells, 64px each on 2048px atlas; frame * NODE_SHEET_CELL_UV; strip * NODE_SHEET_CELL_UV.
  */
 public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity> {
@@ -36,48 +39,125 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
     @Override
     public void render(AuraNodeBlockEntity node, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        long time = node.getLevel() == null ? 0L : node.getLevel().getGameTime();
-        int frame = (int) Math.floorMod((time / 2L) + node.getBlockPos().getX() + node.getBlockPos().getZ() + TC4AuraNodeHudParity.frameOffsetFor(node.typedNodeModifier()), TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
-        float modifierScale = node.typedNodeModifier().sizeScale();
-        float energizedBoost = node.isEnergized() ? 0.24F : 0.0F;
-        float size = (0.56F + energizedBoost + Math.min(0.54F, node.visualSize() / 170.0F)) * modifierScale;
-        int aspectColor = AspectVisuals.blendedColor(node.aspects(), 255);
-        int typeStrip = TC4AuraNodeHudParity.stripFor(node.typedNodeType());
+        Minecraft minecraft = Minecraft.getInstance();
+        Player viewer = minecraft.player;
+        if (viewer == null || node.getLevel() == null) {
+            return;
+        }
 
+        boolean jarred = node.isJarredNode();
+        boolean revealer = viewer.getItemBySlot(EquipmentSlot.HEAD).is(ThaumcraftMod.GOGGLES_OF_REVEALING.get())
+                || viewer.getItemBySlot(EquipmentSlot.HEAD).is(ThaumcraftMod.HELMET_OF_REVEALING.get());
+        boolean thaumometerHeld = viewer.getMainHandItem().is(ThaumcraftMod.THAUMOMETER.get())
+                || viewer.getOffhandItem().is(ThaumcraftMod.THAUMOMETER.get());
+        // Original UtilsFX.isVisibleTo(0.44F, ...): a Thaumometer reveals only
+        // nodes inside its forward scan cone. Goggles and jarred nodes stay visible.
+        boolean thaumometerVisible = thaumometerHeld && isWithinThaumometerViewCone(viewer, node);
+        boolean visible = jarred || revealer || thaumometerVisible;
+        double viewDistance = thaumometerVisible && !revealer ? 48.0D : 64.0D;
+        double distance = Math.sqrt(viewer.distanceToSqr(Vec3.atCenterOf(node.getBlockPos())));
+        if (distance > viewDistance) {
+            return;
+        }
+
+        long gameTime = node.getLevel().getGameTime();
+        long nanoTime = System.nanoTime();
+        float originalAnimationTime = nanoTime / 5_000_000.0F;
+        int frame = (int) Math.floorMod((nanoTime / 40_000_000L) + node.getBlockPos().getX(),
+                TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
+        int nodeLight = LightTexture.FULL_BRIGHT;
+        float distanceAlpha = Mth.clamp((float) ((viewDistance - distance) / viewDistance), 0.0F, 1.0F);
+        float alpha = visible ? distanceAlpha : 0.10F;
+        AuraNodeModifier modifier = node.typedNodeModifier();
+        if (modifier == AuraNodeModifier.BRIGHT) {
+            alpha = Math.min(1.0F, alpha * 1.5F);
+        } else if (modifier == AuraNodeModifier.PALE) {
+            alpha *= 0.66F;
+        } else if (modifier == AuraNodeModifier.FADING) {
+            alpha *= Mth.sin(viewer.tickCount / 3.0F) * 0.25F + 0.33F;
+        }
+
+        float sizeMultiplier = (jarred ? 0.70F : 1.0F) * (node.isEnergized() ? 1.10F : 1.0F);
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.5D, 0.5D);
-        float rotation = (time + partialTick) * 1.55F;
-
-        // Stage363-382: TC4 TileNodeRenderer is a camera-facing translucent node, not a solid block model.
-        // Stage423-442 removes the leftover crossing-plane depth adapter: the old 1.7.10
-        // renderer is a stack of camera-facing translucent layers using node_bubble.png and
-        // nodes.png.  The extra X/Y planes made nodes look like straight sticks/plates from
-        // the side, which is not original TC4 visual behavior.
         poseStack.pushPose();
         applyCameraBillboard(poseStack);
-        renderFullTexturePlane(poseStack, buffer, packedLight, size * 1.42F, TC4AuraNodeHudParity.ORIGINAL_NODE_BUBBLE, colorFor(node.typedNodeType()), TC4AuraNodeHudParity.alphaFor(node.typedNodeModifier(), TC4AuraNodeHudParity.WORLD_BUBBLE_ALPHA));
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotation * 0.36F));
-        renderSheetPlane(poseStack, buffer, packedLight, size, aspectColor, 0.58F, frame, 0);
-        if (node.isRecentlyDrained()) {
-            renderSheetPlane(poseStack, buffer, packedLight, size * 0.82F, 0xFF000000 | node.lastDrainColor(), 0.42F,
-                    (frame + 7) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, 0);
+
+        if (!visible || node.aspects().isEmpty()) {
+            renderSheetPlane(poseStack, buffer, nodeLight, 0.50F * sizeMultiplier,
+                    0xFFFFFFFF, 0.10F, frame, 1, true);
+        } else {
+            int count = 0;
+            int aspectCount = 0;
+            float average = 0.0F;
+            float typeAngle = 0.0F;
+            for (AspectStack stack : node.aspects().all()) {
+                if (stack != null && stack.amount() > 0) {
+                    aspectCount++;
+                    average += stack.amount();
+                }
+            }
+            float layerAlpha = alpha / Math.max(1.0F, aspectCount / 2.0F);
+            for (AspectStack stack : node.aspects().all()) {
+                if (stack == null || stack.amount() <= 0) {
+                    continue;
+                }
+                float wave = Mth.sin((viewer.tickCount + partialTick) / Math.max(1.0F, 14.0F - count))
+                        * 0.25F + 0.50F;
+                float scale = (0.20F + wave * (stack.amount() / 50.0F)) * sizeMultiplier;
+                float rotationPeriod = 5000.0F + 500.0F * count;
+                float angle = (originalAnimationTime % rotationPeriod) / rotationPeriod * 360.0F;
+                typeAngle = angle;
+                float aspectAlpha = layerAlpha * (stack.aspect().usesAlphaBlend() ? 1.5F : 1.0F);
+                poseStack.pushPose();
+                poseStack.mulPose(Vector3f.ZP.rotationDegrees(angle));
+                renderSheetPlane(poseStack, buffer, nodeLight, scale,
+                        stack.aspect().argbColor(), aspectAlpha, frame, 0,
+                        !stack.aspect().usesAlphaBlend());
+                poseStack.popPose();
+                count++;
+            }
+
+            if (aspectCount > 0) {
+                average /= aspectCount;
+            }
+            float typeScale = (0.10F + average / 150.0F) * sizeMultiplier;
+            if (node.typedNodeType() == AuraNodeType.HUNGRY) {
+                typeScale *= 0.75F;
+            } else if (node.typedNodeType() == AuraNodeType.UNSTABLE) {
+                typeAngle = 0.0F;
+            }
+            poseStack.pushPose();
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(typeAngle));
+            renderSheetPlane(poseStack, buffer, nodeLight, typeScale,
+                    0xFFFFFFFF, alpha, frame, TC4AuraNodeHudParity.stripFor(node.typedNodeType()),
+                    usesAdditiveTypeBlend(node.typedNodeType()));
+            poseStack.popPose();
+
+            if (node.isRecentlyDrained()) {
+                renderSheetPlane(poseStack, buffer, nodeLight, Math.max(0.20F, typeScale * 0.82F),
+                        0xFF000000 | node.lastDrainColor(), Math.min(0.55F, alpha),
+                        (frame + 7) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, 0, true);
+            }
         }
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(-rotation * 0.72F));
-        renderSheetPlane(poseStack, buffer, packedLight, size * 1.08F, colorFor(node.typedNodeType()), 0.32F, frame, typeStrip);
-        poseStack.mulPose(Vector3f.ZP.rotationDegrees(rotation * 0.18F));
-        float modifierAlpha = TC4AuraNodeHudParity.alphaFor(node.typedNodeModifier(), 0.24F);
-        renderSheetPlane(poseStack, buffer, packedLight, size * 0.72F, 0xFFFFFFFF, modifierAlpha, (frame + 13) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, typeStrip);
         poseStack.popPose();
 
-        // Original TileNodeRenderer draws textures/misc/wispy.png from the node
-        // to the hand of the player currently tapping it.  Keep it transient and
-        // synchronized by the block entity's last drainer id/color.
-        renderWandDrainBeam(node, partialTick, poseStack, buffer, packedLight, time);
-
-        // Stage403-422: do not render non-TC4 fake aspect-icon orbitals here.
-        // Stage423-442: do not render crossing billboard adapters either; visible node
-        // stays restricted to original nodes.png + node_bubble.png camera-facing layers.
+        renderWandDrainBeam(node, partialTick, poseStack, buffer, nodeLight, gameTime);
         poseStack.popPose();
+    }
+
+    @Override
+    public int getViewDistance() {
+        return 64;
+    }
+
+    private static boolean isWithinThaumometerViewCone(Player viewer, AuraNodeBlockEntity node) {
+        Vec3 eye = viewer.getEyePosition();
+        Vec3 toNode = Vec3.atCenterOf(node.getBlockPos()).subtract(eye);
+        if (toNode.lengthSqr() < 1.0E-6D) {
+            return true;
+        }
+        return viewer.getLookAngle().normalize().dot(toNode.normalize()) >= 0.44D;
     }
 
     private void renderWandDrainBeam(AuraNodeBlockEntity node, float partialTick, PoseStack poseStack,
@@ -126,7 +206,11 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         float width = 0.026F;
         float useFade = Math.min(10, player.getTicksUsingItem()) / 10.0F;
         VertexData color = VertexData.from(0xFF000000 | node.lastDrainColor(), 0.78F * useFade);
-        com.mojang.blaze3d.vertex.VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_WISPY));
+        // TC4 drawFloatyLine uses SRC_ALPHA, ONE. The vanilla eyes render type
+        // is the closest Forge 1.19.2 buffered equivalent: textured, emissive
+        // and additive instead of the rebuild's former ordinary alpha blend.
+        com.mojang.blaze3d.vertex.VertexConsumer consumer = buffer.getBuffer(
+                RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_WISPY));
         Matrix4f matrix = poseStack.last().pose();
         Vec3 previous = Vec3.ZERO;
         for (int segment = 1; segment <= segments; segment++) {
@@ -147,41 +231,6 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         }
     }
 
-    private void renderAspectWisps(AuraNodeBlockEntity node, long time, float partialTick, PoseStack poseStack,
-                                   MultiBufferSource buffer, int packedLight, float baseSize, int frame) {
-        int index = 0;
-        for (AspectStack stack : node.aspects().all()) {
-            if (index >= 6) {
-                return;
-            }
-            float angle = (time + partialTick) * (1.8F + index * 0.18F) + index * 60.0F;
-            float radius = baseSize * (0.30F + index * 0.035F);
-            float y = (float) Math.sin((time + partialTick + index * 11.0F) * 0.065F) * 0.09F;
-            poseStack.pushPose();
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(angle));
-            poseStack.translate(radius, y, 0.0D);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(-angle));
-            applyCameraBillboard(poseStack);
-            renderSheetPlane(poseStack, buffer, packedLight,
-                    0.08F + Math.min(0.08F, stack.amount() / 260.0F),
-                    stack.aspect().argbColor(), 0.62F, (frame + index * 3) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, 0);
-            poseStack.popPose();
-            index++;
-        }
-    }
-
-    private void renderFullTexturePlane(PoseStack poseStack, MultiBufferSource buffer, int packedLight,
-                                        float size, ResourceLocation texture, int color, float alphaScale) {
-        VertexData data = VertexData.from(color, alphaScale);
-        VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(RenderType.entityTranslucent(texture)),
-                -size, -size, 0.0F,
-                size, -size, 0.0F,
-                size, size, 0.0F,
-                -size, size, 0.0F,
-                0.0F, 0.0F, 1.0F, 1.0F,
-                data.r, data.g, data.b, data.a, packedLight);
-    }
-
     private void applyCameraBillboard(PoseStack poseStack) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft != null && minecraft.gameRenderer != null && minecraft.gameRenderer.getMainCamera() != null) {
@@ -189,31 +238,31 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         }
     }
 
+    private static boolean usesAdditiveTypeBlend(AuraNodeType type) {
+        // Exact TileNodeRenderer rule: only DARK and TAINTED use
+        // SRC_ALPHA/ONE_MINUS_SRC_ALPHA. All other node-type strips use
+        // SRC_ALPHA/ONE and must glow instead of looking like flat glass.
+        return type != AuraNodeType.DARK && type != AuraNodeType.TAINTED;
+    }
+
     private void renderSheetPlane(PoseStack poseStack, MultiBufferSource buffer, int packedLight,
-                                  float size, int color, float alphaScale, int frame, int strip) {
+                                  float size, int color, float alphaScale, int frame, int strip,
+                                  boolean additive) {
         VertexData data = VertexData.from(color, alphaScale);
         float u0 = frame * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float u1 = (frame + 1) * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float v0 = strip * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float v1 = (strip + 1) * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
-        VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODES)),
+        RenderType renderType = additive
+                ? RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_NODES)
+                : RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODES);
+        VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(renderType),
                 -size, -size, 0.0F,
                 size, -size, 0.0F,
                 size, size, 0.0F,
                 -size, size, 0.0F,
                 u0, v0, u1, v1,
                 data.r, data.g, data.b, data.a, packedLight);
-    }
-
-    private int colorFor(AuraNodeType type) {
-        return switch (type) {
-            case PURE -> 0xFF9EEBFF;
-            case TAINTED -> 0xFF8F38B8;
-            case HUNGRY -> 0xFF4F2A6E;
-            case DARK -> 0xFF5F3E8A;
-            case UNSTABLE -> 0xFFFFB84A;
-            default -> 0xFFBFA6FF;
-        };
     }
 
     private record VertexData(int r, int g, int b, int a) {

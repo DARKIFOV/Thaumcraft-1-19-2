@@ -68,11 +68,20 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
     private void renderOriginalTC4WandComponents(ItemStack stack, WandComponentData data, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         ResourceLocation rodTexture = wandTexture(data.rod().rendererTexture());
         ResourceLocation capTexture = wandTexture(data.cap().rendererTexture());
-        VertexConsumer rodConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(rodTexture));
-        VertexConsumer capConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(capTexture));
+        VertexConsumer rodConsumer = buffer.getBuffer(RenderType.entityTranslucent(rodTexture));
+        VertexConsumer capConsumer = buffer.getBuffer(RenderType.entityTranslucent(capTexture));
         boolean staff = data.rod().staff();
         boolean sceptre = WandComponentData.isSceptre(stack);
         int rodLight = originalGlowingRodLight(data, packedLight);
+
+        // ModelWand itself applies a second +0.2Y offset for staffs in addition
+        // to ItemWandRenderer's +0.5Y held-item offset. Earlier rebuild stages
+        // merged those two transforms and left the rod outside the visible hand
+        // pose, which is why only the focus ornament appeared in third person.
+        poseStack.pushPose();
+        if (staff) {
+            poseStack.translate(0.0D, 0.20D, 0.0D);
+        }
 
         poseStack.pushPose();
         if (staff) {
@@ -111,6 +120,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
         renderOriginalModelWandCapBox(poseStack, capConsumer, packedLight, false);
         poseStack.popPose();
+        poseStack.popPose();
     }
 
     private int originalGlowingRodLight(WandComponentData data, int packedLight) {
@@ -125,45 +135,63 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
 
     /** Stage185 ModelWand Rod box: ModelRenderer.addBox(-1,-1,-1, 2,18,2), rotation point 0,2,0, rendered at 0.0625F. */
     private void renderOriginalModelWandRodBox(PoseStack poseStack, VertexConsumer consumer, int light) {
-        renderBox(poseStack, consumer, -0.0625F, 0.0625F, -0.0625F, 0.0625F, 1.1875F, 0.0625F, light, 255);
+        renderModelBoxColor(poseStack, consumer,
+                -1, 1, -1, 1, 19, 1,
+                0, 8, 2, 18, 2,
+                light, 255, 255, 255, 255);
     }
 
     /** Stage185 ModelWand Cap/CapBottom boxes: ModelRenderer.addBox(-1,-1,-1,2,2,2), top at 0, bottom at 20, rendered at 0.0625F. */
     private void renderOriginalModelWandCapBox(PoseStack poseStack, VertexConsumer consumer, int light, boolean top) {
-        if (top) {
-            renderBox(poseStack, consumer, -0.0625F, -0.0625F, -0.0625F, 0.0625F, 0.0625F, 0.0625F, light, 255);
-        } else {
-            renderBox(poseStack, consumer, -0.0625F, 1.1875F, -0.0625F, 0.0625F, 1.3125F, 0.0625F, light, 255);
-        }
+        int minY = top ? -1 : 19;
+        int maxY = top ? 1 : 21;
+        renderModelBoxColor(poseStack, consumer,
+                -1, minY, -1, 1, maxY, 1,
+                0, 0, 2, 2, 2,
+                light, 255, 255, 255, 255);
     }
 
     /** Stage183: Forge 1.19.2 adapter for the transform constants in original ItemWandRenderer. */
     private void applyOriginalTC4ItemTransform(WandComponentData data, ItemTransforms.TransformType transformType, ItemStack stack, PoseStack poseStack) {
         boolean staff = data.rod().staff();
         if (staff) {
-            poseStack.translate(0.0D, 0.2D, 0.0D);
+            // ItemWandRenderer line 77: outer staff offset before render type.
+            poseStack.translate(0.0D, 0.50D, 0.0D);
         }
 
         if (transformType == ItemTransforms.TransformType.GUI) {
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(66.0F));
-            poseStack.translate(0.0D, 0.60D, 0.0D);
+            poseStack.translate(-0.34D, -0.62D, 0.0D);
+            poseStack.scale(0.72F, 0.72F, 0.72F);
             if (staff) {
                 poseStack.scale(0.80F, 0.80F, 0.80F);
-                poseStack.translate(-0.70D, 0.60D, 0.0D);
+                poseStack.translate(-0.25D, -0.10D, 0.0D);
             }
         } else if (transformType.firstPerson()) {
-            poseStack.translate(0.50D, 1.50D, 0.50D);
-            poseStack.scale(1.00F, 1.10F, 1.00F);
+            // Original ItemWandRenderer EQUIPPED_FIRST_PERSON translates the
+            // model to (0.5, 1.5, 0.5) and scales only Y by 1.1. renderByItem
+            // has already applied the common (0.5, 0.5, 0.5) centre offset,
+            // therefore the remaining Forge 1.19.2 adapter translation is +1Y.
+            poseStack.translate(0.0D, 1.0D, 0.0D);
+            poseStack.scale(1.0F, 1.1F, 1.0F);
             poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
             applyFocusUseAnimation(stack, poseStack, true);
             return;
+        } else if (transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
+            // Original EQUIPPED transform, adapted after the shared centre
+            // offset. Hand mirroring/arm placement is already supplied by the
+            // vanilla third-person item transform; adding another lateral
+            // offset was what left only a tiny focus ring below the player.
+            poseStack.translate(0.0D, 1.0D, 0.0D);
         } else if (transformType == ItemTransforms.TransformType.GROUND || transformType == ItemTransforms.TransformType.FIXED) {
             poseStack.translate(0.0D, staff ? 1.50D : 1.00D, 0.0D);
             if (staff) {
                 poseStack.scale(0.90F, 0.90F, 0.90F);
             }
         } else {
-            poseStack.translate(0.50D, 1.50D, 0.50D);
+            poseStack.translate(0.0D, 0.60D, 0.0D);
+            poseStack.scale(0.72F, 0.72F, 0.72F);
         }
 
         poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
@@ -252,7 +280,10 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
             poseStack.scale(0.500F, 0.500F, 0.500F);
         }
         VertexConsumer focusConsumer = buffer.getBuffer(RenderType.entityTranslucent(ORIGINAL_FOCUS_MODEL));
-        renderBoxColor(poseStack, focusConsumer, -0.1875F, -0.375F, -0.1875F, 0.1875F, 0.0F, 0.1875F, light, depth != null ? 153 : 242, r, g, b);
+        renderModelBoxColor(poseStack, focusConsumer,
+                -3, -6, -3, 3, 0, 3,
+                0, 0, 6, 6, 6,
+                light, depth != null ? 153 : 242, r, g, b);
         poseStack.popPose();
 
         if (ornament != null) {
@@ -339,6 +370,75 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         vertexColor(matrix, consumer, 0.06F + grow, -0.06F - grow, 0.0F, u0, 0.0F, light, alpha, 225, 160, 51);
         vertexColor(matrix, consumer, -0.06F - grow, -0.06F - grow, 0.0F, u0, 1.0F, light, alpha, 225, 160, 51);
         poseStack.popPose();
+    }
+
+    /**
+     * Reproduces the 1.7.10 ModelRenderer cuboid UV unwrap used by ModelWand.
+     * The original textures are addressed on a logical 64x32 atlas even when
+     * their PNG is physically 32x32; using 0..1 on every face sampled unrelated
+     * transparent pixels and made rods/caps disappear in world renders.
+     */
+    private void renderModelBoxColor(PoseStack poseStack, VertexConsumer consumer,
+                                     int minXPx, int minYPx, int minZPx,
+                                     int maxXPx, int maxYPx, int maxZPx,
+                                     int textureU, int textureV,
+                                     int widthPx, int heightPx, int depthPx,
+                                     int light, int alpha, int red, int green, int blue) {
+        final float px = 1.0F / 16.0F;
+        float minX = minXPx * px;
+        float minY = minYPx * px;
+        float minZ = minZPx * px;
+        float maxX = maxXPx * px;
+        float maxY = maxYPx * px;
+        float maxZ = maxZPx * px;
+
+        float tw = 64.0F;
+        float th = 32.0F;
+        float u = textureU;
+        float v = textureV;
+        float w = widthPx;
+        float h = heightPx;
+        float d = depthPx;
+        Matrix4f matrix = poseStack.last().pose();
+
+        // Standard ModelBox atlas net (mirror=true in original ModelWand).
+        modelQuad(matrix, consumer,
+                maxX, minY, minZ, maxX, minY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ,
+                (u + d + w + d) / tw, (v + d) / th, (u + d + w) / tw, (v + d + h) / th,
+                light, alpha, red, green, blue);
+        modelQuad(matrix, consumer,
+                minX, minY, maxZ, minX, minY, minZ, minX, maxY, minZ, minX, maxY, maxZ,
+                (u + d) / tw, (v + d) / th, u / tw, (v + d + h) / th,
+                light, alpha, red, green, blue);
+        modelQuad(matrix, consumer,
+                minX, minY, minZ, maxX, minY, minZ, maxX, minY, maxZ, minX, minY, maxZ,
+                (u + d + w) / tw, v / th, (u + d) / tw, (v + d) / th,
+                light, alpha, red, green, blue);
+        modelQuad(matrix, consumer,
+                minX, maxY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ, minX, maxY, minZ,
+                (u + d + w + w) / tw, v / th, (u + d + w) / tw, (v + d) / th,
+                light, alpha, red, green, blue);
+        modelQuad(matrix, consumer,
+                minX, minY, minZ, minX, maxY, minZ, maxX, maxY, minZ, maxX, minY, minZ,
+                (u + d + w) / tw, (v + d) / th, (u + d) / tw, (v + d + h) / th,
+                light, alpha, red, green, blue);
+        modelQuad(matrix, consumer,
+                maxX, minY, maxZ, maxX, maxY, maxZ, minX, maxY, maxZ, minX, minY, maxZ,
+                (u + d + w + d + w) / tw, (v + d) / th, (u + d + w + d) / tw, (v + d + h) / th,
+                light, alpha, red, green, blue);
+    }
+
+    private void modelQuad(Matrix4f matrix, VertexConsumer consumer,
+                           float x1, float y1, float z1,
+                           float x2, float y2, float z2,
+                           float x3, float y3, float z3,
+                           float x4, float y4, float z4,
+                           float u0, float v0, float u1, float v1,
+                           int light, int alpha, int red, int green, int blue) {
+        vertexColor(matrix, consumer, x1, y1, z1, u0, v1, light, alpha, red, green, blue);
+        vertexColor(matrix, consumer, x2, y2, z2, u1, v1, light, alpha, red, green, blue);
+        vertexColor(matrix, consumer, x3, y3, z3, u1, v0, light, alpha, red, green, blue);
+        vertexColor(matrix, consumer, x4, y4, z4, u0, v0, light, alpha, red, green, blue);
     }
 
     private void renderBox(PoseStack poseStack, VertexConsumer consumer,

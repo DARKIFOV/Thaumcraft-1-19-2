@@ -4,7 +4,6 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.aura.AuraNodeWorldRuntime;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsDimensionAdapter;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsMazeHandler;
-import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLivePopulateAdapter;
 import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -34,7 +33,7 @@ public final class TC4WorldgenRuntime {
     private static final Set<String> PROCESSED_CHUNKS = new HashSet<>();
     private static final Set<String> PENDING_CHUNKS = new HashSet<>();
     private static final Deque<QueuedChunk> DEFERRED_CHUNKS = new ArrayDeque<>();
-    private static final int MAX_DEFERRED_CHUNKS_PER_TICK = 1;
+    private static final int MAX_DEFERRED_CHUNKS_PER_TICK = 16;
 
     private TC4WorldgenRuntime() {
     }
@@ -66,6 +65,24 @@ public final class TC4WorldgenRuntime {
      * from completing on some saves.  Queue the TC4 surface pass and drain it
      * after at least one player has joined the level.
      */
+    /**
+     * Queue a chunk from Forge's load event while refusing to mutate chunks that
+     * already have inhabited time. This prevents the old backfill behaviour
+     * where TC4 trees appeared in established terrain merely because a player
+     * returned to it after installing or updating the mod.
+     */
+    public static void queueLoadedChunk(ServerLevel level, net.minecraft.world.level.chunk.LevelChunk chunk) {
+        if (level == null || chunk == null) {
+            return;
+        }
+        if (chunk.getInhabitedTime() > 0L) {
+            TC4WorldgenSavedData.get(level).markProcessed(chunk.getPos());
+            PROCESSED_CHUNKS.add(chunkKey(level, chunk.getPos()));
+            return;
+        }
+        queueNewChunk(level, chunk.getPos());
+    }
+
     public static void queueNewChunk(ServerLevel level, ChunkPos chunk) {
         if (level == null || chunk == null || !isSupportedDimension(level.dimension())) {
             return;
@@ -128,7 +145,6 @@ public final class TC4WorldgenRuntime {
             return;
         }
         if (TC4OuterLandsDimensionAdapter.isOuterLands(level.dimension())) {
-            TC4OuterLandsLivePopulateAdapter.populateChunkOnce(level, chunk.x, chunk.z);
             TC4OuterLandsMazeHandler.generateForNewChunk(level, chunk);
             return;
         }
@@ -198,7 +214,10 @@ public final class TC4WorldgenRuntime {
         if (tc4BiomeBlacklistLevel(level, chunk) != -1) {
             return;
         }
-        if (random.nextInt(60) == 3) {
+        int sampleX = chunk.getMiddleBlockX();
+        int sampleZ = chunk.getMiddleBlockZ();
+        boolean magicalForest = biomePath(level, sampleX, sampleZ).contains("magical_forest");
+        if ((magicalForest && random.nextInt(3) == 0) || (!magicalForest && random.nextInt(60) == 3)) {
             int x = chunk.getMinBlockX() + random.nextInt(16);
             int z = chunk.getMinBlockZ() + random.nextInt(16);
             if (supportsSilverwood(level, x, z)) {
@@ -207,7 +226,7 @@ public final class TC4WorldgenRuntime {
             }
         }
 
-        if (random.nextInt(25) == 7) {
+        if ((magicalForest && random.nextBoolean()) || (!magicalForest && random.nextInt(25) == 7)) {
             int x = chunk.getMinBlockX() + random.nextInt(16);
             int z = chunk.getMinBlockZ() + random.nextInt(16);
             float chance = greatwoodChance(level, x, z);

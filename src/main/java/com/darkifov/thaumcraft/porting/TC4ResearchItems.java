@@ -526,7 +526,10 @@ public final class TC4ResearchItems {
     }
 
     private static Item createItem(Entry entry, CreativeModeTab tab) {
-        Item.Properties properties = new Item.Properties().tab(tab);
+        // Every tc4_* entry is a save-migration alias. Keeping a creative tab
+        // here made the vanilla Search tab expose hundreds of inert clones even
+        // though the Thaumcraft tab filtered them after population.
+        Item.Properties properties = new Item.Properties();
         return switch (entry.id()) {
             case "tc4_thaumiumfortresshelm" -> new TC4FortressArmorItem(EquipmentSlot.HEAD, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
             case "tc4_thaumiumfortresschest" -> new TC4FortressArmorItem(EquipmentSlot.CHEST, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());

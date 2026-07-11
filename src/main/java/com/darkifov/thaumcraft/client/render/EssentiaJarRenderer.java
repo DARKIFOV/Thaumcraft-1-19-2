@@ -55,6 +55,13 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
         if (jar.hasFilter()) {
             renderJarLabel(jar.filterAspect(), jar.labelFacing(), poseStack, buffer, packedLight);
         }
+
+        // Original TC4 goggles draw a small world-space aspect tag on the
+        // container itself. Never replace it with a giant screen-space scanner.
+        if (aspect != null && jar.amount() > 0) {
+            RevealerAspectTagRenderer.renderSingle(jar.getBlockPos(), aspect, jar.amount(),
+                    1.12D, poseStack, buffer);
+        }
     }
 
 

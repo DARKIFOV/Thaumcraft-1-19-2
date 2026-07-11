@@ -5,6 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Collections;
 
 public class ArcaneWorkbenchRecipe {
+    private static final String TAG_SENTINEL_NAMESPACE = "tc4_tag";
     private final ResourceLocation id;
     private final ResourceLocation catalystId;
     private final ResourceLocation resultItemId;
@@ -259,6 +262,47 @@ public class ArcaneWorkbenchRecipe {
         return this;
     }
 
+    public static boolean ingredientMatches(ResourceLocation ingredient, ItemStack stack) {
+        if (ingredient == null || stack == null || stack.isEmpty()) {
+            return false;
+        }
+        if (isTagIngredient(ingredient)) {
+            ResourceLocation tagId = tagIngredientId(ingredient);
+            return tagId != null && stack.is(TagKey.create(Registry.ITEM_REGISTRY, tagId));
+        }
+        ResourceLocation actual = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        return ingredient.equals(actual);
+    }
+
+    public static boolean isTagIngredient(ResourceLocation ingredient) {
+        return ingredient != null && TAG_SENTINEL_NAMESPACE.equals(ingredient.getNamespace());
+    }
+
+    public static String ingredientText(ResourceLocation ingredient) {
+        ResourceLocation tagId = tagIngredientId(ingredient);
+        return tagId == null ? String.valueOf(ingredient) : "#" + tagId;
+    }
+
+    private static ResourceLocation parseIngredient(String value) {
+        if (value != null && value.startsWith("#")) {
+            ResourceLocation tagId = new ResourceLocation(value.substring(1));
+            return new ResourceLocation(TAG_SENTINEL_NAMESPACE, tagId.getNamespace() + "/" + tagId.getPath());
+        }
+        return new ResourceLocation(value);
+    }
+
+    private static ResourceLocation tagIngredientId(ResourceLocation ingredient) {
+        if (!isTagIngredient(ingredient)) {
+            return null;
+        }
+        String path = ingredient.getPath();
+        int separator = path.indexOf('/');
+        if (separator <= 0 || separator == path.length() - 1) {
+            return null;
+        }
+        return new ResourceLocation(path.substring(0, separator), path.substring(separator + 1));
+    }
+
     public ArcaneWorkbenchRecipe patternRow(String row) {
         pattern.add(row == null ? "" : row);
         return this;
@@ -290,7 +334,7 @@ public class ArcaneWorkbenchRecipe {
         JsonArray ingredients = json.getAsJsonArray("ingredients");
 
         for (JsonElement element : ingredients) {
-            recipe.ingredient(new ResourceLocation(element.getAsString()));
+            recipe.ingredient(parseIngredient(element.getAsString()));
         }
 
         if (json.has("pattern")) {
@@ -331,7 +375,7 @@ public class ArcaneWorkbenchRecipe {
             if (itemId == null || itemId.isBlank()) {
                 continue;
             }
-            recipe.explicitPatternMap.put(symbol.charAt(0), new ResourceLocation(itemId));
+            recipe.explicitPatternMap.put(symbol.charAt(0), parseIngredient(itemId));
         }
     }
 

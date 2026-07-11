@@ -1,0 +1,23 @@
+Thaumcraft Legacy Rebuild v11.62.41 validation
+Platform: Minecraft Forge 1.19.2 / Forge 43.5.2 / Java 17
+
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+Java syntax guard: OK
+JSON resource validation: OK (1698 files)
+TC4 visual parity guard: OK
+Research Table integration guard: OK
+Research Table open guard: OK
+Magical Forest worldgen guard: OK (serializable multi-noise source and locate validation)
+Thaumometer scan guard: OK (explicit Forge packet, server ray validation, 25/20 tick TC4 hold)
+Runtime visual guard: OK (BER-only matrix/transducer/table, two-block item, world tags, transparent armor)
+Leaves/Wand/Research Table guard: OK (LeavesBlock states, ModelWand UVs, original two-block BER)
+Audited 689 item models
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected problems: 0
+GitHub Actions YAML: OK (.github/workflows/build.yml)
+GitHub Actions YAML: OK (.github/workflows/release.yml)
+
+Gradle compile attempt: NOT COMPLETED
+Reason: java.net.UnknownHostException: services.gradle.org
+Result: complete Forge 1.19.2 source archive prepared for GitHub Actions; no local JAR is claimed.

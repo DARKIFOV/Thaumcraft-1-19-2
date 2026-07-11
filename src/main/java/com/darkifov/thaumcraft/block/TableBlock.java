@@ -39,8 +39,25 @@ public class TableBlock extends Block {
                 BlockPos other = pos.relative(direction);
 
                 if (level.getBlockState(other).is(ThaumcraftMod.TABLE.get())) {
-                    level.setBlock(pos, ThaumcraftMod.RESEARCH_TABLE.get().defaultBlockState(), 3);
-                    level.removeBlock(other, false);
+                    // Original TC4 metadata 2..5 stored the direction from the
+                    // active/inventory half to the partner table. Preserve that
+                    // contract as a native 1.19.2 horizontal blockstate.
+                    BlockState researchState = ThaumcraftMod.RESEARCH_TABLE.get().defaultBlockState()
+                            .setValue(ResearchTableBlock.FACING, direction)
+                            .setValue(ResearchTableBlock.PRIMARY, true);
+                    BlockState partnerState = ThaumcraftMod.RESEARCH_TABLE.get().defaultBlockState()
+                            .setValue(ResearchTableBlock.FACING, direction)
+                            .setValue(ResearchTableBlock.PRIMARY, false);
+                    ItemStack installedTools = held.copy();
+                    installedTools.setCount(1);
+
+                    level.setBlock(pos, researchState, 3);
+                    level.setBlock(other, partnerState, 3);
+                    if (level.getBlockEntity(pos) instanceof com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity table) {
+                        table.setItem(com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity.SLOT_SCRIBING_TOOLS,
+                                installedTools);
+                        table.syncToClient();
+                    }
 
                     if (!player.getAbilities().instabuild) {
                         held.shrink(1);

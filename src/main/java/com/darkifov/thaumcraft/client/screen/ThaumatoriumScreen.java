@@ -102,7 +102,7 @@ public class ThaumatoriumScreen extends AbstractContainerScreen<ThaumatoriumMenu
             int y = topPos + 82;
             for (Map.Entry<Aspect, Integer> entry : active.cost().entrySet()) {
                 ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + entry.getKey().id() + ".png");
-                OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
+                OriginalGuiTextures.blitOriginalTinted(poseStack, x, y, texture, 16, 16, entry.getKey().nativeColor());
                 drawString(poseStack, font, Component.literal(String.valueOf(entry.getValue())), x + 11, y + 10, 0xFFFFFF);
                 x += 24;
                 if (x > leftPos + 140) {
@@ -116,7 +116,7 @@ public class ThaumatoriumScreen extends AbstractContainerScreen<ThaumatoriumMenu
         fill(poseStack, leftPos + 64, topPos + 74, leftPos + 64 + progressWidth, topPos + 77, 0x99D6B25E);
 
         if (tile.hasMnemonicMatrix()) {
-            drawString(poseStack, font, Component.literal("Mnemonic matrix").withStyle(ChatFormatting.GOLD), leftPos + 34, topPos + 112, 0xD6B25E);
+            drawString(poseStack, font, Component.translatable("thaumcraft.gui.thaumatorium.mnemonic_matrix").withStyle(ChatFormatting.GOLD), leftPos + 34, topPos + 112, 0xD6B25E);
         }
         if (!tile.lastMissing().isBlank()) {
             drawString(poseStack, font, Component.literal(tile.lastMissing()).withStyle(ChatFormatting.DARK_RED), leftPos + 34, topPos + 122, 0xAA5555);

@@ -63,50 +63,44 @@ public final class ResearchTableFoundation {
         }
 
         PlayerAspectKnowledge.seedPrimals(player);
-
         if (!PlayerAspectKnowledge.knows(player, first) || !PlayerAspectKnowledge.knows(player, second)) {
-            player.displayClientMessage(Component.literal("You do not understand those aspects yet.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_understood").withStyle(ChatFormatting.RED), false);
+            return Optional.empty();
+        }
+
+        int firstNeeded = first == second ? 2 : 1;
+        int firstAvailable = PlayerAspectKnowledge.pool(player).get(first)
+                + ResearchTableInventoryRuntime.tableBonusAmount(player, first);
+        int secondAvailable = first == second ? firstAvailable
+                : PlayerAspectKnowledge.pool(player).get(second)
+                + ResearchTableInventoryRuntime.tableBonusAmount(player, second);
+        if (firstAvailable < firstNeeded || secondAvailable < 1) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_points").withStyle(ChatFormatting.RED), false);
+            return Optional.empty();
+        }
+
+        // TC4 GuiResearchTable consumes both selected research points when the
+        // combination button is pressed, even when the pair is invalid.
+        if (!ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, first)
+                || !ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, second)) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_points").withStyle(ChatFormatting.RED), false);
             return Optional.empty();
         }
 
         Optional<Aspect> result = AspectCombinationRegistry.combine(first, second);
-
-        if (result.isEmpty()) {
-            player.displayClientMessage(Component.literal("The aspects do not combine.").withStyle(ChatFormatting.GRAY), false);
+        if (result.isEmpty() || !AspectCombinationRegistry.isOriginalComponentPair(result.get(), first, second)) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_combination").withStyle(ChatFormatting.GRAY), false);
             return Optional.empty();
         }
 
         Aspect discovered = result.get();
-
-        if (!AspectCombinationRegistry.isOriginalComponentPair(discovered, first, second)) {
-            return Optional.empty();
-        }
-
-        if (!player.getAbilities().instabuild) {
-            AspectList pool = PlayerAspectKnowledge.pool(player);
-
-            if (!pool.contains(first, 1) || !pool.contains(second, 1)) {
-                player.displayClientMessage(Component.literal("Not enough aspect notes in the research pool.").withStyle(ChatFormatting.RED), false);
-                return Optional.empty();
-            }
-
-            PlayerAspectKnowledge.consumePool(player, first, 1);
-            PlayerAspectKnowledge.consumePool(player, second, 1);
-        }
-
         boolean newDiscovery = PlayerAspectKnowledge.discover(player, discovered);
         PlayerAspectKnowledge.addPool(player, discovered, 1);
-
-        if (newDiscovery) {
-            player.displayClientMessage(Component.literal("Discovered aspect: ")
-                    .withStyle(ChatFormatting.GOLD)
-                    .append(Component.literal(discovered.displayName()).withStyle(style -> style.withColor(discovered.textColor()))), false);
-        } else {
-            player.displayClientMessage(Component.literal("Aspect reinforced: ")
-                    .withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal(discovered.displayName()).withStyle(style -> style.withColor(discovered.textColor()))), false);
-        }
-
+        Component aspectName = Component.translatable("aspect.thaumcraft." + discovered.id())
+                .withStyle(style -> style.withColor(discovered.textColor()));
+        player.displayClientMessage(Component.translatable(
+                newDiscovery ? "thaumcraft.message.research.discovered" : "thaumcraft.message.research.reinforced",
+                aspectName).withStyle(newDiscovery ? ChatFormatting.GOLD : ChatFormatting.GRAY), false);
         return result;
     }
 

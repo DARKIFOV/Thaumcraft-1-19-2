@@ -22,6 +22,7 @@ import java.util.List;
  * This stays reveal-only: no scan command, no fake research/warp unlocks.
  */
 public class HelmetOfRevealingItem extends ArmorItem {
+    private static final String INVISIBLE_ARMOR_TEXTURE = "thaumcraft:textures/models/armor/tc4_empty_layer_1.png";
     public HelmetOfRevealingItem(Properties properties) {
         super(ArmorMaterials.GOLD, EquipmentSlot.HEAD, properties.durability(880));
     }
@@ -41,6 +42,14 @@ public class HelmetOfRevealingItem extends ArmorItem {
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         }
         return InteractionResultHolder.pass(stack);
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, net.minecraft.world.entity.Entity entity,
+                                  EquipmentSlot slot, String type) {
+        // The visible shape is provided by TC4GogglesLayer. Returning the blank
+        // texture prevents Forge's vanilla gold helmet cube from rendering first.
+        return INVISIBLE_ARMOR_TEXTURE;
     }
 
     @Override

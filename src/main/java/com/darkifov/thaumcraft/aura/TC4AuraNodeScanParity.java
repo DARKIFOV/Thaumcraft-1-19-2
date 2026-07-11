@@ -5,6 +5,7 @@ import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
@@ -31,32 +32,57 @@ public final class TC4AuraNodeScanParity {
     public static Component header(AuraNodeBlockEntity node, boolean firstScan) {
         AuraNodeType type = AuraNodeType.fromName(node.nodeType());
         AuraNodeModifier modifier = AuraNodeModifier.fromName(node.nodeModifier());
-        return Component.literal(firstScan ? "New aura node scan" : "Aura node")
+        return Component.translatable(firstScan ? "thaumcraft.scan.node.new" : "thaumcraft.scan.node.known")
                 .withStyle(ChatFormatting.AQUA)
-                .append(Component.literal(" [" + modifier.displayName() + " " + type.displayName() + "]").withStyle(ChatFormatting.LIGHT_PURPLE));
+                .append(Component.literal(" [").withStyle(ChatFormatting.GRAY))
+                .append(Component.translatable(modifier.translationKey()).withStyle(ChatFormatting.LIGHT_PURPLE))
+                .append(Component.literal(" "))
+                .append(Component.translatable(type.translationKey()).withStyle(ChatFormatting.LIGHT_PURPLE))
+                .append(Component.literal("]").withStyle(ChatFormatting.GRAY));
     }
 
     public static Component visLine(AuraNodeBlockEntity node) {
-        return Component.literal("Vis: " + node.aspects().totalAmount() + "/" + node.baseAspects().totalAmount()
-                + "  Stability: " + node.stability()
-                + (node.isStabilized() ? "  Stabilized" : "")
-                + (node.isEnergized() ? "  Energized" : ""))
+        MutableComponent line = Component.translatable("thaumcraft.scan.node.vis",
+                        node.aspects().totalAmount(), node.baseAspects().totalAmount(), node.stability())
                 .withStyle(ChatFormatting.GOLD);
+        if (node.isStabilized()) {
+            line.append(Component.literal(" | "))
+                    .append(Component.translatable("thaumcraft.scan.node.stabilized").withStyle(ChatFormatting.GREEN));
+        }
+        if (node.isEnergized()) {
+            line.append(Component.literal(" | "))
+                    .append(Component.translatable("thaumcraft.scan.node.energized").withStyle(ChatFormatting.AQUA));
+        }
+        return line;
     }
 
     public static Component aspectLine(AuraNodeBlockEntity node) {
         List<AspectStack> stacks = sortedAspects(node);
+        MutableComponent result = Component.translatable("thaumcraft.scan.aspects").withStyle(ChatFormatting.GRAY);
         if (stacks.isEmpty()) {
-            return Component.literal("Aspects: none").withStyle(ChatFormatting.GRAY);
+            return result.append(Component.translatable("thaumcraft.aspect.none").withStyle(ChatFormatting.DARK_GRAY));
         }
-        StringBuilder builder = new StringBuilder();
+        boolean first = true;
         for (AspectStack stack : stacks) {
-            if (builder.length() > 0) {
-                builder.append(", ");
+            if (!first) {
+                result.append(Component.literal(", ").withStyle(ChatFormatting.GRAY));
             }
-            builder.append(stack.aspect().id()).append(' ').append(stack.amount());
+            result.append(Component.translatable("thaumcraft.aspect.amount",
+                            Component.translatable("aspect.thaumcraft." + stack.aspect().id()), stack.amount())
+                    .withStyle(style -> style.withColor(stack.aspect().textColor())));
+            first = false;
         }
-        return Component.literal("Aspects: " + builder).withStyle(ChatFormatting.GRAY);
+        return result;
+    }
+
+    public static Component compactLine(AuraNodeBlockEntity node) {
+        AuraNodeType type = AuraNodeType.fromName(node.nodeType());
+        AuraNodeModifier modifier = AuraNodeModifier.fromName(node.nodeModifier());
+        return Component.translatable("thaumcraft.scan.node.compact",
+                        Component.translatable(modifier.translationKey()),
+                        Component.translatable(type.translationKey()),
+                        node.aspects().totalAmount(), node.baseAspects().totalAmount())
+                .withStyle(ChatFormatting.AQUA);
     }
 
     public static List<AspectStack> sortedAspects(AuraNodeBlockEntity node) {

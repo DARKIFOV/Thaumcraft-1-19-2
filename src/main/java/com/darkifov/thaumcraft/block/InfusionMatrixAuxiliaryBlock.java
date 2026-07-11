@@ -40,7 +40,8 @@ public class InfusionMatrixAuxiliaryBlock extends Block {
             BlockPos matrix = InfusionProcessHelper.findNearbyMatrix(level, pos, 6);
 
             if (matrix == null) {
-                player.displayClientMessage(Component.literal(displayName() + ": nearby Infusion Matrix not found.").withStyle(ChatFormatting.GRAY), false);
+                player.displayClientMessage(Component.translatable("thaumcraft.infusion.aux.missing", displayName())
+                        .withStyle(ChatFormatting.GRAY), false);
                 return InteractionResult.SUCCESS;
             }
 
@@ -48,13 +49,12 @@ public class InfusionMatrixAuxiliaryBlock extends Block {
             InfusionStructureReport report = InfusionAltarStructure.analyze(level, matrix, catalyst);
 
             if (mode == Mode.ACCELERATOR) {
-                player.displayClientMessage(Component.literal("Matrix Accelerator linked | Accelerators: " + report.matrixAccelerators()
-                                + " | Speed: x" + report.speedMultiplier()
-                                + " | Duration: " + report.durationModifierPercent() + "%")
+                player.displayClientMessage(Component.translatable("thaumcraft.infusion.aux.accelerator",
+                                report.matrixAccelerators(), report.speedMultiplier(), report.durationModifierPercent())
                         .withStyle(ChatFormatting.AQUA), false);
             } else {
-                player.displayClientMessage(Component.literal("Matrix Stabilizer linked | Pylons: " + report.matrixStabilizers()
-                                + " | Stabilization: " + report.matrixStabilizationPercent() + "%")
+                player.displayClientMessage(Component.translatable("thaumcraft.infusion.aux.stabilizer",
+                                report.matrixStabilizers(), report.matrixStabilizationPercent())
                         .withStyle(ChatFormatting.GREEN), false);
             }
 
@@ -64,8 +64,10 @@ public class InfusionMatrixAuxiliaryBlock extends Block {
         return InteractionResult.SUCCESS;
     }
 
-    private String displayName() {
-        return mode == Mode.ACCELERATOR ? "Matrix Accelerator" : "Matrix Stabilizer";
+    private Component displayName() {
+        return Component.translatable(mode == Mode.ACCELERATOR
+                ? "thaumcraft.infusion.aux.accelerator_name"
+                : "thaumcraft.infusion.aux.stabilizer_name");
     }
 
     @Override

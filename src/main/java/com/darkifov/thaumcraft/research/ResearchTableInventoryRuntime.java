@@ -157,9 +157,6 @@ public final class ResearchTableInventoryRuntime {
         if (player == null || aspect == null) {
             return false;
         }
-        if (player.getAbilities().instabuild) {
-            return true;
-        }
         if (PlayerAspectKnowledge.pool(player).contains(aspect, 1)) {
             return true;
         }
@@ -183,9 +180,6 @@ public final class ResearchTableInventoryRuntime {
     public static boolean consumePoolOrTableBonus(Player player, Aspect aspect) {
         if (player == null || aspect == null) {
             return false;
-        }
-        if (player.getAbilities().instabuild) {
-            return true;
         }
         if (PlayerAspectKnowledge.pool(player).contains(aspect, 1)) {
             return PlayerAspectKnowledge.consumePool(player, aspect, 1);

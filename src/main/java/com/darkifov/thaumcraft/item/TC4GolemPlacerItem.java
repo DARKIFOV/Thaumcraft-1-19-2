@@ -8,6 +8,7 @@ import com.darkifov.thaumcraft.golem.GolemMaterial;
 import com.darkifov.thaumcraft.golem.GolemOriginalRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,6 +56,7 @@ public class TC4GolemPlacerItem extends TC4ResearchComponentItem {
         ThaumGolemEntity golem = ThaumcraftMod.THAUM_GOLEM.get().create(level);
         if (golem == null) return InteractionResult.PASS;
         BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
+        double spawnY = resolveSpawnY(level, pos, context.getClickedFace());
         golem.setOwnerUuid(player.getUUID());
         golem.setAdvancedGolem(advanced);
         golem.setGolemProfile(material, core);
@@ -61,10 +64,10 @@ public class TC4GolemPlacerItem extends TC4ResearchComponentItem {
         golem.setHomeFacing(context.getClickedFace().ordinal());
         golem.loadGolemConfiguration(config);
         if (stack.hasCustomHoverName()) golem.setCustomName(stack.getHoverName());
-        golem.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D,
+        golem.moveTo(pos.getX() + 0.5D, spawnY, pos.getZ() + 0.5D,
                 level.random.nextFloat() * 360.0F, 0.0F);
-        if (!level.noCollision(golem) || !level.getBlockState(pos).getCollisionShape(level, pos).isEmpty()) {
-            player.displayClientMessage(Component.literal("Not enough room to place this golem.")
+        if (!level.getBlockState(pos).getCollisionShape(level, pos).isEmpty() || !level.noCollision(golem)) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.golem.no_room")
                     .withStyle(ChatFormatting.RED), true);
             return InteractionResult.CONSUME;
         }
@@ -74,6 +77,19 @@ public class TC4GolemPlacerItem extends TC4ResearchComponentItem {
         level.playSound(null, pos, SoundEvents.IRON_GOLEM_REPAIR, SoundSource.NEUTRAL, 0.7F, 1.2F);
         if (!player.getAbilities().instabuild) stack.shrink(1);
         return InteractionResult.CONSUME;
+    }
+
+    private static double resolveSpawnY(Level level, BlockPos pos, Direction face) {
+        double baseY = pos.getY();
+        if (face == Direction.DOWN) {
+            baseY += 0.01D;
+        }
+        BlockPos support = pos.below();
+        VoxelShape shape = level.getBlockState(support).getCollisionShape(level, support);
+        if (!shape.isEmpty()) {
+            baseY = support.getY() + shape.max(Direction.Axis.Y);
+        }
+        return baseY;
     }
 
     private static GolemCoreType resolveCore(CompoundTag tag) {

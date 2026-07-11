@@ -16,6 +16,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.language.I18n;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -34,10 +36,15 @@ import java.util.regex.Pattern;
  */
 public class TC4ResearchPageScreen extends Screen {
     private static final ResourceLocation BOOK = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/thaumonomicon.png");
-    private static final ResourceLocation OVERLAY = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/gui_researchbook_overlay.png");
-    private static final int BOOK_SIZE = 512;
-    private static final int PAGE_WIDTH = 176;
-    private static final int PAGE_HEIGHT = 318;
+    // TC4 GuiResearchRecipe draws only the 256x181 upper-left region of the
+    // 512 atlas, scaled to 130%. Drawing the complete 512 sheet caused the huge
+    // clipped book and black bands shown in the v11.62.39 screenshots.
+    private static final int BOOK_SOURCE_WIDTH = 256;
+    private static final int BOOK_SOURCE_HEIGHT = 181;
+    private static final int BOOK_DRAW_WIDTH = 333;
+    private static final int BOOK_DRAW_HEIGHT = 235;
+    private static final int PAGE_WIDTH = 120;
+    private static final int PAGE_HEIGHT = 148;
     private static final int PAGE_TEXT_COLOR = 0x2D1B0B;
     private static final int PAGE_ACCENT_COLOR = 0x6D4A22;
 
@@ -49,15 +56,22 @@ public class TC4ResearchPageScreen extends Screen {
     private final List<BookHoverRegion> bookHoverRegions = new ArrayList<>();
 
     public TC4ResearchPageScreen(ThaumonomiconScreen parent, ResearchEntry entry) {
-        super(Component.literal(entry.title()));
+        super(researchNameComponent(entry));
         this.parent = parent;
         this.entry = entry;
     }
 
+    private static Component researchNameComponent(ResearchEntry entry) {
+        String key = "tc.research_name." + entry.key();
+        return I18n.exists(key) ? Component.translatable(key) : Component.literal(entry.title());
+    }
+
     @Override
     protected void init() {
-        this.leftPos = (width - BOOK_SIZE) / 2;
-        this.topPos = (height - BOOK_SIZE) / 2;
+        // Content coordinates intentionally use the unscaled 256x181 pane,
+        // exactly like TC4. The background itself is expanded around this pane.
+        this.leftPos = (width - BOOK_SOURCE_WIDTH) / 2;
+        this.topPos = (height - BOOK_SOURCE_HEIGHT) / 2;
         clearWidgets();
         // Stage343-362: no modern Button widgets inside the book.
         // Click regions are handled manually below, matching the original TC4
@@ -80,21 +94,26 @@ public class TC4ResearchPageScreen extends Screen {
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderBackground(poseStack);
         bookHoverRegions.clear();
-        OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, BOOK, BOOK_SIZE, BOOK_SIZE);
-        OriginalGuiTextures.blitOriginal(poseStack, leftPos, topPos, OVERLAY, BOOK_SIZE, BOOK_SIZE);
 
-        drawCenteredString(poseStack, font, entry.title(), leftPos + BOOK_SIZE / 2, topPos + 22, 0x2D1B0B);
-        // Stage623-642: original Thaumonomicon pages do not print raw
-        // ConfigResearch keys/categories in the header. Keep those values only in
-        // NBT/audit data; the visible book remains TC4-style parchment.
-        drawCenteredString(poseStack, font, Component.literal((pageIndex + 1) + "-" + Math.min(totalPages(), pageIndex + 2) + " / " + totalPages()), leftPos + BOOK_SIZE / 2, topPos + BOOK_SIZE - 58, 0x6D4A22);
+        int backgroundX = (width - BOOK_DRAW_WIDTH) / 2;
+        int backgroundY = (height - BOOK_DRAW_HEIGHT) / 2;
+        OriginalGuiTextures.blitOriginalScaledRegion(poseStack, backgroundX, backgroundY, BOOK,
+                0, 0, BOOK_SOURCE_WIDTH, BOOK_SOURCE_HEIGHT,
+                BOOK_DRAW_WIDTH, BOOK_DRAW_HEIGHT, 512, 512);
 
-        renderPage(poseStack, leftPos + 42, topPos + 70, pageIndex);
-        renderPage(poseStack, leftPos + 286, topPos + 70, pageIndex + 1);
-        renderAspects(poseStack, leftPos + 42, topPos + 424);
+        // Original spread: two 120px content columns, separated by 32px.
+        if (pageIndex == 0) {
+            drawCenteredString(poseStack, font, researchNameComponent(entry), leftPos + 56, topPos - 6, PAGE_TEXT_COLOR);
+        }
+        renderPage(poseStack, leftPos + 4, topPos + 14, pageIndex);
+        renderPage(poseStack, leftPos + 156, topPos + 14, pageIndex + 1);
+        renderAspects(poseStack, leftPos + 158, topPos + 158);
+
+        drawCenteredString(poseStack, font,
+                Component.literal((pageIndex + 1) + "-" + Math.min(totalPages(), pageIndex + 2) + " / " + totalPages()),
+                leftPos + BOOK_SOURCE_WIDTH / 2, topPos + 192, PAGE_ACCENT_COLOR);
         renderOriginalNavigationHotspots(poseStack, mouseX, mouseY);
         renderBookHoverTooltip(poseStack, mouseX, mouseY);
-
         super.render(poseStack, mouseX, mouseY, partialTick);
     }
 
@@ -168,7 +187,7 @@ public class TC4ResearchPageScreen extends Screen {
         // Original TC4 book pages do not display raw adapter page type strings such as TEXT_RESEARCH_GATED.
 
         if (!gate.isBlank() && !ClientResearchData.hasResearch(gate)) {
-            drawCenteredString(poseStack, font, Component.literal("Locked"), x + PAGE_WIDTH / 2, y + 24, 0x5A3515);
+            drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.research.locked"), x + PAGE_WIDTH / 2, y + 24, 0x5A3515);
             return;
         }
 
@@ -218,7 +237,7 @@ public class TC4ResearchPageScreen extends Screen {
             }
             for (FormattedCharSequence line : splitText(paragraph, width)) {
                 if (y + font.lineHeight > bottomY) {
-                    drawString(poseStack, font, "…", x + width - 8, Math.max(topPos + 80, bottomY - font.lineHeight), PAGE_TEXT_COLOR);
+                    drawString(poseStack, font, "…", x + width - 8, Math.max(topPos + 14, bottomY - font.lineHeight), PAGE_TEXT_COLOR);
                     return bottomY + 1;
                 }
                 font.draw(poseStack, line, x, y, PAGE_TEXT_COLOR);
@@ -286,7 +305,7 @@ public class TC4ResearchPageScreen extends Screen {
 
         String requiredResearch = TC4RecipeRequirementIndex.requiredResearchFor(recipeKey, entry.key());
         if (!requiredResearch.isBlank() && !ClientResearchData.hasResearch(requiredResearch)) {
-            drawCenteredString(poseStack, font, Component.literal("Locked"), x + PAGE_WIDTH / 2, y + 32, 0x5A3515);
+            drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.research.locked"), x + PAGE_WIDTH / 2, y + 32, 0x5A3515);
             return;
         }
 
@@ -325,14 +344,14 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderMissingRecipeHint(PoseStack poseStack, int x, int y) {
-        drawCenteredString(poseStack, font, Component.literal("Recipe"), x + PAGE_WIDTH / 2, y + 38, PAGE_ACCENT_COLOR);
-        drawCenteredString(poseStack, font, Component.literal("not linked yet"), x + PAGE_WIDTH / 2, y + 52, PAGE_TEXT_COLOR);
+        drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.recipe.title"), x + PAGE_WIDTH / 2, y + 38, PAGE_ACCENT_COLOR);
+        drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.recipe.not_linked"), x + PAGE_WIDTH / 2, y + 52, PAGE_TEXT_COLOR);
     }
 
     private void renderCraftingBookPage(PoseStack poseStack, int x, int y, TC4RecipeRuntimeBridge.OriginalRecipe recipe) {
         int gridX = x + 18;
         int gridY = y + 38;
-        renderRecipeFrameTitle(poseStack, x, y, recipe.kind().name().contains("ARCANE") ? "Arcane" : "Crafting");
+        renderRecipeFrameTitle(poseStack, x, y, recipe.kind().name().contains("ARCANE") ? I18n.get("thaumcraft.gui.recipe.arcane") : I18n.get("thaumcraft.gui.recipe.crafting"));
         Map<Character, String> symbolMap = inferredOriginalPatternMap(recipe);
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -371,7 +390,7 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderCrucibleBookPage(PoseStack poseStack, int x, int y, TC4RecipeRuntimeBridge.OriginalRecipe recipe) {
-        renderRecipeFrameTitle(poseStack, x, y, "Crucible");
+        renderRecipeFrameTitle(poseStack, x, y, I18n.get("thaumcraft.gui.recipe.crucible"));
         renderBookSlot(poseStack, x + 22, y + 52, true);
         renderResolvedItemIcon(poseStack, recipe.catalystExpression(), x + 24, y + 54);
         drawString(poseStack, font, "+", x + 54, y + 58, PAGE_ACCENT_COLOR);
@@ -379,28 +398,29 @@ public class TC4ResearchPageScreen extends Screen {
         drawString(poseStack, font, "→", x + 116, y + 58, PAGE_ACCENT_COLOR);
         renderBookSlot(poseStack, x + 139, y + 52, true);
         renderResolvedItemIcon(poseStack, recipe.resultExpression(), x + 141, y + 54);
-        drawCenteredString(poseStack, font, Component.literal("water + catalyst + aspects"), x + PAGE_WIDTH / 2, y + 116, PAGE_TEXT_COLOR);
+        drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.recipe.crucible_hint"), x + PAGE_WIDTH / 2, y + 116, PAGE_TEXT_COLOR);
     }
 
     private void renderInfusionBookPage(PoseStack poseStack, int x, int y, TC4RecipeRuntimeBridge.OriginalRecipe recipe) {
-        renderRecipeFrameTitle(poseStack, x, y, "Infusion");
-        int centerX = x + 80;
-        int centerY = y + 62;
-        renderBookSlot(poseStack, centerX, centerY, true);
-        renderResolvedItemIcon(poseStack, recipe.catalystExpression(), centerX + 2, centerY + 2);
-        renderResolvedItemIcon(poseStack, recipe.resultExpression(), centerX + 2, centerY - 30);
-        drawCenteredString(poseStack, font, Component.literal("↓"), centerX + 10, centerY - 12, PAGE_ACCENT_COLOR);
-        renderInfusionComponentsRing(poseStack, x + PAGE_WIDTH / 2, y + 75, recipe.components());
-        renderAspectCostIcons(poseStack, x + 14, y + 128, recipe);
+        renderRecipeFrameTitle(poseStack, x, y, I18n.get("thaumcraft.gui.recipe.infusion"));
+        int centerX = x + 76;
+        int centerY = y + 70;
+        renderBookSlot(poseStack, centerX - 10, centerY - 10, true);
+        renderResolvedItemIcon(poseStack, recipe.catalystExpression(), centerX - 8, centerY - 8);
+        renderBookSlot(poseStack, x + 137, y + 45, true);
+        renderResolvedItemIcon(poseStack, recipe.resultExpression(), x + 139, y + 47);
+        drawString(poseStack, font, Component.literal("→"), x + 116, y + 55, PAGE_ACCENT_COLOR);
+        renderInfusionComponentsRing(poseStack, centerX, centerY, recipe.components());
+        renderAspectCostIcons(poseStack, x + 14, y + 134, recipe);
         if (recipe.instability() != null && !recipe.instability().isBlank()) {
-            drawString(poseStack, font, "Instability " + recipe.instability(), x + 14, y + 108, PAGE_ACCENT_COLOR);
+            drawString(poseStack, font, Component.translatable("thaumcraft.gui.recipe.instability", recipe.instability()), x + 14, y + 119, PAGE_ACCENT_COLOR);
         }
     }
 
     private void renderInfusionComponentsRing(PoseStack poseStack, int cx, int cy, String[] components) {
         int limit = Math.min(8, components.length);
-        double[] xs = {0, 36, 52, 36, 0, -36, -52, -36};
-        double[] ys = {-44, -30, 0, 30, 44, 30, 0, -30};
+        double[] xs = {0, 31, 45, 31, 0, -31, -45, -31};
+        double[] ys = {-34, -24, 0, 24, 34, 24, 0, -24};
         for (int i = 0; i < limit; i++) {
             int sx = cx + (int)xs[i] - 9;
             int sy = cy + (int)ys[i] - 9;
@@ -529,12 +549,12 @@ public class TC4ResearchPageScreen extends Screen {
             Aspect aspect = parts.length > 0 ? Aspect.byId(parts[0].trim()) : null;
             if (aspect != null) {
                 ResourceLocation icon = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
-                int sx = x + (i % 3) * 26;
-                int sy = y + (i / 3) * 24;
-                OriginalGuiTextures.blitOriginal(poseStack, sx, sy, icon, 16, 16);
+                int sx = x + (i % 3) * 24;
+                int sy = y + (i / 3) * 20;
+                OriginalGuiTextures.blitOriginalTinted(poseStack, sx, sy, icon, 16, 16, aspect.nativeColor());
                 String amount = parts.length > 1 ? parts[1].trim() : "";
                 if (!amount.isBlank()) {
-                    drawString(poseStack, font, amount, sx + 10, sy + 11, 0x2D1B0B);
+                    drawString(poseStack, font, amount, sx + 10, sy + 9, 0x2D1B0B);
                 }
                 registerAspectHover(sx, sy, aspect, amount);
             }
@@ -566,9 +586,9 @@ public class TC4ResearchPageScreen extends Screen {
             return;
         }
         List<Component> lines = new ArrayList<>();
-        lines.add(Component.literal(aspect.id()));
+        lines.add(Component.translatable("aspect.thaumcraft." + aspect.id()).withStyle(style -> style.withColor(aspect.textColor())));
         if (amount != null && !amount.isBlank()) {
-            lines.add(Component.literal("Cost: " + amount.trim()));
+            lines.add(Component.translatable("thaumcraft.gui.recipe.cost", amount.trim()));
         }
         bookHoverRegions.add(BookHoverRegion.text(x, y, 16, 16, lines));
     }
@@ -631,13 +651,13 @@ public class TC4ResearchPageScreen extends Screen {
 
     private String recipeTitle(String type) {
         String upper = type == null ? "" : type.toUpperCase();
-        if (upper.contains("ARCANE")) return "Arcane Workbench Recipe";
-        if (upper.contains("INFUSION")) return "Infusion Recipe";
-        if (upper.contains("CRUCIBLE")) return "Crucible Recipe";
-        if (upper.contains("SMELT")) return "Smelting Recipe";
-        if (upper.contains("COMPOUND")) return "Compound TC4 Recipe";
-        if (upper.contains("ITEMSTACK_PAGE")) return "Original ItemStack Page";
-        return "Crafting Recipe";
+        if (upper.contains("ARCANE")) return I18n.get("thaumcraft.gui.recipe.arcane");
+        if (upper.contains("INFUSION")) return I18n.get("thaumcraft.gui.recipe.infusion");
+        if (upper.contains("CRUCIBLE")) return I18n.get("thaumcraft.gui.recipe.crucible");
+        if (upper.contains("SMELT")) return I18n.get("thaumcraft.gui.recipe.smelting");
+        if (upper.contains("COMPOUND")) return I18n.get("thaumcraft.gui.recipe.compound");
+        if (upper.contains("ITEMSTACK_PAGE")) return I18n.get("thaumcraft.gui.recipe.itemstack");
+        return I18n.get("thaumcraft.gui.recipe.crafting");
     }
 
     private String pageTypeLabel(String type) {
@@ -675,9 +695,14 @@ public class TC4ResearchPageScreen extends Screen {
         int i = 0;
         for (var aspect : entry.aspects().entrySet()) {
             if (i >= 10) break;
+            Aspect visualAspect = Aspect.byId(aspect.getKey().toLowerCase());
             ResourceLocation icon = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.getKey().toLowerCase() + ".png");
             int sx = x + i * 21;
-            OriginalGuiTextures.blitOriginal(poseStack, sx, y, icon, 16, 16);
+            if (visualAspect != null) {
+                OriginalGuiTextures.blitOriginalTinted(poseStack, sx, y, icon, 16, 16, visualAspect.nativeColor());
+            } else {
+                OriginalGuiTextures.blitOriginal(poseStack, sx, y, icon, 16, 16);
+            }
             String amount = String.valueOf(aspect.getValue());
             drawString(poseStack, font, amount, sx + 11, y + 10, 0x2D1B0B);
             registerAspectHover(sx, y, Aspect.byId(aspect.getKey().toLowerCase()), amount);
@@ -689,18 +714,20 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderOriginalNavigationHotspots(PoseStack poseStack, int mouseX, int mouseY) {
-        int navY = topPos + BOOK_SIZE - 44;
-        int backX = leftPos + 30;
-        int prevX = leftPos + 190;
-        int nextX = leftPos + BOOK_SIZE - 238;
+        int navY = topPos + 190;
+        int backX = leftPos + 118;
+        int prevX = leftPos - 17;
+        int nextX = leftPos + 261;
         int color = 0x5A3515;
-        drawString(poseStack, font, "Back", backX + 10, navY + 6, color);
-        drawCenteredString(poseStack, font, Component.literal("‹"), prevX + 24, navY + 6, pageIndex <= 0 ? 0xAA6D4A22 : color);
-        drawCenteredString(poseStack, font, Component.literal("›"), nextX + 24, navY + 6, pageIndex >= maxFirstPage() ? 0xAA6D4A22 : color);
-        if (inside(mouseX, mouseY, backX, navY, 58, 18)
-                || inside(mouseX, mouseY, prevX, navY, 48, 18)
-                || inside(mouseX, mouseY, nextX, navY, 48, 18)) {
-            fill(poseStack, mouseX - 4, mouseY - 4, mouseX + 4, mouseY + 4, 0x55F0DDAA);
+        drawString(poseStack, font, Component.translatable("thaumcraft.gui.back"), backX + 2, navY + 3, color);
+        drawCenteredString(poseStack, font, Component.literal("‹"), prevX + 6, navY + 3,
+                pageIndex <= 0 ? 0xAA6D4A22 : color);
+        drawCenteredString(poseStack, font, Component.literal("›"), nextX + 6, navY + 3,
+                pageIndex >= maxFirstPage() ? 0xAA6D4A22 : color);
+        if (inside(mouseX, mouseY, backX, navY, 38, 14)
+                || inside(mouseX, mouseY, prevX, navY, 14, 14)
+                || inside(mouseX, mouseY, nextX, navY, 14, 14)) {
+            fill(poseStack, mouseX - 3, mouseY - 3, mouseX + 3, mouseY + 3, 0x55F0DDAA);
         }
     }
 
@@ -710,16 +737,16 @@ public class TC4ResearchPageScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        int navY = topPos + BOOK_SIZE - 44;
-        if (inside(mouseX, mouseY, leftPos + 30, navY, 58, 18)) {
+        int navY = topPos + 190;
+        if (inside(mouseX, mouseY, leftPos + 118, navY, 38, 14)) {
             minecraft.setScreen(parent);
             return true;
         }
-        if (inside(mouseX, mouseY, leftPos + 190, navY, 48, 18)) {
+        if (inside(mouseX, mouseY, leftPos - 17, navY, 14, 14)) {
             pageIndex = Math.max(0, pageIndex - 2);
             return true;
         }
-        if (inside(mouseX, mouseY, leftPos + BOOK_SIZE - 238, navY, 48, 18)) {
+        if (inside(mouseX, mouseY, leftPos + 261, navY, 14, 14)) {
             pageIndex = Math.min(maxFirstPage(), pageIndex + 2);
             return true;
         }

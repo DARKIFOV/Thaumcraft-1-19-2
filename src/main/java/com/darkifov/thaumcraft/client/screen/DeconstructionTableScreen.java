@@ -26,7 +26,7 @@ public class DeconstructionTableScreen extends AbstractContainerScreen<Deconstru
         Aspect aspect = menu.outputAspect();
         if (aspect != null) {
             ResourceLocation icon = new ResourceLocation("thaumcraft", "textures/aspects/" + aspect.id() + ".png");
-            OriginalGuiTextures.blitOriginal(poseStack, leftPos + 64, topPos + 48, icon, 16, 16);
+            OriginalGuiTextures.blitOriginalTinted(poseStack, leftPos + 64, topPos + 48, icon, 16, 16, aspect.nativeColor());
         }
     }
 
@@ -37,7 +37,7 @@ public class DeconstructionTableScreen extends AbstractContainerScreen<Deconstru
         super.render(poseStack, mouseX, mouseY, partialTick);
         Aspect aspect = menu.outputAspect();
         if (aspect != null && mouseX >= leftPos + 64 && mouseX < leftPos + 80 && mouseY >= topPos + 48 && mouseY < topPos + 64) {
-            renderTooltip(poseStack, Component.literal(aspect.displayName()), mouseX, mouseY);
+            renderTooltip(poseStack, Component.translatable("aspect.thaumcraft." + aspect.id()), mouseX, mouseY);
         } else {
             renderTooltip(poseStack, mouseX, mouseY);
         }

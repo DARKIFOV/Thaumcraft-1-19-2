@@ -256,7 +256,10 @@ public final class TC4RevealerHudAdapter {
         ResourceLocation icon = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + stack.aspect().id() + ".png");
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, icon);
+        int rgb = stack.aspect().nativeColor();
+        RenderSystem.setShaderColor(((rgb >> 16) & 255) / 255.0F, ((rgb >> 8) & 255) / 255.0F, (rgb & 255) / 255.0F, 1.0F);
         GuiComponent.blit(poseStack, x, y, 0, 0, 16, 16, 16, 16);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private static String prettify(String value) {

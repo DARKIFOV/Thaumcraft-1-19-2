@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "thaumcraft:block/silverwood_leaves"
+  "multipart": [
+    {
+      "apply": {
+        "model": "thaumcraft:block/silverwood_leaves"
+      }
     }
-  }
+  ]
 }

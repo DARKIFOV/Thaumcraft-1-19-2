@@ -26,6 +26,10 @@ public enum AuraNodeType {
         return displayName;
     }
 
+    public String translationKey() {
+        return "thaumcraft.node.type." + name().toLowerCase(Locale.ROOT);
+    }
+
     public static AuraNodeType fromName(String value) {
         if (value == null || value.isBlank()) {
             return NORMAL;

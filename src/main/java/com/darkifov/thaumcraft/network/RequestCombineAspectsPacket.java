@@ -42,7 +42,7 @@ public class RequestCombineAspectsPacket {
             Aspect second = Aspect.byId(packet.secondId);
 
             if (first == null || second == null) {
-                player.displayClientMessage(Component.literal("Unknown aspect combination.").withStyle(ChatFormatting.RED), false);
+                player.displayClientMessage(Component.translatable("thaumcraft.message.research.unknown_aspect").withStyle(ChatFormatting.RED), false);
                 ThaumcraftNetwork.syncAspectKnowledge(player);
                 return;
             }

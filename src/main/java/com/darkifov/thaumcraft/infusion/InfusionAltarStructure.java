@@ -134,20 +134,16 @@ public final class InfusionAltarStructure {
 
         boolean valid = strictTc4Location && componentPedestals.size() > 0;
 
-        Component summary = Component.literal("Infusion altar: ")
-                .append(Component.literal(valid ? "TC4 VALID" : "TC4 INVALID").withStyle(valid ? ChatFormatting.GREEN : ChatFormatting.RED))
-                .append(Component.literal(" | Center: " + (strictCenterPedestal ? "OK" : "missing at matrix-2")))
-                .append(Component.literal(" | Pillars: " + tc4PillarCount + "/4"))
-                .append(Component.literal(" | Pedestals: " + allPedestals.size()))
-                .append(Component.literal(" | Components: " + componentPedestals.size()))
-                .append(Component.literal(" | Symmetry pairs: " + symmetricalPairs))
-                .append(Component.literal(" | Missing symmetry: " + missingSymmetry))
-                .append(Component.literal(" | TC4 penalty: " + tc4Penalty))
-                .append(Component.literal(" | Stabilizers: " + stabilizingBlocks))
-                .append(Component.literal(" | Matrix accelerators: " + matrixAccelerators))
-                .append(Component.literal(" | Matrix pylons: " + matrixStabilizers))
-                .append(Component.literal(" | Speed: x" + speedMultiplier))
-                .append(Component.literal(" | Stabilization: " + matrixStabilizationPercent + "%"));
+        Component validity = Component.translatable(valid ? "thaumcraft.infusion.valid" : "thaumcraft.infusion.invalid")
+                .withStyle(valid ? ChatFormatting.GREEN : ChatFormatting.RED);
+        Component centerState = Component.translatable(strictCenterPedestal
+                ? "thaumcraft.infusion.center.ok" : "thaumcraft.infusion.center.missing");
+        Component summary = Component.translatable("thaumcraft.infusion.summary.primary",
+                        validity, centerState, tc4PillarCount, allPedestals.size(), componentPedestals.size())
+                .append(Component.literal("\n"))
+                .append(Component.translatable("thaumcraft.infusion.summary.stability",
+                        symmetricalPairs, missingSymmetry, tc4Penalty, stabilizingBlocks,
+                        speedMultiplier, matrixStabilizationPercent));
 
         return new InfusionStructureReport(
                 valid,

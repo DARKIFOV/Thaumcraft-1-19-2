@@ -76,6 +76,7 @@ import com.darkifov.thaumcraft.block.PechLedgerItem;
 import com.darkifov.thaumcraft.block.PechTradeTokenItem;
 import com.darkifov.thaumcraft.block.NodeJarItem;
 import com.darkifov.thaumcraft.block.NodeStabilizerBlock;
+import com.darkifov.thaumcraft.block.NodeStabilizerItem;
 import com.darkifov.thaumcraft.block.NodeTransducerBlock;
 import com.darkifov.thaumcraft.block.NitorLightBlock;
 import com.darkifov.thaumcraft.block.NitorItem;
@@ -83,6 +84,7 @@ import com.darkifov.thaumcraft.block.VisRelayBlock;
 import com.darkifov.thaumcraft.block.PortingLedgerItem;
 import com.darkifov.thaumcraft.block.TableBlock;
 import com.darkifov.thaumcraft.block.TC4SaplingBlock;
+import com.darkifov.thaumcraft.block.TC4MagicalLeavesBlock;
 import com.darkifov.thaumcraft.block.ShardItem;
 import com.darkifov.thaumcraft.block.ResearchTableBlock;
 import com.darkifov.thaumcraft.block.SanitySoapItem;
@@ -125,6 +127,8 @@ import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
+import com.darkifov.thaumcraft.blockentity.NodeStabilizerBlockEntity;
+import com.darkifov.thaumcraft.blockentity.NodeTransducerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchPortalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchCrabSpawnerBlockEntity;
@@ -144,6 +148,7 @@ import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
 import com.darkifov.thaumcraft.blockentity.TemporaryHoleBlockEntity;
 import com.darkifov.thaumcraft.blockentity.WardedBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
+import com.darkifov.thaumcraft.world.TC4Biomes;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.entity.EldritchCrabEntity;
@@ -256,7 +261,7 @@ public class ThaumcraftMod {
         @Override
         public void fillItemList(NonNullList<ItemStack> items) {
             super.fillItemList(items);
-            items.removeIf(TC4RegistryGarbageGuard::isHiddenFromCreative);
+            TC4RegistryGarbageGuard.filterCreativeItems(items);
         }
     };
 
@@ -620,7 +625,7 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.STONE).strength(6.0F, 16.0F).requiresCorrectToolForDrops().lightLevel(state -> 7));
 
     public static final RegistryObject<Block> ELDRITCH_PORTAL = eldritchPortalBlock("eldritch_portal",
-            BlockBehaviour.Properties.of(Material.PORTAL).strength(-1.0F, 3600000.0F).noOcclusion().lightLevel(state -> 12));
+            BlockBehaviour.Properties.of(Material.PORTAL).strength(-1.0F, 3600000.0F).noCollission().noOcclusion().lightLevel(state -> 12));
 
     public static final RegistryObject<Block> ELDRITCH_NOTHING = BLOCKS.register("eldritch_nothing",
             () -> new EldritchNothingBlock(BlockBehaviour.Properties.of(Material.PORTAL).strength(-1.0F, 3600000.0F).noCollission().noOcclusion()));
@@ -694,11 +699,11 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> SILVERWOOD_LOG = pillarBlock("silverwood_log",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).lightLevel(state -> 1));
 
-    public static final RegistryObject<Block> GREATWOOD_LEAVES = block("greatwood_leaves",
+    public static final RegistryObject<Block> GREATWOOD_LEAVES = magicalLeavesBlock("greatwood_leaves", TC4MagicalLeavesBlock.Kind.GREATWOOD,
             BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().noOcclusion());
 
-    public static final RegistryObject<Block> SILVERWOOD_LEAVES = block("silverwood_leaves",
-            BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().noOcclusion().lightLevel(state -> 1));
+    public static final RegistryObject<Block> SILVERWOOD_LEAVES = magicalLeavesBlock("silverwood_leaves", TC4MagicalLeavesBlock.Kind.SILVERWOOD,
+            BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).randomTicks().noOcclusion().lightLevel(state -> 7));
 
     public static final RegistryObject<Block> GREATWOOD_SAPLING = tc4SaplingBlock("greatwood_sapling", TC4SaplingBlock.Kind.GREATWOOD,
             BlockBehaviour.Properties.of(Material.PLANT).strength(0.0F).randomTicks().noCollission().noOcclusion());
@@ -714,7 +719,7 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
 
     public static final RegistryObject<Block> RESEARCH_TABLE = researchTableBlock("research_table",
-            BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
+            BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion());
 
     public static final RegistryObject<Block> DECONSTRUCTION_TABLE = deconstructionTableBlock("deconstruction_table",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion());
@@ -1084,6 +1089,14 @@ public class ThaumcraftMod {
     public static final RegistryObject<BlockEntityType<AuraNodeBlockEntity>> AURA_NODE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("aura_node", () -> BlockEntityType.Builder.of(AuraNodeBlockEntity::new, AURA_NODE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<NodeStabilizerBlockEntity>> NODE_STABILIZER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("node_stabilizer", () -> BlockEntityType.Builder.of(
+                    NodeStabilizerBlockEntity::new, NODE_STABILIZER.get(), ADVANCED_NODE_STABILIZER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<NodeTransducerBlockEntity>> NODE_TRANSDUCER_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("node_transducer", () -> BlockEntityType.Builder.of(
+                    NodeTransducerBlockEntity::new, NODE_TRANSDUCER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<EssentiaDriveBlockEntity>> ESSENTIA_DRIVE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("essentia_drive", () -> BlockEntityType.Builder.of(EssentiaDriveBlockEntity::new, ESSENTIA_DRIVE.get()).build(null));
 
@@ -1304,6 +1317,7 @@ public class ThaumcraftMod {
         MENUS.register(modBus);
         SOUND_EVENTS.register(modBus);
         RECIPE_SERIALIZERS.register(modBus);
+        TC4Biomes.register(modBus);
         modBus.addListener(this::onEntityAttributeCreation);
         MinecraftForge.EVENT_BUS.addListener(this::onAddReloadListeners);
         ThaumcraftNetwork.register();
@@ -1453,6 +1467,13 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> focalManipulatorBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new FocalManipulatorBlock(properties));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
+    }
+
+
+    private static RegistryObject<Block> magicalLeavesBlock(String name, TC4MagicalLeavesBlock.Kind kind, BlockBehaviour.Properties properties) {
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new TC4MagicalLeavesBlock(properties, kind));
         ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
@@ -1620,13 +1641,13 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> nodeStabilizerBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new NodeStabilizerBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new NodeStabilizerItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB), false));
         return block;
     }
 
     private static RegistryObject<Block> advancedNodeStabilizerBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new AdvancedNodeStabilizerBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new NodeStabilizerItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB), true));
         return block;
     }
 

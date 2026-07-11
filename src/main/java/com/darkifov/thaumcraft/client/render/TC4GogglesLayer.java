@@ -35,12 +35,17 @@ public final class TC4GogglesLayer extends RenderLayer<AbstractClientPlayer, net
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player,
                        float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack head = player.getItemBySlot(EquipmentSlot.HEAD);
-        if (!head.is(ThaumcraftMod.GOGGLES_OF_REVEALING.get())) {
+        boolean goggles = head.is(ThaumcraftMod.GOGGLES_OF_REVEALING.get());
+        boolean revealingHelmet = head.is(ThaumcraftMod.HELMET_OF_REVEALING.get());
+        if (!goggles && !revealingHelmet) {
             return;
         }
         poseStack.pushPose();
         getParentModel().head.translateAndRotate(poseStack);
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(GOGGLES_TEXTURE));
+        poseStack.translate(0.0D, revealingHelmet ? -0.020D : 0.015D, -0.005D);
+        float equipmentScale = revealingHelmet ? 0.84F : 0.78F;
+        poseStack.scale(equipmentScale, equipmentScale, equipmentScale);
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(GOGGLES_TEXTURE));
         Matrix4f matrix = poseStack.last().pose();
         int light = Math.max(packedLight, 15728880);
 
