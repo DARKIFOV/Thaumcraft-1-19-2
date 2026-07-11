@@ -63,7 +63,7 @@ jobs:
       - name: Build Forge JAR
         run: |
           chmod +x gradlew
-          ./gradlew clean build --stacktrace --no-daemon
+          ./gradlew build --stacktrace --no-daemon
 
       - name: Prepare release bundle
         shell: bash
