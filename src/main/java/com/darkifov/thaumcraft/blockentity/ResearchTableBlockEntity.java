@@ -192,6 +192,15 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         return true;
     }
 
+    /**
+     * TC4 renders the note directly inside GuiResearchTable. This method only
+     * synchronizes the note data; it deliberately does not open a second screen.
+     */
+    public void syncResearchNote(ServerPlayer player) {
+        ThaumcraftNetwork.syncAspectKnowledge(player);
+        ThaumcraftNetwork.syncResearchNote(player, researchNote());
+    }
+
     public boolean openResearchNote(ServerPlayer player) {
         ItemStack note = researchNote();
         if (note.isEmpty()) {

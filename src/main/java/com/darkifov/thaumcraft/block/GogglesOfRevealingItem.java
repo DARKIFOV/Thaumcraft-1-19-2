@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.block;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -20,16 +21,11 @@ import java.util.List;
 /**
  * Forge 1.19.2 adapter for TC4 1.7.10 ItemGoggles.
  * Source of truth: thaumcraft.common.items.armor.ItemGoggles.
- *
- * Original behavior kept here:
- * - durability 350;
- * - 5% vis discount;
- * - acts as IRevealer/IGoggles for node and thaumic popup visibility;
- * - no fake scan, no research unlock side effect, no debug HUD data.
  */
 public class GogglesOfRevealingItem extends ArmorItem {
     public static final int TC4_DURABILITY = 350;
     public static final int VIS_DISCOUNT = 5;
+    private static final String INVISIBLE_ARMOR_TEXTURE = "thaumcraft:textures/models/armor/tc4_empty_layer_1.png";
 
     public GogglesOfRevealingItem(Properties properties) {
         super(ArmorMaterials.GOLD, EquipmentSlot.HEAD, properties.durability(TC4_DURABILITY));
@@ -55,6 +51,12 @@ public class GogglesOfRevealingItem extends ArmorItem {
     @Override
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         // TC4 goggles reveal information; they do not grant research or perform scans by ticking.
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, net.minecraft.world.entity.Entity entity, EquipmentSlot slot, String type) {
+        // TC4 goggles are rendered by TC4GogglesLayer; the vanilla gold helmet model/texture must stay invisible.
+        return INVISIBLE_ARMOR_TEXTURE;
     }
 
     public static boolean showNodes(ItemStack stack, LivingEntity wearer) {

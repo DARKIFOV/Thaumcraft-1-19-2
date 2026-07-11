@@ -1,50 +1,56 @@
-# Thaumcraft Legacy Rebuild — v11.62.26
+# Thaumcraft Legacy Rebuild — v11.62.43
 
-Forge 1.19.2 rebuild of Thaumcraft 4 mechanics, progressed subsystem by subsystem against the supplied TC4 4.2.3.5 source.
+Source-driven port of Thaumcraft 4.2.3.5 to **Minecraft Forge 1.19.2 (43.5.2)** and Java 17.
 
-## Runtime hotfix v11.62.26
+This is a Forge project. It does not use NeoForge or TerraBlender.
 
-- fixed Forge startup failure `Duplicate registration tc4_crystalessence`;
-- the functional essentia crystal now owns the registry id exactly once;
-- the legacy research-item lookup reuses that existing registry object;
-- added a duplicate-registry regression audit before Gradle compilation.
+## v11.62.43 focus
 
-See `REPORT_V11_62_26_DUPLICATE_REGISTRY_RUNTIME_FIX.md`.
+This batch is a strict original-resource and runtime-render audit:
 
-## Current large batch
+- restores the missing original `misc/wispy.png` used by the aura-node wand drain beam;
+- replaces the altered scanner texture with the byte-exact original `models/scanner.png` including its alpha channel;
+- verifies all **940 original TC4 texture files** byte-for-byte in CI;
+- restores the Thaumometer's original alphabetical aspect order and 5/4/3/2/1 layout for up to 15 aspects;
+- removes the non-original fake node sprite from the scanner glass;
+- removes invented energized-size and recently-drained sprite overlays from aura nodes;
+- restores the independent ten-rune sceptre orbit and original animated rune colours;
+- remaps Goggles of Revealing through the original logical 64x32 armor UV net instead of stretched arbitrary atlas strips;
+- binds Thaumonomicon browser and page rendering directly to the canonical original GUI files;
+- locks Research Table and Arcane Workbench slot coordinates to the original 1.7.10 values;
+- audits all **689 item model JSON files**, including hidden compatibility aliases.
 
-**Research Matrix + Thaumonomicon + Infusion Matrix + Deconstruction + Crystalizer + Advanced Furnace Controller Original Parity**:
+Detailed reports:
 
-- persisted randomized research-note seeds;
-- restored TC4 `hexgrid` q/r/type/aspect NBT and legacy note import;
-- restored complexity radius, stable ring anchors with the original unused random-start quirk, and protected blank removal;
-- made paper/ink/note creation transactional;
-- added real 224×196 Thaumonomicon scissor, proportional background and per-category pan memory;
-- fixed accidental research activation while dragging;
-- fixed the Infusion Matrix so crafting can start before all essentia is present;
-- expanded infusion essentia sources to jars, reservoirs, alembics, buffers, centrifuges and advanced furnaces;
-- added the functional Deconstruction Table and original 40-tick primal-knowledge cycle;
-- added the functional Essentia Crystalizer, direct jar/reservoir/alembic/centrifuge/furnace input, aspect crystals, suction, Terra acceleration and item output;
-- ported the Advanced Alchemical Furnace controller power/storage/item-intake core;
-- restored exact Deconstructor and Crystalizer recipes and resolver metadata;
-- added the v11.62.24 source mapping and regression audit.
+- `REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md`
+- `PORT_STATUS_V11_62_43.md`
+- `reports/ITEM_VISUAL_AUDIT_V11_62_43.md`
 
-See `REPORT_V11_62_24_RESEARCH_MATRIX_THAUMONOMICON_INFUSION_MATRIX_MACHINES_ORIGINAL_PARITY.md` for exact behavior, limitations and completion estimates.
+## Local static checks
 
-## Build
-
-GitHub Actions runs all preserved guards and 22 subsystem audits through v11.62.26, then Forge Gradle on Java 17. The playable artifact contains only:
-
-```text
-build/libs/*-github.jar
+```bash
+python3 tools/forge_only_guard.py
+python3 tools/java_syntax_guard.py
+python3 tools/validate_json_resources.py
+python3 tools/visual_parity_guard.py
+python3 tools/research_table_guard.py
+python3 tools/research_table_open_guard.py
+python3 tools/worldgen_guard.py
+python3 tools/feature_cycle_guard.py
+python3 tools/thaumometer_scan_guard.py
+python3 tools/runtime_visual_guard.py
+python3 tools/leaves_wand_table_guard.py
+python3 tools/tc4_original_asset_guard.py
+python3 tools/tc4_runtime_visual_guard.py
+python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
+python3 tools/audit_registry.py --fail-on-unexpected
 ```
 
-Do not place multiple jars of this mod in the same `mods` directory.
+## Forge build
 
-<!-- v11.62.23 compatibility marker: Essentia Transport / Thaumatorium / Alchemical Infrastructure -->
-<!-- v11.62.22 compatibility marker: Golemancy Progression + Infrastructure -->
-<!-- v11.62.21 compatibility marker: Golemancy Core Original Parity -->
-<!-- v11.62.20 compatibility marker: Nine Hells / Pech's Curse -->
-<!-- v11.62.19 compatibility marker: Equal Trade / Portable Hole / Warding / counted clusters -->
-<!-- v11.62.18 compatibility marker: Focus Excavation original parity -->
-<!-- v11.62.2 compatibility marker: integrated-server infinite loading -->
+```bash
+chmod +x gradlew
+./gradlew build --stacktrace --no-daemon
+```
+
+The compiled mod is written to `build/libs/`. Do not use `clean build` in the GitHub workflow and do not place multiple versions of this mod in the same `mods` directory.

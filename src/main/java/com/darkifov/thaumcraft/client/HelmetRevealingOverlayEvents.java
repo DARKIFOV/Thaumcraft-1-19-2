@@ -20,7 +20,11 @@ public final class HelmetRevealingOverlayEvents {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
 
-        if (player == null || minecraft.options.hideGui || minecraft.level == null || !TC4RevealerHudAdapter.isRevealer(player)) {
+        // TC4 keeps Thaumometer scan data on the held scanner glass.  The external
+        // node HUD belongs to goggles/helmet revealers only; drawing both created
+        // the duplicated ring-and-column interface reported in v11.62.31.
+        if (player == null || minecraft.options.hideGui || minecraft.level == null
+                || !TC4RevealerHudAdapter.hasIngamePopupRevealer(player)) {
             return;
         }
 

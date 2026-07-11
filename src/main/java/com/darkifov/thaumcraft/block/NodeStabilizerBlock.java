@@ -1,24 +1,17 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
-import com.darkifov.thaumcraft.porting.TC4Sounds;
-import net.minecraft.ChatFormatting;
+import com.darkifov.thaumcraft.blockentity.NodeStabilizerBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 
-public class NodeStabilizerBlock extends Block {
-    public static final int RANGE = 5;
-    public static final int ADVANCED_RANGE = 8;
-
+public class NodeStabilizerBlock extends BaseEntityBlock {
     public NodeStabilizerBlock(Properties properties) {
         super(properties);
     }
@@ -31,56 +24,42 @@ public class NodeStabilizerBlock extends Block {
         return stabilizerStrength(level, nodePos) >= 2;
     }
 
+    /**
+     * Exact TC4 placement rule: the node must be directly above the stabilizer.
+     * The earlier radius scan let a single block stabilize every node in a large
+     * cube and made the rendered machine unrelated to the node it affected.
+     */
     public static int stabilizerStrength(Level level, BlockPos nodePos) {
-        if (level == null) {
+        if (level == null || nodePos == null) {
             return 0;
         }
-
-        int strength = 0;
-        for (BlockPos pos : BlockPos.betweenClosed(nodePos.offset(-ADVANCED_RANGE, -ADVANCED_RANGE, -ADVANCED_RANGE), nodePos.offset(ADVANCED_RANGE, ADVANCED_RANGE, ADVANCED_RANGE))) {
-            BlockState state = level.getBlockState(pos);
-            if (state.is(ThaumcraftMod.ADVANCED_NODE_STABILIZER.get()) && pos.distSqr(nodePos) <= ADVANCED_RANGE * ADVANCED_RANGE) {
-                strength = Math.max(strength, 2);
-            } else if (state.is(ThaumcraftMod.NODE_STABILIZER.get()) && pos.distSqr(nodePos) <= RANGE * RANGE) {
-                strength = Math.max(strength, 1);
-            }
+        BlockPos stabilizerPos = nodePos.below();
+        if (level.hasNeighborSignal(stabilizerPos)) {
+            return 0;
         }
-
-        return strength;
+        BlockState state = level.getBlockState(stabilizerPos);
+        if (state.is(ThaumcraftMod.ADVANCED_NODE_STABILIZER.get())) {
+            return 2;
+        }
+        return state.is(ThaumcraftMod.NODE_STABILIZER.get()) ? 1 : 0;
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
-        if (!level.isClientSide) {
-            int nodes = 0;
-            int stabilized = 0;
-            int energized = 0;
-            int radius = state.is(ThaumcraftMod.ADVANCED_NODE_STABILIZER.get()) ? ADVANCED_RANGE : RANGE;
-
-            for (BlockPos check : BlockPos.betweenClosed(pos.offset(-radius, -radius, -radius), pos.offset(radius, radius, radius))) {
-                if (level.getBlockEntity(check) instanceof AuraNodeBlockEntity node) {
-                    nodes++;
-                    if (node.isStabilized()) {
-                        stabilized++;
-                    }
-                    if (node.isEnergized()) {
-                        energized++;
-                    }
-                }
-            }
-
-            player.displayClientMessage(
-                    Component.literal((state.is(ThaumcraftMod.ADVANCED_NODE_STABILIZER.get()) ? "Advanced " : "")
-                                    + "Node Stabilizer active. Nodes: " + nodes
-                                    + ", stabilized: " + stabilized
-                                    + ", energized: " + energized)
-                            .withStyle(ChatFormatting.AQUA),
-                    false
-            );
-            level.playSound(null, pos, TC4Sounds.event("hhoff"), SoundSource.BLOCKS, 0.35F, 1.0F);
-        }
-
-        return InteractionResult.sidedSuccess(level.isClientSide);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new NodeStabilizerBlockEntity(pos, state);
     }
+
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
+    }
+
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return level.isClientSide
+                ? createTickerHelper(type, ThaumcraftMod.NODE_STABILIZER_BLOCK_ENTITY.get(), NodeStabilizerBlockEntity::clientTick)
+                : null;
+    }
+
+
 }

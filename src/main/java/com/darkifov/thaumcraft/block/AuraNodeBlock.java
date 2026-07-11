@@ -1,9 +1,5 @@
 package com.darkifov.thaumcraft.block;
 
-import com.mojang.math.Vector3f;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.server.level.ServerLevel;
-import com.darkifov.thaumcraft.aura.AuraNodeScan;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -109,29 +105,9 @@ public class AuraNodeBlock extends BaseEntityBlock {
             return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
-        if (!(stack.is(ThaumcraftMod.THAUMOMETER.get())
-                || stack.is(ThaumcraftMod.GOGGLES_OF_REVEALING.get())
-                || stack.is(ThaumcraftMod.HELMET_OF_REVEALING.get()))) {
-            return InteractionResult.PASS;
-        }
-
-        if (!level.isClientSide()) {
-            node.markScanned();
-            AuraNodeScan.sendScan(player, node);
-
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(new DustParticleOptions(new Vector3f(0.75F, 0.55F, 1.0F), 1.2F),
-                        pos.getX() + 0.5D,
-                        pos.getY() + 0.5D,
-                        pos.getZ() + 0.5D,
-                        12,
-                        0.35D,
-                        0.35D,
-                        0.35D,
-                        0.01D);
-            }
-        }
-
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        // Thaumometer scans must pass through ItemThaumometer's stable 20-tick
+        // target hold. Returning PASS lets the held item receive useOn; revealing
+        // goggles/helmets remain passive and can no longer complete a scan instantly.
+        return InteractionResult.PASS;
     }
 }

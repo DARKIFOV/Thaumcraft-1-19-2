@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "thaumcraft:block/greatwood_leaves"
+  "multipart": [
+    {
+      "apply": {
+        "model": "thaumcraft:block/greatwood_leaves"
+      }
     }
-  }
+  ]
 }

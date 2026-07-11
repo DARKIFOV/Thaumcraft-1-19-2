@@ -23,7 +23,7 @@ public final class ResearchNoteSolver {
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
 
         if (ResearchNoteState.solved(note)) {
-            player.displayClientMessage(Component.literal("This research note is already complete.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.already_complete").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
@@ -33,41 +33,41 @@ public final class ResearchNoteSolver {
         }
 
         if (!PlayerAspectKnowledge.knows(player, aspect)) {
-            player.displayClientMessage(Component.literal("You have not discovered that aspect.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_discovered").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
-        if (!player.getAbilities().instabuild && !ResearchTableInventoryRuntime.hasPoolOrTableBonus(player, aspect)) {
-            player.displayClientMessage(Component.literal("You do not have that aspect in your research pool or table bonus aspects.").withStyle(ChatFormatting.RED), false);
+        if (!ResearchTableInventoryRuntime.hasPoolOrTableBonus(player, aspect)) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_pool").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         boolean placed = ResearchNoteState.place(note, slot, aspect);
 
         if (!placed) {
-            player.displayClientMessage(Component.literal("That hex is missing, fixed, or already filled.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.hex_invalid").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         if (!ResearchTableInventoryRuntime.consumeInkForEdit(player)) {
             ResearchNoteState.clearSlot(note, slot);
-            player.displayClientMessage(Component.literal("Your Scribing Tools are out of ink.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.ink_empty").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
-        if (!player.getAbilities().instabuild && !ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, aspect)) {
+        if (!ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, aspect)) {
             ResearchNoteState.clearSlot(note, slot);
-            player.displayClientMessage(Component.literal("The required aspect was no longer available.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.aspect_unavailable").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         if (ResearchNoteState.isSolvedForPlayer(note, player)) {
             ResearchNoteState.markSolved(note);
-            player.displayClientMessage(Component.literal("Research note complete.").withStyle(ChatFormatting.GOLD), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.note_complete").withStyle(ChatFormatting.GOLD), false);
         } else {
-            player.displayClientMessage(Component.literal("Aspect placed: ")
-                    .withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal(aspect.displayName()).withStyle(style -> style.withColor(aspect.textColor()))), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.aspect_placed",
+                    Component.translatable("aspect.thaumcraft." + aspect.id()).withStyle(style -> style.withColor(aspect.textColor())))
+                    .withStyle(ChatFormatting.GRAY), false);
         }
 
         return true;
@@ -79,7 +79,7 @@ public final class ResearchNoteSolver {
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         if (ResearchNoteState.solved(note)) {
-            player.displayClientMessage(Component.literal("This research note is already complete.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.already_complete").withStyle(ChatFormatting.RED), false);
             return false;
         }
         if (!ResearchTableInventoryRuntime.checkInkForEdit(player)) {
@@ -89,24 +89,26 @@ public final class ResearchNoteSolver {
         Optional<Aspect> removed = ResearchNoteState.clearSlot(note, slot);
 
         if (removed.isEmpty()) {
-            player.displayClientMessage(Component.literal("That research hex cannot be cleared.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.hex_cannot_clear").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         if (!ResearchTableInventoryRuntime.consumeInkForEdit(player)) {
             ResearchNoteState.place(note, slot, removed.get());
-            player.displayClientMessage(Component.literal("Your Scribing Tools are out of ink.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.ink_empty").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         boolean refund = shouldRefundClearedAspect(player);
-        if (!player.getAbilities().instabuild && refund) {
+        if (refund) {
             PlayerAspectKnowledge.addPool(player, removed.get(), 1);
         }
 
-        player.displayClientMessage(Component.literal(refund ? "Aspect returned: " : "Aspect cleared: ")
-                .withStyle(ChatFormatting.GRAY)
-                .append(Component.literal(removed.get().displayName()).withStyle(style -> style.withColor(removed.get().textColor()))), false);
+        player.displayClientMessage(Component.translatable(refund
+                        ? "thaumcraft.message.research.aspect_returned" : "thaumcraft.message.research.aspect_cleared",
+                        Component.translatable("aspect.thaumcraft." + removed.get().id())
+                                .withStyle(style -> style.withColor(removed.get().textColor())))
+                .withStyle(ChatFormatting.GRAY), false);
         return true;
     }
 
@@ -117,19 +119,19 @@ public final class ResearchNoteSolver {
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
 
         if (!ResearchNoteState.hasAllRequired(note)) {
-            player.displayClientMessage(Component.literal("The note is missing its original research anchors.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.anchors_missing").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         boolean solved = ResearchNoteState.isSolvedForPlayer(note, player);
 
         if (!solved) {
-            player.displayClientMessage(Component.literal("The theory is not connected through known original TC4 aspect links yet.").withStyle(ChatFormatting.RED), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_connected").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         ResearchNoteState.markSolved(note);
-        player.displayClientMessage(Component.literal("Theory complete. Right-click the note to convert it into research.").withStyle(ChatFormatting.GOLD), false);
+        player.displayClientMessage(Component.translatable("thaumcraft.message.research.theory_complete").withStyle(ChatFormatting.GOLD), false);
         return true;
     }
 
@@ -143,11 +145,11 @@ public final class ResearchNoteSolver {
         }
         Optional<ResearchEntry> target = OriginalResearchBridge.byKey(ResearchNoteState.target(note));
         if (target.isEmpty()) {
-            player.displayClientMessage(Component.literal("This note is not bound to an original research key.").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_target").withStyle(ChatFormatting.RED), true);
             return false;
         }
         if (!OriginalResearchBridge.canUnlock(player, target.get())) {
-            player.displayClientMessage(Component.literal("The original research prerequisites are not met.").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.prerequisites").withStyle(ChatFormatting.RED), true);
             return false;
         }
         OriginalResearchBridge.unlock(player, target.get());
@@ -158,7 +160,8 @@ public final class ResearchNoteSolver {
             ThaumcraftNetwork.syncResearch(serverPlayer);
             ThaumcraftNetwork.syncAspectKnowledge(serverPlayer);
         }
-        player.displayClientMessage(Component.literal("Research completed: " + target.get().key()).withStyle(ChatFormatting.GOLD), true);
+        player.displayClientMessage(Component.translatable("thaumcraft.message.research.completed",
+                Component.translatable("tc.research_name." + target.get().key())).withStyle(ChatFormatting.GOLD), true);
         return true;
     }
 
@@ -178,8 +181,7 @@ public final class ResearchNoteSolver {
 
     public static Component debugSummary(ItemStack note) {
         Map<Integer, Aspect> slots = ResearchNoteState.slots(note);
-        return Component.literal("Research Note: " + slots.size() + " filled hexes, "
-                + ResearchNoteState.slotTypes(note).size() + " active hexes, progress "
-                + ResearchNoteState.progress(note) + "%");
+        return Component.translatable("thaumcraft.message.research.debug",
+                slots.size(), ResearchNoteState.slotTypes(note).size(), ResearchNoteState.progress(note));
     }
 }

@@ -2,9 +2,12 @@ package com.darkifov.thaumcraft.event;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
+import com.darkifov.thaumcraft.block.ThaumometerItem;
 import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.network.RequestThaumometerScanPacket;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
 import com.darkifov.thaumcraft.research.OriginalResearchProgression;
 import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
 import com.darkifov.thaumcraft.runic.TC4FortressArmorRuntime;
@@ -19,6 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.phys.AABB;
@@ -30,6 +34,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -51,7 +56,7 @@ public final class CommonEvents {
         if (!(event.getChunk() instanceof LevelChunk chunk) || !(chunk.getLevel() instanceof ServerLevel level)) {
             return;
         }
-        TC4WorldgenRuntime.queueNewChunk(level, chunk.getPos());
+        TC4WorldgenRuntime.queueLoadedChunk(level, chunk);
     }
 
     @SubscribeEvent
@@ -93,6 +98,7 @@ public final class CommonEvents {
 
     @SubscribeEvent
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        TC4LegacyDuplicateItemMigrator.migrateJoinedEntity(event.getEntity());
         TC4ChampionModifierRuntime.maybeMakeSpawnChampion(event.getEntity());
     }
 
@@ -107,6 +113,58 @@ public final class CommonEvents {
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
         TC4ChampionModifierRuntime.tick(event.getEntity());
+    }
+
+    /**
+     * Interactive blocks (chests, doors, machines) normally consume right-click
+     * before the held item receives useOn. TC4's Thaumometer must scan them
+     * instead, so deny the block action while explicitly allowing the item path.
+     */
+    @SubscribeEvent
+    public static void onThaumometerRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        net.minecraft.world.item.ItemStack held = event.getEntity().getItemInHand(event.getHand());
+        if (!(held.getItem() instanceof ThaumometerItem thaumometer)) {
+            return;
+        }
+
+        // Do not let a chest/door/machine consume the click. On the logical
+        // client the cancelled Forge event would also suppress vanilla's packet,
+        // so explicitly send the scan request and start the local TC4 animation.
+        event.setUseBlock(Event.Result.DENY);
+        event.setUseItem(Event.Result.DENY);
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        event.setCanceled(true);
+        if (event.getLevel().isClientSide) {
+            thaumometer.beginBlockScan(event.getLevel(), event.getEntity(), event.getHand(), event.getPos());
+            ThaumcraftNetwork.CHANNEL.sendToServer(
+                    RequestThaumometerScanPacket.block(event.getHand(), event.getPos()));
+        }
+    }
+
+    /** Prevent precise interact-at hooks from consuming the click before the scan. */
+    @SubscribeEvent
+    public static void onThaumometerEntityInteractSpecific(PlayerInteractEvent.EntityInteractSpecific event) {
+        startThaumometerEntityScan(event, event.getTarget());
+    }
+
+    /** Prevent villager/mob interaction from replacing a Thaumometer scan. */
+    @SubscribeEvent
+    public static void onThaumometerEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        startThaumometerEntityScan(event, event.getTarget());
+    }
+
+    private static void startThaumometerEntityScan(PlayerInteractEvent event, net.minecraft.world.entity.Entity target) {
+        net.minecraft.world.item.ItemStack held = event.getEntity().getItemInHand(event.getHand());
+        if (!(held.getItem() instanceof ThaumometerItem thaumometer)) {
+            return;
+        }
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        event.setCanceled(true);
+        if (event.getLevel().isClientSide && target != null) {
+            thaumometer.beginEntityScan(event.getLevel(), event.getEntity(), event.getHand(), target);
+            ThaumcraftNetwork.CHANNEL.sendToServer(
+                    RequestThaumometerScanPacket.entity(event.getHand(), target.getId()));
+        }
     }
 
     @SubscribeEvent
@@ -134,8 +192,11 @@ public final class CommonEvents {
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
+            TC4LegacyDuplicateItemMigrator.migratePlayerInventory(player);
             OriginalResearchProgression.seedAutoUnlocks(player);
             ThaumcraftNetwork.syncResearch(player);
+            ThaumcraftNetwork.syncAspectKnowledge(player);
+            ThaumcraftNetwork.syncScanKnowledge(player);
         }
     }
 
@@ -150,9 +211,13 @@ public final class CommonEvents {
         if (event.getEntity() instanceof ServerPlayer player && event.getOriginal() instanceof ServerPlayer oldPlayer) {
             PlayerThaumData.copyFrom(oldPlayer, player);
             ThaumcraftNetwork.syncResearch(player);
+            ThaumcraftNetwork.syncAspectKnowledge(player);
+            ThaumcraftNetwork.syncScanKnowledge(player);
         } else if (event.getEntity() instanceof ServerPlayer player) {
             OriginalResearchProgression.seedAutoUnlocks(player);
             ThaumcraftNetwork.syncResearch(player);
+            ThaumcraftNetwork.syncAspectKnowledge(player);
+            ThaumcraftNetwork.syncScanKnowledge(player);
         }
 
         event.getOriginal().invalidateCaps();
@@ -163,6 +228,8 @@ public final class CommonEvents {
         if (event.getEntity() instanceof ServerPlayer player) {
             OriginalResearchProgression.seedAutoUnlocks(player);
             ThaumcraftNetwork.syncResearch(player);
+            ThaumcraftNetwork.syncAspectKnowledge(player);
+            ThaumcraftNetwork.syncScanKnowledge(player);
         }
     }
 }

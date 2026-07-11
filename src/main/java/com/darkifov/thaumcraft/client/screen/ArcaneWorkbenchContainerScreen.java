@@ -28,15 +28,6 @@ import java.util.List;
  * output in the previous rebuild.
  */
 public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-    private static final int[][] ORIGINAL_ASPECT_LOCS = new int[][]{
-            {72, 21},
-            {24, 43},
-            {24, 102},
-            {72, 124},
-            {120, 102},
-            {120, 43}
-    };
-
     public ArcaneWorkbenchContainerScreen(ArcaneWorkbenchMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         imageWidth = TC4ArcaneWorkbenchParity.GUI_WIDTH;
@@ -46,6 +37,12 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
 
     @Override
     protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
+        // Original GuiArcaneWorkbench explicitly enabled blending around the
+        // complete 190x234 source blit. This matters for the soft transparent
+        // edge pixels in the frame and prevents the modern black fringe.
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         OriginalGuiTextures.blitOriginalRegion(
                 poseStack,
                 leftPos,
@@ -58,6 +55,7 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
                 256,
                 256
         );
+        RenderSystem.disableBlend();
     }
 
     @Override
@@ -94,17 +92,15 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
             boolean enough = wand.getItem() instanceof WandItem
                     && (WandItem.hasInfiniteVis(wand) || WandItem.getVis(wand, aspect) >= amount);
             float alpha = enough ? 1.0F : 0.3F + Mth.sin((ticks + i * 10) / 2.0F) * 0.2F;
-            int x = leftPos + ORIGINAL_ASPECT_LOCS[i][0] - 8;
-            int y = topPos + ORIGINAL_ASPECT_LOCS[i][1] - 8;
+            int x = leftPos + TC4ArcaneWorkbenchParity.ASPECT_LOCS[i][0] - 8;
+            int y = topPos + TC4ArcaneWorkbenchParity.ASPECT_LOCS[i][1] - 8;
             ResourceLocation texture = new ResourceLocation(
                     ThaumcraftMod.MOD_ID,
                     "textures/aspects/" + aspect.id() + ".png"
             );
 
-            RenderSystem.enableBlend();
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, Mth.clamp(alpha, 0.1F, 1.0F));
-            OriginalGuiTextures.blitOriginal(poseStack, x, y, texture, 16, 16);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            OriginalGuiTextures.blitOriginalTintedAlpha(poseStack, x, y, texture, 16, 16,
+                    aspect.nativeColor(), Mth.clamp(alpha, 0.1F, 1.0F));
 
             int textColor = enough ? 0xFFFFFF : 0x9A6A62;
             drawString(poseStack, font, Component.literal(WandItem.formatVis(amount)), x + 11, y + 9, textColor);
@@ -140,6 +136,7 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
         itemRenderer.renderAndDecorateItem(ghost, x, y);
         itemRenderer.renderGuiItemDecorations(font, ghost, x, y);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.disableBlend();
 
         poseStack.pushPose();
         poseStack.translate(leftPos + 168.0F, topPos + 46.0F, 300.0F);
@@ -193,14 +190,6 @@ public class ArcaneWorkbenchContainerScreen extends AbstractContainerScreen<Arca
     }
 
     private Aspect aspectAtOriginalArcaneLoc(int mouseX, int mouseY) {
-        for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
-            int x = ORIGINAL_ASPECT_LOCS[i][0] - TC4ArcaneWorkbenchParity.ASPECT_HOVER_RADIUS;
-            int y = ORIGINAL_ASPECT_LOCS[i][1] - TC4ArcaneWorkbenchParity.ASPECT_HOVER_RADIUS;
-            if (mouseX >= x && mouseX < x + TC4ArcaneWorkbenchParity.ASPECT_ICON_SIZE
-                    && mouseY >= y && mouseY < y + TC4ArcaneWorkbenchParity.ASPECT_ICON_SIZE) {
-                return TC4ArcaneWorkbenchParity.PRIMALS[i];
-            }
-        }
-        return null;
+        return TC4ArcaneWorkbenchParity.aspectAt(mouseX, mouseY);
     }
 }

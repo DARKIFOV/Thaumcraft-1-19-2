@@ -36,6 +36,10 @@ public enum AuraNodeModifier {
         return displayName;
     }
 
+    public String translationKey() {
+        return "thaumcraft.node.modifier." + name().toLowerCase(Locale.ROOT);
+    }
+
     public static AuraNodeModifier fromName(String value) {
         if (value == null || value.isBlank()) {
             return NORMAL;

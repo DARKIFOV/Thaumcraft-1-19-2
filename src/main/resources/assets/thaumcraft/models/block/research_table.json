@@ -1,18 +1,5 @@
 {
   "textures": {
-    "top": "thaumcraft:block/tc4/tablequill",
-    "wood": "thaumcraft:block/table",
     "particle": "thaumcraft:block/research_table_top"
-  },
-  "elements": [
-    { "from": [1, 13, 1], "to": [15, 16, 15], "faces": {
-      "down": { "texture": "#wood" }, "up": { "texture": "#top" },
-      "north": { "texture": "#wood" }, "south": { "texture": "#wood" },
-      "west": { "texture": "#wood" }, "east": { "texture": "#wood" }
-    }},
-    { "from": [2, 0, 2], "to": [5, 13, 5], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }},
-    { "from": [11, 0, 2], "to": [14, 13, 5], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }},
-    { "from": [2, 0, 11], "to": [5, 13, 14], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }},
-    { "from": [11, 0, 11], "to": [14, 13, 14], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }}
-  ]
+  }
 }

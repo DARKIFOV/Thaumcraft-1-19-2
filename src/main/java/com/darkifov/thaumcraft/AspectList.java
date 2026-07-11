@@ -163,7 +163,7 @@ public class AspectList {
 
     public MutableComponent toComponent() {
         if (aspects.isEmpty()) {
-            return Component.literal("No aspects detected");
+            return Component.translatable("thaumcraft.aspect.none");
         }
 
         MutableComponent result = Component.literal("");
@@ -178,7 +178,9 @@ public class AspectList {
             Aspect aspect = entry.getKey();
             int amount = entry.getValue();
 
-            result.append(Component.literal(aspect.displayName() + " " + amount).withStyle(style -> style.withColor(aspect.textColor())));
+            result.append(Component.translatable("thaumcraft.aspect.amount",
+                    Component.translatable("aspect.thaumcraft." + aspect.id()), amount)
+                    .withStyle(style -> style.withColor(aspect.textColor())));
             first = false;
         }
 

@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
@@ -59,9 +60,10 @@ public final class TC4TreeGenerator {
         generateGreatwoodPassLikeTC4(level, tc4Base, heightLimit, 1.38D, random);
         makeGreatwoodButtressRootsLikeTC4(level, tc4Base, random);
         makeGreatwoodCrownCapLikeTC4(level, tc4Base.above(trunkHeight + 1), random);
+        makeGreatwoodContinuousCanopy(level, tc4Base.above(trunkHeight), random);
 
         if (worldgen && random.nextInt(8) == 0) {
-            webGreatwoodNest(level, base, random);
+            webGreatwoodNest(level, tc4Base, random);
         }
         return true;
     }
@@ -80,10 +82,10 @@ public final class TC4TreeGenerator {
         boolean lastNode = false;
         for (int y = 0; y < height; y++) {
             BlockPos trunk = base.above(y);
-            if (worldgen && y > 0 && !lastNode && random.nextInt(nodeChance) == 0) {
+            if (y > 0 && !lastNode && random.nextInt(nodeChance) == 0) {
                 // TC4 writes a special silverwood log metadata and creates a random node at that trunk height.
                 // In 1.19.2 this port has a standalone Aura Node block, so place it inside the same trunk column
-                // only when the original chance fires, not unconditionally for every worldgen silverwood.
+                // only when the original chance fires. TC4 applies this to both worldgen and sapling-grown silverwood.
                 placeSilverwoodNode(level, trunk, random);
                 nodeChance += height;
                 lastNode = true;
@@ -91,27 +93,17 @@ public final class TC4TreeGenerator {
                 setReplaceableLog(level, trunk, log, Axis.Y);
                 lastNode = false;
             }
-            // v9.02 audit compatibility tokens after v10.42 axis rewrite:
-        // setReplaceable(level, trunk.west(), log)
-        // setReplaceable(level, trunk.east(), log)
-        // setReplaceable(level, trunk.north(), log)
-        // setReplaceable(level, trunk.south(), log)
-        // setReplaceable(level, base.offset(-2, -1, 0), log)
-        // setReplaceable(level, base.offset(2, -1, 0), log)
-        // setReplaceable(level, base.offset(0, -1, -2), log)
-        // setReplaceable(level, base.offset(0, -1, 2), log)
-        // setReplaceable(level, base.offset(-2, top, 0), log)
-        // setReplaceable(level, base.offset(2, top, 0), log)
-        // setReplaceable(level, base.offset(0, top, -2), log)
-        // setReplaceable(level, base.offset(0, top, 2), log)
-        // v10.42: Silverwood's cardinal side logs are horizontal in TC4
-            // metadata terms, not anonymous full-cube logs. Map that to modern
-            // RotatedPillarBlock AXIS while keeping the same block/item ids.
-            setReplaceableLog(level, trunk.west(), log, Axis.X);
-            setReplaceableLog(level, trunk.east(), log, Axis.X);
-            setReplaceableLog(level, trunk.north(), log, Axis.Z);
-            setReplaceableLog(level, trunk.south(), log, Axis.Z);
+            // Direct WorldGenSilverwoodTrees parity: TC4 places the four
+            // cardinal silverwood logs at every trunk level, forming its
+            // characteristic pale cross-shaped trunk rather than a vanilla
+            // single-log tree.
+            setReplaceableLog(level, trunk.west(), log, Axis.Y);
+            setReplaceableLog(level, trunk.east(), log, Axis.Y);
+            setReplaceableLog(level, trunk.north(), log, Axis.Y);
+            setReplaceableLog(level, trunk.south(), log, Axis.Y);
         }
+
+        setReplaceableLog(level, base.above(height), log, Axis.Y);
 
         // TC4 silverwood has lower diagonal buttress logs, side roots, and a smaller top flare.
         setReplaceableLog(level, base.offset(-1, 0, -1), log, Axis.X);
@@ -363,8 +355,9 @@ public final class TC4TreeGenerator {
     }
 
     private static void generateGreatwoodLeafNodeLikeTC4(ServerLevel level, BlockPos base, BlockState leaves) {
+        float[] radii = {1.45F, 2.15F, 2.15F, 1.45F};
         for (int dy = 0; dy < GREATWOOD_LEAF_DISTANCE_LIMIT; dy++) {
-            genGreatwoodTreeLayerLikeTC4(level, base.above(dy), 2.0F, leaves);
+            genGreatwoodTreeLayerLikeTC4(level, base.above(dy), radii[dy], leaves);
         }
     }
 
@@ -419,6 +412,30 @@ public final class TC4TreeGenerator {
         genGreatwoodTreeLayerLikeTC4(level, crownCenter.above(), 2.0F, leaves);
         if (random.nextBoolean()) {
             genGreatwoodTreeLayerLikeTC4(level, crownCenter.above(2), 1.4F, leaves);
+        }
+    }
+
+
+    /**
+     * v11.62.28 visual repair: fills the gaps between TC4-style branch leaf nodes
+     * so the crown reads as one broad greatwood canopy instead of disconnected
+     * cubes and exposed branch stubs.
+     */
+    private static void makeGreatwoodContinuousCanopy(ServerLevel level, BlockPos center, RandomSource random) {
+        BlockState leaves = ThaumcraftMod.GREATWOOD_LEAVES.get().defaultBlockState();
+        int[] radii = {3, 4, 5, 5, 4, 3, 2};
+        for (int layer = 0; layer < radii.length; layer++) {
+            int radius = radii[layer];
+            int y = layer - 2;
+            for (int dx = -radius; dx <= radius + 1; dx++) {
+                for (int dz = -radius; dz <= radius + 1; dz++) {
+                    double cx = dx - 0.5D;
+                    double cz = dz - 0.5D;
+                    if (cx * cx + cz * cz <= radius * radius + random.nextFloat() * 1.3D) {
+                        setLeaves(level, center.offset(dx, y, dz), leaves);
+                    }
+                }
+            }
         }
     }
 
@@ -490,16 +507,16 @@ public final class TC4TreeGenerator {
 
     private static void makeSilverwoodCrownLikeTC4(ServerLevel level, BlockPos base, int height, RandomSource random) {
         BlockState leaves = ThaumcraftMod.SILVERWOOD_LEAVES.get().defaultBlockState();
-        int start = height - 5;
-        int end = height + 3 + random.nextInt(3);
-        for (int y = start; y <= end; y++) {
-            int clampedY = Math.max(height - 3, Math.min(y, height));
+        int startY = height - 5;
+        int endY = height + 3 + random.nextInt(3);
+        for (int relY = startY; relY <= endY; relY++) {
+            int centerY = Mth.clamp(relY, height - 3, height);
             for (int dx = -5; dx <= 5; dx++) {
                 for (int dz = -5; dz <= 5; dz++) {
-                    double dy = y - clampedY;
-                    double dist = dx * dx + dy * dy + dz * dz;
-                    if (dist < 10 + random.nextInt(8)) {
-                        setLeaves(level, base.offset(dx, y, dz), leaves);
+                    double dy = relY - centerY;
+                    double distance = dx * dx + dy * dy + dz * dz;
+                    if (distance < 10 + random.nextInt(8)) {
+                        setLeaves(level, base.offset(dx, relY, dz), leaves);
                     }
                 }
             }

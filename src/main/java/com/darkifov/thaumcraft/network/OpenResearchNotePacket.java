@@ -1,8 +1,9 @@
 package com.darkifov.thaumcraft.network;
 
-import com.darkifov.thaumcraft.client.screen.ResearchNoteScreen;
-import net.minecraft.client.Minecraft;
+import com.darkifov.thaumcraft.client.ClientHooks;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -20,7 +21,9 @@ public class OpenResearchNotePacket {
 
     public static void handle(OpenResearchNotePacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> Minecraft.getInstance().setScreen(new ResearchNoteScreen()));
+        context.enqueueWork(() ->
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ClientHooks::openResearchNote)
+        );
         context.setPacketHandled(true);
     }
 }

@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
  */
 public final class AlchemicalCentrifugeRenderer implements BlockEntityRenderer<AlchemicalCentrifugeBlockEntity> {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/centrifuge.png");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/block/alchemical_furnace.png");
 
     public AlchemicalCentrifugeRenderer(BlockEntityRendererProvider.Context context) {
     }

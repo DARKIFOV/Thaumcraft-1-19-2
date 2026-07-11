@@ -153,6 +153,9 @@ public class ArcaneRecipeSyncPacket {
     }
 
     private static String displayName(ResourceLocation id) {
+        if (ArcaneWorkbenchRecipe.isTagIngredient(id)) {
+            return ArcaneWorkbenchRecipe.ingredientText(id);
+        }
         Item item = ForgeRegistries.ITEMS.getValue(id);
 
         if (item == null) {

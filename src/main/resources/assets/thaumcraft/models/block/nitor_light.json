@@ -3,5 +3,8 @@
   "textures": {
     "cross": "thaumcraft:item/nitor",
     "particle": "thaumcraft:item/nitor"
+  },
+  "legacy_audit": {
+    "cross": "thaumcraft:item/nitor"
   }
 }

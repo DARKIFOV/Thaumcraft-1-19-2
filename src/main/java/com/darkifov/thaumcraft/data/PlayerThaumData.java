@@ -26,6 +26,7 @@ public final class PlayerThaumData {
     private static final String SCANNED_OBJECTS = "ScannedObjects";
     private static final String SCANNED_ENTITIES = "ScannedEntities";
     private static final String SCANNED_ASPECTS = "ScannedAspects";
+    private static final String OUTER_RETURN_POS = "OuterReturnPos";
 
     private PlayerThaumData() {
     }
@@ -43,6 +44,18 @@ public final class PlayerThaumData {
     public static void copyFrom(Player from, Player to) {
         CompoundTag fromRoot = root(from);
         to.getPersistentData().put(ROOT, fromRoot.copy());
+    }
+
+    public static void setOuterLandsReturnPos(Player player, long position) {
+        root(player).putLong(OUTER_RETURN_POS, position);
+    }
+
+    public static boolean hasOuterLandsReturnPos(Player player) {
+        return root(player).contains(OUTER_RETURN_POS);
+    }
+
+    public static long getOuterLandsReturnPos(Player player) {
+        return root(player).getLong(OUTER_RETURN_POS);
     }
 
     /**

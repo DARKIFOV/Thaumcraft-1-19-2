@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.eldritch;
 
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.Level;
  */
 public final class TC4OuterLandsDimensionAdapter {
     public static final ResourceLocation OUTER_LANDS_ID = new ResourceLocation("thaumcraft", "outer_lands");
+    public static final ResourceKey<Level> OUTER_LANDS = ResourceKey.create(Registry.DIMENSION_REGISTRY, OUTER_LANDS_ID);
     public static final ResourceLocation ELDRITCH_ID = new ResourceLocation("thaumcraft", "eldritch");
     public static final int ORIGINAL_ROOM_Y = 50;
     public static final int ORIGINAL_CELL_SIZE = 16;

@@ -5,6 +5,7 @@ import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipes;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.research.ResearchNoteState;
+import com.darkifov.thaumcraft.research.ResearchNoteGrid;
 import com.darkifov.thaumcraft.Aspect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
@@ -49,6 +50,22 @@ public final class ThaumcraftNetwork {
                 AspectKnowledgeSyncPacket::encode,
                 AspectKnowledgeSyncPacket::decode,
                 AspectKnowledgeSyncPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                ScanKnowledgeSyncPacket.class,
+                ScanKnowledgeSyncPacket::encode,
+                ScanKnowledgeSyncPacket::decode,
+                ScanKnowledgeSyncPacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
+                RequestThaumometerScanPacket.class,
+                RequestThaumometerScanPacket::encode,
+                RequestThaumometerScanPacket::decode,
+                RequestThaumometerScanPacket::handle
         );
 
         CHANNEL.registerMessage(
@@ -426,17 +443,22 @@ public final class ThaumcraftNetwork {
         );
     }
 
+    public static void syncScanKnowledge(ServerPlayer player) {
+        CHANNEL.send(
+                PacketDistributor.PLAYER.with(() -> player),
+                new ScanKnowledgeSyncPacket(
+                        PlayerThaumData.getScannedObjects(player),
+                        PlayerThaumData.getScannedEntities(player),
+                        com.darkifov.thaumcraft.data.NodeScanData.getScannedNodeKeys(player)
+                )
+        );
+    }
+
     public static void syncArcaneRecipes(ServerPlayer player) {
         CHANNEL.send(
                 PacketDistributor.PLAYER.with(() -> player),
                 ArcaneRecipeSyncPacket.fromRecipes(ArcaneWorkbenchRecipes.recipes())
         );
-    }
-
-    public static void openResearchTable(ServerPlayer player) {
-        syncResearch(player);
-        syncAspectKnowledge(player);
-        CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new OpenResearchTablePacket());
     }
 
     public static void requestUnlockFromClient() {
@@ -460,6 +482,16 @@ public final class ThaumcraftNetwork {
     }
 
     public static void syncResearchNote(ServerPlayer player, net.minecraft.world.item.ItemStack note) {
+        if (player == null) {
+            return;
+        }
+        if (note == null || note.isEmpty()) {
+            CHANNEL.send(
+                    PacketDistributor.PLAYER.with(() -> player),
+                    new ResearchNoteSyncPacket("", 0, false, ResearchNoteGrid.MIN_RADIUS, Map.of(), Map.of())
+            );
+            return;
+        }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         Map<Integer, String> slots = new LinkedHashMap<>();
         Map<Integer, Integer> types = new LinkedHashMap<>();

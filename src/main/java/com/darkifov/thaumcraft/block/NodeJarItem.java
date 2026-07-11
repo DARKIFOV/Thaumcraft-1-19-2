@@ -4,6 +4,9 @@ import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.aura.TC4NodeJarRuntime;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
+import com.darkifov.thaumcraft.client.render.NodeJarItemRenderer;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -20,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Stage132: TC4 Node in a Jar port.
@@ -30,6 +34,17 @@ import java.util.List;
 public class NodeJarItem extends Item {
     public NodeJarItem(Properties properties) {
         super(properties);
+    }
+
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return NodeJarItemRenderer.instance();
+            }
+        });
     }
 
     @Override
@@ -53,8 +68,9 @@ public class NodeJarItem extends Item {
             root.put(TC4NodeJarRuntime.TAG_NODE_JAR, nodeTag);
             level.removeBlock(clicked, false);
             level.playSound(null, clicked, TC4Sounds.event("jar"), SoundSource.BLOCKS, 0.85F, 0.9F);
-            player.displayClientMessage(Component.literal("Aura node preserved in jar: "
-                    + nodeTag.getString("NodeType") + " / " + nodeTag.getString("NodeModifier"))
+            player.displayClientMessage(Component.translatable("thaumcraft.nodejar.captured",
+                    Component.translatable("thaumcraft.node.type." + nodeTag.getString("NodeType").toLowerCase(java.util.Locale.ROOT)),
+                    Component.translatable("thaumcraft.node.modifier." + nodeTag.getString("NodeModifier").toLowerCase(java.util.Locale.ROOT)))
                     .withStyle(ChatFormatting.AQUA), true);
             return InteractionResult.CONSUME;
         }
@@ -74,7 +90,7 @@ public class NodeJarItem extends Item {
                 node.initializeFromJarTag(root.getCompound(TC4NodeJarRuntime.TAG_NODE_JAR));
             }
             level.playSound(null, placePos, TC4Sounds.event("jar"), SoundSource.BLOCKS, 0.9F, 1.15F);
-            player.displayClientMessage(Component.literal("Aura node released from jar.").withStyle(ChatFormatting.LIGHT_PURPLE), true);
+            player.displayClientMessage(Component.translatable("thaumcraft.nodejar.released").withStyle(ChatFormatting.LIGHT_PURPLE), true);
             if (!player.getAbilities().instabuild) {
                 root.remove(TC4NodeJarRuntime.TAG_NODE_JAR);
             }
@@ -88,16 +104,18 @@ public class NodeJarItem extends Item {
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         CompoundTag tag = stack.getTag();
         if (tag == null || !tag.contains(TC4NodeJarRuntime.TAG_NODE_JAR)) {
-            tooltip.add(Component.literal("Empty node jar").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("Use on an Aura Node to preserve it.").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("thaumcraft.nodejar.empty").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("thaumcraft.nodejar.empty_hint").withStyle(ChatFormatting.DARK_GRAY));
             return;
         }
 
         CompoundTag nodeTag = tag.getCompound(TC4NodeJarRuntime.TAG_NODE_JAR);
         AspectList aspects = new AspectList();
         aspects.load(nodeTag.getCompound("Aspects"));
-        tooltip.add(Component.literal("Contains: " + nodeTag.getString("NodeType") + " / " + nodeTag.getString("NodeModifier")).withStyle(ChatFormatting.AQUA));
-        tooltip.add(Component.literal("Stability: " + nodeTag.getInt("Stability") + "%, preservation: " + nodeTag.getInt("PreservationPercent") + "%").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("thaumcraft.nodejar.contains",
+                Component.translatable("thaumcraft.node.type." + nodeTag.getString("NodeType").toLowerCase(java.util.Locale.ROOT)),
+                Component.translatable("thaumcraft.node.modifier." + nodeTag.getString("NodeModifier").toLowerCase(java.util.Locale.ROOT))).withStyle(ChatFormatting.AQUA));
+        tooltip.add(Component.translatable("thaumcraft.nodejar.stability", nodeTag.getInt("Stability"), nodeTag.getInt("PreservationPercent")).withStyle(ChatFormatting.GRAY));
         tooltip.add(aspects.toComponent().withStyle(ChatFormatting.DARK_GRAY));
     }
 }

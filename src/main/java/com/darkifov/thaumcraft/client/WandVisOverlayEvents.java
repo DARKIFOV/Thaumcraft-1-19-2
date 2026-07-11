@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -38,6 +39,9 @@ public final class WandVisOverlayEvents {
 
     @SubscribeEvent
     public static void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
+        if (event.getOverlay() != VanillaGuiOverlay.HOTBAR.type()) {
+            return;
+        }
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.options.hideGui || minecraft.screen != null) {
             return;
@@ -71,8 +75,10 @@ public final class WandVisOverlayEvents {
         RenderSystem.setShaderTexture(0, TC4AuraNodeHudParity.ORIGINAL_HUD);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
+        int hudX = 8;
+        int hudY = Math.max(8, minecraft.getWindow().getGuiScaledHeight() - 70);
         poseStack.pushPose();
-        poseStack.translate(0.0D, 0.0D, 200.0D);
+        poseStack.translate(hudX, hudY, 200.0D);
         poseStack.pushPose();
         poseStack.scale(0.5F, 0.5F, 1.0F);
         GuiComponent.blit(poseStack, 0, 0, 0, 0, 64, 64, 256, 256);
@@ -129,6 +135,21 @@ public final class WandVisOverlayEvents {
             poseStack.popPose();
         }
         poseStack.popPose();
+
+        if (minecraft.player.isShiftKeyDown()) {
+            int total = 0;
+            for (Aspect aspect : primals) {
+                total += Math.max(0, WandItem.getVis(wandStack, aspect));
+            }
+            minecraft.font.draw(poseStack,
+                    Component.translatable("thaumcraft.hud.wand.vis", WandItem.formatVis(total), WandItem.formatVis(capacity * primals.length)),
+                    hudX + 36.0F, hudY + 12.0F, 0xFFFFFFFF);
+            if (focus != null) {
+                minecraft.font.draw(poseStack,
+                        Component.translatable("thaumcraft.hud.wand.focus", Component.translatable(focus.translationKey())),
+                        hudX + 36.0F, hudY + 23.0F, 0xFFE6D5FF);
+            }
+        }
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();

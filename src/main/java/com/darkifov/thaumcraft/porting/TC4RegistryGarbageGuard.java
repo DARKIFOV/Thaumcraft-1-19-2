@@ -1,9 +1,11 @@
 package com.darkifov.thaumcraft.porting;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -21,10 +23,8 @@ public final class TC4RegistryGarbageGuard {
             "tc4_focus", "tc4_focus_fire", "tc4_focus_frost", "tc4_focus_shock", "tc4_focus_excavation",
             "tc4_focus_trade", "tc4_focus_portablehole", "tc4_focus_warding", "tc4_focus_primal",
             "tc4_focuspouch", "tc4_focuspouchbauble", "tc4_gogglesrevealing", "tc4_block_mnemonic_matrix",
+            "aura_node", // Original TC4 nodes have no ordinary player-facing block item; this one used a debug icon.
             "addon_completion_ledger", "porting_ledger", "avaritia_creative_wand", "pech_ledger",
-            "iron_wand_cap", "gold_wand_cap", "thaumium_wand_cap",
-            "wooden_wand_core", "greatwood_wand_core", "silverwood_wand_core",
-            "greatwood_wand", "silverwood_wand",
             "pech_trade_tier_1", "pech_trade_tier_2", "pech_trade_tier_3", "pech_trade_tier_4", "pech_trade_tier_5",
             "vitreus_shard", "metallum_shard", "praecantatio_shard", "vacuos_shard", "herba_shard", "lux_shard", "potentia_shard",
             "spellbinding_cloth", "osmotic_enchantment_focus", "tt_research_stamp", "transvector_binder",
@@ -38,14 +38,21 @@ public final class TC4RegistryGarbageGuard {
             "digital_essentia_cell_1k", "digital_essentia_cell_4k", "digital_essentia_cell_16k", "digital_essentia_cell_64k", "creative_essentia_cell",
             "essentia_cell_casing", "focus_ae_wrench", "knowledge_core", "coalescence_core", "diffusion_core", "iron_gear", "crafting_aspect",
             "thaumic_grid_tool", "thaumic_crafting_cpu_core", "thaumic_channel_core",
-            "focus_blink", "focus_arrow", "focus_heal", "focus_speed", "focus_pech_summon", "focus_experience", "focus_return", "focus_exchange", "focus_smelting", "focus_dispel", "focus_destroy", "focus_freeze"
+            "focus_blink", "focus_arrow", "focus_heal", "focus_speed", "focus_pech_summon", "focus_experience", "focus_return", "focus_exchange", "focus_smelting", "focus_dispel", "focus_destroy", "focus_freeze",
+            "tc4_nitor", "tc4_alumentum", "tc4_amber", "tc4_quicksilver", "tc4_tallow", "tc4_void_seed",
+            "tc4_taint_slime", "tc4_brain", "tc4_mirrorglass", "tc4_fabric", "tc4_nugget_thaumium", "tc4_nugget_void",
+            "tc4_thaumonomicon", "tc4_thaumonomiconcheat", "tc4_researchnotes", "tc4_golem_upgrade_air", "tc4_golem_upgrade_earth", "tc4_golem_upgrade_fire",
+            "tc4_golem_upgrade_water", "tc4_golem_upgrade_order", "tc4_golem_upgrade_entropy",
+            "golem_task_marker", "golem_filter"
     );
 
     public static final Set<String> PREFIXES = Set.of(
             "tt_", "tce_", "extras_", "thaumic_me_", "arcane_pattern_", "arcane_crafting_terminal", "essentia_import_bus", "essentia_export_bus",
             "essentia_interface", "essentia_terminal", "essentia_provider", "essentia_storage_bus", "essentia_level_emitter", "essentia_vibration_chamber",
-            "essentia_conversion_monitor", "essentia_storage_monitor", "essentia_cell_workbench", "infusion_provider", "matrix_accelerator", "matrix_stabilizer",
-            "knowledge_inscriber", "distillation_pattern_encoder", "golem_gear_box", "gear_box", "osmotic_enchanter"
+            "essentia_conversion_monitor", "essentia_storage_monitor", "essentia_cell_workbench", "infusion_provider",
+            "knowledge_inscriber", "distillation_pattern_encoder", "golem_gear_box", "gear_box", "osmotic_enchanter",
+            "tc4_block_", "tc4_wand_cap_", "tc4_wand_rod_", "tc4_staff_rod_", "tc4_shard_", "tc4_cluster",
+            "tc4_cultist", "tc4_golemdeco"
     );
 
     private TC4RegistryGarbageGuard() {
@@ -70,6 +77,12 @@ public final class TC4RegistryGarbageGuard {
         if (EXACT.contains(id)) {
             return true;
         }
+        // Every tc4_* entry is a migration alias or a reconstruction-era
+        // placeholder. Keep it registered for old saves, but never expose it as
+        // a second player-facing item even when a canonical id is temporarily absent.
+        if (id.startsWith("tc4_") && id.length() > 4) {
+            return true;
+        }
         for (String prefix : PREFIXES) {
             if (id.startsWith(prefix)) {
                 return true;
@@ -84,5 +97,22 @@ public final class TC4RegistryGarbageGuard {
         }
         ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
         return key != null && "thaumcraft".equals(key.getNamespace()) && isQuarantinedId(key.getPath());
+    }
+
+    /** Removes quarantined aliases and exact duplicate stack variants from the tab. */
+    public static void filterCreativeItems(NonNullList<ItemStack> items) {
+        Set<String> seen = new HashSet<>();
+        items.removeIf(stack -> {
+            if (isHiddenFromCreative(stack)) {
+                return true;
+            }
+            ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
+            if (key == null) {
+                return false;
+            }
+            String tag = stack.hasTag() ? stack.getTag().toString() : "";
+            String signature = key + "|" + stack.getDamageValue() + "|" + tag;
+            return !seen.add(signature);
+        });
     }
 }

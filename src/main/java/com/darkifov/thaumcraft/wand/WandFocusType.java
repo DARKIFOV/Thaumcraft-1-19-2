@@ -55,6 +55,10 @@ public enum WandFocusType {
         return displayName;
     }
 
+    public String translationKey() {
+        return "thaumcraft.focus." + id;
+    }
+
     public String texture() {
         return texture;
     }

@@ -70,7 +70,11 @@ public class CrucibleBlock extends BaseEntityBlock {
 
         if (held.isEmpty()) {
             player.displayClientMessage(
-                    Component.literal("Crucible | " + crucible.statusText())
+                    Component.translatable("thaumcraft.crucible.status",
+                                    Component.translatable("thaumcraft.crucible.status_values",
+                                            crucible.waterLevel(), crucible.temperature(), crucible.lastHeated(),
+                                            crucible.isBoiling(), crucible.flux()))
+                            .append(Component.literal(" | "))
                             .append(crucible.aspects().toComponent()),
                     false
             );
@@ -86,9 +90,9 @@ public class CrucibleBlock extends BaseEntityBlock {
                     player.setItemInHand(hand, new ItemStack(Items.BUCKET));
                 }
 
-                player.displayClientMessage(Component.literal("The crucible is now filled with water.").withStyle(ChatFormatting.AQUA), false);
+                player.displayClientMessage(Component.translatable("thaumcraft.crucible.filled").withStyle(ChatFormatting.AQUA), false);
             } else {
-                player.displayClientMessage(Component.literal("The crucible already has water.").withStyle(ChatFormatting.GRAY), false);
+                player.displayClientMessage(Component.translatable("thaumcraft.crucible.already_filled").withStyle(ChatFormatting.GRAY), false);
             }
 
             return InteractionResult.CONSUME;
@@ -105,7 +109,7 @@ public class CrucibleBlock extends BaseEntityBlock {
                     player.setItemInHand(hand, new ItemStack(Items.WATER_BUCKET));
                 }
 
-                player.displayClientMessage(Component.literal("You emptied the crucible. All aspects and flux were lost.").withStyle(ChatFormatting.DARK_GRAY), false);
+                player.displayClientMessage(Component.translatable("thaumcraft.crucible.emptied").withStyle(ChatFormatting.DARK_GRAY), false);
             }
 
             return InteractionResult.CONSUME;
@@ -116,12 +120,12 @@ public class CrucibleBlock extends BaseEntityBlock {
         }
 
         if (!crucible.hasWater()) {
-            player.displayClientMessage(Component.literal("The crucible needs water first.").withStyle(ChatFormatting.BLUE), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.crucible.needs_water").withStyle(ChatFormatting.BLUE), false);
             return InteractionResult.CONSUME;
         }
 
         if (!crucible.isBoiling()) {
-            player.displayClientMessage(Component.literal("The crucible needs boiling water. Put fire, lava, magma or a lit campfire below it.").withStyle(ChatFormatting.GOLD), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.crucible.needs_heat").withStyle(ChatFormatting.GOLD), false);
             return InteractionResult.CONSUME;
         }
 
@@ -130,7 +134,7 @@ public class CrucibleBlock extends BaseEntityBlock {
         if (catalystRecipe != null) {
             String requiredResearch = TC4RecipeRequirementIndex.requiredResearchForRuntimeRecipe(catalystRecipe.tc4Key(), catalystRecipe.research());
             if (!requiredResearch.isBlank() && !PlayerThaumData.hasResearch(player, requiredResearch)) {
-                player.displayClientMessage(Component.literal("Research locked: " + requiredResearch).withStyle(ChatFormatting.RED), false);
+                player.displayClientMessage(Component.translatable("thaumcraft.crucible.research_locked", requiredResearch).withStyle(ChatFormatting.RED), false);
                 return InteractionResult.CONSUME;
             }
 
@@ -151,17 +155,14 @@ public class CrucibleBlock extends BaseEntityBlock {
                 maybeFluxBurst(level, pos, crucible, player);
 
                 player.displayClientMessage(
-                        Component.literal("Crucible alchemy complete: ")
-                                .append(result.getHoverName())
-                                .append(Component.literal(" | Used aspects: " + catalystRecipe.costText()).withStyle(ChatFormatting.DARK_AQUA)),
-                        false
-                );
+                        Component.translatable("thaumcraft.crucible.complete", result.getHoverName(), catalystRecipe.costText())
+                                .withStyle(ChatFormatting.DARK_AQUA), false);
 
                 return InteractionResult.CONSUME;
             }
 
             player.displayClientMessage(
-                    Component.literal("Catalyst recognized, but the crucible lacks aspects: " + catalystRecipe.costText()).withStyle(ChatFormatting.RED),
+                    Component.translatable("thaumcraft.crucible.lacks_aspects", catalystRecipe.costText()).withStyle(ChatFormatting.RED),
                     false
             );
             return InteractionResult.CONSUME;
@@ -170,7 +171,7 @@ public class CrucibleBlock extends BaseEntityBlock {
         AspectList aspects = AspectDatabase.getAspectsForItem(held);
 
         if (aspects.isEmpty()) {
-            player.displayClientMessage(Component.literal("This item has no useful aspects.").withStyle(ChatFormatting.GRAY), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.crucible.no_aspects").withStyle(ChatFormatting.GRAY), false);
             return InteractionResult.CONSUME;
         }
 
@@ -191,10 +192,7 @@ public class CrucibleBlock extends BaseEntityBlock {
         maybeFluxBurst(level, pos, crucible, player);
 
         player.displayClientMessage(
-                Component.literal("Dissolved ")
-                        .append(one.getHoverName())
-                        .append(Component.literal(" into: "))
-                        .append(aspects.toComponent()),
+                Component.translatable("thaumcraft.crucible.dissolved", one.getHoverName(), aspects.toComponent()),
                 false
         );
 
@@ -203,7 +201,7 @@ public class CrucibleBlock extends BaseEntityBlock {
 
     private InteractionResult handlePhial(Level level, BlockPos pos, Player player, ItemStack held, CrucibleBlockEntity crucible) {
         if (!crucible.hasWater()) {
-            player.displayClientMessage(Component.literal("The crucible needs water first.").withStyle(ChatFormatting.BLUE), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.crucible.needs_water").withStyle(ChatFormatting.BLUE), false);
             return InteractionResult.CONSUME;
         }
 
@@ -216,10 +214,10 @@ public class CrucibleBlock extends BaseEntityBlock {
             crucible.setChangedAndSync();
 
             player.displayClientMessage(
-                    Component.literal("Poured ").append(Component.literal(heldAspect.displayName() + " x" + heldAmount).withStyle(heldAspect.color()))
-                            .append(Component.literal(" into crucible.")),
-                    false
-            );
+                    Component.translatable("thaumcraft.crucible.poured",
+                            Component.translatable("thaumcraft.aspect.amount",
+                                    Component.translatable("aspect.thaumcraft." + heldAspect.id()), heldAmount)
+                                    .withStyle(heldAspect.color())), false);
 
             return InteractionResult.CONSUME;
         }
@@ -227,7 +225,7 @@ public class CrucibleBlock extends BaseEntityBlock {
         Aspect first = crucible.aspects().firstAspect();
 
         if (first == null) {
-            player.displayClientMessage(Component.literal("No essentia in crucible.").withStyle(ChatFormatting.GRAY), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.crucible.no_essentia").withStyle(ChatFormatting.GRAY), false);
             return InteractionResult.CONSUME;
         }
 
@@ -236,9 +234,10 @@ public class CrucibleBlock extends BaseEntityBlock {
         crucible.setChangedAndSync();
 
         player.displayClientMessage(
-                Component.literal("Filled phial with ").append(Component.literal(first.displayName() + " x" + removed).withStyle(first.color())),
-                false
-        );
+                Component.translatable("thaumcraft.crucible.filled_phial",
+                        Component.translatable("thaumcraft.aspect.amount",
+                                Component.translatable("aspect.thaumcraft." + first.id()), removed)
+                                .withStyle(first.color())), false);
 
         return InteractionResult.CONSUME;
     }
@@ -254,7 +253,7 @@ public class CrucibleBlock extends BaseEntityBlock {
             level.setBlock(target, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
             crucible.addFlux(-12);
             crucible.maybeSpillFlux(true);
-            player.displayClientMessage(Component.literal("Flux burst! Flux goo spilled nearby.").withStyle(ChatFormatting.DARK_PURPLE), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.crucible.flux_burst").withStyle(ChatFormatting.DARK_PURPLE), false);
         }
     }
 

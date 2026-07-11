@@ -5,7 +5,23 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.26' // v11.62.26 runtime duplicate-registry hotfix; compatibility marker: version = '11.62.25' // v11.62.25 GitHub compile/API fix; compatibility marker: version = '11.62.24' // v11.62.24 Research Matrix/Thaumonomicon/Deconstruction/Crystalizer/Advanced Furnace controller parity; compatibility marker: version = '11.62.23' // v11.62.23 Essentia transport/Thaumatorium/alchemical infrastructure original parity; compatibility marker: version = '11.62.22' // v11.62.22 Golemancy progression/infrastructure original parity; v11.62.21 compatibility marker: version = '11.62.21'; Golemancy core original parity; v11.62.20 compatibility marker: version = '11.62.20'; v11.62.19 compatibility marker: version = '11.62.19'; v11.62.18 compatibility marker: version = '11.62.18'; v11.62.17 compatibility marker: version = '11.62.17'; v11.62.16 compatibility marker: version = '11.62.16'
+version = '11.62.43' // Forge 1.19.2 TC4 texture-bank, wand/node/thaumometer/goggles/GUI parity audit.
+// v11.62.36 compatibility marker: version = '11.62.36'
+// v11.62.30 compatibility marker: version = '11.62.30'
+// v11.62.29 compatibility marker: version = '11.62.29'
+// v11.62.28 compatibility marker: version = '11.62.28'
+// v11.62.27 compatibility marker: version = '11.62.27'
+// v11.62.26 compatibility marker: version = '11.62.26'
+// v11.62.17 audit compatibility marker: version = '11.62.17'
+// v11.62.18 audit compatibility marker: version = '11.62.18'
+// v11.62.19 audit compatibility marker: version = '11.62.19'
+// v11.62.20 audit compatibility marker: version = '11.62.20'
+// v11.62.21 audit compatibility marker: version = '11.62.21'
+// v11.62.22 audit compatibility marker: version = '11.62.22'
+// v11.62.23 audit compatibility marker: version = '11.62.23'
+// v11.62.24 audit compatibility marker: version = '11.62.24'
+// v11.62.25 audit compatibility marker: version = '11.62.25'
+// v11.62.16 audit compatibility marker: version = '11.62.16'
 // v11.62.15 audit compatibility marker: version = '11.62.15'
 // v11.62 audit compatibility marker: version = '11.62.0'
 // v11.62.1 audit compatibility marker: version = '11.62.1'
@@ -100,6 +116,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: 'official', version: '1.19.2'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -125,10 +142,24 @@ minecraft {
                 }
             }
         }
+
+        gameTestServer {
+            workingDirectory project.file('run-gametest')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'thaumcraft'
+
+            mods {
+                thaumcraft {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
 repositories {
+    mavenCentral()
 }
 
 dependencies {

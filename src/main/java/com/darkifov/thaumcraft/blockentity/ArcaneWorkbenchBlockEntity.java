@@ -680,8 +680,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
                     return null;
                 }
 
-                ResourceLocation actual = stack.isEmpty() ? null : ForgeRegistries.ITEMS.getKey(stack.getItem());
-                if (needed.equals(actual)) {
+                if (recipe.ingredientMatches(needed, stack)) {
                     continue;
                 }
 
@@ -716,33 +715,24 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
     }
 
     private boolean hasLooseIngredients(List<ResourceLocation> ingredients, int catalystSlot) {
-        Map<ResourceLocation, Integer> needed = new HashMap<>();
-
-        for (ResourceLocation id : ingredients) {
-            needed.put(id, needed.getOrDefault(id, 0) + 1);
-        }
-
-        Map<ResourceLocation, Integer> available = new HashMap<>();
-
+        int[] available = new int[SLOT_INGREDIENT_END - SLOT_INGREDIENT_START + 1];
         for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
             ItemStack stack = getItem(slot);
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-
-            if (id != null && needed.containsKey(id)) {
-                int count = stack.getCount();
-
-                if (slot == catalystSlot) {
-                    count = Math.max(0, count - 1);
-                }
-
-                if (count > 0) {
-                    available.put(id, available.getOrDefault(id, 0) + count);
-                }
-            }
+            int count = stack.getCount();
+            available[slot - SLOT_INGREDIENT_START] = slot == catalystSlot ? Math.max(0, count - 1) : count;
         }
 
-        for (Map.Entry<ResourceLocation, Integer> entry : needed.entrySet()) {
-            if (available.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
+        for (ResourceLocation needed : ingredients) {
+            boolean found = false;
+            for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
+                int index = slot - SLOT_INGREDIENT_START;
+                if (available[index] > 0 && recipeIngredientMatches(needed, getItem(slot))) {
+                    available[index]--;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
                 return false;
             }
         }
@@ -789,14 +779,16 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
                 }
 
                 ItemStack stack = getItem(slot);
-                ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-
-                if (id != null && id.equals(needed)) {
+                if (recipeIngredientMatches(needed, stack)) {
                     consumeSlotPreservingContainer(player, slot);
                     break;
                 }
             }
         }
+    }
+
+    private boolean recipeIngredientMatches(ResourceLocation ingredient, ItemStack stack) {
+        return ArcaneWorkbenchRecipe.ingredientMatches(ingredient, stack);
     }
 
     @Override

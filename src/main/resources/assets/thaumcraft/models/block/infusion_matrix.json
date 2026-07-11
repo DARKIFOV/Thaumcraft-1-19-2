@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
   "textures": {
-    "particle": "thaumcraft:models/infuser"
-  }
+    "particle": "thaumcraft:block/infusion_matrix"
+  },
+  "elements": []
 }

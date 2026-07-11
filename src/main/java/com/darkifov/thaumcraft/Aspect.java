@@ -95,6 +95,11 @@ public enum Aspect {
         return 0xFF000000 | nativeColor();
     }
 
+    /** TC4 Aspect.getBlend(): only Entropy and Void use source-alpha blending (771). */
+    public boolean usesAlphaBlend() {
+        return this == PERDITIO || this == VACUOS;
+    }
+
     public TextColor textColor() {
         return TextColor.fromRgb(nativeColor());
     }

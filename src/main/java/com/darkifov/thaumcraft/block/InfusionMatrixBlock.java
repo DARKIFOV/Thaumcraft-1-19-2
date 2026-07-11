@@ -102,12 +102,12 @@ public class InfusionMatrixBlock extends BaseEntityBlock {
             ArcanePedestalBlockEntity catalystPedestal = InfusionProcessHelper.findCatalystPedestal(level, pos);
             InfusionStructureReport report = InfusionAltarStructure.analyze(level, pos, catalystPedestal);
             player.displayClientMessage(report.summary(), false);
-            player.displayClientMessage(Component.literal("Start with wand. Shift + empty hand while active cancels.").withStyle(ChatFormatting.GRAY), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.infusion.start_hint").withStyle(ChatFormatting.GRAY), false);
             return InteractionResult.CONSUME;
         }
 
         if (!(held.getItem() instanceof WandItem)) {
-            player.displayClientMessage(Component.literal("Use empty hand to inspect or a wand to start infusion.").withStyle(ChatFormatting.LIGHT_PURPLE), false);
+            player.displayClientMessage(Component.translatable("thaumcraft.infusion.inspect_hint").withStyle(ChatFormatting.LIGHT_PURPLE), false);
             return InteractionResult.CONSUME;
         }
 
