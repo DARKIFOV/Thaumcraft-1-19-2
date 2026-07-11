@@ -54,6 +54,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         // nodes inside its forward scan cone. Goggles and jarred nodes stay visible.
         boolean thaumometerVisible = thaumometerHeld && isWithinThaumometerViewCone(viewer, node);
         boolean visible = jarred || revealer || thaumometerVisible;
+        boolean depthIgnore = !jarred && (revealer || thaumometerVisible);
         double viewDistance = thaumometerVisible && !revealer ? 48.0D : 64.0D;
         double distance = Math.sqrt(viewer.distanceToSqr(Vec3.atCenterOf(node.getBlockPos())));
         if (distance > viewDistance) {
@@ -85,7 +86,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
 
         if (!visible || node.aspects().isEmpty()) {
             renderSheetPlane(poseStack, buffer, nodeLight, 0.50F * sizeMultiplier,
-                    0xFFFFFFFF, 0.10F, frame, 1, true);
+                    0xFFFFFFFF, 0.10F, frame, 1, true, false);
         } else {
             int count = 0;
             int aspectCount = 0;
@@ -113,7 +114,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
                 poseStack.mulPose(Vector3f.ZP.rotationDegrees(angle));
                 renderSheetPlane(poseStack, buffer, nodeLight, scale,
                         stack.aspect().argbColor(), aspectAlpha, frame, 0,
-                        !stack.aspect().usesAlphaBlend());
+                        !stack.aspect().usesAlphaBlend(), depthIgnore);
                 poseStack.popPose();
                 count++;
             }
@@ -131,7 +132,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(typeAngle));
             renderSheetPlane(poseStack, buffer, nodeLight, typeScale,
                     0xFFFFFFFF, alpha, frame, TC4AuraNodeHudParity.stripFor(node.typedNodeType()),
-                    usesAdditiveTypeBlend(node.typedNodeType()));
+                    usesAdditiveTypeBlend(node.typedNodeType()), depthIgnore);
             poseStack.popPose();
 
         }
@@ -205,7 +206,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         // is the closest Forge 1.19.2 buffered equivalent: textured, emissive
         // and additive instead of the rebuild's former ordinary alpha blend.
         com.mojang.blaze3d.vertex.VertexConsumer consumer = buffer.getBuffer(
-                RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_WISPY));
+                TC4NodeRenderTypes.node(TC4AuraNodeHudParity.ORIGINAL_WISPY, true, false));
         Matrix4f matrix = poseStack.last().pose();
         Vec3 previous = Vec3.ZERO;
         for (int segment = 1; segment <= segments; segment++) {
@@ -242,15 +243,14 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
 
     private void renderSheetPlane(PoseStack poseStack, MultiBufferSource buffer, int packedLight,
                                   float size, int color, float alphaScale, int frame, int strip,
-                                  boolean additive) {
+                                  boolean additive, boolean depthIgnore) {
         VertexData data = VertexData.from(color, alphaScale);
         float u0 = frame * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float u1 = (frame + 1) * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float v0 = strip * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float v1 = (strip + 1) * TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
-        RenderType renderType = additive
-                ? RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_NODES)
-                : RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODES);
+        RenderType renderType = TC4NodeRenderTypes.node(
+                TC4AuraNodeHudParity.ORIGINAL_NODES, additive, depthIgnore);
         VertexConsumerHelper.quad(poseStack.last().pose(), buffer.getBuffer(renderType),
                 -size, -size, 0.0F,
                 size, -size, 0.0F,

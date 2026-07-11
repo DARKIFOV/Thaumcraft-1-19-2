@@ -31,6 +31,7 @@ public final class TC4LegacyDuplicateItemMigrator {
         map.put("tc4_quicksilver", "quicksilver_drop");
         map.put("tc4_taint_slime", "tainted_slime");
         map.put("tc4_thaumonomicon", "thaumonomicon");
+        map.put("tc4_thaumonomiconcheat", "thaumonomicon_cheat");
         map.put("tc4_researchnotes", "research_note");
         map.put("tc4_gogglesrevealing", "goggles_of_revealing");
 

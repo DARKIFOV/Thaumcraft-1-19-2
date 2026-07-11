@@ -24,8 +24,12 @@ for token in ['RequestThaumometerScanPacket.block', 'RequestThaumometerScanPacke
         problems.append(f'interaction bridge missing {token}')
 if 'if (!level.isClientSide && !target.hasAspects())' not in item:
     problems.append('client aspect table can still reject a scan before packet delivery')
-if 'remainingUseDuration <= 5' not in item:
-    problems.append('TC4 twenty-stable-tick completion point missing')
+for token in ['REQUIRED_STABLE_TICKS = 20', 'elapsed >= REQUIRED_STABLE_TICKS',
+              'serverTickPendingScan', 'TAG_PENDING_SCAN_START']:
+    if token not in item:
+        problems.append(f'TC4 twenty-stable-tick completion path missing {token}')
+if 'TickEvent.PlayerTickEvent' not in events:
+    problems.append('cancelled Forge interactions have no authoritative scan tick fallback')
 if 'THAUMOMETER_USE_DURATION_TICKS = 25' not in parity:
     problems.append('TC4 25 tick duration missing')
 if 'THAUMOMETER_SCAN_RANGE = 10.0D' not in parity:

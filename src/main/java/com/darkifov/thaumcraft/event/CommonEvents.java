@@ -84,6 +84,20 @@ public final class CommonEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || event.player.level.isClientSide
+                || !(event.player instanceof ServerPlayer player)) {
+            return;
+        }
+        for (net.minecraft.world.InteractionHand hand : net.minecraft.world.InteractionHand.values()) {
+            net.minecraft.world.item.ItemStack held = player.getItemInHand(hand);
+            if (held.getItem() instanceof ThaumometerItem thaumometer) {
+                thaumometer.serverTickPendingScan(player, hand);
+            }
+        }
+    }
+
     private static void tryFeedCrucible(ServerLevel level, ItemEntity itemEntity) {
         BlockPos itemPos = itemEntity.blockPosition();
         for (BlockPos candidate : new BlockPos[] { itemPos, itemPos.below(), itemPos.below(2) }) {

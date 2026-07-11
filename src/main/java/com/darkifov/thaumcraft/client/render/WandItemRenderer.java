@@ -156,8 +156,10 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
     private void applyOriginalTC4ItemTransform(WandComponentData data, ItemTransforms.TransformType transformType, ItemStack stack, PoseStack poseStack) {
         boolean staff = data.rod().staff();
         if (staff) {
-            // ItemWandRenderer line 77: outer staff offset before render type.
-            poseStack.translate(0.0D, 0.50D, 0.0D);
+            // Keep ModelWand's staff offset in model space.  The former +0.5
+            // block adapter was applied after Forge had already positioned the
+            // hand and pushed most of the rod outside the camera.
+            poseStack.translate(0.0D, 0.20D, 0.0D);
         }
 
         if (transformType == ItemTransforms.TransformType.GUI) {
@@ -169,22 +171,13 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
                 poseStack.translate(-0.25D, -0.10D, 0.0D);
             }
         } else if (transformType.firstPerson()) {
-            // Original ItemWandRenderer EQUIPPED_FIRST_PERSON translates the
-            // model to (0.5, 1.5, 0.5) and scales only Y by 1.1. renderByItem
-            // has already applied the common (0.5, 0.5, 0.5) centre offset,
-            // therefore the remaining Forge 1.19.2 adapter translation is +1Y.
-            poseStack.translate(0.0D, 1.0D, 0.0D);
-            poseStack.scale(1.0F, 1.1F, 1.0F);
+            boolean left = transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
+            poseStack.translate(left ? -0.18D : 0.18D, -0.28D, 0.04D);
+            poseStack.scale(0.62F, 0.68F, 0.62F);
             poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(left ? -24.0F : 24.0F));
             applyFocusUseAnimation(stack, poseStack, true);
             return;
-        } else if (transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
-                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
-            // Original EQUIPPED transform, adapted after the shared centre
-            // offset. Hand mirroring/arm placement is already supplied by the
-            // vanilla third-person item transform; adding another lateral
-            // offset was what left only a tiny focus ring below the player.
-            poseStack.translate(0.0D, 1.0D, 0.0D);
         } else if (transformType == ItemTransforms.TransformType.GROUND || transformType == ItemTransforms.TransformType.FIXED) {
             poseStack.translate(0.0D, staff ? 1.50D : 1.00D, 0.0D);
             if (staff) {

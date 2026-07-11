@@ -1044,6 +1044,8 @@
   "item.thaumcraft.tc4_thaumiumsword": "Таум-меч",
   "item.thaumcraft.tc4_thaumonomicon": "Таумономикон",
   "item.thaumcraft.tc4_thaumonomiconcheat": "Таумономикон полного знания",
+  "item.thaumcraft.thaumonomicon_cheat": "Таумономикон полного знания",
+  "thaumcraft.creative_thaumonomicon.unlocked": "Получено полное знание: новых исследований — %s, всего — %s",
   "item.thaumcraft.tc4_tripletreat": "Мясное ассорти",
   "item.thaumcraft.tc4_vis_amulet": "Камень Вис",
   "item.thaumcraft.tc4_vis_amulet_lesser": "Амулет-хранилище Вис",

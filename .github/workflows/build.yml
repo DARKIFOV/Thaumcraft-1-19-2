@@ -66,8 +66,11 @@ jobs:
       - name: Validate TC4 runtime visual parity
         run: python3 tools/tc4_runtime_visual_guard.py
 
+      - name: Validate v11.62.44 runtime repairs
+        run: python3 tools/runtime_fix_guard.py
+
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.44 --fail-on-missing
 
       - name: Validate registry and resources
         run: python3 tools/audit_registry.py --fail-on-unexpected
@@ -84,28 +87,28 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md build/release/
-          cp GITHUB_UPLOAD_V11_62_43.md build/release/
-          cp STATIC_VALIDATION_V11_62_43.txt build/release/
-          cp reports/REGISTRY_AUDIT_V11_62_43.md build/release/
-          cp reports/registry_audit_v11.62.43.json build/release/
-          cp reports/ITEM_VISUAL_AUDIT_V11_62_43.md build/release/
-          cp reports/item_visual_audit_v11.62.43.json build/release/
+          cp REPORT_V11_62_44_RUNTIME_FIXES.md build/release/
+          cp GITHUB_UPLOAD_V11_62_44.md build/release/
+          cp STATIC_VALIDATION_V11_62_44.txt build/release/
+          cp reports/REGISTRY_AUDIT_V11_62_44.md build/release/
+          cp reports/registry_audit_v11.62.44.json build/release/
+          cp reports/ITEM_VISUAL_AUDIT_V11_62_44.md build/release/
+          cp reports/item_visual_audit_v11.62.44.json build/release/
           cp PORT_STATUS_V11_62_43.md build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.43
+          name: thaumcraft-legacy-rebuild-v11.62.44
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md
-            build/release/GITHUB_UPLOAD_V11_62_43.md
-            build/release/STATIC_VALIDATION_V11_62_43.txt
-            build/release/REGISTRY_AUDIT_V11_62_43.md
-            build/release/registry_audit_v11.62.43.json
-            build/release/ITEM_VISUAL_AUDIT_V11_62_43.md
-            build/release/item_visual_audit_v11.62.43.json
+            build/release/REPORT_V11_62_44_RUNTIME_FIXES.md
+            build/release/GITHUB_UPLOAD_V11_62_44.md
+            build/release/STATIC_VALIDATION_V11_62_44.txt
+            build/release/REGISTRY_AUDIT_V11_62_44.md
+            build/release/registry_audit_v11.62.44.json
+            build/release/ITEM_VISUAL_AUDIT_V11_62_44.md
+            build/release/item_visual_audit_v11.62.44.json
             build/release/PORT_STATUS_V11_62_43.md

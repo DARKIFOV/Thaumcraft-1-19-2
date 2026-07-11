@@ -22,6 +22,7 @@ import com.darkifov.thaumcraft.block.ArcaneWorkbenchBlock;
 import com.darkifov.thaumcraft.block.AuraNodeBlock;
 import com.darkifov.thaumcraft.block.BellowsBlock;
 import com.darkifov.thaumcraft.block.CrucibleBlock;
+import com.darkifov.thaumcraft.block.CreativeThaumonomiconItem;
 import com.darkifov.thaumcraft.block.FilteredEssentiaJarBlock;
 import com.darkifov.thaumcraft.block.EldritchAltarBlock;
 import com.darkifov.thaumcraft.block.EldritchTrapBlock;
@@ -270,6 +271,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Item> THAUMONOMICON = specialItem("thaumonomicon",
             () -> new ThaumonomiconItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Item> THAUMONOMICON_CHEAT = specialItem("thaumonomicon_cheat",
+            () -> new CreativeThaumonomiconItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> PORTING_LEDGER = specialItem("porting_ledger",
             () -> new PortingLedgerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));

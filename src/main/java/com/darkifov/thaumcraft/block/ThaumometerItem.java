@@ -55,6 +55,9 @@ public class ThaumometerItem extends Item {
     private static final String TAG_SCANNED_NODES = "ScannedAuraNodes";
     private static final String TAG_PENDING_BLOCK_SCAN = "TC4PendingBlockScan";
     private static final String TAG_PENDING_ENTITY_SCAN = "TC4PendingEntityScan";
+    private static final String TAG_PENDING_SCAN_START = "TC4PendingScanStart";
+    private static final String TAG_PENDING_SCAN_TICK = "TC4PendingScanTick";
+    private static final int REQUIRED_STABLE_TICKS = 20;
 
     public ThaumometerItem(Properties properties) {
         super(properties);
@@ -139,6 +142,8 @@ public class ThaumometerItem extends Item {
         if (!level.isClientSide) {
             clearPendingScans(stack);
             beginPendingScan(stack, target);
+            stack.getOrCreateTag().putLong(TAG_PENDING_SCAN_START, level.getGameTime());
+            stack.getOrCreateTag().putLong(TAG_PENDING_SCAN_TICK, Long.MIN_VALUE);
         }
         player.startUsingItem(hand);
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
@@ -154,6 +159,7 @@ public class ThaumometerItem extends Item {
             } else if (pendingEntity != null) {
                 performEntityScan(player, stack, pendingEntity);
             }
+            clearPendingScans(stack);
         }
         return stack;
     }
@@ -178,9 +184,32 @@ public class ThaumometerItem extends Item {
 
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
-        if (!(livingEntity instanceof Player player) || level.isClientSide) {
+        if (!(livingEntity instanceof ServerPlayer player) || level.isClientSide) {
             return;
         }
+
+        serverTickPendingScan(player, player.getUsedItemHand());
+    }
+
+    /**
+     * Authoritative fallback for Forge interactions cancelled before vanilla's
+     * normal item-use packet. CommonEvents calls this once per player tick, so
+     * chests, mobs and modded machines still complete a stable TC4 scan.
+     */
+    public void serverTickPendingScan(ServerPlayer player, InteractionHand hand) {
+        if (player == null || hand == null) {
+            return;
+        }
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.getItem() != this || !hasPendingScan(stack)) {
+            return;
+        }
+        CompoundTag tag = stack.getOrCreateTag();
+        long now = player.level.getGameTime();
+        if (tag.getLong(TAG_PENDING_SCAN_TICK) == now) {
+            return;
+        }
+        tag.putLong(TAG_PENDING_SCAN_TICK, now);
 
         TC4ThaumometerTargeting.ScanTarget current = TC4ThaumometerTargeting.find(player, 1.0F);
         if (!pendingMatches(stack, current)) {
@@ -189,21 +218,21 @@ public class ThaumometerItem extends Item {
             return;
         }
 
-        // Original ItemThaumometer completes when the 25-tick countdown reaches 5,
-        // i.e. after twenty stable ticks, and clicks every second tick while locked.
-        if (remainingUseDuration % 2 == 0) {
-            level.playSound(null, player.blockPosition(), TC4Sounds.event("cameraticks"),
-                    SoundSource.PLAYERS, 0.20F, 0.45F + level.random.nextFloat() * 0.10F);
+        long elapsed = Math.max(0L, now - tag.getLong(TAG_PENDING_SCAN_START));
+        if (elapsed % 2L == 0L) {
+            player.level.playSound(null, player.blockPosition(), TC4Sounds.event("cameraticks"),
+                    SoundSource.PLAYERS, 0.20F, 0.45F + player.level.random.nextFloat() * 0.10F);
         }
 
-        if (remainingUseDuration <= 5) {
+        if (elapsed >= REQUIRED_STABLE_TICKS) {
             BlockPos pendingBlock = consumePendingBlockScan(stack);
             UUID pendingEntity = consumePendingEntityScan(stack);
             if (pendingBlock != null) {
-                performBlockScan(level, player, stack, pendingBlock);
+                performBlockScan(player.level, player, stack, pendingBlock);
             } else if (pendingEntity != null) {
                 performEntityScan(player, stack, pendingEntity);
             }
+            clearPendingScans(stack);
             player.stopUsingItem();
         }
     }
@@ -473,7 +502,15 @@ public class ThaumometerItem extends Item {
         if (tag != null) {
             tag.remove(TAG_PENDING_BLOCK_SCAN);
             tag.remove(TAG_PENDING_ENTITY_SCAN);
+            tag.remove(TAG_PENDING_SCAN_START);
+            tag.remove(TAG_PENDING_SCAN_TICK);
         }
+    }
+
+    private boolean hasPendingScan(ItemStack stack) {
+        CompoundTag tag = stack.getTag();
+        return tag != null && tag.contains(TAG_PENDING_SCAN_START)
+                && (tag.contains(TAG_PENDING_BLOCK_SCAN) || tag.contains(TAG_PENDING_ENTITY_SCAN));
     }
 
     private int absorbScannedAspects(Player player, AspectList aspects) {

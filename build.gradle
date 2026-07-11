@@ -5,7 +5,8 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.43' // Forge 1.19.2 TC4 texture-bank, wand/node/thaumometer/goggles/GUI parity audit.
+version = '11.62.44' // Runtime fixes for held wands, aura nodes, Thaumometer, creative research and Nitor.
+// v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'
 // v11.62.30 compatibility marker: version = '11.62.30'
 // v11.62.29 compatibility marker: version = '11.62.29'

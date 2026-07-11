@@ -66,8 +66,11 @@ jobs:
       - name: Validate TC4 runtime visual parity
         run: python3 tools/tc4_runtime_visual_guard.py
 
+      - name: Validate v11.62.44 runtime repairs
+        run: python3 tools/runtime_fix_guard.py
+
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.44 --fail-on-missing
 
       - name: Validate registry and resources
         run: python3 tools/audit_registry.py --fail-on-unexpected
@@ -83,32 +86,32 @@ jobs:
           set -euo pipefail
           mkdir -p build/release/bundle
           cp build/libs/*.jar build/release/bundle/
-          cp reports/REGISTRY_AUDIT_V11_62_43.md build/release/bundle/
-          cp reports/registry_audit_v11.62.43.json build/release/bundle/
-          cp reports/ITEM_VISUAL_AUDIT_V11_62_43.md build/release/bundle/
-          cp reports/item_visual_audit_v11.62.43.json build/release/bundle/
+          cp reports/REGISTRY_AUDIT_V11_62_44.md build/release/bundle/
+          cp reports/registry_audit_v11.62.44.json build/release/bundle/
+          cp reports/ITEM_VISUAL_AUDIT_V11_62_44.md build/release/bundle/
+          cp reports/item_visual_audit_v11.62.44.json build/release/bundle/
           cp PORT_STATUS_V11_62_43.md build/release/bundle/
-          cp REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md build/release/bundle/
-          cp GITHUB_UPLOAD_V11_62_43.md build/release/bundle/
-          cp STATIC_VALIDATION_V11_62_43.txt build/release/bundle/
+          cp REPORT_V11_62_44_RUNTIME_FIXES.md build/release/bundle/
+          cp GITHUB_UPLOAD_V11_62_44.md build/release/bundle/
+          cp STATIC_VALIDATION_V11_62_44.txt build/release/bundle/
           (
             cd build/release/bundle
             sha256sum *.jar > SHA256SUMS.txt
-            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.43_RELEASE.zip .
+            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.44_RELEASE.zip .
           )
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md
+          body_path: REPORT_V11_62_44_RUNTIME_FIXES.md
           files: |
             build/libs/*.jar
-            build/release/thaumcraft_legacy_rebuild_v11.62.43_RELEASE.zip
+            build/release/thaumcraft_legacy_rebuild_v11.62.44_RELEASE.zip
             build/release/bundle/SHA256SUMS.txt
-            reports/REGISTRY_AUDIT_V11_62_43.md
-            reports/registry_audit_v11.62.43.json
-            reports/ITEM_VISUAL_AUDIT_V11_62_43.md
-            reports/item_visual_audit_v11.62.43.json
+            reports/REGISTRY_AUDIT_V11_62_44.md
+            reports/registry_audit_v11.62.44.json
+            reports/ITEM_VISUAL_AUDIT_V11_62_44.md
+            reports/item_visual_audit_v11.62.44.json
             PORT_STATUS_V11_62_43.md
-            GITHUB_UPLOAD_V11_62_43.md
-            STATIC_VALIDATION_V11_62_43.txt
+            GITHUB_UPLOAD_V11_62_44.md
+            STATIC_VALIDATION_V11_62_44.txt

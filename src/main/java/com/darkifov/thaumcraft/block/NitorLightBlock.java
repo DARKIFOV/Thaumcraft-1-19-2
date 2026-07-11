@@ -6,6 +6,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -27,6 +28,13 @@ public class NitorLightBlock extends Block {
     }
 
     @Override
+    public RenderShape getRenderShape(BlockState state) {
+        // TC4 BlockAiry metadata 1 has no crossed block model. TileNitor is an
+        // invisible light source whose wisp/sparkle particles are the visual.
+        return RenderShape.INVISIBLE;
+    }
+
+    @Override
     public boolean propagatesSkylightDown(BlockState state, BlockGetter level, BlockPos pos) {
         return true;
     }
@@ -38,17 +46,17 @@ public class NitorLightBlock extends Block {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextInt(2) == 0) {
+        if (random.nextInt(3) == 0) {
             double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.35D;
             double y = pos.getY() + 0.55D + random.nextDouble() * 0.25D;
             double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.35D;
-            level.addParticle(ParticleTypes.FLAME, x, y, z, 0.0D, 0.01D, 0.0D);
+            level.addParticle(ParticleTypes.END_ROD, x, y, z, 0.0D, -0.01D, 0.0D);
         }
-        if (random.nextInt(5) == 0) {
+        if (random.nextInt(7) == 0) {
             double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.45D;
             double y = pos.getY() + 0.65D + random.nextDouble() * 0.25D;
             double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.45D;
-            level.addParticle(ParticleTypes.END_ROD, x, y, z, 0.0D, 0.012D, 0.0D);
+            level.addParticle(ParticleTypes.ENCHANT, x, y, z, 0.0D, -0.02D, 0.0D);
         }
     }
 }

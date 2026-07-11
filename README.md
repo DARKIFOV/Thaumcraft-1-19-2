@@ -1,10 +1,14 @@
-# Thaumcraft Legacy Rebuild — v11.62.43
+# Thaumcraft Legacy Rebuild — v11.62.44
 
 Source-driven port of Thaumcraft 4.2.3.5 to **Minecraft Forge 1.19.2 (43.5.2)** and Java 17.
 
 This is a Forge project. It does not use NeoForge or TerraBlender.
 
-## v11.62.43 focus
+## v11.62.44 focus
+
+This runtime repair batch fixes held wand placement, standalone aura-node blend/depth rendering, reliable server-side Thaumometer scan completion, the functional complete-knowledge Thaumonomicon, and invisible particle-based TC4 Nitor.
+
+It retains the v11.62.43 original-resource and runtime-render audit:
 
 This batch is a strict original-resource and runtime-render audit:
 
@@ -23,6 +27,7 @@ This batch is a strict original-resource and runtime-render audit:
 Detailed reports:
 
 - `REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md`
+- `REPORT_V11_62_44_RUNTIME_FIXES.md`
 - `PORT_STATUS_V11_62_43.md`
 - `reports/ITEM_VISUAL_AUDIT_V11_62_43.md`
 
@@ -42,7 +47,8 @@ python3 tools/runtime_visual_guard.py
 python3 tools/leaves_wand_table_guard.py
 python3 tools/tc4_original_asset_guard.py
 python3 tools/tc4_runtime_visual_guard.py
-python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
+python3 tools/tc4_item_visual_audit.py --version 11.62.44 --fail-on-missing
+python3 tools/runtime_fix_guard.py
 python3 tools/audit_registry.py --fail-on-unexpected
 ```
 

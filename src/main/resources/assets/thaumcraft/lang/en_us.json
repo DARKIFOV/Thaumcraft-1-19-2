@@ -1035,6 +1035,8 @@
   "item.thaumcraft.tc4_thaumiumsword": "TC4 Thaumiumsword",
   "item.thaumcraft.tc4_thaumonomicon": "TC4 Thaumonomicon",
   "item.thaumcraft.tc4_thaumonomiconcheat": "Creative Thaumonomicon",
+  "item.thaumcraft.thaumonomicon_cheat": "Thaumonomicon of Complete Knowledge",
+  "thaumcraft.creative_thaumonomicon.unlocked": "Complete knowledge granted: %s new, %s total researches",
   "item.thaumcraft.tc4_tripletreat": "TC4 Tripletreat",
   "item.thaumcraft.tc4_vis_amulet": "TC4 Vis Amulet",
   "item.thaumcraft.tc4_vis_amulet_lesser": "TC4 Vis Amulet Lesser",

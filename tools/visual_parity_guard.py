@@ -95,7 +95,7 @@ scanner_targeting = (ROOT / "src/main/java/com/darkifov/thaumcraft/aura/TC4Thaum
 require("nearestBlockDistance" in scanner_targeting and "Kind.ITEM" in scanner_targeting,
         "Shared scanner ray no longer blocks through-wall entities or dropped-item scans")
 scanner_item = (ROOT / "src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java").read_text(encoding="utf-8")
-require("remainingUseDuration <= 5" in scanner_item and "pendingMatches" in scanner_item,
+require("elapsed >= REQUIRED_STABLE_TICKS" in scanner_item and "pendingMatches" in scanner_item,
         "Thaumometer no longer requires the original twenty stable scan ticks")
 require("syncScanKnowledge" in scanner_item and "ItemEntity" in scanner_item,
         "Thaumometer scan completion no longer synchronizes player knowledge or dropped items")
@@ -132,10 +132,10 @@ require("isWithinThaumometerViewCone" in node_renderer and ">= 0.44D" in node_re
         "Thaumometer node reveal no longer follows the original 0.44 view cone")
 require("usesAlphaBlend()" in node_renderer and "typeAngle" in node_renderer,
         "Aura node aspect blend/type rotation parity is missing")
-require("RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_NODES)" in node_renderer
+require("TC4NodeRenderTypes.node" in node_renderer
         and "usesAdditiveTypeBlend" in node_renderer,
         "Aura node layers lost TC4 additive-vs-alpha blend separation")
-require("RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_WISPY)" in node_renderer,
+require("TC4NodeRenderTypes.node(TC4AuraNodeHudParity.ORIGINAL_WISPY, true, false)" in node_renderer,
         "Wand drain beam is no longer rendered with the original additive glow")
 
 aspect_source = (ROOT / "src/main/java/com/darkifov/thaumcraft/Aspect.java").read_text(encoding="utf-8")
