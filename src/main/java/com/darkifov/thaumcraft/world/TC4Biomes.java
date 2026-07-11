@@ -50,18 +50,22 @@ public final class TC4Biomes {
         BiomeDefaultFeatures.farmAnimals(spawns);
         BiomeDefaultFeatures.commonSpawns(spawns);
 
+        /*
+         * v11.62.42 Forge 1.19.2 world-load hotfix:
+         *
+         * Do not assemble the custom biome from shared vanilla placed features here.
+         * Cyanide correctly detected that the old hard-coded list introduced a
+         * cross-biome placed-feature ordering cycle while new chunks were being
+         * decorated. That cycle freezes world loading at 0% and ends with
+         * FeatureCycleException.
+         *
+         * TC4 trees, ores, aura nodes and taint are already placed by the dedicated
+         * Forge 1.19.2 TC4WorldgenRuntime new-chunk pass. Keeping this biome's
+         * generation settings empty removes the illegal feature graph without
+         * disabling the biome itself, its colours, mobs, /locate visibility or the
+         * TC4 runtime generation bridge.
+         */
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder();
-        BiomeDefaultFeatures.addDefaultCarversAndLakes(generation);
-        BiomeDefaultFeatures.addDefaultMonsterRoom(generation);
-        BiomeDefaultFeatures.addDefaultUndergroundVariety(generation);
-        BiomeDefaultFeatures.addDefaultOres(generation);
-        BiomeDefaultFeatures.addDefaultSoftDisks(generation);
-        BiomeDefaultFeatures.addOtherBirchTrees(generation);
-        BiomeDefaultFeatures.addForestFlowers(generation);
-        BiomeDefaultFeatures.addForestGrass(generation);
-        BiomeDefaultFeatures.addDefaultMushrooms(generation);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(generation);
-        BiomeDefaultFeatures.addDefaultSprings(generation);
 
         BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
                 .fogColor(0xB7A7D9)

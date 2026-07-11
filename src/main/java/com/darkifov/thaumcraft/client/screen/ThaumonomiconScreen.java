@@ -28,7 +28,7 @@ import java.util.Set;
  * sprites and TC4 display coordinates.
  */
 public class ThaumonomiconScreen extends Screen {
-    private static final ResourceLocation GUI_RESEARCH = new ResourceLocation("thaumcraft", "textures/gui/gui_research.png");
+    private static final ResourceLocation GUI_RESEARCH = new ResourceLocation("thaumcraft", "textures/original/thaumcraft4/gui/gui_research.png");
     private static final int PANE_WIDTH = 256;
     private static final int PANE_HEIGHT = 230;
     private static final double DRAG_THRESHOLD_SQUARED = 16.0D;

@@ -77,7 +77,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
             alpha *= Mth.sin(viewer.tickCount / 3.0F) * 0.25F + 0.33F;
         }
 
-        float sizeMultiplier = (jarred ? 0.70F : 1.0F) * (node.isEnergized() ? 1.10F : 1.0F);
+        float sizeMultiplier = jarred ? 0.70F : 1.0F;
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.pushPose();
@@ -134,11 +134,6 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
                     usesAdditiveTypeBlend(node.typedNodeType()));
             poseStack.popPose();
 
-            if (node.isRecentlyDrained()) {
-                renderSheetPlane(poseStack, buffer, nodeLight, Math.max(0.20F, typeScale * 0.82F),
-                        0xFF000000 | node.lastDrainColor(), Math.min(0.55F, alpha),
-                        (frame + 7) % TC4AuraNodeHudParity.NODE_SHEET_FRAMES, 0, true);
-            }
         }
         poseStack.popPose();
 

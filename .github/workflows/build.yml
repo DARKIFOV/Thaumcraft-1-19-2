@@ -48,6 +48,9 @@ jobs:
       - name: Validate Magical Forest worldgen path
         run: python3 tools/worldgen_guard.py
 
+      - name: Validate feature-cycle-safe biome generation
+        run: python3 tools/feature_cycle_guard.py
+
       - name: Validate Thaumometer scanning path
         run: python3 tools/thaumometer_scan_guard.py
 
@@ -56,6 +59,15 @@ jobs:
 
       - name: Validate magical leaves, wand UV and Research Table renderer
         run: python3 tools/leaves_wand_table_guard.py
+
+      - name: Validate byte-exact original TC4 texture bank
+        run: python3 tools/tc4_original_asset_guard.py
+
+      - name: Validate TC4 runtime visual parity
+        run: python3 tools/tc4_runtime_visual_guard.py
+
+      - name: Audit every item model and texture chain
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
 
       - name: Validate registry and resources
         run: python3 tools/audit_registry.py --fail-on-unexpected
@@ -72,22 +84,28 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp REPORT_V11_62_41_LEAVES_WAND_RESEARCH_TABLE_FIXES.md build/release/
-          cp GITHUB_UPLOAD_V11_62_41.md build/release/
-          cp STATIC_VALIDATION_V11_62_41.txt build/release/
-          cp reports/REGISTRY_AUDIT_V11_62_41.md build/release/
-          cp reports/registry_audit_v11.62.41.json build/release/
+          cp REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md build/release/
+          cp GITHUB_UPLOAD_V11_62_43.md build/release/
+          cp STATIC_VALIDATION_V11_62_43.txt build/release/
+          cp reports/REGISTRY_AUDIT_V11_62_43.md build/release/
+          cp reports/registry_audit_v11.62.43.json build/release/
+          cp reports/ITEM_VISUAL_AUDIT_V11_62_43.md build/release/
+          cp reports/item_visual_audit_v11.62.43.json build/release/
+          cp PORT_STATUS_V11_62_43.md build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.41
+          name: thaumcraft-legacy-rebuild-v11.62.43
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/REPORT_V11_62_41_LEAVES_WAND_RESEARCH_TABLE_FIXES.md
-            build/release/GITHUB_UPLOAD_V11_62_41.md
-            build/release/STATIC_VALIDATION_V11_62_41.txt
-            build/release/REGISTRY_AUDIT_V11_62_41.md
-            build/release/registry_audit_v11.62.41.json
+            build/release/REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md
+            build/release/GITHUB_UPLOAD_V11_62_43.md
+            build/release/STATIC_VALIDATION_V11_62_43.txt
+            build/release/REGISTRY_AUDIT_V11_62_43.md
+            build/release/registry_audit_v11.62.43.json
+            build/release/ITEM_VISUAL_AUDIT_V11_62_43.md
+            build/release/item_visual_audit_v11.62.43.json
+            build/release/PORT_STATUS_V11_62_43.md

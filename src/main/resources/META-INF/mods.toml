@@ -9,7 +9,7 @@ modId="thaumcraft"
 # v11.62.25 compatibility marker: version="11.62.25"
 # v11.62.27 compatibility marker: version="11.62.27"
 # v11.62.28 compatibility marker: version="11.62.28"
-version="11.62.41"
+version="11.62.43"
 # v11.62.36 compatibility marker: version="11.62.36"
 # v11.62.29 compatibility marker: version="11.62.29"
 # v11.62.24 compatibility marker: version="11.62.24"
@@ -109,14 +109,13 @@ displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 Forge 1.19.2 source-driven parity port of original Thaumcraft 4.2.3.5.
-v11.62.41 restores native LeavesBlock canopies, original ModelWand UV geometry and the TC4 Research Table world renderer,
-replaces the non-serializable Magical Forest biome-source wrapper with a persistent
-multi-noise source, restores /locate biome visibility, hides migration-only item aliases,
-and corrects oversized wand transforms. It also
-keeps note NBT synchronized without opening a rebuild-only second screen,
-restores drag/place/erase and component-well interactions, separates the original
-aura-node additive and alpha blend paths, and keeps previous Forge scanner,
-Arcane Workbench, registry and Magical Forest repairs.
+v11.62.43 restores the complete byte-exact 940-file TC4 texture bank, fixes the
+Thaumometer's original 5/4/3/2/1 aspect layout and alphabetical tag order,
+removes the non-original scanner node sprite and aura-node drain overlays,
+restores sceptre rune rings and original animated rune colours, maps Goggles of
+Revealing through the original logical 64x32 armor atlas, and pins the
+Thaumonomicon, Research Table and Arcane Workbench to canonical original GUI
+resources and coordinates. The project remains Forge 1.19.2 / Java 17.
 '''
 
 [[dependencies.thaumcraft]]

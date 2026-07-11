@@ -1,28 +1,30 @@
-# Thaumcraft Legacy Rebuild — v11.62.41
+# Thaumcraft Legacy Rebuild — v11.62.43
 
 Source-driven port of Thaumcraft 4.2.3.5 to **Minecraft Forge 1.19.2 (43.5.2)** and Java 17.
 
 This is a Forge project. It does not use NeoForge or TerraBlender.
 
-## v11.62.41 focus
+## v11.62.43 focus
 
-This batch continues the screenshot-driven repair pass:
+This batch is a strict original-resource and runtime-render audit:
 
-- replaces ordinary non-occluding Greatwood/Silverwood leaf blocks with native 1.19.2 `LeavesBlock` implementations;
-- restores leaf distance, persistence, decay and internal-face suppression so Silverwood canopies no longer become transparent blue lattices;
-- restores original-style rain drips, rare Silverwood sparkles and Silverwood light level 7;
-- fixes wand rod/cap rendering by reproducing the original `ModelWand` 64x32 UV atlas and model-box offsets;
-- separates the original outer staff offset from the inner `ModelWand` staff offset so the rod no longer disappears while only the focus remains visible;
-- replaces the approximate Research Table JSON world model with a native Forge block-entity renderer using TC4 `restable.png`, `restable2.png`, parchment and quill resources;
-- ports the original 32-pixel two-table geometry, four orientations, inkwell, quill, parchment stack and research-note scroll;
-- stores the original partner direction in a horizontal blockstate rather than losing the old TC4 metadata;
-- keeps both physical table positions through `PRIMARY` master/partner states, routes either half to one inventory and removes the pair together;
-- uses separate half-table collision shapes instead of a full invisible cube;
-- installs the used Scribing Tools into the table's real slot during conversion, matching the original behavior;
-- keeps a separate visible inventory model while preventing a duplicate world model behind the renderer;
-- adds CI regression checks for leaves, ModelWand UVs and the Research Table renderer.
+- restores the missing original `misc/wispy.png` used by the aura-node wand drain beam;
+- replaces the altered scanner texture with the byte-exact original `models/scanner.png` including its alpha channel;
+- verifies all **940 original TC4 texture files** byte-for-byte in CI;
+- restores the Thaumometer's original alphabetical aspect order and 5/4/3/2/1 layout for up to 15 aspects;
+- removes the non-original fake node sprite from the scanner glass;
+- removes invented energized-size and recently-drained sprite overlays from aura nodes;
+- restores the independent ten-rune sceptre orbit and original animated rune colours;
+- remaps Goggles of Revealing through the original logical 64x32 armor UV net instead of stretched arbitrary atlas strips;
+- binds Thaumonomicon browser and page rendering directly to the canonical original GUI files;
+- locks Research Table and Arcane Workbench slot coordinates to the original 1.7.10 values;
+- audits all **689 item model JSON files**, including hidden compatibility aliases.
 
-Detailed report: `REPORT_V11_62_41_LEAVES_WAND_RESEARCH_TABLE_FIXES.md`.
+Detailed reports:
+
+- `REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md`
+- `PORT_STATUS_V11_62_43.md`
+- `reports/ITEM_VISUAL_AUDIT_V11_62_43.md`
 
 ## Local static checks
 
@@ -34,9 +36,13 @@ python3 tools/visual_parity_guard.py
 python3 tools/research_table_guard.py
 python3 tools/research_table_open_guard.py
 python3 tools/worldgen_guard.py
+python3 tools/feature_cycle_guard.py
 python3 tools/thaumometer_scan_guard.py
 python3 tools/runtime_visual_guard.py
 python3 tools/leaves_wand_table_guard.py
+python3 tools/tc4_original_asset_guard.py
+python3 tools/tc4_runtime_visual_guard.py
+python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
 python3 tools/audit_registry.py --fail-on-unexpected
 ```
 
@@ -44,7 +50,7 @@ python3 tools/audit_registry.py --fail-on-unexpected
 
 ```bash
 chmod +x gradlew
-./gradlew clean build --stacktrace --no-daemon
+./gradlew build --stacktrace --no-daemon
 ```
 
-The compiled mod is written to `build/libs/`. Do not place multiple versions of this mod in the same `mods` directory.
+The compiled mod is written to `build/libs/`. Do not use `clean build` in the GitHub workflow and do not place multiple versions of this mod in the same `mods` directory.

@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.resources.language.I18n;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -35,7 +34,7 @@ import java.util.regex.Pattern;
  * page indexing.
  */
 public class TC4ResearchPageScreen extends Screen {
-    private static final ResourceLocation BOOK = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/gui/thaumonomicon.png");
+    private static final ResourceLocation BOOK = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/gui/gui_researchbook.png");
     // TC4 GuiResearchRecipe draws only the 256x181 upper-left region of the
     // 512 atlas, scaled to 130%. Drawing the complete 512 sheet caused the huge
     // clipped book and black bands shown in the v11.62.39 screenshots.

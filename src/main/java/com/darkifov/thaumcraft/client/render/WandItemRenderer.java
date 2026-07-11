@@ -50,6 +50,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         renderOriginalTC4WandComponents(stack, data, poseStack, buffer, packedLight);
 
         renderOriginalTC4FocusLayers(stack, data, poseStack, buffer, packedLight);
+        renderOriginalTC4SceptreRunes(stack, poseStack, buffer, packedLight);
         renderOriginalTC4Runes(data, stack, poseStack, buffer, packedLight);
 
         poseStack.popPose();
@@ -297,6 +298,29 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
     }
 
+    /**
+     * Original ModelWand renders a ten-rune orbit around every sceptre even when
+     * the ordinary wand-runes upgrade is absent.  The previous port gated all
+     * script geometry behind hasRunes(), leaving sceptres visually incomplete.
+     */
+    private void renderOriginalTC4SceptreRunes(ItemStack stack, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        if (!WandComponentData.isSceptre(stack)) {
+            return;
+        }
+        Player player = Minecraft.getInstance().player;
+        float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
+        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(ORIGINAL_SCRIPT));
+        int light = Math.max(packedLight, 15728880);
+        poseStack.pushPose();
+        for (int rot = 0; rot < 10; rot++) {
+            poseStack.pushPose();
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(36.0F * rot + ticks));
+            renderRune(poseStack, consumer, 0.16F, -0.01F, -0.125F, rot, light, ticks);
+            poseStack.popPose();
+        }
+        poseStack.popPose();
+    }
+
     /** Stage183: non-invented rune adapter using original misc/script.png. */
     private void renderOriginalTC4Runes(WandComponentData data, ItemStack stack, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         if (!data.hasRunes()) {
@@ -304,15 +328,14 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(ORIGINAL_SCRIPT));
+        VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(ORIGINAL_SCRIPT));
         int light = Math.max(packedLight, 15728880);
         poseStack.pushPose();
         for (int rot = 0; rot < 4; rot++) {
             poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
             for (int a = 0; a < 14; a++) {
                 int rune = (a + rot * 3) % 16;
-                float alpha = Mth.sin((ticks + rune * 5.0F) / 10.0F) * 0.2F + 0.6F;
-                renderRune(poseStack, consumer, 0.36F + a * 0.14F, -0.01F, -0.08F, rune, light, (int)(alpha * 255.0F));
+                renderRune(poseStack, consumer, 0.36F + a * 0.14F, -0.01F, -0.08F, rune, light, ticks);
             }
         }
         poseStack.popPose();
@@ -357,18 +380,24 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         poseStack.popPose();
     }
 
-    private void renderRune(PoseStack poseStack, VertexConsumer consumer, float x, float y, float z, int rune, int light, int alpha) {
+    private void renderRune(PoseStack poseStack, VertexConsumer consumer, float x, float y, float z,
+                            int rune, int light, float ticks) {
         poseStack.pushPose();
         poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
         poseStack.translate(x, y, z);
         Matrix4f matrix = poseStack.last().pose();
         float u0 = 0.0625F * rune;
         float u1 = u0 + 0.0625F;
-        float grow = (alpha / 255.0F) / 40.0F;
-        vertexColor(matrix, consumer, -0.06F - grow, 0.06F + grow, 0.0F, u1, 1.0F, light, alpha, 225, 160, 51);
-        vertexColor(matrix, consumer, 0.06F + grow, 0.06F + grow, 0.0F, u1, 0.0F, light, alpha, 225, 160, 51);
-        vertexColor(matrix, consumer, 0.06F + grow, -0.06F - grow, 0.0F, u0, 0.0F, light, alpha, 225, 160, 51);
-        vertexColor(matrix, consumer, -0.06F - grow, -0.06F - grow, 0.0F, u0, 1.0F, light, alpha, 225, 160, 51);
+        float pulse = Mth.sin((ticks + rune * 5.0F) / 10.0F) * 0.2F;
+        int alpha = Mth.clamp((int)((pulse + 0.6F) * 255.0F), 0, 255);
+        int red = Mth.clamp((int)((Mth.sin((ticks + rune * 5.0F) / 5.0F) * 0.1F + 0.88F) * 255.0F), 0, 255);
+        int green = Mth.clamp((int)((Mth.sin((ticks + rune * 5.0F) / 7.0F) * 0.1F + 0.63F) * 255.0F), 0, 255);
+        int blue = 51;
+        float grow = pulse / 40.0F;
+        vertexColor(matrix, consumer, -0.06F - grow, 0.06F + grow, 0.0F, u1, 1.0F, light, alpha, red, green, blue);
+        vertexColor(matrix, consumer, 0.06F + grow, 0.06F + grow, 0.0F, u1, 0.0F, light, alpha, red, green, blue);
+        vertexColor(matrix, consumer, 0.06F + grow, -0.06F - grow, 0.0F, u0, 0.0F, light, alpha, red, green, blue);
+        vertexColor(matrix, consumer, -0.06F - grow, -0.06F - grow, 0.0F, u0, 1.0F, light, alpha, red, green, blue);
         poseStack.popPose();
     }
 

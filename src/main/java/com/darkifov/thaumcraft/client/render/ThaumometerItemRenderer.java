@@ -10,7 +10,6 @@ import com.darkifov.thaumcraft.aura.TC4ThaumometerTargeting;
 import com.darkifov.thaumcraft.block.ThaumometerItem;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.client.ClientScanData;
-import com.darkifov.thaumcraft.client.TC4AuraNodeHudParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
@@ -215,7 +214,6 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
                 minecraft.font.drawInBatch(typeLine, -typeWidth / 2.0F, -40.0F, 0xFFD7B8FF, false,
                         poseStack.last().pose(), buffer, false, 0, light);
             }
-            drawNodeOnScanner(poseStack, buffer, node, light);
         }
 
         if (!scanned) {
@@ -227,20 +225,22 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
             return;
         }
 
-        int shown = Math.min(10, aspects.size());
+        // Original ItemThaumometerRenderer uses a 5/4/3/2/1 triangular
+        // arrangement and can display fifteen aspects.  Earlier rebuild code
+        // used 4/3/2/1 and silently discarded the remaining five.
+        int shown = Math.min(15, aspects.size());
         int index = 0;
-        int remaining = shown;
         int row = 0;
-        while (remaining > 0) {
-            int rowCount = Math.min(row == 0 ? 4 : row == 1 ? 3 : row == 2 ? 2 : 1, remaining);
-            float startX = -((rowCount - 1) * 13.0F) / 2.0F;
+        while (index < shown && row < 5) {
+            int capacity = 5 - row;
+            int rowCount = Math.min(capacity, shown - index);
+            float baseX = capacity * 8.0F;
             for (int col = 0; col < rowCount; col++) {
                 AspectStack aspect = aspects.get(index++);
-                float x = startX + col * 16.0F;
-                float y = -18.0F + row * 14.0F;
+                float x = -baseX + col * 16.0F;
+                float y = -8.0F + row * 16.0F;
                 drawAspectOnScanner(poseStack, buffer, aspect, x, y, light);
             }
-            remaining -= rowCount;
             row++;
         }
 
@@ -287,8 +287,9 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         if (aspects != null) {
             sorted.addAll(aspects.all());
         }
-        sorted.sort(Comparator.comparingInt(AspectStack::amount).reversed()
-                .thenComparing(stack -> stack.aspect().id()));
+        // TC4 AspectList#getAspectsSorted orders tags alphabetically; it does
+        // not reorder the scanner readout by amount.
+        sorted.sort(Comparator.comparing(stack -> stack.aspect().id()));
         return sorted;
     }
 
@@ -304,42 +305,6 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         poseStack.popPose();
     }
 
-    private void drawNodeOnScanner(PoseStack poseStack, MultiBufferSource buffer,
-                                   AuraNodeBlockEntity node, int light) {
-        long time = Minecraft.getInstance().level == null ? 0L : Minecraft.getInstance().level.getGameTime();
-        int frame = (int) Math.floorMod((time / 2L) + node.getBlockPos().getX()
-                        + node.getBlockPos().getZ()
-                        + TC4AuraNodeHudParity.frameOffsetFor(node.typedNodeModifier()),
-                TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
-        int strip = TC4AuraNodeHudParity.stripFor(node.typedNodeType());
-
-        drawScannerQuad(poseStack.last().pose(),
-                buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODE_BUBBLE)),
-                -18.0F, -10.0F, 36.0F, 36.0F,
-                0.0F, 0.0F, 1.0F, 1.0F, 255, 255, 255, 120, light);
-
-        float cell = TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
-        drawScannerQuad(poseStack.last().pose(),
-                buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODES)),
-                -12.0F, -5.0F, 24.0F, 24.0F,
-                frame * cell, strip * cell, (frame + 1) * cell, (strip + 1) * cell,
-                255, 255, 255, 190, light);
-    }
-
-    private void drawScannerQuad(Matrix4f matrix, VertexConsumer consumer,
-                                 float x, float y, float width, float height,
-                                 float u0, float v0, float u1, float v1,
-                                 int red, int green, int blue, int alpha, int light) {
-        consumer.vertex(matrix, x, y + height, 0.0F).color(red, green, blue, alpha).uv(u0, v1)
-                .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        consumer.vertex(matrix, x + width, y + height, 0.0F).color(red, green, blue, alpha).uv(u1, v1)
-                .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        consumer.vertex(matrix, x + width, y, 0.0F).color(red, green, blue, alpha).uv(u1, v0)
-                .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        consumer.vertex(matrix, x, y, 0.0F).color(red, green, blue, alpha).uv(u0, v0)
-                .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-    }
-
     private void drawAspectOnScanner(PoseStack poseStack, MultiBufferSource buffer, AspectStack stack,
                                      float x, float y, int light) {
         ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID,
@@ -348,7 +313,7 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         int red = (rgb >> 16) & 255;
         int green = (rgb >> 8) & 255;
         int blue = rgb & 255;
-        float size = 9.0F;
+        float size = 16.0F;
         Matrix4f matrix = poseStack.last().pose();
         VertexConsumer icon = buffer.getBuffer(RenderType.entityTranslucent(texture));
         icon.vertex(matrix, x, y + size, 0.0F).color(red, green, blue, 245).uv(0.0F, 1.0F)
@@ -362,7 +327,7 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
 
         String amount = String.valueOf(stack.amount());
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.font.drawInBatch(amount, x + 6.0F, y + 3.0F, 0xFFFFFFFF, true,
+        minecraft.font.drawInBatch(amount, x + 11.0F, y + 8.0F, 0xFFFFFFFF, true,
                 matrix, buffer, false, 0, light);
     }
 

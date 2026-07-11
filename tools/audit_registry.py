@@ -214,7 +214,7 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
             unexpected.append(Problem("visible_clone_group", "models/item", ", ".join(group)))
 
     result = {
-        "version": "11.62.36",
+        "version": "11.62.43",
         "item_model_count": len(model_files),
         "parsed_model_count": len(models),
         "statically_detected_registered_model_count": len(registered_ids),
@@ -227,12 +227,12 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         "problems": [problem.__dict__ for problem in problems],
         "unexpected_problem_count": len(unexpected),
     }
-    (report_dir / "registry_audit_v11.62.41.json").write_text(
+    (report_dir / "registry_audit_v11.62.43.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
     lines = [
-        "# Registry and resource audit — v11.62.41",
+        "# Registry and resource audit — v11.62.43",
         "",
         f"- Item model JSON files: **{len(model_files)}**",
         f"- Parsed successfully: **{len(models)}**",
@@ -271,7 +271,7 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         "Legacy registry IDs are retained only for old-world compatibility. They must not appear as normal craftable/player-facing duplicates until a separate migration removes them safely.",
         "",
     ]
-    (report_dir / "REGISTRY_AUDIT_V11_62_41.md").write_text("\n".join(lines), encoding="utf-8")
+    (report_dir / "REGISTRY_AUDIT_V11_62_43.md").write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Audited {len(model_files)} item models")
     print(f"Visible clone leaks: {len(leaking_groups)}")

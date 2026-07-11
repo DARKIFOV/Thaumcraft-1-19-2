@@ -1,0 +1,28 @@
+v11.62.43 static validation
+UTC 2026-07-11 15:32:10
+
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+Java syntax guard: OK
+JSON resource validation: OK (1698 files)
+TC4 visual parity guard: OK
+Research Table integration guard: OK
+Research Table open guard: OK
+Magical Forest worldgen guard: OK (serializable multi-noise source and locate validation)
+Feature cycle guard: OK
+Thaumometer scan guard: OK (explicit Forge packet, server ray validation, 25/20 tick TC4 hold)
+Runtime visual guard: OK (BER-only matrix/transducer/table, two-block item, world tags, transparent armor)
+Leaves/Wand/Research Table guard: OK (LeavesBlock states, ModelWand UVs, original two-block BER)
+TC4 original texture bank guard: OK — 940 / 940 exact textures
+TC4 runtime visual parity guard: OK
+Item visual audit: 689 models, 0 missing, 0 unresolved, 387 exact-original refs
+reports/item_visual_audit_v11.62.43.json
+reports/ITEM_VISUAL_AUDIT_V11_62_43.md
+Audited 689 item models
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected problems: 0
+Workflow text validation: OK — .github/workflows/build.yml
+Workflow text validation: OK — .github/workflows/release.yml
+YAML parse: OK — .github/workflows/build.yml
+YAML parse: OK — .github/workflows/release.yml
+Gradle compile: NOT RUN — wrapper cannot resolve services.gradle.org in this environment
