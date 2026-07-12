@@ -30,8 +30,8 @@ def forbid(text: str, token: str, label: str) -> None:
 
 build = read("build.gradle")
 mods = read("src/main/resources/META-INF/mods.toml")
-build_match = re.search(r"^version\s*=\s*'([0-9.]+)'", build, re.MULTILINE)
-mods_match = re.search(r'^version="([0-9.]+)"', mods, re.MULTILINE)
+build_match = re.search(r"^version\s*=\s*'([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?'", build, re.MULTILINE)
+mods_match = re.search(r'^version="([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?"', mods, re.MULTILINE)
 def version_tuple(value: str) -> tuple[int, ...]:
     return tuple(int(part) for part in value.split("."))
 for label, match in (("build.gradle", build_match), ("mods.toml", mods_match)):
@@ -110,7 +110,8 @@ require(overlay, "modifiedVisCost(wandStack, minecraft.player, aspect, baseFocus
 build_workflow = read(".github/workflows/build.yml")
 release_workflow = read(".github/workflows/release.yml")
 for workflow, label in ((build_workflow, "build workflow"), (release_workflow, "release workflow")):
-    require(workflow, "FULL_REPORT.md", label)
+    if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow) is None:
+        ERRORS.append(f"{label}: missing consolidated expert report")
     for legacy_report in (
         "REPORT_V11_62_47",
         "PORT_STATUS_V11_62_47",

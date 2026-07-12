@@ -34,8 +34,8 @@ def version_tuple(value: str) -> tuple[int, ...]:
 build = read("build.gradle")
 mods = read("src/main/resources/META-INF/mods.toml")
 for label, text, pattern in (
-    ("build.gradle", build, r"^version\s*=\s*'([0-9.]+)'"),
-    ("mods.toml", mods, r'^version="([0-9.]+)"'),
+    ("build.gradle", build, r"^version\s*=\s*'([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?'"),
+    ("mods.toml", mods, r'^version="([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?"'),
 ):
     match = re.search(pattern, text, re.MULTILINE)
     if match is None or version_tuple(match.group(1)) < (11, 62, 49):
@@ -87,7 +87,7 @@ for token in (
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116249_aspect_orb_parity_guard.py", workflow_name)
-    if "THAUMCRAFT_V11_62_" not in workflow or "FULL_REPORT.md" not in workflow:
+    if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow) is None:
         ERRORS.append(f"{workflow_name}: missing consolidated current report")
 
 if ERRORS:

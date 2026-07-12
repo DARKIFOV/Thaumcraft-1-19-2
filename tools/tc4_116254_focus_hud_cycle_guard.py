@@ -29,8 +29,26 @@ config = read("src/main/java/com/darkifov/thaumcraft/config/ThaumcraftConfig.jav
 manager = read("src/main/java/com/darkifov/thaumcraft/wand/WandManagerRuntime.java")
 pouch = read("src/main/java/com/darkifov/thaumcraft/block/FocusPouchItem.java")
 
-need(build, "version = '11.62.54'", "build")
-need(mods, 'version="11.62.54"', "mods")
+def current_version(text: str, pattern: str, label: str) -> tuple[int, ...] | None:
+    match = re.search(pattern, text, re.MULTILINE)
+    if match is None:
+        errors.append(f"{label}: current semantic version not found")
+        return None
+    return tuple(int(part) for part in match.group(1).split("."))
+
+build_version = current_version(
+    build,
+    r"^version\s*=\s*'([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?'",
+    "build",
+)
+mods_version = current_version(
+    mods,
+    r'^version="([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?"',
+    "mods",
+)
+for label, version in (("build", build_version), ("mods", mods_version)):
+    if version is not None and version < (11, 62, 54):
+        errors.append(f"{label}: expected v11.62.54 or later")
 
 # Original Config.dialBottom default and 32x32 corner placement.
 need(config, "WAND_DIAL_BOTTOM", "config")

@@ -15,8 +15,8 @@ def require(path: str, token: str) -> None:
 
 build_text = (root / "build.gradle").read_text(encoding="utf-8")
 mods_text = (root / "src/main/resources/META-INF/mods.toml").read_text(encoding="utf-8")
-build_match = re.search(r"^version\s*=\s*'([0-9.]+)'", build_text, re.MULTILINE)
-mods_match = re.search(r'^version="([0-9.]+)"', mods_text, re.MULTILINE)
+build_match = re.search(r"^version\s*=\s*'([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?'", build_text, re.MULTILINE)
+mods_match = re.search(r'^version="([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?"', mods_text, re.MULTILINE)
 def version_tuple(value: str) -> tuple[int, ...]:
     return tuple(int(part) for part in value.split("."))
 for label, match in (("build.gradle", build_match), ("mods.toml", mods_match)):

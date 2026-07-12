@@ -1,12 +1,169 @@
-# Thaumcraft Legacy Rebuild v11.62.54-hotfix2 — полный экспертный технический отчёт, редакция R3
+# Thaumcraft Legacy Rebuild v11.62.54-hotfix3 — полный экспертный технический отчёт, редакция R4
 
 **Снимок кода:** v11.62.54  
-**Исправленный пакет:** v11.62.54-hotfix2  
+**Исправленный пакет:** v11.62.54-hotfix3  
 **Цель:** перенос поведения и визуального языка Thaumcraft 4.2.3.5 с Minecraft 1.7.10 на Minecraft 1.19.2 / Forge 43.5.2 / Java 17  
 **Дата формирования отчёта:** 2026-07-12  
 **Тип документа:** независимое сводное техническое досье по всему проекту, предназначенное для передачи стороннему эксперту.
 
 > Важно: документ разделяет наличие кода, успешную статическую проверку, успешную компиляцию и реальное подтверждение в запущенной игре. Наличие класса или прошедшего guard-теста не считается доказательством полной runtime-паритетности.
+
+
+## A. Инцидент GitHub Actions и исправление hotfix3
+
+### A.1. Исходные материалы и воспроизведение
+
+Для ревизии использованы два переданных архива:
+
+- `logs_78987939722(2).zip` — журнал упавшего GitHub Actions job;
+- `Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.62.54_hotfix2_GitHub(1).zip` — исходное дерево репозитория.
+
+Сбой воспроизводился на шаге **Validate magical leaves, wand UV and Research Table renderer** командой:
+
+```bash
+python3 tools/leaves_wand_table_guard.py
+```
+
+Фактический вывод CI:
+
+```text
+Leaves/Wand/Research Table guard: FAILED
+ - research table BER is not registered on the Forge client bus
+Process completed with exit code 1
+```
+
+До этого шага успешно прошли Forge-only, Java-text, JSON, visual-path, Research Table, worldgen, feature-cycle, Thaumometer и runtime-visual проверки. Gradle-сборка не запускалась, потому что job остановился на первом ошибочном guard.
+
+### A.2. Диагноз
+
+Сообщение guard было ложным. В `ClientModEvents.java` регистрация присутствовала:
+
+```java
+BlockEntityRenderers.register(
+        ThaumcraftMod.RESEARCH_TABLE_BLOCK_ENTITY.get(),
+        blockEntityRenderer(ResearchTableRenderer::new));
+```
+
+Однако `tools/leaves_wand_table_guard.py` искал только устаревший фрагмент прямой регистрации:
+
+```text
+RESEARCH_TABLE_BLOCK_ENTITY.get(), ResearchTableRenderer::new
+```
+
+Начиная с hotfix2 прямой constructor reference намеренно обёрнут в `blockEntityRenderer(...)`. Это обязательная защита от production `AbstractMethodError` на SRG-имени `BlockEntityRendererProvider#m_173570_`. Поэтому возврат к строке, которую ожидал старый guard, формально сделал бы CI зелёным, но восстановил бы реальный риск падения Minecraft.
+
+### A.3. Исправление
+
+Первичный guard исправлен без отката рабочей SRG-safe архитектуры. Теперь `tools/leaves_wand_table_guard.py`:
+
+1. требует точную регистрацию `RESEARCH_TABLE_BLOCK_ENTITY` через `blockEntityRenderer(ResearchTableRenderer::new)`;
+2. проверяет наличие фабрики `blockEntityRenderer(...)`;
+3. проверяет явный анонимный `BlockEntityRendererProvider`;
+4. проверяет override `create(Context)` и делегирование `factory.apply(context)`;
+5. выдаёт отдельную ошибку при дрейфе регистрации и отдельные ошибки при повреждении adapter-контракта.
+
+После устранения первого стоп-фактора были вручную выполнены все последующие CI-проверки. Это выявило ещё три класса устаревших требований в regression guards v11.62.46–v11.62.54:
+
+- regex текущей версии принимал только `11.62.54`, но отвергал корректные semver-суффиксы `-hotfix2`/`-hotfix3`;
+- workflow-проверки требовали старое условное имя `FULL_REPORT.md` или `THAUMCRAFT_V11_62_*_FULL_REPORT.md`, хотя репозиторий уже использовал единый экспертный отчёт с другим именем;
+- v11.62.48 guard требовал прямую `AspectOrbRenderer::new` регистрацию, запрещённую hotfix2 по той же SRG-причине, и не принимал `entityRenderer(AspectOrbRenderer::new)`.
+
+Эти guards обновлены так, чтобы они проверяли фактический текущий контракт:
+
+- базовая версия извлекается из `major.minor.patch`, а опциональный prerelease/hotfix suffix разрешён;
+- consolidated report определяется по устойчивому шаблону `THAUMCRAFT_LEGACY_REBUILD_..._EXPERT_FULL_TECHNICAL_REPORT_R*.md`;
+- Aspect Orb обязан регистрироваться через явный `entityRenderer(...)` adapter;
+- v11.62.54 guard больше не проходит случайно по compatibility-комментарию, а разбирает реальную строку версии.
+
+Таким образом source guards и post-build bytecode audit теперь проверяют одну архитектуру, а не противоречат друг другу.
+
+### A.4. Версионирование и release plumbing
+
+Ревизия поднята до `11.62.54-hotfix3` в:
+
+- `build.gradle`;
+- `META-INF/mods.toml`;
+- build/release workflows;
+- README;
+- имени consolidated expert report;
+- имени release ZIP и release-JAR audit JSON.
+
+Игровая логика, реестры, модели, текстуры и runtime-классы в этом hotfix не изменялись. Изменение относится к CI-контракту и выпускной маркировке.
+
+### A.5. Фактическая проверка hotfix3
+
+| Проверка | Результат | Доказательная граница |
+| --- | --- | --- |
+| Первичный `leaves_wand_table_guard.py` | **PASS** | Подтверждает SRG-safe регистрацию Research Table BER и структуру adapter. |
+| Regression guards v11.62.45–v11.62.54 | **PASS** | Подтверждает отсутствие статического дрейфа заявленных контрактов. |
+| JSON validation | **PASS: 1699 файлов** | Синтаксис и ссылки, но не runtime-загрузка ресурсов. |
+| Original TC4 texture bank | **PASS: 940/940 exact** | Byte-exact наличие канонического банка. |
+| Item visual audit | **PASS: 690 моделей; 0 missing; 0 unresolved** | Статические цепочки моделей/текстур. |
+| Semantic model audit | **PASS: 690 моделей; 0 problems; 0 warnings** | Parent/display transforms. |
+| BEWLR audit | **PASS: 8/8; 0 problems** | Статический Forge builtin/entity contract. |
+| Aura-node parity audit | **PASS: 16/16** | Заявленные узловые контракты. |
+| Registry audit | **PASS: 690 моделей; 0 clone leaks; 0 resource/unexpected problems** | Статический реестр и ресурсы. |
+| Python syntax compilation изменённых guards | **PASS** | Все изменённые `.py` компилируются. |
+| GitHub workflow YAML parse и referenced-file check | **PASS** | Структура YAML и наличие вызываемых локальных файлов. |
+| Локальный `./gradlew clean build` | **НЕ ВЫПОЛНЕН ПО ИНФРАСТРУКТУРНОЙ ПРИЧИНЕ** | Wrapper остановился до конфигурации проекта на `UnknownHostException: services.gradle.org`; это не Java/Gradle compile error проекта. |
+| Post-build `audit_runtime_sam_bridges.py` и `audit_release_jar.py` | **ОЖИДАЮТ JAR ОТ GITHUB ACTIONS** | Эти проверки находятся после Gradle build и должны выполняться на сетевом GitHub runner. |
+| Запуск Minecraft-клиента | **НЕ ВЫПОЛНЯЛСЯ В ЭТОЙ РЕВИЗИИ** | Runtime-паритет не заявляется как подтверждённый. |
+
+Локальная среда не имела DNS/сетевого доступа к Gradle Distribution Service. Поэтому в архив намеренно **не вложен непроверенный или вручную перепакованный JAR**. Передаваемый результат — полный source archive для GitHub, где штатный workflow выполнит чистую ForgeGradle-сборку и оба post-build аудита.
+
+### A.6. Изменённые файлы
+
+| Файл | Назначение изменения |
+| --- | --- |
+| `tools/leaves_wand_table_guard.py` | Исправлена ложная проверка Research Table BER; добавлена проверка SRG-safe adapter contract. |
+| `tools/tc4_116246_audit_guard.py` … `tools/tc4_116254_focus_hud_cycle_guard.py` | Версия с hotfix suffix, актуальное имя единого отчёта, SRG-safe Aspect Orb registration, устранение прохождения по compatibility-комментарию. |
+| `.github/workflows/build.yml` | Версия artifact/release audit `hotfix3`, единый R4 report. |
+| `.github/workflows/release.yml` | Версия release bundle/audit `hotfix3`, единый R4 report. |
+| `build.gradle` | Project version `11.62.54-hotfix3`. |
+| `src/main/resources/META-INF/mods.toml` | Mod version и описание hotfix3. |
+| `README.md` | Ожидаемый JAR, ссылка на R4 и пояснение hotfix3. |
+| `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R4.md` | Единый полный отчёт для независимой экспертизы. |
+
+### A.7. Инструкция эксперту по воспроизведению
+
+```bash
+python3 tools/leaves_wand_table_guard.py
+python3 tools/tc4_116246_audit_guard.py
+python3 tools/tc4_116247_arcane_wand_guard.py
+python3 tools/tc4_116248_node_orb_guard.py
+python3 tools/tc4_116249_aspect_orb_parity_guard.py
+python3 tools/tc4_116250_runtime_screenshot_guard.py
+python3 tools/tc4_116251_research_scan_hud_guard.py
+python3 tools/tc4_116252_runtime_risk_guard.py
+python3 tools/tc4_116253_wand_beam_thaumometer_guard.py
+python3 tools/tc4_116254_focus_hud_cycle_guard.py
+python3 tools/audit_registry.py --version 11.62.54 --fail-on-unexpected
+chmod +x gradlew
+./gradlew clean build --stacktrace --no-daemon
+```
+
+После успешной сборки:
+
+```bash
+MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
+python3 tools/audit_runtime_sam_bridges.py --jar "$MAIN_JAR"
+python3 tools/audit_release_jar.py \
+  --jar "$MAIN_JAR" \
+  --version 11.62.54-hotfix3 \
+  --report reports/release_jar_audit_v11.62.54-hotfix3.json
+```
+
+### A.8. Что именно должен показать GitHub Actions
+
+Ожидаемая последовательность после загрузки архива в корень репозитория:
+
+1. шаг **Validate magical leaves, wand UV and Research Table renderer** завершается строкой `Leaves/Wand/Research Table guard: OK`;
+2. guards v11.62.46–v11.62.54 не отклоняют `11.62.54-hotfix3` и R4 report;
+3. `Build Forge JAR` создаёт `thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix3.jar`;
+4. `Audit SRG-safe renderer and screen providers` подтверждает пять explicit SRG adapter overrides и отсутствие опасных SAM `invokedynamic`;
+5. `Audit complete release JAR contents` создаёт `reports/release_jar_audit_v11.62.54-hotfix3.json`;
+6. artifact публикуется под именем `thaumcraft-legacy-rebuild-v11.62.54-hotfix3`.
+
 
 
 ## 0. Аварийный runtime-аудит hotfix2
@@ -124,7 +281,7 @@ chmod +x gradlew
 Ожидаемый результат:
 
 ```text
-build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix2.jar
+build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix3.jar
 ```
 
 ### 3.2. Фактически использованный release-процесс v11.62.54
@@ -527,8 +684,11 @@ Guards являются регрессионными маркерами конк
 | 11.62.52 | Time-normalized node tags и полный ресурсный JAR audit. |
 | 11.62.53 | Original-like wand-node floaty beam и Thaumometer lighting. |
 | 11.62.54 | Wand dial и focus cycling; обнаружен D-001 в порядке транзакции. |
+| 11.62.54-hotfix1 | Исправлен синтаксис `mods.toml`, вызывавший Forge Exit Code 1 на mod discovery. |
+| 11.62.54-hotfix2 | Добавлены SRG-safe adapters для renderer/screen/color SAM interfaces. |
+| 11.62.54-hotfix3 | Исправлены ложные и устаревшие GitHub guards; CI и release metadata согласованы с hotfix2 architecture. |
 
-## 28. Контрольные суммы артефактов v11.62.54
+## 28. Исторические контрольные суммы базовой ревизии v11.62.54
 
 ```text
 98d681ff2a8fa96096dfc5e3241fb0b4deb5fb84133c55199291d1d8c1521753  thaumcraft-legacy-rebuild-v11.62.54.zip

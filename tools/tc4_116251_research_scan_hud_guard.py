@@ -32,8 +32,8 @@ def version_tuple(value: str) -> tuple[int, ...]:
 
 
 for label, text, pattern in (
-    ("build.gradle", read("build.gradle"), r"^version\s*=\s*'([0-9.]+)'"),
-    ("mods.toml", read("src/main/resources/META-INF/mods.toml"), r'^version="([0-9.]+)"'),
+    ("build.gradle", read("build.gradle"), r"^version\s*=\s*'([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?'"),
+    ("mods.toml", read("src/main/resources/META-INF/mods.toml"), r'^version="([0-9]+(?:\.[0-9]+){2})(?:-[A-Za-z0-9.-]+)?"'),
 ):
     match = re.search(pattern, text, re.MULTILINE)
     if match is None or version_tuple(match.group(1)) < (11, 62, 51):
@@ -101,7 +101,8 @@ for token in (
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116251_research_scan_hud_guard.py", workflow_name)
-    require(workflow, "FULL_REPORT.md", workflow_name)
+    if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow) is None:
+        ERRORS.append(f"{workflow_name}: missing consolidated expert report")
 
 if ERRORS:
     print("v11.62.51 research/scan/HUD guard: FAIL")

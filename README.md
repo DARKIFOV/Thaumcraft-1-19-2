@@ -36,10 +36,10 @@ chmod +x gradlew
 Expected output:
 
 ```text
-build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix2.jar
+build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix3.jar
 ```
 
-See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R3.md` for the consolidated expert report, crash diagnosis and remaining work.
+See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R4.md` for the consolidated expert report, crash diagnosis and remaining work.
 
 ## v11.62.54-hotfix1
 
@@ -51,3 +51,7 @@ This packaging hotfix repairs an invalid standalone prose line in `META-INF/mods
 This source hotfix addresses the startup crash reported as `AbstractMethodError` in `BlockEntityRendererProvider`. Direct renderer, entity-renderer, menu-screen and colour-handler lambdas no longer implement obfuscated Minecraft interfaces themselves. They now target stable JDK/project interfaces and are forwarded through explicit adapter overrides that ForgeGradle can reobfuscate safely.
 
 The crash was in the mod bootstrap bytecode, not in Oculus, Rubidium or the world save. Build this source through the included GitHub Actions workflow and use the produced reobfuscated JAR. The known focus transaction ordering issue D-001 is still tracked separately.
+
+## v11.62.54-hotfix3
+
+This CI/release hotfix repairs a stale source guard that rejected the required SRG-safe Research Table renderer adapter. The guard now verifies the wrapped registration and the explicit `BlockEntityRendererProvider` bridge instead of demanding the forbidden direct Minecraft SAM constructor reference. Gameplay code and assets are unchanged from hotfix2.
