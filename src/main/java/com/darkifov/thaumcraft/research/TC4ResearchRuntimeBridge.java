@@ -7,24 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Stage116: runtime-safe port of TC4 ConfigResearch.java.
+ * Generated exact runtime index of the 201 ResearchItem declarations in
+ * Thaumcraft 4.2.3.5 ConfigResearch.java.
  *
- * This class does not execute old 1.7.10 FML/MCP code. It exposes the extracted
- * original research graph so the 1.19.2 Thaumonomicon/progression can use TC4's
- * real keys, categories, coordinates, parents, page refs, aspect tags and warp.
+ * <p>Do not edit entries by hand. Run
+ * {@code tools/generate_tc4_research_runtime_from_source_map.py}.</p>
  */
 public final class TC4ResearchRuntimeBridge {
     private static final List<ResearchEntry> ENTRIES = build();
 
     private TC4ResearchRuntimeBridge() {}
 
-    public static List<ResearchEntry> entries() {
-        return ENTRIES;
-    }
-
-    public static int size() {
-        return ENTRIES.size();
-    }
+    public static List<ResearchEntry> entries() { return ENTRIES; }
+    public static int size() { return ENTRIES.size(); }
 
     public static Map<String, Integer> aspects(Object... pairs) {
         Map<String, Integer> result = new LinkedHashMap<>();
@@ -35,337 +30,19 @@ public final class TC4ResearchRuntimeBridge {
     }
 
     private static List<ResearchEntry> build() {
-        List<ResearchEntry> entries = new ArrayList<>();
-        addBASICS(entries);
+        List<ResearchEntry> entries = new ArrayList<>(201);
         addTHAUMATURGY(entries);
-        addALCHEMY(entries);
         addARTIFICE(entries);
+        addALCHEMY(entries);
         addGOLEMANCY(entries);
+        addBASICS(entries);
         addELDRITCH(entries);
         return Collections.unmodifiableList(entries);
     }
 
-    private static void addBASICS(List<ResearchEntry> entries) {
-        entries.add(new ResearchEntry(
-                "ASPECTS",
-                "Aspects of Magic",
-                "The building blocks of magic",
-                "BASICS", 0, 0, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.ASPECTS.1", "tc.research_page.ASPECTS.2", "tc.research_page.ASPECTS.3"},
-                new String[] {"TEXT", "TEXT", "TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PECH",
-                "The Pech",
-                "Strange Creatures",
-                "BASICS", -4, -4, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.PECH.1", "tc.research_page.PECH.2"},
-                new String[] {"TEXT", "TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "NODES",
-                "Auras and Nodes",
-                "Magic is everywhere",
-                "BASICS", -2, 0, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.NODES.1", "tc.research_page.NODES.2", "tc.research_page.NODES.3"},
-                new String[] {"TEXT", "TEXT", "TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "WARP",
-                "Warp, Flux and all things bad",
-                "Everything has a price",
-                "BASICS", 0, 2, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.WARP.1", "tc.research_page.WARP.2", "tc.research_page.WARP.3"},
-                new String[] {"TEXT", "TEXT", "TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "RESEARCH",
-                "Research",
-                "How you discover things",
-                "BASICS", 2, 0, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.RESEARCH.1", "tc.research_page.RESEARCH.2", "tc.research_page.RESEARCH.3", "tc.research_page.RESEARCH.4", "tc.research_page.RESEARCH.5", "tc.research_page.RESEARCH.6", "tc.research_page.RESEARCH.7", "tc.research_page.RESEARCH.8", "tc.research_page.RESEARCH.9", "tc.research_page.RESEARCH.10", "tc.research_page.RESEARCH.11", "tc.research_page.RESEARCH.12"},
-                new String[] {"TEXT", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"},
-                new String[] {"Thaumometer", "Scribe1", "Scribe2", "Scribe3"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "KNOWFRAG",
-                "Knowledge Fragments",
-                "Fragments of lost lore",
-                "BASICS", 3, -2, 1,
-                java.util.Map.of(),
-                new String[] {"RESEARCH"},
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.KNOWFRAG.1"},
-                new String[] {"TEXT", "NORMAL_CRAFTING"},
-                new String[] {"KnowFrag"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "THAUMONOMICON",
-                "Thaumonomicon",
-                "A Repository of Knowledge",
-                "BASICS",
-                1,
-                -2,
-                1,
-                java.util.Map.of(),
-                new String[] {"RESEARCH"},
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.THAUMONOMICON.1"},
-                new String[] {"TEXT", "COMPOUND_CRAFTING"},
-                new String[] {"Thaumonomicon"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ORE",
-                "Ores",
-                "Dig deep",
-                "BASICS",
-                -2,
-                -2,
-                1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.ORE.1", "tc.research_page.ORE.2", "tc.research_page.ORE.3", "tc.research_page.ORE.4"},
-                new String[] {"TEXT", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT"},
-                new String[] {"RESEARCH:ORE"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PLANTS",
-                "Plants & Trees",
-                "Magical vegetation",
-                "BASICS", -2, -4, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.PLANTS.1", "tc.research_page.PLANTS.2", "tc.research_page.PLANTS.3", "tc.research_page.PLANTS.4", "tc.research_page.PLANTS.5", "tc.research_page.PLANTS.6"},
-                new String[] {"TEXT", "NORMAL_CRAFTING", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT", "TEXT", "TEXT"},
-                new String[] {"PlankGreatwood", "PlankSilverwood"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ENCHANT",
-                "Enchantments",
-                "New Enchantments",
-                "BASICS", -4, -2, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.ENCHANT.1", "tc.research_page.ENCHANT.2"},
-                new String[] {"TEXT", "TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "NODETAPPER1",
-                "Advanced Node Tapping",
-                "Taking it all",
-                "BASICS", -4, 1, 2,
-                aspects("AURAM", 3, "PRAECANTATIO", 3, "MOTUS", 3, "PERMUTATIO", 3),
-                new String[] {"NODES"},
-                new String[0],
-                new String[0],
-                new String[] {"round"},
-                new String[] {"tc.research_page.NODETAPPER1.1"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "NODEPRESERVE",
-                "Node Preserver",
-                "Saving some for later",
-                "BASICS", -6, 2, 2,
-                aspects("AURAM", 3, "LUCRUM", 3, "SENSUS", 3),
-                new String[] {"NODETAPPER1"},
-                new String[0],
-                new String[0],
-                new String[] {"round"},
-                new String[] {"tc.research_page.NODEPRESERVE"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "NODEJAR",
-                "Node in a Jar",
-                "For the Thaumaturgist on the go",
-                "BASICS",
-                -7,
-                4,
-                3,
-                aspects("AURAM", 6, "LUCRUM", 3, "PERMUTATIO", 3, "MOTUS", 3),
-                new String[] {"NODEPRESERVE"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed"},
-                new String[] {"tc.research_page.NODEJAR.1", "tc.research_page.NODEJAR.2"},
-                new String[] {"TEXT", "COMPOUND_CRAFTING", "TEXT"},
-                new String[] {"NodeJar"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "NODETAPPER2",
-                "Master Node Tapping",
-                "All your vis are belong to us",
-                "BASICS", -3, 3, 2,
-                aspects("AURAM", 6, "PRAECANTATIO", 3, "MOTUS", 3, "PERMUTATIO", 3),
-                new String[] {"NODETAPPER1"},
-                new String[0],
-                new String[0],
-                new String[] {"round", "special"},
-                new String[] {"tc.research_page.NODETAPPER2.1"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "RESEARCHER1",
-                "Research Expertise",
-                "Knowledge is Power",
-                "BASICS", 4, 1, 1,
-                aspects("COGNITIO", 3, "SENSUS", 3, "ORDO", 3),
-                new String[] {"RESEARCH"},
-                new String[0],
-                new String[0],
-                new String[] {"round"},
-                new String[] {"tc.research_page.RESEARCHER1.1"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "DECONSTRUCTOR",
-                "Deconstruction table",
-                "When taking a good look just isn't enough",
-                "BASICS", 6, 2, 1,
-                aspects("COGNITIO", 3, "FABRICO", 3, "PERDITIO", 3),
-                new String[] {"RESEARCHER1"},
-                new String[0],
-                new String[0],
-                new String[] {"round"},
-                new String[] {"tc.research_page.DECONSTRUCTOR.1", "tc.research_page.DECONSTRUCTOR.2"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT"},
-                new String[] {"Deconstructor"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "RESEARCHER2",
-                "Research Mastery",
-                "Power is Knowledge",
-                "BASICS", 3, 3, 2,
-                aspects("COGNITIO", 6, "ORDO", 3, "SENSUS", 3, "PRAECANTATIO", 3),
-                new String[] {"RESEARCHER1"},
-                new String[0],
-                new String[0],
-                new String[] {"round", "special"},
-                new String[] {"tc.research_page.RESEARCHER2.1"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                1));
-        entries.add(new ResearchEntry(
-                "RESEARCHDUPE",
-                "Research Duplication",
-                "Sharing is Caring",
-                "BASICS", 4, 5, 3,
-                aspects("COGNITIO", 6, "PERMUTATIO", 3, "SENSUS", 3, "LUCRUM", 3, "FABRICO", 3),
-                new String[] {"RESEARCHER2"},
-                new String[0],
-                new String[0],
-                new String[] {"round"},
-                new String[] {"tc.research_page.RESEARCHDUPE.1"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "CRIMSON",
-                "The Crimson Cult",
-                "A Cautionary Tale",
-                "BASICS", 0, 4, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"stub", "round", "special", "hidden"},
-                new String[] {"tc.research_page.CRIMSON.1"},
-                new String[] {"TEXT"},
-                new String[0],
-                new String[0],
-                new String[0],
-                3));
-    }
-
     private static void addTHAUMATURGY(List<ResearchEntry> entries) {
         entries.add(new ResearchEntry(
-                "BASICTHAUMATURGY",
-                "Basic Wand Craft",
-                "Your first tool",
+                "BASICTHAUMATURGY", "Basic Wand Craft", "Your first tool",
                 "THAUMATURGY", 0, 0, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -379,9 +56,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSFIRE",
-                "Wand Foci",
-                "Form meets Function",
+                "FOCUSFIRE", "Wand Foci", "Form meets Function",
                 "THAUMATURGY", 2, -2, 1,
                 aspects("IGNIS", 3, "PRAECANTATIO", 3),
                 new String[] {"BASICTHAUMATURGY"},
@@ -395,9 +70,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSFROST",
-                "Wand Focus: Frost",
-                "Revenge is a dish best served cold",
+                "FOCUSFROST", "Wand Focus: Frost", "Revenge is a dish best served cold",
                 "THAUMATURGY", 1, -5, 1,
                 aspects("AQUA", 3, "PRAECANTATIO", 3, "GELUM", 6),
                 new String[] {"FOCUSFIRE"},
@@ -411,9 +84,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSHELLBAT",
-                "Wand Focus: Nine Hells",
-                "Tiny Terrors",
+                "FOCUSHELLBAT", "Wand Focus: Nine Hells", "Tiny Terrors",
                 "THAUMATURGY", 3, -7, 2,
                 aspects("ITER", 3, "BESTIA", 6, "IGNIS", 3, "PRAECANTATIO", 3),
                 new String[0],
@@ -427,9 +98,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"IGNIS"},
                 2));
         entries.add(new ResearchEntry(
-                "FOCUSEXCAVATION",
-                "Wand Focus: Excavation",
-                "Terra Terror",
+                "FOCUSEXCAVATION", "Wand Focus: Excavation", "Terra Terror",
                 "THAUMATURGY", 0, -3, 2,
                 aspects("TERRA", 3, "PERDITIO", 3, "PRAECANTATIO", 3),
                 new String[] {"FOCUSFIRE"},
@@ -443,9 +112,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSWARDING",
-                "Wand Focus: Warding",
-                "Protecting what is yours",
+                "FOCUSWARDING", "Wand Focus: Warding", "Protecting what is yours",
                 "THAUMATURGY", -2, -4, 3,
                 aspects("TERRA", 6, "TUTAMEN", 3, "ORDO", 3, "COGNITIO", 3),
                 new String[] {"FOCUSEXCAVATION", "INFUSION"},
@@ -459,9 +126,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSSHOCK",
-                "Wand Focus: Shock",
-                "Thunder and Lightning",
+                "FOCUSSHOCK", "Wand Focus: Shock", "Thunder and Lightning",
                 "THAUMATURGY", 3, -5, 1,
                 aspects("AER", 3, "POTENTIA", 6, "PRAECANTATIO", 3),
                 new String[] {"FOCUSFIRE"},
@@ -475,9 +140,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSTRADE",
-                "Wand Focus: Equal Trade",
-                "This for That",
+                "FOCUSTRADE", "Wand Focus: Equal Trade", "This for That",
                 "THAUMATURGY", 4, -3, 2,
                 aspects("TERRA", 3, "PERMUTATIO", 6, "PRAECANTATIO", 3),
                 new String[] {"FOCUSFIRE"},
@@ -491,9 +154,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSPORTABLEHOLE",
-                "Wand Focus: Portable Hole",
-                "Never be without an exit again",
+                "FOCUSPORTABLEHOLE", "Wand Focus: Portable Hole", "Never be without an exit again",
                 "THAUMATURGY", 7, -2, 2,
                 aspects("ITER", 3, "PERDITIO", 3, "ALIENIS", 6, "AER", 3),
                 new String[] {"FOCUSTRADE", "INFUSION"},
@@ -507,9 +168,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSPOUCH",
-                "Focus Pouch",
-                "Convenient carry container for your foci.",
+                "FOCUSPOUCH", "Focus Pouch", "Convenient carry container for your foci.",
                 "THAUMATURGY", 4, -1, 1,
                 aspects("VACUOS", 6, "PRAECANTATIO", 3, "INSTRUMENTUM", 3),
                 new String[] {"FOCUSFIRE"},
@@ -523,9 +182,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CAP_iron",
-                "CAP_iron",
-                "Original TC4 research entry.",
+                "CAP_iron", "CAP_iron", "",
                 "THAUMATURGY", 0, 0, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -539,9 +196,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CAP_gold",
-                "Gold Wand Caps",
-                "Capping things off with style",
+                "CAP_gold", "Gold Wand Caps", "Capping things off with style",
                 "THAUMATURGY", 3, 2, 1,
                 aspects("METALLUM", 3, "LUCRUM", 3, "INSTRUMENTUM", 3),
                 new String[] {"BASICTHAUMATURGY"},
@@ -555,9 +210,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CAP_thaumium",
-                "Thaumium Wand Caps",
-                "Magical wand caps",
+                "CAP_thaumium", "Thaumium Wand Caps", "Magical wand caps",
                 "THAUMATURGY", 5, 4, 2,
                 aspects("METALLUM", 6, "PRAECANTATIO", 6, "INSTRUMENTUM", 3, "AURAM", 3),
                 new String[] {"CAP_gold", "THAUMIUM", "INFUSION"},
@@ -571,9 +224,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CAP_copper",
-                "Copper Wand Caps",
-                "When iron caps just won't cut it",
+                "CAP_copper", "Copper Wand Caps", "When iron caps just won't cut it",
                 "THAUMATURGY", 2, 0, 1,
                 aspects("METALLUM", 3, "PERMUTATIO", 3, "INSTRUMENTUM", 3),
                 new String[] {"BASICTHAUMATURGY"},
@@ -587,9 +238,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CAP_silver",
-                "Silver Wand Caps",
-                "Capping things off with a little less style",
+                "CAP_silver", "Silver Wand Caps", "Capping things off with a little less style",
                 "THAUMATURGY", 5, 1, 1,
                 aspects("METALLUM", 3, "LUCRUM", 3, "INSTRUMENTUM", 3, "AURAM", 3),
                 new String[] {"CAP_gold", "INFUSION"},
@@ -603,9 +252,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_wood",
-                "ROD_wood",
-                "Original TC4 research entry.",
+                "ROD_wood", "ROD_wood", "",
                 "THAUMATURGY", 0, 0, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -619,9 +266,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_greatwood",
-                "Greatwood Wand Core",
-                "Repository of magical energy",
+                "ROD_greatwood", "Greatwood Wand Core", "Repository of magical energy",
                 "THAUMATURGY", -5, 2, 1,
                 aspects("INSTRUMENTUM", 3, "ARBOR", 6, "PRAECANTATIO", 3),
                 new String[] {"BASICTHAUMATURGY"},
@@ -635,9 +280,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_reed",
-                "Reed Wand Core",
-                "Airy vis storage",
+                "ROD_reed", "Reed Wand Core", "Airy vis storage",
                 "THAUMATURGY", -5, -1, 2,
                 aspects("INSTRUMENTUM", 3, "AER", 6, "HERBA", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -651,9 +294,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_blaze",
-                "Blaze Rod Wand Core",
-                "Fiery vis storage",
+                "ROD_blaze", "Blaze Rod Wand Core", "Fiery vis storage",
                 "THAUMATURGY", -7, 0, 2,
                 aspects("INSTRUMENTUM", 3, "IGNIS", 6, "POTENTIA", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -667,9 +308,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_obsidian",
-                "Obsidian Wand Core",
-                "Earthen vis storage",
+                "ROD_obsidian", "Obsidian Wand Core", "Earthen vis storage",
                 "THAUMATURGY", -8, 2, 2,
                 aspects("INSTRUMENTUM", 3, "TERRA", 6, "IGNIS", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -683,9 +322,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_ice",
-                "Icy Wand Core",
-                "Icy vis storage",
+                "ROD_ice", "Icy Wand Core", "Icy vis storage",
                 "THAUMATURGY", -7, 4, 2,
                 aspects("INSTRUMENTUM", 3, "GELUM", 6, "AQUA", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -699,9 +336,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_quartz",
-                "Quartz Wand Core",
-                "Ordered vis storage",
+                "ROD_quartz", "Quartz Wand Core", "Ordered vis storage",
                 "THAUMATURGY", -5, 5, 2,
                 aspects("INSTRUMENTUM", 3, "ORDO", 6, "VITREUS", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -715,9 +350,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_bone",
-                "Bone Wand Core",
-                "Entropic vis storage",
+                "ROD_bone", "Bone Wand Core", "Entropic vis storage",
                 "THAUMATURGY", -3, 0, 2,
                 aspects("INSTRUMENTUM", 3, "PERDITIO", 6, "EXANIMIS", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -731,9 +364,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 1));
         entries.add(new ResearchEntry(
-                "ROD_silverwood",
-                "Silverwood Wand Core",
-                "Magical to the core",
+                "ROD_silverwood", "Silverwood Wand Core", "Magical to the core",
                 "THAUMATURGY", -2, 5, 3,
                 aspects("INSTRUMENTUM", 6, "ARBOR", 6, "PRAECANTATIO", 9),
                 new String[] {"ROD_greatwood", "INFUSION"},
@@ -747,13 +378,8 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "SCEPTRE",
-                "Crafting Scepters",
-                "Made to task",
-                "THAUMATURGY",
-                0,
-                4,
-                3,
+                "SCEPTRE", "Crafting Scepters", "Made to task",
+                "THAUMATURGY", 0, 4, 3,
                 aspects("INSTRUMENTUM", 6, "FABRICO", 6, "ARBOR", 6, "PRAECANTATIO", 9),
                 new String[] {"ROD_silverwood"},
                 new String[0],
@@ -761,14 +387,12 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.SCEPTRE.1"},
                 new String[] {"TEXT", "ARCANE_CRAFTING"},
-                new String[] {"RESEARCH:SCEPTRE"},
+                new String[0],
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_greatwood_staff",
-                "Magic Staves",
-                "Wizards staves have knobs on the end",
+                "ROD_greatwood_staff", "Magic Staves", "Wizards staves have knobs on the end",
                 "THAUMATURGY", -1, 7, 1,
                 aspects("INSTRUMENTUM", 3, "ARBOR", 6, "PRAECANTATIO", 3),
                 new String[] {"ROD_silverwood"},
@@ -782,9 +406,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_reed_staff",
-                "Reed Staff Core",
-                "Airy vis storage",
+                "ROD_reed_staff", "Reed Staff Core", "Airy vis storage",
                 "THAUMATURGY", -5, -2, 2,
                 aspects("INSTRUMENTUM", 3, "AER", 6, "HERBA", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_reed"},
@@ -798,9 +420,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_blaze_staff",
-                "Blaze Rod Staff Core",
-                "Fiery vis storage",
+                "ROD_blaze_staff", "Blaze Rod Staff Core", "Fiery vis storage",
                 "THAUMATURGY", -8, -1, 2,
                 aspects("INSTRUMENTUM", 3, "IGNIS", 6, "POTENTIA", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_blaze"},
@@ -814,9 +434,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_obsidian_staff",
-                "Obsidian Staff Core",
-                "Earthen vis storage",
+                "ROD_obsidian_staff", "Obsidian Staff Core", "Earthen vis storage",
                 "THAUMATURGY", -9, 2, 2,
                 aspects("INSTRUMENTUM", 3, "TERRA", 6, "IGNIS", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_obsidian"},
@@ -830,9 +448,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_ice_staff",
-                "Icy Staff Core",
-                "Icy vis storage",
+                "ROD_ice_staff", "Icy Staff Core", "Icy vis storage",
                 "THAUMATURGY", -8, 5, 2,
                 aspects("INSTRUMENTUM", 3, "GELUM", 6, "AQUA", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_ice"},
@@ -846,9 +462,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_quartz_staff",
-                "Quartz Staff Core",
-                "Ordered vis storage",
+                "ROD_quartz_staff", "Quartz Staff Core", "Ordered vis storage",
                 "THAUMATURGY", -4, 6, 2,
                 aspects("INSTRUMENTUM", 3, "ORDO", 6, "VITREUS", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_quartz"},
@@ -862,9 +476,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ROD_bone_staff",
-                "Bone Staff Core",
-                "Entropic vis storage",
+                "ROD_bone_staff", "Bone Staff Core", "Entropic vis storage",
                 "THAUMATURGY", -2, -1, 2,
                 aspects("INSTRUMENTUM", 3, "PERDITIO", 6, "EXANIMIS", 3, "PRAECANTATIO", 3),
                 new String[] {"ROD_bone"},
@@ -878,9 +490,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 1));
         entries.add(new ResearchEntry(
-                "ROD_silverwood_staff",
-                "Silverwood Staff Core",
-                "Magical to the core",
+                "ROD_silverwood_staff", "Silverwood Staff Core", "Magical to the core",
                 "THAUMATURGY", -1, 5, 3,
                 aspects("INSTRUMENTUM", 6, "ARBOR", 6, "PRAECANTATIO", 9),
                 new String[] {"ROD_silverwood"},
@@ -894,9 +504,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "WANDPED",
-                "Wand Recharge Pedestal",
-                "Automated Wand Recharging",
+                "WANDPED", "Wand Recharge Pedestal", "Automated Wand Recharging",
                 "THAUMATURGY", -9, -6, 2,
                 aspects("AURAM", 6, "PRAECANTATIO", 3, "PERMUTATIO", 3, "POTENTIA", 3),
                 new String[] {"INFUSION", "NODEPRESERVE", "NODESTABILIZER"},
@@ -910,9 +518,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "VISAMULET",
-                "Vis Storage",
-                "Waste not, Want not",
+                "VISAMULET", "Vis Storage", "Waste not, Want not",
                 "THAUMATURGY", -9, -8, 2,
                 aspects("AURAM", 3, "PRAECANTATIO", 6, "POTENTIA", 3, "VACUOS", 3),
                 new String[] {"WANDPED"},
@@ -926,9 +532,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "WANDPEDFOC",
-                "Compound Recharge Focus",
-                "For everything a use",
+                "WANDPEDFOC", "Compound Recharge Focus", "For everything a use",
                 "THAUMATURGY", -10, -7, 3,
                 aspects("AURAM", 6, "PRAECANTATIO", 6, "PERMUTATIO", 6, "POTENTIA", 3, "INSTRUMENTUM", 3),
                 new String[] {"WANDPED"},
@@ -942,9 +546,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "NODESTABILIZER",
-                "Node Stabilizer",
-                "Node Therapy",
+                "NODESTABILIZER", "Node Stabilizer", "Node Therapy",
                 "THAUMATURGY", -7, -4, 1,
                 aspects("AURAM", 4, "ORDO", 4, "POTENTIA", 4),
                 new String[] {"NODEPRESERVE"},
@@ -958,9 +560,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "NODESTABILIZERADV",
-                "Advanced Node Stabilizer",
-                "Selective stabilization",
+                "NODESTABILIZERADV", "Advanced Node Stabilizer", "Selective stabilization",
                 "THAUMATURGY", -8, -3, 2,
                 aspects("AURAM", 9, "PRAECANTATIO", 6, "ORDO", 6, "POTENTIA", 6),
                 new String[] {"NODESTABILIZER"},
@@ -974,9 +574,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "VISPOWER",
-                "Harnessing Vis",
-                "Power to the People",
+                "VISPOWER", "Harnessing Vis", "Power to the People",
                 "THAUMATURGY", -5, -6, 2,
                 aspects("AURAM", 3, "MACHINA", 3, "POTENTIA", 6),
                 new String[] {"NODESTABILIZER"},
@@ -990,9 +588,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "VISCHARGERELAY",
-                "Vis Charging Relay",
-                "Arcane Crafting Simplified",
+                "VISCHARGERELAY", "Vis Charging Relay", "Arcane Crafting Simplified",
                 "THAUMATURGY", -7, -6, 2,
                 aspects("PRAECANTATIO", 3, "AURAM", 3, "MACHINA", 3, "POTENTIA", 6),
                 new String[] {"VISPOWER", "WANDPED"},
@@ -1006,9 +602,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCALMANIPULATION",
-                "Focal Manipulation ",
-                "Wand foci remade",
+                "FOCALMANIPULATION", "Focal Manipulation ", "Wand foci remade",
                 "THAUMATURGY", -3, -8, 2,
                 aspects("PRAECANTATIO", 8, "INSTRUMENTUM", 8, "FABRICO", 5, "VITREUS", 5, "POTENTIA", 5),
                 new String[] {"VISPOWER"},
@@ -1022,9 +616,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "VAMPBAT",
-                "Tier 5 Upgrade: Vampire Bats ",
-                "Vicious little bloodsuckers  ",
+                "VAMPBAT", "Tier 5 Upgrade: Vampire Bats ", "Vicious little bloodsuckers  ",
                 "THAUMATURGY", 4, -8, 1,
                 aspects("FAMES", 5, "VICTUS", 5, "PRAECANTATIO", 5),
                 new String[] {"FOCUSHELLBAT"},
@@ -1039,583 +631,9 @@ public final class TC4ResearchRuntimeBridge {
                 0));
     }
 
-    private static void addALCHEMY(List<ResearchEntry> entries) {
-        entries.add(new ResearchEntry(
-                "PHIAL",
-                "Glass Phial",
-                "Mystical containers",
-                "ALCHEMY", 0, -2, 1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub", "round"},
-                new String[] {"tc.research_page.PHIAL.1"},
-                new String[] {"TEXT", "NORMAL_CRAFTING"},
-                new String[] {"Phial"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "CRUCIBLE",
-                "Basic Alchemy",
-                "Bubble and Boil",
-                "ALCHEMY",
-                0,
-                0,
-                1,
-                java.util.Map.of(),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"auto_unlock", "stub"},
-                new String[] {"tc.research_page.CRUCIBLE.1", "tc.research_page.CRUCIBLE.2", "tc.research_page.CRUCIBLE.3", "tc.research_page.CRUCIBLE.4", "tc.research_page.CRUCIBLE.5"},
-                new String[] {"TEXT", "TEXT", "TEXT", "COMPOUND_CRAFTING", "TEXT", "CRUCIBLE_CRAFTING", "TEXT", "ITEMSTACK_PAGE"},
-                new String[] {"Crucible", "RESEARCH:CRUCIBLE", "new ItemStack(ConfigItems.itemShard, 1, 6)"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "NITOR",
-                "Nitor",
-                "Mystical Flame",
-                "ALCHEMY", 2, -1, 1,
-                aspects("LUX", 3, "IGNIS", 1),
-                new String[] {"CRUCIBLE"},
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"tc.research_page.NITOR.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"Nitor"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ALUMENTUM",
-                "Alumentum",
-                "Mystical Energy Source",
-                "ALCHEMY", 2, 1, 1,
-                aspects("POTENTIA", 3, "IGNIS", 1),
-                new String[] {"CRUCIBLE"},
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"tc.research_page.ALUMENTUM.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"Alumentum"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ALCHEMICALDUPLICATION",
-                "Alchemical Duplication",
-                "You can never have too much of a good thing.",
-                "ALCHEMY", -4, 0, 1,
-                aspects("PRAECANTATIO", 3, "LUCRUM", 3, "FABRICO", 3),
-                new String[] {"TALLOW"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.ALCHEMICALDUPLICATION.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING"},
-                new String[] {"AltGunpowder", "AltSlime", "AltClay", "AltGlowstone", "AltInk"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ALCHEMICALMANUFACTURE",
-                "Alchemical Manufacture",
-                "More than one way to skin a cat.",
-                "ALCHEMY", -5, -2, 1,
-                aspects("PRAECANTATIO", 3, "PERMUTATIO", 3, "FABRICO", 3),
-                new String[] {"ALCHEMICALDUPLICATION"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.ALCHEMICALMANUFACTURE.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING"},
-                new String[] {"AltWeb", "AltMossyCobble", "AltIce"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ENTROPICPROCESSING",
-                "Entropic Processing",
-                "Making things worse?",
-                "ALCHEMY", -6, 1, 1,
-                aspects("PRAECANTATIO", 1, "PERDITIO", 3, "FABRICO", 1),
-                new String[] {"ALCHEMICALDUPLICATION"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.ENTROPICPROCESSING.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING"},
-                new String[] {"AltCrackedBrick", "AltBonemeal"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "LIQUIDDEATH",
-                "Liquid Death",
-                "For external use only",
-                "ALCHEMY", -7, 3, 2,
-                aspects("MORTUUS", 3, "VENENUM", 3, "PERDITIO", 1, "AQUA", 1),
-                new String[] {"ENTROPICPROCESSING"},
-                new String[0],
-                new String[0],
-                new String[] {"hidden"},
-                new String[] {"tc.research_page.LIQUIDDEATH.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"LiquidDeath"},
-                new String[0],
-                new String[] {"MORTUUS", "VENENUM"},
-                3));
-        entries.add(new ResearchEntry(
-                "BOTTLETAINT",
-                "Bottled Taint ",
-                "Why would you want this?",
-                "ALCHEMY", -8, 1, 2,
-                aspects("VITIUM", 5, "PRAECANTATIO", 3, "PERDITIO", 1, "AQUA", 1),
-                new String[] {"ENTROPICPROCESSING"},
-                new String[0],
-                new String[0],
-                new String[] {"hidden"},
-                new String[] {"tc.research_page.BOTTLETAINT.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"BottleTaint"},
-                new String[0],
-                new String[] {"VITIUM"},
-                2));
-        entries.add(new ResearchEntry(
-                "THAUMIUM",
-                "Magical Metallurgy",
-                "Where metals meet magic",
-                "ALCHEMY", -1, 3, 1,
-                aspects("METALLUM", 3, "PRAECANTATIO", 3),
-                new String[] {"CRUCIBLE"},
-                new String[0],
-                new String[0],
-                new String[] {"hidden"},
-                new String[] {"tc.research_page.THAUMIUM.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING"},
-                new String[] {"Thaumium", "ThaumiumAxe", "ThaumiumSword", "ThaumiumPick", "ThaumiumShovel", "ThaumiumHoe", "ThaumiumHelm", "ThaumiumChest", "ThaumiumLegs", "ThaumiumBoots"},
-                new String[0],
-                new String[] {"METALLUM"},
-                0));
-        entries.add(new ResearchEntry(
-                "PUREIRON",
-                "Metal Purification",
-                "Purification of metals into native clusters",
-                "ALCHEMY", -2, 5, 1,
-                aspects("METALLUM", 3, "ORDO", 3),
-                new String[] {"THAUMIUM"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed"},
-                new String[] {"tc.research_page.PUREIRON.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"PureIron"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PUREGOLD",
-                "Gold Purification",
-                "Purification of gold into native clusters",
-                "ALCHEMY", -4, 3, 1,
-                aspects("METALLUM", 3, "ORDO", 2, "LUCRUM", 1),
-                new String[] {"PUREIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.PUREGOLD.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"PureGold"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PURECOPPER",
-                "Copper Purification",
-                "Purification of copper into native clusters",
-                "ALCHEMY", -4, 5, 1,
-                aspects("METALLUM", 3, "ORDO", 2, "PERMUTATIO", 1),
-                new String[] {"PUREIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.PURECOPPER.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"PureCopper"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PURETIN",
-                "Tin Purification",
-                "Purification of tin into native clusters",
-                "ALCHEMY", -4, 7, 1,
-                aspects("METALLUM", 3, "ORDO", 2, "VITREUS", 1),
-                new String[] {"PUREIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.PURETIN.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"PureTin"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PURESILVER",
-                "Silver Purification",
-                "Purification of silver into native clusters",
-                "ALCHEMY", -3, 8, 1,
-                aspects("METALLUM", 3, "ORDO", 2, "LUCRUM", 1),
-                new String[] {"PUREIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.PURESILVER.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"PureSilver"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "PURELEAD",
-                "Lead Purification",
-                "Purification of lead into native clusters",
-                "ALCHEMY", -2, 9, 1,
-                aspects("METALLUM", 3, "ORDO", 3),
-                new String[] {"PUREIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.PURELEAD.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"PureLead"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TRANSIRON",
-                "Metal Transmutation",
-                "Transformation of metals into iron",
-                "ALCHEMY", 0, 5, 1,
-                aspects("METALLUM", 3, "PERMUTATIO", 3),
-                new String[] {"THAUMIUM"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed"},
-                new String[] {"tc.research_page.TRANSIRON.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"TransIron"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TRANSGOLD",
-                "Gold Transmutation",
-                "Transformation of metals into gold",
-                "ALCHEMY", 2, 3, 1,
-                aspects("METALLUM", 3, "PERMUTATIO", 3),
-                new String[] {"TRANSIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TRANSGOLD.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"TransGold"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TRANSCOPPER",
-                "Copper Transmutation",
-                "Transformation of metals into copper",
-                "ALCHEMY", 2, 5, 1,
-                aspects("METALLUM", 3, "PERMUTATIO", 3),
-                new String[] {"TRANSIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TRANSCOPPER.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"TransCopper"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TRANSTIN",
-                "Tin Transmutation",
-                "Transformation of metals into tin",
-                "ALCHEMY", 2, 7, 1,
-                aspects("METALLUM", 3, "PERMUTATIO", 2, "VITREUS", 1),
-                new String[] {"TRANSIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TRANSTIN.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"TransTin"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TRANSSILVER",
-                "Silver Transmutation",
-                "Transformation of metals into silver",
-                "ALCHEMY", 1, 8, 1,
-                aspects("METALLUM", 3, "PERMUTATIO", 2, "LUCRUM", 1),
-                new String[] {"TRANSIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TRANSSILVER.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"TransSilver"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TRANSLEAD",
-                "Lead Transmutation",
-                "Transformation of metals into lead",
-                "ALCHEMY", 0, 9, 1,
-                aspects("METALLUM", 3, "PERMUTATIO", 2, "ORDO", 1),
-                new String[] {"TRANSIRON"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TRANSLEAD.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"TransLead"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TALLOW",
-                "Magic Tallow",
-                "Rendered fat with a touch of magic",
-                "ALCHEMY", -2, 0, 1,
-                aspects("CORPUS", 3, "PRAECANTATIO", 1),
-                new String[] {"CRUCIBLE"},
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"tc.research_page.TALLOW.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "NORMAL_CRAFTING"},
-                new String[] {"Tallow", "TallowCandle"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ETHEREALBLOOM",
-                "Ethereal Bloom",
-                "Purifying Flower",
-                "ALCHEMY", -2, -3, 2,
-                aspects("PRAECANTATIO", 1, "HERBA", 6, "SANO", 3, "VITIUM", 6),
-                new String[] {"CRUCIBLE"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed", "hidden"},
-                new String[] {"tc.research_page.ETHEREALBLOOM.1", "tc.research_page.ETHEREALBLOOM.2"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT"},
-                new String[] {"EtherealBloom"},
-                new String[0],
-                new String[] {"VITIUM"},
-                0));
-        entries.add(new ResearchEntry(
-                "BATHSALTS",
-                "Purifying Bath Salts",
-                "Stress relief for the mind",
-                "ALCHEMY", -4, -4, 2,
-                aspects("COGNITIO", 3, "AURAM", 3, "ORDO", 3, "SANO", 3),
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"hidden"},
-                new String[] {"tc.research_page.BATHSALTS.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"BathSalts"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "SANESOAP",
-                "Sanitizing Soap",
-                "Getting rid of dirty thoughts",
-                "ALCHEMY", -3, -6, 1,
-                aspects("COGNITIO", 5, "ORDO", 5, "SANO", 5, "ALIENIS", 5),
-                new String[] {"BATHSALTS"},
-                new String[0],
-                new String[0],
-                new String[0],
-                new String[] {"tc.research_page.SANESOAP.1"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
-                new String[] {"SaneSoap"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ARCANESPA",
-                "Arcane Spa",
-                "Relaxing in style",
-                "ALCHEMY", -6, -5, 1,
-                aspects("AQUA", 3, "MACHINA", 3, "ORDO", 3),
-                new String[] {"BATHSALTS"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary"},
-                new String[] {"tc.research_page.ARCANESPA.1"},
-                new String[] {"TEXT", "ARCANE_CRAFTING"},
-                new String[] {"ArcaneSpa"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "DISTILESSENTIA",
-                "Essentia Distillation",
-                "Harvesting essentia",
-                "ALCHEMY", 5, -1, 1,
-                aspects("PRAECANTATIO", 3, "AQUA", 3, "LIMUS", 3),
-                new String[] {"NITOR", "ALUMENTUM"},
-                new String[0],
-                new String[] {"JARLABEL"},
-                new String[0],
-                new String[] {"tc.research_page.DISTILESSENTIA.1", "tc.research_page.DISTILESSENTIA.2"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "ARCANE_CRAFTING", "ARCANE_CRAFTING"},
-                new String[] {"AlchemyFurnace", "Filter", "Alembic", "AlchemicalConstruct"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "JARLABEL",
-                "Warded Jars and Labels",
-                "Storing and organizing essentia",
-                "ALCHEMY",
-                4,
-                -3,
-                1,
-                java.util.Map.of(),
-                new String[] {"DISTILESSENTIA"},
-                new String[0],
-                new String[0],
-                new String[] {"stub", "round"},
-                new String[] {"tc.research_page.JARLABEL.1", "tc.research_page.JARLABEL.2", "tc.research_page.JARLABEL.3"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "NORMAL_CRAFTING", "TEXT", "NORMAL_CRAFTING", "NORMAL_CRAFTING"},
-                new String[] {"WardedJar", "JarLabel", "RESEARCH:JARLABEL", "JarLabelNull"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "JARVOID",
-                "Void Jar",
-                "Too much essentia? Impossible!",
-                "ALCHEMY", 5, -5, 1,
-                aspects("AQUA", 3, "PERDITIO", 3, "VACUOS", 6),
-                new String[] {"JARLABEL"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.JARVOID.1"},
-                new String[] {"TEXT", "ARCANE_CRAFTING"},
-                new String[] {"JarVoid"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TUBES",
-                "Essentia Tubes",
-                "Transportation of essentia",
-                "ALCHEMY", 7, 0, 1,
-                aspects("AQUA", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3),
-                new String[] {"DISTILESSENTIA"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TUBES.1", "tc.research_page.TUBES.2", "tc.research_page.TUBES.3", "tc.research_page.TUBES.4"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "TEXT"},
-                new String[] {"Tube", "TubeValve", "Resonator"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "TUBEFILTER",
-                "Advanced Essentia Tubes",
-                "What you want, where you want it",
-                "ALCHEMY", 9, 1, 2,
-                aspects("AQUA", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3, "ORDO", 3),
-                new String[] {"TUBES"},
-                new String[0],
-                new String[0],
-                new String[] {"secondary", "concealed"},
-                new String[] {"tc.research_page.TUBEFILTER.1", "tc.research_page.TUBEFILTER.2"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "ARCANE_CRAFTING"},
-                new String[] {"TubeFilter", "TubeRestrict", "TubeOneway"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "ESSENTIACRYSTAL",
-                "Essentia Crystallization ",
-                "Hard currency or liquid assets?",
-                "ALCHEMY", 8, -2, 1,
-                aspects("AQUA", 5, "VITREUS", 5, "PERMUTATIO", 3, "PRAECANTATIO", 5),
-                new String[] {"TUBES"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed"},
-                new String[] {"tc.research_page.ESSENTIACRYSTAL.1"},
-                new String[] {"TEXT", "ARCANE_CRAFTING"},
-                new String[] {"EssentiaCrystalizer"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "CENTRIFUGE",
-                "Alchemical Centrifuge",
-                "Taking things apart",
-                "ALCHEMY", 10, 0, 2,
-                aspects("PERDITIO", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3, "FABRICO", 3),
-                new String[] {"TUBEFILTER"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed"},
-                new String[] {"tc.research_page.CENTRIFUGE.1", "tc.research_page.CENTRIFUGE.2", "tc.research_page.CENTRIFUGE.3"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "TEXT", "ARCANE_CRAFTING"},
-                new String[] {"Centrifuge", "TubeBuffer"},
-                new String[0],
-                new String[0],
-                0));
-        entries.add(new ResearchEntry(
-                "THAUMATORIUM",
-                "Automated Alchemy",
-                "Alchemy for the masses",
-                "ALCHEMY",
-                10,
-                -2,
-                3,
-                aspects("AQUA", 3, "PRAECANTATIO", 6, "PERMUTATIO", 3, "FABRICO", 3),
-                new String[] {"CENTRIFUGE"},
-                new String[0],
-                new String[0],
-                new String[] {"concealed"},
-                new String[] {"tc.research_page.THAUMATORIUM.1", "tc.research_page.THAUMATORIUM.2", "tc.research_page.THAUMATORIUM.3"},
-                new String[] {"TEXT", "COMPOUND_CRAFTING", "TEXT", "TEXT", "ARCANE_CRAFTING"},
-                new String[] {"Thaumatorium", "MnemonicMatrix"},
-                new String[0],
-                new String[0],
-                0));
-    }
-
     private static void addARTIFICE(List<ResearchEntry> entries) {
         entries.add(new ResearchEntry(
-                "BASICARTIFACE",
-                "Basic Artifacing",
-                "Needful things",
+                "BASICARTIFACE", "Basic Artifacing", "Needful things",
                 "ARTIFICE", 0, 1, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -1629,9 +647,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ARCANESTONE",
-                "Arcane Stone",
-                "Magically strengthened building material",
+                "ARCANESTONE", "Arcane Stone", "Magically strengthened building material",
                 "ARTIFICE", 5, -2, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -1645,9 +661,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GRATE",
-                "Item Grate",
-                "Let the good things in",
+                "GRATE", "Item Grate", "Let the good things in",
                 "ARTIFICE", 2, -1, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -1661,9 +675,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "TABLE",
-                "Table",
-                "Some assembly required",
+                "TABLE", "Table", "Some assembly required",
                 "ARTIFICE", 0, -1, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -1677,47 +689,35 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ARCTABLE",
-                "Arcane Worktable",
-                "Crafting with magic",
-                "ARTIFICE",
-                -1,
-                -3,
-                1,
+                "ARCTABLE", "Arcane Worktable", "Crafting with magic",
+                "ARTIFICE", -1, -3, 1,
                 java.util.Map.of(),
                 new String[] {"TABLE"},
                 new String[0],
                 new String[0],
                 new String[] {"auto_unlock", "stub", "round"},
                 new String[] {"tc.research_page.ARCTABLE.1"},
-                new String[] {"TEXT", "COMPOUND_CRAFTING"},
+                new String[] {"TEXT", "NORMAL_CRAFTING"},
                 new String[] {"ArcTable"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RESTABLE",
-                "Research Table",
-                "To gather knowledge",
-                "ARTIFICE",
-                1,
-                -3,
-                1,
+                "RESTABLE", "Research Table", "To gather knowledge",
+                "ARTIFICE", 1, -3, 1,
                 java.util.Map.of(),
                 new String[] {"TABLE"},
                 new String[0],
                 new String[0],
                 new String[] {"auto_unlock", "stub", "round"},
                 new String[] {"tc.research_page.RESTABLE.1"},
-                new String[] {"TEXT", "COMPOUND_CRAFTING"},
+                new String[] {"TEXT", "NORMAL_CRAFTING"},
                 new String[] {"ResTable"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "THAUMOMETER",
-                "Thaumometer",
-                "Measuring Magic",
+                "THAUMOMETER", "Thaumometer", "Measuring Magic",
                 "ARTIFICE", 2, 1, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -1731,9 +731,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "PAVETRAVEL",
-                "Paving Stone of Travel",
-                "Easing your journey",
+                "PAVETRAVEL", "Paving Stone of Travel", "Easing your journey",
                 "ARTIFICE", 4, -4, 1,
                 aspects("ITER", 3, "TERRA", 3, "VOLATUS", 3),
                 new String[] {"ARCANESTONE"},
@@ -1747,9 +745,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "PAVEWARD",
-                "Paving Stone of Warding",
-                "Keeping things out",
+                "PAVEWARD", "Paving Stone of Warding", "Keeping things out",
                 "ARTIFICE", 6, -4, 1,
                 aspects("MOTUS", 3, "VINCULUM", 3, "BESTIA", 3),
                 new String[] {"ARCANESTONE"},
@@ -1763,9 +759,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOGGLES",
-                "Goggles of Revealing",
-                "Seeing the Unseen",
+                "GOGGLES", "Goggles of Revealing", "Seeing the Unseen",
                 "ARTIFICE", 4, 1, 1,
                 aspects("SENSUS", 3, "AURAM", 3, "PRAECANTATIO", 3),
                 new String[] {"THAUMOMETER"},
@@ -1779,9 +773,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ARCANEEAR",
-                "Arcane Ear",
-                "Shhh, do you hear something?",
+                "ARCANEEAR", "Arcane Ear", "Shhh, do you hear something?",
                 "ARTIFICE", 6, 0, 1,
                 aspects("SENSUS", 3, "POTENTIA", 3, "AER", 3),
                 new String[] {"GOGGLES"},
@@ -1795,9 +787,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "SINSTONE",
-                "Sinister Lodestone ",
-                "Do you dare follow it?",
+                "SINSTONE", "Sinister Lodestone ", "Do you dare follow it?",
                 "ARTIFICE", 6, 2, 1,
                 aspects("SENSUS", 3, "TENEBRAE", 3, "ALIENIS", 3, "AURAM", 3),
                 new String[] {"GOGGLES"},
@@ -1811,9 +801,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 2));
         entries.add(new ResearchEntry(
-                "LEVITATOR",
-                "Arcane Levitator",
-                "Next best thing to flying",
+                "LEVITATOR", "Arcane Levitator", "Next best thing to flying",
                 "ARTIFICE", -3, -3, 1,
                 aspects("MOTUS", 3, "VOLATUS", 3, "AER", 3),
                 new String[] {"NITOR"},
@@ -1827,28 +815,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "INFERNALFURNACE",
-                "Infernal Furnace",
-                "Hot enough?",
-                "ARTIFICE",
-                -4,
-                -1,
-                2,
+                "INFERNALFURNACE", "Infernal Furnace", "Hot enough?",
+                "ARTIFICE", -4, -1, 2,
                 aspects("IGNIS", 6, "METALLUM", 3, "FABRICO", 3, "AURAM", 3),
                 new String[] {"NITOR", "ALUMENTUM"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.INFERNALFURNACE.1", "tc.research_page.INFERNALFURNACE.2"},
-                new String[] {"TEXT", "COMPOUND_CRAFTING", "TEXT"},
+                new String[] {"TEXT", "NORMAL_CRAFTING", "TEXT"},
                 new String[] {"InfernalFurnace"},
                 new String[0],
                 new String[0],
                 2));
         entries.add(new ResearchEntry(
-                "BELLOWS",
-                "Arcane Bellows",
-                "Stoking the flames",
+                "BELLOWS", "Arcane Bellows", "Stoking the flames",
                 "ARTIFICE", -6, -2, 1,
                 aspects("AER", 6, "MACHINA", 3, "MOTUS", 3),
                 new String[] {"INFERNALFURNACE"},
@@ -1862,9 +843,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ENCHFABRIC",
-                "Enchanted Fabric",
-                "Silky and Stylish",
+                "ENCHFABRIC", "Enchanted Fabric", "Silky and Stylish",
                 "ARTIFICE", 0, 3, 1,
                 aspects("PANNUS", 3, "PRAECANTATIO", 3),
                 new String[0],
@@ -1878,28 +857,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "INFUSION",
-                "Infusion",
-                "Mystical fusion",
-                "ARTIFICE",
-                -4,
-                5,
-                2,
+                "INFUSION", "Infusion", "Mystical fusion",
+                "ARTIFICE", -4, 5, 2,
                 aspects("PRAECANTATIO", 6, "MACHINA", 3, "FABRICO", 6),
                 new String[] {"DISTILESSENTIA"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.INFUSION.1", "tc.research_page.INFUSION.2", "tc.research_page.INFUSION.3", "tc.research_page.INFUSION.4", "tc.research_page.INFUSION.5"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "ARCANE_CRAFTING", "TEXT", "COMPOUND_CRAFTING", "TEXT", "TEXT", "TEXT"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "ARCANE_CRAFTING", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT", "TEXT"},
                 new String[] {"InfusionMatrix", "ArcanePedestal", "InfusionAltar"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FLUXSCRUB",
-                "Flux Scrubber ",
-                "A boon for the messy thaumaturge",
+                "FLUXSCRUB", "Flux Scrubber ", "A boon for the messy thaumaturge",
                 "ARTIFICE", -8, -3, 1,
                 aspects("PRAECANTATIO", 3, "VINCULUM", 3, "AER", 3, "AQUA", 3),
                 new String[] {"VISPOWER", "BELLOWS", "TUBES"},
@@ -1913,9 +885,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RUNICARMOR",
-                "Runic Shielding",
-                "Shields up!",
+                "RUNICARMOR", "Runic Shielding", "Shields up!",
                 "ARTIFICE", 3, 4, 3,
                 aspects("TUTAMEN", 6, "AER", 3, "PRAECANTATIO", 3, "POTENTIA", 3, "COGNITIO", 3),
                 new String[] {"ENCHFABRIC"},
@@ -1929,9 +899,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RUNICCHARGED",
-                "Charged Ring of Shielding",
-                "Charge for the Charge Ring!",
+                "RUNICCHARGED", "Charged Ring of Shielding", "Charge for the Charge Ring!",
                 "ARTIFICE", 2, 3, 2,
                 aspects("PRAECANTATIO", 3, "TUTAMEN", 3, "POTENTIA", 6),
                 new String[] {"RUNICARMOR"},
@@ -1945,9 +913,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RUNICHEALING",
-                "Revitalizing Ring of Shielding",
-                "Go ahead, I can take it.",
+                "RUNICHEALING", "Revitalizing Ring of Shielding", "Go ahead, I can take it.",
                 "ARTIFICE", 4, 3, 2,
                 aspects("PRAECANTATIO", 3, "TUTAMEN", 3, "SANO", 4, "AQUA", 4),
                 new String[] {"RUNICARMOR"},
@@ -1961,9 +927,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RUNICKINETIC",
-                "Kinetic Girdle of Shielding",
-                "Hehe, you're going to regret that.",
+                "RUNICKINETIC", "Kinetic Girdle of Shielding", "Hehe, you're going to regret that.",
                 "ARTIFICE", 2, 5, 2,
                 aspects("PRAECANTATIO", 3, "TUTAMEN", 3, "AER", 6),
                 new String[] {"RUNICARMOR"},
@@ -1977,9 +941,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RUNICEMERGENCY",
-                "Amulet of Emergency Shielding",
-                "You can't get me that easily.",
+                "RUNICEMERGENCY", "Amulet of Emergency Shielding", "You can't get me that easily.",
                 "ARTIFICE", 4, 5, 2,
                 aspects("PRAECANTATIO", 3, "TUTAMEN", 3, "TERRA", 4, "VACUOS", 4),
                 new String[] {"RUNICARMOR"},
@@ -1993,13 +955,8 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "BANNERS",
-                "Banners ",
-                "Caution: For decorative purposes only",
-                "ARTIFICE",
-                4,
-                8,
-                1,
+                "BANNERS", "Banners ", "Caution: For decorative purposes only",
+                "ARTIFICE", 4, 8, 1,
                 aspects("SENSUS", 3, "PANNUS", 3, "PRAECANTATIO", 1),
                 new String[0],
                 new String[0],
@@ -2007,18 +964,13 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"secondary", "hidden"},
                 new String[] {"tc.research_page.BANNERS.1"},
                 new String[] {"TEXT", "ARCANE_CRAFTING"},
-                new String[] {"RESEARCH:BANNERS"},
+                new String[0],
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "RUNICAUGMENTATION",
-                "Runic Shielding Augmentation",
-                "Shields to maximum!",
-                "ARTIFICE",
-                6,
-                4,
-                1,
+                "RUNICAUGMENTATION", "Runic Shielding Augmentation", "Shields to maximum!",
+                "ARTIFICE", 6, 4, 1,
                 aspects("PRAECANTATIO", 3, "TUTAMEN", 3, "PERMUTATIO", 4, "LUCRUM", 4),
                 new String[] {"RUNICARMOR"},
                 new String[0],
@@ -2026,14 +978,12 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.RUNICAUGMENTATION.1", "tc.research_page.RUNICAUGMENTATION.2"},
                 new String[] {"TEXT", "INFUSION_CRAFTING", "TEXT"},
-                new String[] {"RESEARCH:RUNICAUGMENTATION"},
+                new String[0],
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "BOOTSTRAVELLER",
-                "Boots of the Traveler",
-                "These boots were made for walking",
+                "BOOTSTRAVELLER", "Boots of the Traveler", "These boots were made for walking",
                 "ARTIFICE", -1, 5, 2,
                 aspects("ITER", 3, "TERRA", 3, "VOLATUS", 3, "AQUA", 3),
                 new String[] {"ENCHFABRIC", "INFUSION"},
@@ -2047,9 +997,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "HOVERHARNESS",
-                "Thaumostatic Harness",
-                "Is it a bird?",
+                "HOVERHARNESS", "Thaumostatic Harness", "Is it a bird?",
                 "ARTIFICE", 1, 7, 3,
                 aspects("VOLATUS", 6, "ITER", 6, "AER", 6, "MACHINA", 3),
                 new String[] {"BOOTSTRAVELLER"},
@@ -2063,9 +1011,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "HOVERGIRDLE",
-                "Thaumostatic Girdle",
-                "Is it a plane?",
+                "HOVERGIRDLE", "Thaumostatic Girdle", "Is it a plane?",
                 "ARTIFICE", 2, 7, 3,
                 aspects("VOLATUS", 6, "ITER", 3, "AER", 3, "MOTUS", 6),
                 new String[] {"HOVERHARNESS"},
@@ -2079,9 +1025,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"VOLATUS"},
                 0));
         entries.add(new ResearchEntry(
-                "MIRROR",
-                "Mirror Magic",
-                "Through the looking glass",
+                "MIRROR", "Mirror Magic", "Through the looking glass",
                 "ARTIFICE", -1, 8, 2,
                 aspects("ITER", 6, "ALIENIS", 3, "TENEBRAE", 3, "VITREUS", 3),
                 new String[] {"INFUSION"},
@@ -2095,9 +1039,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "MIRRORHAND",
-                "Magical Hand Mirror",
-                "Personal reflection",
+                "MIRRORHAND", "Magical Hand Mirror", "Personal reflection",
                 "ARTIFICE", 1, 9, 2,
                 aspects("INSTRUMENTUM", 6, "ALIENIS", 3, "VITREUS", 3, "ITER", 3),
                 new String[] {"MIRROR"},
@@ -2111,9 +1053,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "MIRRORESSENTIA",
-                "Essentia Mirrors",
-                "Essentia where you need it",
+                "MIRRORESSENTIA", "Essentia Mirrors", "Essentia where you need it",
                 "ARTIFICE", -1, 10, 2,
                 aspects("ITER", 6, "ALIENIS", 3, "AQUA", 3, "PRAECANTATIO", 3),
                 new String[] {"MIRROR"},
@@ -2127,9 +1067,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ARCANEBORE",
-                "Arcane Bore",
-                "Mining evolved",
+                "ARCANEBORE", "Arcane Bore", "Mining evolved",
                 "ARTIFICE", -3, 8, 2,
                 aspects("PERFODIO", 6, "MOTUS", 3, "MACHINA", 3, "INSTRUMENTUM", 3),
                 new String[] {"FOCUSEXCAVATION", "INFUSION"},
@@ -2143,28 +1081,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ARCANELAMP",
-                "Arcane Lamp",
-                "Large Source of Light",
-                "ARTIFICE",
-                -3,
-                1,
-                1,
+                "ARCANELAMP", "Arcane Lamp", "Large Source of Light",
+                "ARTIFICE", -3, 1, 1,
                 aspects("LUX", 3, "SENSUS", 3, "TENEBRAE", 3),
                 new String[] {"NITOR"},
                 new String[0],
                 new String[0],
                 new String[] {"secondary"},
                 new String[] {"tc.research_page.ARCANELAMP.1", "tc.research_page.ARCANELAMP.2"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT_RESEARCH_GATED:ARCANEBORE"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT_CONCEALED"},
                 new String[] {"ArcaneLamp"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "LAMPGROWTH",
-                "Lamp of Growth",
-                "Encouraging things to grow",
+                "LAMPGROWTH", "Lamp of Growth", "Encouraging things to grow",
                 "ARTIFICE", -4, 3, 2,
                 aspects("LUX", 3, "HERBA", 6, "VICTUS", 3, "MESSIS", 3),
                 new String[] {"ARCANELAMP", "INFUSION"},
@@ -2178,9 +1109,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"LUX", "MESSIS"},
                 0));
         entries.add(new ResearchEntry(
-                "LAMPFERTILITY",
-                "Lamp of Fertility",
-                "Casting a romantic light on things",
+                "LAMPFERTILITY", "Lamp of Fertility", "Casting a romantic light on things",
                 "ARTIFICE", -2, 3, 2,
                 aspects("BESTIA", 6, "VICTUS", 6, "LUX", 3),
                 new String[] {"ARCANELAMP", "INFUSION"},
@@ -2194,9 +1123,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"LUX", "VICTUS"},
                 0));
         entries.add(new ResearchEntry(
-                "BONEBOW",
-                "Bone Bow",
-                "Sticks and stones...",
+                "BONEBOW", "Bone Bow", "Sticks and stones...",
                 "ARTIFICE", -7, 1, 1,
                 aspects("TELUM", 3, "AER", 3, "MOTUS", 3),
                 new String[0],
@@ -2210,13 +1137,8 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "PRIMALARROW",
-                "Primal Arrows",
-                "Arrows with an elemental bite",
-                "ARTIFICE",
-                -9,
-                0,
-                2,
+                "PRIMALARROW", "Primal Arrows", "Arrows with an elemental bite",
+                "ARTIFICE", -9, 0, 2,
                 aspects("TELUM", 3, "AER", 3, "IGNIS", 3, "AQUA", 3, "TERRA", 3, "ORDO", 3, "PERDITIO", 3),
                 new String[] {"BONEBOW"},
                 new String[0],
@@ -2224,14 +1146,12 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.PRIMALARROW.1", "tc.research_page.PRIMALARROW.2", "tc.research_page.PRIMALARROW.3"},
                 new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "TEXT"},
-                new String[] {"RESEARCH:PRIMALARROW"},
+                new String[0],
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ELEMENTALAXE",
-                "Axe of the Stream",
-                "Rivers of Wood",
+                "ELEMENTALAXE", "Axe of the Stream", "Rivers of Wood",
                 "ARTIFICE", -7, 4, 2,
                 aspects("INSTRUMENTUM", 3, "AQUA", 3, "MOTUS", 3),
                 new String[] {"THAUMIUM", "INFUSION"},
@@ -2245,9 +1165,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ELEMENTALPICK",
-                "Pickaxe of the Core",
-                "Purifying Heat",
+                "ELEMENTALPICK", "Pickaxe of the Core", "Purifying Heat",
                 "ARTIFICE", -7, 3, 2,
                 aspects("INSTRUMENTUM", 3, "IGNIS", 3, "SENSUS", 3),
                 new String[] {"THAUMIUM", "INFUSION"},
@@ -2261,9 +1179,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ELEMENTALSWORD",
-                "Sword of the Zephyr",
-                "Angry Winds",
+                "ELEMENTALSWORD", "Sword of the Zephyr", "Angry Winds",
                 "ARTIFICE", -7, 5, 2,
                 aspects("TELUM", 3, "AER", 3, "POTENTIA", 3),
                 new String[] {"THAUMIUM", "INFUSION"},
@@ -2277,9 +1193,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ELEMENTALSHOVEL",
-                "Shovel of the Earthmover",
-                "Shifting Earth",
+                "ELEMENTALSHOVEL", "Shovel of the Earthmover", "Shifting Earth",
                 "ARTIFICE", -7, 6, 2,
                 aspects("INSTRUMENTUM", 3, "TERRA", 3, "FABRICO", 3),
                 new String[] {"THAUMIUM", "INFUSION"},
@@ -2293,9 +1207,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ELEMENTALHOE",
-                "Hoe of Growth",
-                "Balance of Nature",
+                "ELEMENTALHOE", "Hoe of Growth", "Balance of Nature",
                 "ARTIFICE", -7, 7, 2,
                 aspects("INSTRUMENTUM", 3, "VICTUS", 3, "MESSIS", 3),
                 new String[] {"THAUMIUM", "INFUSION"},
@@ -2309,9 +1221,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "WARDEDARCANA",
-                "Warded Arcana",
-                "Controlling access",
+                "WARDEDARCANA", "Warded Arcana", "Controlling access",
                 "ARTIFICE", -5, -4, 2,
                 aspects("INSTRUMENTUM", 6, "COGNITIO", 3, "MACHINA", 3, "TUTAMEN", 3),
                 new String[] {"THAUMIUM"},
@@ -2325,9 +1235,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "JARBRAIN",
-                "Brain in a Jar",
-                "Sealing in the foulness",
+                "JARBRAIN", "Brain in a Jar", "Sealing in the foulness",
                 "ARTIFICE", -5, 9, 2,
                 aspects("FAMES", 3, "COGNITIO", 3, "EXANIMIS", 3, "LUCRUM", 3),
                 new String[] {"INFUSION"},
@@ -2341,9 +1249,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 3));
         entries.add(new ResearchEntry(
-                "INFUSIONENCHANTMENT",
-                "Infusion Enchantment",
-                "Enchanting with Essentia",
+                "INFUSIONENCHANTMENT", "Infusion Enchantment", "Enchanting with Essentia",
                 "ARTIFICE", -6, 11, 3,
                 aspects("PRAECANTATIO", 6, "COGNITIO", 3, "TELUM", 3, "TUTAMEN", 3, "INSTRUMENTUM", 3),
                 new String[] {"JARBRAIN"},
@@ -2357,9 +1263,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ARMORFORTRESS",
-                "Thaumium Fortress Armor",
-                "Nothing is getting in",
+                "ARMORFORTRESS", "Thaumium Fortress Armor", "Nothing is getting in",
                 "ARTIFICE", -8, 9, 2,
                 aspects("METALLUM", 3, "TUTAMEN", 5, "FABRICO", 5),
                 new String[] {"THAUMIUM", "INFUSIONENCHANTMENT"},
@@ -2373,9 +1277,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"TUTAMEN"},
                 0));
         entries.add(new ResearchEntry(
-                "HELMGOGGLES",
-                "Helm of Revealing",
-                "Thaumium Fortress Helm Upgrade",
+                "HELMGOGGLES", "Helm of Revealing", "Thaumium Fortress Helm Upgrade",
                 "ARTIFICE", -9, 7, 2,
                 aspects("SENSUS", 5, "AURAM", 3, "TUTAMEN", 3),
                 new String[] {"ARMORFORTRESS"},
@@ -2389,9 +1291,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "MASKGRINNINGDEVIL",
-                "Grinning Devil Faceplate",
-                "Thaumium Fortress Helm Upgrade",
+                "MASKGRINNINGDEVIL", "Grinning Devil Faceplate", "Thaumium Fortress Helm Upgrade",
                 "ARTIFICE", -10, 8, 2,
                 aspects("SANO", 5, "COGNITIO", 5, "TUTAMEN", 3),
                 new String[] {"ARMORFORTRESS"},
@@ -2405,9 +1305,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "MASKANGRYGHOST",
-                "Angry Ghost Faceplate",
-                "Thaumium Fortress Helm Upgrade",
+                "MASKANGRYGHOST", "Angry Ghost Faceplate", "Thaumium Fortress Helm Upgrade",
                 "ARTIFICE", -10, 9, 2,
                 aspects("PERDITIO", 5, "MORTUUS", 5, "TUTAMEN", 3),
                 new String[] {"ARMORFORTRESS"},
@@ -2421,9 +1319,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 1));
         entries.add(new ResearchEntry(
-                "MASKSIPPINGFIEND",
-                "Sipping Fiend Faceplate",
-                "Thaumium Fortress Helm Upgrade",
+                "MASKSIPPINGFIEND", "Sipping Fiend Faceplate", "Thaumium Fortress Helm Upgrade",
                 "ARTIFICE", -10, 10, 2,
                 aspects("EXANIMIS", 5, "VICTUS", 5, "TUTAMEN", 3),
                 new String[] {"ARMORFORTRESS"},
@@ -2438,11 +1334,502 @@ public final class TC4ResearchRuntimeBridge {
                 1));
     }
 
+    private static void addALCHEMY(List<ResearchEntry> entries) {
+        entries.add(new ResearchEntry(
+                "PHIAL", "Glass Phial", "Mystical containers",
+                "ALCHEMY", 0, -2, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.PHIAL.1"},
+                new String[] {"TEXT", "NORMAL_CRAFTING"},
+                new String[] {"Phial"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "CRUCIBLE", "Basic Alchemy", "Bubble and Boil",
+                "ALCHEMY", 0, 0, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub"},
+                new String[] {"tc.research_page.CRUCIBLE.1", "tc.research_page.CRUCIBLE.2", "tc.research_page.CRUCIBLE.3", "tc.research_page.CRUCIBLE.4", "tc.research_page.CRUCIBLE.5"},
+                new String[] {"TEXT", "TEXT", "TEXT", "NORMAL_CRAFTING", "TEXT", "CRUCIBLE_CRAFTING", "TEXT", "UNKNOWN"},
+                new String[] {"Crucible"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "NITOR", "Nitor", "Mystical Flame",
+                "ALCHEMY", 2, -1, 1,
+                aspects("LUX", 3, "IGNIS", 1),
+                new String[] {"CRUCIBLE"},
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"tc.research_page.NITOR.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"Nitor"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ALUMENTUM", "Alumentum", "Mystical Energy Source",
+                "ALCHEMY", 2, 1, 1,
+                aspects("POTENTIA", 3, "IGNIS", 1),
+                new String[] {"CRUCIBLE"},
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"tc.research_page.ALUMENTUM.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"Alumentum"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ALCHEMICALDUPLICATION", "Alchemical Duplication", "You can never have too much of a good thing.",
+                "ALCHEMY", -4, 0, 1,
+                aspects("PRAECANTATIO", 3, "LUCRUM", 3, "FABRICO", 3),
+                new String[] {"TALLOW"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.ALCHEMICALDUPLICATION.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING"},
+                new String[] {"AltGunpowder", "AltSlime", "AltClay", "AltGlowstone", "AltInk"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ALCHEMICALMANUFACTURE", "Alchemical Manufacture", "More than one way to skin a cat.",
+                "ALCHEMY", -5, -2, 1,
+                aspects("PRAECANTATIO", 3, "PERMUTATIO", 3, "FABRICO", 3),
+                new String[] {"ALCHEMICALDUPLICATION"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.ALCHEMICALMANUFACTURE.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING"},
+                new String[] {"AltWeb", "AltMossyCobble", "AltIce"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ENTROPICPROCESSING", "Entropic Processing", "Making things worse?",
+                "ALCHEMY", -6, 1, 1,
+                aspects("PRAECANTATIO", 1, "PERDITIO", 3, "FABRICO", 1),
+                new String[] {"ALCHEMICALDUPLICATION"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.ENTROPICPROCESSING.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "CRUCIBLE_CRAFTING"},
+                new String[] {"AltCrackedBrick", "AltBonemeal"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "LIQUIDDEATH", "Liquid Death", "For external use only",
+                "ALCHEMY", -7, 3, 2,
+                aspects("MORTUUS", 3, "VENENUM", 3, "PERDITIO", 1, "AQUA", 1),
+                new String[] {"ENTROPICPROCESSING"},
+                new String[0],
+                new String[0],
+                new String[] {"hidden"},
+                new String[] {"tc.research_page.LIQUIDDEATH.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"LiquidDeath"},
+                new String[0],
+                new String[] {"MORTUUS", "VENENUM"},
+                3));
+        entries.add(new ResearchEntry(
+                "BOTTLETAINT", "Bottled Taint ", "Why would you want this?",
+                "ALCHEMY", -8, 1, 2,
+                aspects("VITIUM", 5, "PRAECANTATIO", 3, "PERDITIO", 1, "AQUA", 1),
+                new String[] {"ENTROPICPROCESSING"},
+                new String[0],
+                new String[0],
+                new String[] {"hidden"},
+                new String[] {"tc.research_page.BOTTLETAINT.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"BottleTaint"},
+                new String[0],
+                new String[] {"VITIUM"},
+                2));
+        entries.add(new ResearchEntry(
+                "THAUMIUM", "Magical Metallurgy", "Where metals meet magic",
+                "ALCHEMY", -1, 3, 1,
+                aspects("METALLUM", 3, "PRAECANTATIO", 3),
+                new String[] {"CRUCIBLE"},
+                new String[0],
+                new String[0],
+                new String[] {"hidden"},
+                new String[] {"tc.research_page.THAUMIUM.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING"},
+                new String[] {"Thaumium", "ThaumiumAxe", "ThaumiumSword", "ThaumiumPick", "ThaumiumShovel", "ThaumiumHoe", "ThaumiumHelm", "ThaumiumChest", "ThaumiumLegs", "ThaumiumBoots"},
+                new String[0],
+                new String[] {"METALLUM"},
+                0));
+        entries.add(new ResearchEntry(
+                "PUREIRON", "Metal Purification", "Purification of metals into native clusters",
+                "ALCHEMY", -2, 5, 1,
+                aspects("METALLUM", 3, "ORDO", 3),
+                new String[] {"THAUMIUM"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed"},
+                new String[] {"tc.research_page.PUREIRON.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"PureIron"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PUREGOLD", "Gold Purification", "Purification of gold into native clusters",
+                "ALCHEMY", -4, 3, 1,
+                aspects("METALLUM", 3, "ORDO", 2, "LUCRUM", 1),
+                new String[] {"PUREIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.PUREGOLD.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"PureGold"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PURECOPPER", "Copper Purification", "Purification of copper into native clusters",
+                "ALCHEMY", -4, 5, 1,
+                aspects("METALLUM", 3, "ORDO", 2, "PERMUTATIO", 1),
+                new String[] {"PUREIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.PURECOPPER.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"PureCopper"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PURETIN", "Tin Purification", "Purification of tin into native clusters",
+                "ALCHEMY", -4, 7, 1,
+                aspects("METALLUM", 3, "ORDO", 2, "VITREUS", 1),
+                new String[] {"PUREIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.PURETIN.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"PureTin"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PURESILVER", "Silver Purification", "Purification of silver into native clusters",
+                "ALCHEMY", -3, 8, 1,
+                aspects("METALLUM", 3, "ORDO", 2, "LUCRUM", 1),
+                new String[] {"PUREIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.PURESILVER.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"PureSilver"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PURELEAD", "Lead Purification", "Purification of lead into native clusters",
+                "ALCHEMY", -2, 9, 1,
+                aspects("METALLUM", 3, "ORDO", 3),
+                new String[] {"PUREIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.PURELEAD.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"PureLead"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TRANSIRON", "Metal Transmutation", "Transformation of metals into iron",
+                "ALCHEMY", 0, 5, 1,
+                aspects("METALLUM", 3, "PERMUTATIO", 3),
+                new String[] {"THAUMIUM"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed"},
+                new String[] {"tc.research_page.TRANSIRON.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"TransIron"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TRANSGOLD", "Gold Transmutation", "Transformation of metals into gold",
+                "ALCHEMY", 2, 3, 1,
+                aspects("METALLUM", 3, "PERMUTATIO", 3),
+                new String[] {"TRANSIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TRANSGOLD.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"TransGold"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TRANSCOPPER", "Copper Transmutation", "Transformation of metals into copper",
+                "ALCHEMY", 2, 5, 1,
+                aspects("METALLUM", 3, "PERMUTATIO", 3),
+                new String[] {"TRANSIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TRANSCOPPER.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"TransCopper"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TRANSTIN", "Tin Transmutation", "Transformation of metals into tin",
+                "ALCHEMY", 2, 7, 1,
+                aspects("METALLUM", 3, "PERMUTATIO", 2, "VITREUS", 1),
+                new String[] {"TRANSIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TRANSTIN.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"TransTin"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TRANSSILVER", "Silver Transmutation", "Transformation of metals into silver",
+                "ALCHEMY", 1, 8, 1,
+                aspects("METALLUM", 3, "PERMUTATIO", 2, "LUCRUM", 1),
+                new String[] {"TRANSIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TRANSSILVER.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"TransSilver"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TRANSLEAD", "Lead Transmutation", "Transformation of metals into lead",
+                "ALCHEMY", 0, 9, 1,
+                aspects("METALLUM", 3, "PERMUTATIO", 2, "ORDO", 1),
+                new String[] {"TRANSIRON"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TRANSLEAD.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"TransLead"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TALLOW", "Magic Tallow", "Rendered fat with a touch of magic",
+                "ALCHEMY", -2, 0, 1,
+                aspects("CORPUS", 3, "PRAECANTATIO", 1),
+                new String[] {"CRUCIBLE"},
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"tc.research_page.TALLOW.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "NORMAL_CRAFTING"},
+                new String[] {"Tallow", "TallowCandle"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ETHEREALBLOOM", "Ethereal Bloom", "Purifying Flower",
+                "ALCHEMY", -2, -3, 2,
+                aspects("PRAECANTATIO", 1, "HERBA", 6, "SANO", 3, "VITIUM", 6),
+                new String[] {"CRUCIBLE"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed", "hidden"},
+                new String[] {"tc.research_page.ETHEREALBLOOM.1", "tc.research_page.ETHEREALBLOOM.2"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT"},
+                new String[] {"EtherealBloom"},
+                new String[0],
+                new String[] {"VITIUM"},
+                0));
+        entries.add(new ResearchEntry(
+                "BATHSALTS", "Purifying Bath Salts", "Stress relief for the mind",
+                "ALCHEMY", -4, -4, 2,
+                aspects("COGNITIO", 3, "AURAM", 3, "ORDO", 3, "SANO", 3),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"hidden"},
+                new String[] {"tc.research_page.BATHSALTS.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"BathSalts"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "SANESOAP", "Sanitizing Soap", "Getting rid of dirty thoughts",
+                "ALCHEMY", -3, -6, 1,
+                aspects("COGNITIO", 5, "ORDO", 5, "SANO", 5, "ALIENIS", 5),
+                new String[] {"BATHSALTS"},
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"tc.research_page.SANESOAP.1"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING"},
+                new String[] {"SaneSoap"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ARCANESPA", "Arcane Spa", "Relaxing in style",
+                "ALCHEMY", -6, -5, 1,
+                aspects("AQUA", 3, "MACHINA", 3, "ORDO", 3),
+                new String[] {"BATHSALTS"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary"},
+                new String[] {"tc.research_page.ARCANESPA.1"},
+                new String[] {"TEXT", "ARCANE_CRAFTING"},
+                new String[] {"ArcaneSpa"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "DISTILESSENTIA", "Essentia Distillation", "Harvesting essentia",
+                "ALCHEMY", 5, -1, 1,
+                aspects("PRAECANTATIO", 3, "AQUA", 3, "LIMUS", 3),
+                new String[] {"NITOR", "ALUMENTUM"},
+                new String[0],
+                new String[] {"JARLABEL"},
+                new String[0],
+                new String[] {"tc.research_page.DISTILESSENTIA.1", "tc.research_page.DISTILESSENTIA.2"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "ARCANE_CRAFTING", "ARCANE_CRAFTING"},
+                new String[] {"AlchemyFurnace", "Filter", "Alembic", "AlchemicalConstruct"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "JARLABEL", "Warded Jars and Labels", "Storing and organizing essentia",
+                "ALCHEMY", 4, -3, 1,
+                java.util.Map.of(),
+                new String[] {"DISTILESSENTIA"},
+                new String[0],
+                new String[0],
+                new String[] {"stub", "round"},
+                new String[] {"tc.research_page.JARLABEL.1", "tc.research_page.JARLABEL.2", "tc.research_page.JARLABEL.3"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "NORMAL_CRAFTING", "TEXT", "NORMAL_CRAFTING", "NORMAL_CRAFTING"},
+                new String[] {"WardedJar", "JarLabel", "JarLabelNull"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "JARVOID", "Void Jar", "Too much essentia? Impossible!",
+                "ALCHEMY", 5, -5, 1,
+                aspects("AQUA", 3, "PERDITIO", 3, "VACUOS", 6),
+                new String[] {"JARLABEL"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.JARVOID.1"},
+                new String[] {"TEXT", "ARCANE_CRAFTING"},
+                new String[] {"JarVoid"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TUBES", "Essentia Tubes", "Transportation of essentia",
+                "ALCHEMY", 7, 0, 1,
+                aspects("AQUA", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3),
+                new String[] {"DISTILESSENTIA"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TUBES.1", "tc.research_page.TUBES.2", "tc.research_page.TUBES.3", "tc.research_page.TUBES.4"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "TEXT"},
+                new String[] {"Tube", "TubeValve", "Resonator"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "TUBEFILTER", "Advanced Essentia Tubes", "What you want, where you want it",
+                "ALCHEMY", 9, 1, 2,
+                aspects("AQUA", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3, "ORDO", 3),
+                new String[] {"TUBES"},
+                new String[0],
+                new String[0],
+                new String[] {"secondary", "concealed"},
+                new String[] {"tc.research_page.TUBEFILTER.1", "tc.research_page.TUBEFILTER.2"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "ARCANE_CRAFTING", "ARCANE_CRAFTING"},
+                new String[] {"TubeFilter", "TubeRestrict", "TubeOneway"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ESSENTIACRYSTAL", "Essentia Crystallization ", "Hard currency or liquid assets?",
+                "ALCHEMY", 8, -2, 1,
+                aspects("AQUA", 5, "VITREUS", 5, "PERMUTATIO", 3, "PRAECANTATIO", 5),
+                new String[] {"TUBES"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed"},
+                new String[] {"tc.research_page.ESSENTIACRYSTAL.1"},
+                new String[] {"TEXT", "ARCANE_CRAFTING"},
+                new String[] {"EssentiaCrystalizer"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "CENTRIFUGE", "Alchemical Centrifuge", "Taking things apart",
+                "ALCHEMY", 10, 0, 2,
+                aspects("PERDITIO", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3, "FABRICO", 3),
+                new String[] {"TUBEFILTER"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed"},
+                new String[] {"tc.research_page.CENTRIFUGE.1", "tc.research_page.CENTRIFUGE.2", "tc.research_page.CENTRIFUGE.3"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "TEXT", "ARCANE_CRAFTING"},
+                new String[] {"Centrifuge", "TubeBuffer"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "THAUMATORIUM", "Automated Alchemy", "Alchemy for the masses",
+                "ALCHEMY", 10, -2, 3,
+                aspects("AQUA", 3, "PRAECANTATIO", 6, "PERMUTATIO", 3, "FABRICO", 3),
+                new String[] {"CENTRIFUGE"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed"},
+                new String[] {"tc.research_page.THAUMATORIUM.1", "tc.research_page.THAUMATORIUM.2", "tc.research_page.THAUMATORIUM.3"},
+                new String[] {"TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT", "ARCANE_CRAFTING"},
+                new String[] {"Thaumatorium", "MnemonicMatrix"},
+                new String[0],
+                new String[0],
+                0));
+    }
+
     private static void addGOLEMANCY(List<ResearchEntry> entries) {
         entries.add(new ResearchEntry(
-                "HUNGRYCHEST",
-                "Hungry Chest",
-                "A chest that doesn't wait to be opened",
+                "HUNGRYCHEST", "Hungry Chest", "A chest that doesn't wait to be opened",
                 "GOLEMANCY", -1, 0, 1,
                 aspects("FAMES", 3, "VACUOS", 3),
                 new String[0],
@@ -2456,9 +1843,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMFETTER",
-                "Golem Fetter",
-                "Making them behave",
+                "GOLEMFETTER", "Golem Fetter", "Making them behave",
                 "GOLEMANCY", 4, 8, 1,
                 aspects("VINCULUM", 3, "MACHINA", 3),
                 new String[] {"GOLEMSTONE"},
@@ -2472,28 +1857,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "TRAVELTRUNK",
-                "Traveling Trunk",
-                "Mobile Luggage",
-                "GOLEMANCY",
-                0,
-                4,
-                2,
+                "TRAVELTRUNK", "Traveling Trunk", "Mobile Luggage",
+                "GOLEMANCY", 0, 4, 2,
                 aspects("SPIRITUS", 3, "ITER", 3, "ARBOR", 3, "VACUOS", 3),
                 new String[] {"INFUSION", "GOLEMWOOD"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.TRAVELTRUNK.1", "tc.research_page.TRAVELTRUNK.2", "tc.research_page.TRAVELTRUNK.UAI", "tc.research_page.TRAVELTRUNK.UEA", "tc.research_page.TRAVELTRUNK.UFI", "tc.research_page.TRAVELTRUNK.UWA", "tc.research_page.TRAVELTRUNK.UOR", "tc.research_page.TRAVELTRUNK.UEN"},
-                new String[] {"TEXT", "INFUSION_CRAFTING", "TEXT", "TEXT_RESEARCH_GATED:UPGRADEAIR", "TEXT_RESEARCH_GATED:UPGRADEEARTH", "TEXT_RESEARCH_GATED:UPGRADEFIRE", "TEXT_RESEARCH_GATED:UPGRADEWATER", "TEXT_RESEARCH_GATED:UPGRADEORDER", "TEXT_RESEARCH_GATED:UPGRADEENTROPY"},
+                new String[] {"TEXT", "INFUSION_CRAFTING", "TEXT", "TEXT_CONCEALED", "TEXT_CONCEALED", "TEXT_CONCEALED", "TEXT_CONCEALED", "TEXT_CONCEALED", "TEXT_CONCEALED"},
                 new String[] {"TravelTrunk"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMSTRAW",
-                "Straw Golems",
-                "Simple Magical Minions",
+                "GOLEMSTRAW", "Straw Golems", "Simple Magical Minions",
                 "GOLEMANCY", 0, 2, 2,
                 aspects("SPIRITUS", 3, "MOTUS", 3, "MESSIS", 3, "PERMUTATIO", 3),
                 new String[] {"HUNGRYCHEST"},
@@ -2507,9 +1885,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMWOOD",
-                "Wooden Golems",
-                "How much wood would a wood golem chop if a wood golem could chop wood?",
+                "GOLEMWOOD", "Wooden Golems", "How much wood would a wood golem chop if a wood golem could chop wood?",
                 "GOLEMANCY", 2, 4, 2,
                 aspects("SPIRITUS", 4, "MOTUS", 4, "ARBOR", 3, "PERMUTATIO", 3),
                 new String[] {"GOLEMSTRAW"},
@@ -2523,9 +1899,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMTALLOW",
-                "Tallow Golems",
-                "Keep away from open flames",
+                "GOLEMTALLOW", "Tallow Golems", "Keep away from open flames",
                 "GOLEMANCY", 4, 6, 2,
                 aspects("SPIRITUS", 3, "MOTUS", 3, "CORPUS", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3),
                 new String[] {"GOLEMCLAY", "TALLOW"},
@@ -2539,9 +1913,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMCLAY",
-                "Clay Golems",
-                "Tough and durable",
+                "GOLEMCLAY", "Clay Golems", "Tough and durable",
                 "GOLEMANCY", 2, 6, 2,
                 aspects("SPIRITUS", 6, "MOTUS", 6, "TERRA", 3, "PERMUTATIO", 3),
                 new String[] {"GOLEMWOOD"},
@@ -2555,9 +1927,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMFLESH",
-                "Flesh Golems",
-                "It's alive!",
+                "GOLEMFLESH", "Flesh Golems", "It's alive!",
                 "GOLEMANCY", 4, 4, 2,
                 aspects("SPIRITUS", 7, "MOTUS", 7, "CORPUS", 6, "PERMUTATIO", 3),
                 new String[] {"GOLEMWOOD"},
@@ -2571,9 +1941,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 3));
         entries.add(new ResearchEntry(
-                "GOLEMSTONE",
-                "Stone Golems",
-                "Strong, but slow",
+                "GOLEMSTONE", "Stone Golems", "Strong, but slow",
                 "GOLEMANCY", 2, 8, 2,
                 aspects("SPIRITUS", 6, "MOTUS", 6, "TERRA", 3, "PERMUTATIO", 3),
                 new String[] {"GOLEMCLAY"},
@@ -2587,9 +1955,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMIRON",
-                "Iron Golems",
-                "Like village golems, only smaller... and better",
+                "GOLEMIRON", "Iron Golems", "Like village golems, only smaller... and better",
                 "GOLEMANCY", 0, 10, 2,
                 aspects("SPIRITUS", 9, "MOTUS", 9, "METALLUM", 3, "PERMUTATIO", 3),
                 new String[] {"GOLEMSTONE"},
@@ -2603,9 +1969,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMTHAUMIUM",
-                "Thaumium Golems",
-                "Mystical Minions",
+                "GOLEMTHAUMIUM", "Thaumium Golems", "Mystical Minions",
                 "GOLEMANCY", 2, 10, 2,
                 aspects("SPIRITUS", 10, "MOTUS", 10, "METALLUM", 3, "PRAECANTATIO", 3, "PERMUTATIO", 3),
                 new String[] {"GOLEMIRON", "THAUMIUM"},
@@ -2619,9 +1983,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "GOLEMBELL",
-                "Golemancer's Bell",
-                "Pay Attention",
+                "GOLEMBELL", "Golemancer's Bell", "Pay Attention",
                 "GOLEMANCY", 3, 0, 1,
                 java.util.Map.of(),
                 new String[] {"GOLEMSTRAW"},
@@ -2635,9 +1997,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREGATHER",
-                "Golem Core: Gather",
-                "Picking up what you are putting down",
+                "COREGATHER", "Golem Core: Gather", "Picking up what you are putting down",
                 "GOLEMANCY", -3, 3, 1,
                 java.util.Map.of(),
                 new String[] {"GOLEMSTRAW"},
@@ -2651,9 +2011,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREFILL",
-                "Golem Core: Fill",
-                "Keeping an inventory supplied",
+                "COREFILL", "Golem Core: Fill", "Keeping an inventory supplied",
                 "GOLEMANCY", -5, 3, 2,
                 aspects("FAMES", 3, "PERMUTATIO", 3, "VACUOS", 3),
                 new String[] {"COREGATHER"},
@@ -2667,9 +2025,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREEMPTY",
-                "Golem Core: Empty",
-                "Moving things somewhere else",
+                "COREEMPTY", "Golem Core: Empty", "Moving things somewhere else",
                 "GOLEMANCY", -5, 1, 2,
                 aspects("VACUOS", 3, "PERMUTATIO", 3, "LUCRUM", 3),
                 new String[] {"COREGATHER"},
@@ -2683,9 +2039,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CORESORTING",
-                "Golem Core: Sorting",
-                "Keeping things in order",
+                "CORESORTING", "Golem Core: Sorting", "Keeping things in order",
                 "GOLEMANCY", -7, 2, 2,
                 aspects("VACUOS", 3, "PERMUTATIO", 3, "LUCRUM", 3, "FAMES", 3),
                 new String[] {"COREEMPTY", "COREFILL", "INFUSION"},
@@ -2699,66 +2053,49 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREUSE",
-                "Golem Core: Use",
-                "Clickety click",
-                "GOLEMANCY",
-                -7,
-                0,
-                3,
+                "COREUSE", "Golem Core: Use", "Clickety click",
+                "GOLEMANCY", -7, 0, 3,
                 aspects("INSTRUMENTUM", 3, "PERMUTATIO", 3, "MACHINA", 3, "HUMANUS", 3),
                 new String[] {"COREEMPTY", "INFUSION"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.COREUSE.1", "tc.research_page.COREUSE.2", "tc.research_page.COREUSE.3"},
-                new String[] {"TEXT", "TEXT", "INFUSION_CRAFTING", "TEXT_RESEARCH_GATED:UPGRADEAIR"},
+                new String[] {"TEXT", "TEXT", "INFUSION_CRAFTING", "TEXT_CONCEALED"},
                 new String[] {"CoreUse"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREHARVEST",
-                "Golem Core: Harvest",
-                "Animated Farmer",
-                "GOLEMANCY",
-                -2,
-                5,
-                2,
+                "COREHARVEST", "Golem Core: Harvest", "Animated Farmer",
+                "GOLEMANCY", -2, 5, 2,
                 aspects("METO", 6, "MESSIS", 3, "ITER", 3),
                 new String[] {"COREGATHER"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.COREHARVEST.1", "tc.research_page.COREHARVEST.2"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT_RESEARCH_GATED:UPGRADEORDER"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT_CONCEALED"},
                 new String[] {"CoreHarvest"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREFISHING",
-                "Golem Core: Fishing",
-                "Sea shanties sold separately",
-                "GOLEMANCY",
-                -2,
-                7,
-                2,
+                "COREFISHING", "Golem Core: Fishing", "Sea shanties sold separately",
+                "GOLEMANCY", -2, 7, 2,
                 aspects("AQUA", 3, "METO", 3, "BESTIA", 3, "FAMES", 3),
                 new String[] {"COREHARVEST", "INFUSION"},
                 new String[0],
                 new String[0],
                 new String[] {"secondary", "concealed"},
                 new String[] {"tc.research_page.COREFISHING.1", "tc.research_page.COREFISHING.2", "tc.research_page.COREFISHING.3", "tc.research_page.COREFISHING.4", "tc.research_page.COREFISHING.5"},
-                new String[] {"TEXT", "INFUSION_CRAFTING", "TEXT_RESEARCH_GATED:UPGRADEAIR", "TEXT_RESEARCH_GATED:UPGRADEFIRE", "TEXT_RESEARCH_GATED:UPGRADEORDER", "TEXT_RESEARCH_GATED:UPGRADEENTROPY"},
+                new String[] {"TEXT", "INFUSION_CRAFTING", "TEXT_CONCEALED", "TEXT_CONCEALED", "TEXT_CONCEALED", "TEXT_CONCEALED"},
                 new String[] {"CoreFishing"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CORELUMBER",
-                "Golem Core: Chop",
-                "Animated lumberjack",
+                "CORELUMBER", "Golem Core: Chop", "Animated lumberjack",
                 "GOLEMANCY", -1, 7, 2,
                 aspects("ARBOR", 6, "METO", 3, "INSTRUMENTUM", 3, "POTENTIA", 3),
                 new String[] {"COREHARVEST", "ELEMENTALAXE"},
@@ -2772,28 +2109,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREGUARD",
-                "Golem Core: Guard",
-                "Guarding your valuables",
-                "GOLEMANCY",
-                -4,
-                5,
-                2,
+                "COREGUARD", "Golem Core: Guard", "Guarding your valuables",
+                "GOLEMANCY", -4, 5, 2,
                 aspects("TELUM", 3, "VINCULUM", 3, "SENSUS", 3),
                 new String[] {"COREGATHER"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.COREGUARD.1", "tc.research_page.COREGUARD.2"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT_RESEARCH_GATED:UPGRADEORDER"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT_CONCEALED"},
                 new String[] {"CoreGuard"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREBUTCHER",
-                "Golem Core: Butcher",
-                "Bloody to the armpits",
+                "COREBUTCHER", "Golem Core: Butcher", "Bloody to the armpits",
                 "GOLEMANCY", -3, 7, 2,
                 aspects("TELUM", 3, "BESTIA", 3, "SENSUS", 3, "METO", 3),
                 new String[] {"COREGUARD", "COREHARVEST"},
@@ -2807,28 +2137,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 1));
         entries.add(new ResearchEntry(
-                "CORELIQUID",
-                "Golem Core: Decanting",
-                "Keeping a tank filled with liquid",
-                "GOLEMANCY",
-                -7,
-                4,
-                2,
+                "CORELIQUID", "Golem Core: Decanting", "Keeping a tank filled with liquid",
+                "GOLEMANCY", -7, 4, 2,
                 aspects("AQUA", 3, "PERMUTATIO", 3, "ITER", 3),
                 new String[] {"COREFILL"},
                 new String[0],
                 new String[0],
                 new String[] {"concealed"},
                 new String[] {"tc.research_page.CORELIQUID.1", "tc.research_page.CORELIQUID.2"},
-                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT_RESEARCH_GATED:UPGRADEENTROPY"},
+                new String[] {"TEXT", "CRUCIBLE_CRAFTING", "TEXT_CONCEALED"},
                 new String[] {"CoreLiquid"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "COREALCHEMY",
-                "Golem Core: Alchemy",
-                "Moving essentia around",
+                "COREALCHEMY", "Golem Core: Alchemy", "Moving essentia around",
                 "GOLEMANCY", -9, 3, 2,
                 aspects("AQUA", 3, "ITER", 3, "PRAECANTATIO", 3, "POTENTIA", 3),
                 new String[] {"CORELIQUID", "INFUSION"},
@@ -2842,9 +2165,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "UPGRADEAIR",
-                "Golem Upgrade: Air",
-                "Making your golem faster",
+                "UPGRADEAIR", "Golem Upgrade: Air", "Making your golem faster",
                 "GOLEMANCY", 7, -3, 1,
                 aspects("AER", 6, "MOTUS", 3),
                 new String[] {"GOLEMBELL"},
@@ -2858,9 +2179,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "UPGRADEEARTH",
-                "Golem Upgrade: Earth",
-                "Making your golem stronger",
+                "UPGRADEEARTH", "Golem Upgrade: Earth", "Making your golem stronger",
                 "GOLEMANCY", 6, -2, 1,
                 aspects("TERRA", 6, "VICTUS", 3),
                 new String[] {"GOLEMBELL"},
@@ -2874,9 +2193,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "UPGRADEFIRE",
-                "Golem Upgrade: Fire",
-                "Making your golem all fired up.",
+                "UPGRADEFIRE", "Golem Upgrade: Fire", "Making your golem all fired up.",
                 "GOLEMANCY", 5, -1, 1,
                 aspects("IGNIS", 6, "POTENTIA", 3),
                 new String[] {"GOLEMBELL"},
@@ -2890,9 +2207,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "UPGRADEWATER",
-                "Golem Upgrade: Water",
-                "Making your golem more perceptive",
+                "UPGRADEWATER", "Golem Upgrade: Water", "Making your golem more perceptive",
                 "GOLEMANCY", 5, 1, 1,
                 aspects("AQUA", 6, "SENSUS", 3),
                 new String[] {"GOLEMBELL"},
@@ -2906,9 +2221,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "UPGRADEORDER",
-                "Golem Upgrade: Order",
-                "Making your golem more organized",
+                "UPGRADEORDER", "Golem Upgrade: Order", "Making your golem more organized",
                 "GOLEMANCY", 6, 2, 1,
                 aspects("ORDO", 6, "COGNITIO", 3),
                 new String[] {"GOLEMBELL"},
@@ -2922,9 +2235,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "UPGRADEENTROPY",
-                "Golem Upgrade: Entropy",
-                "Making your golem prickly... and fuzzy",
+                "UPGRADEENTROPY", "Golem Upgrade: Entropy", "Making your golem prickly... and fuzzy",
                 "GOLEMANCY", 7, 3, 1,
                 aspects("PERDITIO", 6, "COGNITIO", 3),
                 new String[] {"GOLEMBELL"},
@@ -2938,9 +2249,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ADVANCEDGOLEM",
-                "Advanced Golems",
-                "Maybe I should think this through...",
+                "ADVANCEDGOLEM", "Advanced Golems", "Maybe I should think this through...",
                 "GOLEMANCY", 8, 0, 2,
                 aspects("VICTUS", 3, "POTENTIA", 3, "COGNITIO", 6, "SENSUS", 3),
                 new String[] {"INFUSION", "UPGRADEAIR", "UPGRADEEARTH", "UPGRADEFIRE", "UPGRADEWATER", "UPGRADEORDER", "UPGRADEENTROPY"},
@@ -2954,9 +2263,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 5));
         entries.add(new ResearchEntry(
-                "TINYHAT",
-                "Tiny Hats",
-                "Keeping the sun at bay",
+                "TINYHAT", "Tiny Hats", "Keeping the sun at bay",
                 "GOLEMANCY", 5, 10, 1,
                 aspects("PANNUS", 2, "VICTUS", 1, "LUCRUM", 1),
                 new String[0],
@@ -2970,9 +2277,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"PANNUS"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYGLASSES",
-                "Tiny Spectacles",
-                "The better to see you with",
+                "TINYGLASSES", "Tiny Spectacles", "The better to see you with",
                 "GOLEMANCY", 6, 10, 1,
                 aspects("PANNUS", 2, "SENSUS", 1, "LUCRUM", 1),
                 new String[0],
@@ -2986,9 +2291,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"PANNUS"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYBOWTIE",
-                "Tiny Bowties",
-                "...are cool",
+                "TINYBOWTIE", "Tiny Bowties", "...are cool",
                 "GOLEMANCY", 7, 10, 1,
                 aspects("PANNUS", 2, "ITER", 1, "LUCRUM", 1),
                 new String[0],
@@ -3002,9 +2305,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"PANNUS"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYFEZ",
-                "Tiny Fezzes",
-                "...are cool too",
+                "TINYFEZ", "Tiny Fezzes", "...are cool too",
                 "GOLEMANCY", 8, 10, 1,
                 aspects("PANNUS", 2, "POTENTIA", 1, "LUCRUM", 1),
                 new String[0],
@@ -3018,9 +2319,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"PANNUS"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYDART",
-                "Golem Dart Launcher",
-                "Small but pointy",
+                "TINYDART", "Golem Dart Launcher", "Small but pointy",
                 "GOLEMANCY", 5, 11, 1,
                 aspects("VOLATUS", 1, "TELUM", 2, "LUCRUM", 1),
                 new String[0],
@@ -3034,9 +2333,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"TELUM"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYVISOR",
-                "Golem Visor",
-                "Thank you for your cooperation",
+                "TINYVISOR", "Golem Visor", "Thank you for your cooperation",
                 "GOLEMANCY", 6, 11, 1,
                 aspects("SENSUS", 1, "TUTAMEN", 2, "LUCRUM", 1),
                 new String[0],
@@ -3050,9 +2347,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"TUTAMEN"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYARMOR",
-                "Golem Iron Plating",
-                "A tough nut to crack",
+                "TINYARMOR", "Golem Iron Plating", "A tough nut to crack",
                 "GOLEMANCY", 7, 11, 1,
                 aspects("METALLUM", 1, "TUTAMEN", 2, "LUCRUM", 1),
                 new String[0],
@@ -3066,9 +2361,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[] {"TUTAMEN"},
                 0));
         entries.add(new ResearchEntry(
-                "TINYHAMMER",
-                "Golem Mace",
-                "It's clobbering time",
+                "TINYHAMMER", "Golem Mace", "It's clobbering time",
                 "GOLEMANCY", 8, 11, 1,
                 aspects("METALLUM", 1, "TELUM", 2, "LUCRUM", 1),
                 new String[0],
@@ -3083,11 +2376,278 @@ public final class TC4ResearchRuntimeBridge {
                 0));
     }
 
+    private static void addBASICS(List<ResearchEntry> entries) {
+        entries.add(new ResearchEntry(
+                "ASPECTS", "Aspects of Magic", "The building blocks of magic",
+                "BASICS", 0, 0, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.ASPECTS.1", "tc.research_page.ASPECTS.2", "tc.research_page.ASPECTS.3"},
+                new String[] {"TEXT", "TEXT", "TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PECH", "The Pech", "Strange Creatures",
+                "BASICS", -4, -4, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.PECH.1", "tc.research_page.PECH.2"},
+                new String[] {"TEXT", "TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "NODES", "Auras and Nodes", "Magic is everywhere",
+                "BASICS", -2, 0, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.NODES.1", "tc.research_page.NODES.2", "tc.research_page.NODES.3"},
+                new String[] {"TEXT", "TEXT", "TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "WARP", "Warp, Flux and all things bad", "Everything has a price",
+                "BASICS", 0, 2, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.WARP.1", "tc.research_page.WARP.2", "tc.research_page.WARP.3"},
+                new String[] {"TEXT", "TEXT", "TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "RESEARCH", "Research", "How you discover things",
+                "BASICS", 2, 0, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.RESEARCH.1", "tc.research_page.RESEARCH.2", "tc.research_page.RESEARCH.3", "tc.research_page.RESEARCH.4", "tc.research_page.RESEARCH.5", "tc.research_page.RESEARCH.6", "tc.research_page.RESEARCH.7", "tc.research_page.RESEARCH.8", "tc.research_page.RESEARCH.9", "tc.research_page.RESEARCH.10", "tc.research_page.RESEARCH.11", "tc.research_page.RESEARCH.12"},
+                new String[] {"TEXT", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "NORMAL_CRAFTING", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT", "TEXT"},
+                new String[] {"Thaumometer", "Scribe1", "Scribe2", "Scribe3"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "KNOWFRAG", "Knowledge Fragments", "Fragments of lost lore",
+                "BASICS", 3, -2, 1,
+                java.util.Map.of(),
+                new String[] {"RESEARCH"},
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.KNOWFRAG.1"},
+                new String[] {"TEXT", "NORMAL_CRAFTING"},
+                new String[] {"KnowFrag"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "THAUMONOMICON", "Thaumonomicon", "A Repository of Knowledge",
+                "BASICS", 1, -2, 1,
+                java.util.Map.of(),
+                new String[] {"RESEARCH"},
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.THAUMONOMICON.1"},
+                new String[] {"TEXT", "NORMAL_CRAFTING"},
+                new String[] {"Thaumonomicon"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ORE", "Ores", "Dig deep",
+                "BASICS", -2, -2, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.ORE.1", "tc.research_page.ORE.2", "tc.research_page.ORE.3", "tc.research_page.ORE.4"},
+                new String[] {"TEXT", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "PLANTS", "Plants & Trees", "Magical vegetation",
+                "BASICS", -2, -4, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.PLANTS.1", "tc.research_page.PLANTS.2", "tc.research_page.PLANTS.3", "tc.research_page.PLANTS.4", "tc.research_page.PLANTS.5", "tc.research_page.PLANTS.6"},
+                new String[] {"TEXT", "NORMAL_CRAFTING", "TEXT", "NORMAL_CRAFTING", "TEXT", "TEXT", "TEXT", "TEXT"},
+                new String[] {"PlankGreatwood", "PlankSilverwood"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "ENCHANT", "Enchantments", "New Enchantments",
+                "BASICS", -4, -2, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"auto_unlock", "stub", "round"},
+                new String[] {"tc.research_page.ENCHANT.1", "tc.research_page.ENCHANT.2"},
+                new String[] {"TEXT", "TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "NODETAPPER1", "Advanced Node Tapping", "Taking it all",
+                "BASICS", -4, 1, 2,
+                aspects("AURAM", 3, "PRAECANTATIO", 3, "MOTUS", 3, "PERMUTATIO", 3),
+                new String[] {"NODES"},
+                new String[0],
+                new String[0],
+                new String[] {"round"},
+                new String[] {"tc.research_page.NODETAPPER1.1"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "NODEPRESERVE", "Node Preserver", "Saving some for later",
+                "BASICS", -6, 2, 2,
+                aspects("AURAM", 3, "LUCRUM", 3, "SENSUS", 3),
+                new String[] {"NODETAPPER1"},
+                new String[0],
+                new String[0],
+                new String[] {"round"},
+                new String[] {"tc.research_page.NODEPRESERVE"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "NODEJAR", "Node in a Jar", "For the Thaumaturgist on the go",
+                "BASICS", -7, 4, 3,
+                aspects("AURAM", 6, "LUCRUM", 3, "PERMUTATIO", 3, "MOTUS", 3),
+                new String[] {"NODEPRESERVE"},
+                new String[0],
+                new String[0],
+                new String[] {"concealed"},
+                new String[] {"tc.research_page.NODEJAR.1", "tc.research_page.NODEJAR.2"},
+                new String[] {"TEXT", "NORMAL_CRAFTING", "TEXT"},
+                new String[] {"NodeJar"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "NODETAPPER2", "Master Node Tapping", "All your vis are belong to us",
+                "BASICS", -3, 3, 2,
+                aspects("AURAM", 6, "PRAECANTATIO", 3, "MOTUS", 3, "PERMUTATIO", 3),
+                new String[] {"NODETAPPER1"},
+                new String[0],
+                new String[0],
+                new String[] {"round", "special"},
+                new String[] {"tc.research_page.NODETAPPER2.1"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "RESEARCHER1", "Research Expertise", "Knowledge is Power",
+                "BASICS", 4, 1, 1,
+                aspects("COGNITIO", 3, "SENSUS", 3, "ORDO", 3),
+                new String[] {"RESEARCH"},
+                new String[0],
+                new String[0],
+                new String[] {"round"},
+                new String[] {"tc.research_page.RESEARCHER1.1"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "DECONSTRUCTOR", "Deconstruction table", "When taking a good look just isn't enough",
+                "BASICS", 6, 2, 1,
+                aspects("COGNITIO", 3, "FABRICO", 3, "PERDITIO", 3),
+                new String[] {"RESEARCHER1"},
+                new String[0],
+                new String[0],
+                new String[] {"round"},
+                new String[] {"tc.research_page.DECONSTRUCTOR.1", "tc.research_page.DECONSTRUCTOR.2"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT"},
+                new String[] {"Deconstructor"},
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "RESEARCHER2", "Research Mastery", "Power is Knowledge",
+                "BASICS", 3, 3, 2,
+                aspects("COGNITIO", 6, "ORDO", 3, "SENSUS", 3, "PRAECANTATIO", 3),
+                new String[] {"RESEARCHER1"},
+                new String[0],
+                new String[0],
+                new String[] {"round", "special"},
+                new String[] {"tc.research_page.RESEARCHER2.1"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                1));
+        entries.add(new ResearchEntry(
+                "RESEARCHDUPE", "Research Duplication", "Sharing is Caring",
+                "BASICS", 4, 5, 3,
+                aspects("COGNITIO", 6, "PERMUTATIO", 3, "SENSUS", 3, "LUCRUM", 3, "FABRICO", 3),
+                new String[] {"RESEARCHER2"},
+                new String[0],
+                new String[0],
+                new String[] {"round"},
+                new String[] {"tc.research_page.RESEARCHDUPE.1"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                0));
+        entries.add(new ResearchEntry(
+                "CRIMSON", "The Crimson Cult", "A Cautionary Tale",
+                "BASICS", 0, 4, 1,
+                java.util.Map.of(),
+                new String[0],
+                new String[0],
+                new String[0],
+                new String[] {"stub", "round", "special", "hidden"},
+                new String[] {"tc.research_page.CRIMSON.1"},
+                new String[] {"TEXT"},
+                new String[0],
+                new String[0],
+                new String[0],
+                3));
+    }
+
     private static void addELDRITCH(List<ResearchEntry> entries) {
         entries.add(new ResearchEntry(
-                "ELDRITCHMINOR",
-                "Eldritch Epiphany",
-                "First steps into the unknown",
+                "ELDRITCHMINOR", "Eldritch Epiphany", "First steps into the unknown",
                 "ELDRITCH", 1, 0, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -3101,9 +2661,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ELDRITCHMAJOR",
-                "Eldritch Revelation",
-                "I have seen beyond the bounds of infinity",
+                "ELDRITCHMAJOR", "Eldritch Revelation", "I have seen beyond the bounds of infinity",
                 "ELDRITCH", -1, 0, 1,
                 java.util.Map.of(),
                 new String[0],
@@ -3117,9 +2675,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "OCULUS",
-                "Opening the Eye",
-                "I will show them, I will show them all!",
+                "OCULUS", "Opening the Eye", "I will show them, I will show them all!",
                 "ELDRITCH", -2, 2, 1,
                 aspects("COGNITIO", 3, "TENEBRAE", 3, "PERMUTATIO", 3, "ITER", 6, "ALIENIS", 6),
                 new String[] {"CRIMSON", "ELDRITCHMAJOR"},
@@ -3133,9 +2689,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 6));
         entries.add(new ResearchEntry(
-                "ENTEROUTER",
-                "The Outer Lands ",
-                "We are not in Kansas anymore",
+                "ENTEROUTER", "The Outer Lands ", "We are not in Kansas anymore",
                 "ELDRITCH", -3, 4, 1,
                 java.util.Map.of(),
                 new String[] {"OCULUS"},
@@ -3149,9 +2703,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "OUTERREV",
-                "Revelations in the Outer Lands ",
-                "Things are not what they seem",
+                "OUTERREV", "Revelations in the Outer Lands ", "Things are not what they seem",
                 "ELDRITCH", -5, 3, 1,
                 aspects("ALIENIS", 4, "COGNITIO", 4),
                 new String[] {"ENTEROUTER"},
@@ -3165,9 +2717,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "PRIMPEARL",
-                "Primordial Pearl ",
-                "What came before",
+                "PRIMPEARL", "Primordial Pearl ", "What came before",
                 "ELDRITCH", 0, 4, 1,
                 aspects("AER", 8, "TERRA", 8, "IGNIS", 8, "AQUA", 8, "ORDO", 8, "PERDITIO", 8),
                 new String[] {"ELDRITCHMINOR"},
@@ -3181,9 +2731,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "PRIMNODE",
-                "Primordial Node Manipulation ",
-                "Just rub them together and see what happens",
+                "PRIMNODE", "Primordial Node Manipulation ", "Just rub them together and see what happens",
                 "ELDRITCH", 0, 6, 1,
                 aspects("AURAM", 1, "PRAECANTATIO", 1, "ORDO", 1, "PERDITIO", 1),
                 new String[] {"PRIMPEARL"},
@@ -3197,28 +2745,21 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 1));
         entries.add(new ResearchEntry(
-                "ADVALCHEMYFURNACE",
-                "Advanced Alchemical Furnace ",
-                "Essentia Creation Simplified",
-                "ELDRITCH",
-                -2,
-                6,
-                1,
+                "ADVALCHEMYFURNACE", "Advanced Alchemical Furnace ", "Essentia Creation Simplified",
+                "ELDRITCH", -2, 6, 1,
                 aspects("AURAM", 1, "PRAECANTATIO", 1, "ORDO", 1, "PERDITIO", 1),
                 new String[] {"PRIMPEARL", "DISTILESSENTIA", "VISPOWER"},
                 new String[0],
                 new String[0],
                 new String[] {"secondary"},
                 new String[] {"tc.research_page.ADVALCHEMYFURNACE.1", "tc.research_page.ADVALCHEMYFURNACE.2"},
-                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "COMPOUND_CRAFTING"},
+                new String[] {"TEXT", "ARCANE_CRAFTING", "TEXT", "NORMAL_CRAFTING"},
                 new String[] {"AdvAlchemyConstruct", "AdvAlchemyFurnace"},
                 new String[0],
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "PRIMALCRUSHER",
-                "Primal Crusher ",
-                "Breaking all the things",
+                "PRIMALCRUSHER", "Primal Crusher ", "Breaking all the things",
                 "ELDRITCH", 2, 5, 2,
                 aspects("PERFODIO", 6, "INSTRUMENTUM", 6, "PERDITIO", 6, "VACUOS", 6, "TELUM", 6, "ALIENIS", 6, "LUCRUM", 6),
                 new String[] {"PRIMPEARL"},
@@ -3232,9 +2773,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "SANITYCHECK",
-                "Sanity Check",
-                "Introspection for the brave",
+                "SANITYCHECK", "Sanity Check", "Introspection for the brave",
                 "ELDRITCH", 2, 2, 1,
                 aspects("COGNITIO", 5, "ALIENIS", 3, "SENSUS", 5),
                 new String[] {"ELDRITCHMINOR"},
@@ -3248,9 +2787,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "VOIDMETAL",
-                "Void metal",
-                "Strange, it should feel cold...",
+                "VOIDMETAL", "Void metal", "Strange, it should feel cold...",
                 "ELDRITCH", 2, -2, 2,
                 aspects("METALLUM", 3, "ALIENIS", 3, "TENEBRAE", 3, "VACUOS", 5),
                 new String[] {"THAUMIUM", "ELDRITCHMINOR"},
@@ -3264,9 +2801,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "ESSENTIARESERVOIR",
-                "Advanced Essentia Storage ",
-                "Don't bump it",
+                "ESSENTIARESERVOIR", "Advanced Essentia Storage ", "Don't bump it",
                 "ELDRITCH", 4, -3, 2,
                 aspects("AQUA", 5, "VACUOS", 8, "PERMUTATIO", 3, "PRAECANTATIO", 5),
                 new String[] {"VOIDMETAL", "CENTRIFUGE", "INFUSION"},
@@ -3280,9 +2815,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "CAP_void",
-                "Void metal Wand Caps",
-                "Power from beyond",
+                "CAP_void", "Void metal Wand Caps", "Power from beyond",
                 "ELDRITCH", 5, -1, 3,
                 aspects("VACUOS", 5, "ALIENIS", 5, "INSTRUMENTUM", 3, "PRAECANTATIO", 3, "AURAM", 3),
                 new String[] {"CAP_thaumium", "VOIDMETAL"},
@@ -3296,9 +2829,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 1));
         entries.add(new ResearchEntry(
-                "ARMORVOIDFORTRESS",
-                "Void Thaumaturge Robes",
-                "Otherworldly Style",
+                "ARMORVOIDFORTRESS", "Void Thaumaturge Robes", "Otherworldly Style",
                 "ELDRITCH", 0, -3, 3,
                 aspects("TUTAMEN", 5, "ALIENIS", 3, "PANNUS", 3, "TENEBRAE", 3, "VACUOS", 5),
                 new String[] {"VOIDMETAL", "ENCHFABRIC", "ELDRITCHMAJOR"},
@@ -3312,9 +2843,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 0));
         entries.add(new ResearchEntry(
-                "FOCUSPRIMAL",
-                "Wand Focus: Primal",
-                "Raw Magic",
+                "FOCUSPRIMAL", "Wand Focus: Primal", "Raw Magic",
                 "ELDRITCH", 4, 1, 2,
                 aspects("AER", 6, "AQUA", 6, "IGNIS", 6, "TERRA", 6, "ORDO", 6, "PERDITIO", 6, "PRAECANTATIO", 6),
                 new String[] {"ELDRITCHMINOR"},
@@ -3328,9 +2857,7 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 2));
         entries.add(new ResearchEntry(
-                "ROD_primal_staff",
-                "Staff Core of the Primal",
-                "Elemental power combined",
+                "ROD_primal_staff", "Staff Core of the Primal", "Elemental power combined",
                 "ELDRITCH", 6, 2, 3,
                 aspects("AER", 9, "TERRA", 9, "IGNIS", 9, "AQUA", 9, "ORDO", 9, "PERDITIO", 9, "INSTRUMENTUM", 9, "PRAECANTATIO", 12),
                 new String[] {"FOCUSPRIMAL"},
@@ -3344,4 +2871,5 @@ public final class TC4ResearchRuntimeBridge {
                 new String[0],
                 3));
     }
+
 }

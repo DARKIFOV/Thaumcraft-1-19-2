@@ -1,12 +1,14 @@
 package com.darkifov.thaumcraft.client.screen;
 
 import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.TC4ResearchFlagPolicy;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
@@ -436,10 +438,43 @@ public class ThaumonomiconScreen extends Screen {
         Component description = researchDescription(highlighted);
         String desc = OriginalResearchLayout.shortTitle(description.getString());
         if (!desc.isBlank()) {
-            lines.add(Component.literal(desc));
+            lines.add(Component.literal(desc).withStyle(ChatFormatting.DARK_GRAY));
         }
-        // Do not append adapter status lines (Complete/Available/Missing/Warp/aspect map).
-        // Visibility and locking are already represented by the original node brightness.
+
+        // GuiResearchBrowser shows forbidden knowledge, primary-note guidance,
+        // and secondary research aspect costs in the node tooltip.  Keep those
+        // cues visible instead of relying only on the node frame brightness.
+        if (highlighted.warp() > 0) {
+            int level = Math.min(5, highlighted.warp());
+            String forbidden = I18n.get("tc.forbidden")
+                    .replace("%n", I18n.get("tc.forbidden.level." + level));
+            lines.add(Component.literal(forbidden));
+        }
+
+        if (!complete) {
+            if (!available) {
+                lines.add(Component.translatable("tc.researchmissing").withStyle(ChatFormatting.RED));
+            } else if (OriginalResearchLayout.secondary(highlighted)) {
+                boolean enough = true;
+                for (Map.Entry<String, Integer> cost : highlighted.aspects().entrySet()) {
+                    Aspect aspect = Aspect.byId(cost.getKey());
+                    int required = Math.max(0, cost.getValue());
+                    if (aspect == null || !ClientAspectData.knows(aspect)) {
+                        enough = false;
+                        lines.add(Component.literal("?  " + required).withStyle(ChatFormatting.DARK_GRAY));
+                        continue;
+                    }
+                    int pool = ClientAspectData.pool(aspect);
+                    if (pool < required) enough = false;
+                    lines.add(Component.literal(aspect.displayName() + "  " + required + " / " + pool)
+                            .withStyle(aspect.color()));
+                }
+                lines.add(Component.translatable(enough ? "tc.research.purchase" : "tc.research.short")
+                        .withStyle(enough ? ChatFormatting.DARK_GREEN : ChatFormatting.RED));
+            } else {
+                lines.add(Component.translatable("tc.research.getprim").withStyle(ChatFormatting.DARK_AQUA));
+            }
+        }
         renderComponentTooltip(poseStack, lines, mouseX, mouseY);
     }
 

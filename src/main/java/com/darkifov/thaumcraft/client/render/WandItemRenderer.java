@@ -23,6 +23,10 @@ import net.minecraft.world.item.ItemStack;
 public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation ORIGINAL_FOCUS_MODEL = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/wand.png");
     private static final ResourceLocation ORIGINAL_SCRIPT = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/script.png");
+    // ModelWand spans -1..21 pixels on Y. Centre the mesh before applying any
+    // item-context transform so GUI and first-person rendering cannot place the
+    // entire rod outside the BEWLR unit cube.
+    private static final float MODEL_CENTER_Y = 10.0F / 16.0F;
     private static WandItemRenderer INSTANCE;
 
     private WandItemRenderer() {
@@ -46,6 +50,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         poseStack.translate(0.5D, 0.5D, 0.5D);
 
         applyOriginalTC4ItemTransform(data, transformType, stack, poseStack);
+        poseStack.translate(0.0D, -MODEL_CENTER_Y, 0.0D);
 
         renderOriginalTC4WandComponents(stack, data, poseStack, buffer, packedLight);
 
@@ -164,51 +169,61 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
                 light, 255, 255, 255, 255);
     }
 
-    /** Stage183: Forge 1.19.2 adapter for the transform constants in original ItemWandRenderer. */
-    private void applyOriginalTC4ItemTransform(WandComponentData data, ItemTransforms.TransformType transformType, ItemStack stack, PoseStack poseStack) {
+    /**
+     * Forge 1.19.2 adapter for the original TC4 ItemWandRenderer contexts.
+     *
+     * <p>The source renderer uses every item context, rotates inventory wands
+     * 66 degrees, scales first-person wands to 1.0/1.1/1.0 and finally rotates
+     * the ModelWand 180 degrees on X.  The modern BEWLR receives a different
+     * origin, so the mesh is centred separately in {@link #renderByItem}; the
+     * visible orientation and source scale constants are retained here.</p>
+     */
+    private void applyOriginalTC4ItemTransform(WandComponentData data, ItemTransforms.TransformType transformType,
+                                                ItemStack stack, PoseStack poseStack) {
         boolean staff = data.rod().staff();
-        if (staff) {
-            // Keep ModelWand's staff offset in model space.  The former +0.5
-            // block adapter was applied after Forge had already positioned the
-            // hand and pushed most of the rod outside the camera.
-            poseStack.translate(0.0D, 0.20D, 0.0D);
-        }
+        boolean left = transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND
+                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND;
 
         if (transformType == ItemTransforms.TransformType.GUI) {
+            if (staff) poseStack.scale(0.80F, 0.80F, 0.80F);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(66.0F));
-            poseStack.translate(-0.34D, -0.62D, 0.0D);
-            poseStack.scale(0.72F, 0.72F, 0.72F);
-            if (staff) {
-                poseStack.scale(0.80F, 0.80F, 0.80F);
-                poseStack.translate(-0.25D, -0.10D, 0.0D);
-            }
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(-18.0F));
+            poseStack.scale(0.76F, 0.76F, 0.76F);
+            if (staff) poseStack.translate(-0.18D, 0.18D, 0.0D);
         } else if (transformType.firstPerson()) {
-            boolean left = transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
-            // v11.62.50 runtime fix. The previous adapter moved the whole 18 px
-            // ModelWand rod below the BEWLR hand origin before the 180 degree
-            // rotation, so in first person the wand was completely outside the
-            // camera frustum. Keep the TC4 held orientation, but translate the
-            // model into the visible lower-right/lower-left hand area first.
-            poseStack.translate(left ? -0.34D : 0.34D, 0.48D, 0.12D);
-            poseStack.scale(0.86F, 0.94F, 0.86F);
+            // The ItemRenderer has already moved the BEWLR into the hand. Keep
+            // the model centred and only apply the original first-person scale
+            // plus a small mirrored hand offset. Large world-space translations
+            // were the reason the wand vanished in hotfix5.
+            poseStack.translate(left ? -0.11D : 0.11D, 0.06D, 0.02D);
+            poseStack.scale(1.00F, 1.10F, 1.00F);
             poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(left ? -18.0F : 18.0F));
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(left ? 12.0F : -12.0F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(left ? -24.0F : 24.0F));
             applyFocusUseAnimation(stack, poseStack, true);
             return;
-        } else if (transformType == ItemTransforms.TransformType.GROUND || transformType == ItemTransforms.TransformType.FIXED) {
-            poseStack.translate(0.0D, staff ? 1.50D : 1.00D, 0.0D);
-            if (staff) {
-                poseStack.scale(0.90F, 0.90F, 0.90F);
-            }
-        } else {
-            poseStack.translate(0.0D, 0.60D, 0.0D);
+        } else if (transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
+            poseStack.translate(left ? -0.08D : 0.08D, 0.12D, 0.0D);
             poseStack.scale(0.72F, 0.72F, 0.72F);
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(left ? -33.0F : 33.0F));
+            applyFocusUseAnimation(stack, poseStack, false);
+            return;
+        } else if (transformType == ItemTransforms.TransformType.GROUND) {
+            poseStack.scale(staff ? 0.55F : 0.68F, staff ? 0.55F : 0.68F, staff ? 0.55F : 0.68F);
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(66.0F));
+            return;
+        } else if (transformType == ItemTransforms.TransformType.FIXED) {
+            poseStack.scale(staff ? 0.60F : 0.76F, staff ? 0.60F : 0.76F, staff ? 0.60F : 0.76F);
+            poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(66.0F));
+            return;
         }
 
+        poseStack.scale(staff ? 0.65F : 0.78F, staff ? 0.65F : 0.78F, staff ? 0.65F : 0.78F);
         poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
-        if (transformType != ItemTransforms.TransformType.GUI) {
-            applyFocusUseAnimation(stack, poseStack, false);
-        }
     }
 
     /**

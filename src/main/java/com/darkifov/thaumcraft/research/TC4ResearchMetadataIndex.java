@@ -1,4 +1,5 @@
 package com.darkifov.thaumcraft.research;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -8,7 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-/** Stage150/151: strict original TC4 ConfigResearch metadata/triggers index. */
+/** Generated flags, triggers and warp from TC4 4.2.3.5 ConfigResearch.java. */
 public final class TC4ResearchMetadataIndex {
     private static final Set<String> AUTO_UNLOCK = set("BASICTHAUMATURGY", "CAP_iron", "ROD_wood", "BASICARTIFACE", "ARCANESTONE", "GRATE", "TABLE", "ARCTABLE", "RESTABLE", "THAUMOMETER", "PHIAL", "CRUCIBLE", "ASPECTS", "PECH", "NODES", "WARP", "RESEARCH", "KNOWFRAG", "THAUMONOMICON", "ORE", "PLANTS", "ENCHANT");
     private static final Map<String, List<String>> FLAGS = buildFlags();
@@ -228,7 +229,7 @@ public final class TC4ResearchMetadataIndex {
         put(map, "TINYBOWTIE", "ConfigItems.itemGolemDecoration, 1, 2", "Blocks.field_150325_L, 1, 32767");
         put(map, "TINYFEZ", "ConfigItems.itemGolemDecoration, 1, 3", "Blocks.field_150325_L, 1, 32767");
         put(map, "OUTERREV", "ConfigBlocks.blockEldritch, 1, 5", "ConfigBlocks.blockEldritch, 1, 10");
-        put(map, "PRIMPEARL", "ConfigItems.itemEldritchObject, 1, 3", "ConfigItems.itemEldritchObject, 1, 3");
+        put(map, "PRIMPEARL", "ConfigItems.itemEldritchObject, 1, 3");
         put(map, "ROD_primal_staff", "ConfigItems.itemWandRod, 1, 100", "ConfigItems.itemFocusPrimal");
         return Collections.unmodifiableMap(map);
     }
@@ -301,57 +302,32 @@ public final class TC4ResearchMetadataIndex {
     public static Map<String, List<String>> aspectTriggerMap() { return ASPECT_TRIGGERS; }
 
     public static List<String> researchKeysForItemTrigger(String expression) {
-        String normalized = normalizeTrigger(expression);
-        List<String> result = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entry : ITEM_TRIGGERS.entrySet()) {
-            for (String trigger : entry.getValue()) {
-                if (normalizeTrigger(trigger).equals(normalized)) {
-                    result.add(entry.getKey());
-                    break;
-                }
-            }
-        }
-        return result;
+        return reverseLookup(ITEM_TRIGGERS, expression, false);
     }
 
     public static List<String> researchKeysForEntityTrigger(String entityId) {
-        String normalized = normalizeTrigger(entityId);
-        List<String> result = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entry : ENTITY_TRIGGERS.entrySet()) {
-            for (String trigger : entry.getValue()) {
-                if (normalizeTrigger(trigger).equals(normalized)) {
-                    result.add(entry.getKey());
-                    break;
-                }
-            }
-        }
-        return result;
+        return reverseLookup(ENTITY_TRIGGERS, entityId, false);
     }
 
     public static List<String> researchKeysForAspectTrigger(String aspectId) {
-        String normalized = normalizeAspect(aspectId);
+        return reverseLookup(ASPECT_TRIGGERS, aspectId, true);
+    }
+
+    private static List<String> reverseLookup(Map<String, List<String>> source, String value, boolean aspect) {
+        String normalized = aspect ? normalizeAspect(value) : normalizeTrigger(value);
         List<String> result = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entry : ASPECT_TRIGGERS.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : source.entrySet()) {
             for (String trigger : entry.getValue()) {
-                if (normalizeAspect(trigger).equals(normalized)) {
-                    result.add(entry.getKey());
-                    break;
-                }
+                String candidate = aspect ? normalizeAspect(trigger) : normalizeTrigger(trigger);
+                if (candidate.equals(normalized)) { result.add(entry.getKey()); break; }
             }
         }
         return result;
     }
 
-    private static String normalizeKey(String value) {
-        return value == null ? "" : value.trim();
-    }
-
-    private static String normalizeAspect(String value) {
-        return value == null ? "" : value.trim();
-    }
-
+    private static String normalizeKey(String value) { return value == null ? "" : value.trim(); }
+    private static String normalizeAspect(String value) { return value == null ? "" : value.trim(); }
     private static String normalizeTrigger(String value) {
-        if (value == null) return "";
-        return value.replace(" ", "").trim().toLowerCase(Locale.ROOT);
+        return value == null ? "" : value.replace(" ", "").trim().toLowerCase(Locale.ROOT);
     }
 }

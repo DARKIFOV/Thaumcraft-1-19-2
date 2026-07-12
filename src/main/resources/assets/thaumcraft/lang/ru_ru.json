@@ -4165,5 +4165,8 @@
   "warp.text.hunger.1": "Обычная еда не может утолить этот голод.",
   "warp.text.hunger.2": "Голод ослабевает.",
   "biome.thaumcraft.magical_forest": "Зачарованный лес",
-  "entity.thaumcraft.aspect_orb": "Сфера аспекта"
+  "entity.thaumcraft.aspect_orb": "Сфера аспекта",
+  "thaumcraft.gui.research.expertise_components": "Компоненты: %s + %s",
+  "thaumcraft.gui.research.mastery_shift": "Shift-клик: автоматически объединить",
+  "thaumcraft.message.research.expertise_saved": "Мастерство исследования сохранило это очко аспекта."
 }

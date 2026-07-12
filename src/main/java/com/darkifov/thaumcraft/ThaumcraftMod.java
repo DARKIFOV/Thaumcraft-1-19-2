@@ -183,6 +183,7 @@ import com.darkifov.thaumcraft.menu.BottomlessPouchMenu;
 import com.darkifov.thaumcraft.menu.FocusPouchMenu;
 import com.darkifov.thaumcraft.menu.FocalManipulatorMenu;
 import com.darkifov.thaumcraft.menu.GolemMenu;
+import com.darkifov.thaumcraft.menu.AlchemicalFurnaceMenu;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
 import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
@@ -1107,6 +1108,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<BlockEntityType<TransvectorInterfaceBlockEntity>> TRANSVECTOR_INTERFACE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("transvector_interface", () -> BlockEntityType.Builder.of(TransvectorInterfaceBlockEntity::new, TRANSVECTOR_INTERFACE.get()).build(null));
+
+    public static final RegistryObject<MenuType<AlchemicalFurnaceMenu>> ALCHEMICAL_FURNACE_MENU =
+            MENUS.register("alchemical_furnace", () -> IForgeMenuType.create((windowId, inv, data) -> new AlchemicalFurnaceMenu(windowId, inv, data)));
 
     public static final RegistryObject<MenuType<ArcaneWorkbenchMenu>> ARCANE_WORKBENCH_MENU =
             MENUS.register("arcane_workbench", () -> IForgeMenuType.create((windowId, inv, data) -> new ArcaneWorkbenchMenu(windowId, inv, data)));

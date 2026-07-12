@@ -7,7 +7,12 @@ assets = root / "src/main/resources/assets/thaumcraft"
 problems = []
 
 wand = (java / "client/render/WandItemRenderer.java").read_text()
-for token in ["-0.34D : 0.34D, 0.48D, 0.12D", "scale(0.86F, 0.94F, 0.86F)"]:
+for token in [
+    "left ? -0.11D : 0.11D, 0.06D, 0.02D",
+    "scale(1.00F, 1.10F, 1.00F)",
+    "MODEL_CENTER_Y",
+    "translate(0.0D, -MODEL_CENTER_Y, 0.0D)",
+]:
     if token not in wand:
         problems.append(f"held wand transform missing: {token}")
 

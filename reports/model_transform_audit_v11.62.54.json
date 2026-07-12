@@ -23,8 +23,8 @@
     },
     "parent_depth_counts": {
       "0": 1,
-      "1": 541,
-      "2": 148
+      "1": 542,
+      "2": 147
     }
   },
   "parse_errors": [],
@@ -308,13 +308,12 @@
     {
       "model": "arcane_pedestal",
       "parent": "thaumcraft:block/arcane_pedestal",
-      "terminal_parent": "external:minecraft:block/cube",
+      "terminal_parent": "root",
       "chain": [
         "thaumcraft:item/arcane_pedestal",
-        "thaumcraft:block/arcane_pedestal",
-        "minecraft:block/cube"
+        "thaumcraft:block/arcane_pedestal"
       ],
-      "chain_depth": 2,
+      "chain_depth": 1,
       "builtin_entity": false,
       "explicit_display": [],
       "effective_display": [],

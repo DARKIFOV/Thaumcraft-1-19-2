@@ -1,12 +1,12 @@
 {
-  "parent": "minecraft:block/cube",
   "textures": {
-    "up": "thaumcraft:block/pedestal_top",
-    "down": "thaumcraft:block/pedestal_top",
-    "north": "thaumcraft:block/pedestal_side",
-    "south": "thaumcraft:block/pedestal_side",
-    "east": "thaumcraft:block/pedestal_side",
-    "west": "thaumcraft:block/pedestal_side",
+    "top": "thaumcraft:block/pedestal_top",
+    "side": "thaumcraft:block/pedestal_side",
     "particle": "thaumcraft:block/pedestal_side"
-  }
+  },
+  "elements": [
+    {"from":[1,0,1],"to":[15,3,15],"faces":{"down":{"texture":"#top"},"up":{"texture":"#top"},"north":{"texture":"#side"},"south":{"texture":"#side"},"west":{"texture":"#side"},"east":{"texture":"#side"}}},
+    {"from":[3,3,3],"to":[13,13,13],"faces":{"down":{"texture":"#side"},"up":{"texture":"#top"},"north":{"texture":"#side"},"south":{"texture":"#side"},"west":{"texture":"#side"},"east":{"texture":"#side"}}},
+    {"from":[0,13,0],"to":[16,16,16],"faces":{"down":{"texture":"#top"},"up":{"texture":"#top"},"north":{"texture":"#side"},"south":{"texture":"#side"},"west":{"texture":"#side"},"east":{"texture":"#side"}}}
+  ]
 }

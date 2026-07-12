@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.54-hotfix3' // CI guard hotfix: validate the SRG-safe renderer adapter instead of a forbidden direct SAM.
+version = '11.62.54-hotfix7' // Exact TC4 research/Thaumonomicon and visible wand render hotfix.
 // v11.62.54 gameplay baseline marker: version = '11.62.54'
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'

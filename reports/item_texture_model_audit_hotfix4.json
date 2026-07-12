@@ -1,0 +1,6088 @@
+{
+  "total_models": 690,
+  "missing_texture_models": 0,
+  "bewlr_models": 6,
+  "flat_generated_models": 200,
+  "rows": [
+    {
+      "model": "addon_completion_ledger",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/addon_completion_ledger"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "advanced_alchemical_furnace",
+      "parent": "thaumcraft:block/advanced_alchemical_furnace",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "advanced_essentia_speed_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/advanced_essentia_speed_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "advanced_node_stabilizer",
+      "parent": "builtin/entity",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aer_crystal",
+      "parent": "thaumcraft:block/aer_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aer_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aer_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "alchemical_centrifuge",
+      "parent": "minecraft:block/block",
+      "textures": [
+        "thaumcraft:models/centrifuge",
+        "thaumcraft:models/centrifuge"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "alchemical_furnace",
+      "parent": "thaumcraft:block/alchemical_furnace",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "alchemy_dust",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/alchemy_dust"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "alembic",
+      "parent": "thaumcraft:block/alembic",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "amber",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/amber"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "amber_ore",
+      "parent": "thaumcraft:block/amber_ore",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aqua_crystal",
+      "parent": "thaumcraft:block/aqua_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aqua_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aqua_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "arcane_assembler",
+      "parent": "thaumcraft:block/arcane_assembler",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_crafting_terminal",
+      "parent": "thaumcraft:block/arcane_crafting_terminal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_pattern_encoder",
+      "parent": "thaumcraft:block/arcane_pattern_encoder",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_pattern_provider",
+      "parent": "thaumcraft:block/arcane_pattern_provider",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_pedestal",
+      "parent": "thaumcraft:block/arcane_pedestal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_stone",
+      "parent": "thaumcraft:block/arcane_stone",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_stone_bricks",
+      "parent": "thaumcraft:block/arcane_stone_bricks",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "arcane_workbench",
+      "parent": "thaumcraft:block/arcane_workbench",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aspect_aer",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_aer"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_aqua",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_aqua"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_ignis",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_ignis"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_metallum",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_metallum"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_ordo",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_ordo"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_perditio",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_perditio"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_praecantatio",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_praecantatio"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_terra",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_terra"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aspect_vitreus",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aspect_vitreus"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aura_node",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/aura_node_debug"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "aura_node_aer",
+      "parent": "thaumcraft:block/aura_node_aer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aura_node_aqua",
+      "parent": "thaumcraft:block/aura_node_aqua",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aura_node_ignis",
+      "parent": "thaumcraft:block/aura_node_ignis",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aura_node_ordo",
+      "parent": "thaumcraft:block/aura_node_ordo",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aura_node_perditio",
+      "parent": "thaumcraft:block/aura_node_perditio",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "aura_node_terra",
+      "parent": "thaumcraft:block/aura_node_terra",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "avaritia_creative_wand",
+      "parent": "minecraft:builtin/entity",
+      "textures": [
+        "thaumcraft:item/avaritia_creative_wand"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
+    },
+    {
+      "model": "awakened_crimson_key",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/awakened_crimson_key"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "balanced_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/balanced_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "bellows",
+      "parent": "thaumcraft:block/bellows",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "bottomless_pouch",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/bottomless_pouch"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "cinnabar_ore",
+      "parent": "thaumcraft:block/cinnabar_ore",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "coalescence_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/coalescence_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "crafting_aspect",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/crafting_aspect"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "creative_essentia_cell",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/creative_essentia_cell"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "crimson_key",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/crimson_key"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "crimson_plate_boots",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistboots"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "crimson_plate_chest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplatechest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "crimson_plate_helm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplatehelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "crimson_plate_legs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplatelegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "crucible",
+      "parent": "thaumcraft:block/crucible",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "deconstruction_table",
+      "parent": "thaumcraft:block/deconstruction_table",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "diffusion_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/diffusion_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "digital_essentia_cell_16k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/digital_essentia_cell_16k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "digital_essentia_cell_1k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/digital_essentia_cell_1k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "digital_essentia_cell_4k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/digital_essentia_cell_4k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "digital_essentia_cell_64k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/digital_essentia_cell_64k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "distillation_pattern_encoder",
+      "parent": "thaumcraft:block/distillation_pattern_encoder",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_altar",
+      "parent": "thaumcraft:block/eldritch_altar",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_cap",
+      "parent": "thaumcraft:block/eldritch_cap",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_crab_spawner",
+      "parent": "thaumcraft:block/eldritch_crab_spawner",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_crust",
+      "parent": "thaumcraft:block/eldritch_crust",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_crystal",
+      "parent": "thaumcraft:block/eldritch_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_decorative",
+      "parent": "thaumcraft:block/eldritch_decorative",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_door",
+      "parent": "thaumcraft:block/eldritch_door",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_eye",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/eldritch_eye"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "eldritch_guardian_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/eldritch_guardian_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "eldritch_lock",
+      "parent": "thaumcraft:block/eldritch_lock",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_obelisk",
+      "parent": "thaumcraft:block/eldritch_obelisk",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_portal",
+      "parent": "thaumcraft:block/eldritch_portal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_relic",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/eldritch_relic"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "eldritch_stone",
+      "parent": "thaumcraft:block/eldritch_stone",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "eldritch_trap",
+      "parent": "thaumcraft:block/eldritch_trap",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "encoded_essentia_pattern",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/encoded_essentia_pattern"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_acceleration_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_acceleration_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_capacity_upgrade",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_capacity_upgrade"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_cell_casing",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_cell_casing"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_cell_workbench",
+      "parent": "thaumcraft:block/essentia_cell_workbench",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_conversion_monitor",
+      "parent": "thaumcraft:block/essentia_conversion_monitor",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_crystalizer",
+      "parent": "thaumcraft:block/essentia_crystalizer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_digitizer_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_digitizer_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_drive",
+      "parent": "thaumcraft:block/essentia_drive",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_export_bus",
+      "parent": "thaumcraft:block/essentia_export_bus",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_fuzzy_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_fuzzy_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_import_bus",
+      "parent": "thaumcraft:block/essentia_import_bus",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_interface",
+      "parent": "thaumcraft:block/essentia_interface",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar",
+      "parent": "thaumcraft:block/essentia_jar",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar_aer",
+      "parent": "thaumcraft:block/essentia_jar_aer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar_aqua",
+      "parent": "thaumcraft:block/essentia_jar_aqua",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar_ignis",
+      "parent": "thaumcraft:block/essentia_jar_ignis",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar_ordo",
+      "parent": "thaumcraft:block/essentia_jar_ordo",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar_perditio",
+      "parent": "thaumcraft:block/essentia_jar_perditio",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_jar_terra",
+      "parent": "thaumcraft:block/essentia_jar_terra",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_level_emitter",
+      "parent": "thaumcraft:block/essentia_level_emitter",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_partition_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_partition_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_phial",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_phial"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_provider",
+      "parent": "thaumcraft:block/essentia_provider",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_reservoir",
+      "parent": "thaumcraft:block/essentia_reservoir",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_speed_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_speed_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_storage_bus",
+      "parent": "thaumcraft:block/essentia_storage_bus",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_storage_component_16k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_storage_component_16k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_storage_component_1k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_storage_component_1k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_storage_component_4k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_storage_component_4k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_storage_component_64k",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_storage_component_64k"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "essentia_storage_monitor",
+      "parent": "thaumcraft:block/essentia_storage_monitor",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_terminal",
+      "parent": "thaumcraft:block/essentia_terminal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_tube",
+      "parent": "thaumcraft:block/essentia_tube",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_tube_buffer",
+      "parent": "thaumcraft:block/essentia_tube_buffer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_tube_filter",
+      "parent": "thaumcraft:block/essentia_tube_filter",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_tube_oneway",
+      "parent": "thaumcraft:block/essentia_tube_oneway",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_tube_restrict",
+      "parent": "thaumcraft:block/essentia_tube_restrict",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_valve",
+      "parent": "thaumcraft:block/essentia_valve",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_vibration_chamber",
+      "parent": "thaumcraft:block/essentia_vibration_chamber",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "essentia_view_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/essentia_view_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ethereal_platform",
+      "parent": "thaumcraft:block/ethereal_platform",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "experience_extractor",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/experience_extractor"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "experience_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/experience_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "extras_air_block",
+      "parent": "thaumcraft:block/extras_air_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "extras_earth_block",
+      "parent": "thaumcraft:block/extras_earth_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "extras_ender_block",
+      "parent": "thaumcraft:block/extras_ender_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "extras_fire_block",
+      "parent": "thaumcraft:block/extras_fire_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "extras_light_block",
+      "parent": "thaumcraft:block/extras_light_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "extras_water_block",
+      "parent": "thaumcraft:block/extras_water_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "filtered_essentia_jar",
+      "parent": "thaumcraft:block/filtered_essentia_jar",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "flesh_block",
+      "parent": "thaumcraft:block/flesh_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "flux_crystal",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/flux_crystal"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "flux_gas",
+      "parent": "thaumcraft:block/flux_gas",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "flux_goo",
+      "parent": "thaumcraft:block/flux_goo",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "focus_ae_wrench",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_ae_wrench"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_arrow",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_arrow"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_blink",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_blink"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_destroy",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_destroy"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_dispel",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_dispel"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_equal_trade",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_trade"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_excavation",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_excavation"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_exchange",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_exchange"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_experience",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_experience"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_fire",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_fire"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_freeze",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_freeze"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_frost",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_frost"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_heal",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_heal"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_pech_summon",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_pech_summon"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_portable_hole",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_portablehole"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_pouch",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/focus_pouch"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "focus_primal",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_primal"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_return",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_return"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_shock",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_shock"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_smelting",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_smelting"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_speed",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/focus_speed"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "focus_warding",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tc4/focus_warding"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "fume_dissipator",
+      "parent": "thaumcraft:block/fume_dissipator",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "gear_box",
+      "parent": "thaumcraft:block/gear_box",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "goggles_of_revealing",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/gogglesrevealing"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "gold_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/gold_wand_cap"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "golem_bell",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/golem_bell"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "golem_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/golem_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "golem_deco_armor",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecoarmor"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_bowtie",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecobowtie"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_dart_launcher",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecodart"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_fez",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecofez"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_glasses",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecoglasses"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_mace",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecomace"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_tophat",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecotophat"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_deco_visor",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecovisor"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_filter",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/golem_seal_collect"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_gear_box",
+      "parent": "thaumcraft:block/golem_gear_box",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_seal_collect",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/golem_seal_collect"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "golem_seal_collect_block",
+      "parent": "thaumcraft:block/golem_seal_collect_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_task_marker",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/golem_bell"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_upgrade_air",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_air"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_upgrade_earth",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_earth"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_upgrade_entropy",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_entropy"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_upgrade_fire",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_fire"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_upgrade_order",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_order"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_upgrade_water",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_water"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "golem_wireless_backpack",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/golem_wireless_backpack"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "greatwood_leaves",
+      "parent": "thaumcraft:block/greatwood_leaves",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "greatwood_log",
+      "parent": "thaumcraft:block/greatwood_log",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "greatwood_planks",
+      "parent": "thaumcraft:block/greatwood_planks",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "greatwood_sapling",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:block/greatwood_sapling"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "greatwood_wand",
+      "parent": "minecraft:builtin/entity",
+      "textures": [
+        "thaumcraft:item/greatwood_wand"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
+    },
+    {
+      "model": "greatwood_wand_core",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/greatwood_wand_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "helmet_of_revealing",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/helmet_of_revealing"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "herba_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/herba_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichor",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichor"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichor_pickaxe",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/ichor_pickaxe"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "ichor_sword",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/ichor_sword"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "ichorcloth",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichorcloth"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichorcloth_boots",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichorcloth_boots"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichorcloth_hood",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichorcloth_hood"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichorcloth_leggings",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichorcloth_leggings"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichorcloth_robe",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichorcloth_robe"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ichorium_ingot",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ichorium_ingot"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ignis_crystal",
+      "parent": "thaumcraft:block/ignis_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "ignis_fuel",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ignis_fuel"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "ignis_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ignis_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "infused_scribing_tools",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/infused_scribing_tools"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "infusion_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/infusion_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "infusion_matrix",
+      "parent": "thaumcraft:block/infusion_matrix",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "infusion_pillar",
+      "parent": "thaumcraft:block/infusion_pillar",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "infusion_provider",
+      "parent": "thaumcraft:block/infusion_provider",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "iron_capped_wooden_wand",
+      "parent": "minecraft:builtin/entity",
+      "textures": [
+        "thaumcraft:item/iron_capped_wooden_wand"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
+    },
+    {
+      "model": "iron_gear",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/iron_gear"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "iron_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/iron_wand_cap"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "jar_label",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/jar_label"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "kami_research_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/kami_research_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "knowledge_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/knowledge_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "knowledge_inscriber",
+      "parent": "thaumcraft:block/knowledge_inscriber",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "lux_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/lux_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "matrix_accelerator",
+      "parent": "thaumcraft:block/matrix_accelerator",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "matrix_stabilizer",
+      "parent": "thaumcraft:block/matrix_stabilizer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "metallum_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/metallum_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "mnemonic_matrix",
+      "parent": "thaumcraft:block/mnemonic_matrix",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "nitor",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/nitor"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "node_jar",
+      "parent": "minecraft:builtin/entity",
+      "textures": [
+        "thaumcraft:item/node_jar"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
+    },
+    {
+      "model": "node_stabilizer",
+      "parent": "builtin/entity",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "node_transducer",
+      "parent": "",
+      "textures": [
+        "thaumcraft:block/node_transducer",
+        "thaumcraft:block/node_transducer"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "obsidian_tile",
+      "parent": "thaumcraft:block/obsidian_tile",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "obsidian_totem",
+      "parent": "thaumcraft:block/obsidian_totem",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "ordo_crystal",
+      "parent": "thaumcraft:block/ordo_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "ordo_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/ordo_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "osmotic_enchanter",
+      "parent": "thaumcraft:block/osmotic_enchanter",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "osmotic_enchantment_focus",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/osmotic_enchantment_focus"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "outer_lands_loot_crate",
+      "parent": "thaumcraft:block/outer_lands_loot_crate",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "outer_lands_loot_urn",
+      "parent": "thaumcraft:block/outer_lands_loot_urn",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "pech_ledger",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/pech_ledger"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "pech_trade_tier_1",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/pech_trade_tier_1"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "pech_trade_tier_2",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/pech_trade_tier_2"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "pech_trade_tier_3",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/pech_trade_tier_3"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "pech_trade_tier_4",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/pech_trade_tier_4"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "pech_trade_tier_5",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/pech_trade_tier_5"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "perditio_crystal",
+      "parent": "thaumcraft:block/perditio_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "perditio_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/perditio_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "porting_ledger",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/porting_ledger"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "potentia_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/potentia_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "praecantatio_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/praecantatio_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "primordial_pearl",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/primordial_pearl"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "quicksilver_drop",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/quicksilver_drop"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_cache_block",
+      "parent": "thaumcraft:block/research_cache_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "research_note",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/research_note"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_note_available",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/research_note_available"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_note_complete",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/research_note_complete"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_note_locked",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/research_note_locked"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_note_selected",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/research_note_selected"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_point",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/research_point"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "research_table",
+      "parent": "thaumcraft:block/research_table_item",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "sanity_soap",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/sanity_soap"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "scribing_tools",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/scribing_tools"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "silverwood_leaves",
+      "parent": "thaumcraft:block/silverwood_leaves",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "silverwood_log",
+      "parent": "thaumcraft:block/silverwood_log",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "silverwood_planks",
+      "parent": "thaumcraft:block/silverwood_planks",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "silverwood_sapling",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:block/silverwood_sapling"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "silverwood_wand",
+      "parent": "minecraft:builtin/entity",
+      "textures": [
+        "thaumcraft:item/silverwood_wand"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
+    },
+    {
+      "model": "silverwood_wand_core",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/silverwood_wand_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "spellbinding_cloth",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/spellbinding_cloth"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "table",
+      "parent": "thaumcraft:block/table",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "taint_crust",
+      "parent": "thaumcraft:block/taint_crust",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "taint_fibres",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:block/taint_fibres"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "taint_seed",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/taint_seed"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "taint_soil",
+      "parent": "thaumcraft:block/taint_soil",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tainted_slime",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tainted_slime"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tainted_soil",
+      "parent": "thaumcraft:block/tainted_soil",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_alumentum",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/alumentum"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_amber",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/amber"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_arcanedoor",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/arcanedoor"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bath_salts",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bath_salts"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bauble_amulet",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bauble_amulet"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bauble_belt",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bauble_belt"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bauble_ring",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bauble_ring"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bauble_ring_iron",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bauble_ring_iron"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_advanced_alchemical_furnace",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_advanced_alchemical_furnace"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_alchemical_construct",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_alchemical_construct"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_alembic",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_alembic"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_bore",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_bore"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_bore_base",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_bore_base"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_ear",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_ear"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_lamp",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_lamp"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_pedestal",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_pedestal"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_pressure_plate",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_pressure_plate"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_spa",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_spa"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_stone",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_stone"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_arcane_stone_slab",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_arcane_stone_slab"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_banner",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_banner"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_bellows",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_bellows"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_cinderpearl",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_cinderpearl"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_crystal_cluster",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_crystal_cluster"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_essentia_jar",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_essentia_jar"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_essentia_reservoir",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_essentia_reservoir"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_essentia_tube",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_essentia_tube"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_ethereal_bloom",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_ethereal_bloom"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_flux_scrubber",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_flux_scrubber"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_focal_manipulator",
+      "parent": "thaumcraft:block/tc4_block_focal_manipulator",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_greatwood_leaves",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_greatwood_leaves"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_greatwood_log",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_greatwood_log"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_greatwood_planks",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_greatwood_planks"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_greatwood_sapling",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_greatwood_sapling"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_infusion_matrix",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_infusion_matrix"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_lamp_fertility",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_lamp_fertility"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_lamp_growth",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_lamp_growth"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_levitator",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_levitator"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_metal_base",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_metal_base"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_mnemonic_matrix",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_mnemonic_matrix"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_node_stabilizer",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_node_stabilizer"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_node_stabilizer_advanced",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_node_stabilizer_advanced"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_node_transducer",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_node_transducer"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_tile",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_tile"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_totem_1",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_totem_1"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_totem_2",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_totem_2"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_totem_3",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_totem_3"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_totem_4",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_totem_4"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_totem_base",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_totem_base"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_obsidian_totem_shaded",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_obsidian_totem_shaded"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_paving_travel",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_paving_travel"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_paving_warding",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_paving_warding"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_shimmerleaf",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_shimmerleaf"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_silverwood_leaves",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_silverwood_leaves"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_silverwood_log",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_silverwood_log"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_silverwood_planks",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_silverwood_planks"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_silverwood_sapling",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_silverwood_sapling"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_tallow",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_tallow"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_thaumium",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_thaumium"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_vishroom",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_vishroom"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_wand_pedestal",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_wand_pedestal"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_block_wand_pedestal_focus",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_block_wand_pedestal_focus"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bonebow",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bonebow"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bootstraveler",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bootstraveler"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bottle_taint",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bottle_taint"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_brain",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/brain"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bucket_death",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bucket_death"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_bucket_pure",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/bucket_pure"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_charm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/charm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cloth",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cloth"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clothboots",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clothboots"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clothbootsover",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clothbootsover"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clothchest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clothchest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clothchestover",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clothchestover"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clothlegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clothlegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clothlegsover",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clothlegsover"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clustercinnabar",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clustercinnabar"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clustercopper",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clustercopper"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clustergold",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clustergold"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clusteriron",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clusteriron"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clusterlead",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clusterlead"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clustersilver",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clustersilver"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_clustertin",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/clustertin"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_coin",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/coin"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_crimson_blade",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/crimson_blade"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_crimson_rites",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/crimson_rites"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_crystalessence",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/crystalessence"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistboots",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistboots"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistplatechest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplatechest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistplatehelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplatehelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistplateleaderchest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplateleaderchest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistplateleaderhelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplateleaderhelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistplateleaderlegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplateleaderlegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistplatelegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistplatelegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistrobechest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistrobechest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistrobehelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistrobehelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_cultistrobelegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/cultistrobelegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_discovery",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/discovery"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_dust",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/dust"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_el_arrow_air",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/el_arrow_air"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_el_arrow_earth",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/el_arrow_earth"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_el_arrow_entropy",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/el_arrow_entropy"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_el_arrow_fire",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/el_arrow_fire"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_el_arrow_order",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/el_arrow_order"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_el_arrow_water",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/el_arrow_water"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_eldritch_object",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/eldritch_object"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_eldritch_object_2",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/eldritch_object_2"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_eldritch_object_3",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/eldritch_object_3"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_elementalaxe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/elementalaxe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_elementalhoe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/elementalhoe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_elementalpick",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/elementalpick"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_elementalshovel",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/elementalshovel"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_elementalsword",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/elementalsword"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_essence",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/essence"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_filter",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/filter"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_excavation",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_excavation"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_fire",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_fire"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_frost",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_frost"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_hellbat",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_hellbat"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_pech",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_pech"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_portablehole",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_portablehole"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_primal",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_primal"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_reversal",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_reversal"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_shock",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_shock"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_trade",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_trade"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focus_warding",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focus_warding"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focuspouch",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focuspouch"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_focuspouchbauble",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/focuspouchbauble"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_gogglesrevealing",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/gogglesrevealing"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_clay",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_clay"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_blank",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_blank"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_bodyguard",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_bodyguard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_butcher",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_butcher"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_empty",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_empty"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_essentia",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_essentia"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_fill",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_fill"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_fish",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_fish"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_gather",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_gather"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_guard",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_guard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_harvest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_harvest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_liquid",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_liquid"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_lumber",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_lumber"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_patrol",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_patrol"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_sorting",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_sorting"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_core_use",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_core_use"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_flesh",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_flesh"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_iron",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_iron"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_stone",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_stone"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_straw",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_straw"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_tallow",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_tallow"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_thaumium",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_thaumium"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_air",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_air"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_earth",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_earth"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_empty",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_empty"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_entropy",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_entropy"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_fire",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_fire"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_order",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_order"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_upgrade_water",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_upgrade_water"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golem_wood",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golem_wood"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecoarmor",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecoarmor"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecobowtie",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecobowtie"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecodart",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecodart"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecofez",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecofez"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecoglasses",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecoglasses"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecomace",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecomace"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecotophat",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecotophat"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_golemdecovisor",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/golemdecovisor"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_hovergirdle",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/hovergirdle"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_hoverharness",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/hoverharness"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_inkwell",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/inkwell"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_ironbell",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/ironbell"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_keygold",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/keygold"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_keyiron",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/keyiron"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_knowledgefragment",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/knowledgefragment"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_label",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/label"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_lightningring",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/lightningring"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_lootbag",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/lootbag"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_lootbagrare",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/lootbagrare"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_lootbagunc",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/lootbagunc"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mana_bean",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/mana_bean"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mask_angry_ghost",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_mask_angry_ghost"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mask_grinning_devil",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_mask_grinning_devil"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mask_sipping_fiend",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_mask_sipping_fiend"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mirrorframe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/mirrorframe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mirrorframe2",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/mirrorframe2"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mirrorglass",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/mirrorglass"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_mirrorhand",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/mirrorhand"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nitor",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nitor"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetbeef",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetbeef"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetchicken",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetchicken"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetcopper",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetcopper"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetfish",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetfish"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetiron",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetiron"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetlead",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetlead"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetpork",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetpork"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetquicksilver",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetquicksilver"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetsilver",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetsilver"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetthaumium",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetthaumium"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggettin",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggettin"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_nuggetvoid",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/nuggetvoid"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_ob_placer",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/ob_placer"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_phial",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/phial"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_primal_crusher",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/primal_crusher"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_quicksilver",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/quicksilver"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_researchnotes",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/researchnotes"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_resonator",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/resonator"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_amulet",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_amulet"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_amulet_emergency",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_amulet_emergency"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_girdle",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_girdle"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_girdle_kinetic",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_girdle_kinetic"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_ring",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_ring"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_ring_charged",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_ring_charged"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_ring_lesser",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_ring_lesser"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_runic_ring_regen",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/runic_ring_regen"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_sanitychecker",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/sanitychecker"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_aer",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_aqua",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_balanced",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard_balanced"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_ignis",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_ordo",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_perditio",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_shard_terra",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/shard"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_sinister_stone",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/sinister_stone"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_sinister_stone_active",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/sinister_stone_active"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_soap",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/soap"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_blaze",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_blaze"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_bone",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_bone"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_greatwood",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_greatwood"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_ice",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_ice"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_obsidian",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_obsidian"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_primal",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_primal"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_quartz",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_quartz"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_reed",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_reed"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_staff_rod_silverwood",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/staff_rod_silverwood"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_taint_slime",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/taint_slime"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_taint_tendril",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/taint_tendril"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_tallow",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tallow"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumaxe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumaxe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumboots",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumboots"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumchest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumchest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumfortresschest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumfortresschest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumfortresshelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumfortresshelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumfortresslegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumfortresslegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumhelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumhelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumhoe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumhoe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumingot",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumingot"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumlegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumlegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumpick",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumpick"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumshovel",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumshovel"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumiumsword",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumiumsword"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumonomicon",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumonomicon"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_thaumonomiconcheat",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumonomiconcheat"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_tripletreat",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tripletreat"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_vis_amulet",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/vis_amulet"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_vis_amulet_lesser",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/vis_amulet_lesser"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidaxe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidaxe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidboots",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidboots"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidchest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidchest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidhelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidhelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidhoe",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidhoe"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidingot",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidingot"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidlegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidlegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidpick",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidpick"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidrobeboots",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/tc4_voidrobeboots"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidrobechest",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidrobechest"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidrobechestover",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidrobechestover"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidrobehelm",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidrobehelm"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidrobelegs",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidrobelegs"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidrobelegsover",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidrobelegsover"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidseed",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidseed"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidshovel",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidshovel"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_voidsword",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/voidsword"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_copper",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_copper"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_gold",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_gold"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_iron",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_iron"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_silver",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_silver"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_silver_inert",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_silver_inert"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_thaumium",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_thaumium"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_thaumium_inert",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_thaumium_inert"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_void",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_void"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_cap_void_inert",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_cap_void_inert"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_blaze",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_blaze"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_bone",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_bone"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_greatwood",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_greatwood"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_ice",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_ice"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_obsidian",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_obsidian"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_quartz",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_quartz"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_reed",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_reed"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wand_rod_silverwood",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wand_rod_silverwood"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tc4_wispessence",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/wispessence"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_api_crystal",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_api_crystal"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_api_nugget",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_api_nugget"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_api_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_api_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_cable",
+      "parent": "thaumcraft:block/tce_cable",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_cactus",
+      "parent": "thaumcraft:block/tce_cactus",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_charger",
+      "parent": "thaumcraft:block/tce_charger",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_clear_glass",
+      "parent": "thaumcraft:block/tce_clear_glass",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_color_block",
+      "parent": "thaumcraft:block/tce_color_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_color_pouch",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_color_pouch"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_comb",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_comb"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_dark_crystal",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_dark_crystal"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_dark_infuser",
+      "parent": "thaumcraft:block/tce_dark_infuser",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_dark_nugget",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_dark_nugget"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_dark_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_dark_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_dark_silverwood",
+      "parent": "thaumcraft:block/tce_dark_silverwood",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_dark_silverwood_planks",
+      "parent": "thaumcraft:block/tce_dark_silverwood_planks",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_dark_thaumium_pickaxe",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tce_dark_thaumium_pickaxe"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tce_dark_thaumium_shovel",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tce_dark_thaumium_shovel"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tce_dark_thaumium_sword",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tce_dark_thaumium_sword"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tce_empty_focus",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_empty_focus"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_exchanger",
+      "parent": "thaumcraft:block/tce_exchanger",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_hidden_warded",
+      "parent": "thaumcraft:block/tce_hidden_warded",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_ignis_fuel_block",
+      "parent": "thaumcraft:block/tce_ignis_fuel_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_info_book",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tce_info_book"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tce_infusion_info",
+      "parent": "thaumcraft:block/tce_infusion_info",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_lava_block",
+      "parent": "thaumcraft:block/tce_lava_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_magic_charger",
+      "parent": "thaumcraft:block/tce_magic_charger",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_magic_generator",
+      "parent": "thaumcraft:block/tce_magic_generator",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_magic_solar_panel",
+      "parent": "thaumcraft:block/tce_magic_solar_panel",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_magic_wrench",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tce_magic_wrench"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tce_open_warded",
+      "parent": "thaumcraft:block/tce_open_warded",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_teleporter",
+      "parent": "thaumcraft:block/tce_teleporter",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_tesla",
+      "parent": "thaumcraft:block/tce_tesla",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tce_wand_cap"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tce_wand_rod",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tce_wand_rod"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tce_warded_carpet",
+      "parent": "thaumcraft:block/tce_warded_carpet",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_warded_cover",
+      "parent": "thaumcraft:block/tce_warded_cover",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_warded_glass",
+      "parent": "thaumcraft:block/tce_warded_glass",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_warded_pillar",
+      "parent": "thaumcraft:block/tce_warded_pillar",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_warded_slab",
+      "parent": "thaumcraft:block/tce_warded_slab",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tce_warded_wall",
+      "parent": "thaumcraft:block/tce_warded_wall",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "terra_crystal",
+      "parent": "thaumcraft:block/terra_crystal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "terra_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/terra_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumatorium",
+      "parent": "thaumcraft:block/thaumatorium",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "thaumic_channel_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumic_channel_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumic_coprocessor_card",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumic_coprocessor_card"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumic_crafting_cpu",
+      "parent": "thaumcraft:block/thaumic_crafting_cpu",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "thaumic_crafting_cpu_core",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumic_crafting_cpu_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumic_energy_acceptor",
+      "parent": "thaumcraft:block/thaumic_energy_acceptor",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "thaumic_grid_tool",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumic_grid_tool"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumic_me_cable",
+      "parent": "thaumcraft:block/thaumic_me_cable",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "thaumic_me_controller",
+      "parent": "thaumcraft:block/thaumic_me_controller",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "thaumium_ingot",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumium_ingot"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumium_nugget",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumium_nugget"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumium_plate",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumium_plate"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumium_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/thaumium_wand_cap"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "thaumometer",
+      "parent": "minecraft:builtin/entity",
+      "textures": [
+        "thaumcraft:item/thaumometer"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
+    },
+    {
+      "model": "thaumonomicon",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/thaumonomicon"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "thaumonomicon_cheat",
+      "parent": "item/generated",
+      "textures": [
+        "thaumcraft:item/tc4/thaumonomiconcheat"
+      ],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tome_of_knowledge_sharing",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tome_of_knowledge_sharing"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "transvector_binder",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/transvector_binder"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "transvector_interface",
+      "parent": "thaumcraft:block/transvector_interface",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_animation_tablet",
+      "parent": "thaumcraft:block/tt_animation_tablet",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_aspect_analyzer",
+      "parent": "thaumcraft:block/tt_aspect_analyzer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_bedrock_portal",
+      "parent": "thaumcraft:block/tt_bedrock_portal",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_bright_nitor",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_bright_nitor"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_cat_amulet",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_cat_amulet"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_cleansing_talisman",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_cleansing_talisman"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_connector",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_connector"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_dark_quartz",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_dark_quartz"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_dark_quartz_block",
+      "parent": "thaumcraft:block/tt_dark_quartz_block",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_enchanter",
+      "parent": "thaumcraft:block/tt_enchanter",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_fire_air",
+      "parent": "thaumcraft:block/tt_fire_air",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_fire_chaos",
+      "parent": "thaumcraft:block/tt_fire_chaos",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_fire_earth",
+      "parent": "thaumcraft:block/tt_fire_earth",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_fire_order",
+      "parent": "thaumcraft:block/tt_fire_order",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_fire_water",
+      "parent": "thaumcraft:block/tt_fire_water",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_focus_deflect",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_deflect"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_dislocation",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_dislocation"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_ender_chest",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_ender_chest"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_flight",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_flight"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_recall",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_recall"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_shadowbeam",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_shadowbeam"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_telekinesis",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_telekinesis"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_focus_xp_drain",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_focus_xp_drain"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_forcefield",
+      "parent": "thaumcraft:block/tt_forcefield",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_funnel",
+      "parent": "thaumcraft:block/tt_funnel",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_gas_remover",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_gas_remover"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_gaseous_light",
+      "parent": "thaumcraft:block/tt_gaseous_light",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_gaseous_shadow",
+      "parent": "thaumcraft:block/tt_gaseous_shadow",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_golem_connector",
+      "parent": "thaumcraft:block/tt_golem_connector",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_ichor_axe",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_ichor_axe"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_ichor_gem_boots",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_ichor_gem_boots"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_ichor_gem_chest",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_ichor_gem_chest"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_ichor_gem_helm",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_ichor_gem_helm"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_ichor_gem_legs",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_ichor_gem_legs"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_ichor_pouch",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_ichor_pouch"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_ichor_shovel",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_ichor_shovel"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_ichor_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_ichor_wand_cap"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_ichor_wand_rod",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/tt_ichor_wand_rod"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    },
+    {
+      "model": "tt_infused_farmland",
+      "parent": "thaumcraft:block/tt_infused_farmland",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_infused_grain",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_infused_grain"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_infused_inkwell",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_infused_inkwell"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_infused_potion",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_infused_potion"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_infused_seed",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_infused_seed"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_kami_resource",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_kami_resource"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_mob_display",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_mob_display"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_mob_magnet",
+      "parent": "thaumcraft:block/tt_mob_magnet",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_mobilizer",
+      "parent": "thaumcraft:block/tt_mobilizer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_mobilizer_relay",
+      "parent": "thaumcraft:block/tt_mobilizer_relay",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_nitor_gas",
+      "parent": "thaumcraft:block/tt_nitor_gas",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_placement_mirror",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_placement_mirror"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_protoclay",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_protoclay"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_remote_placer",
+      "parent": "thaumcraft:block/tt_remote_placer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_repairer",
+      "parent": "thaumcraft:block/tt_repairer",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_research_stamp",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_research_stamp"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_sky_pearl",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_sky_pearl"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_soul_mould",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_soul_mould"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_spell_cloth",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_spell_cloth"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "tt_summon_tablet",
+      "parent": "thaumcraft:block/tt_summon_tablet",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_transvector_dislocator",
+      "parent": "thaumcraft:block/tt_transvector_dislocator",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_warp_gate",
+      "parent": "thaumcraft:block/tt_warp_gate",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "tt_xp_talisman",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/tt_xp_talisman"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "unstable_singularity",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/unstable_singularity"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "vacuos_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/vacuos_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "vis_interface",
+      "parent": "thaumcraft:block/vis_interface",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "vis_relay",
+      "parent": "thaumcraft:block/vis_relay",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "vitreus_shard",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/vitreus_shard"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "void_essentia_jar",
+      "parent": "thaumcraft:block/void_essentia_jar",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "void_metal_ingot",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/void_metal_ingot"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "warp_charm",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/warp_charm"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "warp_ward_talisman",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/warp_ward_talisman"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "wireless_essentia_terminal",
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:item/wireless_essentia_terminal"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_item_icon"
+    },
+    {
+      "model": "wooden_wand_core",
+      "parent": "minecraft:item/handheld",
+      "textures": [
+        "thaumcraft:item/wooden_wand_core"
+      ],
+      "missing_textures": [],
+      "status": "ok",
+      "render_class": "flat_handheld_icon"
+    }
+  ]
+}

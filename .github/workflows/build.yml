@@ -51,6 +51,9 @@ jobs:
       - name: Validate feature-cycle-safe biome generation
         run: python3 tools/feature_cycle_guard.py
 
+      - name: Validate TC4 research links and Expertise/Mastery
+        run: python3 tools/research_expertise_guard.py
+
       - name: Validate Thaumometer scanning path
         run: python3 tools/thaumometer_scan_guard.py
 
@@ -114,6 +117,13 @@ jobs:
       - name: Validate registry and resources
         run: python3 tools/audit_registry.py --version 11.62.54 --fail-on-unexpected
 
+      - name: Regenerate-check exact TC4 research runtime
+        run: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
+
+      - name: Audit all 201 TC4 research entries and Thaumonomicon assets
+        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.54-hotfix7 --fail-on-problems
+
+
       - name: Build Forge JAR
         run: |
           chmod +x gradlew
@@ -131,7 +141,7 @@ jobs:
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54-hotfix3 --report reports/release_jar_audit_v11.62.54-hotfix3.json
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54-hotfix7 --report reports/release_jar_audit_v11.62.54-hotfix7.json
 
       - name: Calculate checksums
         shell: bash
@@ -140,16 +150,16 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R4.md build/release/
+          cp THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md build/release/
           cp reports/*11.62.54*.json build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.54-hotfix3
+          name: thaumcraft-legacy-rebuild-v11.62.54-hotfix7
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R4.md
+            build/release/THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md
             build/release/*11.62.54*.json

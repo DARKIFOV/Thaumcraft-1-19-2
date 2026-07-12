@@ -28,6 +28,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.network.NetworkHooks;
 
 
 public class AlchemicalFurnaceBlock extends BaseEntityBlock {
@@ -118,6 +120,10 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
         }
 
         ItemStack held = player.getItemInHand(hand);
+        if ((held.isEmpty() || player.isShiftKeyDown()) && player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openScreen(serverPlayer, furnace, buffer -> buffer.writeBlockPos(pos));
+            return InteractionResult.CONSUME;
+        }
         if (furnace.isAdvanced()) {
             if (held.isEmpty()) {
                 player.displayClientMessage(Component.literal("Advanced Alchemical Furnace | Essentia: "

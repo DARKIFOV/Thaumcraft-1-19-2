@@ -3,7 +3,9 @@ package com.darkifov.thaumcraft.client.screen;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.client.ClientResearchData;
+import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.research.ResearchEntry;
+import com.darkifov.thaumcraft.research.TC4OriginalResearchPageIndex;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRuntimeBridge;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
 import com.darkifov.thaumcraft.porting.TC4ResearchItems;
@@ -76,10 +78,7 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private int totalPages() {
-        if (entry.pageTypes().length > 0) {
-            return Math.max(1, entry.pageTypes().length);
-        }
-        return Math.max(1, entry.pageTextKeys().length + entry.recipeKeys().length);
+        return Math.max(1, visiblePages().size());
     }
 
     private int maxFirstPage() {
@@ -122,7 +121,7 @@ public class TC4ResearchPageScreen extends Screen {
         // the spine/right page like the broken screenshots showed.
         withPageScissor(x - 5, pageY - 8, PAGE_WIDTH + 10, PAGE_HEIGHT + 14, () -> {
             if (page.recipe()) {
-                renderRecipePage(poseStack, x, pageY, page.type(), page.value());
+                renderRecipePage(poseStack, x, pageY, page.type(), page.value(), page.recipeKeys());
             } else {
                 renderTextPage(poseStack, x, pageY, page.type(), page.value());
             }
@@ -144,26 +143,75 @@ public class TC4ResearchPageScreen extends Screen {
         }
     }
 
-    private PageRef pageAt(int idx) {
+    private List<PageRef> visiblePages() {
+        List<TC4OriginalResearchPageIndex.PageSpec> original = TC4OriginalResearchPageIndex.pages(entry.key());
+        if (!original.isEmpty()) {
+            List<PageRef> pages = new ArrayList<>(original.size());
+            for (TC4OriginalResearchPageIndex.PageSpec page : original) {
+                // GuiResearchRecipe removes TEXT_CONCEALED pages completely until
+                // their gate research is completed; it does not leave a locked
+                // placeholder that shifts the two-page spread.
+                if (!page.unlockResearch().isBlank() && !ClientResearchData.hasResearch(page.unlockResearch())) {
+                    continue;
+                }
+                String type = page.type();
+                if ("UNKNOWN".equalsIgnoreCase(type) && page.rawExpression().contains("ItemStack")) {
+                    pages.add(new PageRef("ITEMSTACK_PAGE", page.rawExpression(), true, new String[0]));
+                    continue;
+                }
+                if (page.isRecipePage()) {
+                    String[] recipeKeys = page.recipeKeys();
+                    String value = recipeKeys.length > 0 ? recipeKeys[0] : "RESEARCH:" + entry.key();
+                    pages.add(new PageRef(type, value, true, recipeKeys));
+                } else {
+                    pages.add(new PageRef(type, page.textKey(), false, new String[0]));
+                }
+            }
+            if ("ASPECTS".equals(entry.key())) {
+                List<String> known = new ArrayList<>();
+                for (Aspect aspect : Aspect.values()) {
+                    if (ClientAspectData.knows(aspect)) known.add(aspect.id());
+                }
+                for (int offset = 0; offset < known.size(); offset += 4) {
+                    int end = Math.min(known.size(), offset + 4);
+                    pages.add(new PageRef("ASPECT_CATALOG", String.join(",", known.subList(offset, end)), false, new String[0]));
+                }
+            }
+            return pages;
+        }
+
+        // Rebuild/add-on research entries that are not part of the 201-entry
+        // original index retain the legacy flattened page arrays.
+        List<PageRef> pages = new ArrayList<>();
         int textIndex = 0;
         int recipeIndex = 0;
         if (entry.pageTypes().length == 0) {
-            if (idx < entry.pageTextKeys().length) return new PageRef("TEXT", entry.pageTextKeys()[idx], false);
-            int recipe = idx - entry.pageTextKeys().length;
-            return new PageRef("RECIPE", recipe < entry.recipeKeys().length ? entry.recipeKeys()[recipe] : "", true);
+            for (String text : entry.pageTextKeys()) pages.add(new PageRef("TEXT", text, false, new String[0]));
+            for (String recipe : entry.recipeKeys()) pages.add(new PageRef("RECIPE", recipe, true, new String[] {recipe}));
+            return pages;
         }
-        for (int i = 0; i <= idx && i < entry.pageTypes().length; i++) {
-            String type = entry.pageTypes()[i];
+        for (String type : entry.pageTypes()) {
             boolean recipe = isRecipeType(type);
-            if (i == idx) {
-                if (recipe) {
-                    return new PageRef(type, recipeIndex < entry.recipeKeys().length ? entry.recipeKeys()[recipeIndex] : "RESEARCH:" + entry.key(), true);
-                }
-                return new PageRef(type, textIndex < entry.pageTextKeys().length ? entry.pageTextKeys()[textIndex] : "missing_text_" + textIndex, false);
+            if (recipe) {
+                String value = recipeIndex < entry.recipeKeys().length ? entry.recipeKeys()[recipeIndex] : "RESEARCH:" + entry.key();
+                String[] keys = recipeIndex < entry.recipeKeys().length ? new String[] {value} : new String[0];
+                pages.add(new PageRef(type, value, true, keys));
+                recipeIndex++;
+            } else {
+                String value = textIndex < entry.pageTextKeys().length ? entry.pageTextKeys()[textIndex] : "missing_text_" + textIndex;
+                pages.add(new PageRef(type, value, false, new String[0]));
+                textIndex++;
             }
-            if (recipe) recipeIndex++; else textIndex++;
         }
-        return new PageRef("TEXT", "", false);
+        return pages;
+    }
+
+    private PageRef pageAt(int idx) {
+        List<PageRef> pages = visiblePages();
+        if (idx < 0 || idx >= pages.size()) {
+            return new PageRef("TEXT", "", false, new String[0]);
+        }
+        return pages.get(idx);
     }
 
     private boolean isRecipeType(String type) {
@@ -178,6 +226,10 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderTextPage(PoseStack poseStack, int x, int y, String type, String key) {
+        if ("ASPECT_CATALOG".equalsIgnoreCase(type)) {
+            renderAspectCatalogPage(poseStack, x, y, key);
+            return;
+        }
         String gate = gatedResearchKey(type);
         // Original TC4 book pages do not display raw adapter page type strings such as TEXT_RESEARCH_GATED.
 
@@ -194,6 +246,29 @@ public class TC4ResearchPageScreen extends Screen {
         // <BR> and paragraphs are rendered in order without spilling over the
         // parchment or drawing adapter placeholders such as [image].
         renderOriginalBookMarkup(poseStack, raw, x, y, PAGE_WIDTH, y + PAGE_HEIGHT);
+    }
+
+    private void renderAspectCatalogPage(PoseStack poseStack, int x, int y, String csv) {
+        String[] ids = csv == null || csv.isBlank() ? new String[0] : csv.split(",");
+        drawCenteredString(poseStack, font, Component.translatable("tc.research_name.ASPECTS"),
+                x + PAGE_WIDTH / 2, y + 4, PAGE_ACCENT_COLOR);
+        for (int i = 0; i < ids.length && i < 4; i++) {
+            Aspect aspect = Aspect.byId(ids[i]);
+            if (aspect == null) continue;
+            int col = i % 2;
+            int row = i / 2;
+            int iconX = x + 12 + col * 68;
+            int iconY = y + 28 + row * 66;
+            ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID,
+                    "textures/aspects/" + aspect.id() + ".png");
+            OriginalGuiTextures.blitOriginalTinted(poseStack, iconX, iconY, texture, 32, 32, aspect.nativeColor());
+            Component name = Component.translatable("aspect.thaumcraft." + aspect.id());
+            drawCenteredString(poseStack, font, name, iconX + 16, iconY + 35, PAGE_TEXT_COLOR);
+            drawCenteredString(poseStack, font, Component.literal(String.valueOf(ClientAspectData.pool(aspect))),
+                    iconX + 16, iconY + 46, PAGE_ACCENT_COLOR);
+            bookHoverRegions.add(BookHoverRegion.text(iconX, iconY, 32, 50,
+                    List.of(name, Component.translatable("thaumcraft.gui.aspect.pool", ClientAspectData.pool(aspect)))));
+        }
     }
 
     private void renderOriginalBookMarkup(PoseStack poseStack, String raw, int x, int y, int pageWidth, int bottomY) {
@@ -295,31 +370,25 @@ public class TC4ResearchPageScreen extends Screen {
         return y + drawHeight + 6;
     }
 
-    private void renderRecipePage(PoseStack poseStack, int x, int y, String type, String recipeKey) {
+    private void renderRecipePage(PoseStack poseStack, int x, int y, String type, String recipeKey, String[] pageRecipeKeys) {
         // Recipe page type is kept in data for gates/audits, but not rendered as a raw label in the book.
-
-        String requiredResearch = TC4RecipeRequirementIndex.requiredResearchFor(recipeKey, entry.key());
-        if (!requiredResearch.isBlank() && !ClientResearchData.hasResearch(requiredResearch)) {
-            drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.research.locked"), x + PAGE_WIDTH / 2, y + 32, 0x5A3515);
-            return;
-        }
 
         if (type != null && type.toUpperCase().contains("ITEMSTACK_PAGE")) {
             renderItemStackBookPage(poseStack, recipeKey, x, y);
             return;
         }
 
-        TC4RecipeRuntimeBridge.OriginalRecipe recipe = TC4RecipeRuntimeBridge.byKey(recipeKey);
-        if (recipe == null && recipeKey != null) {
-            String researchKey = recipeKey.startsWith("RESEARCH:") ? recipeKey.substring("RESEARCH:".length()) : recipeKey;
-            List<TC4RecipeRuntimeBridge.OriginalRecipe> byResearch = TC4RecipeRuntimeBridge.byResearch(researchKey);
-            if (!byResearch.isEmpty()) {
-                recipe = byResearch.get(0);
-            }
-        }
-
-        if (recipe == null) {
+        List<TC4RecipeRuntimeBridge.OriginalRecipe> candidates = resolvePageRecipes(recipeKey, pageRecipeKeys);
+        if (candidates.isEmpty()) {
             renderMissingRecipeHint(poseStack, x, y);
+            return;
+        }
+        long ticks = Minecraft.getInstance().player == null ? 0L : Minecraft.getInstance().player.tickCount;
+        TC4RecipeRuntimeBridge.OriginalRecipe recipe = candidates.get((int)((ticks / 20L) % candidates.size()));
+
+        String requiredResearch = TC4RecipeRequirementIndex.requiredResearchFor(recipe.key(), entry.key());
+        if (!requiredResearch.isBlank() && !ClientResearchData.hasResearch(requiredResearch)) {
+            drawCenteredString(poseStack, font, Component.translatable("thaumcraft.gui.research.locked"), x + PAGE_WIDTH / 2, y + 32, 0x5A3515);
             return;
         }
 
@@ -331,6 +400,26 @@ public class TC4ResearchPageScreen extends Screen {
             case ARCANE_SHAPED, ARCANE_SHAPELESS, NORMAL_SHAPED, NORMAL_SHAPELESS, SMELTING -> renderCraftingBookPage(poseStack, x, y, recipe);
             default -> renderCompoundRecipePage(poseStack, x, y, recipe);
         }
+    }
+
+    private List<TC4RecipeRuntimeBridge.OriginalRecipe> resolvePageRecipes(String recipeKey, String[] pageRecipeKeys) {
+        List<TC4RecipeRuntimeBridge.OriginalRecipe> result = new ArrayList<>();
+        if (pageRecipeKeys != null) {
+            for (String key : pageRecipeKeys) {
+                TC4RecipeRuntimeBridge.OriginalRecipe recipe = TC4RecipeRuntimeBridge.byKey(key);
+                if (recipe != null && !result.contains(recipe)) result.add(recipe);
+            }
+        }
+        if (!result.isEmpty()) return result;
+
+        String researchKey = recipeKey == null ? entry.key() : recipeKey;
+        if (researchKey.startsWith("RESEARCH:")) {
+            researchKey = researchKey.substring("RESEARCH:".length());
+        }
+        TC4RecipeRuntimeBridge.OriginalRecipe direct = TC4RecipeRuntimeBridge.byKey(researchKey);
+        if (direct != null) result.add(direct);
+        if (result.isEmpty()) result.addAll(TC4RecipeRuntimeBridge.byResearch(researchKey));
+        return result;
     }
 
     private void renderItemStackBookPage(PoseStack poseStack, String expression, int x, int y) {
@@ -895,7 +984,10 @@ public class TC4ResearchPageScreen extends Screen {
         }
     }
 
-    private record PageRef(String type, String value, boolean recipe) {}
+    private record PageRef(String type, String value, boolean recipe, String[] recipeKeys) {
+        private PageRef { recipeKeys = recipeKeys == null ? new String[0] : recipeKeys.clone(); }
+        @Override public String[] recipeKeys() { return recipeKeys.clone(); }
+    }
 
     @Override
     public boolean isPauseScreen() {

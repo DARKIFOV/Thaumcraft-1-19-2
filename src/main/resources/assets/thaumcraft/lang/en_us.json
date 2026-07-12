@@ -4128,5 +4128,8 @@
   "warp.text.hunger.1": "Your hunger cannot be satisfied with normal food.",
   "warp.text.hunger.2": "You hunger begins to fade.",
   "biome.thaumcraft.magical_forest": "Magical Forest",
-  "entity.thaumcraft.aspect_orb": "Aspect Orb"
+  "entity.thaumcraft.aspect_orb": "Aspect Orb",
+  "thaumcraft.gui.research.expertise_components": "Components: %s + %s",
+  "thaumcraft.gui.research.mastery_shift": "Shift-click to combine automatically",
+  "thaumcraft.message.research.expertise_saved": "Research Mastery preserved this aspect point."
 }

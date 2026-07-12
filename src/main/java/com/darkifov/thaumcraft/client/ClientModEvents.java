@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.client;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.client.screen.AlchemicalFurnaceScreen;
 import com.darkifov.thaumcraft.client.screen.ArcaneWorkbenchContainerScreen;
 import com.darkifov.thaumcraft.client.screen.BottomlessPouchScreen;
 import com.darkifov.thaumcraft.client.screen.FocusPouchScreen;
@@ -149,6 +150,7 @@ public final class ClientModEvents {
             EntityRenderers.register(ThaumcraftMod.FOCUS_PRIMAL_ORB.get(), entityRenderer(ctx -> new TC4FocusProjectileRenderer<>(ctx)));
             EntityRenderers.register(ThaumcraftMod.ELDRITCH_ORB.get(), entityRenderer(ctx -> new TC4EldritchOrbRenderer<>(ctx)));
             EntityRenderers.register(ThaumcraftMod.GOLEM_ORB.get(), entityRenderer(ctx -> new TC4EldritchOrbRenderer<>(ctx)));
+            MenuScreens.register(ThaumcraftMod.ALCHEMICAL_FURNACE_MENU.get(), screenConstructor(AlchemicalFurnaceScreen::new));
             MenuScreens.register(ThaumcraftMod.ARCANE_WORKBENCH_MENU.get(), screenConstructor(ArcaneWorkbenchContainerScreen::new));
             MenuScreens.register(ThaumcraftMod.FOCAL_MANIPULATOR_MENU.get(), screenConstructor(FocalManipulatorScreen::new));
             MenuScreens.register(ThaumcraftMod.RESEARCH_TABLE_MENU.get(), screenConstructor(ResearchTableContainerScreen::new));

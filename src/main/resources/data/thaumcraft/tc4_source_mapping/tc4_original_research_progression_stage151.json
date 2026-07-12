@@ -428,7 +428,6 @@
   {
     "key": "PRIMPEARL",
     "item_triggers_raw": [
-      "ConfigItems.itemEldritchObject, 1, 3",
       "ConfigItems.itemEldritchObject, 1, 3"
     ],
     "entity_triggers": [],

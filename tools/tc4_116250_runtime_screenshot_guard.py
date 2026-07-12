@@ -58,10 +58,16 @@ if [e.get("from") for e in table.get("elements", [])] != [[0, 12, 0], [10, 4, 6]
     ERRORS.append("table model: TC4 geometry drift")
 
 workbench = load_json("src/main/resources/assets/thaumcraft/models/block/arcane_workbench.json")
-if workbench.get("textures", {}).get("atlas") != "thaumcraft:models/worktable":
-    ERRORS.append("arcane workbench: expected original models/worktable atlas")
+workbench_textures = workbench.get("textures", {})
+if workbench_textures.get("top") != "thaumcraft:block/arcane_workbench_top":
+    ERRORS.append("arcane workbench: expected the green arcane_workbench_top texture")
+if workbench_textures.get("side") != "thaumcraft:block/arcane_workbench_side":
+    ERRORS.append("arcane workbench: expected the dedicated arcane_workbench_side texture")
 if len(workbench.get("elements", [])) != 6:
-    ERRORS.append("arcane workbench: expected top, base and four feet")
+    ERRORS.append("arcane workbench: expected tabletop, four legs and front ornament")
+el0 = workbench.get("elements", [{}])[0] if workbench.get("elements") else {}
+if el0.get("faces", {}).get("up", {}).get("texture") != "#top":
+    ERRORS.append("arcane workbench: tabletop upper face must use the green #top texture")
 
 matrix_model = read("src/main/java/com/darkifov/thaumcraft/client/render/model/TC4InfusionMatrixModel.java")
 for token in ("texOffs(0, 0)", "texOffs(0, 32)", "LayerDefinition.create(mesh, 64, 64)"):
@@ -79,7 +85,7 @@ if ("event.getCamera().rotation()" not in node_overlay
 forbid(node_overlay, 'textures/original/thaumcraft4/gui/hud.png', "node goggles overlay")
 
 wand_renderer = read("src/main/java/com/darkifov/thaumcraft/client/render/WandItemRenderer.java")
-for token in ("transformType.firstPerson()", "0.48D, 0.12D", "Vector3f.XP.rotationDegrees(180.0F)"):
+for token in ("transformType.firstPerson()", "0.06D, 0.02D", "scale(1.00F, 1.10F, 1.00F)", "MODEL_CENTER_Y", "Vector3f.XP.rotationDegrees(180.0F)"):
     require(wand_renderer, token, "WandItemRenderer")
 node_renderer = read("src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java")
 require(node_renderer, "boolean holdingWand", "AuraNodeRenderer drain beam")

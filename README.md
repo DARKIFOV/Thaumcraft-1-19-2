@@ -36,10 +36,10 @@ chmod +x gradlew
 Expected output:
 
 ```text
-build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix3.jar
+build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix7.jar
 ```
 
-See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R4.md` for the consolidated expert report, crash diagnosis and remaining work.
+See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md` for the consolidated expert report, crash diagnosis and remaining work.
 
 ## v11.62.54-hotfix1
 
@@ -55,3 +55,27 @@ The crash was in the mod bootstrap bytecode, not in Oculus, Rubidium or the worl
 ## v11.62.54-hotfix3
 
 This CI/release hotfix repairs a stale source guard that rejected the required SRG-safe Research Table renderer adapter. The guard now verifies the wrapped registration and the explicit `BlockEntityRendererProvider` bridge instead of demanding the forbidden direct Minecraft SAM constructor reference. Gameplay code and assets are unchanged from hotfix2.
+
+
+## v11.62.54-hotfix4
+
+Adds an Alchemical Furnace menu/screen and revises the Crucible, Arcane Pedestal and Arcane Workbench block models after runtime screenshot review. Adds a complete item-model/texture-reference audit.
+
+
+## v11.62.54-hotfix5
+
+Fixes research puzzle parity: identical aspects no longer connect, new placements must touch a compatible occupied hex, Research Expertise reveals compound components and keeps its 25% removal refund, while Research Mastery keeps the 50% refund, adds the original 10% free placement chance and Shift-click automatic combination shortcut.
+
+## v11.62.54-hotfix6
+
+- Generates the exact 201-entry TC4 4.2.3.5 research graph, metadata and all 591 ordered ResearchPage declarations from the committed original source map.
+- Audits every research icon, both language sets and the original Thaumonomicon GUI textures.
+- Restores original concealed-page removal, dynamic known-aspect pages and research tooltip cues.
+- Re-centres all WandItem BEWLR meshes so iron, greatwood, silverwood and creative wands render in inventory and first person.
+
+## v11.62.54-hotfix7
+
+- Removes the duplicated `PRIMPEARL` item trigger from both committed source maps and generated runtime metadata.
+- Regenerates the machine-readable full research audit with duplicate-trigger detection.
+- Normalizes the consolidated report revision history, numbering and hotfix appendices.
+- Clarifies that `gui_research.png` supplies frames/tabs while research icon content may come from an `ItemStack` or a standalone resource texture.

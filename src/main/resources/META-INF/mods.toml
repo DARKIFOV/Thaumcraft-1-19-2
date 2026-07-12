@@ -9,7 +9,7 @@ modId="thaumcraft"
 # v11.62.25 compatibility marker: version="11.62.25"
 # v11.62.27 compatibility marker: version="11.62.27"
 # v11.62.28 compatibility marker: version="11.62.28"
-version="11.62.54-hotfix3"
+version="11.62.54-hotfix7"
 # v11.62.54 gameplay baseline marker: version="11.62.54"
 # v11.62.43 compatibility marker: version="11.62.43"
 # v11.62.36 compatibility marker: version="11.62.36"
@@ -135,6 +135,9 @@ Forge 1.19.2 / Java 17.
 v11.62.54 restores the original TC4 32x32 top-left wand vis dial (with optional bottom placement), focus/picked-block centre icon, cooldown readout, exact sneaking values and session reset. Focus cycling now follows the original TreeMap sorting/overwrite order and performs transactional swaps so a full inventory cannot eject or lose the installed focus.
 v11.62.54-hotfix2 replaces renderer, menu-screen and colour-handler lambdas that target obfuscated Minecraft SAM interfaces with explicit bridge objects. This prevents AbstractMethodError during the initial client resource reload in SRG production runtime.
 v11.62.54-hotfix3 aligns all GitHub regression guards with those SRG-safe adapters, accepts semantic-version hotfix suffixes, and publishes the consolidated R4 expert report. Gameplay code and assets are unchanged from hotfix2.
+v11.62.54-hotfix4 adds the Alchemical Furnace container GUI and revises the Crucible, Arcane Pedestal and Arcane Workbench block models after runtime screenshot review.
+v11.62.54-hotfix5 restores strict TC4 research links (identical aspects cannot connect), adjacency-gated placement, Research Expertise component hints/refunds, and Research Mastery free-placement/Shift-combine behavior.
+v11.62.54-hotfix7 regenerates the complete 201-entry TC4 research graph and 591 ordered Thaumonomicon pages from the original 4.2.3.5 ConfigResearch source map, audits all research icons and book GUI assets, restores concealed-page removal and dynamic aspect pages, and recentres BEWLR wand transforms for visible first-person and inventory rendering.
 '''
 
 [[dependencies.thaumcraft]]
@@ -154,4 +157,3 @@ side="BOTH"
 # compact-batch compatibility marker: version="10.22.0"
 
 # compatibility marker for audits: version="10.62.0"
-

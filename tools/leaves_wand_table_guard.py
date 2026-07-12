@@ -29,8 +29,10 @@ wand = (java / 'client/render/WandItemRenderer.java').read_text()
 for token in ['RenderType.entityTranslucent(rodTexture)',
               'renderModelBoxColor',
               '0, 8, 2, 18, 2',
-              'poseStack.translate(left ? -0.34D : 0.34D, 0.48D, 0.12D)',
-              'poseStack.scale(0.86F, 0.94F, 0.86F)',
+              'poseStack.translate(left ? -0.11D : 0.11D, 0.06D, 0.02D)',
+              'poseStack.scale(1.00F, 1.10F, 1.00F)',
+              'MODEL_CENTER_Y',
+              'poseStack.translate(0.0D, -MODEL_CENTER_Y, 0.0D)',
               'poseStack.translate(0.0D, 0.20D, 0.0D)']:
     if token not in wand:
         problems.append(f'wand renderer lost original ModelWand adapter: {token}')
