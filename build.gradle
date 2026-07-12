@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.54-hotfix8' // Self-contained CI audit hotfix; removes undeclared Pillow dependency.
+version = '11.62.54-hotfix9' // Compile hotfix for zero-page TC4 research markers.
 // v11.62.54 gameplay baseline marker: version = '11.62.54'
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'

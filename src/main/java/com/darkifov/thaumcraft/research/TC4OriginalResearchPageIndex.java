@@ -102,7 +102,7 @@ public final class TC4OriginalResearchPageIndex {
         put(map, "FOCUSPOUCH",
                 page("TEXT", "tc.research_page.FOCUSPOUCH.1", "", "'tc.research_page.FOCUSPOUCH.1'"),
                 page("ARCANE_CRAFTING", "", "", "(IArcaneRecipe)recipes.get('FocusPouch')", "FocusPouch"));
-        put(map, "CAP_iron",
+        put(map, "CAP_iron");
         put(map, "CAP_gold",
                 page("TEXT", "tc.research_page.CAP_gold.1", "", "'tc.research_page.CAP_gold.1'"),
                 page("ARCANE_CRAFTING", "", "", "(IArcaneRecipe)recipes.get('WandCapGold')", "WandCapGold"));
@@ -117,7 +117,7 @@ public final class TC4OriginalResearchPageIndex {
                 page("TEXT", "tc.research_page.CAP_silver.1", "", "'tc.research_page.CAP_silver.1'"),
                 page("ARCANE_CRAFTING", "", "", "(IArcaneRecipe)recipes.get('WandCapSilverInert')", "WandCapSilverInert"),
                 page("INFUSION_CRAFTING", "", "", "(InfusionRecipe)recipes.get('WandCapSilver')", "WandCapSilver"));
-        put(map, "ROD_wood",
+        put(map, "ROD_wood");
         put(map, "ROD_greatwood",
                 page("TEXT", "tc.research_page.ROD_greatwood.1", "", "'tc.research_page.ROD_greatwood.1'"),
                 page("ARCANE_CRAFTING", "", "", "(IArcaneRecipe)recipes.get('WandRodGreatwood')", "WandRodGreatwood"));

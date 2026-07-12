@@ -9,7 +9,7 @@ modId="thaumcraft"
 # v11.62.25 compatibility marker: version="11.62.25"
 # v11.62.27 compatibility marker: version="11.62.27"
 # v11.62.28 compatibility marker: version="11.62.28"
-version="11.62.54-hotfix8"
+version="11.62.54-hotfix9"
 # v11.62.54 gameplay baseline marker: version="11.62.54"
 # v11.62.43 compatibility marker: version="11.62.43"
 # v11.62.36 compatibility marker: version="11.62.36"
@@ -139,6 +139,7 @@ v11.62.54-hotfix4 adds the Alchemical Furnace container GUI and revises the Cruc
 v11.62.54-hotfix5 restores strict TC4 research links (identical aspects cannot connect), adjacency-gated placement, Research Expertise component hints/refunds, and Research Mastery free-placement/Shift-combine behavior.
 v11.62.54-hotfix7 regenerates the complete 201-entry TC4 research graph and 591 ordered Thaumonomicon pages from the original 4.2.3.5 ConfigResearch source map, audits all research icons and book GUI assets, restores concealed-page removal and dynamic aspect pages, and recentres BEWLR wand transforms for visible first-person and inventory rendering.
 v11.62.54-hotfix8 removes the undeclared Pillow/PIL dependency from the complete research and Thaumonomicon audit. PNG dimensions are now validated directly from the IHDR header with the Python standard library, so a clean GitHub Actions runner reaches the Forge build instead of failing with ModuleNotFoundError.
+v11.62.54-hotfix9 fixes the generated TC4OriginalResearchPageIndex Java syntax for the zero-page CAP_iron and ROD_wood auto-unlock markers, and hardens the deterministic generator so the compile failure cannot be regenerated.
 '''
 
 [[dependencies.thaumcraft]]

@@ -114,7 +114,7 @@ def functionality(entry: dict[str, Any]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.54-hotfix8")
+    parser.add_argument("--version", default="11.62.54-hotfix9")
     parser.add_argument("--fail-on-problems", action="store_true")
     args = parser.parse_args()
 

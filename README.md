@@ -1,4 +1,4 @@
-# Thaumcraft Legacy Rebuild — v11.62.54-hotfix8
+# Thaumcraft Legacy Rebuild — v11.62.54-hotfix9
 
 Target: **Minecraft 1.19.2 / Forge 43.5.2 / Java 17**.
 
@@ -36,10 +36,10 @@ chmod +x gradlew
 Expected output:
 
 ```text
-build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix8.jar
+build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix9.jar
 ```
 
-See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R9.md` for the consolidated expert report, crash diagnosis and remaining work.
+See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R10.md` for the consolidated expert report, crash diagnosis and remaining work.
 
 ## v11.62.54-hotfix1
 
@@ -87,3 +87,12 @@ Fixes research puzzle parity: identical aspects no longer connect, new placement
 - Removes the undeclared Pillow dependency from `tc4_full_research_thaumonomicon_audit.py`.
 - Reads and validates PNG width/height directly from the standard PNG `IHDR` header using only Python's standard library.
 - Keeps corrupted/truncated PNGs as explicit audit failures instead of crashing before a report is written.
+
+
+## v11.62.54-hotfix9
+
+- Fixes the confirmed GitHub Actions Java compile errors in `TC4OriginalResearchPageIndex.java` at the `CAP_iron` and `ROD_wood` entries.
+- Correctly emits zero-page auto-unlock research markers as `put(map, key);`.
+- Fixes the deterministic research generator itself so regeneration cannot recreate the broken dangling statements.
+- Adds generator self-validation for both zero-page TC4 markers.
+- Extends the Java source guard with delimiter-balance checks and verifies the generated research index with Java 17.

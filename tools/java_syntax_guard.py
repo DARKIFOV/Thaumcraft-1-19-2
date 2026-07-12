@@ -107,6 +107,75 @@ def find_illegal_string_escapes(text: str):
             i += 1
 
 
+
+def find_delimiter_errors(text: str):
+    """Find unmatched (), [] and {} outside comments/string/char literals."""
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+    openers = set(pairs.values())
+    i = 0
+    n = len(text)
+    state = 'code'
+    while i < n:
+        ch = text[i]
+        nxt = text[i + 1] if i + 1 < n else ''
+        if state == 'line_comment':
+            if ch == '\n':
+                state = 'code'
+            i += 1
+            continue
+        if state == 'block_comment':
+            if ch == '*' and nxt == '/':
+                state = 'code'
+                i += 2
+            else:
+                i += 1
+            continue
+        if state == 'string':
+            if ch == '\\' and i + 1 < n:
+                i += 2
+            else:
+                if ch == '"':
+                    state = 'code'
+                i += 1
+            continue
+        if state == 'char':
+            if ch == '\\' and i + 1 < n:
+                i += 2
+            else:
+                if ch == "'":
+                    state = 'code'
+                i += 1
+            continue
+        if ch == '/' and nxt == '/':
+            state = 'line_comment'
+            i += 2
+            continue
+        if ch == '/' and nxt == '*':
+            state = 'block_comment'
+            i += 2
+            continue
+        if ch == '"':
+            state = 'string'
+            i += 1
+            continue
+        if ch == "'":
+            state = 'char'
+            i += 1
+            continue
+        if ch in openers:
+            stack.append((ch, i))
+        elif ch in pairs:
+            if not stack:
+                yield i, f'unexpected closing {ch}'
+            else:
+                opening, opening_index = stack.pop()
+                if opening != pairs[ch]:
+                    yield i, f'mismatched {opening} ... {ch}'
+        i += 1
+    for opening, index in reversed(stack):
+        yield index, f'unclosed {opening}'
+
 def line_col(text: str, index: int):
     line = text.count('\n', 0, index) + 1
     last_nl = text.rfind('\n', 0, index)
@@ -129,6 +198,10 @@ for path in (ROOT / 'src/main/java').rglob('*.java'):
     for _string_start, escape_index, escape in find_illegal_string_escapes(text):
         line, col = line_col(text, escape_index)
         errors.append(f'{rel}:{line}:{col}: illegal Java string escape {escape!r}; double regex backslashes, e.g. "\\\\d"')
+
+    for delimiter_index, message in find_delimiter_errors(text):
+        line, col = line_col(text, delimiter_index)
+        errors.append(f'{rel}:{line}:{col}: {message}')
 
 if errors:
     for error in errors:
