@@ -211,8 +211,13 @@ public class ThaumometerItem extends Item {
         }
         tag.putLong(TAG_PENDING_SCAN_TICK, now);
 
-        TC4ThaumometerTargeting.ScanTarget current = TC4ThaumometerTargeting.find(player, 1.0F);
-        if (!pendingMatches(stack, current)) {
+        // The client selected the target in the interaction packet. Repeating an
+        // exact server-side crosshair ray every tick is unreliable because player
+        // yaw/pitch packets arrive independently; tiny latency cancelled otherwise
+        // valid scans before the first camera-tick sound. Keep the original stable
+        // hold requirement by validating that the same stored object still exists,
+        // remains in range and still has aspects.
+        if (!pendingTargetStillValid(player, stack)) {
             clearPendingScans(stack);
             player.stopUsingItem();
             return;
@@ -263,7 +268,7 @@ public class ThaumometerItem extends Item {
             aspects = TC4EntityAspectRegistry.getAspectsForEntity(target);
             targetName = target.getDisplayName();
         }
-        if (aspects.isEmpty()) {
+        if (aspects.isEmpty() || !canUnderstandScan(player, aspects)) {
             return false;
         }
 
@@ -275,7 +280,7 @@ public class ThaumometerItem extends Item {
             firstPlayerScan = PlayerThaumData.markScannedEntity(player, modernId);
             addScannedEntity(stack, modernId); // Legacy per-thaumometer compatibility mirror.
         }
-        int learnedAspects = absorbScannedAspects(player, aspects);
+        int learnedAspects = firstPlayerScan ? absorbScannedAspects(player, aspects) : 0;
 
         Component entityScan = Component.translatable(firstPlayerScan
                         ? (droppedItem ? "thaumcraft.scan.block.new" : "thaumcraft.scan.entity.new")
@@ -318,12 +323,15 @@ public class ThaumometerItem extends Item {
             if (!node.initialized()) {
                 node.initializeFromPosition();
             }
+            if (!canUnderstandScan(player, node.aspects())) {
+                return false;
+            }
 
             boolean firstNodeScan = NodeScanData.markScanned(player, pos);
             boolean firstPlayerScan = PlayerThaumData.markScannedObject(player, TC4AuraNodeScanParity.LEGACY_OBJECT_ID);
             node.markScanned();
             addScannedNode(stack, pos);
-            int learnedAspects = absorbScannedAspects(player, node.aspects());
+            int learnedAspects = firstNodeScan ? absorbScannedAspects(player, node.aspects()) : 0;
 
             if (firstNodeScan || firstPlayerScan) {
                 player.displayClientMessage(TC4AuraNodeScanParity.header(node, true), false);
@@ -366,6 +374,9 @@ public class ThaumometerItem extends Item {
             // and legacy thaumometer NBT with air/unknown/decor placeholders.
             return false;
         }
+        if (!canUnderstandScan(player, aspects)) {
+            return false;
+        }
 
         ResourceLocation id = ForgeRegistries.BLOCKS.getKey(state.getBlock());
         String key = id == null ? "unknown" : id.toString();
@@ -374,7 +385,7 @@ public class ThaumometerItem extends Item {
         addScannedBlock(stack, key); // Stage159: keep old per-item NBT as a compatibility mirror.
         int scanCount = PlayerThaumData.getScanKnowledgeCount(player);
 
-        int learnedAspects = absorbScannedAspects(player, aspects);
+        int learnedAspects = firstPlayerScan ? absorbScannedAspects(player, aspects) : 0;
 
         Component blockScan = Component.translatable(firstPlayerScan
                         ? "thaumcraft.scan.block.new" : "thaumcraft.scan.block.known", state.getBlock().getName())
@@ -442,20 +453,27 @@ public class ThaumometerItem extends Item {
         }
     }
 
-    private boolean pendingMatches(ItemStack stack, TC4ThaumometerTargeting.ScanTarget target) {
+    private boolean pendingTargetStillValid(ServerPlayer player, ItemStack stack) {
         CompoundTag tag = stack.getTag();
-        if (tag == null || target == null || !target.isPresent()) {
+        if (tag == null || player == null) {
             return false;
         }
         if (tag.contains(TAG_PENDING_BLOCK_SCAN)) {
             CompoundTag pending = tag.getCompound(TAG_PENDING_BLOCK_SCAN);
-            BlockPos expected = new BlockPos(pending.getInt("x"), pending.getInt("y"), pending.getInt("z"));
-            return target.blockPos() != null && target.blockPos().equals(expected);
+            BlockPos pos = new BlockPos(pending.getInt("x"), pending.getInt("y"), pending.getInt("z"));
+            if (!player.level.isLoaded(pos) || !TC4AuraNodeScanParity.isWithinScanRange(player, pos)) {
+                return false;
+            }
+            TC4ThaumometerTargeting.ScanTarget target = TC4ThaumometerTargeting.forBlock(player, pos);
+            return target.isPresent() && target.hasAspects();
         }
-        if (tag.contains(TAG_PENDING_ENTITY_SCAN)) {
+        if (tag.contains(TAG_PENDING_ENTITY_SCAN) && player.level instanceof ServerLevel serverLevel) {
             CompoundTag pending = tag.getCompound(TAG_PENDING_ENTITY_SCAN);
-            return pending.hasUUID("uuid") && target.entity() != null
-                    && pending.getUUID("uuid").equals(target.entity().getUUID());
+            if (!pending.hasUUID("uuid")) {
+                return false;
+            }
+            Entity target = serverLevel.getEntity(pending.getUUID("uuid"));
+            return isStableEntityScanTarget(player, target);
         }
         return false;
     }
@@ -513,6 +531,24 @@ public class ThaumometerItem extends Item {
                 && (tag.contains(TAG_PENDING_BLOCK_SCAN) || tag.contains(TAG_PENDING_ENTITY_SCAN));
     }
 
+    private boolean canUnderstandScan(Player player, AspectList aspects) {
+        PlayerAspectKnowledge.seedPrimals(player);
+        for (Aspect aspect : aspects.entries().keySet()) {
+            if (aspect == null || aspect.isPrimal() || ResearchTableFoundation.componentsKnown(player, aspect)) {
+                continue;
+            }
+            Aspect missing = !PlayerAspectKnowledge.knows(player, aspect.firstComponent())
+                    ? aspect.firstComponent() : aspect.secondComponent();
+            Component missingName = missing == null
+                    ? Component.translatable("thaumcraft.message.research.not_understood")
+                    : Component.translatable("aspect.thaumcraft." + missing.id());
+            player.displayClientMessage(Component.translatable("tc.discoveryerror", missingName)
+                    .withStyle(ChatFormatting.RED), true);
+            return false;
+        }
+        return true;
+    }
+
     private int absorbScannedAspects(Player player, AspectList aspects) {
         PlayerThaumData.recordScannedAspects(player, aspects);
         ResearchTableFoundation.seed(player);
@@ -520,13 +556,25 @@ public class ThaumometerItem extends Item {
 
         for (Map.Entry<Aspect, Integer> entry : aspects.entries().entrySet()) {
             Aspect aspect = entry.getKey();
-            int amount = Math.max(1, entry.getValue());
-            PlayerAspectKnowledge.addPool(player, aspect, amount);
+            if (aspect == null || (!aspect.isPrimal() && !ResearchTableFoundation.componentsKnown(player, aspect))) {
+                // TC4 ScanManager.validScan refuses to award an aspect until both
+                // of its parent aspects are understood.  Recording the raw scan is
+                // harmless, but the research pool must not bypass that gate.
+                continue;
+            }
 
-            if (aspect.isPrimal() || ResearchTableFoundation.componentsKnown(player, aspect)) {
-                if (PlayerAspectKnowledge.discover(player, aspect)) {
-                    learned++;
-                }
+            boolean discoveredNow = PlayerAspectKnowledge.discover(player, aspect);
+            // The original ItemThaumometer completes scans with the "@" prefix.
+            // ScanManager therefore keeps the object's aspect magnitude and
+            // checkAndSyncAspectKnowledge adds two bonus points on first discovery.
+            // The one-point rule belongs to the separate "#" scan path and must
+            // not be applied to the handheld Thaumometer.
+            int reward = Math.max(0, entry.getValue()) + (discoveredNow ? 2 : 0);
+            if (reward > 0) {
+                PlayerAspectKnowledge.addPool(player, aspect, reward);
+            }
+            if (discoveredNow) {
+                learned++;
             }
         }
 

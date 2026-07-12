@@ -184,10 +184,15 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
             }
         } else if (transformType.firstPerson()) {
             boolean left = transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
-            poseStack.translate(left ? -0.18D : 0.18D, -0.28D, 0.04D);
-            poseStack.scale(0.62F, 0.68F, 0.62F);
+            // v11.62.50 runtime fix. The previous adapter moved the whole 18 px
+            // ModelWand rod below the BEWLR hand origin before the 180 degree
+            // rotation, so in first person the wand was completely outside the
+            // camera frustum. Keep the TC4 held orientation, but translate the
+            // model into the visible lower-right/lower-left hand area first.
+            poseStack.translate(left ? -0.34D : 0.34D, 0.48D, 0.12D);
+            poseStack.scale(0.86F, 0.94F, 0.86F);
             poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(left ? -24.0F : 24.0F));
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(left ? -18.0F : 18.0F));
             applyFocusUseAnimation(stack, poseStack, true);
             return;
         } else if (transformType == ItemTransforms.TransformType.GROUND || transformType == ItemTransforms.TransformType.FIXED) {

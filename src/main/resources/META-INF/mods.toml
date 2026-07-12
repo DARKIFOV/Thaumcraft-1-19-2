@@ -9,7 +9,7 @@ modId="thaumcraft"
 # v11.62.25 compatibility marker: version="11.62.25"
 # v11.62.27 compatibility marker: version="11.62.27"
 # v11.62.28 compatibility marker: version="11.62.28"
-version="11.62.49"
+version="11.62.54"
 # v11.62.43 compatibility marker: version="11.62.43"
 # v11.62.36 compatibility marker: version="11.62.36"
 # v11.62.29 compatibility marker: version="11.62.29"
@@ -110,6 +110,7 @@ displayName="Thaumcraft Legacy Rebuild"
 authors="DARKIFOV"
 description='''
 Forge 1.19.2 source-driven parity port of original Thaumcraft 4.2.3.5.
+v11.62.53 restores the original TC4 wand-to-node floaty drain beam, including the hand offset, crossed textured strips, width, animation speed and colour smoothing. It also clears stale drain state on release or failed transfer, removes invented drain particles, and fixes Thaumometer lighting so only the glass/readout receives the original 190..210 lightmap pulse while the body uses ambient world light.
 v11.62.49 corrects the Aspect Orb lifetime scale to the original floating-point operator order, preserves the exact +120 raw lightmap boost, restores lava motion/fizz behavior and keeps both the orb-local cooldown and the original player XP pickup gate.
 v11.62.48 restores the original unstable aura-node stability loop and ports the
 collectible Aspect Orb entity. Unstabilized unstable nodes now eject a random
@@ -149,3 +150,6 @@ side="BOTH"
 # compact-batch compatibility marker: version="10.22.0"
 
 # compatibility marker for audits: version="10.62.0"
+
+
+v11.62.54 restores the original TC4 32x32 top-left wand vis dial (with optional bottom placement), focus/picked-block centre icon, cooldown readout, exact sneaking values and session reset. Focus cycling now follows the original TreeMap sorting/overwrite order and performs transactional swaps so a full inventory cannot eject or lose the installed focus.

@@ -19,7 +19,7 @@ models_root = assets / "thaumcraft/models/item"
 manifest_file = root / "src/main/resources/data/thaumcraft/tc4_source_mapping/tc4_1710_asset_inventory.json"
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--version", default="11.62.43")
+parser.add_argument("--version", default="11.62.54")
 parser.add_argument("--fail-on-missing", action="store_true")
 args = parser.parse_args()
 

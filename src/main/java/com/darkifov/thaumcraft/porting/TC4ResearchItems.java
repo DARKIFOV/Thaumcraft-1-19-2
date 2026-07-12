@@ -18,8 +18,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -372,6 +375,16 @@ public final class TC4ResearchItems {
         FIELD_TEXTURE.put("itemHandMirror", "mirrorhand");
         FIELD_TEXTURE.put("itemInkwell", "inkwell");
         FIELD_TEXTURE.put("itemLootbag", "lootbag");
+        FIELD_TEXTURE.put("itemPickElemental", "elementalpick");
+        FIELD_TEXTURE.put("itemPickThaumium", "thaumiumpick");
+        FIELD_TEXTURE.put("itemPickVoid", "voidpick");
+        FIELD_TEXTURE.put("itemShovelElemental", "elementalshovel");
+        FIELD_TEXTURE.put("itemShovelThaumium", "thaumiumshovel");
+        FIELD_TEXTURE.put("itemShovelVoid", "voidshovel");
+        FIELD_TEXTURE.put("itemAxeElemental", "elementalaxe");
+        FIELD_TEXTURE.put("itemAxeThaumium", "thaumiumaxe");
+        FIELD_TEXTURE.put("itemSwordElemental", "elementalsword");
+        FIELD_TEXTURE.put("itemSwordThaumium", "thaumiumsword");
         FIELD_TEXTURE.put("itemNugget", "nuggetiron");
         FIELD_TEXTURE.put("itemPrimalCrusher", "primal_crusher");
         FIELD_TEXTURE.put("itemResearchNotes", "researchnotes");
@@ -600,8 +613,139 @@ public final class TC4ResearchItems {
         return texture == null ? Optional.empty() : byLegacyTexture(texture);
     }
 
+    /**
+     * Resolves a preserved 1.7.10 recipe expression to a real 1.19.2 stack.
+     *
+     * <p>The old book renderer only resolved {@code ConfigItems.itemResource}
+     * style metadata entries. As a result catalysts, vanilla ingredients,
+     * blocks and most tools appeared as empty beige squares in the runtime
+     * Thaumonomicon. This method is deliberately broader: it resolves the
+     * de-metadata'd TC4 registry mirror first, then functional block replacements,
+     * vanilla MCP fields and common ore-dictionary literals.</p>
+     */
+    public static Optional<ItemStack> resolveLegacyStack(String expression) {
+        if (expression == null || expression.isBlank()) return Optional.empty();
+
+        String compact = expression.replace(" ", "");
+        // Resolve metadata-heavy ConfigBlocks families before the generic
+        // source-ledger aliases. Otherwise blockTable/blockStoneDevice can be
+        // captured by a visually similar component item and the book shows an
+        // icon that cannot actually be placed or crafted.
+        ItemStack blockReplacement = resolveFunctionalBlockStack(compact);
+        if (!blockReplacement.isEmpty()) return Optional.of(blockReplacement);
+
+        Optional<Entry> entry = resolveLegacyExpression(expression);
+        if (entry.isPresent()) {
+            RegistryObject<Item> object = registered.get(entry.get().id());
+            if (object != null && object.isPresent()) {
+                return Optional.of(new ItemStack(object.get()));
+            }
+            Item registryItem = ForgeRegistries.ITEMS.getValue(entry.get().registryName());
+            if (registryItem != null && registryItem != Items.AIR) {
+                return Optional.of(new ItemStack(registryItem));
+            }
+        }
+
+        Item vanilla = resolveVanillaItem(compact);
+        if (vanilla != null && vanilla != Items.AIR) return Optional.of(new ItemStack(vanilla));
+
+        String ore = expression.replace(Character.toString((char) 39), "")
+                .replace(Character.toString((char) 34), "")
+                .trim();
+        Item oreRepresentative = switch (ore) {
+            case "slabWood" -> Blocks.OAK_SLAB.asItem();
+            case "plankWood" -> Blocks.OAK_PLANKS.asItem();
+            case "logWood" -> Blocks.OAK_LOG.asItem();
+            case "stickWood" -> Items.STICK;
+            case "dustGlowstone" -> Items.GLOWSTONE_DUST;
+            case "dustRedstone" -> Items.REDSTONE;
+            case "oreIron" -> Blocks.IRON_ORE.asItem();
+            case "oreGold" -> Blocks.GOLD_ORE.asItem();
+            case "nuggetIron" -> Items.IRON_NUGGET;
+            case "nuggetGold" -> Items.GOLD_NUGGET;
+            case "gemDiamond" -> Items.DIAMOND;
+            case "ingotIron" -> Items.IRON_INGOT;
+            case "ingotGold" -> Items.GOLD_INGOT;
+            default -> Items.AIR;
+        };
+        return oreRepresentative == Items.AIR ? Optional.empty() : Optional.of(new ItemStack(oreRepresentative));
+    }
+
     public static String resolveLegacyExpressionLabel(String expression) {
-        return resolveLegacyExpression(expression).map(e -> e.registryName().toString()).orElse("");
+        return resolveLegacyStack(expression)
+                .map(stack -> String.valueOf(ForgeRegistries.ITEMS.getKey(stack.getItem())))
+                .orElse("");
+    }
+
+    private static ItemStack resolveFunctionalBlockStack(String compact) {
+        String id = null;
+        if (compact.contains("ConfigBlocks.blockTable")) {
+            int meta = expressionMeta(compact);
+            id = meta == 1 ? "research_table" : meta == 15 ? "arcane_workbench" : "table";
+        } else if (compact.contains("ConfigBlocks.blockMagicalLog")) {
+            id = expressionMeta(compact) == 1 ? "silverwood_log" : "greatwood_log";
+        } else if (compact.contains("ConfigBlocks.blockJar")) {
+            int meta = expressionMeta(compact);
+            id = meta == 3 ? "void_essentia_jar" : "essentia_jar";
+        } else if (compact.contains("ConfigBlocks.blockStoneDevice")) {
+            int meta = expressionMeta(compact);
+            id = switch (meta) {
+                case 1 -> "arcane_pedestal";
+                case 2 -> "infusion_matrix";
+                case 9 -> "node_stabilizer";
+                case 10 -> "advanced_node_stabilizer";
+                case 11 -> "node_transducer";
+                case 12 -> "arcane_spa";
+                case 13 -> "focal_manipulator";
+                default -> null;
+            };
+        } else if (compact.contains("ConfigBlocks.blockAiry") && expressionMeta(compact) == 5) {
+            id = "aura_node";
+        }
+        if (id == null) return ItemStack.EMPTY;
+        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", id));
+        return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
+    }
+
+    private static int expressionMeta(String compact) {
+        java.util.regex.Matcher matcher = java.util.regex.Pattern
+                .compile("newItemStack\\([^,()]+(?:\\.[^,()]+)?(?:,(-?\\d+))?(?:,(-?\\d+))?\\)")
+                .matcher(compact);
+        if (!matcher.find()) return 0;
+        String meta = matcher.group(2);
+        if (meta == null) return 0;
+        try { return Integer.parseInt(meta); } catch (NumberFormatException ignored) { return 0; }
+    }
+
+    private static Item resolveVanillaItem(String compact) {
+        // MCP 1.7.10 fields used by the preserved ConfigRecipes source. Keep
+        // this explicit so the book never guesses a visually unrelated item.
+        if (compact.contains("Items.field_151045_i")) return Items.DIAMOND;
+        if (compact.contains("Items.field_151042_j")) return Items.IRON_INGOT;
+        if (compact.contains("Items.field_151043_k")) return Items.GOLD_INGOT;
+        if (compact.contains("Items.field_151044_h")) return Items.COAL;
+        if (compact.contains("Items.field_151016_H")) return Items.GUNPOWDER;
+        if (compact.contains("Items.field_151123_aH")) return Items.SLIME_BALL;
+        if (compact.contains("Items.field_151119_aD")) return Items.CLAY_BALL;
+        if (compact.contains("Items.field_151114_aO")) return Items.GLOWSTONE_DUST;
+        if (compact.contains("Items.field_151100_aR")) return Items.INK_SAC;
+        if (compact.contains("Items.field_151007_F")) return Items.STRING;
+        if (compact.contains("Items.field_151103_aS")) return Items.BONE;
+        if (compact.contains("Items.field_151074_bl")) return Items.GOLD_NUGGET;
+        if (compact.contains("Items.field_151014_N")) return Items.ENDER_PEARL;
+        if (compact.contains("Items.field_151078_bh")) return Items.ROTTEN_FLESH;
+        if (compact.contains("Items.field_151065_br")) return Items.QUARTZ;
+
+        if (compact.contains("Blocks.field_150359_w")) return Blocks.GLASS.asItem();
+        if (compact.contains("Blocks.field_150342_X")) return Blocks.BOOKSHELF.asItem();
+        if (compact.contains("Blocks.field_150410_aZ")) return Blocks.GLASS_PANE.asItem();
+        if (compact.contains("Blocks.field_150343_Z")) return Blocks.OBSIDIAN.asItem();
+        if (compact.contains("Blocks.field_150347_e")) return Blocks.COBBLESTONE.asItem();
+        if (compact.contains("Blocks.field_150341_Y")) return Blocks.MOSSY_COBBLESTONE.asItem();
+        if (compact.contains("Blocks.field_150432_aD")) return Blocks.ICE.asItem();
+        if (compact.contains("Blocks.field_150433_aE")) return Blocks.PACKED_ICE.asItem();
+        if (compact.contains("Blocks.field_150417_aV")) return Blocks.STONE_BRICKS.asItem();
+        return Items.AIR;
     }
 
     private static String textureFromExpression(String expression) {
@@ -616,6 +760,31 @@ public final class TC4ResearchItems {
         if (compact.contains("ConfigItems.itemGolemUpgrade")) return resolveMeta(compact, GOLEM_UPGRADE_META, "itemGolemUpgrade");
         for (Map.Entry<String, String> e : FIELD_TEXTURE.entrySet()) {
             if (compact.contains("ConfigItems." + e.getKey())) return e.getValue();
+        }
+        // Non-metadata equipment fields (itemPickElemental, itemPickThaumium,
+        // etc.) are already represented by ENTRIES. Derive those mappings from
+        // the source ledger instead of maintaining another fragile hand list.
+        for (Entry entry : ENTRIES) {
+            java.util.regex.Matcher itemField = java.util.regex.Pattern
+                    .compile("ConfigItems\\.([A-Za-z0-9_]+)")
+                    .matcher(entry.originalSource());
+            if (itemField.find() && compact.contains("ConfigItems." + itemField.group(1))) {
+                return entry.legacyTexture();
+            }
+        }
+        // The same fallback covers de-metadata'd block aliases. Metadata-heavy
+        // block families are resolved to functional replacements by
+        // resolveFunctionalBlockStack before this path is needed.
+        int requestedMeta = expressionMeta(compact);
+        for (Entry entry : ENTRIES) {
+            java.util.regex.Matcher blockField = java.util.regex.Pattern
+                    .compile("ConfigBlocks\\.([A-Za-z0-9_]+)")
+                    .matcher(entry.originalSource());
+            if (!blockField.find() || !compact.contains("ConfigBlocks." + blockField.group(1))) continue;
+            java.util.regex.Matcher sourceMeta = java.util.regex.Pattern.compile("meta\\s+(-?\\d+)").matcher(entry.originalSource());
+            if (!sourceMeta.find() || Integer.parseInt(sourceMeta.group(1)) == requestedMeta) {
+                return entry.legacyTexture();
+            }
         }
         return null;
     }

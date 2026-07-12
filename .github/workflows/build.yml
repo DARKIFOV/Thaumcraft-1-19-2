@@ -70,16 +70,16 @@ jobs:
         run: python3 tools/runtime_fix_guard.py
 
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.49 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.54 --fail-on-missing
 
       - name: Audit parent chains and display transforms
-        run: python3 tools/model_transform_audit.py --version 11.62.49 --fail-on-problems
+        run: python3 tools/model_transform_audit.py --version 11.62.54 --fail-on-problems
 
       - name: Audit Forge builtin entity render contracts
-        run: python3 tools/bewlr_contract_audit.py --version 11.62.49 --fail-on-problems
+        run: python3 tools/bewlr_contract_audit.py --version 11.62.54 --fail-on-problems
 
       - name: Audit aura node, node jar and stabilizer parity
-        run: python3 tools/aura_node_parity_audit.py --version 11.62.49 --fail-on-problems
+        run: python3 tools/aura_node_parity_audit.py --version 11.62.54 --fail-on-problems
 
       - name: Validate v11.62.45 parity fixes
         run: python3 tools/tc4_116245_parity_guard.py
@@ -96,13 +96,35 @@ jobs:
       - name: Validate v11.62.49 Aspect Orb renderer and entity parity
         run: python3 tools/tc4_116249_aspect_orb_parity_guard.py
 
+      - name: Validate v11.62.50 real-client screenshot fixes
+        run: python3 tools/tc4_116250_runtime_screenshot_guard.py
+
+      - name: Validate v11.62.51 research, scan and node-tag parity
+        run: python3 tools/tc4_116251_research_scan_hud_guard.py
+
+      - name: Validate v11.62.52 runtime-risk hardening
+        run: python3 tools/tc4_116252_runtime_risk_guard.py
+
+      - name: Validate v11.62.53 wand beam and Thaumometer lighting
+        run: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py
+
+      - name: Validate v11.62.54 original wand HUD and focus cycling
+        run: python3 tools/tc4_116254_focus_hud_cycle_guard.py
+
       - name: Validate registry and resources
-        run: python3 tools/audit_registry.py --version 11.62.49 --fail-on-unexpected
+        run: python3 tools/audit_registry.py --version 11.62.54 --fail-on-unexpected
 
       - name: Build Forge JAR
         run: |
           chmod +x gradlew
           ./gradlew build --stacktrace --no-daemon
+
+      - name: Audit complete release JAR contents
+        shell: bash
+        run: |
+          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
+          test -n "$MAIN_JAR"
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54 --report reports/release_jar_audit_v11.62.54.json
 
       - name: Calculate checksums
         shell: bash
@@ -111,16 +133,16 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp THAUMCRAFT_V11_62_49_FULL_REPORT.md build/release/
-          cp reports/*11.62.49.json build/release/
+          cp THAUMCRAFT_V11_62_54_FULL_REPORT.md build/release/
+          cp reports/*11.62.54.json build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.49
+          name: thaumcraft-legacy-rebuild-v11.62.54
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/THAUMCRAFT_V11_62_49_FULL_REPORT.md
-            build/release/*11.62.49.json
+            build/release/THAUMCRAFT_V11_62_54_FULL_REPORT.md
+            build/release/*11.62.54.json

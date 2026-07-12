@@ -14,9 +14,11 @@ if not packet_path.exists():
     problems.append('missing explicit Forge client->server scan packet')
 else:
     packet = packet_path.read_text()
-    for token in ['TC4ThaumometerTargeting.find(player, 1.0F)', 'beginBlockScan', 'beginEntityScan', 'context.setPacketHandled(true)']:
+    for token in ['beginBlockScan', 'beginEntityScan', 'context.setPacketHandled(true)', 'target validity and server-authoritative aspect availability']:
         if token not in packet:
             problems.append(f'scan packet missing {token}')
+    if 'TC4ThaumometerTargeting.find(player, 1.0F)' in packet:
+        problems.append('scan packet reintroduced the one-tick-late exact server ray that broke runtime scans')
 if 'RequestThaumometerScanPacket.class' not in network:
     problems.append('scan packet is not registered')
 for token in ['RequestThaumometerScanPacket.block', 'RequestThaumometerScanPacket.entity', 'sendToServer']:
@@ -42,4 +44,4 @@ if problems:
     for problem in problems:
         print(' -', problem)
     raise SystemExit(1)
-print('Thaumometer scan guard: OK (explicit Forge packet, server ray validation, 25/20 tick TC4 hold)')
+print('Thaumometer scan guard: OK (explicit Forge packet, latency-tolerant server target validation, 25/20 tick TC4 hold)')

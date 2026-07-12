@@ -31,7 +31,7 @@ CHECKS = [
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.49")
+    parser.add_argument("--version", default="11.62.54")
     parser.add_argument("--fail-on-problems", action="store_true")
     args = parser.parse_args()
 

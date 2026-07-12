@@ -44,9 +44,11 @@ for token in [
     "u = secondary ? 230 : 86",
     "float iconBrightness = complete ? 1.0F : available ? frameBrightness : 0.10F",
     "requestCompleteSelectedResearchFromClient(selected.key())",
-    "Math.round(153.0F * (active ? 1.0F : phase))",
 ]:
     require(book, token, "Thaumonomicon")
+if ("Math.round(153.0F * (active ? 1.0F : phase))" not in book
+        and "float alpha = 0.60F" not in book):
+    errors.append("Thaumonomicon: missing TC4 0.6 line alpha")
 for token in ["renderBrowserHeader", "requestSelectResearchFromClient(selected.key())", "0xAAFFE08A"]:
     forbid(book, token, "Thaumonomicon")
 

@@ -288,7 +288,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--fail-on-unexpected", action="store_true")
-    parser.add_argument("--version", default="11.62.49")
+    parser.add_argument("--version", default="11.62.54")
     args = parser.parse_args()
     return run(args.root.resolve(), args.fail_on_unexpected, args.version)
 

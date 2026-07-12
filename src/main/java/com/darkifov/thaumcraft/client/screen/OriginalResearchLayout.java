@@ -37,12 +37,12 @@ final class OriginalResearchLayout {
         return OriginalResearchCategory.byKey(entry.category());
     }
 
-    static int mapX(ResearchEntry entry, int panX) {
-        return entry.displayColumn() * CELL - panX;
+    static int mapX(ResearchEntry entry, double panX) {
+        return (int)Math.floor(entry.displayColumn() * CELL - panX);
     }
 
-    static int mapY(ResearchEntry entry, int panY) {
-        return entry.displayRow() * CELL - panY;
+    static int mapY(ResearchEntry entry, double panY) {
+        return (int)Math.floor(entry.displayRow() * CELL - panY);
     }
 
     static Bounds boundsFor(OriginalResearchCategory category) {
@@ -106,7 +106,11 @@ final class OriginalResearchLayout {
     }
 
     static boolean special(ResearchEntry entry) {
-        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.SPECIAL) || entry.warp() > 0;
+        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.SPECIAL);
+    }
+
+    static boolean forbidden(ResearchEntry entry) {
+        return entry.warp() > 0;
     }
 
     static String shortTitle(String title) {

@@ -105,8 +105,8 @@ require(client, "EntityRenderers.register(ThaumcraftMod.ASPECT_ORB.get(), Aspect
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116248_node_orb_guard.py", workflow_name)
-    if "THAUMCRAFT_V11_62_48_FULL_REPORT.md" not in workflow and "THAUMCRAFT_V11_62_49_FULL_REPORT.md" not in workflow:
-        ERRORS.append(f"{workflow_name}: missing consolidated release report")
+    if "THAUMCRAFT_V11_62_" not in workflow or "FULL_REPORT.md" not in workflow:
+        ERRORS.append(f"{workflow_name}: missing consolidated current report")
 
 if ERRORS:
     print("v11.62.48 node/orb guard: FAIL")

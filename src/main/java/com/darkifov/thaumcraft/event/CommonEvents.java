@@ -9,6 +9,7 @@ import com.darkifov.thaumcraft.network.RequestThaumometerScanPacket;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
 import com.darkifov.thaumcraft.research.OriginalResearchProgression;
+import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
 import com.darkifov.thaumcraft.runic.TC4FortressArmorRuntime;
 import com.darkifov.thaumcraft.runic.TC4FortressMaskRuntime;
@@ -224,6 +225,7 @@ public final class CommonEvents {
 
         if (event.getEntity() instanceof ServerPlayer player && event.getOriginal() instanceof ServerPlayer oldPlayer) {
             PlayerThaumData.copyFrom(oldPlayer, player);
+            PlayerAspectKnowledge.copyFrom(oldPlayer, player);
             ThaumcraftNetwork.syncResearch(player);
             ThaumcraftNetwork.syncAspectKnowledge(player);
             ThaumcraftNetwork.syncScanKnowledge(player);

@@ -144,6 +144,22 @@ public class FocusPouchItem extends Item {
         return out;
     }
 
+    /** Restore a focus to the exact pouch slot it came from during a failed transactional swap. */
+    public static boolean putFocusAt(ItemStack pouch, int slot, ItemStack focus) {
+        if (focus.isEmpty() || !(focus.getItem() instanceof WandFocusItem)) {
+            return false;
+        }
+        ItemStack[] inv = getInventory(pouch);
+        if (slot < 0 || slot >= inv.length || (inv[slot] != null && !inv[slot].isEmpty())) {
+            return false;
+        }
+        ItemStack copy = focus.copy();
+        copy.setCount(1);
+        inv[slot] = copy;
+        setInventory(pouch, inv);
+        return true;
+    }
+
     public static String sortingHelper(ItemStack stack) {
         if (stack.getItem() instanceof WandFocusItem focusItem) {
             return sortKey(focusItem.focusType(), stack);

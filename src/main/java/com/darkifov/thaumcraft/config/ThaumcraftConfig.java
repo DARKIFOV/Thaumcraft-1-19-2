@@ -36,6 +36,7 @@ public final class ThaumcraftConfig {
     public static final ForgeConfigSpec.IntValue RUNIC_SHIELD_COST;
 
     public static final ForgeConfigSpec.BooleanValue CHAMPION_MOBS;
+    public static final ForgeConfigSpec.BooleanValue WAND_DIAL_BOTTOM;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -76,6 +77,10 @@ public final class ThaumcraftConfig {
 
         builder.push("champions");
         CHAMPION_MOBS = builder.comment("TC4 Config.championMobs: allow natural champion mob generation; dangerous places can still force a reduced chance when disabled.").define("championMobs", true);
+        builder.pop();
+
+        builder.push("client_parity");
+        WAND_DIAL_BOTTOM = builder.comment("TC4 Config.wand_dial_bottom: place the 32x32 wand vis dial at the bottom-left instead of its original top-left default.").define("wandDialBottom", false);
         builder.pop();
 
         builder.push("runic_shielding");

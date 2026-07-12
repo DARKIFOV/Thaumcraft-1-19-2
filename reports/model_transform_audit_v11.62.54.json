@@ -1,6 +1,6 @@
 {
   "stats": {
-    "version": "11.62.49",
+    "version": "11.62.54",
     "item_models": 690,
     "parse_errors": 0,
     "parent_cycles": 0,
@@ -23,8 +23,8 @@
     },
     "parent_depth_counts": {
       "0": 1,
-      "1": 540,
-      "2": 149
+      "1": 541,
+      "2": 148
     }
   },
   "parse_errors": [],
@@ -353,13 +353,12 @@
     {
       "model": "arcane_workbench",
       "parent": "thaumcraft:block/arcane_workbench",
-      "terminal_parent": "external:minecraft:block/cube",
+      "terminal_parent": "root",
       "chain": [
         "thaumcraft:item/arcane_workbench",
-        "thaumcraft:block/arcane_workbench",
-        "minecraft:block/cube"
+        "thaumcraft:block/arcane_workbench"
       ],
-      "chain_depth": 2,
+      "chain_depth": 1,
       "builtin_entity": false,
       "explicit_display": [],
       "effective_display": [],

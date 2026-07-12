@@ -240,6 +240,24 @@ public class AuraNodeBlockEntity extends BlockEntity {
         setChangedAndSync();
     }
 
+    /**
+     * Original TileNode clears drainEntity/drainCollision whenever the current
+     * five-tick tap fails, the player looks away, or wand use stops. Keeping a
+     * stale entity id for a fixed grace window made the rebuilt beam linger
+     * after release and made a full wand look as if it was still draining.
+     */
+    public void clearWandDrain(Player drainer) {
+        if (drainer != null && lastDrainerEntityId >= 0 && lastDrainerEntityId != drainer.getId()) {
+            return;
+        }
+        if (lastDrainerEntityId < 0 && lastDrainGameTime <= Long.MIN_VALUE / 8L) {
+            return;
+        }
+        lastDrainerEntityId = -1;
+        lastDrainGameTime = Long.MIN_VALUE / 4L;
+        setChangedAndSync();
+    }
+
     public int lastDrainColor() {
         return lastDrainColor;
     }

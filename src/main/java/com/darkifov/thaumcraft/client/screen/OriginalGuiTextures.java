@@ -91,13 +91,22 @@ final class OriginalGuiTextures {
     static void blitOriginalScaledTintedAlpha(PoseStack poseStack, int x, int y, ResourceLocation texture,
                                               int sourceWidth, int sourceHeight, int destWidth, int destHeight,
                                               int rgb, float alpha) {
+        blitOriginalScaledTintedAlpha(poseStack, x, y, texture, 0, 0, sourceWidth, sourceHeight,
+                destWidth, destHeight, sourceWidth, sourceHeight, rgb, alpha);
+    }
+
+    static void blitOriginalScaledTintedAlpha(PoseStack poseStack, int x, int y, ResourceLocation texture,
+                                              int u, int v, int sourceWidth, int sourceHeight,
+                                              int destWidth, int destHeight, int sheetWidth, int sheetHeight,
+                                              int rgb, float alpha) {
         float red = ((rgb >> 16) & 255) / 255.0F;
         float green = ((rgb >> 8) & 255) / 255.0F;
         float blue = (rgb & 255) / 255.0F;
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderColor(red, green, blue, Math.max(0.0F, Math.min(1.0F, alpha)));
-        blitOriginalScaled(poseStack, x, y, texture, sourceWidth, sourceHeight, destWidth, destHeight);
+        blitOriginalScaledRegion(poseStack, x, y, texture, u, v, sourceWidth, sourceHeight,
+                destWidth, destHeight, sheetWidth, sheetHeight);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 

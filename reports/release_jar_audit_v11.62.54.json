@@ -1,0 +1,10 @@
+{
+  "version": "11.62.54",
+  "jar": "thaumcraft_legacy_rebuild_1.19.2-11.62.54.jar",
+  "jar_sha256": "cffd688df8b819443abb42195ad6271f23c901f6d0fac648088382576728afd7",
+  "resource_files_checked": 6120,
+  "primary_classes_checked": 503,
+  "missing_or_mismatched": 0,
+  "status": "OK",
+  "errors": []
+}

@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -98,11 +99,32 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         poseStack.translate(0.5D, 0.5D, 0.5D);
         applyScannerTransform(transformType, poseStack);
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(SCANNER));
-        int light = Math.max(packedLight, 15728880);
-        renderOriginalScannerObj(poseStack.last().pose(), consumer, light);
-        renderScannerScreen(poseStack, buffer, light);
-        renderOriginalScanReadout(stack, transformType, poseStack, buffer, light);
+        int bodyLight = packedLight;
+        int screenLight = originalScannerScreenLight(packedLight);
+        renderOriginalScannerObj(poseStack.last().pose(), consumer, bodyLight);
+        renderScannerScreen(poseStack, buffer, screenLight);
+        renderOriginalScanReadout(stack, transformType, poseStack, buffer, screenLight);
         poseStack.popPose();
+    }
+
+
+    /**
+     * ItemThaumometerRenderer keeps the scanner body at ambient light and only
+     * raises the glass/readout to the original 190..210 lightmap coordinate.
+     * Comparing packed-light integers (the old Math.max path) mixed block and
+     * sky bit fields and effectively washed the entire item out at fullbright.
+     */
+    private int originalScannerScreenLight(int packedLight) {
+        Minecraft minecraft = Minecraft.getInstance();
+        float ticks = minecraft.player == null
+                ? 0.0F
+                : minecraft.player.tickCount + minecraft.getFrameTime();
+        int jitter = minecraft.player == null ? 0 : (minecraft.player.tickCount & 1);
+        int originalCoordinate = (int)(190.0F + Mth.sin(ticks - jitter) * 10.0F + 10.0F);
+        int ambientBlock = (packedLight >> 4) & 15;
+        int ambientSky = (packedLight >> 20) & 15;
+        int scannerBlock = Mth.clamp(Math.round(originalCoordinate / 16.0F), 0, 15);
+        return (Math.max(ambientBlock, scannerBlock) << 4) | (ambientSky << 20);
     }
 
     private void applyScannerTransform(ItemTransforms.TransformType transformType, PoseStack poseStack) {
@@ -152,18 +174,16 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         // scanner.obj is remapped into the XY plane; the scan screen sits just
         // above the centre opening, as in TC4 ItemThaumometerRenderer.
         poseStack.translate(0.0D, 0.0D, 0.036D);
-        float pulse = 0.86F + 0.08F * (float)Math.sin((Minecraft.getInstance().level == null
-                ? 0.0D : Minecraft.getInstance().level.getGameTime()) * 0.18D);
         float half = 0.215F;
         Matrix4f matrix = poseStack.last().pose();
         VertexConsumer screen = buffer.getBuffer(RenderType.entityTranslucent(SCANNER_SCREEN));
-        screen.vertex(matrix, -half, -half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(0.0F,1.0F)
+        screen.vertex(matrix, -half, -half, 0.0F).color(255,255,255,255).uv(0.0F,1.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
-        screen.vertex(matrix, half, -half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(1.0F,1.0F)
+        screen.vertex(matrix, half, -half, 0.0F).color(255,255,255,255).uv(1.0F,1.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
-        screen.vertex(matrix, half, half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(1.0F,0.0F)
+        screen.vertex(matrix, half, half, 0.0F).color(255,255,255,255).uv(1.0F,0.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
-        screen.vertex(matrix, -half, half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(0.0F,0.0F)
+        screen.vertex(matrix, -half, half, 0.0F).color(255,255,255,255).uv(0.0F,0.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
         poseStack.popPose();
     }

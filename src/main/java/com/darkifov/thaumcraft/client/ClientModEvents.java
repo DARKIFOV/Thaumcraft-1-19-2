@@ -40,6 +40,7 @@ import com.darkifov.thaumcraft.client.render.TC4EldritchGuardianRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchCrabRenderer;
 import com.darkifov.thaumcraft.client.render.model.TC4EldritchBossLayerDefinitions;
 import com.darkifov.thaumcraft.client.render.model.TC4FireBatModel;
+import com.darkifov.thaumcraft.client.render.model.TC4InfusionMatrixModel;
 import com.darkifov.thaumcraft.client.render.model.TC4ThaumGolemModel;
 import com.darkifov.thaumcraft.client.render.model.TC4GolemAccessoriesModel;
 import com.darkifov.thaumcraft.client.render.TC4EldritchWardenRenderer;
@@ -176,6 +177,7 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TC4FireBatModel.LAYER, TC4FireBatModel::createBodyLayer);
+        event.registerLayerDefinition(TC4InfusionMatrixModel.LAYER, TC4InfusionMatrixModel::createBodyLayer);
         event.registerLayerDefinition(TC4ThaumGolemModel.LAYER, TC4ThaumGolemModel::createBodyLayer);
         event.registerLayerDefinition(TC4GolemAccessoriesModel.LAYER, TC4GolemAccessoriesModel::createBodyLayer);
         event.registerLayerDefinition(TC4EldritchBossLayerDefinitions.ELDRITCH_GUARDIAN, TC4EldritchBossLayerDefinitions::createGuardianBodyLayer);

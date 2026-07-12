@@ -95,7 +95,7 @@ scanner_targeting = (ROOT / "src/main/java/com/darkifov/thaumcraft/aura/TC4Thaum
 require("nearestBlockDistance" in scanner_targeting and "Kind.ITEM" in scanner_targeting,
         "Shared scanner ray no longer blocks through-wall entities or dropped-item scans")
 scanner_item = (ROOT / "src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java").read_text(encoding="utf-8")
-require("elapsed >= REQUIRED_STABLE_TICKS" in scanner_item and "pendingMatches" in scanner_item,
+require("elapsed >= REQUIRED_STABLE_TICKS" in scanner_item and "pendingTargetStillValid" in scanner_item,
         "Thaumometer no longer requires the original twenty stable scan ticks")
 require("syncScanKnowledge" in scanner_item and "ItemEntity" in scanner_item,
         "Thaumometer scan completion no longer synchronizes player knowledge or dropped items")
