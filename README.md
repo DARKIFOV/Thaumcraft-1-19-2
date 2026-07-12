@@ -40,3 +40,7 @@ build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54.jar
 ```
 
 See `THAUMCRAFT_V11_62_54_FULL_REPORT.md` for the complete audit, runtime checklist and remaining work.
+
+## v11.62.54-hotfix1
+
+This packaging hotfix repairs an invalid standalone prose line in `META-INF/mods.toml` that caused Forge to abort mod discovery and the launcher to report exit code 1. Gameplay classes are unchanged from v11.62.54. The known focus-transaction ordering defect D-001 remains open.

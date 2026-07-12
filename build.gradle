@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.54' // Forge 1.19.2 original wand dial and transactional focus cycling parity batch.
+version = '11.62.54-hotfix1' // Packaging hotfix: valid Forge mods.toml; gameplay code unchanged.
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'
 // v11.62.30 compatibility marker: version = '11.62.30'
