@@ -121,7 +121,7 @@ jobs:
         run: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
 
       - name: Audit all 201 TC4 research entries and Thaumonomicon assets
-        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.54-hotfix7 --fail-on-problems
+        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.54-hotfix8 --fail-on-problems
 
 
       - name: Build Forge JAR
@@ -141,7 +141,7 @@ jobs:
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54-hotfix7 --report reports/release_jar_audit_v11.62.54-hotfix7.json
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54-hotfix8 --report reports/release_jar_audit_v11.62.54-hotfix8.json
 
       - name: Prepare release bundle
         shell: bash
@@ -149,21 +149,21 @@ jobs:
           set -euo pipefail
           mkdir -p build/release/bundle
           cp build/libs/*.jar build/release/bundle/
-          cp THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md build/release/bundle/
+          cp THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R9.md build/release/bundle/
           cp reports/*11.62.54*.json build/release/bundle/
           (
             cd build/release/bundle
             sha256sum *.jar > SHA256SUMS.txt
-            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.54-hotfix7_RELEASE.zip .
+            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.54-hotfix8_RELEASE.zip .
           )
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md
+          body_path: THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R9.md
           files: |
             build/libs/*.jar
-            build/release/thaumcraft_legacy_rebuild_v11.62.54-hotfix7_RELEASE.zip
+            build/release/thaumcraft_legacy_rebuild_v11.62.54-hotfix8_RELEASE.zip
             build/release/bundle/SHA256SUMS.txt
-            THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md
+            THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R9.md
             reports/*11.62.54*.json

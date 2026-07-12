@@ -1,4 +1,4 @@
-# Thaumcraft Legacy Rebuild — v11.62.54
+# Thaumcraft Legacy Rebuild — v11.62.54-hotfix8
 
 Target: **Minecraft 1.19.2 / Forge 43.5.2 / Java 17**.
 
@@ -36,10 +36,10 @@ chmod +x gradlew
 Expected output:
 
 ```text
-build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix7.jar
+build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix8.jar
 ```
 
-See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md` for the consolidated expert report, crash diagnosis and remaining work.
+See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R9.md` for the consolidated expert report, crash diagnosis and remaining work.
 
 ## v11.62.54-hotfix1
 
@@ -79,3 +79,11 @@ Fixes research puzzle parity: identical aspects no longer connect, new placement
 - Regenerates the machine-readable full research audit with duplicate-trigger detection.
 - Normalizes the consolidated report revision history, numbering and hotfix appendices.
 - Clarifies that `gui_research.png` supplies frames/tabs while research icon content may come from an `ItemStack` or a standalone resource texture.
+
+
+## v11.62.54-hotfix8
+
+- Fixes GitHub Actions failure `ModuleNotFoundError: No module named 'PIL'`.
+- Removes the undeclared Pillow dependency from `tc4_full_research_thaumonomicon_audit.py`.
+- Reads and validates PNG width/height directly from the standard PNG `IHDR` header using only Python's standard library.
+- Keeps corrupted/truncated PNGs as explicit audit failures instead of crashing before a report is written.
