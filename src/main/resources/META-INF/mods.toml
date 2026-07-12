@@ -9,7 +9,8 @@ modId="thaumcraft"
 # v11.62.25 compatibility marker: version="11.62.25"
 # v11.62.27 compatibility marker: version="11.62.27"
 # v11.62.28 compatibility marker: version="11.62.28"
-version="11.62.54-hotfix1"
+version="11.62.54-hotfix2"
+# v11.62.54 gameplay baseline marker: version="11.62.54"
 # v11.62.43 compatibility marker: version="11.62.43"
 # v11.62.36 compatibility marker: version="11.62.36"
 # v11.62.29 compatibility marker: version="11.62.29"
@@ -132,6 +133,7 @@ v11.62.45 fixes the Thaumonomicon transaction, Thaumometer readout layout,
 aura-node animation precision and wand light packing. The project remains
 Forge 1.19.2 / Java 17.
 v11.62.54 restores the original TC4 32x32 top-left wand vis dial (with optional bottom placement), focus/picked-block centre icon, cooldown readout, exact sneaking values and session reset. Focus cycling now follows the original TreeMap sorting/overwrite order and performs transactional swaps so a full inventory cannot eject or lose the installed focus.
+v11.62.54-hotfix2 replaces renderer, menu-screen and colour-handler lambdas that target obfuscated Minecraft SAM interfaces with explicit bridge objects. This prevents AbstractMethodError during the initial client resource reload in SRG production runtime.
 '''
 
 [[dependencies.thaumcraft]]

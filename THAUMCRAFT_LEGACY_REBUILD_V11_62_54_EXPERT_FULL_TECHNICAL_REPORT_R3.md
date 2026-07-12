@@ -1,18 +1,91 @@
-# Thaumcraft Legacy Rebuild v11.62.54-hotfix1 — полный экспертный технический отчёт, редакция R2
+# Thaumcraft Legacy Rebuild v11.62.54-hotfix2 — полный экспертный технический отчёт, редакция R3
 
 **Снимок кода:** v11.62.54  
-**Исправленный пакет:** v11.62.54-hotfix1  
+**Исправленный пакет:** v11.62.54-hotfix2  
 **Цель:** перенос поведения и визуального языка Thaumcraft 4.2.3.5 с Minecraft 1.7.10 на Minecraft 1.19.2 / Forge 43.5.2 / Java 17  
 **Дата формирования отчёта:** 2026-07-12  
 **Тип документа:** независимое сводное техническое досье по всему проекту, предназначенное для передачи стороннему эксперту.
 
 > Важно: документ разделяет наличие кода, успешную статическую проверку, успешную компиляцию и реальное подтверждение в запущенной игре. Наличие класса или прошедшего guard-теста не считается доказательством полной runtime-паритетности.
 
+
+## 0. Аварийный runtime-аудит hotfix2
+
+### 0.1. Наблюдаемая ошибка
+
+Пользовательский клиент Forge 1.19.2 завершался во время начального `LoadingOverlay` со следующим корневым исключением:
+
+```text
+java.lang.AbstractMethodError:
+ClientModEvents$$Lambda... does not define or inherit
+BlockEntityRendererProvider.m_173570_(Context)
+```
+
+Стек проходил через `BlockEntityRenderers`, `BlockEntityRenderDispatcher` и initial resource reload. В отчёте загруженных модов присутствовал `thaumcraft 11.62.54-hotfix1`. Oculus и Rubidium находились в сборке, но receiver проблемного объекта принадлежал непосредственно `com.darkifov.thaumcraft.client.ClientModEvents`; поэтому они не являются первопричиной данного исключения.
+
+### 0.2. Точная причина
+
+`ClientModEvents` регистрировал block-entity renderers через прямые constructor references:
+
+```java
+BlockEntityRenderers.register(type, Renderer::new);
+```
+
+В development/official namespace SAM-метод `BlockEntityRendererProvider` называется `create`. В production SRG namespace Minecraft 1.19.2 тот же метод называется `m_173570_`. Полноценный ForgeGradle `reobfJar` умеет преобразовывать этот контракт, но использованный аварийный patched-production remapper изменял обычные method declarations/references и не менял имя `invokedynamic` call site. В результате JVM динамически создавала lambda-класс с методом `create`, тогда как runtime interface требовал `m_173570_`, что и дало `AbstractMethodError`.
+
+Тот же класс содержал аналогичный риск для:
+
+- `EntityRendererProvider#create` → `m_174009_`;
+- `MenuScreens.ScreenConstructor#create` → `m_96214_`;
+- `BlockColor#getColor` → `m_92566_`;
+- `ItemColor#getColor` → `m_92671_`.
+
+### 0.3. Исправление
+
+Hotfix2 не оставляет lambda-класс непосредственной реализацией обфусцируемого Minecraft interface. Вместо этого используется двухступенчатый контракт:
+
+1. constructor reference/lambda реализует стабильный JDK `Function` либо внутренний project interface;
+2. явный анонимный adapter implements Minecraft interface и содержит настоящий override-метод.
+
+Пример принципа:
+
+```java
+private static <T extends BlockEntity> BlockEntityRendererProvider<T> blockEntityRenderer(
+        Function<BlockEntityRendererProvider.Context, ? extends BlockEntityRenderer<T>> factory) {
+    return new BlockEntityRendererProvider<>() {
+        @Override
+        public BlockEntityRenderer<T> create(BlockEntityRendererProvider.Context context) {
+            return factory.apply(context);
+        }
+    };
+}
+```
+
+После reobfuscation override в adapter-классе имеет имя `m_173570_`, поэтому production JVM видит корректную реализацию interface. Аналогичные adapters добавлены для entity renderers, menu screens, block colors и item colors.
+
+### 0.4. Проверка исправления
+
+Изменённый `ClientModEvents.java` скомпилирован под Java 17 против mapped Forge 1.19.2 classpath:
+
+- ошибок: **0**;
+- предупреждений: **9**, все относятся к уже существующему deprecated `ItemBlockRenderTypes#setRenderLayer`;
+- сгенерировано: **9 class-файлов**;
+- fallback reobf: **8 references** и **5 override declarations**;
+- SRG-методы adapters подтверждены: `m_173570_`, `m_174009_`, `m_96214_`, `m_92566_`, `m_92671_`;
+- dangerous `invokedynamic` call sites, возвращающие Minecraft renderer/screen/color SAM interfaces: **0**;
+- контрольный patched JAR проходит ZIP integrity и новый `audit_runtime_sam_bridges.py`.
+
+В GitHub Actions после `./gradlew build` добавлен обязательный post-build audit готового reobfuscated JAR. Публиковать следует именно артефакт GitHub Actions, а не старый hotfix1 JAR.
+
+### 0.5. Что hotfix2 не меняет
+
+Hotfix2 является загрузочным исправлением. Он не изменяет баланс, данные мира, исследовательскую логику или визуальный паритет. Подтверждённый дефект D-001 с предварительной симуляцией места при смене фокуса остаётся отдельной gameplay-задачей следующей ревизии.
+
 ## 1. Краткое резюме
 
 Проект представляет собой крупный Forge-мод с единым `modId=thaumcraft`, который переносит ядро TC4, часть аддонов и значительный объём оригинальных ресурсов. В исходном снимке находятся 508 Java-файлов и 6120 ресурсных файлов. Зарегистрированы сотни предметов и блоков, 28 типов block entity, 26 типов сущностей, 13 меню и 37 сетевых сообщений. В исследовательском мосте определена 201 запись в шести оригинальных категориях.
 
-Статические аудиты показывают целостность JSON-моделей и ссылок на текстуры, наличие всех восьми динамических BEWLR-контрактов, отсутствие видимых утечек реестровых клонов и соответствие 940 оригинальных файлов каноническому банку. Исходный v11.62.54 JAR содержит 6120 проверенных ресурсов и 503 основных class-файла без обнаруженных пропусков, но не проходит Forge mod discovery из-за синтаксически недопустимой строки в `mods.toml`. Исправленный пакет v11.62.54-hotfix1 сохраняет те же игровые классы и ресурсы и исправляет только метаданные загрузки.
+Статические аудиты показывают целостность JSON-моделей и ссылок на текстуры, наличие всех восьми динамических BEWLR-контрактов, отсутствие видимых утечек реестровых клонов и соответствие 940 оригинальных файлов каноническому банку. Исходный v11.62.54 JAR не проходил Forge mod discovery из-за синтаксически недопустимой строки в `mods.toml`; это исправлено в hotfix1. После этого runtime-тест hotfix1 выявил второй независимый загрузочный дефект: `AbstractMethodError` в `BlockEntityRendererProvider` во время начальной перезагрузки ресурсов. Hotfix2 заменяет прямые lambda/method-reference реализации обфусцируемых Minecraft SAM-интерфейсов на явные bridge-объекты с настоящими override-методами, которые корректно reobf-ятся в SRG namespace.
 
 При этом проект нельзя считать полностью готовым портом TC4. Последний фактически показанный runtime-проход был выполнен на более ранней v11.62.49 и обнаружил крупные визуальные и функциональные ошибки. Версии v11.62.50–v11.62.54 исправлялись по исходникам, аудитам и скриншотам, но их полный клиентский и dedicated-server runtime не подтверждён. Кроме того, в v11.62.54 подтверждена ошибка порядка транзакционной смены фокуса, описанная ниже как D-001.
 
@@ -51,7 +124,7 @@ chmod +x gradlew
 Ожидаемый результат:
 
 ```text
-build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54.jar
+build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.54-hotfix2.jar
 ```
 
 ### 3.2. Фактически использованный release-процесс v11.62.54

@@ -119,12 +119,19 @@ jobs:
           chmod +x gradlew
           ./gradlew build --stacktrace --no-daemon
 
+      - name: Audit SRG-safe renderer and screen providers
+        shell: bash
+        run: |
+          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
+          test -n "$MAIN_JAR"
+          python3 tools/audit_runtime_sam_bridges.py --jar "$MAIN_JAR"
+
       - name: Audit complete release JAR contents
         shell: bash
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54 --report reports/release_jar_audit_v11.62.54.json
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54-hotfix2 --report reports/release_jar_audit_v11.62.54-hotfix2.json
 
       - name: Prepare release bundle
         shell: bash
@@ -132,21 +139,21 @@ jobs:
           set -euo pipefail
           mkdir -p build/release/bundle
           cp build/libs/*.jar build/release/bundle/
-          cp THAUMCRAFT_V11_62_54_FULL_REPORT.md build/release/bundle/
-          cp reports/*11.62.54.json build/release/bundle/
+          cp THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R3.md build/release/bundle/
+          cp reports/*11.62.54*.json build/release/bundle/
           (
             cd build/release/bundle
             sha256sum *.jar > SHA256SUMS.txt
-            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.54_RELEASE.zip .
+            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.54-hotfix2_RELEASE.zip .
           )
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: THAUMCRAFT_V11_62_54_FULL_REPORT.md
+          body_path: THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R3.md
           files: |
             build/libs/*.jar
-            build/release/thaumcraft_legacy_rebuild_v11.62.54_RELEASE.zip
+            build/release/thaumcraft_legacy_rebuild_v11.62.54-hotfix2_RELEASE.zip
             build/release/bundle/SHA256SUMS.txt
-            THAUMCRAFT_V11_62_54_FULL_REPORT.md
-            reports/*11.62.54.json
+            THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R3.md
+            reports/*11.62.54*.json

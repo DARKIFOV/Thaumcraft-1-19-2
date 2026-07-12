@@ -119,12 +119,19 @@ jobs:
           chmod +x gradlew
           ./gradlew build --stacktrace --no-daemon
 
+      - name: Audit SRG-safe renderer and screen providers
+        shell: bash
+        run: |
+          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
+          test -n "$MAIN_JAR"
+          python3 tools/audit_runtime_sam_bridges.py --jar "$MAIN_JAR"
+
       - name: Audit complete release JAR contents
         shell: bash
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54 --report reports/release_jar_audit_v11.62.54.json
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.54-hotfix2 --report reports/release_jar_audit_v11.62.54-hotfix2.json
 
       - name: Calculate checksums
         shell: bash
@@ -133,16 +140,16 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp THAUMCRAFT_V11_62_54_FULL_REPORT.md build/release/
-          cp reports/*11.62.54.json build/release/
+          cp THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R3.md build/release/
+          cp reports/*11.62.54*.json build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.54
+          name: thaumcraft-legacy-rebuild-v11.62.54-hotfix2
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/THAUMCRAFT_V11_62_54_FULL_REPORT.md
-            build/release/*11.62.54.json
+            build/release/THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R3.md
+            build/release/*11.62.54*.json
