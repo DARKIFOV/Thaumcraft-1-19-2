@@ -4127,5 +4127,6 @@
   "warp.text.9": "You suddenly feel reluctant to break things.",
   "warp.text.hunger.1": "Your hunger cannot be satisfied with normal food.",
   "warp.text.hunger.2": "You hunger begins to fade.",
-  "biome.thaumcraft.magical_forest": "Magical Forest"
+  "biome.thaumcraft.magical_forest": "Magical Forest",
+  "entity.thaumcraft.aspect_orb": "Aspect Orb"
 }

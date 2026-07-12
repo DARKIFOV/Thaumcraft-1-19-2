@@ -39,6 +39,11 @@ public final class TC4ResearchFlagPolicy {
         return false;
     }
 
+    /** Exact original ResearchItem#setSecondary flag; no complexity heuristic. */
+    public static boolean isSecondary(ResearchEntry entry) {
+        return has(entry, SECONDARY);
+    }
+
     public static Set<String> normalizedFlags(ResearchEntry entry) {
         Set<String> result = new LinkedHashSet<>();
         if (entry != null) {

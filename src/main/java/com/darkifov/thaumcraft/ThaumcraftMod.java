@@ -150,6 +150,7 @@ import com.darkifov.thaumcraft.blockentity.TemporaryHoleBlockEntity;
 import com.darkifov.thaumcraft.blockentity.WardedBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.world.TC4Biomes;
+import com.darkifov.thaumcraft.entity.AspectOrbEntity;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.entity.EldritchCrabEntity;
@@ -1246,6 +1247,13 @@ public class ThaumcraftMod {
                     .clientTrackingRange(12)
                     .build(MOD_ID + ":taintacle_giant"));
 
+
+    public static final RegistryObject<EntityType<AspectOrbEntity>> ASPECT_ORB =
+            ENTITY_TYPES.register("aspect_orb", () -> EntityType.Builder.<AspectOrbEntity>of(AspectOrbEntity::new, MobCategory.MISC)
+                    .sized(0.125F, 0.125F)
+                    .clientTrackingRange(8)
+                    .updateInterval(1)
+                    .build(MOD_ID + ":aspect_orb"));
 
     public static final RegistryObject<EntityType<TC4FireBatEntity>> FIREBAT =
             ENTITY_TYPES.register("firebat", () -> EntityType.Builder.<TC4FireBatEntity>of(TC4FireBatEntity::new, MobCategory.MONSTER)

@@ -1,8 +1,8 @@
 {
-  "version": "11.62.43",
-  "item_model_count": 689,
-  "parsed_model_count": 689,
-  "statically_detected_registered_model_count": 383,
+  "version": "11.62.49",
+  "item_model_count": 690,
+  "parsed_model_count": 690,
+  "statically_detected_registered_model_count": 384,
   "quarantine_exact_count": 122,
   "quarantine_prefix_count": 31,
   "exact_duplicate_model_groups": [
@@ -90,6 +90,10 @@
       "tc4_shard_ordo",
       "tc4_shard_perditio",
       "tc4_shard_terra"
+    ],
+    [
+      "tc4_thaumonomiconcheat",
+      "thaumonomicon_cheat"
     ]
   ],
   "visual_duplicate_groups": [
@@ -354,6 +358,10 @@
     [
       "tc4_thaumonomicon",
       "thaumonomicon"
+    ],
+    [
+      "tc4_thaumonomiconcheat",
+      "thaumonomicon_cheat"
     ],
     [
       "tce_api_crystal",

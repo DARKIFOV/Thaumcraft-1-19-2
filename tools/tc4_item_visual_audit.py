@@ -37,8 +37,14 @@ for path in sorted(models_root.rglob("*.json")):
         parse_errors.append({"model": rel, "error": str(exc)})
 
 
+def canonical_parent(parent: str | None) -> str | None:
+    if not parent:
+        return None
+    return parent if ":" in parent else f"minecraft:{parent}"
+
+
 def parent_key(parent: str | None) -> str | None:
-    if not parent or parent == "builtin/entity":
+    if not parent or canonical_parent(parent) == "minecraft:builtin/entity":
         return None
     ns, sep, path = parent.partition(":")
     if not sep:
@@ -83,6 +89,11 @@ def texture_path(location: str) -> tuple[Path | None, str | None, str | None]:
     return assets / ns / "textures" / rel, ns, rel
 
 placeholder_rx = re.compile(r"(?:placeholder|debug|missing|blank|template|dummy|test)(?:[_./-]|$)", re.I)
+KNOWN_PLACEHOLDER_CLASSIFICATION = {
+    "item/aura_node_debug.png": "quarantined_debug_item_for_non_item_node_block",
+    "item/tc4/golem_core_blank.png": "canonical_tc4_blank_golem_core_component",
+}
+placeholder_classification = []
 records = []
 missing = []
 unresolved = []
@@ -102,14 +113,23 @@ for model, data in sorted(all_models.items()):
         else:
             exists = path.is_file()
             digest = hashlib.sha1(path.read_bytes()).hexdigest() if exists else None
+            placeholder_name = bool(placeholder_rx.search(rel or ""))
+            classification = KNOWN_PLACEHOLDER_CLASSIFICATION.get(rel or "") if placeholder_name else None
             rec.update({
                 "external": False,
                 "exists": exists,
                 "sha1": digest,
                 "original_exact": digest in original_texture_sha1 if digest else False,
                 "original_same_path": bool(digest and original_by_rel.get(rel) == digest),
-                "placeholder_name": bool(placeholder_rx.search(rel or "")),
+                "placeholder_name": placeholder_name,
+                "placeholder_classification": classification,
             })
+            if placeholder_name:
+                placeholder_classification.append({
+                    "model": model,
+                    "texture": rel,
+                    "classification": classification or "unclassified_suspicious_name",
+                })
             if not exists:
                 missing.append({"model": model, "slot": key, "location": resolved, "expected": str(path.relative_to(root))})
             all_texture_refs.append((model, key, resolved, digest))
@@ -117,7 +137,7 @@ for model, data in sorted(all_models.items()):
     records.append({
         "model": model,
         "parent": data.get("parent", ""),
-        "builtin_entity": data.get("parent") == "builtin/entity",
+        "builtin_entity": canonical_parent(data.get("parent")) == "minecraft:builtin/entity",
         "texture_references": refs,
     })
 
@@ -141,6 +161,8 @@ stats = {
     "same_path_original_texture_references": sum(1 for r in records for t in r["texture_references"] if t.get("original_same_path") is True),
     "custom_or_adapted_texture_references": sum(1 for r in records for t in r["texture_references"] if not t.get("external") and t.get("exists") and not t.get("original_exact")),
     "placeholder_named_references": sum(1 for r in records for t in r["texture_references"] if t.get("placeholder_name")),
+    "classified_placeholder_named_references": sum(1 for x in placeholder_classification if x["classification"] != "unclassified_suspicious_name"),
+    "suspicious_placeholder_named_references": sum(1 for x in placeholder_classification if x["classification"] == "unclassified_suspicious_name"),
     "duplicate_texture_hash_groups": len(duplicate_hash_groups),
     "canonical_original_texture_files": len(original_by_rel),
 }
@@ -152,6 +174,7 @@ payload = {
     "unresolved": unresolved,
     "models": records,
     "duplicate_hash_groups": duplicate_hash_groups,
+    "placeholder_classification": placeholder_classification,
 }
 reports = root / "reports"
 reports.mkdir(exist_ok=True)
@@ -175,7 +198,9 @@ labels = [
     ("Адаптированных/новых текстур", "custom_or_adapted_texture_references"),
     ("Отсутствующих текстур", "missing_texture_references"),
     ("Неразрешённых `#texture` ссылок", "unresolved_texture_tokens"),
-    ("Ссылок с placeholder/debug именами", "placeholder_named_references"),
+    ("Ссылок с placeholder/debug именами (всего)", "placeholder_named_references"),
+    ("Из них классифицировано как допустимые", "classified_placeholder_named_references"),
+    ("Неклассифицированных подозрительных имён", "suspicious_placeholder_named_references"),
     ("Групп одинаковых файлов под разными путями", "duplicate_texture_hash_groups"),
     ("Файлов в каноническом банке TC4", "canonical_original_texture_files"),
 ]
@@ -184,6 +209,10 @@ if missing:
     lines += ["", "## Отсутствующие текстуры", ""] + [f"- `{x['model']}` → `{x['location']}`" for x in missing[:100]]
 if unresolved:
     lines += ["", "## Неразрешённые ссылки", ""] + [f"- `{x['model']}` `{x['slot']}` → `{x['value']}`" for x in unresolved[:100]]
+if placeholder_classification:
+    lines += ["", "## Placeholder/debug классификация", ""]
+    for item in placeholder_classification:
+        lines.append(f"- `{item['model']}` → `{item['texture']}` — `{item['classification']}`")
 lines += ["", "## Интерпретация", "",
           "Точное совпадение PNG подтверждает только ресурс. Оно не доказывает, что модель, UV, масштаб, blending или механика предмета уже перенесены правильно.",
           "`builtin/entity` предметы проверяются дополнительно отдельными runtime-guards, поскольку их внешний вид задаётся Java-рендерером, а не JSON-моделью."]

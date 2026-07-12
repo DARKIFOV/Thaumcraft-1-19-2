@@ -98,11 +98,11 @@ final class OriginalResearchLayout {
     }
 
     static boolean secondary(ResearchEntry entry) {
-        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.SECONDARY) || (!entry.aspects().isEmpty() && entry.complexity() <= 1);
+        return TC4ResearchFlagPolicy.isSecondary(entry);
     }
 
     static boolean round(ResearchEntry entry) {
-        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.ROUND) || secondary(entry);
+        return TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.ROUND);
     }
 
     static boolean special(ResearchEntry entry) {

@@ -15,6 +15,7 @@ import com.darkifov.thaumcraft.client.screen.DeconstructionTableScreen;
 import com.darkifov.thaumcraft.client.screen.TransvectorInterfaceScreen;
 import com.darkifov.thaumcraft.client.screen.ThaumatoriumScreen;
 import com.darkifov.thaumcraft.client.render.ArcanePedestalRenderer;
+import com.darkifov.thaumcraft.client.render.AspectOrbRenderer;
 import com.darkifov.thaumcraft.client.render.CrucibleRenderer;
 import com.darkifov.thaumcraft.client.render.AlembicRenderer;
 import com.darkifov.thaumcraft.client.render.AlchemicalCentrifugeRenderer;
@@ -103,6 +104,7 @@ public final class ClientModEvents {
             BlockEntityRenderers.register(ThaumcraftMod.ELDRITCH_LOCK_BLOCK_ENTITY.get(), TC4EldritchTileRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ELDRITCH_TRAP_BLOCK_ENTITY.get(), TC4EldritchTileRenderer::new);
             BlockEntityRenderers.register(ThaumcraftMod.ELDRITCH_CRYSTAL_BLOCK_ENTITY.get(), TC4EldritchTileRenderer::new);
+            EntityRenderers.register(ThaumcraftMod.ASPECT_ORB.get(), AspectOrbRenderer::new);
             EntityRenderers.register(ThaumcraftMod.THAUM_GOLEM.get(), ThaumGolemRenderer::new);
             EntityRenderers.register(ThaumcraftMod.TAINT_CRAWLER.get(), TaintCrawlerRenderer::new);
             EntityRenderers.register(ThaumcraftMod.PECH.get(), PechRenderer::new);

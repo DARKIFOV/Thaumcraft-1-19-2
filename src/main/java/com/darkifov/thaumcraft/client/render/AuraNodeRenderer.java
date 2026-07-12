@@ -52,7 +52,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
                 || viewer.getOffhandItem().is(ThaumcraftMod.THAUMOMETER.get());
         // Original UtilsFX.isVisibleTo(0.44F, ...): a Thaumometer reveals only
         // nodes inside its forward scan cone. Goggles and jarred nodes stay visible.
-        boolean thaumometerVisible = thaumometerHeld && isWithinThaumometerViewCone(viewer, node);
+        boolean thaumometerVisible = thaumometerHeld && isWithinThaumometerViewCone(viewer, node, partialTick);
         boolean visible = jarred || revealer || thaumometerVisible;
         boolean depthIgnore = !jarred && (revealer || thaumometerVisible);
         double viewDistance = thaumometerVisible && !revealer ? 48.0D : 64.0D;
@@ -63,7 +63,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
 
         long gameTime = node.getLevel().getGameTime();
         long nanoTime = System.nanoTime();
-        float originalAnimationTime = nanoTime / 5_000_000.0F;
+        long originalAnimationTime = nanoTime / 5_000_000L;
         int frame = (int) Math.floorMod((nanoTime / 40_000_000L) + node.getBlockPos().getX(),
                 TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
         int nodeLight = LightTexture.FULL_BRIGHT;
@@ -106,8 +106,9 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
                 float wave = Mth.sin((viewer.tickCount + partialTick) / Math.max(1.0F, 14.0F - count))
                         * 0.25F + 0.50F;
                 float scale = (0.20F + wave * (stack.amount() / 50.0F)) * sizeMultiplier;
-                float rotationPeriod = 5000.0F + 500.0F * count;
-                float angle = (originalAnimationTime % rotationPeriod) / rotationPeriod * 360.0F;
+                long rotationPeriod = 5000L + 500L * count;
+                float angle = Math.floorMod(originalAnimationTime, rotationPeriod)
+                        / (float) rotationPeriod * 360.0F;
                 typeAngle = angle;
                 float aspectAlpha = layerAlpha * (stack.aspect().usesAlphaBlend() ? 1.5F : 1.0F);
                 poseStack.pushPose();
@@ -147,13 +148,13 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         return 64;
     }
 
-    private static boolean isWithinThaumometerViewCone(Player viewer, AuraNodeBlockEntity node) {
-        Vec3 eye = viewer.getEyePosition();
+    private static boolean isWithinThaumometerViewCone(Player viewer, AuraNodeBlockEntity node, float partialTick) {
+        Vec3 eye = viewer.getEyePosition(partialTick);
         Vec3 toNode = Vec3.atCenterOf(node.getBlockPos()).subtract(eye);
         if (toNode.lengthSqr() < 1.0E-6D) {
             return true;
         }
-        return viewer.getLookAngle().normalize().dot(toNode.normalize()) >= 0.44D;
+        return viewer.getViewVector(partialTick).normalize().dot(toNode.normalize()) >= 0.44D;
     }
 
     private void renderWandDrainBeam(AuraNodeBlockEntity node, float partialTick, PoseStack poseStack,

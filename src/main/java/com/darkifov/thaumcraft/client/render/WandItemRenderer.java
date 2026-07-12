@@ -130,8 +130,20 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
-        int j = (int)(200.0F + Mth.sin(ticks) * 5.0F + 5.0F);
-        return Math.max(packedLight, Math.max(15728880, j));
+        int originalLightmapCoordinate = (int)(200.0F + Mth.sin(ticks) * 5.0F + 5.0F);
+        return originalBlockGlow(packedLight, originalLightmapCoordinate);
+    }
+
+    /**
+     * Converts TC4's 0..240 lightmap coordinate into the packed 1.19.2 light
+     * format while preserving ambient sky light. Integer Math.max on packed
+     * light values is invalid because block and sky occupy separate bit fields.
+     */
+    private int originalBlockGlow(int packedLight, int originalLightmapCoordinate) {
+        int ambientBlock = (packedLight >> 4) & 15;
+        int ambientSky = (packedLight >> 20) & 15;
+        int originalBlock = Mth.clamp(Math.round(originalLightmapCoordinate / 16.0F), 0, 15);
+        return (Math.max(ambientBlock, originalBlock) << 4) | (ambientSky << 20);
     }
 
     /** Stage185 ModelWand Rod box: ModelRenderer.addBox(-1,-1,-1, 2,18,2), rotation point 0,2,0, rendered at 0.0625F. */
@@ -250,7 +262,10 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         int r = (focusColor >> 16) & 255;
         int g = (focusColor >> 8) & 255;
         int b = focusColor & 255;
-        int light = Math.max(packedLight, 15728880);
+        Player player = Minecraft.getInstance().player;
+        float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
+        int focusLightmapCoordinate = (int)(195.0F + Mth.sin(ticks / 3.0F) * 10.0F + 10.0F);
+        int light = originalBlockGlow(packedLight, focusLightmapCoordinate);
 
         if (depth != null) {
             poseStack.pushPose();
@@ -303,7 +318,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
         VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(ORIGINAL_SCRIPT));
-        int light = Math.max(packedLight, 15728880);
+        int light = originalBlockGlow(packedLight, 200);
         poseStack.pushPose();
         for (int rot = 0; rot < 10; rot++) {
             poseStack.pushPose();
@@ -322,7 +337,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
         VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(ORIGINAL_SCRIPT));
-        int light = Math.max(packedLight, 15728880);
+        int light = originalBlockGlow(packedLight, 200);
         poseStack.pushPose();
         for (int rot = 0; rot < 4; rot++) {
             poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));

@@ -125,7 +125,7 @@ public final class WandVisOverlayEvents {
                 poseStack.mulPose(Vector3f.ZP.rotationDegrees(-90.0F));
                 minecraft.font.draw(poseStack, Component.literal(WandItem.formatVis(amount)), -32.0F, -4.0F, 0xFFFFFFFF);
                 if (baseFocusCost > 0) {
-                    int modifiedCost = WandItem.modifiedVisCost(wandStack, aspect, baseFocusCost);
+                    int modifiedCost = WandItem.modifiedVisCost(wandStack, minecraft.player, aspect, baseFocusCost, false);
                     minecraft.font.draw(poseStack, Component.literal(WandItem.formatVis(modifiedCost)), 8.0F, -4.0F, 0xFFFFFFFF);
                 }
                 poseStack.popPose();

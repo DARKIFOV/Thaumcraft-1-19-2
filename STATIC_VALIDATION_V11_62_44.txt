@@ -1,9 +1,0 @@
-Thaumcraft Legacy Rebuild v11.62.44 validation
-Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
-
-Java compilation: OK
-JSON resources: OK (1699 files)
-Item models: 690
-Missing textures: 0
-Unresolved texture links: 0
-Runtime fix guard: wand/node/Thaumometer/research cheat book/Nitor

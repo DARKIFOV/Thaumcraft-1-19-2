@@ -93,16 +93,17 @@ public final class NodeStabilizerRenderer implements BlockEntityRenderer<NodeSta
             float pulse = Mth.sin((animationTime + arm * 5.0F) / 3.0F) * 0.1F + 0.9F;
             float extension = Mth.clamp(animationTicks / NodeStabilizerBlockEntity.MAX_EXTENSION_TICKS,
                     0.0F, 1.0F);
-            // Original renderer starts at brightness 50 and gains up to 170 as
-            // the piston extends. The old adapter forced an opaque full-bright
-            // overlay even while retracted, producing the solid red/white clone.
-            int overlayAlpha = Mth.clamp(50 + (int) (170.0F * extension * pulse), 50, 220);
+            // TileNodeStabilizerRenderer writes 50..220 into the block-light
+            // coordinate. It does not fade the overlay with vertex alpha.
+            int tc4LightCoordinate = Mth.clamp(50 + (int) (170.0F * extension * pulse), 50, 220);
+            int overlayLight = LightTexture.pack(
+                    Mth.clamp(Math.round(tc4LightCoordinate / 16.0F), 0, 15), 0);
             int red = 255;
             int green = advanced ? 51 : 255;
             int blue = advanced ? 51 : 255;
-            VertexConsumer overlayConsumer = buffer.getBuffer(RenderType.entityTranslucent(OVERLAY));
+            VertexConsumer overlayConsumer = buffer.getBuffer(RenderType.entityCutoutNoCull(OVERLAY));
             renderMesh(poseStack, overlayConsumer, TC4NodeStabilizerModel.PISTON_TRIANGLES,
-                    LightTexture.FULL_BRIGHT, red, green, blue, overlayAlpha);
+                    overlayLight, red, green, blue, 255);
             poseStack.popPose();
         }
         poseStack.popPose();
@@ -163,7 +164,9 @@ public final class NodeStabilizerRenderer implements BlockEntityRenderer<NodeSta
         float size = 0.9F;
 
         PoseStack.Pose pose = poseStack.last();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(BUBBLE));
+        // TC4 uses SRC_ALPHA, ONE for the stabilizer field. Ordinary
+        // translucency makes the sphere look like dim flat glass.
+        VertexConsumer consumer = buffer.getBuffer(TC4NodeRenderTypes.node(BUBBLE, true, false));
         emitQuadVertex(pose.pose(), pose.normal(), consumer, -size, -size, 0.0F,
                 0.0F, 1.0F, red, green, blue, alpha);
         emitQuadVertex(pose.pose(), pose.normal(), consumer, size, -size, 0.0F,

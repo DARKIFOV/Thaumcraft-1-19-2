@@ -66,14 +66,38 @@ jobs:
       - name: Validate TC4 runtime visual parity
         run: python3 tools/tc4_runtime_visual_guard.py
 
-      - name: Validate v11.62.44 runtime repairs
+      - name: Validate legacy runtime repairs
         run: python3 tools/runtime_fix_guard.py
 
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.44 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.49 --fail-on-missing
+
+      - name: Audit parent chains and display transforms
+        run: python3 tools/model_transform_audit.py --version 11.62.49 --fail-on-problems
+
+      - name: Audit Forge builtin entity render contracts
+        run: python3 tools/bewlr_contract_audit.py --version 11.62.49 --fail-on-problems
+
+      - name: Audit aura node, node jar and stabilizer parity
+        run: python3 tools/aura_node_parity_audit.py --version 11.62.49 --fail-on-problems
+
+      - name: Validate v11.62.45 parity fixes
+        run: python3 tools/tc4_116245_parity_guard.py
+
+      - name: Validate v11.62.46 audit and node parity regressions
+        run: python3 tools/tc4_116246_audit_guard.py
+
+      - name: Validate v11.62.47 Arcane Workbench and wand cost regressions
+        run: python3 tools/tc4_116247_arcane_wand_guard.py
+
+      - name: Validate v11.62.48 aura-node scheduler and Aspect Orb baseline
+        run: python3 tools/tc4_116248_node_orb_guard.py
+
+      - name: Validate v11.62.49 Aspect Orb renderer and entity parity
+        run: python3 tools/tc4_116249_aspect_orb_parity_guard.py
 
       - name: Validate registry and resources
-        run: python3 tools/audit_registry.py --fail-on-unexpected
+        run: python3 tools/audit_registry.py --version 11.62.49 --fail-on-unexpected
 
       - name: Build Forge JAR
         run: |
@@ -87,28 +111,16 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp REPORT_V11_62_44_RUNTIME_FIXES.md build/release/
-          cp GITHUB_UPLOAD_V11_62_44.md build/release/
-          cp STATIC_VALIDATION_V11_62_44.txt build/release/
-          cp reports/REGISTRY_AUDIT_V11_62_44.md build/release/
-          cp reports/registry_audit_v11.62.44.json build/release/
-          cp reports/ITEM_VISUAL_AUDIT_V11_62_44.md build/release/
-          cp reports/item_visual_audit_v11.62.44.json build/release/
-          cp PORT_STATUS_V11_62_43.md build/release/
+          cp THAUMCRAFT_V11_62_49_FULL_REPORT.md build/release/
+          cp reports/*11.62.49.json build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.44
+          name: thaumcraft-legacy-rebuild-v11.62.49
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/REPORT_V11_62_44_RUNTIME_FIXES.md
-            build/release/GITHUB_UPLOAD_V11_62_44.md
-            build/release/STATIC_VALIDATION_V11_62_44.txt
-            build/release/REGISTRY_AUDIT_V11_62_44.md
-            build/release/registry_audit_v11.62.44.json
-            build/release/ITEM_VISUAL_AUDIT_V11_62_44.md
-            build/release/item_visual_audit_v11.62.44.json
-            build/release/PORT_STATUS_V11_62_43.md
+            build/release/THAUMCRAFT_V11_62_49_FULL_REPORT.md
+            build/release/*11.62.49.json

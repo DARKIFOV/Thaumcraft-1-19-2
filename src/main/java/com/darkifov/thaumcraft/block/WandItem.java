@@ -10,6 +10,7 @@ import com.darkifov.thaumcraft.wand.WandComponentData;
 import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
 import com.darkifov.thaumcraft.wand.WandFocusType;
+import com.darkifov.thaumcraft.wand.TC4VisDiscountRuntime;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
@@ -211,20 +212,54 @@ public class WandItem extends Item {
         ensureCentivisStorage(stack);
     }
 
+    /**
+     * Compatibility overload for contexts without a player. It applies the cap
+     * and sceptre modifiers but cannot apply equipped vis-discount gear.
+     */
     public static int modifiedVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
+        return modifiedVisCost(wandStack, null, aspect, baseAmount, true);
+    }
+
+    /**
+     * Exact ItemWandCasting#getConsumptionModifier adapter. Cap/aspect and
+     * sceptre modifiers come from {@link WandComponentData}; equipped armor or
+     * accessory discounts are subtracted through TC4VisDiscountRuntime. Focus
+     * Frugal is applied only outside crafting, exactly like TC4.
+     */
+    public static float consumptionModifier(ItemStack wandStack, Player player, Aspect aspect, boolean crafting) {
+        float modifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
+        modifier -= TC4VisDiscountRuntime.totalDiscount(player, aspect);
+        if (!crafting && WandFocusRuntime.hasFocus(wandStack)) {
+            modifier -= WandFocusRuntime.focusUpgradeLevel(wandStack, com.darkifov.thaumcraft.wand.FocusUpgradeType.FRUGAL) / 10.0F;
+        }
+        return Math.max(modifier, 0.1F);
+    }
+
+    /**
+     * TC4 multiplies centivis by the modifier and truncates with an int cast; it
+     * does not round upward. This matters at percentage-discount boundaries.
+     */
+    public static int modifiedVisCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount, boolean crafting) {
         if (baseAmount <= 0 || hasInfiniteVis(wandStack)) {
             return 0;
         }
-        float modifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
-        return Math.max(1, (int) Math.ceil(baseAmount * modifier));
+        return Math.max(0, (int) (baseAmount * consumptionModifier(wandStack, player, aspect, crafting)));
+    }
+
+    public static boolean hasVisForCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount, boolean crafting) {
+        return hasVis(wandStack, aspect, modifiedVisCost(wandStack, player, aspect, baseAmount, crafting));
+    }
+
+    public static boolean consumeVisCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount, boolean crafting) {
+        return consumeVis(wandStack, aspect, modifiedVisCost(wandStack, player, aspect, baseAmount, crafting));
     }
 
     public static boolean hasVisForCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
-        return hasVis(wandStack, aspect, modifiedVisCost(wandStack, aspect, baseAmount));
+        return hasVisForCost(wandStack, null, aspect, baseAmount, true);
     }
 
     public static boolean consumeVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
-        return consumeVis(wandStack, aspect, modifiedVisCost(wandStack, aspect, baseAmount));
+        return consumeVisCost(wandStack, null, aspect, baseAmount, true);
     }
 
     public static void clampVisToCapacity(ItemStack stack) {
@@ -301,7 +336,7 @@ public class WandItem extends Item {
             return true;
         }
 
-        int realCost = modifiedVisCost(stack, aspect, amount * 100);
+        int realCost = modifiedVisCost(stack, player, aspect, amount * 100, true);
         if (consumeVis(stack, aspect, realCost)) {
             return true;
         }

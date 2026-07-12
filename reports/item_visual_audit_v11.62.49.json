@@ -1,18 +1,20 @@
 {
   "stats": {
-    "version": "11.62.44",
+    "version": "11.62.49",
     "item_models": 690,
     "parse_errors": 0,
-    "builtin_entity_models": 2,
-    "texture_references_total": 522,
-    "thaumcraft_texture_references": 522,
+    "builtin_entity_models": 8,
+    "texture_references_total": 523,
+    "thaumcraft_texture_references": 523,
     "external_texture_references": 0,
     "missing_texture_references": 0,
     "unresolved_texture_tokens": 0,
     "exact_original_texture_references": 388,
     "same_path_original_texture_references": 2,
-    "custom_or_adapted_texture_references": 134,
+    "custom_or_adapted_texture_references": 135,
     "placeholder_named_references": 2,
+    "classified_placeholder_named_references": 2,
+    "suspicious_placeholder_named_references": 0,
     "duplicate_texture_hash_groups": 57,
     "canonical_original_texture_files": 940
   },
@@ -35,7 +37,8 @@
           "sha1": "e521a3826ff6b594f52c0cd6bfacf4607da329bf",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -60,7 +63,8 @@
           "sha1": "f8eb5390f49160d8cd6f87a3eb5cbee2dfeb855f",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -91,7 +95,8 @@
           "sha1": "6f5ff68888b3cc0f424c54f9c4bb00d9ed18db1a",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -110,7 +115,8 @@
           "sha1": "de1edb4d119db12aeedd1f077e20d8ad108c1f8a",
           "original_exact": true,
           "original_same_path": true,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         },
         {
           "slot": "particle",
@@ -122,7 +128,8 @@
           "sha1": "de1edb4d119db12aeedd1f077e20d8ad108c1f8a",
           "original_exact": true,
           "original_same_path": true,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -147,7 +154,8 @@
           "sha1": "29f9d1583f7e7c99c86e1ab3a2e248fc8d59a58a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -172,7 +180,8 @@
           "sha1": "b2cf2acccabb411da758bd71394c7cddc734b497",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -203,7 +212,8 @@
           "sha1": "4f6195d0cfe8b3efefcba60867190d8b1f3f5980",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -270,7 +280,8 @@
           "sha1": "18fbd4604033f97d6308f8c6cb4f508e6c5784f0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -289,7 +300,8 @@
           "sha1": "c22353a890bd0aa6e89b3b1afec3cc3230bcd471",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -308,7 +320,8 @@
           "sha1": "043db6dc93aae7230bd4cea1626aacede121eedd",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -327,7 +340,8 @@
           "sha1": "9256be822a7ffc776d7ba1ed46cad89ec52c8f13",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -346,7 +360,8 @@
           "sha1": "5ca60b54053740b26d1910ee4b550d98f915ed88",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -365,7 +380,8 @@
           "sha1": "6713095e94168fffc0d2ad686248b321219e2e1b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -384,7 +400,8 @@
           "sha1": "daacd782bdd66d6330f85d3354cf18f33164cb4d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -403,7 +420,8 @@
           "sha1": "08486368387736d36446619a79c92ee15ebe22ad",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -422,7 +440,8 @@
           "sha1": "1990624616389875d4aea49cecf28b109a9185d5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -441,7 +460,8 @@
           "sha1": "c4434cc46b3095569470a4ab7065404b7891ab1a",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": true
+          "placeholder_name": true,
+          "placeholder_classification": "quarantined_debug_item_for_non_item_node_block"
         }
       ]
     },
@@ -484,8 +504,22 @@
     {
       "model": "avaritia_creative_wand",
       "parent": "minecraft:builtin/entity",
-      "builtin_entity": false,
-      "texture_references": []
+      "builtin_entity": true,
+      "texture_references": [
+        {
+          "slot": "particle",
+          "location": "thaumcraft:item/avaritia_creative_wand",
+          "namespace": "thaumcraft",
+          "relative_texture": "item/avaritia_creative_wand.png",
+          "external": false,
+          "exists": true,
+          "sha1": "43eaac24c30e07793dcbf8506d59495d32f75787",
+          "original_exact": false,
+          "original_same_path": false,
+          "placeholder_name": false,
+          "placeholder_classification": null
+        }
+      ]
     },
     {
       "model": "awakened_crimson_key",
@@ -502,7 +536,8 @@
           "sha1": "18ce2a2195c853f14002f334692a3b9cda1554b4",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -521,7 +556,8 @@
           "sha1": "3830ef6b970955d1b7a7b7cf0020c9bdcac48d17",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -546,7 +582,8 @@
           "sha1": "79075958658551e85c2e62720365cd74eb685eda",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -571,7 +608,8 @@
           "sha1": "e8535c80360337974aefa629eaab5c3211c04212",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -590,7 +628,8 @@
           "sha1": "d5726bb995fc4f46f958e234993d853e93ae60e2",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -609,7 +648,8 @@
           "sha1": "4989686374e1d7716c2ea89e569161edb74d9cb4",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -628,7 +668,8 @@
           "sha1": "e6c79ab8043ddf2694d92ecf88d5fb48aca81765",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -647,7 +688,8 @@
           "sha1": "d731ca6b08036a8f7a883121ea879d8be383a704",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -666,7 +708,8 @@
           "sha1": "eda5f521679a2a11d48af50e8ab0a0828d36502c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -685,7 +728,8 @@
           "sha1": "f6f8fd1f80c73c1964f65e2f976a655f5dfa05c7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -704,7 +748,8 @@
           "sha1": "9a9df0bd495f37c3cd8d8d4b00c96c35bffe1705",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -735,7 +780,8 @@
           "sha1": "c367114edd6c95559f7d0e5b574cf7d83a6021a0",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -754,7 +800,8 @@
           "sha1": "ddac7ec76b8b7d7acffc7f01b297d0626d434c05",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -773,7 +820,8 @@
           "sha1": "fd1f89ef83a7c83555e508f2fdcf0150a244ce68",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -792,7 +840,8 @@
           "sha1": "a0573d498304bdddc322b54c4d266ce4bd4ff1e6",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -811,7 +860,8 @@
           "sha1": "574991a5f04cdbc732faee9676bfbc07efea4d54",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -878,7 +928,8 @@
           "sha1": "43213d9b4379d12f7931dce4fbb91fa2aa1cb6a5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -897,7 +948,8 @@
           "sha1": "cd229dbf3d43fc7a5d081775a5b829e1ce8514fb",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -934,7 +986,8 @@
           "sha1": "52f1499453fd09c93e8907ba6f893fb313e17e5c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -965,7 +1018,8 @@
           "sha1": "ed96264c487d061a338c3c4f4c84938762619f12",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -984,7 +1038,8 @@
           "sha1": "ed96264c487d061a338c3c4f4c84938762619f12",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1003,7 +1058,8 @@
           "sha1": "5de0fe8f1260f4ff6ecb1ccabfa6207193183eef",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1022,7 +1078,8 @@
           "sha1": "c6749b57fbbb26e03371cf232dbf51dfa37e71d9",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1059,7 +1116,8 @@
           "sha1": "ea5ba3779a5a8eb60b72d97ae3f21837a72275e4",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1090,7 +1148,8 @@
           "sha1": "9782051249fac2c64e68ffb87a9d4f77ffe62aaf",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1169,7 +1228,8 @@
           "sha1": "c58ddd3af764e5ddb20ecfadc7d9379dba1603ee",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1188,7 +1248,8 @@
           "sha1": "cb133018a887d560451c1609491000cfcab9e969",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1219,7 +1280,8 @@
           "sha1": "f8eb5390f49160d8cd6f87a3eb5cbee2dfeb855f",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1244,7 +1306,8 @@
           "sha1": "b993fd1e88c972d1b25a90d62f0e0957c6396560",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1263,7 +1326,8 @@
           "sha1": "cdfa9bfb0e5d09dd1acc8bb7f60f8b65db8d58c5",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1282,7 +1346,8 @@
           "sha1": "18a416c1da5bb0237e33475b0951982c21b7a90b",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1301,7 +1366,8 @@
           "sha1": "fcc314b449bf834b3c1ff439848f5421a4e4bead",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1374,7 +1440,8 @@
           "sha1": "59757c7d2e3e0e2f4fb871328c5ca4f730ad3608",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1399,7 +1466,8 @@
           "sha1": "9efdde9d08dd89e11fa550135ad7644667f1a7c7",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1418,7 +1486,8 @@
           "sha1": "b9beb08f94695ac6341fa2269d1ef4d9740c9358",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1485,7 +1554,8 @@
           "sha1": "1d9d21ede5fca8456dade48a1190f25ab9294b92",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1516,7 +1586,8 @@
           "sha1": "82b69d12749b0b325f0bb5fc411eb8d107754c06",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1535,7 +1606,8 @@
           "sha1": "deb2a6985f2aae89b1eba6e82fce7378c10b8df1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1554,7 +1626,8 @@
           "sha1": "cbf9aa87907bc72a50bdaa344e2e716a162dbc41",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1573,7 +1646,8 @@
           "sha1": "f6e986c1efe6a052b58cb0af8cd006583e06fa73",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1592,7 +1666,8 @@
           "sha1": "dfb66021e24bcb1896a0c86ea6ab6a1ca07f16ff",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1611,7 +1686,8 @@
           "sha1": "2011c3fc3ed184f4d67282d052ed6a003f9193a0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1630,7 +1706,8 @@
           "sha1": "f6e986c1efe6a052b58cb0af8cd006583e06fa73",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1649,7 +1726,8 @@
           "sha1": "a62d4bec9e0dd247125fb108dfe335c98035b7d0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1668,7 +1746,8 @@
           "sha1": "2011c3fc3ed184f4d67282d052ed6a003f9193a0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1687,7 +1766,8 @@
           "sha1": "199d28b6326caa6dac166c124379b4170644021b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1706,7 +1786,8 @@
           "sha1": "0b74d73ac75a6e77343b80540156bf4d6ebada8a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1725,7 +1806,8 @@
           "sha1": "0b74d73ac75a6e77343b80540156bf4d6ebada8a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1744,7 +1826,8 @@
           "sha1": "87c0578a9035951f7d5c944bc899e63971bca420",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1763,7 +1846,8 @@
           "sha1": "b0bd15db528352c877611e788184b293fa50a274",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1782,7 +1866,8 @@
           "sha1": "cbf9aa87907bc72a50bdaa344e2e716a162dbc41",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1801,7 +1886,8 @@
           "sha1": "a313de91ae3615a648dc6257a51cb5771fdb6591",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1820,7 +1906,8 @@
           "sha1": "3b9d08c202450df5328d7867df7b043aaf1af99e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1839,7 +1926,8 @@
           "sha1": "a62d4bec9e0dd247125fb108dfe335c98035b7d0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1858,7 +1946,8 @@
           "sha1": "88944108c9b36d52f2ec3e4040e4cdb84a319883",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1877,7 +1966,8 @@
           "sha1": "199d28b6326caa6dac166c124379b4170644021b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1896,7 +1986,8 @@
           "sha1": "3b9d08c202450df5328d7867df7b043aaf1af99e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1915,7 +2006,8 @@
           "sha1": "dfb66021e24bcb1896a0c86ea6ab6a1ca07f16ff",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1946,7 +2038,8 @@
           "sha1": "2eda252ed847f2ce8799e2cff0e8f731d555e113",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1965,7 +2058,8 @@
           "sha1": "d66e75ad8f0a813560f9c0b1e04afef65cb18c9b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -1984,7 +2078,8 @@
           "sha1": "6fa9d7b57f2a9a457091aa6a9640e9d272f8f97b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2003,7 +2098,8 @@
           "sha1": "bf66664c8a7b65a1c207d31e1c78ab15bba31664",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2022,7 +2118,8 @@
           "sha1": "377eaa7ed4e1e00c57da03c61c6d819a268c8405",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2041,7 +2138,8 @@
           "sha1": "7d7db2cf2360e00ed67e489d5bb69aad2c67f625",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2060,7 +2158,8 @@
           "sha1": "9c4b97a4454d03a3865be5f5aabffe239c73b3df",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2079,7 +2178,8 @@
           "sha1": "5b89a8276b59224be1e184f239cb48e0be09f557",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2098,7 +2198,8 @@
           "sha1": "425e81bc7f13a8feae99d0fa3471521ea8839272",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2117,7 +2218,8 @@
           "sha1": "4f55bd3a9f719463382e7f3732d75aad14499b4e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2136,7 +2238,8 @@
           "sha1": "ed9125a4b5be3f164e59290d64a1c6a54cb7e3d6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2155,7 +2258,8 @@
           "sha1": "1d14554d1a76dae53f082a083870c17bd67d6626",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2174,7 +2278,8 @@
           "sha1": "195c333c9395fa62bef60ab119d5407a08af7369",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2199,7 +2304,8 @@
           "sha1": "195c333c9395fa62bef60ab119d5407a08af7369",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2224,7 +2330,8 @@
           "sha1": "6fa9d7b57f2a9a457091aa6a9640e9d272f8f97b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2243,7 +2350,8 @@
           "sha1": "b991b292e21859802cbbdc3a705fc0480cf02371",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2262,7 +2370,8 @@
           "sha1": "4e08fa41ead48f9fefe8f910f0eb6bc79d92dea5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2281,7 +2390,8 @@
           "sha1": "eb048af01175b05d379efb6e1cb58430709ce745",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2300,7 +2410,8 @@
           "sha1": "cb05b166b71bb0b67b0ed4160840c682d0e77fa7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2319,7 +2430,8 @@
           "sha1": "5def0212faa6b4c3b5d078a0bb57c085d53c36a8",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2338,7 +2450,8 @@
           "sha1": "8163d8ac8161b03aa989351559bd3007b48d2972",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2357,7 +2470,8 @@
           "sha1": "2b768350a241f573e82826c7c201d1db59c3bba1",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2394,14 +2508,15 @@
           "sha1": "055359c6ce03ef16c6aa89f520e40e188f831401",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
     {
       "model": "greatwood_wand",
       "parent": "minecraft:builtin/entity",
-      "builtin_entity": false,
+      "builtin_entity": true,
       "texture_references": [
         {
           "slot": "particle",
@@ -2413,7 +2528,8 @@
           "sha1": "7a2a5fe9d0a982582b834aaf5286cf65d21ea894",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2432,7 +2548,8 @@
           "sha1": "132e56df83a29b3fa007afc2ac2e5d3d42ead30f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2451,7 +2568,8 @@
           "sha1": "2eda252ed847f2ce8799e2cff0e8f731d555e113",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2470,7 +2588,8 @@
           "sha1": "b1a1411cb691bfed4147d36fb8d149fba75f7891",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2489,7 +2608,8 @@
           "sha1": "bdf45a04327a3551cf1cefc48521fa9aebffacc3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2508,7 +2628,8 @@
           "sha1": "d899b474ec9f2203ecbe030069c9a7dbccb4c085",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2527,7 +2648,8 @@
           "sha1": "49af28b592d0b299b405beaef89ccab27ce49791",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2546,7 +2668,8 @@
           "sha1": "2c6af35176be56a4f1b88a0336764f39f798dc47",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2565,7 +2688,8 @@
           "sha1": "97f6bb275885be90421d2edb23e5327df5f3f817",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2584,7 +2708,8 @@
           "sha1": "155cca3cdac29f8be0f75d43131b719c15551280",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2603,7 +2728,8 @@
           "sha1": "e4cfe7054ec93e0c27a6b073649a3fe874688f05",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2622,7 +2748,8 @@
           "sha1": "d18d35d32ab8b634b3742f98755e3536ddd79a95",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2641,7 +2768,8 @@
           "sha1": "0dd01012016076e593c0e5f7d1631edccc1cb7b4",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2666,7 +2794,8 @@
           "sha1": "8b1a44701be75958f2f5d438a5097e10fe6bd880",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2685,7 +2814,8 @@
           "sha1": "0331a43f7954a27bb1e17f6979083ff01a864ff3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2704,7 +2834,8 @@
           "sha1": "bb3e12c1d55f6e1e380c2a62df8fee1a2bdb6760",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2723,7 +2854,8 @@
           "sha1": "31116fc086ac2958822377acabc7348e4428e6d0",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2748,7 +2880,7 @@
     {
       "model": "iron_capped_wooden_wand",
       "parent": "minecraft:builtin/entity",
-      "builtin_entity": false,
+      "builtin_entity": true,
       "texture_references": [
         {
           "slot": "particle",
@@ -2760,7 +2892,8 @@
           "sha1": "7a2a5fe9d0a982582b834aaf5286cf65d21ea894",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2779,7 +2912,8 @@
           "sha1": "dcb0530788ca8d7d3da695324751b1f38bfe95d7",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2798,7 +2932,8 @@
           "sha1": "c8a9bead27bd3683c3daa6638093519bb2243066",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2817,7 +2952,8 @@
           "sha1": "18a5070f8ad02b113bd1911a3254b3f92072d8a8",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2836,7 +2972,8 @@
           "sha1": "87d464e769e2610ef40c41c332d3845bde610375",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2855,7 +2992,8 @@
           "sha1": "eebe482afc9fbe19df014ca753d3b3651dc30b49",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2880,7 +3018,8 @@
           "sha1": "a89e2e499a50b96eb4c937cd140884f376d447ff",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2911,7 +3050,8 @@
           "sha1": "68cd931e7e61f3960b1082d2d860a3406807ce92",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2936,14 +3076,15 @@
           "sha1": "c092f9da7e66a3471c63f5bf18dd8ed4fa4b618f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
     {
       "model": "node_jar",
       "parent": "minecraft:builtin/entity",
-      "builtin_entity": false,
+      "builtin_entity": true,
       "texture_references": [
         {
           "slot": "particle",
@@ -2955,7 +3096,8 @@
           "sha1": "9d1a41c3d0cc1d4e91f07ac50b06e8fe5b131fce",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -2980,7 +3122,8 @@
           "sha1": "76c1d7ae243cd21830847e71f7af6b8687bd9c79",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         },
         {
           "slot": "particle",
@@ -2992,7 +3135,8 @@
           "sha1": "76c1d7ae243cd21830847e71f7af6b8687bd9c79",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3029,7 +3173,8 @@
           "sha1": "ca291b6c37e9dfd4768d2a07cd4c16e2a98f5b83",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3054,7 +3199,8 @@
           "sha1": "36b3a91d0e7619b36b7bd8667283c67fc3694ec7",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3085,7 +3231,8 @@
           "sha1": "4828fbd63dfb6bd3add6ebbf1c9941f6251e5642",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3104,7 +3251,8 @@
           "sha1": "92d70c09feaa2e7f681d7d5db86273e0f484b166",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3123,7 +3271,8 @@
           "sha1": "92d70c09feaa2e7f681d7d5db86273e0f484b166",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3142,7 +3291,8 @@
           "sha1": "92d70c09feaa2e7f681d7d5db86273e0f484b166",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3161,7 +3311,8 @@
           "sha1": "92d70c09feaa2e7f681d7d5db86273e0f484b166",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3180,7 +3331,8 @@
           "sha1": "92d70c09feaa2e7f681d7d5db86273e0f484b166",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3205,7 +3357,8 @@
           "sha1": "571bea62477b28b96aafa94f0666315c021d4dc6",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3224,7 +3377,8 @@
           "sha1": "1cb41c77cdc24e412be216a016d52df410ca9871",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3243,7 +3397,8 @@
           "sha1": "2c843dea7f4941f89e1f5eb4b9e9d9678d346e08",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3262,7 +3417,8 @@
           "sha1": "d4ce8a4154e337e010af70e6e013ec1dca5a3b7b",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3281,7 +3437,8 @@
           "sha1": "3c16446d5fb5c01c9988d7eefd3390d636af062f",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3300,7 +3457,8 @@
           "sha1": "f71e3c734eae1a7aaab027111bd9b1796c935feb",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3325,7 +3483,8 @@
           "sha1": "d5cfad012a1f6685bc794fcefbaba5cc1b37d59d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3344,7 +3503,8 @@
           "sha1": "d5cfad012a1f6685bc794fcefbaba5cc1b37d59d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3363,7 +3523,8 @@
           "sha1": "5e5eee39648aea842e1c5cf2bba38c8a50aef090",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3382,7 +3543,8 @@
           "sha1": "d5cfad012a1f6685bc794fcefbaba5cc1b37d59d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3401,7 +3563,8 @@
           "sha1": "5e5eee39648aea842e1c5cf2bba38c8a50aef090",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3420,7 +3583,8 @@
           "sha1": "865f251300829c33d1d19f91f17d5be3b3cc7abd",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3445,7 +3609,8 @@
           "sha1": "f9bb558d68ac6bdefc115399449ee6928612be3a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3464,7 +3629,8 @@
           "sha1": "bb3e12c1d55f6e1e380c2a62df8fee1a2bdb6760",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3501,14 +3667,15 @@
           "sha1": "45c872e52df7aa08237bf9b7d89f96fbe510800d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
     {
       "model": "silverwood_wand",
       "parent": "minecraft:builtin/entity",
-      "builtin_entity": false,
+      "builtin_entity": true,
       "texture_references": [
         {
           "slot": "particle",
@@ -3520,7 +3687,8 @@
           "sha1": "7a2a5fe9d0a982582b834aaf5286cf65d21ea894",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3539,7 +3707,8 @@
           "sha1": "e76a252147e5c4043d1273c55a3086826682d407",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3558,7 +3727,8 @@
           "sha1": "0533346983ec14e9b239eb0c548f6cd8bda81a1f",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3589,7 +3759,8 @@
           "sha1": "831436a14c2d2eedebec13b36d859a525b3a4fcc",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3608,7 +3779,8 @@
           "sha1": "b6306ab76c5bd79ece1936649d2498e6ce3c9e05",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3633,7 +3805,8 @@
           "sha1": "43850b823ea4f10f2995b94b761ad13c20ee06c6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3658,7 +3831,8 @@
           "sha1": "aec2f7cdd61beab45e96b380ddfddd9dda857336",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3677,7 +3851,8 @@
           "sha1": "b2cf2acccabb411da758bd71394c7cddc734b497",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3696,7 +3871,8 @@
           "sha1": "70a658a3ab7fa3de92b230d406dc1b39269cb132",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3715,7 +3891,8 @@
           "sha1": "377769e790f0af6e98d6652c6345c295971ba9cb",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3734,7 +3911,8 @@
           "sha1": "764e68947ae24f66a7e4f15c49438daada5a5f90",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3753,7 +3931,8 @@
           "sha1": "c602658b3e063559302d9bbab7830e7d75ee9973",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3772,7 +3951,8 @@
           "sha1": "10c7099ac05d7ccd822cf050937adb526ea7e0be",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3791,7 +3971,8 @@
           "sha1": "4a84b687ef560a26afde7ce70f8e44e9d1c9dade",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3810,7 +3991,8 @@
           "sha1": "587cff433b6e41235f068fad31536188dbb2b372",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3829,7 +4011,8 @@
           "sha1": "2391fc36153a3c868b29f7dbde23978bbb622958",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3848,7 +4031,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3867,7 +4051,8 @@
           "sha1": "99405cfcf780bd2ce830dac19797149ceac45d8c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3886,7 +4071,8 @@
           "sha1": "99405cfcf780bd2ce830dac19797149ceac45d8c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3905,7 +4091,8 @@
           "sha1": "757e00d2fcf0a1674cf426dc527e5174238dff80",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3924,7 +4111,8 @@
           "sha1": "1e6ecdb52862e24c5641450e079381b61a756a3c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3943,7 +4131,8 @@
           "sha1": "48ea00b89f694a77de3ade7089d51f5077b0f867",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3962,7 +4151,8 @@
           "sha1": "915e346997e98ee0da09ed1da2093f19f4f6656c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -3981,7 +4171,8 @@
           "sha1": "c605a74af38b541cb6da410075eb3e525d931cf9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4000,7 +4191,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4019,7 +4211,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4038,7 +4231,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4057,7 +4251,8 @@
           "sha1": "99405cfcf780bd2ce830dac19797149ceac45d8c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4076,7 +4271,8 @@
           "sha1": "1c6d77ae488b974449dedee682c67ba3ce04e65c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4095,7 +4291,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4114,7 +4311,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4133,7 +4331,8 @@
           "sha1": "64fa8e4eac69940391bd4c9793a32e668509944d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4152,7 +4351,8 @@
           "sha1": "6f8104970094f32c1239390ad0d613d43309bf09",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4171,7 +4371,8 @@
           "sha1": "e9c3bd45d2b7e57a87866e00b50ad98339d56a93",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4190,7 +4391,8 @@
           "sha1": "470ba74d538991094c685155029900c96c467754",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4215,7 +4417,8 @@
           "sha1": "5e53d31b42231c0f8583e58ee99921ce2168ddc9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4234,7 +4437,8 @@
           "sha1": "5e06d28668cc0764f5826c8b9ee98fd30453a691",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4253,7 +4457,8 @@
           "sha1": "4e5a2f26225d942ef06117fa1ee6fe1fb8d2d5be",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4272,7 +4477,8 @@
           "sha1": "055359c6ce03ef16c6aa89f520e40e188f831401",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4291,7 +4497,8 @@
           "sha1": "48ea00b89f694a77de3ade7089d51f5077b0f867",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4310,7 +4517,8 @@
           "sha1": "a257ed7d88bca7a0d2acc427e4febca437380cd4",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4329,7 +4537,8 @@
           "sha1": "36ee01d38e2d69cf55c62612e4f790d29874930c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4348,7 +4557,8 @@
           "sha1": "09bd749d9091e6a2661273a2d0b8fe9e47cc3549",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4367,7 +4577,8 @@
           "sha1": "6f8104970094f32c1239390ad0d613d43309bf09",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4386,7 +4597,8 @@
           "sha1": "60e5d5569940f3c43dab687ce040bc61ee647fb9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4405,7 +4617,8 @@
           "sha1": "470ba74d538991094c685155029900c96c467754",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4424,7 +4637,8 @@
           "sha1": "470ba74d538991094c685155029900c96c467754",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4443,7 +4657,8 @@
           "sha1": "470ba74d538991094c685155029900c96c467754",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4462,7 +4677,8 @@
           "sha1": "b7b659a914063b98ae085128175b0b91a7602106",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4481,7 +4697,8 @@
           "sha1": "00754145fe9db865c4aa273c413201b2c7777464",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4500,7 +4717,8 @@
           "sha1": "e2552053ff5f91ddeb76d1454122f425f9f1e2a5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4519,7 +4737,8 @@
           "sha1": "4e45d444a13cb5c8c3b5f5c784a5672f68a22237",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4538,7 +4757,8 @@
           "sha1": "36d02ee8e829693eba67cf5d4a435584e74a8259",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4557,7 +4777,8 @@
           "sha1": "11a355b24a68a0ffe1e6950789e7a973786bc1ae",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4576,7 +4797,8 @@
           "sha1": "09eac0c9672c18f3c05296aa39615330c298f516",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4595,7 +4817,8 @@
           "sha1": "f3c890dce70c59cf76b5d0881d90e6f844cd784b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4614,7 +4837,8 @@
           "sha1": "5109fd29575e1cf4d3216c836c81db4ce20def90",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4633,7 +4857,8 @@
           "sha1": "3e058a193432a8280da6c8731936783ab987109f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4652,7 +4877,8 @@
           "sha1": "3b767c492c804f26c0d81ee3540433d75f649370",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4671,7 +4897,8 @@
           "sha1": "6618e68872d8ed4e06270a84771fae03bbf90ada",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4690,7 +4917,8 @@
           "sha1": "268f1e88deec13a7efacaaeb9ef2910e9198d0a1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4709,7 +4937,8 @@
           "sha1": "45c872e52df7aa08237bf9b7d89f96fbe510800d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4728,7 +4957,8 @@
           "sha1": "85f4f441d2eb4352b27e6ff6526e2687bcb633b9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4747,7 +4977,8 @@
           "sha1": "bf3ddbf0f9d6e29df8221ddf02095524c396d1c4",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4766,7 +4997,8 @@
           "sha1": "93bdda1d9258d5037d2abb281c02a3f3437d8b4e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4785,7 +5017,8 @@
           "sha1": "1faee4c144d63811380edde10a7f0e731676a819",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4804,7 +5037,8 @@
           "sha1": "ade01daf5398bac09579e4f01beabe7af0cbb3df",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4823,7 +5057,8 @@
           "sha1": "3c44490555cafda65c0dadcc2282ca6f164e1f13",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4842,7 +5077,8 @@
           "sha1": "7d9c4635245bcb5bddcb6a0c10d5cd476ce54f88",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4861,7 +5097,8 @@
           "sha1": "675956ecb65ae07fd39e9b174931f1adf6f10a3b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4880,7 +5117,8 @@
           "sha1": "449a643261063995c58648b889e2173707702125",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4899,7 +5137,8 @@
           "sha1": "74a10c468831a55c071c436493591ff59d6fc8a1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4918,7 +5157,8 @@
           "sha1": "90e6e74ffa5b7d6c3e8f54ae864ab6517d603632",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4937,7 +5177,8 @@
           "sha1": "8d85ea2e081f0c4fa43920d5c279e352100510f7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4956,7 +5197,8 @@
           "sha1": "1e08f86db93c4bfdfc40dc02b5a5addaa6c9c2c0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4975,7 +5217,8 @@
           "sha1": "694bfbb9b610a093b771492f8745a977eb947f7e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -4994,7 +5237,8 @@
           "sha1": "0cf8fd940e5c7d85ccab112425cd98734fa15d29",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5013,7 +5257,8 @@
           "sha1": "89d5a82aadc86b9d51a11e6c23d5a2ba7fd031ba",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5032,7 +5277,8 @@
           "sha1": "e4ee6207842db578c79cebcd1ebd79b3197c723d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5051,7 +5297,8 @@
           "sha1": "6ac5ba3248836e30f9d93c99bc4fbc51f4af513f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5070,7 +5317,8 @@
           "sha1": "1f10adaa12756e3e93f3c70364c7705ea65e83a4",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5089,7 +5337,8 @@
           "sha1": "451530978353c6481047340f5e8ade1747a2e385",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5108,7 +5357,8 @@
           "sha1": "41b779684c574185d97cc2217c9c6432795a9f07",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5127,7 +5377,8 @@
           "sha1": "063a46eea29eefab024e4b44cc4425047030538c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5146,7 +5397,8 @@
           "sha1": "3caf46c3212cb9945723427c511c35f88508a309",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5165,7 +5417,8 @@
           "sha1": "040cd109cf90289ae0b83f68c3d533b06cdc58fd",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5184,7 +5437,8 @@
           "sha1": "f09ddde7fcb81e979a39052cf38e39e41e792987",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5203,7 +5457,8 @@
           "sha1": "eadaa5166527d562c90766ec5c54567e0b05dc6a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5222,7 +5477,8 @@
           "sha1": "14c3a63806d2275c08ee43cfc07bd4e41a5fd9fd",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5241,7 +5497,8 @@
           "sha1": "828419b22b72f172113d6f3620ef93ef50a2c938",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5260,7 +5517,8 @@
           "sha1": "2aa8ce2e3f3e5b2577678757cd0e56233d5b097b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5279,7 +5537,8 @@
           "sha1": "3e9c7c0edfbb000bb01f330f784214c50952d852",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5298,7 +5557,8 @@
           "sha1": "d731ca6b08036a8f7a883121ea879d8be383a704",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5317,7 +5577,8 @@
           "sha1": "eda5f521679a2a11d48af50e8ab0a0828d36502c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5336,7 +5597,8 @@
           "sha1": "f6f8fd1f80c73c1964f65e2f976a655f5dfa05c7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5355,7 +5617,8 @@
           "sha1": "8c65060a2978dcda72bf17729900b876639616b9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5374,7 +5637,8 @@
           "sha1": "e122181f407c327b5dea68beabcbdfeae0186f61",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5393,7 +5657,8 @@
           "sha1": "9ec4330323b599f864a9513c30f4848365f7f1e9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5412,7 +5677,8 @@
           "sha1": "9a9df0bd495f37c3cd8d8d4b00c96c35bffe1705",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5431,7 +5697,8 @@
           "sha1": "b76a11f681f15b97a259975c2de8567084446ac1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5450,7 +5717,8 @@
           "sha1": "faa244f175e0cca4d9427264bd127ad63ee9566f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5469,7 +5737,8 @@
           "sha1": "b181e58911a6fc176cc520d5d2091656a8e166fc",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5488,7 +5757,8 @@
           "sha1": "2942dea726f1f2e75870a8cea2ddf3ad0c46fabb",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5507,7 +5777,8 @@
           "sha1": "29f9d1583f7e7c99c86e1ab3a2e248fc8d59a58a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5526,7 +5797,8 @@
           "sha1": "65300763275436cf087c9f8b54480096a0d3f5fc",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5545,7 +5817,8 @@
           "sha1": "44d3b7823f1b691f4299c4ef215bee884c53ac12",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5564,7 +5837,8 @@
           "sha1": "f51a629df5f177b8b77bd0e1d5433ca701986ce0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5583,7 +5857,8 @@
           "sha1": "dfbec729051672dcf54f2aef7b58737893296ecc",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5602,7 +5877,8 @@
           "sha1": "deb2a6985f2aae89b1eba6e82fce7378c10b8df1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5621,7 +5897,8 @@
           "sha1": "f085b5a6b2162fccd4569a9c18586987a2dc97dd",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5640,7 +5917,8 @@
           "sha1": "43213d9b4379d12f7931dce4fbb91fa2aa1cb6a5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5659,7 +5937,8 @@
           "sha1": "52f1499453fd09c93e8907ba6f893fb313e17e5c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5678,7 +5957,8 @@
           "sha1": "8453e8889b8fc990ce6f85e3a3d26a5b2d7efb66",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5697,7 +5977,8 @@
           "sha1": "6731fa7dfc176e0e6342c28733b9cc189c03ed51",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5716,7 +5997,8 @@
           "sha1": "69569f96713fb7661db1548639fb9e5373f044b0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5735,7 +6017,8 @@
           "sha1": "63f9c1d3dc3b0124f87a073576cdf821b66f3fca",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5754,7 +6037,8 @@
           "sha1": "4a196e5794075a1a4d09f653a6d7a419ff79ec8e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5773,7 +6057,8 @@
           "sha1": "94f62f7793b3ce3864237683326548b069113091",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5792,7 +6077,8 @@
           "sha1": "23d6f227caf102e449e0d0f3dec8975a67b916ed",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5811,7 +6097,8 @@
           "sha1": "cbeda8884cc414ee659ad07fe352ba17238bcd48",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5830,7 +6117,8 @@
           "sha1": "87c0578a9035951f7d5c944bc899e63971bca420",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5849,7 +6137,8 @@
           "sha1": "f6e986c1efe6a052b58cb0af8cd006583e06fa73",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5868,7 +6157,8 @@
           "sha1": "199d28b6326caa6dac166c124379b4170644021b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5887,7 +6177,8 @@
           "sha1": "0b74d73ac75a6e77343b80540156bf4d6ebada8a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5906,7 +6197,8 @@
           "sha1": "ae30d1ba102614df2f0a0d450a5f703acb10b9ee",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5925,7 +6217,8 @@
           "sha1": "b0bd15db528352c877611e788184b293fa50a274",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5944,7 +6237,8 @@
           "sha1": "cbf9aa87907bc72a50bdaa344e2e716a162dbc41",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5963,7 +6257,8 @@
           "sha1": "3b9d08c202450df5328d7867df7b043aaf1af99e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -5982,7 +6277,8 @@
           "sha1": "a62d4bec9e0dd247125fb108dfe335c98035b7d0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6001,7 +6297,8 @@
           "sha1": "88944108c9b36d52f2ec3e4040e4cdb84a319883",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6020,7 +6317,8 @@
           "sha1": "2011c3fc3ed184f4d67282d052ed6a003f9193a0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6039,7 +6337,8 @@
           "sha1": "dfb66021e24bcb1896a0c86ea6ab6a1ca07f16ff",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6058,7 +6357,8 @@
           "sha1": "a313de91ae3615a648dc6257a51cb5771fdb6591",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6077,7 +6377,8 @@
           "sha1": "cd5f52b84c029e1f36f8e46f9fe262677befafd3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6096,7 +6397,8 @@
           "sha1": "2eda252ed847f2ce8799e2cff0e8f731d555e113",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6115,7 +6417,8 @@
           "sha1": "17850db7ef31d41f7e74759b10574449611aa05c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6134,7 +6437,8 @@
           "sha1": "bf66664c8a7b65a1c207d31e1c78ab15bba31664",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": true
+          "placeholder_name": true,
+          "placeholder_classification": "canonical_tc4_blank_golem_core_component"
         }
       ]
     },
@@ -6153,7 +6457,8 @@
           "sha1": "55a94052c54cee33b8b4782f71691d58d5151610",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6172,7 +6477,8 @@
           "sha1": "f9e9feb520a4fdd1d5711006a8b8d28d265ae5f1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6191,7 +6497,8 @@
           "sha1": "89a7f6f5afe32a58d6793ffb988413de23126670",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6210,7 +6517,8 @@
           "sha1": "249c42550be6a9b7548d7d7d91eb4c2b8bb77b42",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6229,7 +6537,8 @@
           "sha1": "5f5f3ac8373464043a9bb004daabe535b9397c1c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6248,7 +6557,8 @@
           "sha1": "d51d29bf26d09562eb734f3dfd04951c325d9ced",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6267,7 +6577,8 @@
           "sha1": "195c333c9395fa62bef60ab119d5407a08af7369",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6286,7 +6597,8 @@
           "sha1": "ac38ea2d3e0514bb8c620d8895a56b44a2d13a8e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6305,7 +6617,8 @@
           "sha1": "f9165dcd21fddb667df5c1ec455fa58d70faca79",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6324,7 +6637,8 @@
           "sha1": "a9eee6e5bfe0f45ccdb648ba7e6d558b7b9f403b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6343,7 +6657,8 @@
           "sha1": "892844cae473bb7de7399ea9f49528608c9a94b9",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6362,7 +6677,8 @@
           "sha1": "7ca5912a3d9930546c77b2949fcfc4482c7ffb41",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6381,7 +6697,8 @@
           "sha1": "cb9327ea628060ecf0227d14fd8ab7c05b9ea017",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6400,7 +6717,8 @@
           "sha1": "f6f3b3e6a859e834a745091444e6e333fb765e70",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6419,7 +6737,8 @@
           "sha1": "b5c4d53b9435c2e93a2bf0083b35d89528e6eed1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6438,7 +6757,8 @@
           "sha1": "a9ec873ae0267a49355eefd41af473f28dc84e74",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6457,7 +6777,8 @@
           "sha1": "b52ab6f008ec52668c89dcaffe08844bd5bd20d6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6476,7 +6797,8 @@
           "sha1": "ee854a90434026d9e1acea220eb10eae57a51985",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6495,7 +6817,8 @@
           "sha1": "a2edf58dedd0528d4f45de896c385c6f53052ab2",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6514,7 +6837,8 @@
           "sha1": "055a58e7cd73253b00798ba1ada3d8b434d20ad2",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6533,7 +6857,8 @@
           "sha1": "b991b292e21859802cbbdc3a705fc0480cf02371",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6552,7 +6877,8 @@
           "sha1": "4e08fa41ead48f9fefe8f910f0eb6bc79d92dea5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6571,7 +6897,8 @@
           "sha1": "1e9e6f8aa1cd4da7c4715edef136aed83c4cdc8f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6590,7 +6917,8 @@
           "sha1": "eb048af01175b05d379efb6e1cb58430709ce745",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6609,7 +6937,8 @@
           "sha1": "cb05b166b71bb0b67b0ed4160840c682d0e77fa7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6628,7 +6957,8 @@
           "sha1": "5def0212faa6b4c3b5d078a0bb57c085d53c36a8",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6647,7 +6977,8 @@
           "sha1": "8163d8ac8161b03aa989351559bd3007b48d2972",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6666,7 +6997,8 @@
           "sha1": "337f2b83f6d4b647d1b43ca7a166025beda5f9c0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6685,7 +7017,8 @@
           "sha1": "377eaa7ed4e1e00c57da03c61c6d819a268c8405",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6704,7 +7037,8 @@
           "sha1": "7d7db2cf2360e00ed67e489d5bb69aad2c67f625",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6723,7 +7057,8 @@
           "sha1": "9c4b97a4454d03a3865be5f5aabffe239c73b3df",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6742,7 +7077,8 @@
           "sha1": "5b89a8276b59224be1e184f239cb48e0be09f557",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6761,7 +7097,8 @@
           "sha1": "425e81bc7f13a8feae99d0fa3471521ea8839272",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6780,7 +7117,8 @@
           "sha1": "4f55bd3a9f719463382e7f3732d75aad14499b4e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6799,7 +7137,8 @@
           "sha1": "ed9125a4b5be3f164e59290d64a1c6a54cb7e3d6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6818,7 +7157,8 @@
           "sha1": "1d14554d1a76dae53f082a083870c17bd67d6626",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6837,7 +7177,8 @@
           "sha1": "2e1ea3e03de4d41d229fba0e88289133d4c69c78",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6856,7 +7197,8 @@
           "sha1": "af766d41af318ca6f11eeef91aff7eb2b46ed958",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6875,7 +7217,8 @@
           "sha1": "bb3e12c1d55f6e1e380c2a62df8fee1a2bdb6760",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6894,7 +7237,8 @@
           "sha1": "6fa9d7b57f2a9a457091aa6a9640e9d272f8f97b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6913,7 +7257,8 @@
           "sha1": "18ce2a2195c853f14002f334692a3b9cda1554b4",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6932,7 +7277,8 @@
           "sha1": "e6c79ab8043ddf2694d92ecf88d5fb48aca81765",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6951,7 +7297,8 @@
           "sha1": "85cbc7473b3ac57233eabc49f51ee74323213078",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6970,7 +7317,8 @@
           "sha1": "18a5070f8ad02b113bd1911a3254b3f92072d8a8",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -6989,7 +7337,8 @@
           "sha1": "aa383e44edfd2ee27c8549dbc722890763ca3e47",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7008,7 +7357,8 @@
           "sha1": "dbd48c8606c6c9ee06edc0d1e757e1459bde86c8",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7027,7 +7377,8 @@
           "sha1": "c6036064c6d51337794f69a7a583c923709ab4b7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7046,7 +7397,8 @@
           "sha1": "dc842b752129ff847189df8aa08cf7c1727f4886",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7065,7 +7417,8 @@
           "sha1": "bd2bbf94f293628152cb5035def00b1e6ba9d1b6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7084,7 +7437,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7103,7 +7457,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7122,7 +7477,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7141,7 +7497,8 @@
           "sha1": "f85bfd7b6e85e393d4a3ecdf7f660c6decee0b5f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7160,7 +7517,8 @@
           "sha1": "161727087e8494b3b4736b9e994ffc81d510c3a1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7179,7 +7537,8 @@
           "sha1": "4f87786db0d25edaba6e7f12629b98f8fe763bf0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7198,7 +7557,8 @@
           "sha1": "ca5681ccf238cbee0b5d7f26094cd90986ab89bf",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7217,7 +7577,8 @@
           "sha1": "c092f9da7e66a3471c63f5bf18dd8ed4fa4b618f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7236,7 +7597,8 @@
           "sha1": "062824c94a482408ea77fbf42430053d593874fe",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7255,7 +7617,8 @@
           "sha1": "836fb571d983e17bb6a1740848042ec88e17a2d7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7274,7 +7637,8 @@
           "sha1": "88d4c0056d1414dde143fe9ecd4cefb94d75610f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7293,7 +7657,8 @@
           "sha1": "8597a9d7bb8bb9feae47306b28b01df30aa64229",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7312,7 +7677,8 @@
           "sha1": "caf09de35c2a9f43bb87981a3ea58c9f78380152",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7331,7 +7697,8 @@
           "sha1": "34873fd90b2dd26e1aa5f1061a09eb376df7de5f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7350,7 +7717,8 @@
           "sha1": "3477a1b226501b4ab8363d5759b264ea4346d424",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7369,7 +7737,8 @@
           "sha1": "b523eca4d1bdb26d459dc76d57fabd3d99c67ad7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7388,7 +7757,8 @@
           "sha1": "dc10ebd9978cbc2980ed4565cbc5dd7ff9814bb3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7407,7 +7777,8 @@
           "sha1": "4bb1deeadf92ba8255fcc238bc068f4864879247",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7426,7 +7797,8 @@
           "sha1": "a45d7a0440b40d9654919f33cc0ec43d101ba447",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7445,7 +7817,8 @@
           "sha1": "b90f09ddf8304b5f021021aa02d26e52e8c56006",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7464,7 +7837,8 @@
           "sha1": "6d602a10f46d70ab49e6b08acfb59797407dd385",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7483,7 +7857,8 @@
           "sha1": "cb133018a887d560451c1609491000cfcab9e969",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7502,7 +7877,8 @@
           "sha1": "92414f38b005224ebcac91344af5e343b473f090",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7521,7 +7897,8 @@
           "sha1": "f71e3c734eae1a7aaab027111bd9b1796c935feb",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7540,7 +7917,8 @@
           "sha1": "d5cfad012a1f6685bc794fcefbaba5cc1b37d59d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7559,7 +7937,8 @@
           "sha1": "69875cf4d528cdd3a435d802305d7417d343235a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7578,7 +7957,8 @@
           "sha1": "90a2e7e75121f06326f1c06cbed2640658f28f21",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7597,7 +7977,8 @@
           "sha1": "aaa9269cfbeb97228cb8c1ea6ac03ecf850163a6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7616,7 +7997,8 @@
           "sha1": "d29b7ae9de19a39a6e573c6731331204615a1c0d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7635,7 +8017,8 @@
           "sha1": "68e031ad1e9e8832e636a2abacf0b4a3c3246766",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7654,7 +8037,8 @@
           "sha1": "47c4f902957fc14b15de42089aaa1ebe8b7ae062",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7673,7 +8057,8 @@
           "sha1": "e5b4724b0d8fa783cfe59b6fb909f1823040a2d0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7692,7 +8077,8 @@
           "sha1": "1828f60688821b627a706fb50b6b6e9fb1844ea7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7711,7 +8097,8 @@
           "sha1": "aa9a271839a9cc1d94449d5624b30cc7e4f1d1c3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7730,7 +8117,8 @@
           "sha1": "bb4d050daa9fe393df9d1b07c7ff6b08e2ceaff3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7749,7 +8137,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7768,7 +8157,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7787,7 +8177,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7806,7 +8197,8 @@
           "sha1": "3830ef6b970955d1b7a7b7cf0020c9bdcac48d17",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7825,7 +8217,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7844,7 +8237,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7863,7 +8257,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7882,7 +8277,8 @@
           "sha1": "35db8f50b2066675951e007a030507e711e0199e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7901,7 +8297,8 @@
           "sha1": "b225f791d9ce9f48e6999588a8f4cd81d38bf490",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7920,7 +8317,8 @@
           "sha1": "6d02261a4ceb00144a902d577cca35fecd911a72",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7939,7 +8337,8 @@
           "sha1": "f9bb558d68ac6bdefc115399449ee6928612be3a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7958,7 +8357,8 @@
           "sha1": "9b982df7b5d5b5f80ad3fe478772c3ddcd904d4a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7977,7 +8377,8 @@
           "sha1": "315a001d35af848f95fe695d8888be3201b34ae7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -7996,7 +8397,8 @@
           "sha1": "666e5192b0b6846971234691a0639305372987bb",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8015,7 +8417,8 @@
           "sha1": "afe538a6d2fccb316eabd4c41e75f59f8e7f3bdd",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8034,7 +8437,8 @@
           "sha1": "39b34d1a0821ed04e79dc5dc5af63252063be678",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8053,7 +8457,8 @@
           "sha1": "8468bca7c59b3c8674f7e8fe112b6e51bc43dcd3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8072,7 +8477,8 @@
           "sha1": "f0166a2a88609cdbf2e3f407a42dd97a1fb2e919",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8091,7 +8497,8 @@
           "sha1": "b580a16599a0addac36187fb43517701e013767f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8110,7 +8517,8 @@
           "sha1": "0322c23c0ff9c24261ccf89868e169f545b29fc8",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8129,7 +8537,8 @@
           "sha1": "43850b823ea4f10f2995b94b761ad13c20ee06c6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8148,7 +8557,8 @@
           "sha1": "23c36c1c278e05df7b255466f48f375542cca1d0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8167,7 +8577,8 @@
           "sha1": "713e3f06e9572cb1344262f1b21a3a5ad4a7df60",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8186,7 +8597,8 @@
           "sha1": "74ac490e09f8f479d1fcddff7231f39857c6c112",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8205,7 +8617,8 @@
           "sha1": "cb4e85cbf3f5ff3e64630630e5343b4015306d7c",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8224,7 +8637,8 @@
           "sha1": "e77f232707c33cbb0bae89d4bf3dd06c8de97a72",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8243,7 +8657,8 @@
           "sha1": "d94738ba284c447d8c5f342ec4e7567c832e920a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8262,7 +8677,8 @@
           "sha1": "b750f98d8776e43e5269a91dd02d1f6a0fe9bb27",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8281,7 +8697,8 @@
           "sha1": "5559f269d5b5203c12626630ec881981d9cee84e",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8300,7 +8717,8 @@
           "sha1": "d0e4fd82e930f719af06942b6958fc0f385af1dc",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8319,7 +8737,8 @@
           "sha1": "63f9d5530ca719a5897876666e9b08575d959c62",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8338,7 +8757,8 @@
           "sha1": "4775106e2c802c7bb8196c5da162fc44eed89e16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8357,7 +8777,8 @@
           "sha1": "430e973ecc383a06b0cb69b1169f5b9b326b2602",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8376,7 +8797,8 @@
           "sha1": "29dd2e594123a5f0f1aa0bb905f85f871cf38e61",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8395,7 +8817,8 @@
           "sha1": "5831e9bee3393c75eaa3bcf4e11aa7301b7b0232",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8414,7 +8837,8 @@
           "sha1": "d913f74fba19ac92aaa7bf099b5f8e1481b80da1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8433,7 +8857,8 @@
           "sha1": "7be9fe4519810b78c83adffb28eee09c86dfc619",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8452,7 +8877,8 @@
           "sha1": "488a8fa56f18a29b652a7c04f9893d9df0812f08",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8471,7 +8897,8 @@
           "sha1": "7b564dcd31c1dd23c8150e1493f46ad21b14ab3f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8490,7 +8917,8 @@
           "sha1": "88379e9d517963105593867a350f4e0e22dc374b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8509,7 +8937,8 @@
           "sha1": "dd246523bc49829b051cd88bbaf29205c73800ef",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8528,7 +8957,8 @@
           "sha1": "6b1bb24e1bd4b3204b94b518f767f2230e939241",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8547,7 +8977,8 @@
           "sha1": "d942f93e0da82603aa3acb266d18aa33da10dc21",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8566,7 +8997,8 @@
           "sha1": "f4357eca7145d8e96e161d536e7f96badfe0182b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8585,7 +9017,8 @@
           "sha1": "9547ce3eacc4b93f917acadd56af8a2b30d343bd",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8604,7 +9037,8 @@
           "sha1": "101c36ad48d5bd52cb0685f00b852732a643479f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8623,7 +9057,8 @@
           "sha1": "afff97417cfd6cd2de79d21b626fd9d5f5045802",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8642,7 +9077,8 @@
           "sha1": "303f095846d009dae90d3c768916049a767fd0be",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8661,7 +9097,8 @@
           "sha1": "b32b899bcfb418ac57705a5aeb31ffa8c0feb4f7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8680,7 +9117,8 @@
           "sha1": "00231f301ef55a329ead0e3563b58b922b525c16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8699,7 +9137,8 @@
           "sha1": "987e7a44ba8f2d114b7e785179bdec3721ad930b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8718,7 +9157,8 @@
           "sha1": "4482a2f8d338a649b5210e019d3463070547f94a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8737,7 +9177,8 @@
           "sha1": "04d1e17680fc72ec8ed2f7483740ffc1b7f0a1e5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8756,7 +9197,8 @@
           "sha1": "939a39310a5bf19be252be0c2bd4933d1dff6d70",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8775,7 +9217,8 @@
           "sha1": "08cead572bdb452096315e889d4fbe2a9f2babf3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8794,7 +9237,8 @@
           "sha1": "91b70576db4773799e970a82773f1967887a8374",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8813,7 +9257,8 @@
           "sha1": "a3d73add3e7bf73a72fd78eed7530fad5b5f1563",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8832,7 +9277,8 @@
           "sha1": "278ef8c6aad78c322a985e66c5e82f8222bdc4b3",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8851,7 +9297,8 @@
           "sha1": "0562db633898a75781b87e30e15637639f1772a5",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8870,7 +9317,8 @@
           "sha1": "d66e75ad8f0a813560f9c0b1e04afef65cb18c9b",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8889,7 +9337,8 @@
           "sha1": "c8a9bead27bd3683c3daa6638093519bb2243066",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8908,7 +9357,8 @@
           "sha1": "facde6c0bd803037a8b004e4f1a07e6ee04361c0",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8927,7 +9377,8 @@
           "sha1": "a612e9b3450bc7b30ded5ea75975b6e24ba8bf0d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8946,7 +9397,8 @@
           "sha1": "ec55bc48cb61e9de1184e16dce21076727bc52a1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8965,7 +9417,8 @@
           "sha1": "50fb743426a3389e2387d345b4426ae7bf1c0115",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -8984,7 +9437,8 @@
           "sha1": "29dfb5db5e349d0e92e7171a914fac4303bb52e6",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9003,7 +9457,8 @@
           "sha1": "44fc0d58f879a9db966eb2ad928c9fab700f45c1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9022,7 +9477,8 @@
           "sha1": "d2eb09711e8853ef1346182b1abf5590099687db",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9041,7 +9497,8 @@
           "sha1": "69c23b5eca27a2c3e59ed32fcc872856f61aaa5a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9060,7 +9517,8 @@
           "sha1": "132e56df83a29b3fa007afc2ac2e5d3d42ead30f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9079,7 +9537,8 @@
           "sha1": "9ae83669f4bbec6e81a734b5798ac046c548e4c7",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9098,7 +9557,8 @@
           "sha1": "6811b430692b49a055198f14faca27835f93c93f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9117,7 +9577,8 @@
           "sha1": "c0556d925ebf0e01f021a9f151a591a9eec6993f",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9136,7 +9597,8 @@
           "sha1": "8bec72b8c62ad9339800fee51283234eabdfc63a",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9155,7 +9617,8 @@
           "sha1": "e76a252147e5c4043d1273c55a3086826682d407",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9174,7 +9637,8 @@
           "sha1": "2dd9e43ca5cf907bf7ae7fe319c029f952b54629",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9193,7 +9657,8 @@
           "sha1": "5f063325405c7889f4ab6d827540ba9415945039",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9212,7 +9677,8 @@
           "sha1": "e29b40bda9cd69b042f7cd650eb552ead2f1af2f",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9231,7 +9697,8 @@
           "sha1": "627d1ec55b4b73229a15f2e0e485cd36869b7343",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9280,7 +9747,8 @@
           "sha1": "bc6f60690100a50a66d0f8471aa1ab523bf5a55d",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9299,7 +9767,8 @@
           "sha1": "e4942caac3a29b0af7d4d5963612a2eba66a505b",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9318,7 +9787,8 @@
           "sha1": "5f063325405c7889f4ab6d827540ba9415945039",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9343,7 +9813,8 @@
           "sha1": "371dce2b6e5da410ea7a5bda41fd83269d2e3b29",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9362,7 +9833,8 @@
           "sha1": "48b07644108be1d6872cac0870d33d7bf2644cd9",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9393,7 +9865,8 @@
           "sha1": "5f5af880fe86d002d570d3b25e6ce3493c6b39c4",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9412,7 +9885,8 @@
           "sha1": "42889878dbce9f2bdd06b6cbe94f70b2d27a8ed3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9431,7 +9905,8 @@
           "sha1": "9e1005bfdf79e21f97b5e25adb504dd479eecec7",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9450,7 +9925,8 @@
           "sha1": "8467349b96a5d12c31b741d97f6ea6f705d970c0",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9487,7 +9963,8 @@
           "sha1": "98b6f2fb86815db84981df0d8994cc450aa0df02",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9536,7 +10013,8 @@
           "sha1": "d7b9368d6ba526872acb0e745e2661db6823f1cc",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9573,7 +10051,8 @@
           "sha1": "bb91f85c26d1c1b8e307b226588bd8f24f3658e8",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9592,7 +10071,8 @@
           "sha1": "389bc8724c48076d396e79af54f6232fafcb1c52",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9653,7 +10133,8 @@
           "sha1": "3d321b7739d1e76c953f0177cdf7000c97d57880",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9678,7 +10159,8 @@
           "sha1": "f41e00f3c5429b7086daa2bd4625a1814ccc3c41",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9697,7 +10179,8 @@
           "sha1": "ea5ba3779a5a8eb60b72d97ae3f21837a72275e4",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9722,7 +10205,8 @@
           "sha1": "f810c13fa8c3f8e3e13b6eb93f521e428c1b5ea8",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9747,7 +10231,8 @@
           "sha1": "69c2b9635287cf0198acbfe77c5a1bf01f1a72f3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9778,7 +10263,8 @@
           "sha1": "4775106e2c802c7bb8196c5da162fc44eed89e16",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9797,7 +10283,8 @@
           "sha1": "4bb1deeadf92ba8255fcc238bc068f4864879247",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9816,7 +10303,8 @@
           "sha1": "60611360b89fe2f3fda317e76bc92f2d13437ffa",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9835,14 +10323,15 @@
           "sha1": "ec55bc48cb61e9de1184e16dce21076727bc52a1",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
     {
       "model": "thaumometer",
       "parent": "minecraft:builtin/entity",
-      "builtin_entity": false,
+      "builtin_entity": true,
       "texture_references": [
         {
           "slot": "particle",
@@ -9854,7 +10343,8 @@
           "sha1": "63b8d746b473808b48a78abd3812605924176b72",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9873,7 +10363,8 @@
           "sha1": "7be9fe4519810b78c83adffb28eee09c86dfc619",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9892,7 +10383,8 @@
           "sha1": "488a8fa56f18a29b652a7c04f9893d9df0812f08",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9911,7 +10403,8 @@
           "sha1": "b0cf1512e42f7a7a5aba5b86e3c730cea6b8cb45",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9930,7 +10423,8 @@
           "sha1": "47786cdeb564729f1e59874651df7efa94f3d7d5",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9973,7 +10467,8 @@
           "sha1": "eb5efe0803c395df2847d135261e0db29b2bacd7",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -9992,7 +10487,8 @@
           "sha1": "1d1b8809e9e33e02efb805269c8d46f7fbc8b397",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10011,7 +10507,8 @@
           "sha1": "cf6f8f80df47cdd0f137ac2c66cd4e155d2bee27",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10030,7 +10527,8 @@
           "sha1": "9536e7acbac793c806fe9a3d81c999a5731818c6",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10049,7 +10547,8 @@
           "sha1": "3957f75238014872f0d937cb162503903e0d6171",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10110,7 +10609,8 @@
           "sha1": "86e16b5bc613714cc610e6cc6e0a6bab11c4cde9",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10129,7 +10629,8 @@
           "sha1": "e4fd6e105f8419028b0abd08560d8f70057104a0",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10148,7 +10649,8 @@
           "sha1": "b147562b020a176132346ff1c394c9b5ece5777d",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10167,7 +10669,8 @@
           "sha1": "f61d009d15afcb97c76e9413a9a1fe9955940d1a",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10186,7 +10689,8 @@
           "sha1": "4c8985748779ae93c83177788fecb762071655a0",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10205,7 +10709,8 @@
           "sha1": "8f188d2397fe24dbf126af205d09e5971baf616a",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10224,7 +10729,8 @@
           "sha1": "0e1a770266d5233e39b0483f7835058c482c7d14",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10243,7 +10749,8 @@
           "sha1": "50b734ce2937c3b857ea4de56efc47a735aa69e2",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10274,7 +10781,8 @@
           "sha1": "02ea829f7e49b482534c286d4959a65e38de992a",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10311,7 +10819,8 @@
           "sha1": "a0db2a197741f37f2235279957ffb088d703f048",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10330,7 +10839,8 @@
           "sha1": "1d6bfd7f659a546401e37f98702b8be07a6e6c4c",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10349,7 +10859,8 @@
           "sha1": "bb6222a77477b87831e9938f6438a251ee7962dc",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10368,7 +10879,8 @@
           "sha1": "a26493f35eef8d8d7c7c930f8b922720caa3f0a7",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10387,7 +10899,8 @@
           "sha1": "cf47512beb7bd02bf0e98ddb72841e1dfc46d654",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10406,7 +10919,8 @@
           "sha1": "79075958658551e85c2e62720365cd74eb685eda",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10425,7 +10939,8 @@
           "sha1": "5f8f7d8e620f7c70a08ab1a80926af2d1c893130",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10444,7 +10959,8 @@
           "sha1": "7903c8900befa1ba12cefe29be0e8f4bd0d15676",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10463,7 +10979,8 @@
           "sha1": "88b327e588af3c8533d5c687f20aa9830073ad13",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10488,7 +11005,8 @@
           "sha1": "bccad20ead9967be6bc5194a261eaa101d4e59fa",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10507,7 +11025,8 @@
           "sha1": "5d03bb7ef5e625b40a15817e05067ceea24fc9f8",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10526,7 +11045,8 @@
           "sha1": "472f1e36448c696fe0da31aa77beb8251197d73c",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10545,7 +11065,8 @@
           "sha1": "ff296895a2fad2badcecdc4178c0b707c8af11e1",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10564,7 +11085,8 @@
           "sha1": "bdf45a04327a3551cf1cefc48521fa9aebffacc3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10583,7 +11105,8 @@
           "sha1": "d6c37cdf5d1430b60d174dc5e7b7de5ed2a429db",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10626,7 +11149,8 @@
           "sha1": "173d2cb35f5183be7de9cb3142a26b74099aa8de",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10645,7 +11169,8 @@
           "sha1": "7cf667ba9c538da3e95bc63b96c098a1ad681b63",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10676,7 +11201,8 @@
           "sha1": "fe0ad9839b16df14bfd96218c0bceac1366b5767",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10695,7 +11221,8 @@
           "sha1": "fe464f336abb9fce57e32e2a981ba58993fb8c5d",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10714,7 +11241,8 @@
           "sha1": "ec2a7239cadc55015c2a86a85f2c06edc194d048",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10733,7 +11261,8 @@
           "sha1": "c0fd6ab5dbd4f337c953edd2b9dca18647056271",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10770,7 +11299,8 @@
           "sha1": "01fc8e118d3ff074709b8504d819b450c9f54a9c",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10789,7 +11319,8 @@
           "sha1": "59126dc2eaae1b5c42bc85a4094df2ecf993ae3a",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10808,7 +11339,8 @@
           "sha1": "9251fe89fbfaef03e2705e6dd2ebeb861c12cedd",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10839,7 +11371,8 @@
           "sha1": "b88ce92c5cb4a435c584ba9c04f8d9db9f85bb08",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10864,7 +11397,8 @@
           "sha1": "d3705390a24f52dd9e1f612642915b6d506be894",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10883,7 +11417,8 @@
           "sha1": "647c90888edee5076ac10832e5e8cf91a2022da3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10902,7 +11437,8 @@
           "sha1": "647c90888edee5076ac10832e5e8cf91a2022da3",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10921,7 +11457,8 @@
           "sha1": "e91a26ddca05a8fd0b10407477007feaaaa73872",
           "original_exact": false,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     },
@@ -10940,7 +11477,8 @@
           "sha1": "8c425620fd46ab11b6797cdbb9fb3852f013b48d",
           "original_exact": true,
           "original_same_path": false,
-          "placeholder_name": false
+          "placeholder_name": false,
+          "placeholder_classification": null
         }
       ]
     }
@@ -11800,5 +12338,17 @@
         "location": "thaumcraft:item/warp_ward_talisman"
       }
     ]
+  ],
+  "placeholder_classification": [
+    {
+      "model": "aura_node",
+      "texture": "item/aura_node_debug.png",
+      "classification": "quarantined_debug_item_for_non_item_node_block"
+    },
+    {
+      "model": "tc4_golem_core_blank",
+      "texture": "item/tc4/golem_core_blank.png",
+      "classification": "canonical_tc4_blank_golem_core_component"
+    }
   ]
 }

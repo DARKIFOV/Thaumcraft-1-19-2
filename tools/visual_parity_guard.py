@@ -142,8 +142,11 @@ aspect_source = (ROOT / "src/main/java/com/darkifov/thaumcraft/Aspect.java").rea
 require("this == PERDITIO || this == VACUOS" in aspect_source,
         "TC4 aspect blend parity must keep Entropy/Void on blend 771")
 
-require("overlayAlpha" in stabilizer_renderer and "170.0F * extension * pulse" in stabilizer_renderer,
-        "Node stabilizer overlay is still forced opaque instead of following piston extension")
+require("tc4LightCoordinate" in stabilizer_renderer and "170.0F * extension * pulse" in stabilizer_renderer
+        and "LightTexture.pack" in stabilizer_renderer and "entityCutoutNoCull(OVERLAY)" in stabilizer_renderer,
+        "Node stabilizer overlay must vary lightmap brightness instead of vertex alpha")
+require("TC4NodeRenderTypes.node(BUBBLE, true, false)" in stabilizer_renderer,
+        "Node stabilizer field lost original additive blending")
 
 registry_guard = next((ROOT / "src/main/java").rglob("TC4RegistryGarbageGuard.java")).read_text(encoding="utf-8")
 require('id.startsWith("tc4_")' in registry_guard and "return true;" in registry_guard,

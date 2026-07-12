@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class ThaumcraftNetwork {
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "2"; // v11.62.45 changes the research-completion packet payload.
     private static int packetId = 0;
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
@@ -469,8 +469,8 @@ public final class ThaumcraftNetwork {
         CHANNEL.sendToServer(new RequestSelectResearchPacket(researchKey));
     }
 
-    public static void requestCompleteSelectedResearchFromClient() {
-        CHANNEL.sendToServer(new RequestCompleteSelectedResearchPacket());
+    public static void requestCompleteSelectedResearchFromClient(String researchKey) {
+        CHANNEL.sendToServer(new RequestCompleteSelectedResearchPacket(researchKey));
     }
 
     public static void requestCombineAspectsFromClient(String firstId, String secondId) {

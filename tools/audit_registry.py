@@ -130,7 +130,7 @@ def markdown_list(values: Iterable[str], limit: int = 30) -> str:
     return text
 
 
-def run(root: Path, fail_on_unexpected: bool) -> int:
+def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
     resources = root / "src/main/resources"
     item_models = resources / "assets/thaumcraft/models/item"
     report_dir = root / "reports"
@@ -214,7 +214,7 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
             unexpected.append(Problem("visible_clone_group", "models/item", ", ".join(group)))
 
     result = {
-        "version": "11.62.44",
+        "version": version,
         "item_model_count": len(model_files),
         "parsed_model_count": len(models),
         "statically_detected_registered_model_count": len(registered_ids),
@@ -227,12 +227,12 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         "problems": [problem.__dict__ for problem in problems],
         "unexpected_problem_count": len(unexpected),
     }
-    (report_dir / "registry_audit_v11.62.44.json").write_text(
+    (report_dir / f"registry_audit_v{version}.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
     lines = [
-        "# Registry and resource audit — v11.62.44",
+        f"# Registry and resource audit — v{version}",
         "",
         f"- Item model JSON files: **{len(model_files)}**",
         f"- Parsed successfully: **{len(models)}**",
@@ -271,7 +271,7 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         "Legacy registry IDs are retained only for old-world compatibility. They must not appear as normal craftable/player-facing duplicates until a separate migration removes them safely.",
         "",
     ]
-    (report_dir / "REGISTRY_AUDIT_V11_62_44.md").write_text("\n".join(lines), encoding="utf-8")
+    (report_dir / f"REGISTRY_AUDIT_V{version.replace('.', '_')}.md").write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Audited {len(model_files)} item models")
     print(f"Visible clone leaks: {len(leaking_groups)}")
@@ -288,8 +288,9 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--fail-on-unexpected", action="store_true")
+    parser.add_argument("--version", default="11.62.49")
     args = parser.parse_args()
-    return run(args.root.resolve(), args.fail_on_unexpected)
+    return run(args.root.resolve(), args.fail_on_unexpected, args.version)
 
 
 if __name__ == "__main__":

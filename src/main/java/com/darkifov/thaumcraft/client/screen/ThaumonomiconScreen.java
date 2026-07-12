@@ -78,27 +78,21 @@ public class ThaumonomiconScreen extends Screen {
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        Set<String> unlocked = unlockedResearch();
+        ensureVisibleCategory(unlocked);
         renderBackground(poseStack);
         highlighted = null;
         renderResearchTree(poseStack, mouseX, mouseY, partialTick);
-        renderTabs(poseStack, mouseX, mouseY);
+        renderTabs(poseStack, mouseX, mouseY, unlocked);
         OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos, topPos, GUI_RESEARCH, 0, 0, PANE_WIDTH, PANE_HEIGHT, 256, 256);
-        renderBrowserHeader(poseStack);
         renderSelectedPage(poseStack);
         renderPopup(poseStack);
-        renderHoverTooltip(poseStack, mouseX, mouseY);
+        renderHoverTooltip(poseStack, mouseX, mouseY, unlocked);
         super.render(poseStack, mouseX, mouseY, partialTick);
     }
 
     private void renderResearchTree(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         renderMap(poseStack, mouseX, mouseY, partialTick);
-    }
-
-    private void renderBrowserHeader(PoseStack poseStack) {
-        // Stage663-682: keep the browser frame visually original. Completion and
-        // availability counts remain derivable from ClientResearchData, but are
-        // not painted as rebuild/debug text over gui_research.png.
-        drawString(poseStack, font, categoryTitle(category), leftPos + 12, topPos + 8, 0x2D1B0B);
     }
 
     private void renderSelectedPage(PoseStack poseStack) {
@@ -189,15 +183,19 @@ public class ThaumonomiconScreen extends Screen {
 
     private void renderNode(PoseStack poseStack, ResearchEntry entry, int x, int y, boolean complete, boolean available, float partialTick) {
         RenderSystem.enableBlend();
-        float brightness = complete ? 1.0f : available ? (0.72f + (float)Math.sin(System.currentTimeMillis() % 600L / 600.0D * Math.PI * 2.0D) * 0.18f) : 0.28f;
-        RenderSystem.setShaderColor(brightness, brightness, brightness, 1.0f);
+        float frameBrightness = complete ? 1.0F : available
+                ? 0.75F + (float)Math.sin(System.currentTimeMillis() % 600L / 600.0D * Math.PI * 2.0D) * 0.25F
+                : 0.30F;
+        RenderSystem.setShaderColor(frameBrightness, frameBrightness, frameBrightness, 1.0F);
 
+        boolean secondary = OriginalResearchLayout.secondary(entry);
         int u;
         if (OriginalResearchLayout.round(entry)) {
             u = 54;
-        } else if (entry.hasFlag("hidden")) {
-            u = 86;
-        } else if (OriginalResearchLayout.secondary(entry)) {
+        } else if (TC4ResearchFlagPolicy.has(entry, TC4ResearchFlagPolicy.HIDDEN)) {
+            // Original GuiResearchBrowser uses the far-right frame for hidden secondary research.
+            u = secondary ? 230 : 86;
+        } else if (secondary) {
             u = 110;
         } else {
             u = 0;
@@ -206,26 +204,27 @@ public class ThaumonomiconScreen extends Screen {
         if (OriginalResearchLayout.special(entry)) {
             OriginalGuiTextures.blitOriginalRegion(poseStack, x - 2, y - 2, GUI_RESEARCH, 26, 230, 26, 26, 256, 256);
         }
-        RenderSystem.setShaderColor(1, 1, 1, 1);
 
-        // Until every exact icon stack is registered, use the first required aspect
-        // as TC4-flavored icon instead of the previous fake square placeholder.
+        // TC4 dims the icon more aggressively than its frame when the node is locked.
+        float iconBrightness = complete ? 1.0F : available ? frameBrightness : 0.10F;
         ResourceLocation icon = iconFor(entry);
         Aspect iconAspect = aspectForIcon(entry, icon);
         if (iconAspect != null) {
-            OriginalGuiTextures.blitOriginalTinted(poseStack, x + 3, y + 3, icon, 16, 16, iconAspect.nativeColor());
+            OriginalGuiTextures.blitOriginalTinted(poseStack, x + 3, y + 3, icon, 16, 16,
+                    multiplyRgb(iconAspect.nativeColor(), iconBrightness));
         } else {
+            RenderSystem.setShaderColor(iconBrightness, iconBrightness, iconBrightness, 1.0F);
             OriginalGuiTextures.blitOriginal(poseStack, x + 3, y + 3, icon, 16, 16);
         }
-
-        if (selected != null && selected.key().equals(entry.key())) {
-            fill(poseStack, x - 4, y - 4, x + 26, y - 2, 0xAAFFE08A);
-            fill(poseStack, x - 4, y + 24, x + 26, y + 26, 0xAAFFE08A);
-            fill(poseStack, x - 4, y - 4, x - 2, y + 26, 0xAAFFE08A);
-            fill(poseStack, x + 24, y - 4, x + 26, y + 26, 0xAAFFE08A);
-        }
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
+    private static int multiplyRgb(int rgb, float brightness) {
+        int red = Math.max(0, Math.min(255, Math.round(((rgb >> 16) & 255) * brightness)));
+        int green = Math.max(0, Math.min(255, Math.round(((rgb >> 8) & 255) * brightness)));
+        int blue = Math.max(0, Math.min(255, Math.round((rgb & 255) * brightness)));
+        return (red << 16) | (green << 8) | blue;
+    }
 
     private Component categoryTitle(OriginalResearchCategory value) {
         return Component.translatable("thaumcraft.category." + value.key().toLowerCase(java.util.Locale.ROOT));
@@ -276,14 +275,14 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     private void drawResearchLine(PoseStack poseStack, int x1, int y1, int x2, int y2, int color, boolean active) {
-        // TC4 draws animated dangling/wiggling research links, not rigid L-shaped sticks.
-        // This 1.19.2 GuiComponent adapter preserves the original visual behaviour:
-        // a polyline sampled along the direct parent/sibling vector with optional
-        // sine offsets for not-yet-complete links.
         int dx = x2 - x1;
         int dy = y2 - y1;
         int steps = Math.max(1, (int)Math.sqrt(dx * dx + dy * dy) / 2);
-        float tick = Minecraft.getInstance().player == null ? 0.0F : Minecraft.getInstance().player.tickCount;
+        Minecraft minecraft = Minecraft.getInstance();
+        float tick = minecraft.player == null ? 0.0F : minecraft.player.tickCount + minecraft.getFrameTime();
+        int baseRed = (color >> 16) & 255;
+        int baseGreen = (color >> 8) & 255;
+        int baseBlue = color & 255;
         for (int i = 0; i <= steps; i++) {
             float phase = i / (float)steps;
             int x = x1 + Math.round(dx * phase);
@@ -292,14 +291,19 @@ public class ThaumonomiconScreen extends Screen {
                 x += Math.round((float)Math.sin((tick + i) / 7.0F) * 5.0F * (1.0F - phase));
                 y += Math.round((float)Math.sin((tick + i) / 5.0F) * 5.0F * (1.0F - phase));
             }
-            int alpha = active ? 0xCC000000 : Math.max(0x33000000, (int)(0x99000000 * phase));
-            fill(poseStack, x, y, x + 2, y + 2, (color & 0x00FFFFFF) | alpha);
+            float colorFade = active ? 1.0F : 1.0F - phase;
+            int alpha = Math.round(153.0F * (active ? 1.0F : phase));
+            int red = Math.round(baseRed * colorFade);
+            int green = Math.round(baseGreen * colorFade);
+            int blue = Math.round(baseBlue * colorFade);
+            int argb = (alpha << 24) | (red << 16) | (green << 8) | blue;
+            fill(poseStack, x, y, x + 2, y + 2, argb);
         }
     }
 
-    private void renderTabs(PoseStack poseStack, int mouseX, int mouseY) {
+    private void renderTabs(PoseStack poseStack, int mouseX, int mouseY, Set<String> unlocked) {
         int count = 0;
-        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
+        for (OriginalResearchCategory value : visibleCategories(unlocked)) {
             int x = leftPos - 24;
             int y = topPos + count * 24;
             int tabU = value == category ? 152 : 176;
@@ -312,19 +316,19 @@ public class ThaumonomiconScreen extends Screen {
         }
     }
 
-    private void renderHoverTooltip(PoseStack poseStack, int mouseX, int mouseY) {
+    private void renderHoverTooltip(PoseStack poseStack, int mouseX, int mouseY, Set<String> unlocked) {
         if (highlighted == null) {
-            for (int i = 0; i < OriginalResearchCategory.values().length; i++) {
+            List<OriginalResearchCategory> categories = visibleCategories(unlocked);
+            for (int i = 0; i < categories.size(); i++) {
                 int x = leftPos - 24;
                 int y = topPos + i * 24;
                 if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
-                    renderTooltip(poseStack, categoryTitle(OriginalResearchCategory.values()[i]), mouseX, mouseY);
+                    renderTooltip(poseStack, categoryTitle(categories.get(i)), mouseX, mouseY);
                     return;
                 }
             }
             return;
         }
-        Set<String> unlocked = unlockedResearch();
         boolean complete = OriginalResearchLayout.unlocked(unlocked, highlighted);
         boolean available = OriginalResearchLayout.available(unlocked, highlighted);
         List<Component> lines = new ArrayList<>();
@@ -355,12 +359,13 @@ public class ThaumonomiconScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        for (int i = 0; i < OriginalResearchCategory.values().length; i++) {
+        List<OriginalResearchCategory> categories = visibleCategories(unlockedResearch());
+        for (int i = 0; i < categories.size(); i++) {
             int x = leftPos - 24;
             int y = topPos + i * 24;
             if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
                 saveCategoryPan();
-                category = OriginalResearchCategory.values()[i];
+                category = categories.get(i);
                 selected = null;
                 restoreCategoryPan();
                 clampPan();
@@ -391,11 +396,10 @@ public class ThaumonomiconScreen extends Screen {
         selected = entry;
         Set<String> unlocked = unlockedResearch();
         OriginalClientResearchSelection.set(selected.key());
-        ThaumcraftNetwork.requestSelectResearchFromClient(selected.key());
         if (OriginalResearchLayout.unlocked(unlocked, selected) && TC4ResearchFlagPolicy.hasOriginalPagePayload(selected)) {
             Minecraft.getInstance().setScreen(new TC4ResearchPageScreen(this, selected));
         } else if (!OriginalResearchLayout.unlocked(unlocked, selected) && OriginalResearchLayout.available(unlocked, selected)) {
-            ThaumcraftNetwork.requestCompleteSelectedResearchFromClient();
+            ThaumcraftNetwork.requestCompleteSelectedResearchFromClient(selected.key());
             popupUntil = 0L;
             popupText = "";
         } else {
@@ -448,6 +452,26 @@ public class ThaumonomiconScreen extends Screen {
         clampPan();
         saveCategoryPan();
         return true;
+    }
+
+    private List<OriginalResearchCategory> visibleCategories(Set<String> unlocked) {
+        List<OriginalResearchCategory> result = new ArrayList<>();
+        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
+            if (value != OriginalResearchCategory.ELDRITCH || unlocked.contains("ELDRITCHMINOR")) {
+                result.add(value);
+            }
+        }
+        return result;
+    }
+
+    private void ensureVisibleCategory(Set<String> unlocked) {
+        if (category == OriginalResearchCategory.ELDRITCH && !unlocked.contains("ELDRITCHMINOR")) {
+            saveCategoryPan();
+            category = OriginalResearchCategory.BASICS;
+            selected = null;
+            restoreCategoryPan();
+            clampPan();
+        }
     }
 
     private void saveCategoryPan() {

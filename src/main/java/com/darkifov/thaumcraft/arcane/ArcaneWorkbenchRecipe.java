@@ -89,7 +89,37 @@ public class ArcaneWorkbenchRecipe {
     }
 
     public List<ResourceLocation> ingredients() {
-        return ingredients;
+        return Collections.unmodifiableList(ingredients);
+    }
+
+    /**
+     * TC4 shapeless recipes store their complete input list. Earlier rebuild
+     * materializers were inconsistent: some removed the item selected as the
+     * compatibility "catalyst", while others left that same occurrence in
+     * {@code ingredients}. The runtime must therefore reserve exactly one
+     * catalyst occurrence and remove at most one identical entry from the
+     * remaining shapeless requirements.
+     *
+     * <p>This is deliberately only applied to recipes without a shaped pattern.
+     * Shaped recipes are matched exclusively through their symbol map.</p>
+     */
+    public List<ResourceLocation> normalizedLooseIngredients() {
+        List<ResourceLocation> normalized = new ArrayList<>(ingredients);
+        if (!pattern.isEmpty() || catalystId == null) {
+            return Collections.unmodifiableList(normalized);
+        }
+
+        for (int index = 0; index < normalized.size(); index++) {
+            if (catalystId.equals(normalized.get(index))) {
+                normalized.remove(index);
+                break;
+            }
+        }
+        return Collections.unmodifiableList(normalized);
+    }
+
+    public boolean ingredientListContainsCatalystOccurrence() {
+        return pattern.isEmpty() && catalystId != null && ingredients.contains(catalystId);
     }
 
     public EnumMap<Aspect, Integer> aspectCost() {
