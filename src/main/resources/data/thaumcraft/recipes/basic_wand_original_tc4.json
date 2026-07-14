@@ -16,5 +16,6 @@
   "result": {
     "item": "thaumcraft:iron_capped_wooden_wand",
     "count": 1
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3312 WandBasic"
 }

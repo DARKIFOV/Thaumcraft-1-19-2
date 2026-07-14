@@ -5,7 +5,7 @@
   "kind": "CRUCIBLE",
   "catalyst": "minecraft:iron_nugget",
   "result": {
-    "item": "thaumcraft:tc4_nuggetiron",
+    "item": "minecraft:iron_nugget",
     "count": 3
   },
   "aspects": {

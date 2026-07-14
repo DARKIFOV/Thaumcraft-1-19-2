@@ -4,15 +4,11 @@ import com.darkifov.thaumcraft.block.FocusPouchItem;
 import com.darkifov.thaumcraft.block.WandFocusItem;
 import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -24,8 +20,8 @@ import java.util.TreeMap;
  * - thaumcraft.common.lib.network.misc.PacketFocusChangeToServer
  * - thaumcraft.client.lib.events.KeyHandler keyF / shift+F REMOVE
  *
- * TC4 1.7.10 scans Baubles focus pouches first, then inventory foci, then
- * inventory pouches. Forge 1.19.2 has no Baubles dependency in this port, so
+ * TC4 1.7.10 scans Baubles focus pouches first, then inventory slots in
+ * order, adding a direct focus and the contents of a pouch as each slot is visited. Forge 1.19.2 has no Baubles dependency in this port, so
  * the off-hand pouch is the explicit bauble-slot adapter and is scanned before
  * the vanilla inventory. Focus ordering is still TreeMap/higherKey/wrap like
  * the original, and the sound remains thaumcraft:cameraticks with pitch 0.9
@@ -51,131 +47,130 @@ public final class WandManagerRuntime {
         }
 
         ItemStack current = WandFocusRuntime.getFocusStack(wandStack);
+        WandFocusType currentType = WandFocusRuntime.getFocus(wandStack);
         boolean remove = REMOVE.equals(requestedFocus);
-        if (remove) {
-            boolean changed = removeCurrentFocus(wandStack, current, player);
-            playCameraTicks(level, player, 0.9F);
+        TreeMap<String, FocusLocation> foci = collectAvailableFoci(player);
+
+        // Original WandManager uses the same branch for Shift+F and for an empty
+        // focus list. It only clears the wand when the installed focus can be
+        // returned to a pouch or the player inventory; a full inventory must not
+        // eject or delete the focus.
+        if (remove || foci.isEmpty()) {
+            boolean changed = removeCurrentFocus(wandStack, current, currentType, player);
+            if (changed) {
+                playCameraTicks(level, player, 0.9F);
+            }
             return changed;
         }
 
-        TreeMap<String, FocusLocation> foci = collectAvailableFoci(player);
-        if (foci.isEmpty()) {
-            if (!current.isEmpty()) {
-                removeCurrentFocus(wandStack, current, player);
-                playCameraTicks(level, player, 0.9F);
-                return true;
+        String key = requestedFocus == null || requestedFocus.isBlank()
+                ? currentFocusSortKey(wandStack)
+                : requestedFocus;
+        FocusLocation selectedLocation = foci.get(key);
+        if (selectedLocation == null) {
+            Map.Entry<String, FocusLocation> higher = foci.higherEntry(key);
+            selectedLocation = higher == null ? foci.firstEntry().getValue() : higher.getValue();
+        }
+        if (selectedLocation == null) {
+            return false;
+        }
+
+        ItemStack next = selectedLocation.take(player);
+        if (next.isEmpty() || !(next.getItem() instanceof WandFocusItem)) {
+            return false;
+        }
+
+        ItemStack installed = current;
+        if (installed.isEmpty() && currentType != null) {
+            installed = WandFocusRuntime.focusStack(currentType);
+        }
+        if (!installed.isEmpty()) {
+            if (!tryStoreFocus(player, installed)) {
+                // The original keeps the old focus installed and returns the newly
+                // selected focus to the slot that was just vacated.
+                if (!selectedLocation.putBack(player, next) && !tryStoreFocus(player, next)) {
+                    player.drop(next, false);
+                }
+                return false;
             }
-            player.displayClientMessage(Component.literal("No wand foci found.").withStyle(ChatFormatting.GRAY), true);
-            return false;
+            WandFocusRuntime.setFocus(wandStack, null);
         }
 
-        String key = requestedFocus == null || requestedFocus.isBlank() ? currentFocusSortKey(wandStack) : requestedFocus;
-        Map.Entry<String, FocusLocation> selected = foci.ceilingEntry(key);
-        if (selected != null && selected.getKey().equals(currentFocusSortKey(wandStack))) {
-            selected = foci.higherEntry(selected.getKey());
-        }
-        if (selected == null) {
-            selected = foci.firstEntry();
-        }
-
-        if (selected == null) {
-            return false;
-        }
-
-        ItemStack next = selected.getValue().take(player);
-        if (next.isEmpty() || !(next.getItem() instanceof WandFocusItem focusItem)) {
-            return false;
-        }
-        if (!current.isEmpty()) {
-            storeFocus(player, current);
-        }
         WandFocusRuntime.setFocusStack(wandStack, next);
         playCameraTicks(level, player, 1.0F);
-        player.displayClientMessage(Component.literal("Equipped " + focusItem.focusType().displayName() + ".").withStyle(ChatFormatting.LIGHT_PURPLE), true);
         return true;
     }
 
-    private static boolean removeCurrentFocus(ItemStack wandStack, ItemStack current, Player player) {
-        WandFocusType currentType = WandFocusRuntime.getFocus(wandStack);
-        if (current.isEmpty() && currentType != null) {
-            current = WandFocusRuntime.focusStack(currentType);
+    private static boolean removeCurrentFocus(ItemStack wandStack, ItemStack current,
+                                              WandFocusType currentType, Player player) {
+        ItemStack installed = current;
+        if (installed.isEmpty() && currentType != null) {
+            installed = WandFocusRuntime.focusStack(currentType);
+        }
+        if (installed.isEmpty() || !tryStoreFocus(player, installed)) {
+            return false;
         }
         WandFocusRuntime.setFocus(wandStack, null);
-        if (!current.isEmpty()) {
-            storeFocus(player, current);
-        }
-        return currentType != null || !current.isEmpty();
+        return true;
     }
 
+    /**
+     * Original scan order: bauble pouches first, then inventory slots 0..35;
+     * each inventory slot contributes a direct focus and/or a pouch immediately.
+     * A TreeMap intentionally overwrites exact duplicate sorting keys, matching
+     * TC4 rather than inventing sequence suffixes that alter focus cycling.
+     */
     private static TreeMap<String, FocusLocation> collectAvailableFoci(Player player) {
         TreeMap<String, FocusLocation> foci = new TreeMap<>();
-        int sequence = 0;
 
-        // 1. Original Baubles pouch slots 0..3 adapter: off-hand pouch first.
         ItemStack offhand = player.getOffhandItem();
         if (offhand.getItem() instanceof FocusPouchItem) {
-            sequence = collectFromPouch(foci, offhand, true, -1, sequence);
+            collectFromPouch(foci, offhand, true, -1);
         }
 
-        // 2. Original main inventory foci slots 0..35.
         int inventoryLimit = Math.min(36, player.getInventory().items.size());
         for (int i = 0; i < inventoryLimit; i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.getItem() instanceof WandFocusItem) {
-                foci.put(uniqueKey(FocusPouchItem.sortingHelper(stack), sequence++), FocusLocation.inventory(i));
+                foci.put(FocusPouchItem.sortingHelper(stack), FocusLocation.inventory(i));
             }
-        }
-
-        // 3. Original inventory pouches, pouchcount*1000 + slot encoding adapter.
-        for (int i = 0; i < inventoryLimit; i++) {
-            ItemStack stack = player.getInventory().getItem(i);
             if (stack.getItem() instanceof FocusPouchItem) {
-                sequence = collectFromPouch(foci, stack, false, i, sequence);
+                collectFromPouch(foci, stack, false, i);
             }
         }
         return foci;
     }
 
-    private static int collectFromPouch(TreeMap<String, FocusLocation> foci, ItemStack pouch, boolean offhand, int inventorySlot, int sequence) {
+    private static void collectFromPouch(TreeMap<String, FocusLocation> foci, ItemStack pouch,
+                                         boolean offhand, int inventorySlot) {
         ItemStack[] inv = FocusPouchItem.getInventory(pouch);
         for (int slot = 0; slot < inv.length; slot++) {
             ItemStack stack = inv[slot];
             if (stack != null && stack.getItem() instanceof WandFocusItem) {
-                foci.put(uniqueKey(FocusPouchItem.sortingHelper(stack), sequence++), FocusLocation.pouch(offhand, inventorySlot, slot));
+                foci.put(FocusPouchItem.sortingHelper(stack), FocusLocation.pouch(offhand, inventorySlot, slot));
             }
         }
-        return sequence;
     }
 
-    private static String uniqueKey(String base, int sequence) {
-        return (base == null || base.isBlank() ? "focus" : base) + String.format("#%04d", sequence);
-    }
-
-    private static void storeFocus(Player player, ItemStack focus) {
+    private static boolean tryStoreFocus(Player player, ItemStack focus) {
         if (focus.isEmpty()) {
-            return;
+            return true;
         }
         ItemStack copy = focus.copy();
         copy.setCount(1);
 
         ItemStack offhand = player.getOffhandItem();
         if (offhand.getItem() instanceof FocusPouchItem && FocusPouchItem.addExactFocusStack(offhand, copy)) {
-            return;
+            return true;
         }
         int inventoryLimit = Math.min(36, player.getInventory().items.size());
         for (int i = 0; i < inventoryLimit; i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.getItem() instanceof FocusPouchItem && FocusPouchItem.addExactFocusStack(stack, copy)) {
-                return;
+                return true;
             }
         }
-        if (!player.getInventory().add(copy)) {
-            player.drop(copy, false);
-        }
-    }
-
-    private static void playCameraTicks(Level level, Player player, float pitch) {
-        level.playSound(null, player.blockPosition(), TC4Sounds.event("cameraticks"), SoundSource.PLAYERS, 0.3F, pitch);
+        return player.getInventory().add(copy);
     }
 
     private record FocusLocation(boolean offhandPouch, int inventorySlot, int pouchSlot, boolean directInventory) {
@@ -189,13 +184,40 @@ public final class WandManagerRuntime {
 
         ItemStack take(Player player) {
             if (directInventory) {
-                ItemStack stack = player.getInventory().getItem(inventorySlot).copy();
+                ItemStack source = player.getInventory().getItem(inventorySlot);
+                if (source.isEmpty()) {
+                    return ItemStack.EMPTY;
+                }
+                ItemStack stack = source.copy();
                 stack.setCount(1);
-                player.getInventory().getItem(inventorySlot).shrink(1);
+                source.shrink(1);
                 return stack;
             }
             ItemStack pouch = offhandPouch ? player.getOffhandItem() : player.getInventory().getItem(inventorySlot);
             return FocusPouchItem.removeFocusAt(pouch, pouchSlot);
         }
+
+        boolean putBack(Player player, ItemStack focus) {
+            if (focus.isEmpty()) {
+                return true;
+            }
+            if (directInventory) {
+                ItemStack slot = player.getInventory().getItem(inventorySlot);
+                if (slot.isEmpty()) {
+                    ItemStack copy = focus.copy();
+                    copy.setCount(1);
+                    player.getInventory().setItem(inventorySlot, copy);
+                    return true;
+                }
+                return false;
+            }
+            ItemStack pouch = offhandPouch ? player.getOffhandItem() : player.getInventory().getItem(inventorySlot);
+            return FocusPouchItem.putFocusAt(pouch, pouchSlot, focus);
+        }
     }
+
+    private static void playCameraTicks(Level level, Player player, float pitch) {
+        level.playSound(null, player.blockPosition(), TC4Sounds.event("cameraticks"), SoundSource.PLAYERS, 0.3F, pitch);
+    }
+
 }

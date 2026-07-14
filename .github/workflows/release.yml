@@ -33,6 +33,9 @@ jobs:
       - name: Validate Java source text
         run: python3 tools/java_syntax_guard.py
 
+      - name: Validate Forge 1.19.2 compile API usage
+        run: python3 tools/forge_1192_compile_api_guard.py
+
       - name: Validate JSON resources
         run: python3 tools/validate_json_resources.py
 
@@ -51,6 +54,9 @@ jobs:
       - name: Validate feature-cycle-safe biome generation
         run: python3 tools/feature_cycle_guard.py
 
+      - name: Validate TC4 research links and Expertise/Mastery
+        run: python3 tools/research_expertise_guard.py
+
       - name: Validate Thaumometer scanning path
         run: python3 tools/thaumometer_scan_guard.py
 
@@ -66,16 +72,91 @@ jobs:
       - name: Validate TC4 runtime visual parity
         run: python3 tools/tc4_runtime_visual_guard.py
 
+      - name: Validate legacy runtime repairs
+        run: python3 tools/runtime_fix_guard.py
+
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.43 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.74 --fail-on-missing
+
+      - name: Audit parent chains and display transforms
+        run: python3 tools/model_transform_audit.py --version 11.62.74 --fail-on-problems
+
+      - name: Audit Forge builtin entity render contracts
+        run: python3 tools/bewlr_contract_audit.py --version 11.62.74 --fail-on-problems
+
+      - name: Audit aura node, node jar and stabilizer parity
+        run: python3 tools/aura_node_parity_audit.py --version 11.62.74 --fail-on-problems
+
+      - name: Validate v11.62.45 parity fixes
+        run: python3 tools/tc4_116245_parity_guard.py
+
+      - name: Validate v11.62.46 audit and node parity regressions
+        run: python3 tools/tc4_116246_audit_guard.py
+
+      - name: Validate v11.62.47 Arcane Workbench and wand cost regressions
+        run: python3 tools/tc4_116247_arcane_wand_guard.py
+
+      - name: Validate v11.62.48 aura-node scheduler and Aspect Orb baseline
+        run: python3 tools/tc4_116248_node_orb_guard.py
+
+      - name: Validate v11.62.49 Aspect Orb renderer and entity parity
+        run: python3 tools/tc4_116249_aspect_orb_parity_guard.py
+
+      - name: Validate v11.62.50 real-client screenshot fixes
+        run: python3 tools/tc4_116250_runtime_screenshot_guard.py
+
+      - name: Validate v11.62.51 research, scan and node-tag parity
+        run: python3 tools/tc4_116251_research_scan_hud_guard.py
+
+      - name: Validate v11.62.52 runtime-risk hardening
+        run: python3 tools/tc4_116252_runtime_risk_guard.py
+
+      - name: Validate v11.62.53 wand beam and Thaumometer lighting
+        run: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py
+
+      - name: Validate v11.62.54 original wand HUD and focus cycling
+        run: python3 tools/tc4_116254_focus_hud_cycle_guard.py
 
       - name: Validate registry and resources
-        run: python3 tools/audit_registry.py --fail-on-unexpected
+        run: python3 tools/audit_registry.py --version 11.62.74 --fail-on-unexpected
+
+      - name: Regenerate-check exact TC4 research runtime
+        run: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
+
+      - name: Audit all 201 TC4 research entries and Thaumonomicon assets
+        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.74 --fail-on-problems
+
+      - name: Validate v11.62.70 visual, texture, wand and Thaumometer baseline
+        run: python3 tools/tc4_116270_visual_runtime_regression_guard.py
+
+      - name: Validate v11.62.74 original GUI offsets and complete infusion set
+        run: python3 tools/tc4_116271_original_gui_infusion_guard.py
+
+      - name: Validate Brain in a Jar runtime parity
+        run: python3 tools/tc4_116272_brain_jar_runtime_guard.py
+
+      - name: Validate TC4 mirror runtime parity
+        run: python3 tools/tc4_116273_mirror_runtime_guard.py
+
 
       - name: Build Forge JAR
         run: |
           chmod +x gradlew
           ./gradlew build --stacktrace --no-daemon
+
+      - name: Audit SRG-safe renderer and screen providers
+        shell: bash
+        run: |
+          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
+          test -n "$MAIN_JAR"
+          python3 tools/audit_runtime_sam_bridges.py --jar "$MAIN_JAR"
+
+      - name: Audit complete release JAR contents
+        shell: bash
+        run: |
+          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
+          test -n "$MAIN_JAR"
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.74 --report reports/release_jar_audit_v11.62.74.json
 
       - name: Prepare release bundle
         shell: bash
@@ -83,32 +164,19 @@ jobs:
           set -euo pipefail
           mkdir -p build/release/bundle
           cp build/libs/*.jar build/release/bundle/
-          cp reports/REGISTRY_AUDIT_V11_62_43.md build/release/bundle/
-          cp reports/registry_audit_v11.62.43.json build/release/bundle/
-          cp reports/ITEM_VISUAL_AUDIT_V11_62_43.md build/release/bundle/
-          cp reports/item_visual_audit_v11.62.43.json build/release/bundle/
-          cp PORT_STATUS_V11_62_43.md build/release/bundle/
-          cp REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md build/release/bundle/
-          cp GITHUB_UPLOAD_V11_62_43.md build/release/bundle/
-          cp STATIC_VALIDATION_V11_62_43.txt build/release/bundle/
+          cp reports/*11.62.74*.json build/release/bundle/
           (
             cd build/release/bundle
             sha256sum *.jar > SHA256SUMS.txt
-            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.43_RELEASE.zip .
+            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.74_RELEASE.zip .
           )
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: REPORT_V11_62_43_TC4_VISUAL_TEXTURE_AUDIT.md
+          body_path: README.md
           files: |
             build/libs/*.jar
-            build/release/thaumcraft_legacy_rebuild_v11.62.43_RELEASE.zip
+            build/release/thaumcraft_legacy_rebuild_v11.62.74_RELEASE.zip
             build/release/bundle/SHA256SUMS.txt
-            reports/REGISTRY_AUDIT_V11_62_43.md
-            reports/registry_audit_v11.62.43.json
-            reports/ITEM_VISUAL_AUDIT_V11_62_43.md
-            reports/item_visual_audit_v11.62.43.json
-            PORT_STATUS_V11_62_43.md
-            GITHUB_UPLOAD_V11_62_43.md
-            STATIC_VALIDATION_V11_62_43.txt
+            reports/*11.62.74*.json

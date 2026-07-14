@@ -5,8 +5,9 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:tc4_bauble_belt",
   "ingredients": [
-    "minecraft:sugar",
-    "minecraft:gold_ingot"
+    "minecraft:leather",
+    "minecraft:gold_ingot",
+    "thaumcraft:tc4_bauble_belt"
   ],
   "aspects": {
     "TERRA": 10,
@@ -20,7 +21,7 @@
   ],
   "key": {
     "B": "thaumcraft:tc4_bauble_belt",
-    "L": "minecraft:sugar",
+    "L": "minecraft:leather",
     "G": "minecraft:gold_ingot"
   },
   "result": {

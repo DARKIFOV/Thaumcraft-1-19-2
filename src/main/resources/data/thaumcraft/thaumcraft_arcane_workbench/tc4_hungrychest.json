@@ -1,0 +1,29 @@
+{
+  "tc4_key": "HungryChest",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "HUNGRYCHEST",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:oak_trapdoor",
+  "ingredients": [
+    "#minecraft:planks"
+  ],
+  "aspects": {
+    "AER": 5,
+    "ORDO": 3,
+    "PERDITIO": 3
+  },
+  "pattern": [
+    "WTW",
+    "W W",
+    "WWW"
+  ],
+  "key": {
+    "W": "#minecraft:planks",
+    "T": "minecraft:oak_trapdoor"
+  },
+  "result": {
+    "item": "thaumcraft:hungry_chest",
+    "count": 1
+  },
+  "v11_62_64_strict_original": true
+}

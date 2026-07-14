@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -8,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,8 +31,10 @@ public class WarpWardTalismanItem extends Item {
             }
 
             int seconds = ThaumcraftConfig.WARP_WARD_SECONDS.get();
-            PlayerThaumData.addWarpWard(player, seconds * 20);
-            player.displayClientMessage(Component.literal("Warp Ward active for " + seconds + " seconds.").withStyle(ChatFormatting.AQUA), false);
+            int duration = seconds * 20;
+            PlayerThaumData.addWarpWard(player, duration); // legacy save/network compatibility
+            player.addEffect(new MobEffectInstance(ThaumcraftMod.WARP_WARD.get(), duration, 0, true, true, true));
+            player.displayClientMessage(Component.translatable("effect.thaumcraft.warp_ward").append(Component.literal(": " + seconds + "s")).withStyle(ChatFormatting.AQUA), false);
 
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);

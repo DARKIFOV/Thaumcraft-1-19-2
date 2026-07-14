@@ -12,6 +12,7 @@ import com.darkifov.thaumcraft.block.BellowsBlock;
 import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
 import com.darkifov.thaumcraft.block.EssentiaValveBlock;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
+import com.darkifov.thaumcraft.mirror.EssentiaMirrorBlockEntity;
 import com.darkifov.thaumcraft.essentia.EssentiaSuction;
 import com.darkifov.thaumcraft.essentia.EssentiaBackflowResult;
 import com.darkifov.thaumcraft.essentia.EssentiaSuctionResolver;
@@ -131,6 +132,13 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return takeFromBuffer(aspect, amount);
     }
 
+    public void restoreBufferForNetwork(Aspect aspect, int amount) {
+        if (aspect != null && amount > 0 && subtype.storesBufferEssentia()) {
+            bufferAspects.add(aspect, amount);
+            setChangedAndSync();
+        }
+    }
+
     public boolean isVenting() {
         return venting > 0;
     }
@@ -179,7 +187,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         if (subtype.redstoneValve() && direction == facing) {
             return false;
         }
-        return !subtype.redstoneValve() || allowFlow;
+        // TileTubeValve only overrides setSuction while powered. Its inherited
+        // canInputFrom/canOutputTo remain available, so a neighbouring tube may
+        // still drain the single essentia unit already trapped inside the valve.
+        return true;
     }
 
     /**
@@ -1027,6 +1038,13 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
             }
         }
 
+        if (blockEntity instanceof EssentiaMirrorBlockEntity mirror) {
+            Aspect aspect = mirror.peekRemoteAspect();
+            if (aspect != null) {
+                return new MirrorSource(mirror, aspect);
+            }
+        }
+
         if (blockEntity instanceof EssentiaTubeBlockEntity tube && tube.subtype.storesBufferEssentia()) {
             Aspect aspect = tube.bufferAspects.firstAspect();
             if (aspect != null) {
@@ -1451,6 +1469,28 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         @Override
         public void restore(int amount) {
             jar.acceptFromTube(aspect, amount, false);
+        }
+    }
+
+    private record MirrorSource(EssentiaMirrorBlockEntity mirror, Aspect aspect) implements Source {
+        @Override
+        public BlockPos pos() {
+            return mirror.getBlockPos();
+        }
+
+        @Override
+        public int priority() {
+            return EssentiaSuction.JAR_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return amount <= 0 ? 0 : mirror.takeRemoteEssentia(aspect, 1);
+        }
+
+        @Override
+        public void restore(int amount) {
+            mirror.restoreRemoteEssentia(aspect, amount);
         }
     }
 

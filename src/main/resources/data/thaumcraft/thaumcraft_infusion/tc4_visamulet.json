@@ -5,10 +5,10 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_bauble_amulet",
   "components": [
-    "thaumcraft:warp_charm",
+    "thaumcraft:tc4_charm",
     "thaumcraft:tc4_block_crystal_cluster",
     "thaumcraft:tc4_block_crystal_cluster",
-    "thaumcraft:warp_charm",
+    "thaumcraft:tc4_charm",
     "thaumcraft:tc4_block_crystal_cluster",
     "thaumcraft:tc4_block_crystal_cluster"
   ],
@@ -22,5 +22,6 @@
   "result": {
     "item": "thaumcraft:tc4_vis_amulet",
     "count": 1
-  }
+  },
+  "v11_62_60_itemresource15_fixed": true
 }

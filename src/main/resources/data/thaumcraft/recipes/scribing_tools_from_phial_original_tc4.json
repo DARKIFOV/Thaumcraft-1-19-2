@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "thaumcraft:essentia_phial"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "tag": "forge:dyes/black"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:scribing_tools",
+    "count": 1
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3456 Scribe1"
+}

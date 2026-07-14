@@ -99,7 +99,7 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP, Math.max(0, root.getInt(WARP) + amount));
-        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount) * 3));
+        resetWarpCounterToTotal(root);
     }
 
     public static void addWarpSticky(Player player, int amount) {
@@ -109,7 +109,7 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP_STICKY, Math.max(0, root.getInt(WARP_STICKY) + amount));
-        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount) * 2));
+        resetWarpCounterToTotal(root);
     }
 
     public static void addWarpTemporary(Player player, int amount) {
@@ -119,7 +119,7 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP_TEMPORARY, Math.max(0, root.getInt(WARP_TEMPORARY) + amount));
-        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount)));
+        resetWarpCounterToTotal(root);
     }
 
     public static void removeWarp(Player player, int amount) {
@@ -151,6 +151,11 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP_TEMPORARY, Math.max(0, root.getInt(WARP_TEMPORARY) - amount));
+    }
+
+    private static void resetWarpCounterToTotal(CompoundTag root) {
+        int total = Math.max(0, root.getInt(WARP) + root.getInt(WARP_STICKY) + root.getInt(WARP_TEMPORARY));
+        root.putInt(WARP_COUNTER, total);
     }
 
     public static int getWarpCounter(Player player) {

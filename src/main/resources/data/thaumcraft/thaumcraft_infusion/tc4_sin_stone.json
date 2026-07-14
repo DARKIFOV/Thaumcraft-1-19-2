@@ -3,7 +3,7 @@
   "tc4_source": "addInfusionCraftingRecipe",
   "research": "SINSTONE",
   "tc4_kind": "INFUSION",
-  "catalyst": "minecraft:paper",
+  "catalyst": "minecraft:flint",
   "components": [
     "thaumcraft:tc4_nitor",
     "thaumcraft:ordo_shard",
@@ -18,9 +18,10 @@
   },
   "instability": 5,
   "result": {
-    "item": "thaumcraft:tc4_compassstone",
+    "item": "thaumcraft:tc4_sinister_stone",
     "count": 1
   },
   "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",
-  "stage153_strict_original": true
+  "stage153_strict_original": true,
+  "v11_62_60_strict_original": true
 }

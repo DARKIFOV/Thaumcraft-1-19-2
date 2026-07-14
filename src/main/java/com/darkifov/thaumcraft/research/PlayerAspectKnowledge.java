@@ -14,6 +14,8 @@ public final class PlayerAspectKnowledge {
     private static final String ROOT = "ThaumcraftAspectKnowledge";
     private static final String KNOWN = "Known";
     private static final String POOL = "Pool";
+    private static final String STARTER_PRIMALS_SEEDED = "StarterPrimalsSeeded";
+    private static final int STARTER_PRIMAL_AMOUNT = 10;
 
     private PlayerAspectKnowledge() {
     }
@@ -22,14 +24,36 @@ public final class PlayerAspectKnowledge {
         CompoundTag root = root(player);
         CompoundTag known = root.getCompound(KNOWN);
 
+        AspectList pool = new AspectList();
+        pool.load(root.getCompound(POOL));
+        boolean seedPool = !root.getBoolean(STARTER_PRIMALS_SEEDED);
+
         for (Aspect aspect : Aspect.values()) {
-            if (aspect.isPrimal()) {
-                known.putBoolean(aspect.id(), true);
+            if (!aspect.isPrimal()) {
+                continue;
+            }
+            known.putBoolean(aspect.id(), true);
+            if (seedPool) {
+                int missing = STARTER_PRIMAL_AMOUNT - pool.get(aspect);
+                if (missing > 0) {
+                    pool.add(aspect, missing);
+                }
             }
         }
 
         root.put(KNOWN, known);
+        if (seedPool) {
+            root.put(POOL, pool.save());
+            root.putBoolean(STARTER_PRIMALS_SEEDED, true);
+        }
         player.getPersistentData().put(ROOT, root);
+    }
+
+    public static void copyFrom(Player from, Player to) {
+        if (from == null || to == null) {
+            return;
+        }
+        to.getPersistentData().put(ROOT, root(from).copy());
     }
 
     public static boolean knows(Player player, Aspect aspect) {

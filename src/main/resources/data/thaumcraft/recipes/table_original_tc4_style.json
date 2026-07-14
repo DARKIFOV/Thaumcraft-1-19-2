@@ -2,18 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "SSS",
-    "P P"
+    "W W"
   ],
   "key": {
     "S": {
-      "item": "minecraft:oak_slab"
+      "tag": "minecraft:wooden_slabs"
     },
-    "P": {
-      "item": "minecraft:oak_planks"
+    "W": {
+      "tag": "minecraft:planks"
     }
   },
   "result": {
     "item": "thaumcraft:table",
     "count": 1
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3447 Table"
 }

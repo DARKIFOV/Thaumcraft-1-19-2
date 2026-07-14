@@ -187,7 +187,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 
         for (int i = 0; i < TC4ArcaneWorkbenchParity.PRIMALS.length; i++) {
             Aspect aspect = TC4ArcaneWorkbenchParity.PRIMALS[i];
-            arcaneData.set(DATA_COST_START + i, arcaneWorkbench.modifiedArcaneCost(recipe, aspect));
+            arcaneData.set(DATA_COST_START + i, arcaneWorkbench.modifiedArcaneCost(recipe, aspect, player));
         }
     }
 

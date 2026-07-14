@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3335 PlankGreatwood",
+  "pattern": [
+    "W"
+  ],
+  "key": {
+    "W": {
+      "item": "thaumcraft:greatwood_log"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:greatwood_planks",
+    "count": 4
+  }
+}

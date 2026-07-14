@@ -1,0 +1,171 @@
+{
+  "ambientocclusion": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "wax": "thaumcraft:block/tallow_candle",
+    "wick": "thaumcraft:block/tc4/candlestub",
+    "particle": "thaumcraft:block/tallow_candle"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        8,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wax"
+        },
+        "up": {
+          "texture": "#wax"
+        },
+        "north": {
+          "texture": "#wax"
+        },
+        "south": {
+          "texture": "#wax"
+        },
+        "west": {
+          "texture": "#wax"
+        },
+        "east": {
+          "texture": "#wax"
+        }
+      }
+    },
+    {
+      "from": [
+        7.6,
+        8,
+        7.6
+      ],
+      "to": [
+        8.4,
+        10,
+        8.4
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wick"
+        },
+        "up": {
+          "texture": "#wick"
+        },
+        "north": {
+          "texture": "#wick"
+        },
+        "south": {
+          "texture": "#wick"
+        },
+        "west": {
+          "texture": "#wick"
+        },
+        "east": {
+          "texture": "#wick"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        0,
+        7
+      ],
+      "to": [
+        6,
+        3,
+        8
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wax"
+        },
+        "up": {
+          "texture": "#wax"
+        },
+        "north": {
+          "texture": "#wax"
+        },
+        "south": {
+          "texture": "#wax"
+        },
+        "west": {
+          "texture": "#wax"
+        },
+        "east": {
+          "texture": "#wax"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        0,
+        8
+      ],
+      "to": [
+        11,
+        2,
+        9
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wax"
+        },
+        "up": {
+          "texture": "#wax"
+        },
+        "north": {
+          "texture": "#wax"
+        },
+        "south": {
+          "texture": "#wax"
+        },
+        "west": {
+          "texture": "#wax"
+        },
+        "east": {
+          "texture": "#wax"
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        0,
+        5
+      ],
+      "to": [
+        9,
+        1,
+        6
+      ],
+      "faces": {
+        "down": {
+          "texture": "#wax"
+        },
+        "up": {
+          "texture": "#wax"
+        },
+        "north": {
+          "texture": "#wax"
+        },
+        "south": {
+          "texture": "#wax"
+        },
+        "west": {
+          "texture": "#wax"
+        },
+        "east": {
+          "texture": "#wax"
+        }
+      }
+    }
+  ]
+}

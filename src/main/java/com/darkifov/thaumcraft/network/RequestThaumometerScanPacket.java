@@ -80,17 +80,18 @@ public final class RequestThaumometerScanPacket {
                 return;
             }
 
-            TC4ThaumometerTargeting.ScanTarget current = TC4ThaumometerTargeting.find(player, 1.0F);
+            // The client interaction already carries the concrete target. Do not
+            // require a second exact server ray at packet handling time: rotation
+            // synchronization can lag by one tick and made every scan appear dead.
+            // beginBlockScan/beginEntityScan still enforce loaded state, range,
+            // target validity and server-authoritative aspect availability.
             if (packet.kind == BLOCK) {
-                if (current.blockPos() != null && current.blockPos().equals(packet.blockPos)) {
-                    thaumometer.beginBlockScan(player.level, player, packet.hand, packet.blockPos);
-                }
+                thaumometer.beginBlockScan(player.level, player, packet.hand, packet.blockPos);
                 return;
             }
 
             Entity target = player.level.getEntity(packet.entityId);
-            if (target != null && current.entity() != null
-                    && current.entity().getUUID().equals(target.getUUID())) {
+            if (target != null) {
                 thaumometer.beginEntityScan(player.level, player, packet.hand, target);
             }
         });

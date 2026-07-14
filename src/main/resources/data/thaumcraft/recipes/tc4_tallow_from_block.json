@@ -1,12 +1,16 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "K"
+  ],
+  "key": {
+    "K": {
       "item": "thaumcraft:tc4_block_tallow"
     }
-  ],
+  },
   "result": {
     "item": "thaumcraft:tc4_tallow",
     "count": 9
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3377"
 }

@@ -299,7 +299,8 @@ public final class AuraVisRelayNetwork {
     }
 
     private static boolean isRelay(ServerLevel level, BlockPos pos) {
-        return level.getBlockState(pos).is(ThaumcraftMod.VIS_RELAY.get());
+        return level.getBlockState(pos).is(ThaumcraftMod.VIS_RELAY.get())
+                || level.getBlockState(pos).is(ThaumcraftMod.VIS_CHARGE_RELAY.get());
     }
 
     private static double distanceSquared(BlockPos a, BlockPos b) {

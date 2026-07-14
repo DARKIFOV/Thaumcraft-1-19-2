@@ -389,7 +389,18 @@ public class ResearchNoteScreen extends Screen {
     }
 
     private boolean canClientPlace(int slot, Aspect aspect) {
-        return !ClientResearchNoteData.solved() && aspect != null && ClientResearchNoteData.emptyAt(slot) && ClientResearchNoteData.aspectAt(slot) == null;
+        if (ClientResearchNoteData.solved() || aspect == null
+                || !ClientResearchNoteData.emptyAt(slot)
+                || ClientResearchNoteData.aspectAt(slot) != null) {
+            return false;
+        }
+        for (int neighbor : ResearchNoteGrid.neighbors(slot)) {
+            Aspect other = ClientResearchNoteData.aspectAt(neighbor);
+            if (other != null && ResearchAspectGraph.canConnect(aspect, other)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isLockedSlot(int index) {

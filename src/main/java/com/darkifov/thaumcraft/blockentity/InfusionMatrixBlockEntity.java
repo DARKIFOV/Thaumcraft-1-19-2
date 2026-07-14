@@ -581,11 +581,9 @@ public class InfusionMatrixBlockEntity extends BlockEntity {
 
         List<Player> targets = level.getEntitiesOfClass(Player.class, new AABB(worldPosition).inflate(10.0D, 10.0D, 10.0D));
         for (Player target : targets) {
-            if (target.experienceLevel > 0 || target.getAbilities().instabuild) {
-                if (!target.getAbilities().instabuild) {
-                    target.giveExperienceLevels(-1);
-                    target.hurt(DamageSource.MAGIC, level.random.nextInt(2));
-                }
+            if (target.experienceLevel > 0) {
+                target.giveExperienceLevels(-1);
+                target.hurt(DamageSource.MAGIC, level.random.nextInt(2));
                 recipeXP -= 1;
                 cycleDelay = TC4InfusionCraftCycleParity.ENCHANTMENT_XP_DELAY;
                 level.playSound(null, target.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 1.0F, 2.0F + level.random.nextFloat() * 0.4F);

@@ -1,20 +1,28 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "SQS",
-    " S "
-  ],
-  "key": {
-    "S": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "thaumcraft:perditio_shard"
     },
-    "Q": {
-      "item": "minecraft:quartz"
+    {
+      "item": "thaumcraft:perditio_shard"
+    },
+    {
+      "item": "thaumcraft:perditio_shard"
+    },
+    {
+      "item": "thaumcraft:perditio_shard"
+    },
+    {
+      "item": "thaumcraft:perditio_shard"
+    },
+    {
+      "item": "thaumcraft:perditio_shard"
     }
-  },
+  ],
   "result": {
     "item": "thaumcraft:perditio_crystal",
     "count": 1
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3382 Clusters5"
 }

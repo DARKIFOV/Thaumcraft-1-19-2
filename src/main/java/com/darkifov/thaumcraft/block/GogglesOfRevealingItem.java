@@ -1,5 +1,8 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.wand.TC4VisDiscountGear;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +25,7 @@ import java.util.List;
  * Forge 1.19.2 adapter for TC4 1.7.10 ItemGoggles.
  * Source of truth: thaumcraft.common.items.armor.ItemGoggles.
  */
-public class GogglesOfRevealingItem extends ArmorItem {
+public class GogglesOfRevealingItem extends ArmorItem implements TC4VisDiscountGear {
     public static final int TC4_DURABILITY = 350;
     public static final int VIS_DISCOUNT = 5;
     private static final String INVISIBLE_ARMOR_TEXTURE = "thaumcraft:textures/models/armor/tc4_empty_layer_1.png";
@@ -69,6 +72,11 @@ public class GogglesOfRevealingItem extends ArmorItem {
 
     public static int visDiscount(ItemStack stack, LivingEntity wearer) {
         return showNodes(stack, wearer) ? VIS_DISCOUNT : 0;
+    }
+
+    @Override
+    public int getVisDiscount(ItemStack stack, LivingEntity wearer, Aspect aspect) {
+        return visDiscount(stack, wearer);
     }
 
     @Override

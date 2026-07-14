@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.infusion;
 
+import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -31,10 +32,11 @@ public final class TC4InfusionItemMatcher {
         }
 
         ResourceLocation actualId = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        if (actualId == null || !actualId.equals(expectedId)) {
-            // TC4's OreDictionary fuzzy path is represented by modern tags in
-            // recipe data.  Current materialized TC4 recipes mostly resolve to
-            // concrete ids, so this branch intentionally stays conservative.
+        if (actualId == null || !canonical(actualId).equals(canonical(expectedId))) {
+            // Old worlds and early rebuild recipes can still contain mirror ids
+            // such as tc4_block_infusion_matrix. Treat those as the same TC4
+            // object as the canonical 1.19.2 registry id instead of making an
+            // otherwise correct infusion impossible to start.
             return false;
         }
 
@@ -50,6 +52,14 @@ public final class TC4InfusionItemMatcher {
         }
 
         return true;
+    }
+
+    private static ResourceLocation canonical(ResourceLocation id) {
+        if (id == null || !"thaumcraft".equals(id.getNamespace())) {
+            return id;
+        }
+        String mapped = TC4LegacyDuplicateItemMigrator.mappings().get(id.getPath());
+        return mapped == null ? id : new ResourceLocation("thaumcraft", mapped);
     }
 
     public static boolean catalystMatches(ItemStack stack, ResourceLocation expectedId, boolean wildcard, int expectedDamage, CompoundTag expectedTag) {

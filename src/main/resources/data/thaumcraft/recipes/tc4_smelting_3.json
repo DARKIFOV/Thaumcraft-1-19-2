@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "tc4_source": "ConfigRecipes.java:3626 blockCustomOre meta 7 -> itemResource meta 6",
+  "ingredient": {
+    "item": "thaumcraft:amber_ore"
+  },
+  "result": "thaumcraft:amber",
+  "experience": 1.0,
+  "cookingtime": 200
+}

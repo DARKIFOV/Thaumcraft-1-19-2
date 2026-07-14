@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3339 PlankSilverwood",
+  "pattern": [
+    "W"
+  ],
+  "key": {
+    "W": {
+      "item": "thaumcraft:silverwood_log"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:silverwood_planks",
+    "count": 4
+  }
+}

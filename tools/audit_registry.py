@@ -130,7 +130,7 @@ def markdown_list(values: Iterable[str], limit: int = 30) -> str:
     return text
 
 
-def run(root: Path, fail_on_unexpected: bool) -> int:
+def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
     resources = root / "src/main/resources"
     item_models = resources / "assets/thaumcraft/models/item"
     report_dir = root / "reports"
@@ -150,6 +150,15 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         # WandItem instances provide different default rod/cap/capacity data to
         # the custom renderer, so identical JSON is intentional and functional.
         frozenset({"iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand"}),
+    }
+    # These models deliberately use builtin/entity. Their distinct BEWLRs
+    # provide all geometry and textures, so identical marker JSON is not a
+    # player-visible clone.
+    dynamic_rendered_ids = {
+        "node_stabilizer", "advanced_node_stabilizer",
+        "iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand",
+        "avaritia_creative_wand", "thaumometer", "node_jar",
+        "hungry_chest", "tc4_block_banner", "vis_charge_relay",
     }
 
     problems: list[Problem] = []
@@ -195,7 +204,8 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
             item_id for item_id in ids
             if item_id in registered_ids and not is_quarantined(item_id, exact, prefixes, model_ids)
         ]
-        if len(visible) > 1 and frozenset(visible) not in intentional_shared_visuals:
+        all_dynamic = bool(visible) and all(item_id in dynamic_rendered_ids for item_id in visible)
+        if len(visible) > 1 and not all_dynamic and frozenset(visible) not in intentional_shared_visuals:
             leaking_groups.append(visible)
 
     # Also find identical item texture PNGs; this catches placeholder copies
@@ -214,7 +224,7 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
             unexpected.append(Problem("visible_clone_group", "models/item", ", ".join(group)))
 
     result = {
-        "version": "11.62.43",
+        "version": version,
         "item_model_count": len(model_files),
         "parsed_model_count": len(models),
         "statically_detected_registered_model_count": len(registered_ids),
@@ -227,12 +237,12 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         "problems": [problem.__dict__ for problem in problems],
         "unexpected_problem_count": len(unexpected),
     }
-    (report_dir / "registry_audit_v11.62.43.json").write_text(
+    (report_dir / f"registry_audit_v{version}.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
     lines = [
-        "# Registry and resource audit — v11.62.43",
+        f"# Registry and resource audit — v{version}",
         "",
         f"- Item model JSON files: **{len(model_files)}**",
         f"- Parsed successfully: **{len(models)}**",
@@ -271,7 +281,7 @@ def run(root: Path, fail_on_unexpected: bool) -> int:
         "Legacy registry IDs are retained only for old-world compatibility. They must not appear as normal craftable/player-facing duplicates until a separate migration removes them safely.",
         "",
     ]
-    (report_dir / "REGISTRY_AUDIT_V11_62_43.md").write_text("\n".join(lines), encoding="utf-8")
+    (report_dir / f"REGISTRY_AUDIT_V{version.replace('.', '_')}.md").write_text("\n".join(lines), encoding="utf-8")
 
     print(f"Audited {len(model_files)} item models")
     print(f"Visible clone leaks: {len(leaking_groups)}")
@@ -288,8 +298,9 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument("--fail-on-unexpected", action="store_true")
+    parser.add_argument("--version", default="11.62.54")
     args = parser.parse_args()
-    return run(args.root.resolve(), args.fail_on_unexpected)
+    return run(args.root.resolve(), args.fail_on_unexpected, args.version)
 
 
 if __name__ == "__main__":

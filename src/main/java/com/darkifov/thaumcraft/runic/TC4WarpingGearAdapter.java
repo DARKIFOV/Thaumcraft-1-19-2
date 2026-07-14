@@ -1,9 +1,9 @@
 package com.darkifov.thaumcraft.runic;
 
-import com.darkifov.thaumcraft.data.PlayerThaumData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -54,11 +54,28 @@ public final class TC4WarpingGearAdapter {
         if (id == null) {
             return 0;
         }
-        int base = WARP_BY_ITEM.getOrDefault(id, 0);
-        if (base <= 0 || player == null) {
-            return base;
+        return WARP_BY_ITEM.getOrDefault(id, 0);
+    }
+
+
+    /**
+     * Original WarpEvents#getWarpFromGear: held item + four armor slots + four
+     * Baubles slots. Offhand is intentionally excluded because TC4 had no
+     * offhand slot and only inspected getCurrentEquippedItem().
+     */
+    public static int getEquippedWarp(ServerPlayer player) {
+        if (player == null) {
+            return 0;
         }
-        return PlayerThaumData.hasWarpWard(player) ? Math.max(0, base - 1) : base;
+
+        int warp = getWarp(player.getMainHandItem(), player);
+        for (ItemStack armor : player.getArmorSlots()) {
+            warp += getWarp(armor, player);
+        }
+        for (ItemStack bauble : TC4BaubleSlotAdapter.findEquippedBaubles(player)) {
+            warp += getWarp(bauble, player);
+        }
+        return Math.max(0, warp);
     }
 
     public static void appendTooltip(ItemStack stack, Player player, List<Component> tooltip) {

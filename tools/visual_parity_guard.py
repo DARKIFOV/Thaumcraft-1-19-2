@@ -95,7 +95,7 @@ scanner_targeting = (ROOT / "src/main/java/com/darkifov/thaumcraft/aura/TC4Thaum
 require("nearestBlockDistance" in scanner_targeting and "Kind.ITEM" in scanner_targeting,
         "Shared scanner ray no longer blocks through-wall entities or dropped-item scans")
 scanner_item = (ROOT / "src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java").read_text(encoding="utf-8")
-require("remainingUseDuration <= 5" in scanner_item and "pendingMatches" in scanner_item,
+require("elapsed >= REQUIRED_STABLE_TICKS" in scanner_item and "pendingTargetStillValid" in scanner_item,
         "Thaumometer no longer requires the original twenty stable scan ticks")
 require("syncScanKnowledge" in scanner_item and "ItemEntity" in scanner_item,
         "Thaumometer scan completion no longer synchronizes player knowledge or dropped items")
@@ -132,18 +132,21 @@ require("isWithinThaumometerViewCone" in node_renderer and ">= 0.44D" in node_re
         "Thaumometer node reveal no longer follows the original 0.44 view cone")
 require("usesAlphaBlend()" in node_renderer and "typeAngle" in node_renderer,
         "Aura node aspect blend/type rotation parity is missing")
-require("RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_NODES)" in node_renderer
+require("TC4NodeRenderTypes.node" in node_renderer
         and "usesAdditiveTypeBlend" in node_renderer,
         "Aura node layers lost TC4 additive-vs-alpha blend separation")
-require("RenderType.eyes(TC4AuraNodeHudParity.ORIGINAL_WISPY)" in node_renderer,
+require("TC4NodeRenderTypes.node(TC4AuraNodeHudParity.ORIGINAL_WISPY, true, false)" in node_renderer,
         "Wand drain beam is no longer rendered with the original additive glow")
 
 aspect_source = (ROOT / "src/main/java/com/darkifov/thaumcraft/Aspect.java").read_text(encoding="utf-8")
 require("this == PERDITIO || this == VACUOS" in aspect_source,
         "TC4 aspect blend parity must keep Entropy/Void on blend 771")
 
-require("overlayAlpha" in stabilizer_renderer and "170.0F * extension * pulse" in stabilizer_renderer,
-        "Node stabilizer overlay is still forced opaque instead of following piston extension")
+require("tc4LightCoordinate" in stabilizer_renderer and "170.0F * extension * pulse" in stabilizer_renderer
+        and "LightTexture.pack" in stabilizer_renderer and "entityCutoutNoCull(OVERLAY)" in stabilizer_renderer,
+        "Node stabilizer overlay must vary lightmap brightness instead of vertex alpha")
+require("TC4NodeRenderTypes.node(BUBBLE, true, false)" in stabilizer_renderer,
+        "Node stabilizer field lost original additive blending")
 
 registry_guard = next((ROOT / "src/main/java").rglob("TC4RegistryGarbageGuard.java")).read_text(encoding="utf-8")
 require('id.startsWith("tc4_")' in registry_guard and "return true;" in registry_guard,

@@ -12,5 +12,6 @@
   "result": {
     "item": "thaumcraft:obsidian_tile",
     "count": 4
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3412"
 }

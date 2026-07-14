@@ -1,0 +1,24 @@
+{
+  "tc4_key": "Mirror",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "MIRROR",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_mirrorglass",
+  "components": [
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:gold_ingot",
+    "minecraft:ender_pearl"
+  ],
+  "aspects": {
+    "ITER": 8,
+    "TENEBRAE": 8,
+    "PERMUTATIO": 8
+  },
+  "instability": 1,
+  "result": {
+    "item": "thaumcraft:tc4_mirrorframe",
+    "count": 1
+  },
+  "v11_62_71_strict_original": true
+}

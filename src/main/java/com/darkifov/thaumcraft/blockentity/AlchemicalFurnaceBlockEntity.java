@@ -5,11 +5,13 @@ import com.darkifov.thaumcraft.AspectDatabase;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.BellowsBlock;
+import com.darkifov.thaumcraft.menu.AlchemicalFurnaceMenu;
 import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.essentia.TC4DistillationRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -34,7 +36,7 @@ import net.minecraftforge.registries.ForgeRegistries;
  * The advanced registry block reuses the storage shell but exposes the original
  * 500-vis capacity until its complete multiblock/aura controller is finalized.
  */
-public class AlchemicalFurnaceBlockEntity extends BlockEntity implements WorldlyContainer {
+public class AlchemicalFurnaceBlockEntity extends BlockEntity implements WorldlyContainer, net.minecraft.world.MenuProvider {
     public static final int CAPACITY = 50;
     public static final int ADVANCED_CAPACITY = 500;
     public static final int ADVANCED_MAX_POWER = 500;
@@ -499,6 +501,51 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
         if (level != null && !level.isClientSide) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
         }
+    }
+
+
+    @Override
+    public Component getDisplayName() {
+        return getBlockState().is(ThaumcraftMod.ADVANCED_ALCHEMICAL_FURNACE.get())
+                ? Component.translatable("block.thaumcraft.advanced_alchemical_furnace")
+                : Component.translatable("block.thaumcraft.alchemical_furnace");
+    }
+
+    @Override
+    public net.minecraft.world.inventory.AbstractContainerMenu createMenu(int containerId, net.minecraft.world.entity.player.Inventory playerInventory, Player player) {
+        return new AlchemicalFurnaceMenu(containerId, playerInventory, this, furnaceData());
+    }
+
+    public net.minecraft.world.inventory.ContainerData furnaceData() {
+        return new net.minecraft.world.inventory.ContainerData() {
+            @Override
+            public int get(int index) {
+                return switch (index) {
+                    case 0 -> fuelTime;
+                    case 1 -> Math.max(1, currentFuelTime);
+                    case 2 -> burnProgress;
+                    case 3 -> Math.max(1, burnDuration);
+                    case 4 -> aspects.totalAmount();
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0 -> fuelTime = value;
+                    case 1 -> currentFuelTime = value;
+                    case 2 -> burnProgress = value;
+                    case 3 -> burnDuration = value;
+                    default -> { }
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 5;
+            }
+        };
     }
 
     @Override

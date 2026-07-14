@@ -1,3 +1,4 @@
 {
-  "parent": "thaumcraft:block/bellows"
+  "parent": "minecraft:item/generated",
+  "textures": {"layer0": "thaumcraft:item/tc4/tc4_block_bellows"}
 }

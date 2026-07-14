@@ -37,6 +37,14 @@ public final class ResearchNoteSolver {
             return false;
         }
 
+        // TC4 only permits a new hex when it touches an already occupied
+        // compatible hex. This prevents disconnected islands and, together
+        // with the strict direct-link rule, forbids Ordo -> Ordo chains.
+        if (!ResearchNoteState.touchesCompatibleNeighbor(note, slot, aspect)) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_connected").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+
         if (!ResearchTableInventoryRuntime.hasPoolOrTableBonus(player, aspect)) {
             player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_pool").withStyle(ChatFormatting.RED), false);
             return false;
@@ -55,10 +63,18 @@ public final class ResearchNoteSolver {
             return false;
         }
 
-        if (!ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, aspect)) {
+        // Research Mastery (RESEARCHER2) in TC4 has a 10% chance to place
+        // an aspect without consuming a research point. Ink is still consumed.
+        boolean freePlacement = shouldPreservePlacedAspect(player);
+        if (!freePlacement && !ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, aspect)) {
             ResearchNoteState.clearSlot(note, slot);
             player.displayClientMessage(Component.translatable("thaumcraft.message.research.aspect_unavailable").withStyle(ChatFormatting.RED), false);
             return false;
+        }
+
+        if (freePlacement) {
+            player.displayClientMessage(Component.translatable("thaumcraft.message.research.expertise_saved")
+                    .withStyle(ChatFormatting.AQUA), false);
         }
 
         if (ResearchNoteState.isSolvedForPlayer(note, player)) {
@@ -163,6 +179,13 @@ public final class ResearchNoteSolver {
         player.displayClientMessage(Component.translatable("thaumcraft.message.research.completed",
                 Component.translatable("tc.research_name." + target.get().key())).withStyle(ChatFormatting.GOLD), true);
         return true;
+    }
+
+    private static boolean shouldPreservePlacedAspect(Player player) {
+        return player != null
+                && !player.getAbilities().instabuild
+                && PlayerThaumData.hasResearch(player, "RESEARCHER2")
+                && player.getRandom().nextFloat() < 0.10F;
     }
 
     private static boolean shouldRefundClearedAspect(Player player) {

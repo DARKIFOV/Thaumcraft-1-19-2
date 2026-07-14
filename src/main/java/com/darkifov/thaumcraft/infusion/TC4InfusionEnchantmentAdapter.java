@@ -89,7 +89,11 @@ public final class TC4InfusionEnchantmentAdapter {
         if (enchantment == null || central == null || central.isEmpty()) {
             return false;
         }
-        if (!enchantment.canEnchant(central) || !central.getItem().canApplyAtEnchantingTable(central, enchantment)) {
+        // TC4 checks Enchantment.canApply plus Item.isItemTool. The modern
+        // equivalent is the item's general enchantability contract; Forge's
+        // canApplyAtEnchantingTable hook is narrower and would incorrectly
+        // reject custom targets such as the Hover Harness.
+        if (!enchantment.canEnchant(central) || !central.getItem().isEnchantable(central)) {
             return false;
         }
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(central);

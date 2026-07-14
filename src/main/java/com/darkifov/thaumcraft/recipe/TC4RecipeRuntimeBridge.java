@@ -39,6 +39,11 @@ public final class TC4RecipeRuntimeBridge {
 
     private TC4RecipeRuntimeBridge() {}
 
+    private static String quotedOre(String name) {
+        char quote = 34;
+        return quote + name + quote;
+    }
+
     private static List<OriginalRecipe> build() {
         List<OriginalRecipe> recipes = new ArrayList<>();
         recipes.add(r("Thaumonomicon", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
@@ -47,7 +52,7 @@ public final class TC4RecipeRuntimeBridge {
         recipes.add(r("Crucible", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
         recipes.add(r("InfernalFurnace", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
         recipes.add(r("InfusionAltar", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
-        recipes.add(r("NodeJar", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
+        recipes.add(r("NodeJar", Kind.COMPOUND, "", "", "", "", new String[] {"IGNIS:70", "TERRA:70", "AER:70", "AQUA:70", "ORDO:70", "PERDITIO:70"}, new String[] {quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), quotedOre("slabWood"), "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(ConfigBlocks.blockAiry, 1, 5)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)", "new ItemStack(Blocks.field_150359_w)"}, new String[] {"3", "4", "3"}, "ConfigResearch.recipes.put"));
         recipes.add(r("Thaumatorium", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
         recipes.add(r("AdvAlchemyFurnace", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
         recipes.add(r("'BalancedShard_' + a", Kind.CRUCIBLE, "CRUCIBLE", "new ItemStack(ConfigItems.itemShard, 1, 6)", "new ItemStack(ConfigItems.itemShard, 1, a)", "", new String[0], new String[0], new String[0], "addCrucibleRecipe"));

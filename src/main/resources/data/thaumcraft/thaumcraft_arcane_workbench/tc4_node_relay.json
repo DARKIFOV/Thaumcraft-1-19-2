@@ -1,0 +1,28 @@
+{
+  "tc4_key": "NodeRelay",
+  "tc4_source": "ThaumcraftApi.addArcaneCraftingRecipe",
+  "research": "VISPOWER",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:balanced_shard",
+  "ingredients": [
+    "minecraft:iron_ingot"
+  ],
+  "aspects": {
+    "IGNIS": 8,
+    "ORDO": 8
+  },
+  "pattern": [
+    " I ",
+    "ISI",
+    " I "
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "S": "thaumcraft:balanced_shard"
+  },
+  "result": {
+    "item": "thaumcraft:vis_relay",
+    "count": 2
+  },
+  "v11_62_60_strict_original": true
+}

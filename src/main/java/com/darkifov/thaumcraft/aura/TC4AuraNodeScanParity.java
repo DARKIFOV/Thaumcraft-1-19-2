@@ -1,5 +1,7 @@
 package com.darkifov.thaumcraft.aura;
 
+import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.AspectStack;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import net.minecraft.ChatFormatting;
@@ -91,6 +93,34 @@ public final class TC4AuraNodeScanParity {
         // strongest aspects first, legacy aspect id as a deterministic tie-breaker.
         stacks.sort(Comparator.comparingInt(AspectStack::amount).reversed().thenComparing(stack -> stack.aspect().id()));
         return stacks;
+    }
+
+
+    /**
+     * TC4 ScanManager.generateNodeAspects parity.  Scanning an aura node never
+     * awards the node's entire live vis pool: each contained aspect contributes
+     * max(4, amount / 10), followed by the original node-type bonus.
+     */
+    public static AspectList scanRewardAspects(AuraNodeBlockEntity node) {
+        AspectList rewards = new AspectList();
+        if (node == null) {
+            return rewards;
+        }
+
+        for (java.util.Map.Entry<Aspect, Integer> entry : node.aspects().entries().entrySet()) {
+            rewards.add(entry.getKey(), Math.max(4, entry.getValue() / 10));
+        }
+
+        switch (node.typedNodeType()) {
+            case UNSTABLE -> rewards.add(Aspect.PERDITIO, 4);
+            case HUNGRY -> rewards.add(Aspect.FAMES, 4);
+            case TAINTED -> rewards.add(Aspect.VITIUM, 4);
+            case PURE -> rewards.add(Aspect.SANO, 2).add(Aspect.ORDO, 2);
+            case DARK -> rewards.add(Aspect.MORTUUS, 2).add(Aspect.TENEBRAE, 2);
+            default -> {
+            }
+        }
+        return rewards;
     }
 
     public static boolean isWithinScanRange(Player player, BlockPos pos) {

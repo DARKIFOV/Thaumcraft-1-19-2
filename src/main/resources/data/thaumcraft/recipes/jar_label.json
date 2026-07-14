@@ -1,21 +1,26 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " P ",
-    "SIS",
-    " P "
-  ],
-  "key": {
-    "P": {
+  "type": "minecraft:crafting_shapeless",
+  "tc4_source": "ConfigRecipes.java:3281 JarLabel; functional 1.19.2 carrier thaumcraft:jar_label",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/black"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
       "item": "minecraft:paper"
     },
-    "S": {
-      "item": "minecraft:string"
+    {
+      "item": "minecraft:paper"
     },
-    "I": {
-      "item": "minecraft:ink_sac"
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:paper"
     }
-  },
+  ],
   "result": {
     "item": "thaumcraft:jar_label",
     "count": 4

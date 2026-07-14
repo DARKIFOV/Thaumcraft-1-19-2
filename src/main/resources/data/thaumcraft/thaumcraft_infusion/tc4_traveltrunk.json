@@ -1,0 +1,25 @@
+{
+  "tc4_key": "TravelTrunk",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "TRAVELTRUNK",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:hungry_chest",
+  "components": [
+    "minecraft:diamond",
+    "thaumcraft:greatwood_planks",
+    "thaumcraft:tc4_golem_wood",
+    "thaumcraft:greatwood_planks"
+  ],
+  "aspects": {
+    "MOTUS": 4,
+    "SPIRITUS": 4,
+    "ITER": 4,
+    "VACUOS": 16
+  },
+  "instability": 3,
+  "result": {
+    "item": "thaumcraft:tc4_travel_trunk",
+    "count": 1
+  },
+  "v11_62_71_strict_original": true
+}
