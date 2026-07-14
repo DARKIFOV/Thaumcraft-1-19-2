@@ -184,8 +184,11 @@ def page_text(entries: list[dict[str, Any]]) -> str:
     for category in CATEGORIES:
         out.append(f"    private static void add{category}(Map<String, List<PageSpec>> map) {{")
         for e in [x for x in entries if x["category"] == category]:
+            pages = e.get("pages", []) or []
+            if not pages:
+                out.append(f"        put(map, {js(e['key'])});")
+                continue
             out.append(f"        put(map, {js(e['key'])},")
-            pages = e.get("pages", [])
             for i, page_data in enumerate(pages):
                 comma = "," if i < len(pages) - 1 else ");"
                 recipe_keys = page_data.get("recipe_keys", []) or []

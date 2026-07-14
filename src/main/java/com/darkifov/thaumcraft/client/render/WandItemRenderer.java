@@ -23,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation ORIGINAL_FOCUS_MODEL = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/wand.png");
     private static final ResourceLocation ORIGINAL_SCRIPT = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/misc/script.png");
+    /** Midpoint of the original ModelWand geometry: (-1..21) / 16 blocks. */
+    private static final double MODEL_CENTER_Y = 0.625D;
     private static WandItemRenderer INSTANCE;
 
     private WandItemRenderer() {
@@ -44,6 +46,10 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
 
         poseStack.pushPose();
         applyOriginalTC4ItemTransform(data, transformType, stack, poseStack);
+        // BEWLR contexts expect geometry around the local origin.  Center the
+        // 22-pixel-tall TC4 ModelWand before the context matrix is applied to
+        // the vertices, otherwise its lower cap is pushed outside the hand/GUI.
+        poseStack.translate(0.0D, -MODEL_CENTER_Y, 0.0D);
 
         renderOriginalTC4WandComponents(stack, data, poseStack, buffer, packedLight);
 
@@ -202,7 +208,13 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
             // Exact TC4 EQUIPPED/EQUIPPED_FIRST_PERSON origin. The old port used
             // Y=1.0 plus an invented 0.5 scale, which is the first-person breakage
             // visible in the supplied screenshot.
+            boolean left = transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND
+                    || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND;
             poseStack.translate(0.50D, 1.50D, 0.50D);
+            // Forge applies the hand transform around the unit-cube centre. This
+            // small mirrored adapter keeps the centred TC4 mesh seated in either
+            // hand instead of intersecting the camera or drifting behind the arm.
+            poseStack.translate(left ? -0.11D : 0.11D, 0.06D, 0.02D);
             if (transformType.firstPerson()) {
                 poseStack.scale(1.00F, 1.10F, 1.00F);
             }

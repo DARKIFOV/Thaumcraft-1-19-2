@@ -37,8 +37,27 @@ for path in models.rglob("*.json"):
     parent = data.get("parent", "")
     if parent in ("builtin/entity", "minecraft:builtin/entity"):
         dynamic.append(path.stem)
-if len(dynamic) != 8:
-    errors.append(f"expected 8 builtin/entity models, found {len(dynamic)}: {sorted(dynamic)}")
+expected_dynamic = {
+    "advanced_node_stabilizer",
+    "avaritia_creative_wand",
+    "greatwood_wand",
+    "hungry_chest",
+    "iron_capped_wooden_wand",
+    "node_jar",
+    "node_stabilizer",
+    "silverwood_wand",
+    "tc4_block_banner",
+    "thaumometer",
+    "vis_charge_relay",
+}
+actual_dynamic = set(dynamic)
+missing_dynamic = sorted(expected_dynamic - actual_dynamic)
+unexpected_dynamic = sorted(actual_dynamic - expected_dynamic)
+if missing_dynamic or unexpected_dynamic:
+    errors.append(
+        "builtin/entity model set drift: "
+        f"missing={missing_dynamic}, unexpected={unexpected_dynamic}, actual={sorted(actual_dynamic)}"
+    )
 
 creative_model = models / "avaritia_creative_wand.json"
 creative_data = json.loads(creative_model.read_text(encoding="utf-8")) if creative_model.is_file() else {}
@@ -52,4 +71,4 @@ if errors:
     for error in errors:
         print(" -", error)
     raise SystemExit(1)
-print("v11.62.46 audit guard: OK (v11.62.46+ metadata, 8 BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)")
+print("v11.62.46 audit guard: OK (v11.62.46+ metadata, 11 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)")
