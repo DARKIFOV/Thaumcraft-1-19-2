@@ -42,7 +42,7 @@ public final class BrainJarBlockEntity extends BlockEntity {
     }
 
     public float rotation(float partialTick) {
-        float delta = Mth.wrapRadians(rotation - previousRotation);
+        float delta = wrapRadians(rotation - previousRotation);
         return previousRotation + delta * partialTick;
     }
 
@@ -100,7 +100,7 @@ public final class BrainJarBlockEntity extends BlockEntity {
         float desired = orb != null || target != null
                 ? (float) Math.atan2(tz - (pos.getZ() + 0.5D), tx - (pos.getX() + 0.5D))
                 : brain.rotation + 0.01F;
-        brain.rotation += Mth.wrapRadians(desired - brain.rotation) * 0.04F;
+        brain.rotation += wrapRadians(desired - brain.rotation) * 0.04F;
 
         if (target != null && --brain.ambientSoundDelay <= 0) {
             level.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
@@ -108,6 +108,23 @@ public final class BrainJarBlockEntity extends BlockEntity {
                     0.8F + level.random.nextFloat() * 0.4F, false);
             brain.ambientSoundDelay = 100 + level.random.nextInt(500);
         }
+    }
+
+    /**
+     * Forge 1.19.2 / Mojang 1.19.2 exposes degree wrapping in {@link Mth}, but not
+     * the later {@code wrapRadians} helper. Keep the renderer in radians and
+     * normalize to [-PI, PI) without converting back and forth to degrees.
+     */
+    private static float wrapRadians(float angle) {
+        final float pi = (float) Math.PI;
+        final float twoPi = pi * 2.0F;
+        angle %= twoPi;
+        if (angle >= pi) {
+            angle -= twoPi;
+        } else if (angle < -pi) {
+            angle += twoPi;
+        }
+        return angle;
     }
 
     private static ExperienceOrb closestOrb(Level level, BlockPos pos) {

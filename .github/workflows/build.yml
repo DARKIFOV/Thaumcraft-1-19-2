@@ -76,16 +76,16 @@ jobs:
         run: python3 tools/runtime_fix_guard.py
 
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.73 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.74 --fail-on-missing
 
       - name: Audit parent chains and display transforms
-        run: python3 tools/model_transform_audit.py --version 11.62.73 --fail-on-problems
+        run: python3 tools/model_transform_audit.py --version 11.62.74 --fail-on-problems
 
       - name: Audit Forge builtin entity render contracts
-        run: python3 tools/bewlr_contract_audit.py --version 11.62.73 --fail-on-problems
+        run: python3 tools/bewlr_contract_audit.py --version 11.62.74 --fail-on-problems
 
       - name: Audit aura node, node jar and stabilizer parity
-        run: python3 tools/aura_node_parity_audit.py --version 11.62.73 --fail-on-problems
+        run: python3 tools/aura_node_parity_audit.py --version 11.62.74 --fail-on-problems
 
       - name: Validate v11.62.45 parity fixes
         run: python3 tools/tc4_116245_parity_guard.py
@@ -118,18 +118,18 @@ jobs:
         run: python3 tools/tc4_116254_focus_hud_cycle_guard.py
 
       - name: Validate registry and resources
-        run: python3 tools/audit_registry.py --version 11.62.73 --fail-on-unexpected
+        run: python3 tools/audit_registry.py --version 11.62.74 --fail-on-unexpected
 
       - name: Regenerate-check exact TC4 research runtime
         run: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
 
       - name: Audit all 201 TC4 research entries and Thaumonomicon assets
-        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.73 --fail-on-problems
+        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.74 --fail-on-problems
 
       - name: Validate v11.62.70 visual, texture, wand and Thaumometer baseline
         run: python3 tools/tc4_116270_visual_runtime_regression_guard.py
 
-      - name: Validate v11.62.73 original GUI offsets and complete infusion set
+      - name: Validate v11.62.74 original GUI offsets and complete infusion set
         run: python3 tools/tc4_116271_original_gui_infusion_guard.py
 
       - name: Validate Brain in a Jar runtime parity
@@ -156,7 +156,7 @@ jobs:
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.73 --report reports/release_jar_audit_v11.62.73.json
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.74 --report reports/release_jar_audit_v11.62.74.json
 
       - name: Calculate checksums
         shell: bash
@@ -165,14 +165,14 @@ jobs:
           find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
             | sort -z \
             | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp reports/*11.62.73*.json build/release/
+          cp reports/*11.62.74*.json build/release/
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: thaumcraft-legacy-rebuild-v11.62.73
+          name: thaumcraft-legacy-rebuild-v11.62.74
           if-no-files-found: error
           path: |
             build/libs/*.jar
             build/release/SHA256SUMS.txt
-            build/release/*11.62.73*.json
+            build/release/*11.62.74*.json

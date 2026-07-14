@@ -6,7 +6,9 @@ SRC = ROOT / "src/main/java"
 errors: list[str] = []
 
 # These symbols belong to other Minecraft mapping/version surfaces and caused
-# the real Forge 1.19.2 compileJava failure captured by CI run 79321665380.
+# real Forge 1.19.2 compileJava failures captured by CI runs 79321665380 and
+# 79417104482. Keep them in the early text guard so Gradle is not the first
+# place where a known cross-version API regression is discovered.
 for path in SRC.rglob("*.java"):
     text = path.read_text(encoding="utf-8", errors="ignore")
     rel = path.relative_to(ROOT)
@@ -14,6 +16,8 @@ for path in SRC.rglob("*.java"):
         errors.append(f"{rel}: GenericContainerMenu is not present in Forge 1.19.2 official mappings; use ChestMenu")
     if "net.minecraft.world.UseAnim" in text:
         errors.append(f"{rel}: UseAnim must be imported from net.minecraft.world.item in 1.19.2")
+    if "Mth.wrapRadians(" in text:
+        errors.append(f"{rel}: Mth.wrapRadians(float) is unavailable in Forge/Minecraft 1.19.2; use a local radian normalizer")
 
 mod = (SRC / "com/darkifov/thaumcraft/ThaumcraftMod.java").read_text(encoding="utf-8")
 required = "RegistryObject<PurifyingFluidBlock> PURIFYING_FLUID_BLOCK"

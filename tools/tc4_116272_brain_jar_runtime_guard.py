@@ -21,8 +21,8 @@ def valid_json(path):
     try: json.loads((ROOT/path).read_text(encoding="utf-8"))
     except Exception as exc: errors.append(f"{path}: {exc}")
 
-need("build.gradle", "version = '11.62.73'")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.73"')
+need("build.gradle", "version = '11.62.74'")
+need("src/main/resources/META-INF/mods.toml", 'version="11.62.74"')
 need("src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
      'BRAIN_JAR = BLOCKS.register("tc4_jar_brain"',
      'BRAIN_JAR_ITEM = ITEMS.register("tc4_jar_brain"',
@@ -35,7 +35,12 @@ need("src/main/java/com/darkifov/thaumcraft/block/BrainJarBlock.java",
 need("src/main/java/com/darkifov/thaumcraft/blockentity/BrainJarBlockEntity.java",
      "MAX_XP = 2000", "inflate(6.0D)", "LOCAL_ABSORB_BOX", "/ 7.0D",
      "* 0.15D", "* 0.33D", "eatDelay = 40", "nextInt(Math.min(xp + 1, 64))",
-     'tag.putInt("XP", xp)', "ExperienceOrb.award", "* 14.0F", 'TC4Sounds.event("brain")')
+     'tag.putInt("XP", xp)', "ExperienceOrb.award", "* 14.0F", 'TC4Sounds.event("brain")',
+     "private static float wrapRadians(float angle)", "angle %= twoPi",
+     "wrapRadians(rotation - previousRotation)", "wrapRadians(desired - brain.rotation)")
+brain=(ROOT/"src/main/java/com/darkifov/thaumcraft/blockentity/BrainJarBlockEntity.java").read_text()
+checks += 1
+if "Mth.wrapRadians" in brain: errors.append("Forge 1.19.2-incompatible Mth.wrapRadians call remains")
 need("src/main/java/com/darkifov/thaumcraft/client/render/model/TC4BrainJarModel.java",
      "12.0F, 10.0F, 16.0F", "8.0F, 3.0F, 7.0F", "2.0F, 6.0F, 2.0F",
      "0.4089647F", "LayerDefinition.create(mesh, 128, 64)")
@@ -63,7 +68,7 @@ for lang in ["en_us","ru_ru"]:
     if "block.thaumcraft.tc4_jar_brain" not in data: errors.append(f"{lang}: block lang missing")
     if "item.thaumcraft.tc4_jar_brain" not in data: errors.append(f"{lang}: item lang missing")
 if errors:
-    print(f"TC4 11.62.73 Brain Jar runtime guard: FAIL ({len(errors)} problems)")
+    print(f"TC4 11.62.74 Brain Jar runtime guard: FAIL ({len(errors)} problems)")
     for e in errors: print(" -",e)
     sys.exit(1)
-print(f"TC4 11.62.73 Brain Jar runtime guard: PASS ({checks} checks)")
+print(f"TC4 11.62.74 Brain Jar runtime guard: PASS ({checks} checks)")

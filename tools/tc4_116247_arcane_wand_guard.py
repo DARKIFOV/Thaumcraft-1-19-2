@@ -112,7 +112,7 @@ release_workflow = read(".github/workflows/release.yml")
 for workflow, label in ((build_workflow, "build workflow"), (release_workflow, "release workflow")):
     # Source archives are intentionally clean: CI must publish reports generated
     # during the current run instead of depending on committed historical reports.
-    require(workflow, "reports/*11.62.73*.json", label)
+    require(workflow, "reports/*11.62.74*.json", label)
     if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
         ERRORS.append(f"{label}: historical consolidated report must not be required by CI")
     for legacy_report in (

@@ -1,4 +1,16 @@
-# Thaumcraft Legacy Rebuild — v11.62.73
+# Thaumcraft Legacy Rebuild — v11.62.74
+
+## v11.62.74 Forge compile hotfix — Brain Jar radian wrapping
+
+- fixes the two real `compileJava` errors reported by GitHub Actions run `79417104482`;
+- removes calls to the unavailable Minecraft/Forge 1.19.2 API `Mth.wrapRadians(float)`;
+- keeps Brain in a Jar rotation in radians and normalizes angular deltas to `[-π, π)` with a local Java 17 helper;
+- avoids the incorrect alternative of passing radian values to `Mth.wrapDegrees`;
+- extends the Brain Jar regression guard so future releases reject reintroduction of `Mth.wrapRadians`;
+- preserves all v11.62.73 mirror runtime changes unchanged.
+
+GitHub Actions reached the real Forge `compileJava` task. The uploaded log contained exactly two errors, both in `BrainJarBlockEntity`, plus 100 deprecation warnings that did not cause the build failure. A new CI run is still required to reveal any later-stage errors after these two compiler blockers.
+
 
 ## v11.62.73 Magic Mirror / Essentia Mirror / Hand Mirror runtime parity
 

@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.73' // Magic Mirror, Essentia Mirror and Hand Mirror runtime parity.
+version = '11.62.74' // Forge 1.19.2 compile hotfix for Brain Jar radian wrapping.
 // v11.62.54 gameplay baseline marker: version = '11.62.54'
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'
