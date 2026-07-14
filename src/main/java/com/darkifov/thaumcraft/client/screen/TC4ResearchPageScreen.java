@@ -101,7 +101,7 @@ public class TC4ResearchPageScreen extends Screen {
         // only the parchment background is enlarged to 130%. Its page columns
         // start at sw-15 and sw+137 (152 px apart), both 139 px wide.
         if (pageIndex == 0) {
-            drawCenteredString(poseStack, font, researchNameComponent(entry), leftPos + 52, topPos - 6, PAGE_TEXT_COLOR);
+            renderResearchTitle(poseStack);
         }
         renderPage(poseStack, leftPos - 15, topPos - 10, pageIndex);
         renderPage(poseStack, leftPos + 137, topPos - 10, pageIndex + 1);
@@ -115,7 +115,10 @@ public class TC4ResearchPageScreen extends Screen {
             return;
         }
         PageRef page = pageAt(idx);
-        int pageY = y + ((idx == 0 && pageIndex == 0) ? 25 : 0);
+        int titleExtra = idx == 0 && pageIndex == 0
+                ? Math.max(0, font.split(researchNameComponent(entry), PAGE_WIDTH - 8).size() - 1) * 10
+                : 0;
+        int pageY = y + ((idx == 0 && pageIndex == 0) ? 25 + titleExtra : 0);
         // v11.62.6: hard clip every physical page.  This prevents TC4 legacy
         // IMG tags, item cards and long translated strings from bleeding across
         // the spine/right page like the broken screenshots showed.
@@ -126,6 +129,16 @@ public class TC4ResearchPageScreen extends Screen {
                 renderTextPage(poseStack, x, pageY, page.type(), page.value());
             }
         });
+    }
+
+    private void renderResearchTitle(PoseStack poseStack) {
+        int pageX = leftPos - 15;
+        List<FormattedCharSequence> lines = font.split(researchNameComponent(entry), PAGE_WIDTH - 8);
+        int y = topPos - 7;
+        for (FormattedCharSequence line : lines) {
+            font.draw(poseStack, line, pageX + (PAGE_WIDTH - font.width(line)) / 2.0F, y, PAGE_TEXT_COLOR);
+            y += 10;
+        }
     }
 
     private void withPageScissor(int x, int y, int w, int h, Runnable draw) {

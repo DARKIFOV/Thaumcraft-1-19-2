@@ -1,0 +1,119 @@
+{
+  "version": "11.62.65",
+  "original_source": "/mnt/data/tc_original_src/Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java",
+  "method_literal_key_count": 116,
+  "expanded_original_registration_count": 136,
+  "excluded_from_arcane_workbench": {
+    "normal_crafting": [
+      "ArcaneStone2",
+      "ArcaneStone3",
+      "ArcaneStone4"
+    ],
+    "infusion_enchantments": [
+      "InfEnch0",
+      "InfEnch1",
+      "InfEnch10",
+      "InfEnch11",
+      "InfEnch12",
+      "InfEnch13",
+      "InfEnch14",
+      "InfEnch15",
+      "InfEnch16",
+      "InfEnch17",
+      "InfEnch18",
+      "InfEnch19",
+      "InfEnch2",
+      "InfEnch20",
+      "InfEnch21",
+      "InfEnch3",
+      "InfEnch4",
+      "InfEnch5",
+      "InfEnch6",
+      "InfEnch7",
+      "InfEnch8",
+      "InfEnch9",
+      "InfEnchHaste",
+      "InfEnchRepair"
+    ]
+  },
+  "arcane_workbench_registration_count": 109,
+  "covered_registration_count": 109,
+  "coverage_percent": 100.0,
+  "fixed_arcane": {
+    "expected": 82,
+    "covered": 82,
+    "missing": []
+  },
+  "primal_arrow_family": {
+    "expected": 6,
+    "covered": 6,
+    "missing": []
+  },
+  "banner_family": {
+    "expected": 16,
+    "covered": 16,
+    "missing": [],
+    "legacy_adapter_files": []
+  },
+  "runtime_wand_caps": {
+    "expected": 5,
+    "covered": 5,
+    "missing": []
+  },
+  "new_v11_62_65_keys": {
+    "Banner_0": [
+      "tc4_banner_0.json"
+    ],
+    "Banner_1": [
+      "tc4_banner_1.json"
+    ],
+    "Banner_2": [
+      "tc4_banner_2.json"
+    ],
+    "Banner_3": [
+      "tc4_banner_3.json"
+    ],
+    "Banner_4": [
+      "tc4_banner_4.json"
+    ],
+    "Banner_5": [
+      "tc4_banner_5.json"
+    ],
+    "Banner_6": [
+      "tc4_banner_6.json"
+    ],
+    "Banner_7": [
+      "tc4_banner_7.json"
+    ],
+    "Banner_8": [
+      "tc4_banner_8.json"
+    ],
+    "Banner_9": [
+      "tc4_banner_9.json"
+    ],
+    "Banner_10": [
+      "tc4_banner_10.json"
+    ],
+    "Banner_11": [
+      "tc4_banner_11.json"
+    ],
+    "Banner_12": [
+      "tc4_banner_12.json"
+    ],
+    "Banner_13": [
+      "tc4_banner_13.json"
+    ],
+    "Banner_14": [
+      "tc4_banner_14.json"
+    ],
+    "Banner_15": [
+      "tc4_banner_15.json"
+    ]
+  },
+  "status": "STATIC_COVERAGE_COMPLETE",
+  "limitations": [
+    "Coverage is source/static registration coverage, not compile or runtime proof.",
+    "Banner output colour depends on the new arcane result-NBT parser and functional banner BlockEntity.",
+    "Wand-cap coverage is generated in Java and remains subject to compile/runtime verification."
+  ]
+}

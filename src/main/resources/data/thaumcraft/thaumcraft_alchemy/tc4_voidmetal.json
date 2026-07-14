@@ -5,7 +5,7 @@
   "kind": "CRUCIBLE",
   "catalyst": "thaumcraft:tc4_voidseed",
   "result": {
-    "item": "thaumcraft:tc4_voidingot",
+    "item": "thaumcraft:void_metal_ingot",
     "count": 1
   },
   "aspects": {

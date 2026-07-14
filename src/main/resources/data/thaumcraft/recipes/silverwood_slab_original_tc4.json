@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "KKK"
+  ],
+  "key": {
+    "K": {
+      "item": "thaumcraft:silverwood_planks"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:silverwood_slab",
+    "count": 6
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3353"
+}

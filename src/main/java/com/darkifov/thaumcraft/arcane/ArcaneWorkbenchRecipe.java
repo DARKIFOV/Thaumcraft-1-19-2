@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.nbt.TagParser;
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -24,6 +25,7 @@ public class ArcaneWorkbenchRecipe {
     private final ResourceLocation catalystId;
     private final ResourceLocation resultItemId;
     private final int resultCount;
+    private final String resultNbt;
     private final String research;
     private final String tc4Key;
     private final String tc4Kind;
@@ -37,16 +39,18 @@ public class ArcaneWorkbenchRecipe {
         this.catalystId = catalystId;
         this.resultItemId = resultItemId;
         this.resultCount = Math.max(1, resultCount);
+        this.resultNbt = "";
         this.research = research == null ? "" : research;
         this.tc4Key = "";
         this.tc4Kind = "";
     }
 
-    private ArcaneWorkbenchRecipe(ResourceLocation id, ResourceLocation catalystId, ResourceLocation resultItemId, int resultCount, String research, String tc4Key, String tc4Kind) {
+    private ArcaneWorkbenchRecipe(ResourceLocation id, ResourceLocation catalystId, ResourceLocation resultItemId, int resultCount, String resultNbt, String research, String tc4Key, String tc4Kind) {
         this.id = id;
         this.catalystId = catalystId;
         this.resultItemId = resultItemId;
         this.resultCount = Math.max(1, resultCount);
+        this.resultNbt = resultNbt == null ? "" : resultNbt;
         this.research = research == null ? "" : research;
         this.tc4Key = tc4Key == null ? "" : tc4Key;
         this.tc4Kind = tc4Kind == null ? "" : tc4Kind;
@@ -284,7 +288,15 @@ public class ArcaneWorkbenchRecipe {
             return ItemStack.EMPTY;
         }
 
-        return new ItemStack(item, resultCount);
+        ItemStack stack = new ItemStack(item, resultCount);
+        if (!resultNbt.isBlank()) {
+            try {
+                stack.setTag(TagParser.parseTag(resultNbt));
+            } catch (com.mojang.brigadier.exceptions.CommandSyntaxException ignored) {
+                // Invalid data-pack NBT must not crash recipe reload or JEI.
+            }
+        }
+        return stack;
     }
 
     public ArcaneWorkbenchRecipe ingredient(ResourceLocation id) {
@@ -346,7 +358,7 @@ public class ArcaneWorkbenchRecipe {
     }
 
     public static ArcaneWorkbenchRecipe tc4Adapter(ResourceLocation id, ResourceLocation catalystId, ResourceLocation resultItemId, int resultCount, String research, String tc4Key, String tc4Kind) {
-        return new ArcaneWorkbenchRecipe(id, catalystId, resultItemId, resultCount, research, tc4Key, tc4Kind);
+        return new ArcaneWorkbenchRecipe(id, catalystId, resultItemId, resultCount, "", research, tc4Key, tc4Kind);
     }
 
     public static ArcaneWorkbenchRecipe fromJson(ResourceLocation id, JsonObject json) {
@@ -355,11 +367,12 @@ public class ArcaneWorkbenchRecipe {
         JsonObject resultObject = json.getAsJsonObject("result");
         ResourceLocation resultItem = new ResourceLocation(resultObject.get("item").getAsString());
         int count = resultObject.has("count") ? resultObject.get("count").getAsInt() : 1;
+        String resultNbt = resultObject.has("nbt") ? resultObject.get("nbt").getAsString() : "";
         String research = json.has("research") ? json.get("research").getAsString() : "";
 
         String tc4Key = json.has("tc4_key") ? json.get("tc4_key").getAsString() : "";
         String tc4Kind = json.has("tc4_kind") ? json.get("tc4_kind").getAsString() : (json.has("kind") ? json.get("kind").getAsString() : "");
-        ArcaneWorkbenchRecipe recipe = new ArcaneWorkbenchRecipe(id, catalyst, resultItem, count, research, tc4Key, tc4Kind);
+        ArcaneWorkbenchRecipe recipe = new ArcaneWorkbenchRecipe(id, catalyst, resultItem, count, resultNbt, research, tc4Key, tc4Kind);
 
         JsonArray ingredients = json.getAsJsonArray("ingredients");
 

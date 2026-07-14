@@ -14,5 +14,6 @@
   "result": {
     "item": "thaumcraft:scribing_tools",
     "count": 1
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3462 Scribe2"
 }

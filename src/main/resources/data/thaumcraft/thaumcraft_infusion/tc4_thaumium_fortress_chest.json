@@ -5,10 +5,10 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_thaumiumchest",
   "components": [
-    "thaumcraft:tc4_thaumiumingot",
-    "thaumcraft:tc4_thaumiumingot",
-    "thaumcraft:tc4_thaumiumingot",
-    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:thaumium_ingot",
     "minecraft:gold_ingot",
     "minecraft:sugar"
   ],

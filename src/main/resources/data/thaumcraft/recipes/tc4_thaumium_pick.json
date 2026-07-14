@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3519",
+  "pattern": [
+    "III",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/thaumium"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_thaumiumpick",
+    "count": 1
+  }
+}

@@ -30,6 +30,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ChunkEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -45,6 +46,20 @@ public final class CommonEvents {
     }
 
 
+
+    @SubscribeEvent
+    public static void onBathSaltsExpire(ItemExpireEvent event) {
+        ItemEntity itemEntity = event.getEntity();
+        if (!itemEntity.getItem().is(ThaumcraftMod.BATH_SALTS.get()) || itemEntity.level.isClientSide) {
+            return;
+        }
+        BlockPos pos = itemEntity.blockPosition();
+        var fluidState = itemEntity.level.getFluidState(pos);
+        if (!fluidState.isSource() || fluidState.getType() != net.minecraft.world.level.material.Fluids.WATER) {
+            return;
+        }
+        itemEntity.level.setBlockAndUpdate(pos, ThaumcraftMod.PURIFYING_FLUID_BLOCK.get().defaultBlockState());
+    }
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkEvent.Load event) {

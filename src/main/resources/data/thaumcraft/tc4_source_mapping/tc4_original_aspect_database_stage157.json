@@ -3,7 +3,7 @@
   "version": "1.57.0",
   "source": "thaumcraft/common/config/ConfigAspects.java",
   "strict_policy": "Exact TC4 AspectList values only; unresolved or metadata-only legacy entries are not approximated.",
-  "object_exact_runtime_entries": 190,
+  "object_exact_runtime_entries": 189,
   "entity_exact_runtime_entries": 67,
   "legacy_oredict_alias_entries": 12,
   "object_aspects": {
@@ -459,9 +459,6 @@
     "thaumcraft:research_note": {
       "COGNITIO": 4,
       "PRAECANTATIO": 1
-    },
-    "thaumcraft:research_point": {
-      "COGNITIO": 1
     },
     "thaumcraft:scribing_tools": {
       "INSTRUMENTUM": 1,

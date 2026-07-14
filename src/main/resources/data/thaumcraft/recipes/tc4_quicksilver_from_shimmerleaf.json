@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3271",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:tc4_block_shimmerleaf"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:quicksilver_drop",
+    "count": 1
+  }
+}

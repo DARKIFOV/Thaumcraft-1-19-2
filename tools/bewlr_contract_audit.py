@@ -19,6 +19,9 @@ CONTRACTS = {
     "avaritia_creative_wand": ("WandItem.java", "WandItemRenderer"),
     "thaumometer": ("ThaumometerItem.java", "ThaumometerItemRenderer"),
     "node_jar": ("NodeJarItem.java", "NodeJarItemRenderer"),
+    "hungry_chest": ("HungryChestBlockItem.java", "HungryChestItemRenderer"),
+    "tc4_block_banner": ("TC4BannerBlockItem.java", "TC4BannerItemRenderer"),
+    "vis_charge_relay": ("VisChargeRelayBlockItem.java", "VisChargeRelayItemRenderer"),
 }
 
 
@@ -106,7 +109,7 @@ def main() -> int:
     if problems:
         lines.extend(f"- **{p['kind']}** `{p['item']}` — {p['detail']}" for p in problems)
     else:
-        lines.append("Нет. Все восемь Forge runtime-контрактов замкнуты.")
+        lines.append("Нет. Все Forge runtime-контракты замкнуты.")
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"BEWLR audit: {stats['complete_contracts']}/{stats['expected_contracts']} complete, {len(problems)} problems")
     print(json_path.relative_to(ROOT))

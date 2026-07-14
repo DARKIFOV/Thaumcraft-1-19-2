@@ -134,14 +134,6 @@ public final class ThaumcraftNetwork {
 
         CHANNEL.registerMessage(
                 packetId++,
-                RequestResearchUnlockPacket.class,
-                RequestResearchUnlockPacket::encode,
-                RequestResearchUnlockPacket::decode,
-                RequestResearchUnlockPacket::handle
-        );
-
-        CHANNEL.registerMessage(
-                packetId++,
                 RequestSelectResearchPacket.class,
                 RequestSelectResearchPacket::encode,
                 RequestSelectResearchPacket::decode,
@@ -459,10 +451,6 @@ public final class ThaumcraftNetwork {
                 PacketDistributor.PLAYER.with(() -> player),
                 ArcaneRecipeSyncPacket.fromRecipes(ArcaneWorkbenchRecipes.recipes())
         );
-    }
-
-    public static void requestUnlockFromClient() {
-        CHANNEL.sendToServer(new RequestResearchUnlockPacket());
     }
 
     public static void requestSelectResearchFromClient(String researchKey) {

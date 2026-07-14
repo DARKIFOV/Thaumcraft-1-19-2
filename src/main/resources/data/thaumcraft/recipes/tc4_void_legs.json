@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3556",
+  "pattern": [
+    "III",
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/void_metal"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_voidlegs",
+    "count": 1
+  }
+}

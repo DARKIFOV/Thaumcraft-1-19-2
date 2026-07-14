@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3513",
+  "pattern": [
+    "I",
+    "S",
+    "S"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/thaumium"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_thaumiumshovel",
+    "count": 1
+  }
+}

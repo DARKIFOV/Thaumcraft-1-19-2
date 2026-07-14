@@ -5,8 +5,8 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_thaumiumhelm",
   "components": [
-    "thaumcraft:tc4_thaumiumingot",
-    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:thaumium_ingot",
+    "thaumcraft:thaumium_ingot",
     "minecraft:gold_ingot",
     "minecraft:gold_ingot",
     "minecraft:writable_book"

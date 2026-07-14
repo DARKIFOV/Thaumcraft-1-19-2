@@ -39,7 +39,7 @@ public final class NodeTransducerRenderer implements BlockEntityRenderer<NodeTra
         NodeStabilizerRenderer.renderMesh(poseStack, base, TC4NodeStabilizerModel.LOCK_TRIANGLES,
                 packedLight, 255, 255, 255, 255);
 
-        VertexConsumer glow = buffer.getBuffer(RenderType.entityTranslucent(OVERLAY));
+        VertexConsumer glow = buffer.getBuffer(RenderType.entityCutoutNoCull(OVERLAY));
         int lockAlpha = Mth.clamp(70 + (int)(150.0F * offset * 2.5F), 70, 220);
         NodeStabilizerRenderer.renderMesh(poseStack, glow, TC4NodeStabilizerModel.LOCK_TRIANGLES,
                 LightTexture.FULL_BRIGHT, rgb[0], rgb[1], rgb[2], lockAlpha);

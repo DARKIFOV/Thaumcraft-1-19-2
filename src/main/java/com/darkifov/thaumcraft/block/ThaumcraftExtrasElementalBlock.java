@@ -89,7 +89,7 @@ public class ThaumcraftExtrasElementalBlock extends Block {
         }
 
         if (mode == Mode.RESEARCH) {
-            player.displayClientMessage(Component.literal("Исследовательский кэш — творческий/тестовый блок. Полная выдача исследований будет позже.").withStyle(ChatFormatting.AQUA), false);
+            player.displayClientMessage(Component.literal("Legacy compatibility block from an early rebuild; it has no TC4 gameplay function.").withStyle(ChatFormatting.AQUA), false);
             return InteractionResult.CONSUME;
         }
 

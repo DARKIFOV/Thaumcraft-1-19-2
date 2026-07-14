@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "TTT",
-    "TTT",
-    "TTT"
+    "KKK",
+    "KKK",
+    "KKK"
   ],
   "key": {
-    "T": {
+    "K": {
       "item": "thaumcraft:tc4_tallow"
     }
   },
   "result": {
     "item": "thaumcraft:tc4_block_tallow",
     "count": 1
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3373"
 }

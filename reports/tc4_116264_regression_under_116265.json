@@ -1,0 +1,19 @@
+{
+  "version": "11.62.65",
+  "status": "PASS",
+  "checks": [
+    "project version",
+    "block/item/block-entity registration",
+    "functional Java contracts",
+    "TC4 source resolver mappings",
+    "three exact original arcane recipes",
+    "blockstate/model/item/loot resources",
+    "English/Russian localization"
+  ],
+  "errors": [],
+  "limitations": [
+    "No Java compilation",
+    "No Forge client/runtime test",
+    "Warded Glass connected textures deferred"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "version": "11.62.69",
+  "scope": "ConfigRecipes registrations directly belonging to Bath Salts and Arcane Spa",
+  "original_registrations": 2,
+  "mapped": 2,
+  "coverage_percent": 100.0,
+  "entries": [
+    {
+      "key": "BathSalts",
+      "original_source": "thaumcraft/common/config/ConfigRecipes.java:604",
+      "original_type": "crucible",
+      "port_path": "src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_bathsalts.json",
+      "jei_category": "alchemy",
+      "status": "STATIC_PASS"
+    },
+    {
+      "key": "ArcaneSpa",
+      "original_source": "thaumcraft/common/config/ConfigRecipes.java:879",
+      "original_type": "arcane_shaped",
+      "port_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanespa.json",
+      "jei_category": "arcane_workbench",
+      "status": "STATIC_PASS"
+    }
+  ],
+  "excluded_world_interactions": [
+    "Bath Salts item expiration in a vanilla water source",
+    "Arcane Spa fluid placement and 5x5 expansion"
+  ],
+  "runtime_status": "NOT_TESTED"
+}

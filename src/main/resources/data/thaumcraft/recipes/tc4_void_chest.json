@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3551",
+  "pattern": [
+    "I I",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/void_metal"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_voidchest",
+    "count": 1
+  }
+}

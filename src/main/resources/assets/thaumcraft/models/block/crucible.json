@@ -1,14 +1,19 @@
 {
+  "ambientocclusion": false,
   "textures": {
-    "wall": "thaumcraft:block/crucible",
-    "particle": "thaumcraft:block/crucible"
+    "particle": "thaumcraft:original/thaumcraft4/blocks/crucible3",
+    "top": "thaumcraft:original/thaumcraft4/blocks/crucible1",
+    "bottom": "thaumcraft:original/thaumcraft4/blocks/crucible2",
+    "outer": "thaumcraft:original/thaumcraft4/blocks/crucible3",
+    "inner": "thaumcraft:original/thaumcraft4/blocks/crucible5",
+    "inner_bottom": "thaumcraft:original/thaumcraft4/blocks/crucible6"
   },
   "elements": [
-    {"from":[2,0,2],"to":[14,2,14],"faces":{"down":{"texture":"#wall"},"up":{"texture":"#wall"},"north":{"texture":"#wall"},"south":{"texture":"#wall"},"west":{"texture":"#wall"},"east":{"texture":"#wall"}}},
-    {"from":[2,2,2],"to":[4,14,14],"faces":{"north":{"texture":"#wall"},"south":{"texture":"#wall"},"west":{"texture":"#wall"},"east":{"texture":"#wall"},"up":{"texture":"#wall"}}},
-    {"from":[12,2,2],"to":[14,14,14],"faces":{"north":{"texture":"#wall"},"south":{"texture":"#wall"},"west":{"texture":"#wall"},"east":{"texture":"#wall"},"up":{"texture":"#wall"}}},
-    {"from":[4,2,2],"to":[12,14,4],"faces":{"north":{"texture":"#wall"},"south":{"texture":"#wall"},"west":{"texture":"#wall"},"east":{"texture":"#wall"},"up":{"texture":"#wall"}}},
-    {"from":[4,2,12],"to":[12,14,14],"faces":{"north":{"texture":"#wall"},"south":{"texture":"#wall"},"west":{"texture":"#wall"},"east":{"texture":"#wall"},"up":{"texture":"#wall"}}},
-    {"from":[1,14,1],"to":[15,16,15],"faces":{"down":{"texture":"#wall"},"up":{"texture":"#wall"},"north":{"texture":"#wall"},"south":{"texture":"#wall"},"west":{"texture":"#wall"},"east":{"texture":"#wall"}}}
+    {"from":[0,0,0],"to":[16,16,16],"faces":{"down":{"texture":"#bottom"},"up":{"texture":"#top"},"north":{"texture":"#outer"},"south":{"texture":"#outer"},"west":{"texture":"#outer"},"east":{"texture":"#outer"}}},
+    {"from":[2,0,0],"to":[2,16,16],"faces":{"east":{"texture":"#inner"}}},
+    {"from":[14,0,0],"to":[14,16,16],"faces":{"west":{"texture":"#inner"}}},
+    {"from":[0,0,2],"to":[16,16,2],"faces":{"south":{"texture":"#inner"}}},
+    {"from":[0,0,14],"to":[16,16,14],"faces":{"north":{"texture":"#inner"}}},
+    {"from":[0,4,0],"to":[16,4,16],"faces":{"down":{"texture":"#inner_bottom"},"up":{"texture":"#inner_bottom"}}}
   ]
 }

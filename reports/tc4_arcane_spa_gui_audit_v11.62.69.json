@@ -1,0 +1,140 @@
+{
+  "version": "11.62.69",
+  "status": "PASS",
+  "passed": 22,
+  "total": 22,
+  "checks": [
+    {
+      "name": "version",
+      "passed": true,
+      "details": "11.62.69"
+    },
+    {
+      "name": "menu_registered",
+      "passed": true,
+      "details": "Forge MenuType registration"
+    },
+    {
+      "name": "screen_registered",
+      "passed": true,
+      "details": "client screen registration"
+    },
+    {
+      "name": "block_opens_gui",
+      "passed": true,
+      "details": "normal right click opens the original-style container"
+    },
+    {
+      "name": "temporary_direct_controls_removed",
+      "passed": true,
+      "details": "mode and salt handling moved into ContainerSpa/GuiSpa"
+    },
+    {
+      "name": "menu_provider",
+      "passed": true,
+      "details": "block entity supplies its menu"
+    },
+    {
+      "name": "menu_data_contract",
+      "passed": true,
+      "details": "mix state, amount and fluid id are synchronised"
+    },
+    {
+      "name": "spa_slot_original_position",
+      "passed": true,
+      "details": "one Bath Salts slot at original ContainerSpa coordinates"
+    },
+    {
+      "name": "player_inventory_original_position",
+      "passed": true,
+      "details": "3x9 inventory and hotbar coordinates match TC4"
+    },
+    {
+      "name": "shift_click_contract",
+      "passed": true,
+      "details": "Bath Salts shift-click into the single machine slot"
+    },
+    {
+      "name": "toggle_packet",
+      "passed": true,
+      "details": "original container button id 1"
+    },
+    {
+      "name": "original_gui_texture",
+      "passed": true,
+      "details": "original 256x256 gui_spa texture and 176x166 viewport"
+    },
+    {
+      "name": "toggle_icon_coordinates",
+      "passed": true,
+      "details": "TC4 mode icon atlas coordinates"
+    },
+    {
+      "name": "tank_gauge_coordinates",
+      "passed": true,
+      "details": "TC4 tank gauge and frame coordinates"
+    },
+    {
+      "name": "dynamic_fluid_render",
+      "passed": true,
+      "details": "tank gauge renders any stored Forge fluid"
+    },
+    {
+      "name": "gui_tooltips",
+      "passed": true,
+      "details": "fluid and mode tooltips"
+    },
+    {
+      "name": "gui_button_sound",
+      "passed": true,
+      "details": "original camera-clack button feedback"
+    },
+    {
+      "name": "not_in_vanilla_water_tag",
+      "passed": true,
+      "details": "Purifying Fluid no longer participates in #minecraft:water"
+    },
+    {
+      "name": "isolated_fluid_tag",
+      "passed": true,
+      "details": "dedicated #thaumcraft:purifying_fluid tag"
+    },
+    {
+      "name": "translations",
+      "passed": true,
+      "details": "English and Russian container names"
+    },
+    {
+      "name": "arcane_spa_recipe",
+      "passed": true,
+      "details": "1/1 original Arcane Spa arcane recipe"
+    },
+    {
+      "name": "bath_salts_recipe",
+      "passed": true,
+      "details": "1/1 original Bath Salts crucible recipe"
+    }
+  ],
+  "failures": [],
+  "scope": "static source/resource guard; not a Forge compile or runtime proof",
+  "recipe_coverage": {
+    "original_registrations": 2,
+    "mapped": 2,
+    "arcane": [
+      "ArcaneSpa"
+    ],
+    "alchemy": [
+      "BathSalts"
+    ],
+    "world_interactions_not_counted_as_recipes": [
+      "Bath Salts expiration in source water",
+      "Arcane Spa fluid placement"
+    ]
+  },
+  "known_deferred": [
+    "successful Forge compileJava/build",
+    "client fluid animation and GUI click runtime test",
+    "dedicated-server NBT/menu synchronization test",
+    "hopper/pipe automation and 5x5 output runtime test"
+  ]
+}

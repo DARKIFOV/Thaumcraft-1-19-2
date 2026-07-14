@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3210",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/thaumium"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:thaumium_nugget",
+    "count": 9
+  }
+}

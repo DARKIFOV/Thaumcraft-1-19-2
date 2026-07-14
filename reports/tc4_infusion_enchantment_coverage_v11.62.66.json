@@ -1,0 +1,441 @@
+{
+  "version": "11.62.66",
+  "original_source": "/mnt/data/originals/tc4/Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java",
+  "original_registration_count": 24,
+  "port_index_count": 24,
+  "mapped_count": 24,
+  "missing": [],
+  "extra": [],
+  "custom_enchantment_registry": {
+    "thaumcraft:repair": true,
+    "thaumcraft:haste": true
+  },
+  "runtime_source_checks": {
+    "repair_40_tick_cadence": true,
+    "repair_original_cost_formula": true,
+    "repair_vis_consumption": true,
+    "repair_single_wand_source": true,
+    "repair_hover_harness_inventory_exception": true,
+    "haste_impulse_0_015": true,
+    "haste_air_reduction": true,
+    "haste_water_reduction": true,
+    "infusion_custom_target_enchantability": true,
+    "jei_enchanted_outputs": true
+  },
+  "status": "STATIC_MAPPING_COMPLETE",
+  "entries": [
+    {
+      "tc4_key": "InfEnchRepair",
+      "original_line": 1759,
+      "legacy_enchantment_expression": "Enchantment.field_77331_b[ThaumcraftApi.enchantRepair]",
+      "instability": 4,
+      "aspects": {
+        "PRAECANTATIO": 8,
+        "FABRICO": 10,
+        "ORDO": 10
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "thaumcraft:repair",
+      "custom_thaumcraft_enchantment": true,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnchHaste",
+      "original_line": 1775,
+      "legacy_enchantment_expression": "Enchantment.field_77331_b[ThaumcraftApi.enchantHaste]",
+      "instability": 3,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "ITER": 8,
+        "VOLATUS": 8
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "thaumcraft:haste",
+      "custom_thaumcraft_enchantment": true,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch0",
+      "original_line": 1794,
+      "legacy_enchantment_expression": "Enchantment.field_77332_c",
+      "instability": 1,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TUTAMEN": 8
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:protection",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch1",
+      "original_line": 1806,
+      "legacy_enchantment_expression": "Enchantment.field_77329_d",
+      "instability": 1,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TUTAMEN": 4,
+        "IGNIS": 4
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:fire_protection",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch2",
+      "original_line": 1820,
+      "legacy_enchantment_expression": "Enchantment.field_77327_f",
+      "instability": 1,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TUTAMEN": 4,
+        "PERDITIO": 4
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:blast_protection",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch3",
+      "original_line": 1835,
+      "legacy_enchantment_expression": "Enchantment.field_77328_g",
+      "instability": 1,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TUTAMEN": 4,
+        "VOLATUS": 4
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:projectile_protection",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch4",
+      "original_line": 1850,
+      "legacy_enchantment_expression": "Enchantment.field_77330_e",
+      "instability": 1,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "AER": 4,
+        "VOLATUS": 4
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:feather_falling",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch5",
+      "original_line": 1864,
+      "legacy_enchantment_expression": "Enchantment.field_77340_h",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "AER": 8,
+        "AQUA": 8
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:respiration",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch6",
+      "original_line": 1875,
+      "legacy_enchantment_expression": "Enchantment.field_77341_i",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "MOTUS": 8,
+        "AQUA": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:aqua_affinity",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch7",
+      "original_line": 1889,
+      "legacy_enchantment_expression": "Enchantment.field_92091_k",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 8,
+        "HERBA": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:thorns",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch8",
+      "original_line": 1903,
+      "legacy_enchantment_expression": "Enchantment.field_77338_j",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 8
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:sharpness",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch9",
+      "original_line": 1915,
+      "legacy_enchantment_expression": "Enchantment.field_77339_k",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 4,
+        "EXANIMIS": 4
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:smite",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch10",
+      "original_line": 1930,
+      "legacy_enchantment_expression": "Enchantment.field_77336_l",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 4,
+        "BESTIA": 4
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:bane_of_arthropods",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch11",
+      "original_line": 1945,
+      "legacy_enchantment_expression": "Enchantment.field_77337_m",
+      "instability": 1,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 3,
+        "MOTUS": 3
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:knockback",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch12",
+      "original_line": 1959,
+      "legacy_enchantment_expression": "Enchantment.field_77334_n",
+      "instability": 3,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 4,
+        "IGNIS": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:fire_aspect",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch13",
+      "original_line": 1973,
+      "legacy_enchantment_expression": "Enchantment.field_77335_o",
+      "instability": 3,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 4,
+        "LUCRUM": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:looting",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch14",
+      "original_line": 1987,
+      "legacy_enchantment_expression": "Enchantment.field_77349_p",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "INSTRUMENTUM": 4,
+        "ORDO": 4
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:efficiency",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch15",
+      "original_line": 2000,
+      "legacy_enchantment_expression": "Enchantment.field_77348_q",
+      "instability": 5,
+      "aspects": {
+        "PRAECANTATIO": 16,
+        "INSTRUMENTUM": 16,
+        "ORDO": 16,
+        "METO": 16,
+        "PERFODIO": 16
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:silk_touch",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch16",
+      "original_line": 2016,
+      "legacy_enchantment_expression": "Enchantment.field_77347_r",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "INSTRUMENTUM": 4,
+        "ORDO": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:unbreaking",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch17",
+      "original_line": 2030,
+      "legacy_enchantment_expression": "Enchantment.field_77346_s",
+      "instability": 3,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "INSTRUMENTUM": 4,
+        "LUCRUM": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:fortune",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch18",
+      "original_line": 2044,
+      "legacy_enchantment_expression": "Enchantment.field_77345_t",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 8
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:power",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch19",
+      "original_line": 2056,
+      "legacy_enchantment_expression": "Enchantment.field_77344_u",
+      "instability": 2,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 3,
+        "MOTUS": 3
+      },
+      "legacy_component_count": 2,
+      "modern_enchantment_id": "minecraft:punch",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 2,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch20",
+      "original_line": 2070,
+      "legacy_enchantment_expression": "Enchantment.field_77343_v",
+      "instability": 3,
+      "aspects": {
+        "PRAECANTATIO": 4,
+        "TELUM": 4,
+        "IGNIS": 8
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:flame",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    },
+    {
+      "tc4_key": "InfEnch21",
+      "original_line": 2084,
+      "legacy_enchantment_expression": "Enchantment.field_77342_w",
+      "instability": 5,
+      "aspects": {
+        "PRAECANTATIO": 8,
+        "TELUM": 16,
+        "VACUOS": 16,
+        "PERMUTATIO": 16
+      },
+      "legacy_component_count": 3,
+      "modern_enchantment_id": "minecraft:infinity",
+      "custom_thaumcraft_enchantment": false,
+      "port_component_count": 3,
+      "issues": [],
+      "status": "MAPPED"
+    }
+  ],
+  "limitations": [
+    "Static source matching does not prove Forge registration, compilation or in-game execution.",
+    "The infusion matrix, XP drain, essentia scaling, compatibility and saved enchantment output require runtime tests.",
+    "Repair and Haste behavior is source-ported but has not been verified in a built client or dedicated server."
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "version": "11.62.68",
+  "status": "PASS",
+  "passed": 32,
+  "total": 32,
+  "checks": [
+    {
+      "name": "version",
+      "passed": true,
+      "details": "11.62.68"
+    },
+    {
+      "name": "fluid_deferred_registers",
+      "passed": true,
+      "details": "FluidType and source/flowing Fluid registries are attached"
+    },
+    {
+      "name": "purifying_fluid_registration",
+      "passed": true,
+      "details": "source, flowing, block and bucket registry objects"
+    },
+    {
+      "name": "fluid_properties",
+      "passed": true,
+      "details": "TC4 luminous water-like fluid properties"
+    },
+    {
+      "name": "bucket_dispenser",
+      "passed": true,
+      "details": "custom bucket dispenser behavior"
+    },
+    {
+      "name": "functional_ids_pre_registered",
+      "passed": true,
+      "details": "flat research-item mirrors are bypassed"
+    },
+    {
+      "name": "bath_salts_lifespan",
+      "passed": true,
+      "details": "original 200-tick entity lifespan"
+    },
+    {
+      "name": "bath_salts_water_conversion",
+      "passed": true,
+      "details": "expired salts replace only a vanilla water source"
+    },
+    {
+      "name": "warp_ward_formula",
+      "passed": true,
+      "details": "permanent-Warp divisor and capped duration"
+    },
+    {
+      "name": "single_use_source",
+      "passed": true,
+      "details": "only a source grants ward and the source is consumed"
+    },
+    {
+      "name": "no_non_tc4_activation_sound",
+      "passed": true,
+      "details": "no invented collision activation sound"
+    },
+    {
+      "name": "fluid_ambient_fx",
+      "passed": true,
+      "details": "white bubble carrier plus 1/25 lava-pop cadence"
+    },
+    {
+      "name": "spa_block_entity_registration",
+      "passed": true,
+      "details": "functional block and block entity under saved TC4 ID"
+    },
+    {
+      "name": "spa_capacity_slot",
+      "passed": true,
+      "details": "5000 mB tank and one Bath Salts slot"
+    },
+    {
+      "name": "spa_tick_redstone",
+      "passed": true,
+      "details": "40-tick cadence disabled by redstone"
+    },
+    {
+      "name": "spa_mix_mode",
+      "passed": true,
+      "details": "water + salts becomes one bucket of Purifying Fluid"
+    },
+    {
+      "name": "spa_dispense_mode",
+      "passed": true,
+      "details": "non-mixing mode dispenses placeable stored fluid"
+    },
+    {
+      "name": "spa_expansion",
+      "passed": true,
+      "details": "5x5 supported adjacent-source expansion"
+    },
+    {
+      "name": "spa_ultrawarm_guard",
+      "passed": true,
+      "details": "vanilla water is not placed in ultra-warm dimensions"
+    },
+    {
+      "name": "spa_side_automation",
+      "passed": true,
+      "details": "item and fluid automation available on non-top faces"
+    },
+    {
+      "name": "spa_nbt_sync",
+      "passed": true,
+      "details": "mix, tank and salts persist and synchronize"
+    },
+    {
+      "name": "spa_direct_controls",
+      "passed": true,
+      "details": "temporary direct interaction surface until GUI port"
+    },
+    {
+      "name": "arcane_spa_recipe_exact_pattern",
+      "passed": true,
+      "details": "ConfigRecipes line 879 symbol map restored"
+    },
+    {
+      "name": "arcane_spa_recipe_exact_cost",
+      "passed": true,
+      "details": "research and vis cost"
+    },
+    {
+      "name": "arcane_spa_recipe_functional_result",
+      "passed": true,
+      "details": "functional block output"
+    },
+    {
+      "name": "bath_salts_recipe_exact",
+      "passed": true,
+      "details": "ConfigRecipes line 604 crucible registration"
+    },
+    {
+      "name": "client_fluid_render_layer",
+      "passed": true,
+      "details": "source and flowing translucent layers"
+    },
+    {
+      "name": "fluid_resource_contract",
+      "passed": true,
+      "details": "simple particle model used by Forge fluid renderer"
+    },
+    {
+      "name": "water_fluid_tag",
+      "passed": true,
+      "details": "water-like behavior tag"
+    },
+    {
+      "name": "spa_model_textures",
+      "passed": true,
+      "details": "original TC4 spa texture set"
+    },
+    {
+      "name": "sanity_soap_hook",
+      "passed": true,
+      "details": "Purifying Fluid gives the existing Sanity Soap sticky-warp bonus"
+    },
+    {
+      "name": "required_resources",
+      "passed": true,
+      "details": "missing: []"
+    }
+  ],
+  "failures": [],
+  "scope": "static source/resource parity guard only; not compile, runtime, multiplayer or GUI proof",
+  "known_deferred": [
+    "original Arcane Spa GUI/container and tank gauge",
+    "in-game fluid rendering and block-entity synchronization tests",
+    "successful Forge compileJava/build"
+  ]
+}

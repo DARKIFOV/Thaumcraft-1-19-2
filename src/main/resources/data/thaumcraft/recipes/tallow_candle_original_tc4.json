@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    " T ",
+    " T "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "T": {
+      "item": "thaumcraft:tc4_tallow"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tallow_candle",
+    "count": 3
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3602 TallowCandle"
+}

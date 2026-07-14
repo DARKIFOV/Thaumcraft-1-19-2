@@ -4,15 +4,19 @@ import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.EnumMap;
 import java.util.Map;
 
 public class AlchemyRecipe {
+    private static final String TAG_SENTINEL_NAMESPACE = "tc4_tag";
     private final ResourceLocation id;
     private final ResourceLocation catalystItemId;
     private final ResourceLocation resultItemId;
@@ -42,6 +46,25 @@ public class AlchemyRecipe {
 
     public ResourceLocation catalystItemId() {
         return catalystItemId;
+    }
+
+    /**
+     * Returns the real Minecraft ingredient represented by the TC4 catalyst.
+     * Legacy ore-dictionary catalysts are carried as a private sentinel
+     * ResourceLocation and resolved to a modern item tag here.
+     */
+    public Ingredient catalystIngredient() {
+        if (isTagIngredient(catalystItemId)) {
+            ResourceLocation tagId = tagIngredientId(catalystItemId);
+            return tagId == null ? Ingredient.EMPTY : Ingredient.of(TagKey.create(Registry.ITEM_REGISTRY, tagId));
+        }
+        Item item = ForgeRegistries.ITEMS.getValue(catalystItemId);
+        return item == null ? Ingredient.EMPTY : Ingredient.of(item);
+    }
+
+    public String catalystText() {
+        ResourceLocation tagId = tagIngredientId(catalystItemId);
+        return tagId == null ? String.valueOf(catalystItemId) : "#" + tagId;
     }
 
     public ResourceLocation resultItemId() {
@@ -79,6 +102,11 @@ public class AlchemyRecipe {
     public boolean catalystMatches(ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             return false;
+        }
+
+        if (isTagIngredient(catalystItemId)) {
+            ResourceLocation tagId = tagIngredientId(catalystItemId);
+            return tagId != null && stack.is(TagKey.create(Registry.ITEM_REGISTRY, tagId));
         }
 
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
@@ -139,7 +167,7 @@ public class AlchemyRecipe {
 
     public static AlchemyRecipe fromJson(ResourceLocation id, JsonObject json) {
         ResourceLocation catalyst = json.has("catalyst")
-                ? new ResourceLocation(json.get("catalyst").getAsString())
+                ? parseIngredient(json.get("catalyst"))
                 : new ResourceLocation("minecraft", "glass_bottle");
 
         JsonObject resultObject = json.getAsJsonObject("result");
@@ -164,4 +192,46 @@ public class AlchemyRecipe {
 
         return recipe;
     }
+    private static ResourceLocation parseIngredient(JsonElement element) {
+        if (element == null || element.isJsonNull()) {
+            return new ResourceLocation("minecraft", "glass_bottle");
+        }
+        if (element.isJsonObject()) {
+            JsonObject object = element.getAsJsonObject();
+            if (object.has("tag")) {
+                return tagIngredient(new ResourceLocation(object.get("tag").getAsString()));
+            }
+            if (object.has("item")) {
+                return new ResourceLocation(object.get("item").getAsString());
+            }
+            throw new IllegalArgumentException("Alchemy catalyst object requires 'item' or 'tag'");
+        }
+
+        String value = element.getAsString();
+        if (value.startsWith("#")) {
+            return tagIngredient(new ResourceLocation(value.substring(1)));
+        }
+        return new ResourceLocation(value);
+    }
+
+    private static ResourceLocation tagIngredient(ResourceLocation tagId) {
+        return new ResourceLocation(TAG_SENTINEL_NAMESPACE, tagId.getNamespace() + "/" + tagId.getPath());
+    }
+
+    private static boolean isTagIngredient(ResourceLocation ingredient) {
+        return ingredient != null && TAG_SENTINEL_NAMESPACE.equals(ingredient.getNamespace());
+    }
+
+    private static ResourceLocation tagIngredientId(ResourceLocation ingredient) {
+        if (!isTagIngredient(ingredient)) {
+            return null;
+        }
+        String path = ingredient.getPath();
+        int separator = path.indexOf('/');
+        if (separator <= 0 || separator == path.length() - 1) {
+            return null;
+        }
+        return new ResourceLocation(path.substring(0, separator), path.substring(separator + 1));
+    }
+
 }

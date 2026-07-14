@@ -140,7 +140,7 @@ public final class TC4ThaumometerTargeting {
         double bestDistance = maximumDistanceSq;
 
         for (Entity candidate : player.level.getEntities(player, searchBox,
-                entity -> entity.isAlive() && entity.isPickable())) {
+                entity -> entity.isAlive() && (entity instanceof ItemEntity || entity.isPickable()))) {
             AABB hitBox = candidate.getBoundingBox().inflate(
                     candidate.getPickRadius() + TC4AuraNodeScanParity.THAUMOMETER_ENTITY_EXPAND);
             double distance;

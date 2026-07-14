@@ -1,0 +1,30 @@
+{
+  "tc4_key": "JarVoid",
+  "tc4_source": "ThaumcraftApi.addArcaneCraftingRecipe",
+  "research": "JARVOID",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:essentia_jar",
+  "ingredients": [
+    "minecraft:obsidian",
+    "minecraft:blaze_powder"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "PERDITIO": 15
+  },
+  "pattern": [
+    "O",
+    "J",
+    "P"
+  ],
+  "key": {
+    "O": "minecraft:obsidian",
+    "J": "thaumcraft:essentia_jar",
+    "P": "minecraft:blaze_powder"
+  },
+  "result": {
+    "item": "thaumcraft:void_essentia_jar",
+    "count": 1
+  },
+  "v11_62_60_strict_original": true
+}

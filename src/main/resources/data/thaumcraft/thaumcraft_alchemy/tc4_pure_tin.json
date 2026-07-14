@@ -1,0 +1,18 @@
+{
+  "tc4_key": "PureTin",
+  "tc4_source": "ThaumcraftApi.addCrucibleRecipe",
+  "research": "PURETIN",
+  "tc4_kind": "CRUCIBLE",
+  "catalyst": {
+    "tag": "forge:ores/tin"
+  },
+  "aspects": {
+    "METALLUM": 1,
+    "ORDO": 1
+  },
+  "result": {
+    "item": "thaumcraft:tc4_clustertin",
+    "count": 1
+  },
+  "v11_62_60_strict_original": true
+}

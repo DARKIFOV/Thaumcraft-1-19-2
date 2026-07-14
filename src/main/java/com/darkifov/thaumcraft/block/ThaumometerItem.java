@@ -27,7 +27,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -113,7 +112,7 @@ public class ThaumometerItem extends Item {
     public InteractionResultHolder<ItemStack> beginEntityScan(Level level, Player player,
                                                                 InteractionHand hand, Entity entity) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!isStableEntityScanTarget(player, entity)) {
+        if (!isValidEntityScanTarget(player, entity)) {
             return InteractionResultHolder.pass(stack);
         }
         TC4ThaumometerTargeting.ScanTarget target = TC4ThaumometerTargeting.forEntity(entity);
@@ -211,12 +210,11 @@ public class ThaumometerItem extends Item {
         }
         tag.putLong(TAG_PENDING_SCAN_TICK, now);
 
-        // The client selected the target in the interaction packet. Repeating an
-        // exact server-side crosshair ray every tick is unreliable because player
-        // yaw/pitch packets arrive independently; tiny latency cancelled otherwise
-        // valid scans before the first camera-tick sound. Keep the original stable
-        // hold requirement by validating that the same stored object still exists,
-        // remains in range and still has aspects.
+        // TC4 re-ran doScan every use tick and completed only while that result
+        // remained equal to startScan. Merely keeping the original object alive and
+        // in range let players look away and still finish a scan, which was not the
+        // original mechanic. The server therefore validates the current ray target
+        // against the stored block/entity every tick.
         if (!pendingTargetStillValid(player, stack)) {
             clearPendingScans(stack);
             player.stopUsingItem();
@@ -247,7 +245,7 @@ public class ThaumometerItem extends Item {
             return false;
         }
         Entity target = serverLevel.getEntity(targetId);
-        if (!isStableEntityScanTarget(player, target)) {
+        if (!isValidEntityScanTarget(player, target)) {
             return false;
         }
         final boolean droppedItem = target instanceof ItemEntity;
@@ -334,28 +332,11 @@ public class ThaumometerItem extends Item {
             int learnedAspects = firstNodeScan ? absorbScannedAspects(player, node.aspects()) : 0;
 
             if (firstNodeScan || firstPlayerScan) {
-                player.displayClientMessage(TC4AuraNodeScanParity.header(node, true), false);
-                player.displayClientMessage(TC4AuraNodeScanParity.visLine(node), false);
-                player.displayClientMessage(TC4AuraNodeScanParity.aspectLine(node), false);
-            } else {
-                // Repeated scans use the action bar instead of duplicating three chat lines.
-                player.displayClientMessage(TC4AuraNodeScanParity.compactLine(node), true);
-            }
-
-            if (firstNodeScan || firstPlayerScan) {
                 int discovered = OriginalResearchProgression.applyScanTriggers(player, TC4AuraNodeScanParity.ORIGINAL_AURA_NODE_SCAN_KEY, node.aspects().entries().keySet(), null);
                 if (discovered > 0) {
                     player.displayClientMessage(Component.translatable("thaumcraft.scan.research_revealed", discovered)
                         .withStyle(ChatFormatting.GOLD), false);
                 }
-                ItemStack reward = new ItemStack(ThaumcraftMod.RESEARCH_POINT.get());
-
-                if (!player.getInventory().add(reward)) {
-                    Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D, reward);
-                }
-
-                player.displayClientMessage(Component.translatable("thaumcraft.scan.aura_insight")
-                        .withStyle(ChatFormatting.GOLD), false);
             }
 
             if (learnedAspects > 0) {
@@ -405,19 +386,6 @@ public class ThaumometerItem extends Item {
             }
         }
 
-        if (firstPlayerScan && scanCount > 0 && scanCount % 5 == 0) {
-            ItemStack reward = new ItemStack(ThaumcraftMod.RESEARCH_POINT.get());
-
-            if (!player.getInventory().add(reward)) {
-                Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 1.0D, pos.getZ() + 0.5D, reward);
-            }
-
-            player.displayClientMessage(
-                    Component.translatable("thaumcraft.scan.research_insight").withStyle(ChatFormatting.LIGHT_PURPLE),
-                    false
-            );
-        }
-
         if (learnedAspects > 0) {
             player.displayClientMessage(Component.translatable("thaumcraft.scan.aspect_knowledge", learnedAspects)
                     .withStyle(ChatFormatting.LIGHT_PURPLE), false);
@@ -426,18 +394,19 @@ public class ThaumometerItem extends Item {
         return true;
     }
 
-    private boolean isStableEntityScanTarget(Player player, Entity target) {
-        if (target == null || !target.isAlive() || !target.isPickable()) {
+    private boolean isValidEntityScanTarget(Player player, Entity target) {
+        // Dropped ItemEntity instances are intentionally not vanilla-pickable,
+        // but TC4 ScanManager supports scanning them. The concrete entity id is
+        // supplied by the client interaction packet, so validate existence,
+        // range and line of sight without repeating a latency-sensitive exact ray.
+        if (target == null || !target.isAlive()
+                || (!(target instanceof ItemEntity) && !target.isPickable())) {
             return false;
         }
         if (player.distanceToSqr(target) > TC4AuraNodeScanParity.THAUMOMETER_SCAN_RANGE * TC4AuraNodeScanParity.THAUMOMETER_SCAN_RANGE) {
             return false;
         }
-        TC4ThaumometerTargeting.ScanTarget current = TC4ThaumometerTargeting.find(player, 1.0F);
-        return (current.kind() == TC4ThaumometerTargeting.Kind.ENTITY
-                || current.kind() == TC4ThaumometerTargeting.Kind.ITEM)
-                && current.entity() != null
-                && current.entity().getUUID().equals(target.getUUID());
+        return player.hasLineOfSight(target);
     }
 
     private void beginPendingScan(ItemStack stack, TC4ThaumometerTargeting.ScanTarget target) {
@@ -458,22 +427,28 @@ public class ThaumometerItem extends Item {
         if (tag == null || player == null) {
             return false;
         }
+
+        TC4ThaumometerTargeting.ScanTarget current = TC4ThaumometerTargeting.find(player, 1.0F);
+        if (current == null || !current.isPresent() || !current.hasAspects()) {
+            return false;
+        }
+
         if (tag.contains(TAG_PENDING_BLOCK_SCAN)) {
             CompoundTag pending = tag.getCompound(TAG_PENDING_BLOCK_SCAN);
-            BlockPos pos = new BlockPos(pending.getInt("x"), pending.getInt("y"), pending.getInt("z"));
-            if (!player.level.isLoaded(pos) || !TC4AuraNodeScanParity.isWithinScanRange(player, pos)) {
-                return false;
-            }
-            TC4ThaumometerTargeting.ScanTarget target = TC4ThaumometerTargeting.forBlock(player, pos);
-            return target.isPresent() && target.hasAspects();
+            BlockPos expected = new BlockPos(pending.getInt("x"), pending.getInt("y"), pending.getInt("z"));
+            return current.blockPos() != null
+                    && expected.equals(current.blockPos())
+                    && (current.kind() == TC4ThaumometerTargeting.Kind.BLOCK
+                    || current.kind() == TC4ThaumometerTargeting.Kind.NODE);
         }
-        if (tag.contains(TAG_PENDING_ENTITY_SCAN) && player.level instanceof ServerLevel serverLevel) {
+
+        if (tag.contains(TAG_PENDING_ENTITY_SCAN)) {
             CompoundTag pending = tag.getCompound(TAG_PENDING_ENTITY_SCAN);
-            if (!pending.hasUUID("uuid")) {
-                return false;
-            }
-            Entity target = serverLevel.getEntity(pending.getUUID("uuid"));
-            return isStableEntityScanTarget(player, target);
+            return pending.hasUUID("uuid")
+                    && current.entity() != null
+                    && pending.getUUID("uuid").equals(current.entity().getUUID())
+                    && (current.kind() == TC4ThaumometerTargeting.Kind.ENTITY
+                    || current.kind() == TC4ThaumometerTargeting.Kind.ITEM);
         }
         return false;
     }

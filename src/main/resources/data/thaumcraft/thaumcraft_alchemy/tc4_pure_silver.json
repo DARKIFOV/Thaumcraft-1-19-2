@@ -1,0 +1,18 @@
+{
+  "tc4_key": "PureSilver",
+  "tc4_source": "ThaumcraftApi.addCrucibleRecipe",
+  "research": "PURESILVER",
+  "tc4_kind": "CRUCIBLE",
+  "catalyst": {
+    "tag": "forge:ores/silver"
+  },
+  "aspects": {
+    "METALLUM": 1,
+    "ORDO": 1
+  },
+  "result": {
+    "item": "thaumcraft:tc4_clustersilver",
+    "count": 1
+  },
+  "v11_62_60_strict_original": true
+}

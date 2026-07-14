@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import re
+import struct
 from collections import Counter, defaultdict
 
 root = Path(__file__).resolve().parents[1]
@@ -79,6 +80,34 @@ def resolve_token(value: str, textures: dict[str, str]) -> str | None:
     return value
 
 
+
+
+def png_dimensions(path: Path) -> tuple[int, int] | None:
+    """Read PNG IHDR dimensions without requiring Pillow in CI."""
+    try:
+        with path.open("rb") as handle:
+            if handle.read(8) != b"\x89PNG\r\n\x1a\n":
+                return None
+            length = struct.unpack(">I", handle.read(4))[0]
+            if handle.read(4) != b"IHDR" or length < 8:
+                return None
+            width, height = struct.unpack(">II", handle.read(8))
+            return width, height
+    except (OSError, struct.error):
+        return None
+
+
+def effective_parent(model: str, seen=None) -> str | None:
+    seen = set() if seen is None else seen
+    if model in seen or model not in all_models:
+        return None
+    seen.add(model)
+    parent = canonical_parent(all_models[model].get("parent"))
+    nested = parent_key(parent)
+    if nested:
+        return effective_parent(nested, seen) or parent
+    return parent
+
 def texture_path(location: str) -> tuple[Path | None, str | None, str | None]:
     ns, sep, path = location.partition(":")
     if not sep:
@@ -97,6 +126,7 @@ placeholder_classification = []
 records = []
 missing = []
 unresolved = []
+missing_animation_metadata = []
 all_texture_refs = []
 for model, data in sorted(all_models.items()):
     textures = inherited_textures(model)
@@ -115,6 +145,15 @@ for model, data in sorted(all_models.items()):
             digest = hashlib.sha1(path.read_bytes()).hexdigest() if exists else None
             placeholder_name = bool(placeholder_rx.search(rel or ""))
             classification = KNOWN_PLACEHOLDER_CLASSIFICATION.get(rel or "") if placeholder_name else None
+            dimensions = png_dimensions(path) if exists else None
+            mcmeta_path = Path(str(path) + ".mcmeta")
+            requires_animation_metadata = bool(
+                dimensions
+                and dimensions[1] > dimensions[0]
+                and dimensions[1] % dimensions[0] == 0
+                and effective_parent(model) in {"minecraft:item/generated", "minecraft:item/handheld"}
+            )
+            has_animation_metadata = mcmeta_path.is_file()
             rec.update({
                 "external": False,
                 "exists": exists,
@@ -123,7 +162,18 @@ for model, data in sorted(all_models.items()):
                 "original_same_path": bool(digest and original_by_rel.get(rel) == digest),
                 "placeholder_name": placeholder_name,
                 "placeholder_classification": classification,
+                "dimensions": dimensions,
+                "requires_animation_metadata": requires_animation_metadata,
+                "has_animation_metadata": has_animation_metadata,
             })
+            if requires_animation_metadata and not has_animation_metadata:
+                missing_animation_metadata.append({
+                    "model": model,
+                    "slot": key,
+                    "location": resolved,
+                    "dimensions": dimensions,
+                    "expected": str(mcmeta_path.relative_to(root)),
+                })
             if placeholder_name:
                 placeholder_classification.append({
                     "model": model,
@@ -157,6 +207,7 @@ stats = {
     "external_texture_references": sum(1 for r in records for t in r["texture_references"] if t.get("external")),
     "missing_texture_references": len(missing),
     "unresolved_texture_tokens": len(unresolved),
+    "missing_animation_metadata": len(missing_animation_metadata),
     "exact_original_texture_references": sum(1 for r in records for t in r["texture_references"] if t.get("original_exact") is True),
     "same_path_original_texture_references": sum(1 for r in records for t in r["texture_references"] if t.get("original_same_path") is True),
     "custom_or_adapted_texture_references": sum(1 for r in records for t in r["texture_references"] if not t.get("external") and t.get("exists") and not t.get("original_exact")),
@@ -172,6 +223,7 @@ payload = {
     "parse_errors": parse_errors,
     "missing": missing,
     "unresolved": unresolved,
+    "missing_animation_metadata": missing_animation_metadata,
     "models": records,
     "duplicate_hash_groups": duplicate_hash_groups,
     "placeholder_classification": placeholder_classification,
@@ -198,6 +250,7 @@ labels = [
     ("Адаптированных/новых текстур", "custom_or_adapted_texture_references"),
     ("Отсутствующих текстур", "missing_texture_references"),
     ("Неразрешённых `#texture` ссылок", "unresolved_texture_tokens"),
+    ("Анимационных strip-текстур без `.png.mcmeta`", "missing_animation_metadata"),
     ("Ссылок с placeholder/debug именами (всего)", "placeholder_named_references"),
     ("Из них классифицировано как допустимые", "classified_placeholder_named_references"),
     ("Неклассифицированных подозрительных имён", "suspicious_placeholder_named_references"),
@@ -209,6 +262,11 @@ if missing:
     lines += ["", "## Отсутствующие текстуры", ""] + [f"- `{x['model']}` → `{x['location']}`" for x in missing[:100]]
 if unresolved:
     lines += ["", "## Неразрешённые ссылки", ""] + [f"- `{x['model']}` `{x['slot']}` → `{x['value']}`" for x in unresolved[:100]]
+if missing_animation_metadata:
+    lines += ["", "## Strip-текстуры без animation metadata", ""] + [
+        f"- `{x['model']}` → `{x['location']}` {tuple(x['dimensions'])}"
+        for x in missing_animation_metadata[:100]
+    ]
 if placeholder_classification:
     lines += ["", "## Placeholder/debug классификация", ""]
     for item in placeholder_classification:
@@ -220,5 +278,5 @@ md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 print(f"Item visual audit: {len(all_models)} models, {len(missing)} missing, {len(unresolved)} unresolved, {stats['exact_original_texture_references']} exact-original refs")
 print(json_path.relative_to(root))
 print(md_path.relative_to(root))
-if args.fail_on_missing and (parse_errors or missing or unresolved):
+if args.fail_on_missing and (parse_errors or missing or unresolved or missing_animation_metadata):
     raise SystemExit(1)

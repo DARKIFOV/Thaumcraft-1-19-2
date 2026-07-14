@@ -224,6 +224,22 @@ public class WandItem extends Item {
     public static float consumptionModifier(ItemStack wandStack, Player player, Aspect aspect, boolean crafting) {
         float modifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
         modifier -= TC4VisDiscountRuntime.totalDiscount(player, aspect);
+
+        // TC4 WandManager#getTotalVisDiscount subtracts ten percentage points
+        // per level of Vis Exhaustion (normal or infectious). Since this port
+        // stores discounts as a fraction subtracted from the cap modifier, the
+        // harmful effect is represented by adding the same fraction here.
+        if (player != null) {
+            int exhaustAmplifier = -1;
+            var normal = player.getEffect(ThaumcraftMod.VIS_EXHAUST.get());
+            var infectious = player.getEffect(ThaumcraftMod.INFECTIOUS_VIS_EXHAUST.get());
+            if (normal != null) exhaustAmplifier = Math.max(exhaustAmplifier, normal.getAmplifier());
+            if (infectious != null) exhaustAmplifier = Math.max(exhaustAmplifier, infectious.getAmplifier());
+            if (exhaustAmplifier >= 0) {
+                modifier += (exhaustAmplifier + 1) / 10.0F;
+            }
+        }
+
         if (!crafting && WandFocusRuntime.hasFocus(wandStack)) {
             modifier -= WandFocusRuntime.focusUpgradeLevel(wandStack, com.darkifov.thaumcraft.wand.FocusUpgradeType.FRUGAL) / 10.0F;
         }

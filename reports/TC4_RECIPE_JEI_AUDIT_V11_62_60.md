@@ -1,0 +1,135 @@
+# TC4 recipe and JEI audit — v11.62.60
+
+**Status: PASS**
+
+## Recipe inventory
+
+- alchemy: **70** JSON files, **54** source-keyed TC4 recipes
+- arcane: **96** JSON files, **86** source-keyed TC4 recipes
+- infusion: **73** JSON files, **65** source-keyed TC4 recipes
+
+## Checks
+
+- PASS — **version 11.62.60**: build.gradle version
+- PASS — **alchemy object tag parser**: JSON catalyst objects accept a tag
+- PASS — **alchemy hash tag parser**: string #namespace:path catalysts are accepted
+- PASS — **alchemy runtime tag match**: tag catalyst matches real stacks
+- PASS — **JEI tag catalyst**: JEI receives the complete Ingredient
+- PASS — **JEI original TC4 key**: all custom categories draw the source recipe key
+- PASS — **arcane TC4-key dedup**: generated exact wand recipes replace stale JSON copies
+- PASS — **itemResource 15 mapping**: ConfigItems.itemResource meta 15
+- PASS — **compass stone mapping**: ConfigItems.itemCompassStone
+- PASS — **recipe exists: tc4_pure_tin.json**: src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_pure_tin.json
+- PASS — **tc4_pure_tin.json:tc4_key**: expected 'PureTin', found 'PureTin'
+- PASS — **tc4_pure_tin.json:research**: expected 'PURETIN', found 'PURETIN'
+- PASS — **tc4_pure_tin.json:catalyst.tag**: expected 'forge:ores/tin', found 'forge:ores/tin'
+- PASS — **tc4_pure_tin.json:aspects.METALLUM**: expected 1, found 1
+- PASS — **tc4_pure_tin.json:aspects.ORDO**: expected 1, found 1
+- PASS — **tc4_pure_tin.json:result.item**: expected 'thaumcraft:tc4_clustertin', found 'thaumcraft:tc4_clustertin'
+- PASS — **recipe exists: tc4_pure_silver.json**: src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_pure_silver.json
+- PASS — **tc4_pure_silver.json:tc4_key**: expected 'PureSilver', found 'PureSilver'
+- PASS — **tc4_pure_silver.json:research**: expected 'PURESILVER', found 'PURESILVER'
+- PASS — **tc4_pure_silver.json:catalyst.tag**: expected 'forge:ores/silver', found 'forge:ores/silver'
+- PASS — **tc4_pure_silver.json:aspects.METALLUM**: expected 1, found 1
+- PASS — **tc4_pure_silver.json:aspects.ORDO**: expected 1, found 1
+- PASS — **tc4_pure_silver.json:result.item**: expected 'thaumcraft:tc4_clustersilver', found 'thaumcraft:tc4_clustersilver'
+- PASS — **recipe exists: tc4_pure_lead.json**: src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_pure_lead.json
+- PASS — **tc4_pure_lead.json:tc4_key**: expected 'PureLead', found 'PureLead'
+- PASS — **tc4_pure_lead.json:research**: expected 'PURELEAD', found 'PURELEAD'
+- PASS — **tc4_pure_lead.json:catalyst.tag**: expected 'forge:ores/lead', found 'forge:ores/lead'
+- PASS — **tc4_pure_lead.json:aspects.METALLUM**: expected 1, found 1
+- PASS — **tc4_pure_lead.json:aspects.ORDO**: expected 1, found 1
+- PASS — **tc4_pure_lead.json:result.item**: expected 'thaumcraft:tc4_clusterlead', found 'thaumcraft:tc4_clusterlead'
+- PASS — **recipe exists: tc4_node_relay.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_node_relay.json
+- PASS — **tc4_node_relay.json:tc4_key**: expected 'NodeRelay', found 'NodeRelay'
+- PASS — **tc4_node_relay.json:research**: expected 'VISPOWER', found 'VISPOWER'
+- PASS — **tc4_node_relay.json:pattern**: expected [' I ', 'ISI', ' I '], found [' I ', 'ISI', ' I ']
+- PASS — **tc4_node_relay.json:key.S**: expected 'thaumcraft:balanced_shard', found 'thaumcraft:balanced_shard'
+- PASS — **tc4_node_relay.json:aspects.IGNIS**: expected 8, found 8
+- PASS — **tc4_node_relay.json:aspects.ORDO**: expected 8, found 8
+- PASS — **tc4_node_relay.json:result.item**: expected 'thaumcraft:vis_relay', found 'thaumcraft:vis_relay'
+- PASS — **tc4_node_relay.json:result.count**: expected 2, found 2
+- PASS — **recipe exists: tc4_jar_void.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_jar_void.json
+- PASS — **tc4_jar_void.json:tc4_key**: expected 'JarVoid', found 'JarVoid'
+- PASS — **tc4_jar_void.json:research**: expected 'JARVOID', found 'JARVOID'
+- PASS — **tc4_jar_void.json:pattern**: expected ['O', 'J', 'P'], found ['O', 'J', 'P']
+- PASS — **tc4_jar_void.json:key.O**: expected 'minecraft:obsidian', found 'minecraft:obsidian'
+- PASS — **tc4_jar_void.json:key.J**: expected 'thaumcraft:essentia_jar', found 'thaumcraft:essentia_jar'
+- PASS — **tc4_jar_void.json:key.P**: expected 'minecraft:blaze_powder', found 'minecraft:blaze_powder'
+- PASS — **tc4_jar_void.json:aspects.AQUA**: expected 5, found 5
+- PASS — **tc4_jar_void.json:aspects.PERDITIO**: expected 15, found 15
+- PASS — **tc4_jar_void.json:result.item**: expected 'thaumcraft:void_essentia_jar', found 'thaumcraft:void_essentia_jar'
+- PASS — **recipe exists: tc4_primalcharm.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalcharm.json
+- PASS — **tc4_primalcharm.json:result.item**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_primalcharm.json:key.I**: expected 'minecraft:gold_ingot', found 'minecraft:gold_ingot'
+- PASS — **tc4_primalcharm.json:key.1**: expected 'thaumcraft:aer_shard', found 'thaumcraft:aer_shard'
+- PASS — **tc4_primalcharm.json:key.2**: expected 'thaumcraft:ignis_shard', found 'thaumcraft:ignis_shard'
+- PASS — **tc4_primalcharm.json:key.3**: expected 'thaumcraft:aqua_shard', found 'thaumcraft:aqua_shard'
+- PASS — **tc4_primalcharm.json:key.4**: expected 'thaumcraft:terra_shard', found 'thaumcraft:terra_shard'
+- PASS — **tc4_primalcharm.json:key.5**: expected 'thaumcraft:ordo_shard', found 'thaumcraft:ordo_shard'
+- PASS — **tc4_primalcharm.json:key.6**: expected 'thaumcraft:perditio_shard', found 'thaumcraft:perditio_shard'
+- PASS — **recipe exists: tc4_focusprimal.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusprimal.json
+- PASS — **tc4_focusprimal.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_focusprimal.json:key.#**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **recipe exists: tc4_essentia_crystalizer.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_essentia_crystalizer.json
+- PASS — **tc4_essentia_crystalizer.json:key.Q**: expected 'thaumcraft:balanced_shard', found 'thaumcraft:balanced_shard'
+- PASS — **recipe exists: tc4_sin_stone.json**: src/main/resources/data/thaumcraft/thaumcraft_infusion/tc4_sin_stone.json
+- PASS — **tc4_sin_stone.json:catalyst**: expected 'minecraft:flint', found 'minecraft:flint'
+- PASS — **tc4_sin_stone.json:result.item**: expected 'thaumcraft:tc4_sinister_stone', found 'thaumcraft:tc4_sinister_stone'
+- PASS — **recipe exists: tc4_wandrodgreatwoodstaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodgreatwoodstaff.json
+- PASS — **tc4_wandrodgreatwoodstaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodgreatwoodstaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodgreatwoodstaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodgreatwoodstaff.json:aspects.ORDO**: expected 8, found 8
+- PASS — **recipe exists: tc4_wandrodobsidianstaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodobsidianstaff.json
+- PASS — **tc4_wandrodobsidianstaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodobsidianstaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodobsidianstaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodobsidianstaff.json:aspects.ORDO**: expected 14, found 14
+- PASS — **recipe exists: tc4_wandrodsilverwoodstaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodsilverwoodstaff.json
+- PASS — **tc4_wandrodsilverwoodstaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodsilverwoodstaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodsilverwoodstaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodsilverwoodstaff.json:aspects.ORDO**: expected 24, found 24
+- PASS — **recipe exists: tc4_wandrodicestaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodicestaff.json
+- PASS — **tc4_wandrodicestaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodicestaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodicestaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodicestaff.json:aspects.ORDO**: expected 14, found 14
+- PASS — **recipe exists: tc4_wandrodquartzstaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodquartzstaff.json
+- PASS — **tc4_wandrodquartzstaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodquartzstaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodquartzstaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodquartzstaff.json:aspects.ORDO**: expected 14, found 14
+- PASS — **recipe exists: tc4_wandrodreedstaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodreedstaff.json
+- PASS — **tc4_wandrodreedstaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodreedstaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodreedstaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodreedstaff.json:aspects.ORDO**: expected 14, found 14
+- PASS — **recipe exists: tc4_wandrodblazestaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodblazestaff.json
+- PASS — **tc4_wandrodblazestaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodblazestaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodblazestaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodblazestaff.json:aspects.ORDO**: expected 14, found 14
+- PASS — **recipe exists: tc4_wandrodbonestaff.json**: src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodbonestaff.json
+- PASS — **tc4_wandrodbonestaff.json:catalyst**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodbonestaff.json:key.S**: expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'
+- PASS — **tc4_wandrodbonestaff.json:pattern**: expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']
+- PASS — **tc4_wandrodbonestaff.json:aspects.ORDO**: expected 14, found 14
+- PASS — **no active thaumcraft:warp_charm**: original itemResource:15 was replaced by an unrelated new item
+- PASS — **no active thaumcraft:primal_charm**: unregistered placeholder ID
+- PASS — **no active thaumcraft:tc4_compassstone**: unregistered placeholder ID
+- PASS — **no active thaumcraft:tc4_balanced_shard**: wrong duplicate shard ID
+- PASS — **item model tc4_clustertin**: src/main/resources/assets/thaumcraft/models/item/tc4_clustertin.json
+- PASS — **item model tc4_clustersilver**: src/main/resources/assets/thaumcraft/models/item/tc4_clustersilver.json
+- PASS — **item model tc4_clusterlead**: src/main/resources/assets/thaumcraft/models/item/tc4_clusterlead.json
+- PASS — **item model tc4_charm**: src/main/resources/assets/thaumcraft/models/item/tc4_charm.json
+- PASS — **item model tc4_sinister_stone**: src/main/resources/assets/thaumcraft/models/item/tc4_sinister_stone.json
+- PASS — **item model vis_relay**: src/main/resources/assets/thaumcraft/models/item/vis_relay.json
+- PASS — **item model void_essentia_jar**: src/main/resources/assets/thaumcraft/models/item/void_essentia_jar.json
+- PASS — **item model balanced_shard**: src/main/resources/assets/thaumcraft/models/item/balanced_shard.json
+- PASS — **all active Thaumcraft recipe IDs have item models**: 243 distinct Thaumcraft IDs resolved
+
+## Result
+
+The new recipes are source-keyed, their corrected carrier IDs have item models, legacy ore catalysts are represented by modern item tags, and JEI receives the full tag ingredient instead of one placeholder stack.

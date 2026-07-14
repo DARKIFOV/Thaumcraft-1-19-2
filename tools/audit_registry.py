@@ -151,6 +151,15 @@ def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
         # the custom renderer, so identical JSON is intentional and functional.
         frozenset({"iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand"}),
     }
+    # These models deliberately use builtin/entity. Their distinct BEWLRs
+    # provide all geometry and textures, so identical marker JSON is not a
+    # player-visible clone.
+    dynamic_rendered_ids = {
+        "node_stabilizer", "advanced_node_stabilizer",
+        "iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand",
+        "avaritia_creative_wand", "thaumometer", "node_jar",
+        "hungry_chest", "tc4_block_banner", "vis_charge_relay",
+    }
 
     problems: list[Problem] = []
     models: dict[str, dict[str, Any]] = {}
@@ -195,7 +204,8 @@ def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
             item_id for item_id in ids
             if item_id in registered_ids and not is_quarantined(item_id, exact, prefixes, model_ids)
         ]
-        if len(visible) > 1 and frozenset(visible) not in intentional_shared_visuals:
+        all_dynamic = bool(visible) and all(item_id in dynamic_rendered_ids for item_id in visible)
+        if len(visible) > 1 and not all_dynamic and frozenset(visible) not in intentional_shared_visuals:
             leaking_groups.append(visible)
 
     # Also find identical item texture PNGs; this catches placeholder copies

@@ -27,7 +27,8 @@ for token in ['RequestThaumometerScanPacket.block', 'RequestThaumometerScanPacke
 if 'if (!level.isClientSide && !target.hasAspects())' not in item:
     problems.append('client aspect table can still reject a scan before packet delivery')
 for token in ['REQUIRED_STABLE_TICKS = 20', 'elapsed >= REQUIRED_STABLE_TICKS',
-              'serverTickPendingScan', 'TAG_PENDING_SCAN_START']:
+              'serverTickPendingScan', 'TAG_PENDING_SCAN_START',
+              'TC4ThaumometerTargeting.find(player, 1.0F)', 'expected.equals(current.blockPos())']:
     if token not in item:
         problems.append(f'TC4 twenty-stable-tick completion path missing {token}')
 if 'TickEvent.PlayerTickEvent' not in events:
@@ -44,4 +45,4 @@ if problems:
     for problem in problems:
         print(' -', problem)
     raise SystemExit(1)
-print('Thaumometer scan guard: OK (explicit Forge packet, latency-tolerant server target validation, 25/20 tick TC4 hold)')
+print('Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, 25/20 tick TC4 hold)')

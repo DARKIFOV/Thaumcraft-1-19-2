@@ -1,0 +1,31 @@
+{
+  "tc4_key": "Banner_13",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "BANNERS",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "minecraft:green_wool",
+  "ingredients": [
+    "minecraft:stick",
+    "#minecraft:wooden_slabs"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "TERRA": 5
+  },
+  "pattern": [
+    "WS",
+    "WS",
+    "WB"
+  ],
+  "key": {
+    "W": "minecraft:green_wool",
+    "S": "minecraft:stick",
+    "B": "#minecraft:wooden_slabs"
+  },
+  "result": {
+    "item": "thaumcraft:tc4_block_banner",
+    "count": 1,
+    "nbt": "{color:13b}"
+  },
+  "v11_62_65_strict_original": true
+}

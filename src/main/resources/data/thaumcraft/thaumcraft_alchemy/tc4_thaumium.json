@@ -5,7 +5,7 @@
   "kind": "CRUCIBLE",
   "catalyst": "minecraft:iron_ingot",
   "result": {
-    "item": "thaumcraft:tc4_thaumiumingot",
+    "item": "thaumcraft:thaumium_ingot",
     "count": 1
   },
   "aspects": {

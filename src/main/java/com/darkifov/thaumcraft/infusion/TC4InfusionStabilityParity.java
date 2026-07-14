@@ -79,7 +79,8 @@ public final class TC4InfusionStabilityParity {
 
     public static boolean isOriginalStyleStabilizer(BlockState state) {
         Block block = state.getBlock();
-        return block == Blocks.WITHER_SKELETON_SKULL
+        return block instanceof InfusionStabilizer
+                || block == Blocks.WITHER_SKELETON_SKULL
                 || block == Blocks.SKELETON_SKULL
                 || block == Blocks.ZOMBIE_HEAD
                 || block == Blocks.CREEPER_HEAD

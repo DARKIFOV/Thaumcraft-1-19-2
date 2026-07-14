@@ -3,7 +3,7 @@
   "tc4_source": "ThaumcraftApi.addArcaneCraftingRecipe",
   "research": "FOCUSPRIMAL",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:primal_charm",
+  "catalyst": "thaumcraft:tc4_charm",
   "ingredients": [
     "minecraft:quartz",
     "minecraft:diamond"
@@ -22,12 +22,13 @@
     "CQC"
   ],
   "key": {
-    "#": "thaumcraft:primal_charm",
+    "#": "thaumcraft:tc4_charm",
     "Q": "minecraft:quartz",
     "C": "minecraft:diamond"
   },
   "result": {
     "item": "thaumcraft:focus_primal",
     "count": 1
-  }
+  },
+  "v11_62_60_strict_original": true
 }

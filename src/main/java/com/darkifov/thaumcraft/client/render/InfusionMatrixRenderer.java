@@ -47,7 +47,7 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
 
         float instability = Math.min(6.0F, 1.0F + matrix.currentInstability() * 0.66F * (Math.min(matrix.craftCount(), 50) / 50.0F));
         VertexConsumer solid = bufferSource.getBuffer(RenderType.entityCutoutNoCull(INFUSER_TEXTURE));
-        VertexConsumer glow = bufferSource.getBuffer(RenderType.entityTranslucent(INFUSER_TEXTURE));
+        VertexConsumer glow = bufferSource.getBuffer(TC4NodeRenderTypes.node(INFUSER_TEXTURE, true, false));
 
         for (int a = 0; a < 2; a++) {
             for (int b = 0; b < 2; b++) {
@@ -97,7 +97,7 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
     }
 
     private static void renderHalo(InfusionMatrixBlockEntity matrix, float ticks, PoseStack poseStack, MultiBufferSource bufferSource) {
-        VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityTranslucent(INFUSER_TEXTURE));
+        VertexConsumer consumer = bufferSource.getBuffer(TC4NodeRenderTypes.node(INFUSER_TEXTURE, true, false));
         int rays = Minecraft.useFancyGraphics() ? 20 : 10;
         float growth = Math.min(matrix.craftCount(), 50) / 50.0F;
         poseStack.pushPose();

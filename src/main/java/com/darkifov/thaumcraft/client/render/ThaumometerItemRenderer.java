@@ -96,7 +96,15 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
     public void renderByItem(ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack,
                              MultiBufferSource buffer, int packedLight, int packedOverlay) {
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.5D, 0.5D);
+        boolean firstPerson = transformType == ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
+                || transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
+        // Item renderer models normally receive a +0.5 block-space origin, but the
+        // original scanner.obj mesh is already centred around its own origin. In
+        // first person that extra offset moved the scanner into the near plane,
+        // producing the giant detached strips visible in the supplied screenshot.
+        if (!firstPerson) {
+            poseStack.translate(0.5D, 0.5D, 0.5D);
+        }
         applyScannerTransform(transformType, poseStack);
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(SCANNER));
         int bodyLight = packedLight;

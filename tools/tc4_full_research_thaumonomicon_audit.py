@@ -8,11 +8,11 @@ import json
 import re
 import subprocess
 import sys
-import struct
 from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src/main/resources/data/thaumcraft/tc4_source_mapping/tc4_original_research_entries_stage116.json"
@@ -36,33 +36,6 @@ GUI_ASSETS = (
     "textures/original/thaumcraft4/gui/gui_researchbook_overlay.png",
     "textures/original/thaumcraft4/misc/nodes.png",
 )
-
-
-def read_png_size(path: Path) -> tuple[int, int]:
-    """Read PNG dimensions using only the Python standard library.
-
-    GitHub Actions does not guarantee Pillow/PIL is installed. The audit only
-    needs the IHDR width and height, so depending on an image-processing package
-    made the workflow fail before the actual Forge build.
-    """
-    with path.open("rb") as stream:
-        signature = stream.read(8)
-        if signature != b"\x89PNG\r\n\x1a\n":
-            raise ValueError(f"not a PNG file: {path}")
-        length_bytes = stream.read(4)
-        chunk_type = stream.read(4)
-        if len(length_bytes) != 4 or chunk_type != b"IHDR":
-            raise ValueError(f"PNG is missing the leading IHDR chunk: {path}")
-        length = struct.unpack(">I", length_bytes)[0]
-        if length < 8:
-            raise ValueError(f"invalid IHDR length {length}: {path}")
-        dimensions = stream.read(8)
-        if len(dimensions) != 8:
-            raise ValueError(f"truncated IHDR dimensions: {path}")
-        width, height = struct.unpack(">II", dimensions)
-        if width <= 0 or height <= 0:
-            raise ValueError(f"invalid PNG dimensions {width}x{height}: {path}")
-        return width, height
 
 
 def sha256(path: Path) -> str:
@@ -114,7 +87,7 @@ def functionality(entry: dict[str, Any]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.54-hotfix9")
+    parser.add_argument("--version", default="11.62.54-hotfix7")
     parser.add_argument("--fail-on-problems", action="store_true")
     args = parser.parse_args()
 
@@ -170,12 +143,9 @@ def main() -> int:
         path = ASSETS / rel
         row: dict[str, Any] = {"path": rel, "exists": path.is_file()}
         if path.is_file():
-            try:
-                row["width"], row["height"] = read_png_size(path)
-                row["sha256"] = sha256(path)
-            except (OSError, ValueError, struct.error) as exc:
-                row["image_error"] = str(exc)
-                problems.append(f"invalid original Thaumonomicon GUI asset {rel}: {exc}")
+            with Image.open(path) as image:
+                row["width"], row["height"] = image.size
+            row["sha256"] = sha256(path)
         else:
             problems.append("missing original Thaumonomicon GUI asset: " + rel)
         gui_assets.append(row)
@@ -202,11 +172,8 @@ def main() -> int:
             icon_rel = f"{icon['namespace']}:{icon['path']}"
             icon_exists = bool(path and path.is_file())
             if icon_exists and path:
-                try:
-                    icon_size = list(read_png_size(path))
-                except (OSError, ValueError, struct.error) as exc:
-                    icon_exists = False
-                    problems.append(f"{key}: invalid mapped research icon PNG {icon_rel}: {exc}")
+                with Image.open(path) as image:
+                    icon_size = list(image.size)
         if not icon_exists:
             missing_texture_count += 1
             problems.append(f"{key}: missing mapped research icon texture {icon_rel or '<unmapped>'}")

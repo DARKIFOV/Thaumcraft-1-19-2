@@ -1,0 +1,40 @@
+{
+  "version": "11.62.62",
+  "status": "PASS_STATIC",
+  "compile_status": "NOT_RUN_GRADLE_DISTRIBUTION_UNAVAILABLE",
+  "guard": {
+    "version": "11.62.62",
+    "status": "PASS",
+    "errors": [],
+    "checked_release_recipes": 40,
+    "new_block_items": 26,
+    "standard_jei_crafting_recipes": 125,
+    "recipe_type_counts": {
+      "minecraft:crafting_shapeless": 38,
+      "minecraft:crafting_shaped": 87,
+      "thaumcraft:counted_smelting": 4,
+      "minecraft:smelting": 5
+    }
+  },
+  "validation": {
+    "json_files": 1865,
+    "java_syntax_guard": "PASS",
+    "item_models": 713,
+    "registry_resource_problems": 0,
+    "missing_item_textures": 0,
+    "unresolved_item_resources": 0,
+    "semantic_model_problems": 0,
+    "semantic_model_warnings": 0,
+    "exact_original_visual_refs": 388,
+    "forge_only_guard": "PASS",
+    "feature_cycle_guard": "PASS"
+  },
+  "runtime_checks_required": [
+    "Forge 43.5.2 Java compilation",
+    "stairs and slabs placement/model states",
+    "animated candle rendering and light",
+    "item grate collision/state persistence",
+    "legacy exact-id block migration in an existing world",
+    "JEI client display and duplicate check"
+  ]
+}

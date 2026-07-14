@@ -8,7 +8,7 @@
     "thaumcraft:aqua_shard",
     "thaumcraft:aqua_shard",
     "minecraft:diamond",
-    "thaumcraft:tc4_block_greatwood_log"
+    "thaumcraft:greatwood_log"
   ],
   "aspects": {
     "AQUA": 16,

@@ -27,17 +27,18 @@
     "456"
   ],
   "key": {
-    "1": "minecraft:gold_ingot",
-    "2": "thaumcraft:aer_shard",
-    "3": "thaumcraft:ignis_shard",
-    "I": "thaumcraft:aqua_shard",
+    "1": "thaumcraft:aer_shard",
+    "2": "thaumcraft:ignis_shard",
+    "3": "thaumcraft:aqua_shard",
+    "I": "minecraft:gold_ingot",
     "S": "thaumcraft:balanced_shard",
     "4": "thaumcraft:terra_shard",
     "5": "thaumcraft:ordo_shard",
     "6": "thaumcraft:perditio_shard"
   },
   "result": {
-    "item": "thaumcraft:warp_charm",
+    "item": "thaumcraft:tc4_charm",
     "count": 1
-  }
+  },
+  "v11_62_60_strict_original": true
 }

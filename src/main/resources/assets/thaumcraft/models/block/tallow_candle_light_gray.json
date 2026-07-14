@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "thaumcraft:block/tallow_candle_light_gray",
+    "particle": "thaumcraft:block/tallow_candle_light_gray"
+  }
+}

@@ -3,6 +3,18 @@ package com.darkifov.thaumcraft.porting;
 import com.darkifov.thaumcraft.block.TC4FortressArmorItem;
 import com.darkifov.thaumcraft.block.TC4FortressMaskItem;
 import com.darkifov.thaumcraft.item.TC4ResearchComponentItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumArmorItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumAxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumHoeItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumPickaxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumShovelItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumSwordItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidArmorItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidAxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidHoeItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidPickaxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidShovelItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidSwordItem;
 import com.darkifov.thaumcraft.item.TC4GolemPlacerItem;
 import com.darkifov.thaumcraft.item.TC4GolemCoreComponentItem;
 import com.darkifov.thaumcraft.block.GolemUpgradeItem;
@@ -526,7 +538,10 @@ public final class TC4ResearchItems {
         for (Entry entry : ENTRIES) {
             // v11.62.14: metadata 13 is now a real block + BlockItem. Do not
             // double-register the old flat research-component placeholder.
-            if (entry.id().equals("tc4_block_focal_manipulator")) continue;
+            if (entry.id().equals("tc4_block_focal_manipulator")
+                    || entry.id().equals("tc4_block_thaumium")
+                    || entry.id().equals("tc4_block_tallow")
+                    || entry.id().equals("tc4_block_crystal_cluster")) continue;
 
             // v11.62.26: a functional replacement may already own this exact
             // registry id. Keep it in the lookup map and never register it twice.
@@ -544,6 +559,24 @@ public final class TC4ResearchItems {
         // though the Thaumcraft tab filtered them after population.
         Item.Properties properties = new Item.Properties();
         return switch (entry.id()) {
+            case "tc4_thaumiumhelm" -> new TC4ThaumiumArmorItem(EquipmentSlot.HEAD, properties);
+            case "tc4_thaumiumchest" -> new TC4ThaumiumArmorItem(EquipmentSlot.CHEST, properties);
+            case "tc4_thaumiumlegs" -> new TC4ThaumiumArmorItem(EquipmentSlot.LEGS, properties);
+            case "tc4_thaumiumboots" -> new TC4ThaumiumArmorItem(EquipmentSlot.FEET, properties);
+            case "tc4_thaumiumshovel" -> new TC4ThaumiumShovelItem(properties);
+            case "tc4_thaumiumpick" -> new TC4ThaumiumPickaxeItem(properties);
+            case "tc4_thaumiumaxe" -> new TC4ThaumiumAxeItem(properties);
+            case "tc4_thaumiumhoe" -> new TC4ThaumiumHoeItem(properties);
+            case "tc4_thaumiumsword" -> new TC4ThaumiumSwordItem(properties);
+            case "tc4_voidhelm" -> new TC4VoidArmorItem(EquipmentSlot.HEAD, properties);
+            case "tc4_voidchest" -> new TC4VoidArmorItem(EquipmentSlot.CHEST, properties);
+            case "tc4_voidlegs" -> new TC4VoidArmorItem(EquipmentSlot.LEGS, properties);
+            case "tc4_voidboots" -> new TC4VoidArmorItem(EquipmentSlot.FEET, properties);
+            case "tc4_voidshovel" -> new TC4VoidShovelItem(properties);
+            case "tc4_voidpick" -> new TC4VoidPickaxeItem(properties);
+            case "tc4_voidaxe" -> new TC4VoidAxeItem(properties);
+            case "tc4_voidhoe" -> new TC4VoidHoeItem(properties);
+            case "tc4_voidsword" -> new TC4VoidSwordItem(properties);
             case "tc4_thaumiumfortresshelm" -> new TC4FortressArmorItem(EquipmentSlot.HEAD, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
             case "tc4_thaumiumfortresschest" -> new TC4FortressArmorItem(EquipmentSlot.CHEST, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
             case "tc4_thaumiumfortresslegs" -> new TC4FortressArmorItem(EquipmentSlot.LEGS, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
@@ -634,6 +667,9 @@ public final class TC4ResearchItems {
         ItemStack blockReplacement = resolveFunctionalBlockStack(compact);
         if (!blockReplacement.isEmpty()) return Optional.of(blockReplacement);
 
+        ItemStack itemReplacement = resolveFunctionalItemStack(compact);
+        if (!itemReplacement.isEmpty()) return Optional.of(itemReplacement);
+
         Optional<Entry> entry = resolveLegacyExpression(expression);
         if (entry.isPresent()) {
             RegistryObject<Item> object = registered.get(entry.get().id());
@@ -675,6 +711,28 @@ public final class TC4ResearchItems {
         return resolveLegacyStack(expression)
                 .map(stack -> String.valueOf(ForgeRegistries.ITEMS.getKey(stack.getItem())))
                 .orElse("");
+    }
+
+    private static ItemStack resolveFunctionalItemStack(String compact) {
+        Item item = Items.AIR;
+        int meta = expressionMeta(compact);
+        if (compact.contains("ConfigItems.itemResource")) {
+            item = switch (meta) {
+                case 1 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "nitor"));
+                case 2 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "thaumium_ingot"));
+                case 3 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "quicksilver_drop"));
+                case 6 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "amber"));
+                case 16 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "void_metal_ingot"));
+                default -> Items.AIR;
+            };
+        } else if (compact.contains("ConfigItems.itemNugget")) {
+            item = switch (meta) {
+                case 0 -> Items.IRON_NUGGET;
+                case 6 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "thaumium_nugget"));
+                default -> Items.AIR;
+            };
+        }
+        return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
     }
 
     private static ItemStack resolveFunctionalBlockStack(String compact) {

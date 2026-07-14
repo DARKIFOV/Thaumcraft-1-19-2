@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:dyes/gray"
+    },
+    {
+      "item": "thaumcraft:tallow_candle"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:tallow_candle_gray",
+    "count": 1
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3608 candle dye loop"
+}

@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public final class ThaumcraftConfig {
     public static final ForgeConfigSpec SPEC;
 
+    public static final ForgeConfigSpec.BooleanValue WARP_EVENTS_ENABLED;
     public static final ForgeConfigSpec.IntValue WARP_EVENT_MIN_CHANCE;
     public static final ForgeConfigSpec.IntValue WARP_EVENT_MAX_CHANCE;
     public static final ForgeConfigSpec.IntValue WARP_EVENT_CHANCE_PER_WARP;
@@ -42,6 +43,7 @@ public final class ThaumcraftConfig {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.push("warp");
+        WARP_EVENTS_ENABLED = builder.comment("TC4 Config.wuss inverse: enable random Warp events.").define("eventsEnabled", true);
         WARP_EVENT_MIN_CHANCE = builder.comment("Minimum Warp event chance percent when event check runs.").defineInRange("eventMinChance", 2, 0, 100);
         WARP_EVENT_MAX_CHANCE = builder.comment("Maximum Warp event chance percent when event check runs.").defineInRange("eventMaxChance", 42, 0, 100);
         WARP_EVENT_CHANCE_PER_WARP = builder.comment("Percent chance added per Warp point.").defineInRange("eventChancePerWarp", 2, 0, 20);

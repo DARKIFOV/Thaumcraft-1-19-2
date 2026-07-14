@@ -184,14 +184,8 @@ def page_text(entries: list[dict[str, Any]]) -> str:
     for category in CATEGORIES:
         out.append(f"    private static void add{category}(Map<String, List<PageSpec>> map) {{")
         for e in [x for x in entries if x["category"] == category]:
-            pages = e.get("pages", []) or []
-            if not pages:
-                # TC4 has auto-unlock virtual component markers with no ResearchPage
-                # declarations (CAP_iron and ROD_wood).  Emit a complete zero-vararg
-                # call instead of leaving a dangling `put(map, key,` Java statement.
-                out.append(f"        put(map, {js(e['key'])});")
-                continue
             out.append(f"        put(map, {js(e['key'])},")
+            pages = e.get("pages", [])
             for i, page_data in enumerate(pages):
                 comma = "," if i < len(pages) - 1 else ");"
                 recipe_keys = page_data.get("recipe_keys", []) or []
@@ -336,20 +330,6 @@ def main() -> None:
         PAGES: page_text(entries),
         METADATA: metadata_text(entries),
     }
-    page_output = outputs[PAGES]
-    dangling = [
-        line.strip() for line in page_output.splitlines()
-        if line.strip().startswith("put(map, ") and line.rstrip().endswith(",")
-    ]
-    # A multi-line page entry legitimately ends its first line with a comma, but every
-    # such line must be followed by at least one page(...) and eventually `);`.
-    # Specifically guard the two zero-page TC4 markers that caused hotfix8 compile loss.
-    for key in ("CAP_iron", "ROD_wood"):
-        expected = f'put(map, "{key}");'
-        if expected not in page_output:
-            raise SystemExit(f"Zero-page research generation is invalid for {key}")
-    if 'put(map, "CAP_iron",\n' in page_output or 'put(map, "ROD_wood",\n' in page_output:
-        raise SystemExit("Dangling zero-page put() statement generated")
     import sys
     check = "--check" in sys.argv[1:]
     drift = []

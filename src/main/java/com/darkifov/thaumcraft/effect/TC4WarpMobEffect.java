@@ -1,0 +1,166 @@
+package com.darkifov.thaumcraft.effect;
+
+import com.darkifov.thaumcraft.ThaumcraftMod;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
+
+/**
+ * Runtime port of the eight TC4 warp potion classes used by WarpEvents.
+ *
+ * <p>The original effects are intentionally small: several exist mainly as
+ * state markers for client shaders or wand-cost code, while the remaining
+ * effects perform their server action on a fixed cadence. Keeping them as
+ * real registered effects restores duration/amplifier syncing and makes the
+ * warp subsystem compatible with commands, milk/curatives and multiplayer.</p>
+ */
+public final class TC4WarpMobEffect extends MobEffect {
+    public enum Mode {
+        VIS_EXHAUST,
+        INFECTIOUS_VIS_EXHAUST,
+        UNNATURAL_HUNGER,
+        DEATH_GAZE,
+        BLURRED_VISION,
+        SUN_SCORNED,
+        THAUMARHIA,
+        WARP_WARD
+    }
+
+    private final Mode mode;
+
+    public TC4WarpMobEffect(Mode mode, MobEffectCategory category, int color) {
+        super(category, color);
+        this.mode = mode;
+    }
+
+    public Mode mode() {
+        return mode;
+    }
+
+    /** Restores TC4's per-instance curative lists. */
+    public static MobEffectInstance configureCuratives(MobEffectInstance instance) {
+        if (!(instance.getEffect() instanceof TC4WarpMobEffect effect)) {
+            return instance;
+        }
+
+        switch (effect.mode) {
+            case UNNATURAL_HUNGER -> {
+                java.util.ArrayList<ItemStack> cures = new java.util.ArrayList<>();
+                cures.add(new ItemStack(Items.ROTTEN_FLESH));
+                Item brain = ForgeRegistries.ITEMS.getValue(new ResourceLocation(ThaumcraftMod.MOD_ID, "tc4_brain"));
+                if (brain != null && brain != Items.AIR) {
+                    cures.add(new ItemStack(brain));
+                }
+                instance.setCurativeItems(cures);
+            }
+            case VIS_EXHAUST, INFECTIOUS_VIS_EXHAUST, DEATH_GAZE, SUN_SCORNED, THAUMARHIA ->
+                    instance.setCurativeItems(java.util.List.of());
+            default -> {
+                // Blurred Vision and Warp Ward retained the default milk cure.
+            }
+        }
+        return instance;
+    }
+
+    @Override
+    public void applyEffectTick(LivingEntity target, int amplifier) {
+        if (target.level.isClientSide) {
+            return;
+        }
+
+        switch (mode) {
+            case INFECTIOUS_VIS_EXHAUST -> spreadVisExhaustion(target, amplifier);
+            case UNNATURAL_HUNGER -> {
+                if (target instanceof Player player) {
+                    player.causeFoodExhaustion(0.025F * (amplifier + 1));
+                }
+            }
+            case SUN_SCORNED -> tickSunScorned(target);
+            case THAUMARHIA -> tickThaumarhia(target);
+            default -> {
+                // Marker-only effects: behavior is supplied by WarpEvents,
+                // wand cost calculation or client visual hooks.
+            }
+        }
+    }
+
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return switch (mode) {
+            case UNNATURAL_HUNGER -> true;
+            case INFECTIOUS_VIS_EXHAUST, SUN_SCORNED -> duration % 40 == 0;
+            case THAUMARHIA -> duration % 20 == 0;
+            default -> false;
+        };
+    }
+
+    private static void spreadVisExhaustion(LivingEntity source, int amplifier) {
+        List<LivingEntity> targets = source.level.getEntitiesOfClass(
+                LivingEntity.class,
+                source.getBoundingBox().inflate(4.0D),
+                entity -> entity.isAlive() && entity != source
+        );
+
+        for (LivingEntity target : targets) {
+            if (target.hasEffect(ThaumcraftMod.INFECTIOUS_VIS_EXHAUST.get())) {
+                continue;
+            }
+
+            if (amplifier > 0) {
+                target.addEffect(configureCuratives(new MobEffectInstance(
+                        ThaumcraftMod.INFECTIOUS_VIS_EXHAUST.get(),
+                        6000,
+                        amplifier - 1,
+                        false,
+                        true,
+                        true
+                )));
+            } else {
+                target.addEffect(configureCuratives(new MobEffectInstance(
+                        ThaumcraftMod.VIS_EXHAUST.get(),
+                        6000,
+                        0,
+                        false,
+                        true,
+                        true
+                )));
+            }
+        }
+    }
+
+    private static void tickSunScorned(LivingEntity target) {
+        BlockPos pos = target.blockPosition();
+        float brightness = target.level.getMaxLocalRawBrightness(pos) / 15.0F;
+
+        // Direct adaptation of PotionSunScorned: the burn chance grows above
+        // 0.5 brightness while healing becomes likely below 0.25 brightness.
+        if (brightness > 0.5F
+                && target.getRandom().nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F
+                && target.level.canSeeSky(pos)) {
+            target.setSecondsOnFire(4);
+        } else if (brightness < 0.25F && target.getRandom().nextFloat() > brightness * 2.0F) {
+            target.heal(1.0F);
+        }
+    }
+
+    private static void tickThaumarhia(LivingEntity target) {
+        if (target.getRandom().nextInt(15) != 0) {
+            return;
+        }
+
+        BlockPos pos = target.blockPosition();
+        if (target.level.getBlockState(pos).isAir()) {
+            target.level.setBlock(pos, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
+        }
+    }
+}

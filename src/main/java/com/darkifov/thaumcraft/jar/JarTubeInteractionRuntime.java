@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.jar;
 
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.block.EssentiaPhialItem;
+import com.darkifov.thaumcraft.block.JarLabelItem;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import net.minecraft.ChatFormatting;
@@ -40,7 +41,10 @@ public final class JarTubeInteractionRuntime {
             player.displayClientMessage(Component.literal("Jar AspectFilter cleared.").withStyle(ChatFormatting.GRAY), false);
             return true;
         }
-        Aspect aspect = aspectFromPhial(otherHand);
+        Aspect aspect = JarLabelItem.getAspect(held);
+        if (aspect == null) {
+            aspect = aspectFromPhial(otherHand);
+        }
         if (aspect == null) {
             aspect = jar.storedAspect();
         }

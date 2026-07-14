@@ -1,0 +1,18 @@
+{
+  "tc4_key": "PureLead",
+  "tc4_source": "ThaumcraftApi.addCrucibleRecipe",
+  "research": "PURELEAD",
+  "tc4_kind": "CRUCIBLE",
+  "catalyst": {
+    "tag": "forge:ores/lead"
+  },
+  "aspects": {
+    "METALLUM": 1,
+    "ORDO": 1
+  },
+  "result": {
+    "item": "thaumcraft:tc4_clusterlead",
+    "count": 1
+  },
+  "v11_62_60_strict_original": true
+}

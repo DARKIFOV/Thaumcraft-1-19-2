@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3228",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:tc4_nuggetvoid"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:void_metal_ingot",
+    "count": 1
+  }
+}

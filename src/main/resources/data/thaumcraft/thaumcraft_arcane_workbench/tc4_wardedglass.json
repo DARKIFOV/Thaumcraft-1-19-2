@@ -1,0 +1,32 @@
+{
+  "tc4_key": "WardedGlass",
+  "tc4_source": "addArcaneCraftingRecipe",
+  "research": "WARDEDARCANA",
+  "tc4_kind": "ARCANE_SHAPED",
+  "catalyst": "thaumcraft:tc4_brain",
+  "ingredients": [
+    "minecraft:glass",
+    "thaumcraft:greatwood_planks"
+  ],
+  "aspects": {
+    "AQUA": 5,
+    "ORDO": 10,
+    "TERRA": 5,
+    "IGNIS": 5
+  },
+  "pattern": [
+    "GGG",
+    "WBW",
+    "GGG"
+  ],
+  "key": {
+    "B": "thaumcraft:tc4_brain",
+    "G": "minecraft:glass",
+    "W": "thaumcraft:greatwood_planks"
+  },
+  "result": {
+    "item": "thaumcraft:warded_glass",
+    "count": 8
+  },
+  "v11_62_64_strict_original": true
+}

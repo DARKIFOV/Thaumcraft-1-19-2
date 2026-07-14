@@ -3,8 +3,10 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "ARCANESPA",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:obsidian",
+  "catalyst": "thaumcraft:essentia_jar",
   "ingredients": [
+    "minecraft:piston",
+    "thaumcraft:essentia_jar",
     "thaumcraft:tc4_block_arcane_stone",
     "minecraft:quartz_block",
     "minecraft:iron_bars"
@@ -20,9 +22,11 @@
     "SPS"
   ],
   "key": {
-    "Q": "thaumcraft:tc4_block_arcane_stone",
-    "I": "minecraft:quartz_block",
-    "S": "minecraft:iron_bars"
+    "P": "minecraft:piston",
+    "J": "thaumcraft:essentia_jar",
+    "S": "thaumcraft:tc4_block_arcane_stone",
+    "Q": "minecraft:quartz_block",
+    "I": "minecraft:iron_bars"
   },
   "result": {
     "item": "thaumcraft:tc4_block_arcane_spa",

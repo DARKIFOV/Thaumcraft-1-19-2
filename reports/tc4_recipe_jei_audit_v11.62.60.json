@@ -1,0 +1,616 @@
+{
+  "version": "11.62.60",
+  "status": "PASS",
+  "counts": {
+    "alchemy": {
+      "json_files": 70,
+      "strict_tc4_recipes": 54
+    },
+    "arcane": {
+      "json_files": 96,
+      "strict_tc4_recipes": 86
+    },
+    "infusion": {
+      "json_files": 73,
+      "strict_tc4_recipes": 65
+    }
+  },
+  "checks": [
+    {
+      "name": "version 11.62.60",
+      "ok": true,
+      "detail": "build.gradle version"
+    },
+    {
+      "name": "alchemy object tag parser",
+      "ok": true,
+      "detail": "JSON catalyst objects accept a tag"
+    },
+    {
+      "name": "alchemy hash tag parser",
+      "ok": true,
+      "detail": "string #namespace:path catalysts are accepted"
+    },
+    {
+      "name": "alchemy runtime tag match",
+      "ok": true,
+      "detail": "tag catalyst matches real stacks"
+    },
+    {
+      "name": "JEI tag catalyst",
+      "ok": true,
+      "detail": "JEI receives the complete Ingredient"
+    },
+    {
+      "name": "JEI original TC4 key",
+      "ok": true,
+      "detail": "all custom categories draw the source recipe key"
+    },
+    {
+      "name": "arcane TC4-key dedup",
+      "ok": true,
+      "detail": "generated exact wand recipes replace stale JSON copies"
+    },
+    {
+      "name": "itemResource 15 mapping",
+      "ok": true,
+      "detail": "ConfigItems.itemResource meta 15"
+    },
+    {
+      "name": "compass stone mapping",
+      "ok": true,
+      "detail": "ConfigItems.itemCompassStone"
+    },
+    {
+      "name": "recipe exists: tc4_pure_tin.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_pure_tin.json"
+    },
+    {
+      "name": "tc4_pure_tin.json:tc4_key",
+      "ok": true,
+      "detail": "expected 'PureTin', found 'PureTin'"
+    },
+    {
+      "name": "tc4_pure_tin.json:research",
+      "ok": true,
+      "detail": "expected 'PURETIN', found 'PURETIN'"
+    },
+    {
+      "name": "tc4_pure_tin.json:catalyst.tag",
+      "ok": true,
+      "detail": "expected 'forge:ores/tin', found 'forge:ores/tin'"
+    },
+    {
+      "name": "tc4_pure_tin.json:aspects.METALLUM",
+      "ok": true,
+      "detail": "expected 1, found 1"
+    },
+    {
+      "name": "tc4_pure_tin.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 1, found 1"
+    },
+    {
+      "name": "tc4_pure_tin.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_clustertin', found 'thaumcraft:tc4_clustertin'"
+    },
+    {
+      "name": "recipe exists: tc4_pure_silver.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_pure_silver.json"
+    },
+    {
+      "name": "tc4_pure_silver.json:tc4_key",
+      "ok": true,
+      "detail": "expected 'PureSilver', found 'PureSilver'"
+    },
+    {
+      "name": "tc4_pure_silver.json:research",
+      "ok": true,
+      "detail": "expected 'PURESILVER', found 'PURESILVER'"
+    },
+    {
+      "name": "tc4_pure_silver.json:catalyst.tag",
+      "ok": true,
+      "detail": "expected 'forge:ores/silver', found 'forge:ores/silver'"
+    },
+    {
+      "name": "tc4_pure_silver.json:aspects.METALLUM",
+      "ok": true,
+      "detail": "expected 1, found 1"
+    },
+    {
+      "name": "tc4_pure_silver.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 1, found 1"
+    },
+    {
+      "name": "tc4_pure_silver.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_clustersilver', found 'thaumcraft:tc4_clustersilver'"
+    },
+    {
+      "name": "recipe exists: tc4_pure_lead.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_alchemy/tc4_pure_lead.json"
+    },
+    {
+      "name": "tc4_pure_lead.json:tc4_key",
+      "ok": true,
+      "detail": "expected 'PureLead', found 'PureLead'"
+    },
+    {
+      "name": "tc4_pure_lead.json:research",
+      "ok": true,
+      "detail": "expected 'PURELEAD', found 'PURELEAD'"
+    },
+    {
+      "name": "tc4_pure_lead.json:catalyst.tag",
+      "ok": true,
+      "detail": "expected 'forge:ores/lead', found 'forge:ores/lead'"
+    },
+    {
+      "name": "tc4_pure_lead.json:aspects.METALLUM",
+      "ok": true,
+      "detail": "expected 1, found 1"
+    },
+    {
+      "name": "tc4_pure_lead.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 1, found 1"
+    },
+    {
+      "name": "tc4_pure_lead.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_clusterlead', found 'thaumcraft:tc4_clusterlead'"
+    },
+    {
+      "name": "recipe exists: tc4_node_relay.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_node_relay.json"
+    },
+    {
+      "name": "tc4_node_relay.json:tc4_key",
+      "ok": true,
+      "detail": "expected 'NodeRelay', found 'NodeRelay'"
+    },
+    {
+      "name": "tc4_node_relay.json:research",
+      "ok": true,
+      "detail": "expected 'VISPOWER', found 'VISPOWER'"
+    },
+    {
+      "name": "tc4_node_relay.json:pattern",
+      "ok": true,
+      "detail": "expected [' I ', 'ISI', ' I '], found [' I ', 'ISI', ' I ']"
+    },
+    {
+      "name": "tc4_node_relay.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:balanced_shard', found 'thaumcraft:balanced_shard'"
+    },
+    {
+      "name": "tc4_node_relay.json:aspects.IGNIS",
+      "ok": true,
+      "detail": "expected 8, found 8"
+    },
+    {
+      "name": "tc4_node_relay.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 8, found 8"
+    },
+    {
+      "name": "tc4_node_relay.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:vis_relay', found 'thaumcraft:vis_relay'"
+    },
+    {
+      "name": "tc4_node_relay.json:result.count",
+      "ok": true,
+      "detail": "expected 2, found 2"
+    },
+    {
+      "name": "recipe exists: tc4_jar_void.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_jar_void.json"
+    },
+    {
+      "name": "tc4_jar_void.json:tc4_key",
+      "ok": true,
+      "detail": "expected 'JarVoid', found 'JarVoid'"
+    },
+    {
+      "name": "tc4_jar_void.json:research",
+      "ok": true,
+      "detail": "expected 'JARVOID', found 'JARVOID'"
+    },
+    {
+      "name": "tc4_jar_void.json:pattern",
+      "ok": true,
+      "detail": "expected ['O', 'J', 'P'], found ['O', 'J', 'P']"
+    },
+    {
+      "name": "tc4_jar_void.json:key.O",
+      "ok": true,
+      "detail": "expected 'minecraft:obsidian', found 'minecraft:obsidian'"
+    },
+    {
+      "name": "tc4_jar_void.json:key.J",
+      "ok": true,
+      "detail": "expected 'thaumcraft:essentia_jar', found 'thaumcraft:essentia_jar'"
+    },
+    {
+      "name": "tc4_jar_void.json:key.P",
+      "ok": true,
+      "detail": "expected 'minecraft:blaze_powder', found 'minecraft:blaze_powder'"
+    },
+    {
+      "name": "tc4_jar_void.json:aspects.AQUA",
+      "ok": true,
+      "detail": "expected 5, found 5"
+    },
+    {
+      "name": "tc4_jar_void.json:aspects.PERDITIO",
+      "ok": true,
+      "detail": "expected 15, found 15"
+    },
+    {
+      "name": "tc4_jar_void.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:void_essentia_jar', found 'thaumcraft:void_essentia_jar'"
+    },
+    {
+      "name": "recipe exists: tc4_primalcharm.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalcharm.json"
+    },
+    {
+      "name": "tc4_primalcharm.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.I",
+      "ok": true,
+      "detail": "expected 'minecraft:gold_ingot', found 'minecraft:gold_ingot'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.1",
+      "ok": true,
+      "detail": "expected 'thaumcraft:aer_shard', found 'thaumcraft:aer_shard'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.2",
+      "ok": true,
+      "detail": "expected 'thaumcraft:ignis_shard', found 'thaumcraft:ignis_shard'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.3",
+      "ok": true,
+      "detail": "expected 'thaumcraft:aqua_shard', found 'thaumcraft:aqua_shard'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.4",
+      "ok": true,
+      "detail": "expected 'thaumcraft:terra_shard', found 'thaumcraft:terra_shard'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.5",
+      "ok": true,
+      "detail": "expected 'thaumcraft:ordo_shard', found 'thaumcraft:ordo_shard'"
+    },
+    {
+      "name": "tc4_primalcharm.json:key.6",
+      "ok": true,
+      "detail": "expected 'thaumcraft:perditio_shard', found 'thaumcraft:perditio_shard'"
+    },
+    {
+      "name": "recipe exists: tc4_focusprimal.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusprimal.json"
+    },
+    {
+      "name": "tc4_focusprimal.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_focusprimal.json:key.#",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "recipe exists: tc4_essentia_crystalizer.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_essentia_crystalizer.json"
+    },
+    {
+      "name": "tc4_essentia_crystalizer.json:key.Q",
+      "ok": true,
+      "detail": "expected 'thaumcraft:balanced_shard', found 'thaumcraft:balanced_shard'"
+    },
+    {
+      "name": "recipe exists: tc4_sin_stone.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_infusion/tc4_sin_stone.json"
+    },
+    {
+      "name": "tc4_sin_stone.json:catalyst",
+      "ok": true,
+      "detail": "expected 'minecraft:flint', found 'minecraft:flint'"
+    },
+    {
+      "name": "tc4_sin_stone.json:result.item",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_sinister_stone', found 'thaumcraft:tc4_sinister_stone'"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodgreatwoodstaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodgreatwoodstaff.json"
+    },
+    {
+      "name": "tc4_wandrodgreatwoodstaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodgreatwoodstaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodgreatwoodstaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodgreatwoodstaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 8, found 8"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodobsidianstaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodobsidianstaff.json"
+    },
+    {
+      "name": "tc4_wandrodobsidianstaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodobsidianstaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodobsidianstaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodobsidianstaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 14, found 14"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodsilverwoodstaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodsilverwoodstaff.json"
+    },
+    {
+      "name": "tc4_wandrodsilverwoodstaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodsilverwoodstaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodsilverwoodstaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodsilverwoodstaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 24, found 24"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodicestaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodicestaff.json"
+    },
+    {
+      "name": "tc4_wandrodicestaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodicestaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodicestaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodicestaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 14, found 14"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodquartzstaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodquartzstaff.json"
+    },
+    {
+      "name": "tc4_wandrodquartzstaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodquartzstaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodquartzstaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodquartzstaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 14, found 14"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodreedstaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodreedstaff.json"
+    },
+    {
+      "name": "tc4_wandrodreedstaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodreedstaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodreedstaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodreedstaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 14, found 14"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodblazestaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodblazestaff.json"
+    },
+    {
+      "name": "tc4_wandrodblazestaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodblazestaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodblazestaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodblazestaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 14, found 14"
+    },
+    {
+      "name": "recipe exists: tc4_wandrodbonestaff.json",
+      "ok": true,
+      "detail": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodbonestaff.json"
+    },
+    {
+      "name": "tc4_wandrodbonestaff.json:catalyst",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodbonestaff.json:key.S",
+      "ok": true,
+      "detail": "expected 'thaumcraft:tc4_charm', found 'thaumcraft:tc4_charm'"
+    },
+    {
+      "name": "tc4_wandrodbonestaff.json:pattern",
+      "ok": true,
+      "detail": "expected ['  S', ' G ', 'G  '], found ['  S', ' G ', 'G  ']"
+    },
+    {
+      "name": "tc4_wandrodbonestaff.json:aspects.ORDO",
+      "ok": true,
+      "detail": "expected 14, found 14"
+    },
+    {
+      "name": "no active thaumcraft:warp_charm",
+      "ok": true,
+      "detail": "original itemResource:15 was replaced by an unrelated new item"
+    },
+    {
+      "name": "no active thaumcraft:primal_charm",
+      "ok": true,
+      "detail": "unregistered placeholder ID"
+    },
+    {
+      "name": "no active thaumcraft:tc4_compassstone",
+      "ok": true,
+      "detail": "unregistered placeholder ID"
+    },
+    {
+      "name": "no active thaumcraft:tc4_balanced_shard",
+      "ok": true,
+      "detail": "wrong duplicate shard ID"
+    },
+    {
+      "name": "item model tc4_clustertin",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/tc4_clustertin.json"
+    },
+    {
+      "name": "item model tc4_clustersilver",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/tc4_clustersilver.json"
+    },
+    {
+      "name": "item model tc4_clusterlead",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/tc4_clusterlead.json"
+    },
+    {
+      "name": "item model tc4_charm",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/tc4_charm.json"
+    },
+    {
+      "name": "item model tc4_sinister_stone",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/tc4_sinister_stone.json"
+    },
+    {
+      "name": "item model vis_relay",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/vis_relay.json"
+    },
+    {
+      "name": "item model void_essentia_jar",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/void_essentia_jar.json"
+    },
+    {
+      "name": "item model balanced_shard",
+      "ok": true,
+      "detail": "src/main/resources/assets/thaumcraft/models/item/balanced_shard.json"
+    },
+    {
+      "name": "all active Thaumcraft recipe IDs have item models",
+      "ok": true,
+      "detail": "243 distinct Thaumcraft IDs resolved"
+    }
+  ],
+  "errors": []
+}

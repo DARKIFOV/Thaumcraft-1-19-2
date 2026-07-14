@@ -1,0 +1,99 @@
+{
+  "version": "11.62.64",
+  "original_source": "/mnt/data/tc_original_src/Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java",
+  "method_literal_key_count": 116,
+  "expanded_original_registration_count": 136,
+  "excluded_from_arcane_workbench": {
+    "normal_crafting": [
+      "ArcaneStone2",
+      "ArcaneStone3",
+      "ArcaneStone4"
+    ],
+    "infusion_enchantments": [
+      "InfEnch0",
+      "InfEnch1",
+      "InfEnch10",
+      "InfEnch11",
+      "InfEnch12",
+      "InfEnch13",
+      "InfEnch14",
+      "InfEnch15",
+      "InfEnch16",
+      "InfEnch17",
+      "InfEnch18",
+      "InfEnch19",
+      "InfEnch2",
+      "InfEnch20",
+      "InfEnch21",
+      "InfEnch3",
+      "InfEnch4",
+      "InfEnch5",
+      "InfEnch6",
+      "InfEnch7",
+      "InfEnch8",
+      "InfEnch9",
+      "InfEnchHaste",
+      "InfEnchRepair"
+    ]
+  },
+  "arcane_workbench_registration_count": 109,
+  "covered_registration_count": 93,
+  "coverage_percent": 85.32,
+  "fixed_arcane": {
+    "expected": 82,
+    "covered": 82,
+    "missing": []
+  },
+  "primal_arrow_family": {
+    "expected": 6,
+    "covered": 6,
+    "missing": []
+  },
+  "banner_family": {
+    "expected": 16,
+    "covered": 0,
+    "missing": [
+      "Banner_0",
+      "Banner_1",
+      "Banner_10",
+      "Banner_11",
+      "Banner_12",
+      "Banner_13",
+      "Banner_14",
+      "Banner_15",
+      "Banner_2",
+      "Banner_3",
+      "Banner_4",
+      "Banner_5",
+      "Banner_6",
+      "Banner_7",
+      "Banner_8",
+      "Banner_9"
+    ],
+    "legacy_adapter_files": [
+      "tc4_banner__a.json"
+    ]
+  },
+  "runtime_wand_caps": {
+    "expected": 5,
+    "covered": 5,
+    "missing": []
+  },
+  "new_v11_62_64_keys": {
+    "HungryChest": [
+      "tc4_hungrychest.json"
+    ],
+    "NodeChargeRelay": [
+      "tc4_nodechargerelay.json"
+    ],
+    "WardedGlass": [
+      "tc4_wardedglass.json"
+    ]
+  },
+  "status": "PARTIAL",
+  "limitations": [
+    "Coverage is source/static registration coverage, not compile or runtime proof.",
+    "The 16 NBT-coloured banner variants still require a modern functional banner implementation.",
+    "Wand-cap coverage is generated in Java and remains uncompiled in this environment."
+  ]
+}
