@@ -4,6 +4,14 @@ Target: **Minecraft 1.19.2 / Forge 43.5.2 / Java 17**.
 
 This revision continues the source-driven port against the supplied TC4 4.2.3.5 reference source. It completes the original Arcane Spa container/screen surface, isolates Purifying Fluid from the vanilla water tag and documents the exact recipe coverage of this subsystem.
 
+## v11.62.69 CI hotfix 3
+
+- fixes the six `compileJava` errors reported by GitHub Actions run `79321665380`;
+- uses the Forge 1.19.2 `ChestMenu` API for Hungry Chest instead of the unavailable `GenericContainerMenu`;
+- imports `UseAnim` from `net.minecraft.world.item` for Sanity Soap;
+- keeps the concrete `PurifyingFluidBlock` registry type required by `ForgeFlowingFluid.Properties#block`;
+- adds an early Forge 1.19.2 compile-API guard to both build and release workflows.
+
 
 ## v11.62.69 focus
 

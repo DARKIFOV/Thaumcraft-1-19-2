@@ -33,6 +33,9 @@ jobs:
       - name: Validate Java source text
         run: python3 tools/java_syntax_guard.py
 
+      - name: Validate Forge 1.19.2 compile API usage
+        run: python3 tools/forge_1192_compile_api_guard.py
+
       - name: Validate JSON resources
         run: python3 tools/validate_json_resources.py
 

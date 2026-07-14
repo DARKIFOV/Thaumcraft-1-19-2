@@ -435,7 +435,7 @@ public class ThaumcraftMod {
             FLUIDS.register("purifying_fluid", () -> new ForgeFlowingFluid.Source(purifyingFluidProperties()));
     public static final RegistryObject<FlowingFluid> FLOWING_PURIFYING_FLUID =
             FLUIDS.register("flowing_purifying_fluid", () -> new ForgeFlowingFluid.Flowing(purifyingFluidProperties()));
-    public static final RegistryObject<Block> PURIFYING_FLUID_BLOCK = BLOCKS.register("purifying_fluid",
+    public static final RegistryObject<PurifyingFluidBlock> PURIFYING_FLUID_BLOCK = BLOCKS.register("purifying_fluid",
             () -> new PurifyingFluidBlock(PURIFYING_FLUID,
                     BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)
                             .noLootTable().lightLevel(state -> 10)));
