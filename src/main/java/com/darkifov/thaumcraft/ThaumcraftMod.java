@@ -24,6 +24,10 @@ import com.darkifov.thaumcraft.block.AspectCrystalItem;
 import com.darkifov.thaumcraft.block.ArcaneWorkbenchBlock;
 import com.darkifov.thaumcraft.block.AuraNodeBlock;
 import com.darkifov.thaumcraft.block.BellowsBlock;
+import com.darkifov.thaumcraft.block.BrainJarBlock;
+import com.darkifov.thaumcraft.block.MirrorBlock;
+import com.darkifov.thaumcraft.block.MirrorBlockItem;
+import com.darkifov.thaumcraft.block.HandMirrorItem;
 import com.darkifov.thaumcraft.block.CrucibleBlock;
 import com.darkifov.thaumcraft.block.CreativeThaumonomiconItem;
 import com.darkifov.thaumcraft.block.FilteredEssentiaJarBlock;
@@ -142,6 +146,9 @@ import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
+import com.darkifov.thaumcraft.blockentity.BrainJarBlockEntity;
+import com.darkifov.thaumcraft.mirror.MirrorBlockEntity;
+import com.darkifov.thaumcraft.mirror.EssentiaMirrorBlockEntity;
 import com.darkifov.thaumcraft.blockentity.NodeStabilizerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.NodeTransducerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
@@ -201,6 +208,7 @@ import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import com.darkifov.thaumcraft.menu.EssentiaDriveMenu;
 import com.darkifov.thaumcraft.menu.EssentiaTerminalMenu;
 import com.darkifov.thaumcraft.menu.BottomlessPouchMenu;
+import com.darkifov.thaumcraft.menu.HandMirrorMenu;
 import com.darkifov.thaumcraft.menu.FocusPouchMenu;
 import com.darkifov.thaumcraft.menu.FocalManipulatorMenu;
 import com.darkifov.thaumcraft.menu.GolemMenu;
@@ -457,6 +465,32 @@ public class ThaumcraftMod {
     public static final RegistryObject<Item> SCRIBING_TOOLS = specialItem("scribing_tools",
             () -> new ScribingToolsItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
+    public static final RegistryObject<Block> BRAIN_JAR = BLOCKS.register("tc4_jar_brain",
+            () -> new BrainJarBlock(BlockBehaviour.Properties.of(Material.GLASS)
+                    .strength(2.0F, 4.0F).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Item> BRAIN_JAR_ITEM = ITEMS.register("tc4_jar_brain",
+            () -> new BlockItem(BRAIN_JAR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Block> MAGIC_MIRROR = BLOCKS.register("tc4_mirrorframe",
+            () -> new MirrorBlock(BlockBehaviour.Properties.of(Material.GLASS)
+                    .strength(1.0F, 10.0F).sound(SoundType.GLASS).noOcclusion().noCollission(),
+                    MirrorBlock.Kind.ITEM));
+    public static final RegistryObject<Item> MAGIC_MIRROR_ITEM = ITEMS.register("tc4_mirrorframe",
+            () -> new MirrorBlockItem(MAGIC_MIRROR.get(),
+                    new Item.Properties().tab(THAUMCRAFT_TAB).rarity(Rarity.UNCOMMON), MirrorBlock.Kind.ITEM));
+
+    public static final RegistryObject<Block> ESSENTIA_MIRROR = BLOCKS.register("tc4_mirrorframe2",
+            () -> new MirrorBlock(BlockBehaviour.Properties.of(Material.GLASS)
+                    .strength(1.0F, 10.0F).sound(SoundType.GLASS).noOcclusion().noCollission(),
+                    MirrorBlock.Kind.ESSENTIA));
+    public static final RegistryObject<Item> ESSENTIA_MIRROR_ITEM = ITEMS.register("tc4_mirrorframe2",
+            () -> new MirrorBlockItem(ESSENTIA_MIRROR.get(),
+                    new Item.Properties().tab(THAUMCRAFT_TAB).rarity(Rarity.UNCOMMON), MirrorBlock.Kind.ESSENTIA));
+
+    public static final RegistryObject<Item> HAND_MIRROR = ITEMS.register("tc4_mirrorhand",
+            () -> new HandMirrorItem(new Item.Properties().tab(THAUMCRAFT_TAB).rarity(Rarity.UNCOMMON)));
+
     public static final Map<String, RegistryObject<Item>> TC4_RESEARCH_ITEMS = TC4ResearchItems.registerAll(
             ITEMS,
             THAUMCRAFT_TAB,
@@ -465,7 +499,11 @@ public class ThaumcraftMod {
                     Map.entry("tc4_block_banner", TC4_BANNER_ITEM),
                     Map.entry("tc4_bath_salts", BATH_SALTS),
                     Map.entry("tc4_bucket_pure", PURIFYING_FLUID_BUCKET),
-                    Map.entry("tc4_block_arcane_spa", ARCANE_SPA_ITEM)
+                    Map.entry("tc4_block_arcane_spa", ARCANE_SPA_ITEM),
+                    Map.entry("tc4_jar_brain", BRAIN_JAR_ITEM),
+                    Map.entry("tc4_mirrorframe", MAGIC_MIRROR_ITEM),
+                    Map.entry("tc4_mirrorframe2", ESSENTIA_MIRROR_ITEM),
+                    Map.entry("tc4_mirrorhand", HAND_MIRROR)
             )
     );
     public static final Map<String, RegistryObject<SoundEvent>> TC4_SOUND_EVENTS = TC4Sounds.registerAll(SOUND_EVENTS);
@@ -1260,6 +1298,15 @@ public class ThaumcraftMod {
             BLOCK_ENTITIES.register("crucible", () -> BlockEntityType.Builder.of(CrucibleBlockEntity::new, CRUCIBLE.get()).build(null));
     public static final RegistryObject<BlockEntityType<EssentiaJarBlockEntity>> ESSENTIA_JAR_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("essentia_jar", () -> BlockEntityType.Builder.of(EssentiaJarBlockEntity::new, ESSENTIA_JAR.get(), FILTERED_ESSENTIA_JAR.get(), VOID_ESSENTIA_JAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BrainJarBlockEntity>> BRAIN_JAR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_jar_brain", () -> BlockEntityType.Builder.of(BrainJarBlockEntity::new, BRAIN_JAR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<MirrorBlockEntity>> MIRROR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_mirror", () -> BlockEntityType.Builder.of(
+                    MirrorBlockEntity::new, MAGIC_MIRROR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<EssentiaMirrorBlockEntity>> ESSENTIA_MIRROR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_mirror_essentia", () -> BlockEntityType.Builder.of(
+                    EssentiaMirrorBlockEntity::new, ESSENTIA_MIRROR.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<EssentiaReservoirBlockEntity>> ESSENTIA_RESERVOIR_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("essentia_reservoir", () -> BlockEntityType.Builder.of(EssentiaReservoirBlockEntity::new, ESSENTIA_RESERVOIR.get()).build(null));
@@ -1369,6 +1416,9 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<MenuType<BottomlessPouchMenu>> BOTTOMLESS_POUCH_MENU =
             MENUS.register("bottomless_pouch", () -> IForgeMenuType.create((windowId, inv, data) -> new BottomlessPouchMenu(windowId, inv, data)));
+
+    public static final RegistryObject<MenuType<HandMirrorMenu>> HAND_MIRROR_MENU =
+            MENUS.register("hand_mirror", () -> IForgeMenuType.create((windowId, inv, data) -> new HandMirrorMenu(windowId, inv, data)));
 
     public static final RegistryObject<MenuType<FocusPouchMenu>> FOCUS_POUCH_MENU =
             MENUS.register("focus_pouch", () -> IForgeMenuType.create((windowId, inv, data) -> new FocusPouchMenu(windowId, inv, data)));

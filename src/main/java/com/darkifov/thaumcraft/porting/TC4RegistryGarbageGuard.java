@@ -46,6 +46,73 @@ public final class TC4RegistryGarbageGuard {
             "golem_task_marker", "golem_filter"
     );
 
+    /** Functional TC4 ids reconstructed as real items, not flat save aliases. */
+    public static final Set<String> FUNCTIONAL_TC4 = Set.of(
+            "tc4_thaumiumhelm",
+            "tc4_thaumiumchest",
+            "tc4_thaumiumlegs",
+            "tc4_thaumiumboots",
+            "tc4_thaumiumshovel",
+            "tc4_thaumiumpick",
+            "tc4_thaumiumaxe",
+            "tc4_thaumiumhoe",
+            "tc4_thaumiumsword",
+            "tc4_voidhelm",
+            "tc4_voidchest",
+            "tc4_voidlegs",
+            "tc4_voidboots",
+            "tc4_voidshovel",
+            "tc4_voidpick",
+            "tc4_voidaxe",
+            "tc4_voidhoe",
+            "tc4_voidsword",
+            "tc4_thaumiumfortresshelm",
+            "tc4_thaumiumfortresschest",
+            "tc4_thaumiumfortresslegs",
+            "tc4_mask_grinning_devil",
+            "tc4_mask_angry_ghost",
+            "tc4_mask_sipping_fiend",
+            "tc4_focus_hellbat",
+            "tc4_focus_pech",
+            "tc4_golem_straw",
+            "tc4_golem_wood",
+            "tc4_golem_tallow",
+            "tc4_golem_clay",
+            "tc4_golem_flesh",
+            "tc4_golem_stone",
+            "tc4_golem_iron",
+            "tc4_golem_thaumium",
+            "tc4_golem_core_blank",
+            "tc4_golem_core_fill",
+            "tc4_golem_core_empty",
+            "tc4_golem_core_gather",
+            "tc4_golem_core_harvest",
+            "tc4_golem_core_guard",
+            "tc4_golem_core_liquid",
+            "tc4_golem_core_essentia",
+            "tc4_golem_core_lumber",
+            "tc4_golem_core_use",
+            "tc4_golem_core_butcher",
+            "tc4_golem_core_sorting",
+            "tc4_golem_core_fish",
+            "tc4_golem_core_bodyguard",
+            "tc4_golem_core_patrol",
+            "tc4_golem_upgrade_air",
+            "tc4_golem_upgrade_earth",
+            "tc4_golem_upgrade_fire",
+            "tc4_golem_upgrade_water",
+            "tc4_golem_upgrade_order",
+            "tc4_golem_upgrade_entropy",
+            "tc4_golemdecotophat",
+            "tc4_golemdecoglasses",
+            "tc4_golemdecobowtie",
+            "tc4_golemdecofez",
+            "tc4_golemdecodart",
+            "tc4_golemdecovisor",
+            "tc4_golemdecoarmor",
+            "tc4_golemdecomace"
+    );
+
     public static final Set<String> PREFIXES = Set.of(
             "tt_", "tce_", "extras_", "thaumic_me_", "arcane_pattern_", "arcane_crafting_terminal", "essentia_import_bus", "essentia_export_bus",
             "essentia_interface", "essentia_terminal", "essentia_provider", "essentia_storage_bus", "essentia_level_emitter", "essentia_vibration_chamber",
@@ -72,6 +139,9 @@ public final class TC4RegistryGarbageGuard {
 
     public static boolean isQuarantinedId(String id) {
         if (id == null || id.isBlank()) {
+            return false;
+        }
+        if (FUNCTIONAL_TC4.contains(id)) {
             return false;
         }
         if (EXACT.contains(id)) {

@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.client.render;
 
+import com.darkifov.thaumcraft.client.render.model.TC4HungryChestModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 /** Inventory/hand renderer for the original TC4 Hungry Chest model. */
 public final class HungryChestItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static HungryChestItemRenderer instance;
+    private TC4HungryChestModel model;
 
     private HungryChestItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -27,9 +29,14 @@ public final class HungryChestItemRenderer extends BlockEntityWithoutLevelRender
     @Override
     public void renderByItem(ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack,
                              MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        if (model == null) {
+            model = new TC4HungryChestModel(
+                    Minecraft.getInstance().getEntityModels().bakeLayer(TC4HungryChestModel.LAYER));
+        }
         poseStack.pushPose();
         applyTransform(transformType, poseStack);
-        HungryChestRenderer.renderStandalone(Direction.SOUTH, 0.0F, poseStack, buffer, packedLight);
+        HungryChestRenderer.renderModel(model, Direction.SOUTH, 0.0F,
+                poseStack, buffer, packedLight, packedOverlay);
         poseStack.popPose();
     }
 

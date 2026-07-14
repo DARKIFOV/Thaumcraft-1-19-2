@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
@@ -21,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * infusion-stabilizer behavior are shared by this class.
  */
 public class TallowCandleBlock extends Block implements InfusionStabilizer {
-    private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 11.0D, 10.0D);
+    private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D);
 
     public TallowCandleBlock(Properties properties) {
         super(properties);
@@ -30,6 +31,12 @@ public class TallowCandleBlock extends Block implements InfusionStabilizer {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         return SHAPE;
+    }
+
+    /** TC4 BlockCandle#getCollisionBoundingBoxFromPool returned null. */
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
     }
 
     @Override

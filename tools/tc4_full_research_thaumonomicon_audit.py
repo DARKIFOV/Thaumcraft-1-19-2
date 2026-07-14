@@ -239,7 +239,7 @@ def main() -> int:
         "dynamic_aspect_catalog": (page_screen, '"ASPECT_CATALOG"', "ClientAspectData.knows"),
         "wand_inventory_66deg": (wand, "TransformType.GUI", "rotationDegrees(66.0F)"),
         "wand_first_person": (wand, "transformType.firstPerson()", "scale(1.00F, 1.10F, 1.00F)"),
-        "wand_mesh_centering": (wand, "MODEL_CENTER_Y", "-MODEL_CENTER_Y"),
+        "wand_mesh_centering": (wand, "translate(0.50D, 1.50D, 0.50D)", "rotationDegrees(180.0F)"),
         "original_browser_tooltip_cues": (screen, "tc.research.purchase", "tc.research.getprim", "tc.forbidden", "ClientAspectData.pool"),
     }
     contract = {}

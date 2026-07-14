@@ -8,13 +8,15 @@ problems = []
 
 wand = (java / "client/render/WandItemRenderer.java").read_text()
 for token in [
-    "left ? -0.11D : 0.11D, 0.06D, 0.02D",
+    "translate(0.50D, 1.50D, 0.50D)",
     "scale(1.00F, 1.10F, 1.00F)",
-    "MODEL_CENTER_Y",
-    "translate(0.0D, -MODEL_CENTER_Y, 0.0D)",
+    "Vector3f.XP.rotationDegrees(180.0F)",
 ]:
     if token not in wand:
-        problems.append(f"held wand transform missing: {token}")
+        problems.append(f"held wand original transform missing: {token}")
+for forbidden in ["MODEL_CENTER_Y", "left ? -0.11D : 0.11D"]:
+    if forbidden in wand:
+        problems.append(f"held wand screenshot regression returned: {forbidden}")
 
 node = (java / "client/render/AuraNodeRenderer.java").read_text()
 node_types = (java / "client/render/TC4NodeRenderTypes.java").read_text()

@@ -321,7 +321,8 @@ public class ThaumometerItem extends Item {
             if (!node.initialized()) {
                 node.initializeFromPosition();
             }
-            if (!canUnderstandScan(player, node.aspects())) {
+            AspectList scanAspects = TC4AuraNodeScanParity.scanRewardAspects(node);
+            if (!canUnderstandScan(player, scanAspects)) {
                 return false;
             }
 
@@ -329,10 +330,10 @@ public class ThaumometerItem extends Item {
             boolean firstPlayerScan = PlayerThaumData.markScannedObject(player, TC4AuraNodeScanParity.LEGACY_OBJECT_ID);
             node.markScanned();
             addScannedNode(stack, pos);
-            int learnedAspects = firstNodeScan ? absorbScannedAspects(player, node.aspects()) : 0;
+            int learnedAspects = firstNodeScan ? absorbScannedAspects(player, scanAspects) : 0;
 
             if (firstNodeScan || firstPlayerScan) {
-                int discovered = OriginalResearchProgression.applyScanTriggers(player, TC4AuraNodeScanParity.ORIGINAL_AURA_NODE_SCAN_KEY, node.aspects().entries().keySet(), null);
+                int discovered = OriginalResearchProgression.applyScanTriggers(player, TC4AuraNodeScanParity.ORIGINAL_AURA_NODE_SCAN_KEY, scanAspects.entries().keySet(), null);
                 if (discovered > 0) {
                     player.displayClientMessage(Component.translatable("thaumcraft.scan.research_revealed", discovered)
                         .withStyle(ChatFormatting.GOLD), false);

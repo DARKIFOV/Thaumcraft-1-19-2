@@ -1,8 +1,40 @@
-# Thaumcraft Legacy Rebuild — v11.62.69
+# Thaumcraft Legacy Rebuild — v11.62.73
+
+## v11.62.73 Magic Mirror / Essentia Mirror / Hand Mirror runtime parity
+
+- Added reciprocal, dimension-safe stationary mirror links with NBT-preserving drops.
+- Ported regular mirror item transport, delayed random output queue, instability decay and Ordo stabilization.
+- Ported the source-only Essentia Mirror with the original forward half-space search radius of eight blocks.
+- Added the original one-slot Hand Mirror menu at slot `(80, 24)` and remote item ejection.
+- Exposed the regular mirror as a Forge `IItemHandler` insertion endpoint for Forge automation and ported golems.
+- Prevented client-side ghost drops when the Hand Mirror GUI closes with an item still in its slot.
+- Added six-face thin block geometry, support checks, linked/unlinked pane models and tube-network integration.
+- Cross-dimension lookups never force-load or generate destination chunks.
 
 Target: **Minecraft 1.19.2 / Forge 43.5.2 / Java 17**.
 
-This revision continues the source-driven port against the supplied TC4 4.2.3.5 reference source. It completes the original Arcane Spa container/screen surface, isolates Purifying Fluid from the vanilla water tag and documents the exact recipe coverage of this subsystem.
+This revision continues the source-driven port against the supplied TC4 4.2.3.5 reference source. It replaces the three mirror placeholders with a linked Forge 1.19.2 runtime subsystem and integrates item and essentia transport with the existing port.
+
+
+## v11.62.72 Brain Jar / infusion XP / valve runtime parity
+
+- replaces the `tc4_jar_brain` migration placeholder with a real BlockEntity-backed Brain in a Jar;
+- ports the original 2000-XP capacity, six-block orb attraction, touch absorption, random click release, break release, NBT sync, comparator output and +2 enchanting power;
+- restores the original animated brain geometry, brine and TC4 brain/jar sounds;
+- fixes infusion-enchantment XP drain so creative players without levels no longer advance the matrix;
+- keeps a powered essentia valve topologically connected while suppressing fresh suction, matching `TileTubeValve`.
+
+## v11.62.71 GUI / infusion parity hotfix
+
+- restores the original TC4 horizontal page offsets: text `x-15`, aspects `x-8`, recipes `x-4`;
+- restores long-title Y scaling from `GuiResearchRecipe`;
+- rebuilds infusion pages around the original `(56,102)` centre, renders every component on the dynamic 40 px ring, and restores original output/input/aspect positions;
+- adds the five omitted original infusion registrations: `JarBrain`, `Mirror`, `MirrorHand`, `MirrorEssentia`, and `TravelTrunk`;
+- corrects `itemTrunkSpawner` and `blockJar:1` legacy resolution so research pages no longer show a wooden golem or ordinary jar as the result;
+- makes project, mod metadata and CI release artifacts consistently report `11.62.71`;
+- adds a source-parity regression guard that rejects the previous shifted-page and eight-component-limit regressions.
+
+Status remains **PARTIAL / STATIC PASS** until Forge compilation and in-game client/dedicated-server tests are completed. Brain in a Jar now has its block/entity runtime; the two mirrors and Traveling Trunk still require their teleportation, inventory and entity behaviour.
 
 ## v11.62.69 CI hotfix 3
 

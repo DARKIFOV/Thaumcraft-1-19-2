@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.69' // TC4 Arcane Spa GUI, isolated fluid tag and recipe parity documentation.
+version = '11.62.73' // Magic Mirror, Essentia Mirror and Hand Mirror runtime parity.
 // v11.62.54 gameplay baseline marker: version = '11.62.54'
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'

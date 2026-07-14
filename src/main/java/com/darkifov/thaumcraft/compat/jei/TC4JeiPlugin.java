@@ -72,6 +72,7 @@ public final class TC4JeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
+        InfusionRecipes.ensureBundledRecipesLoaded();
         registration.addRecipes(ARCANE, List.copyOf(ArcaneWorkbenchRecipes.recipes()));
         registration.addRecipes(ALCHEMY, List.copyOf(AlchemyRecipes.recipes()));
         registration.addRecipes(INFUSION, List.copyOf(InfusionRecipes.recipes()));

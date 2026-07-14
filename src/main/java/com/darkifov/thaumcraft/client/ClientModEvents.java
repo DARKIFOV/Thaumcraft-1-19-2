@@ -5,6 +5,7 @@ import com.darkifov.thaumcraft.client.screen.AlchemicalFurnaceScreen;
 import com.darkifov.thaumcraft.client.screen.ArcaneWorkbenchContainerScreen;
 import com.darkifov.thaumcraft.client.screen.ArcaneSpaScreen;
 import com.darkifov.thaumcraft.client.screen.BottomlessPouchScreen;
+import com.darkifov.thaumcraft.client.screen.HandMirrorScreen;
 import com.darkifov.thaumcraft.client.screen.FocusPouchScreen;
 import com.darkifov.thaumcraft.client.screen.FocalManipulatorScreen;
 import com.darkifov.thaumcraft.client.screen.GolemScreen;
@@ -24,6 +25,7 @@ import com.darkifov.thaumcraft.client.render.AlchemicalCentrifugeRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaCrystalizerRenderer;
 import com.darkifov.thaumcraft.client.render.AuraNodeRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaJarRenderer;
+import com.darkifov.thaumcraft.client.render.BrainJarRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaReservoirRenderer;
 import com.darkifov.thaumcraft.client.render.EssentiaTubeRenderer;
 import com.darkifov.thaumcraft.client.render.InfusionMatrixRenderer;
@@ -47,6 +49,8 @@ import com.darkifov.thaumcraft.client.render.TC4EldritchCrabRenderer;
 import com.darkifov.thaumcraft.client.render.model.TC4EldritchBossLayerDefinitions;
 import com.darkifov.thaumcraft.client.render.model.TC4FireBatModel;
 import com.darkifov.thaumcraft.client.render.model.TC4InfusionMatrixModel;
+import com.darkifov.thaumcraft.client.render.model.TC4HungryChestModel;
+import com.darkifov.thaumcraft.client.render.model.TC4BrainJarModel;
 import com.darkifov.thaumcraft.client.render.model.TC4ThaumGolemModel;
 import com.darkifov.thaumcraft.client.render.model.TC4GolemAccessoriesModel;
 import com.darkifov.thaumcraft.client.render.TC4EldritchWardenRenderer;
@@ -103,6 +107,9 @@ public final class ClientModEvents {
             // v11.62.8 jar visual parity: TC4 jars use translucent glass and a
             // block-entity liquid/label overlay, not an opaque full cube.
             ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.ESSENTIA_JAR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.BRAIN_JAR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.MAGIC_MIRROR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.ESSENTIA_MIRROR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.VOID_ESSENTIA_JAR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ThaumcraftMod.NITOR_LIGHT.get(), RenderType.cutout());
@@ -142,6 +149,7 @@ public final class ClientModEvents {
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_CRYSTALIZER_BLOCK_ENTITY.get(), blockEntityRenderer(EssentiaCrystalizerRenderer::new));
             BlockEntityRenderers.register(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), blockEntityRenderer(AuraNodeRenderer::new));
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_JAR_BLOCK_ENTITY.get(), blockEntityRenderer(EssentiaJarRenderer::new));
+            BlockEntityRenderers.register(ThaumcraftMod.BRAIN_JAR_BLOCK_ENTITY.get(), blockEntityRenderer(BrainJarRenderer::new));
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_RESERVOIR_BLOCK_ENTITY.get(), blockEntityRenderer(EssentiaReservoirRenderer::new));
             BlockEntityRenderers.register(ThaumcraftMod.ESSENTIA_TUBE_BLOCK_ENTITY.get(), blockEntityRenderer(EssentiaTubeRenderer::new));
             BlockEntityRenderers.register(ThaumcraftMod.CRUCIBLE_BLOCK_ENTITY.get(), blockEntityRenderer(CrucibleRenderer::new));
@@ -194,6 +202,7 @@ public final class ClientModEvents {
             MenuScreens.register(ThaumcraftMod.OSMOTIC_ENCHANTER_MENU.get(), screenConstructor(OsmoticEnchanterScreen::new));
             MenuScreens.register(ThaumcraftMod.TRANSVECTOR_INTERFACE_MENU.get(), screenConstructor(TransvectorInterfaceScreen::new));
             MenuScreens.register(ThaumcraftMod.BOTTOMLESS_POUCH_MENU.get(), screenConstructor(BottomlessPouchScreen::new));
+            MenuScreens.register(ThaumcraftMod.HAND_MIRROR_MENU.get(), screenConstructor(HandMirrorScreen::new));
             MenuScreens.register(ThaumcraftMod.FOCUS_POUCH_MENU.get(), screenConstructor(FocusPouchScreen::new));
             MenuScreens.register(ThaumcraftMod.GOLEM_MENU.get(), screenConstructor(GolemScreen::new));
         });
@@ -307,6 +316,8 @@ public final class ClientModEvents {
     public static void onRegisterLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(TC4FireBatModel.LAYER, TC4FireBatModel::createBodyLayer);
         event.registerLayerDefinition(TC4InfusionMatrixModel.LAYER, TC4InfusionMatrixModel::createBodyLayer);
+        event.registerLayerDefinition(TC4HungryChestModel.LAYER, TC4HungryChestModel::createBodyLayer);
+        event.registerLayerDefinition(TC4BrainJarModel.LAYER, TC4BrainJarModel::createBodyLayer);
         event.registerLayerDefinition(TC4ThaumGolemModel.LAYER, TC4ThaumGolemModel::createBodyLayer);
         event.registerLayerDefinition(TC4GolemAccessoriesModel.LAYER, TC4GolemAccessoriesModel::createBodyLayer);
         event.registerLayerDefinition(TC4EldritchBossLayerDefinitions.ELDRITCH_GUARDIAN, TC4EldritchBossLayerDefinitions::createGuardianBodyLayer);

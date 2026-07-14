@@ -199,7 +199,7 @@ public final class TC4RecipeItemResolver {
         ITEM_DIRECT.put("itemSwordVoid", "thaumcraft:tc4_voidsword");
         ITEM_DIRECT.put("itemThaumometer", "thaumcraft:thaumometer");
         ITEM_DIRECT.put("itemThaumonomicon", "thaumcraft:thaumonomicon");
-        ITEM_DIRECT.put("itemTrunkSpawner", "thaumcraft:tc4_golem_wood");
+        ITEM_DIRECT.put("itemTrunkSpawner", "thaumcraft:tc4_travel_trunk");
         ITEM_DIRECT.put("itemWispEssence", "thaumcraft:tc4_wispessence");
         ITEM_DIRECT.put("itemZombieBrain", "thaumcraft:tc4_brain");
         BLOCK_META.put("blockCosmeticSolid:0", "thaumcraft:tc4_block_obsidian_tile");
@@ -222,6 +222,7 @@ public final class TC4RecipeItemResolver {
         BLOCK_META.put("blockCustomPlant:4", "thaumcraft:tc4_block_ethereal_bloom");
         BLOCK_META.put("blockCustomPlant:5", "thaumcraft:tc4_block_vishroom");
         BLOCK_META.put("blockCosmeticOpaque:2", "thaumcraft:warded_glass");
+        BLOCK_META.put("blockJar:1", "thaumcraft:tc4_jar_brain");
         BLOCK_META.put("blockJar:3", "thaumcraft:void_essentia_jar");
         BLOCK_META.put("blockChestHungry:*", "thaumcraft:hungry_chest");
         BLOCK_META.put("blockMirror:0", "thaumcraft:tc4_mirrorframe");
@@ -247,15 +248,15 @@ public final class TC4RecipeItemResolver {
         BLOCK_META.put("blockMetalDevice:12", "thaumcraft:mnemonic_matrix"); // Stage523-542 runtime replacement for TC4 mnemonic matrix
         BLOCK_META.put("blockMetalDevice:13", "thaumcraft:tc4_block_lamp_fertility");
         BLOCK_META.put("blockSlabStone:0", "thaumcraft:tc4_block_arcane_stone_slab");
-        BLOCK_META.put("blockStoneDevice:1", "thaumcraft:tc4_block_arcane_pedestal");
-        BLOCK_META.put("blockStoneDevice:2", "thaumcraft:tc4_block_infusion_matrix");
+        BLOCK_META.put("blockStoneDevice:1", "thaumcraft:arcane_pedestal");
+        BLOCK_META.put("blockStoneDevice:2", "thaumcraft:infusion_matrix");
         BLOCK_META.put("blockStoneDevice:5", "thaumcraft:tc4_block_wand_pedestal");
         BLOCK_META.put("blockStoneDevice:8", "thaumcraft:tc4_block_wand_pedestal_focus");
-        BLOCK_META.put("blockStoneDevice:9", "thaumcraft:tc4_block_node_stabilizer");
-        BLOCK_META.put("blockStoneDevice:10", "thaumcraft:tc4_block_node_stabilizer_advanced");
-        BLOCK_META.put("blockStoneDevice:11", "thaumcraft:tc4_block_node_transducer");
-        BLOCK_META.put("blockStoneDevice:12", "thaumcraft:tc4_block_arcane_spa");
-        BLOCK_META.put("blockStoneDevice:13", "thaumcraft:tc4_block_focal_manipulator");
+        BLOCK_META.put("blockStoneDevice:9", "thaumcraft:node_stabilizer");
+        BLOCK_META.put("blockStoneDevice:10", "thaumcraft:advanced_node_stabilizer");
+        BLOCK_META.put("blockStoneDevice:11", "thaumcraft:node_transducer");
+        BLOCK_META.put("blockStoneDevice:12", "thaumcraft:arcane_spa");
+        BLOCK_META.put("blockStoneDevice:13", "thaumcraft:focal_manipulator");
         BLOCK_META.put("blockStoneDevice:14", "thaumcraft:tc4_block_flux_scrubber");
         BLOCK_META.put("blockTable:14", "thaumcraft:deconstruction_table");
         BLOCK_META.put("blockTable:*", "thaumcraft:table");

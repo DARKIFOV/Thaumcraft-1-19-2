@@ -29,13 +29,15 @@ wand = (java / 'client/render/WandItemRenderer.java').read_text()
 for token in ['RenderType.entityTranslucent(rodTexture)',
               'renderModelBoxColor',
               '0, 8, 2, 18, 2',
-              'poseStack.translate(left ? -0.11D : 0.11D, 0.06D, 0.02D)',
+              'poseStack.translate(0.50D, 1.50D, 0.50D)',
               'poseStack.scale(1.00F, 1.10F, 1.00F)',
-              'MODEL_CENTER_Y',
-              'poseStack.translate(0.0D, -MODEL_CENTER_Y, 0.0D)',
-              'poseStack.translate(0.0D, 0.20D, 0.0D)']:
+              'poseStack.translate(0.0D, 0.20D, 0.0D)',
+              'Vector3f.XP.rotationDegrees(180.0F)']:
     if token not in wand:
-        problems.append(f'wand renderer lost original ModelWand adapter: {token}')
+        problems.append(f'wand renderer lost original TC4 ModelWand adapter: {token}')
+for forbidden in ['MODEL_CENTER_Y', 'left ? -0.11D : 0.11D']:
+    if forbidden in wand:
+        problems.append(f'wand renderer retained the screenshot-regression transform: {forbidden}')
 
 block = (java / 'block/ResearchTableBlock.java').read_text()
 table = (java / 'client/render/ResearchTableRenderer.java').read_text()
@@ -84,4 +86,4 @@ if problems:
     for problem in problems:
         print(' -', problem)
     raise SystemExit(1)
-print('Leaves/Wand/Research Table guard: OK (LeavesBlock states, visible first-person ModelWand UVs, original two-block BER)')
+print('Leaves/Wand/Research Table guard: OK (LeavesBlock states, restored TC4 ModelWand transforms and UVs, original two-block BER)')

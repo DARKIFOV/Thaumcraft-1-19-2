@@ -48,7 +48,8 @@ thaumometer = read("src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.
 for token in (
     "canUnderstandScan(player, aspects)",
     "firstPlayerScan ? absorbScannedAspects(player, aspects) : 0",
-    "firstNodeScan ? absorbScannedAspects(player, node.aspects()) : 0",
+    "AspectList scanAspects = TC4AuraNodeScanParity.scanRewardAspects(node)",
+    "firstNodeScan ? absorbScannedAspects(player, scanAspects) : 0",
     "!aspect.isPrimal() && !ResearchTableFoundation.componentsKnown(player, aspect)",
     "boolean discoveredNow = PlayerAspectKnowledge.discover(player, aspect)",
     "int reward = Math.max(0, entry.getValue()) + (discoveredNow ? 2 : 0)",
@@ -56,6 +57,17 @@ for token in (
 ):
     require(thaumometer, token, "Thaumometer scan rewards")
 forbid(thaumometer, "int reward = 1 + (discoveredNow ? 2 : 0)", "Thaumometer must use original @-scan magnitude")
+
+node_scan = read("src/main/java/com/darkifov/thaumcraft/aura/TC4AuraNodeScanParity.java")
+for token in (
+    "Math.max(4, entry.getValue() / 10)",
+    "case UNSTABLE -> rewards.add(Aspect.PERDITIO, 4)",
+    "case HUNGRY -> rewards.add(Aspect.FAMES, 4)",
+    "case TAINTED -> rewards.add(Aspect.VITIUM, 4)",
+    "case PURE -> rewards.add(Aspect.SANO, 2).add(Aspect.ORDO, 2)",
+    "case DARK -> rewards.add(Aspect.MORTUUS, 2).add(Aspect.TENEBRAE, 2)",
+):
+    require(node_scan, token, "TC4 node scan reward parity")
 
 layout = read("src/main/java/com/darkifov/thaumcraft/client/screen/OriginalResearchLayout.java")
 require(layout, "static boolean special(ResearchEntry entry)", "research flags")
@@ -101,7 +113,7 @@ for token in (
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116251_research_scan_hud_guard.py", workflow_name)
-    require(workflow, "reports/*11.62.69*.json", workflow_name)
+    require(workflow, "reports/*11.62.73*.json", workflow_name)
     if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
         ERRORS.append(f"{workflow_name}: historical report must not be required by clean CI")
 

@@ -97,14 +97,14 @@ public class TC4ResearchPageScreen extends Screen {
                 0, 0, BOOK_SOURCE_WIDTH, BOOK_SOURCE_HEIGHT,
                 BOOK_DRAW_WIDTH, BOOK_DRAW_HEIGHT, 512, 512);
 
-        // GuiResearchRecipe 4.2.3.5 keeps the content at native scale while
-        // only the parchment background is enlarged to 130%. Its page columns
-        // start at sw-15 and sw+137 (152 px apart), both 139 px wide.
+        // GuiResearchRecipe 4.2.3.5 keeps content coordinates anchored at
+        // sw/sh while only the parchment is scaled. The former -15/-10 offset
+        // shifted recipe cards and text outside the original page columns.
         if (pageIndex == 0) {
             renderResearchTitle(poseStack);
         }
-        renderPage(poseStack, leftPos - 15, topPos - 10, pageIndex);
-        renderPage(poseStack, leftPos + 137, topPos - 10, pageIndex + 1);
+        renderPage(poseStack, leftPos, topPos, pageIndex);
+        renderPage(poseStack, leftPos + 152, topPos, pageIndex + 1);
         renderOriginalNavigationHotspots(poseStack, mouseX, mouseY);
         renderBookHoverTooltip(poseStack, mouseX, mouseY);
         super.render(poseStack, mouseX, mouseY, partialTick);
@@ -115,30 +115,50 @@ public class TC4ResearchPageScreen extends Screen {
             return;
         }
         PageRef page = pageAt(idx);
-        int titleExtra = idx == 0 && pageIndex == 0
-                ? Math.max(0, font.split(researchNameComponent(entry), PAGE_WIDTH - 8).size() - 1) * 10
-                : 0;
-        int pageY = y + ((idx == 0 && pageIndex == 0) ? 25 + titleExtra : 0);
-        // v11.62.6: hard clip every physical page.  This prevents TC4 legacy
-        // IMG tags, item cards and long translated strings from bleeding across
-        // the spine/right page like the broken screenshots showed.
-        withPageScissor(x - 5, pageY - 8, PAGE_WIDTH + 10, PAGE_HEIGHT + 14, () -> {
+        boolean firstPageWithTitle = idx == 0 && pageIndex == 0;
+        // GuiResearchRecipe.drawPage always advances exactly 25 pixels for the
+        // first-page title, then calls text at y-10 and every recipe renderer at
+        // y-8.  The rebuild previously omitted those final offsets and also
+        // added a synthetic wrapped-title offset, shifting both book columns.
+        int baseY = y + (firstPageWithTitle ? 25 : 0);
+        boolean aspectPage = "ASPECTS".equalsIgnoreCase(page.type())
+                || "ASPECT_CATALOG".equalsIgnoreCase(page.type());
+        int pageY = baseY + (page.recipe() || aspectPage ? -8 : -10);
+        // Exact GuiResearchRecipe.drawPage offsets: text x-15, aspects x-8,
+        // every recipe renderer x-4. The previous v11.62.70 guard accidentally
+        // preserved x for text and shifted both parchment columns to the right.
+        int pageX = x + (page.recipe() ? -4 : aspectPage ? -8 : -15);
+        // Include the original negative text margin and the infusion instability
+        // line at y+194 while still preventing cross-spine bleed.
+        withPageScissor(x - 18, y - 10, PAGE_WIDTH + 23, PAGE_HEIGHT + 39, () -> {
             if (page.recipe()) {
-                renderRecipePage(poseStack, x, pageY, page.type(), page.value(), page.recipeKeys());
+                renderRecipePage(poseStack, pageX, pageY, page.type(), page.value(), page.recipeKeys());
             } else {
-                renderTextPage(poseStack, x, pageY, page.type(), page.value());
+                renderTextPage(poseStack, pageX, pageY, page.type(), page.value());
             }
         });
     }
 
     private void renderResearchTitle(PoseStack poseStack) {
-        int pageX = leftPos - 15;
-        List<FormattedCharSequence> lines = font.split(researchNameComponent(entry), PAGE_WIDTH - 8);
-        int y = topPos - 7;
-        for (FormattedCharSequence line : lines) {
-            font.draw(poseStack, line, pageX + (PAGE_WIDTH - font.width(line)) / 2.0F, y, PAGE_TEXT_COLOR);
-            y += 10;
+        // GuiResearchRecipe.drawPage: two 96x4 flourishes and a title centred
+        // around x+52. Long names are scaled to 130 pixels; they are not wrapped,
+        // because wrapping moved the first recipe/text page down unpredictably.
+        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 4, topPos - 13, BOOK,
+                24, 184, 96, 4, 512, 512);
+        OriginalGuiTextures.blitOriginalRegion(poseStack, leftPos + 4, topPos + 4, BOOK,
+                24, 184, 96, 4, 512, 512);
+        Component title = researchNameComponent(entry);
+        int width = font.width(title);
+        if (width <= 130) {
+            font.draw(poseStack, title, leftPos + 52 - width / 2.0F, topPos - 6, PAGE_TEXT_COLOR);
+            return;
         }
+        float scale = 130.0F / width;
+        poseStack.pushPose();
+        poseStack.translate(leftPos + 52 - width * scale / 2.0F, topPos - 6.0F * scale, 0.0D);
+        poseStack.scale(scale, scale, 1.0F);
+        font.draw(poseStack, title, 0.0F, 0.0F, PAGE_TEXT_COLOR);
+        poseStack.popPose();
     }
 
     private void withPageScissor(int x, int y, int w, int h, Runnable draw) {
@@ -500,29 +520,64 @@ public class TC4ResearchPageScreen extends Screen {
 
     private void renderInfusionBookPage(PoseStack poseStack, int x, int y, TC4RecipeRuntimeBridge.OriginalRecipe recipe) {
         renderRecipeFrameTitle(poseStack, x, y, I18n.get("thaumcraft.gui.recipe.infusion"));
-        int centerX = x + 60;
-        int centerY = y + 70;
-        renderBookSlot(poseStack, centerX - 10, centerY - 10, true);
-        renderResolvedItemIcon(poseStack, recipe.catalystExpression(), centerX - 8, centerY - 8);
-        renderBookSlot(poseStack, x + 115, y + 45, true);
-        renderResolvedItemIcon(poseStack, recipe.resultExpression(), x + 117, y + 47);
-        drawString(poseStack, font, Component.literal("→"), x + 101, y + 55, PAGE_ACCENT_COLOR);
-        renderInfusionComponentsRing(poseStack, centerX, centerY, recipe.components());
-        renderAspectCostIcons(poseStack, x + 8, y + 134, recipe);
+
+        // GuiResearchRecipe.drawInfusionPage: output at (48,28), catalyst at
+        // (48,94), and the component circle centred at (56,102).
+        renderBookSlot(poseStack, x + 46, y + 26, true);
+        renderResolvedItemIcon(poseStack, recipe.resultExpression(), x + 48, y + 28);
+        renderBookSlot(poseStack, x + 46, y + 92, true);
+        renderResolvedItemIcon(poseStack, recipe.catalystExpression(), x + 48, y + 94);
+        renderInfusionComponentsRing(poseStack, x + 56, y + 102, recipe.components());
+        renderInfusionAspectCostIcons(poseStack, x, y, recipe);
+
         if (recipe.instability() != null && !recipe.instability().isBlank()) {
-            drawString(poseStack, font, Component.translatable("thaumcraft.gui.recipe.instability", recipe.instability()), x + 14, y + 119, PAGE_ACCENT_COLOR);
+            drawCenteredString(poseStack, font,
+                    Component.translatable("thaumcraft.gui.recipe.instability", recipe.instability()),
+                    x + 56, y + 194, PAGE_ACCENT_COLOR);
         }
     }
 
     private void renderInfusionComponentsRing(PoseStack poseStack, int cx, int cy, String[] components) {
-        int limit = Math.min(8, components.length);
-        double[] xs = {0, 31, 45, 31, 0, -31, -45, -31};
-        double[] ys = {-34, -24, 0, 24, 34, 24, 0, -24};
-        for (int i = 0; i < limit; i++) {
-            int sx = cx + (int)xs[i] - 9;
-            int sy = cy + (int)ys[i] - 9;
-            renderBookSlot(poseStack, sx, sy, false);
-            renderResolvedItemIcon(poseStack, components[i], sx + 1, sy + 1);
+        if (components.length == 0) {
+            return;
+        }
+        double pieSlice = 360.0D / components.length;
+        double currentRotation = -90.0D;
+        for (String component : components) {
+            double radians = Math.toRadians(currentRotation);
+            int iconX = cx + (int)(Math.cos(radians) * 40.0D) - 8;
+            int iconY = cy + (int)(Math.sin(radians) * 40.0D) - 8;
+            renderBookSlot(poseStack, iconX - 2, iconY - 2, false);
+            renderResolvedItemIcon(poseStack, component, iconX, iconY);
+            currentRotation += pieSlice;
+        }
+    }
+
+    private void renderInfusionAspectCostIcons(PoseStack poseStack, int x, int y, TC4RecipeRuntimeBridge.OriginalRecipe recipe) {
+        String[] costs = recipe.aspectCosts();
+        if (costs.length == 0) {
+            return;
+        }
+        int rows = (costs.length - 1) / 5;
+        int shift = (5 - costs.length % 5) * 10;
+        int startX = x + 8;
+        int startY = y + 164 - 10 * rows;
+        for (int i = 0; i < costs.length; i++) {
+            String[] parts = costs[i].split(":");
+            Aspect aspect = parts.length > 0 ? Aspect.byId(parts[0].trim()) : null;
+            if (aspect == null) {
+                continue;
+            }
+            int finalRowShift = (i / 5 >= rows && (rows > 1 || costs.length < 5)) ? shift : 0;
+            int sx = startX + (i % 5) * 20 + finalRowShift;
+            int sy = startY + (i / 5) * 20;
+            ResourceLocation icon = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + aspect.id() + ".png");
+            OriginalGuiTextures.blitOriginalTinted(poseStack, sx, sy, icon, 16, 16, aspect.nativeColor());
+            String amount = parts.length > 1 ? parts[1].trim() : "";
+            if (!amount.isBlank()) {
+                drawString(poseStack, font, amount, sx + 10, sy + 9, PAGE_TEXT_COLOR);
+            }
+            registerAspectHover(sx, sy, aspect, amount);
         }
     }
 
@@ -618,8 +673,8 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private void renderRecipeFrameTitle(PoseStack poseStack, int x, int y, String title) {
-        drawCenteredString(poseStack, font, Component.literal(title), x + PAGE_WIDTH / 2, y + 14, PAGE_ACCENT_COLOR);
-        fill(poseStack, x + 18, y + 27, x + PAGE_WIDTH - 18, y + 28, 0x665A3515);
+        drawCenteredString(poseStack, font, Component.literal(title), x + 56, y + 14, PAGE_ACCENT_COLOR);
+        fill(poseStack, x + 4, y + 27, x + 108, y + 28, 0x665A3515);
     }
 
     private void renderBookSlot(PoseStack poseStack, int x, int y, boolean highlight) {

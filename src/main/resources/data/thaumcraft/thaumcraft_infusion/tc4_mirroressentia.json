@@ -1,0 +1,24 @@
+{
+  "tc4_key": "MirrorEssentia",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "MIRRORESSENTIA",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_mirrorglass",
+  "components": [
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:diamond",
+    "minecraft:ender_pearl"
+  ],
+  "aspects": {
+    "ITER": 8,
+    "AQUA": 8,
+    "PERMUTATIO": 8
+  },
+  "instability": 2,
+  "result": {
+    "item": "thaumcraft:tc4_mirrorframe2",
+    "count": 1
+  },
+  "v11_62_71_strict_original": true
+}

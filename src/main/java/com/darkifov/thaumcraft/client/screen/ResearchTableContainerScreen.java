@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.block.ResearchNoteItem;
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
 import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.client.ClientResearchNoteData;
+import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.menu.ResearchTableMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -693,14 +694,15 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
     }
 
     private boolean hasResearchExpertise() {
-        return minecraft != null && minecraft.player != null
-                && (PlayerThaumData.hasResearch(minecraft.player, "RESEARCHER1")
-                || PlayerThaumData.hasResearch(minecraft.player, "RESEARCHER2"));
+        // ResearchSyncPacket fills ClientResearchData. Reading Player persistent
+        // data on the logical client left RESEARCHER1/2 permanently false after
+        // login, so Expertise tooltips and Mastery shift-combination never ran.
+        return ClientResearchData.hasResearch("RESEARCHER1")
+                || ClientResearchData.hasResearch("RESEARCHER2");
     }
 
     private boolean hasResearchMastery() {
-        return minecraft != null && minecraft.player != null
-                && PlayerThaumData.hasResearch(minecraft.player, "RESEARCHER2");
+        return ClientResearchData.hasResearch("RESEARCHER2");
     }
 
     private ItemStack currentNote() {

@@ -59,15 +59,13 @@ if [e.get("from") for e in table.get("elements", [])] != [[0, 12, 0], [10, 4, 6]
 
 workbench = load_json("src/main/resources/assets/thaumcraft/models/block/arcane_workbench.json")
 workbench_textures = workbench.get("textures", {})
-if workbench_textures.get("top") != "thaumcraft:block/arcane_workbench_top":
-    ERRORS.append("arcane workbench: expected the green arcane_workbench_top texture")
-if workbench_textures.get("side") != "thaumcraft:block/arcane_workbench_side":
-    ERRORS.append("arcane workbench: expected the dedicated arcane_workbench_side texture")
+if workbench_textures.get("worktable") != "thaumcraft:original/thaumcraft4/models/worktable":
+    ERRORS.append("arcane workbench: expected the original TC4 models/worktable atlas")
 if len(workbench.get("elements", [])) != 6:
-    ERRORS.append("arcane workbench: expected tabletop, four legs and front ornament")
+    ERRORS.append("arcane workbench: expected original tabletop, four legs and front ornament")
 el0 = workbench.get("elements", [{}])[0] if workbench.get("elements") else {}
-if el0.get("faces", {}).get("up", {}).get("texture") != "#top":
-    ERRORS.append("arcane workbench: tabletop upper face must use the green #top texture")
+if el0.get("faces", {}).get("up", {}).get("texture") != "#worktable":
+    ERRORS.append("arcane workbench: tabletop upper face must use the original #worktable atlas")
 
 matrix_model = read("src/main/java/com/darkifov/thaumcraft/client/render/model/TC4InfusionMatrixModel.java")
 for token in ("texOffs(0, 0)", "texOffs(0, 32)", "LayerDefinition.create(mesh, 64, 64)"):
@@ -85,8 +83,10 @@ if ("event.getCamera().rotation()" not in node_overlay
 forbid(node_overlay, 'textures/original/thaumcraft4/gui/hud.png', "node goggles overlay")
 
 wand_renderer = read("src/main/java/com/darkifov/thaumcraft/client/render/WandItemRenderer.java")
-for token in ("transformType.firstPerson()", "0.06D, 0.02D", "scale(1.00F, 1.10F, 1.00F)", "MODEL_CENTER_Y", "Vector3f.XP.rotationDegrees(180.0F)"):
+for token in ("transformType.firstPerson()", "translate(0.50D, 1.50D, 0.50D)", "scale(1.00F, 1.10F, 1.00F)", "Vector3f.XP.rotationDegrees(180.0F)"):
     require(wand_renderer, token, "WandItemRenderer")
+for token in ("MODEL_CENTER_Y", "left ? -0.11D : 0.11D"):
+    forbid(wand_renderer, token, "WandItemRenderer")
 node_renderer = read("src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java")
 require(node_renderer, "boolean holdingWand", "AuraNodeRenderer drain beam")
 forbid(node_renderer, "!player.isUsingItem()", "AuraNodeRenderer drain beam")
@@ -107,8 +107,10 @@ packet = read("src/main/java/com/darkifov/thaumcraft/network/RequestThaumometerS
 forbid(packet, "TC4ThaumometerTargeting.target(player", "Thaumometer packet must not repeat exact server ray")
 
 book = read("src/main/java/com/darkifov/thaumcraft/client/screen/TC4ResearchPageScreen.java")
-for token in ("PAGE_WIDTH = 139", "leftPos - 15", "leftPos + 137", "renderCompoundBlueprint", "resolveLegacyStack(expression)"):
+for token in ("PAGE_WIDTH = 139", "renderPage(poseStack, leftPos, topPos", "renderPage(poseStack, leftPos + 152, topPos", "renderCompoundBlueprint", "resolveLegacyStack(expression)"):
     require(book, token, "TC4ResearchPageScreen")
+for token in ("leftPos - 15", "leftPos + 137"):
+    forbid(book, token, "TC4ResearchPageScreen shifted legacy columns")
 bridge = read("src/main/java/com/darkifov/thaumcraft/recipe/TC4RecipeRuntimeBridge.java")
 for token in ('"3", "4", "3"', '"IGNIS:70"', '"PERDITIO:70"'):
     require(bridge, token, "NodeJar compound blueprint")
@@ -119,7 +121,7 @@ if resolver.find("resolveFunctionalBlockStack(compact)") > resolver.find("resolv
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116250_runtime_screenshot_guard.py", workflow_name)
-    require(workflow, "reports/*11.62.69*.json", workflow_name)
+    require(workflow, "reports/*11.62.73*.json", workflow_name)
     if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
         ERRORS.append(f"{workflow_name}: historical report must not be required by clean CI")
 

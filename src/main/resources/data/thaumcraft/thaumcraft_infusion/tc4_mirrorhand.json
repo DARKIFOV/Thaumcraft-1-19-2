@@ -1,0 +1,22 @@
+{
+  "tc4_key": "MirrorHand",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "MIRRORHAND",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:tc4_mirrorframe",
+  "components": [
+    "minecraft:iron_ingot",
+    "minecraft:leather",
+    "minecraft:glass_bottle"
+  ],
+  "aspects": {
+    "INSTRUMENTUM": 16,
+    "ITER": 16
+  },
+  "instability": 5,
+  "result": {
+    "item": "thaumcraft:tc4_mirrorhand",
+    "count": 1
+  },
+  "v11_62_71_strict_original": true
+}
