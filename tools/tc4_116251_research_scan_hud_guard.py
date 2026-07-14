@@ -101,8 +101,9 @@ for token in (
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116251_research_scan_hud_guard.py", workflow_name)
-    if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow) is None:
-        ERRORS.append(f"{workflow_name}: missing consolidated expert report")
+    require(workflow, "reports/*11.62.69*.json", workflow_name)
+    if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
+        ERRORS.append(f"{workflow_name}: historical report must not be required by clean CI")
 
 if ERRORS:
     print("v11.62.51 research/scan/HUD guard: FAIL")

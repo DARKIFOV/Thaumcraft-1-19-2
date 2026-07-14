@@ -6,13 +6,13 @@ import argparse
 import hashlib
 import json
 import re
+import struct
 import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src/main/resources/data/thaumcraft/tc4_source_mapping/tc4_original_research_entries_stage116.json"
@@ -48,6 +48,19 @@ def sha256(path: Path) -> str:
 
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def png_size(path: Path) -> tuple[int, int]:
+    """Read PNG dimensions without third-party packages.
+
+    TC4 audit assets are PNG files. Reading the signature and IHDR chunk keeps
+    the CI audit self-contained and avoids a hidden Pillow dependency.
+    """
+    with path.open("rb") as stream:
+        header = stream.read(24)
+    if len(header) < 24 or header[:8] != b"\x89PNG\r\n\x1a\n" or header[12:16] != b"IHDR":
+        raise ValueError(f"not a valid PNG with an IHDR header: {path}")
+    return struct.unpack(">II", header[16:24])
 
 
 def parse_icon_map() -> dict[str, dict[str, str]]:
@@ -143,8 +156,7 @@ def main() -> int:
         path = ASSETS / rel
         row: dict[str, Any] = {"path": rel, "exists": path.is_file()}
         if path.is_file():
-            with Image.open(path) as image:
-                row["width"], row["height"] = image.size
+            row["width"], row["height"] = png_size(path)
             row["sha256"] = sha256(path)
         else:
             problems.append("missing original Thaumonomicon GUI asset: " + rel)
@@ -172,8 +184,7 @@ def main() -> int:
             icon_rel = f"{icon['namespace']}:{icon['path']}"
             icon_exists = bool(path and path.is_file())
             if icon_exists and path:
-                with Image.open(path) as image:
-                    icon_size = list(image.size)
+                icon_size = list(png_size(path))
         if not icon_exists:
             missing_texture_count += 1
             problems.append(f"{key}: missing mapped research icon texture {icon_rel or '<unmapped>'}")

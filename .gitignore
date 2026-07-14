@@ -10,3 +10,6 @@ run-*/
 .vscode/
 bin/
 out/
+/reports/
+__pycache__/
+*.pyc

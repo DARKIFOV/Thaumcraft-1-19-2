@@ -39,8 +39,8 @@ def main() -> int:
     repair_tag = json.loads(repair_tag_path.read_text(encoding="utf-8"))
     en = json.loads((root / "src/main/resources/assets/thaumcraft/lang/en_us.json").read_text(encoding="utf-8"))
     ru = json.loads((root / "src/main/resources/assets/thaumcraft/lang/ru_ru.json").read_text(encoding="utf-8"))
-    arcane_report = json.loads((root / "reports/tc4_arcane_recipe_full_mapping_v11.62.66.json").read_text(encoding="utf-8"))
-    infusion_report = json.loads((root / "reports/tc4_infusion_enchantment_coverage_v11.62.66.json").read_text(encoding="utf-8"))
+    arcane_report = json.loads((root / "tools/data/tc4_arcane_recipe_full_mapping_v11.62.66.json").read_text(encoding="utf-8"))
+    infusion_report = json.loads((root / "tools/data/tc4_infusion_enchantment_coverage_v11.62.66.json").read_text(encoding="utf-8"))
 
     check("version", f"version = '{args.version}'" in build, args.version, failures, checks)
     check("arcane_literal_shaped", arcane_report.get("literal_shaped_call_sites") == 84, "84 literal shaped call sites", failures, checks)

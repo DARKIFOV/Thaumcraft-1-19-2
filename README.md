@@ -149,6 +149,8 @@ Status remains **PARTIAL / STATIC PASS** until Gradle compilation and in-game ru
 
 ## Validation
 
+The committed CI audits use only the Python standard library; no third-party Python packages are required.
+
 ```bash
 python3 tools/java_syntax_guard.py
 python3 tools/validate_json_resources.py
@@ -189,7 +191,7 @@ Expected output:
 build/libs/thaumcraft_legacy_rebuild_1.19.2-11.62.69.jar
 ```
 
-See `THAUMCRAFT_LEGACY_REBUILD_V11_62_54_EXPERT_FULL_TECHNICAL_REPORT_R8.md` for the consolidated expert report, crash diagnosis and remaining work.
+Audit reports are generated on demand into `reports/` and are not stored in the source archive.
 
 ## v11.62.54-hotfix1
 
