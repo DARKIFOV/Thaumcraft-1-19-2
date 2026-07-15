@@ -80,7 +80,7 @@ public class TemporaryHoleBlock extends BaseEntityBlock {
     }
 
     public static boolean canReplace(Level level, BlockPos pos, BlockState state, Player owner) {
-        // Forge 1.19.2 equivalent of the legacy state.canBeReplaced() check.
+        // Forge 1.19.2 equivalent of the legacy block-replaceability check.
         if (state.isAir() || state.getMaterial().isReplaceable() || state.is(Blocks.BEDROCK)
                 || state.is(ThaumcraftMod.TEMPORARY_HOLE.get())
                 || state.is(PORTABLE_HOLE_BLACKLIST)) return false;

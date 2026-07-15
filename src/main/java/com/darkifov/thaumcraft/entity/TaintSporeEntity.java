@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -71,7 +72,7 @@ public class TaintSporeEntity extends Monster {
             setSporeSize(getSporeSize() + 1);
             growth = 0;
         }
-        BlockPos stem = BlockPos.containing(getX(), getBoundingBox().minY - 0.05D, getZ()).below();
+        BlockPos stem = new BlockPos(Mth.floor(getX()), Mth.floor(getBoundingBox().minY - 0.05D), Mth.floor(getZ())).below();
         BlockState state = level.getBlockState(stem);
         if (!state.is(ThaumcraftMod.TAINT_FIBRES.get()) || state.getValue(TaintFibresBlock.AGE) != 4 || isDeadOrDying()) {
             spiderBurst(stem);

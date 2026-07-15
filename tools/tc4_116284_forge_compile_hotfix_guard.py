@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for CI run 79587666588 compile blockers fixed in v11.62.84."""
+"""Regression guard for CI run 79602857964 compile blockers fixed in v11.62.84."""
 from pathlib import Path
 import sys
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,16 +22,19 @@ def forbid(rel, token):
 need("build.gradle", "version = '11.62.84'")
 need("src/main/resources/META-INF/mods.toml", 'version="11.62.84"')
 trunk="src/main/java/com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java"
-need(trunk, "import net.minecraft.world.entity.TamableAnimal;")
-need(trunk, "extends TamableAnimal")
-need(trunk, "TamableAnimal.createMobAttributes()")
-forbid(trunk, "net.minecraft.world.entity.animal.TamableAnimal")
-runtime="src/main/java/com/darkifov/thaumcraft/taint/TaintSpreadRuntime.java"
+need(trunk, "public InteractionResult mobInteract(Player player, InteractionHand hand)")
+forbid(trunk, "protected InteractionResult mobInteract(Player player, InteractionHand hand)")
 spore="src/main/java/com/darkifov/thaumcraft/entity/TaintSporeEntity.java"
-need(runtime, "public static boolean isColumnTainted(ServerLevel level, BlockPos pos)")
-need(runtime, "return isColumnTainted(level, pos);")
-need(spore, "TaintSpreadRuntime.isColumnTainted(server, blockPosition())")
-need("tools/forge_1192_compile_api_guard.py", "net.minecraft.world.entity.animal.TamableAnimal")
+need(spore, "import net.minecraft.util.Mth;")
+need(spore, "new BlockPos(Mth.floor(getX()), Mth.floor(getBoundingBox().minY - 0.05D), Mth.floor(getZ())).below()")
+forbid(spore, "BlockPos.containing(")
+runtime="src/main/java/com/darkifov/thaumcraft/taint/TaintSpreadRuntime.java"
+checks += 1
+if read(runtime).count(".getMaterial().isReplaceable()") != 3:
+    errors.append(f"{runtime}: expected exactly three 1.19.2 Material replacement checks")
+forbid(runtime, ".canBeReplaced()")
+need("tools/forge_1192_compile_api_guard.py", "BlockPos.containing(double,double,double)")
+need("tools/forge_1192_compile_api_guard.py", "all three no-arg replacement checks")
 need(".github/workflows/build.yml", "Validate v11.62.84 Forge compiler hotfix")
 need(".github/workflows/release.yml", "Validate v11.62.84 Forge compiler hotfix")
 if errors:

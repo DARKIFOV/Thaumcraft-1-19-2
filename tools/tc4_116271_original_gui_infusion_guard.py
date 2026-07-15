@@ -14,12 +14,12 @@ def text(rel):
     return p.read_text(encoding="utf-8")
 
 build=text("build.gradle")
-for token in ("version = '11.62.83'",):
+for token in ("version = '11.62.84'",):
     checks+=1
     if token not in build: errors.append(f"build.gradle missing {token}")
 mods=text("src/main/resources/META-INF/mods.toml")
 checks+=1
-if 'version="11.62.83"' not in mods: errors.append("mods.toml version mismatch")
+if 'version="11.62.84"' not in mods: errors.append("mods.toml version mismatch")
 
 book=text("src/main/java/com/darkifov/thaumcraft/client/screen/TC4ResearchPageScreen.java")
 required=(
@@ -60,7 +60,7 @@ checks+=1
 if len(files)!=78: errors.append(f"expected 78 bundled JSON resources, got {len(files)}")
 
 if errors:
-    print(f"TC4 11.62.83 original GUI/infusion guard: FAIL ({len(errors)} problems)")
+    print(f"TC4 11.62.84 original GUI/infusion guard: FAIL ({len(errors)} problems)")
     for e in errors: print(' -',e)
     raise SystemExit(1)
-print(f"TC4 11.62.83 original GUI/infusion guard: PASS ({checks} checks)")
+print(f"TC4 11.62.84 original GUI/infusion guard: PASS ({checks} checks)")

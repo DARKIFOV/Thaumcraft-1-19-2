@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for v11.62.83 TC4 stationary/essentia/hand mirror runtime."""
+"""Regression guard for v11.62.84 TC4 stationary/essentia/hand mirror runtime."""
 from pathlib import Path
 import json
 import sys
@@ -46,8 +46,8 @@ for rel in [
 
 # 12 release/registration contracts.
 for rel, token in [
-    ("build.gradle", "version = '11.62.83'"),
-    ("src/main/resources/META-INF/mods.toml", 'version="11.62.83"'),
+    ("build.gradle", "version = '11.62.84'"),
+    ("src/main/resources/META-INF/mods.toml", 'version="11.62.84"'),
     ("README.md", "v11.62.73 Magic Mirror"),
     (".github/workflows/build.yml", "tc4_116273_mirror_runtime_guard.py"),
     (".github/workflows/release.yml", "tc4_116273_mirror_runtime_guard.py"),
@@ -170,8 +170,8 @@ if checks != 176:
     errors.append(f"guard definition drift: expected 176 checks, got {checks}")
 
 if errors:
-    print(f"TC4 11.62.83 mirror runtime guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.62.84 mirror runtime guard: FAIL ({len(errors)} problems; {checks} checks)")
     for error in errors:
         print(" -", error)
     sys.exit(1)
-print(f"TC4 11.62.83 mirror runtime guard: PASS ({checks}/176 checks)")
+print(f"TC4 11.62.84 mirror runtime guard: PASS ({checks}/176 checks)")

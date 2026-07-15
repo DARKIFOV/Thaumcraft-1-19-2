@@ -1,6 +1,6 @@
-# Thaumcraft Legacy Rebuild — v11.62.83
+# Thaumcraft Legacy Rebuild — v11.62.84
 
-## v11.62.83 Forge compile hotfix — Traveling Trunk and Taint Spore
+## v11.62.84 Forge compile hotfix — Traveling Trunk and Taint Spore
 
 - Fixes the root `compileJava` blocker from GitHub Actions run `79587666588`: `TamableAnimal` now uses the Forge/Mojmap 1.19.2 package `net.minecraft.world.entity`.
 - Removes the cascade of entity/type errors caused by Traveling Trunk failing to extend a valid Minecraft entity class.

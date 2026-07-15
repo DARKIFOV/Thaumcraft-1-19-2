@@ -370,7 +370,7 @@ Source status не закрывает P0. Требуются build PASS и runti
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.83")
+    parser.add_argument("--version", default="11.62.84")
     parser.add_argument("--jar", type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "TC4_PORT_STATUS_V3.md")
     args = parser.parse_args()

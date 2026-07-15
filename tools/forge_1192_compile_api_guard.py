@@ -22,6 +22,10 @@ for path in SRC.rglob("*.java"):
         errors.append(f"{rel}: Entity#onGround() is not the Mojmap 1.19.2 accessor; use isOnGround()")
     if "net.minecraft.world.entity.animal.TamableAnimal" in text:
         errors.append(f"{rel}: TamableAnimal is in net.minecraft.world.entity in Forge/Mojmap 1.19.2")
+    if "BlockPos.containing(" in text:
+        errors.append(f"{rel}: BlockPos.containing(double,double,double) is unavailable in Mojmap 1.19.2; floor coordinates explicitly")
+    if ".canBeReplaced()" in text:
+        errors.append(f"{rel}: no-arg BlockState#canBeReplaced() is unavailable in Mojmap 1.19.2; use the 1.19.2 material/context API")
 
 mod = (SRC / "com/darkifov/thaumcraft/ThaumcraftMod.java").read_text(encoding="utf-8")
 required = "RegistryObject<PurifyingFluidBlock> PURIFYING_FLUID_BLOCK"
@@ -49,6 +53,8 @@ if "import net.minecraft.world.item.UseAnim;" not in soap:
 trunk = (SRC / "com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java").read_text(encoding="utf-8")
 if "import net.minecraft.world.entity.TamableAnimal;" not in trunk:
     errors.append("src/main/java/com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java: correct Mojmap TamableAnimal import is required")
+if "public InteractionResult mobInteract(Player player, InteractionHand hand)" not in trunk:
+    errors.append("src/main/java/com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java: Animal#mobInteract is public in Mojmap 1.19.2")
 
 taint_runtime = (SRC / "com/darkifov/thaumcraft/taint/TaintSpreadRuntime.java").read_text(encoding="utf-8")
 taint_spore = (SRC / "com/darkifov/thaumcraft/entity/TaintSporeEntity.java").read_text(encoding="utf-8")
@@ -56,6 +62,10 @@ if "public static boolean isColumnTainted(ServerLevel level, BlockPos pos)" not 
     errors.append("src/main/java/com/darkifov/thaumcraft/taint/TaintSpreadRuntime.java: public isColumnTainted entity contract is required")
 if "TaintSpreadRuntime.isColumnTainted(server, blockPosition())" not in taint_spore:
     errors.append("src/main/java/com/darkifov/thaumcraft/entity/TaintSporeEntity.java: use the stable public taint-column contract")
+if "new BlockPos(Mth.floor(getX()), Mth.floor(getBoundingBox().minY - 0.05D), Mth.floor(getZ()))" not in taint_spore:
+    errors.append("src/main/java/com/darkifov/thaumcraft/entity/TaintSporeEntity.java: use explicit Mth.floor coordinates instead of post-1.19.2 BlockPos.containing")
+if taint_runtime.count(".getMaterial().isReplaceable()") < 3:
+    errors.append("src/main/java/com/darkifov/thaumcraft/taint/TaintSpreadRuntime.java: all three no-arg replacement checks must use the 1.19.2 Material API")
 
 if errors:
     for error in errors:

@@ -158,7 +158,7 @@ public final class TravelingTrunkEntity extends TamableAnimal implements Contain
     }
 
     @Override
-    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack held = player.getItemInHand(hand);
         if (held.isEdible() && getHealth() < getMaxHealth()) {
             if (!level.isClientSide) {

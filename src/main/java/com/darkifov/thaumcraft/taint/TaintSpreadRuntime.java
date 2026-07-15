@@ -119,7 +119,7 @@ public final class TaintSpreadRuntime {
 
     public static boolean spreadFibres(Level level, BlockPos target, RandomSource random, boolean playSound) {
         BlockState replaced = level.getBlockState(target);
-        if ((!replaced.isAir() && !replaced.canBeReplaced()) || replaced.getFluidState().isSource()
+        if ((!replaced.isAir() && !replaced.getMaterial().isReplaceable()) || replaced.getFluidState().isSource()
                 || isOnlyAdjacentToTaint(level, target) || !hasAdjacentSolid(level, target)) return false;
 
         int age = 0;
@@ -140,7 +140,7 @@ public final class TaintSpreadRuntime {
     }
 
     public static boolean isTaintable(BlockState state) {
-        return isCrustTarget(state) || isSoilTarget(state) || state.canBeReplaced();
+        return isCrustTarget(state) || isSoilTarget(state) || state.getMaterial().isReplaceable();
     }
 
     public static boolean isTaint(BlockState state) {
@@ -210,7 +210,7 @@ public final class TaintSpreadRuntime {
             if (level.getBlockState(check).is(BlockTags.LOGS)) return false;
         }
         BlockState state = level.getBlockState(pos);
-        return state.isAir() || state.canBeReplaced() || state.is(ThaumcraftMod.TAINT_FIBRES.get())
+        return state.isAir() || state.getMaterial().isReplaceable() || state.is(ThaumcraftMod.TAINT_FIBRES.get())
                 || !state.getFluidState().isEmpty();
     }
 
