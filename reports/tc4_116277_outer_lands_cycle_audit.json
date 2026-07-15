@@ -1,0 +1,105 @@
+{
+  "version": "11.62.77",
+  "platform": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java_target": "17"
+  },
+  "reference": "Thaumcraft 4.2.3.5",
+  "scope": "Outer Lands portal/maze/boss-lock source cycle",
+  "status": {
+    "source": "PARTIAL",
+    "build": "FAIL_NO_CONFIRMED_BUILD",
+    "runtime": "NOT_TESTED",
+    "release": "NOT_READY"
+  },
+  "verified_changes": [
+    "entry coordinates aligned to 16x16 maze cells",
+    "generated portal at local 8,3,8 used as destination",
+    "portal-room stepped geometry/corner shafts/stairs restored in source",
+    "chunk population no longer creates maze per player chunk",
+    "boss room places Eldritch Lock and does not spawn boss during generation",
+    "lock accepts only Eldritch Eye and preserves 100 tick activation path",
+    "boss spawn resolves 2x2 room center from 5x5 maze search"
+  ],
+  "static_checks": {
+    "passed": 43,
+    "total": 43,
+    "outer_lands_guard": {
+      "passed": 37,
+      "total": 37
+    },
+    "json_files": 1951,
+    "item_models": 721,
+    "bewlr_contracts": "15/15",
+    "research": "201/201",
+    "pages": 591,
+    "runtime_manifest_tests": 47
+  },
+  "build_attempt": {
+    "result": "FAIL",
+    "stage": "gradle_wrapper_download",
+    "error": "UnknownHostException: services.gradle.org",
+    "jar": null,
+    "jar_sha256": null
+  },
+  "runtime_evidence": {
+    "outer_lands_tests_passed": 0,
+    "required_test_ids": [
+      "outer_lands.portal_entry_maze_rooms",
+      "outer_lands.locks_traps_loot_warden_progress",
+      "outer_lands.save_reload_return_overworld"
+    ]
+  },
+  "release_criteria": {
+    "successful_build": false,
+    "all_p0_runtime_fixed": false,
+    "runtime_protocol_complete": false,
+    "world_migration_verified": false,
+    "jei_verified": false,
+    "done": 0,
+    "total": 5
+  },
+  "changed_core_files": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/EldritchLockBlock.java",
+      "sha256": "561ea6bbc5de54d2a36f34d12eeea1932d0d5b7c64a607fe7d9dc4a87b34f713"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4EldritchLockBossSpawner.java",
+      "sha256": "788f481ce937aa4daa653eb784a652b81eab08a9c3a271ef3d02c1fbf408374e"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsBossRoomPlacer.java",
+      "sha256": "0343b61a3c53c9dca7e78d439538e9e70725f450f500b7edd5aea7ae44acd333"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsChunkProviderBridge.java",
+      "sha256": "01f459180b53e64b266ceb5f9ea8e49e2a3dad37224a50741675b226abee8f2b"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsDecorationAdapter.java",
+      "sha256": "b3fbb86adf06f273251a610e8285bbf0a1da834d57af1c502add350562a2c67a"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsGenCommonAdapter.java",
+      "sha256": "de3f843c4a2bfe6d80c17ca5e8fefcd551605a38a793eb9a0069f08bfdf1de96"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsLivePopulateAdapter.java",
+      "sha256": "67cf4204750d586aff8fab6ff606bf792571c57d91e45a62a250a76c4b3fada0"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsMazeHandler.java",
+      "sha256": "782060a4f8733fb29768c6f72c80d1af3859649333da4111c6cebcf1493d7b90"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsTeleporter.java",
+      "sha256": "a8a3f5502b96facecb72a4d18f81d1abae3e20a0393c2dfb21387a5bdc4918a7"
+    },
+    {
+      "path": "tools/tc4_116277_outer_lands_cycle_guard.py",
+      "sha256": "1e4cb54acb9d0823fcae71f252436d16cafc97bd6ee0ce43df1a7795a9fc3aee"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": "11.62.78",
+  "date": "2026-07-15",
+  "platform": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java": 17
+  },
+  "scope": "golem USE/fishing/creeper-avoidance source parity",
+  "source_reference": [
+    "EntityGolemBase",
+    "AIUseItem",
+    "AIFish"
+  ],
+  "changes": {
+    "creeper_avoidance": true,
+    "use_marker_side_resolution": true,
+    "use_empty_hand_without_home_inventory": true,
+    "fake_player_first_remainder_carried": true,
+    "fishing_junk_before_treasure": true,
+    "fishing_water_quality_modifiers": true,
+    "weighted_junk_table": true
+  },
+  "static_workflow": {
+    "passed": 44,
+    "total": 44
+  },
+  "golem_guard": {
+    "passed": 17,
+    "total": 17
+  },
+  "runtime_manifest": {
+    "tests": 50,
+    "evidenced": 0,
+    "new_golem_tests": 3
+  },
+  "build": {
+    "status": "FAIL_NO_CONFIRMED_BUILD",
+    "compileJava": "NOT_REACHED",
+    "jar": null,
+    "jar_sha256": null,
+    "reason": "UnknownHostException: services.gradle.org"
+  },
+  "runtime_status": "NOT_TESTED",
+  "release_criteria_done": 0
+}

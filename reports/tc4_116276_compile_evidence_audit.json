@@ -1,0 +1,49 @@
+{
+  "version": "11.62.76",
+  "date": "2026-07-14",
+  "target": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java": "17"
+  },
+  "build": {
+    "status": "FAIL_NO_CONFIRMED_BUILD",
+    "jar": null,
+    "sha256": null,
+    "local_blocker": "UnknownHostException: services.gradle.org"
+  },
+  "static": {
+    "commands_passed": 42,
+    "commands_total": 42,
+    "json": 1951,
+    "item_models": 721,
+    "bewlr": "15/15",
+    "aura_node": "16/16",
+    "research": "201/201",
+    "pages": 591
+  },
+  "p0": {
+    "source_complete": 6,
+    "source_partial": 1,
+    "runtime_pass": 0,
+    "total": 7
+  },
+  "runtime": {
+    "tests_passed": 0,
+    "tests_total": 47
+  },
+  "release_criteria": {
+    "passed": 0,
+    "total": 5
+  },
+  "changes": [
+    "traveling_trunk_forge_item_handler",
+    "traveling_trunk_isOnGround",
+    "traveling_trunk_silent_nbt_restore",
+    "outer_lands_loaded_chunk_guard",
+    "outer_lands_post_success_saveddata",
+    "strict_runtime_artifact_sha256",
+    "visual_diff_metrics",
+    "ci_preserves_gradle_build_log"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "thaumcraft:block/tc4/taintgrass1"
+  }
+}

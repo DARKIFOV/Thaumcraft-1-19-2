@@ -1,0 +1,51 @@
+{
+  "version": "11.62.82",
+  "date": "2026-07-15",
+  "target": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java": "17"
+  },
+  "reference": "Thaumcraft 4.2.3.5",
+  "scope": "research_note_thaumonomicon_research_table_workflow",
+  "source_contract": "PASS",
+  "runtime_status": "NOT_TESTED",
+  "build": {
+    "status": "FAIL",
+    "reason": "UnknownHostException: services.gradle.org before Gradle/compileJava",
+    "jar": null,
+    "jar_sha256": null
+  },
+  "changes": [
+    "unfinished research notes require Research Table",
+    "Thaumonomicon selection creates inventory note without opening puzzle",
+    "removed Research Table slot mouse bypass for creation/completion",
+    "completed discovery learned through item use",
+    "Brain in a Jar restored as random aspect source",
+    "fixed fixed-size inventory clearing and duplicate unreachable return",
+    "historical manifest guards made monotonic"
+  ],
+  "static_checks": {
+    "workflow": "48/48 PASS",
+    "research_guard": "25/25 PASS",
+    "json": "1961/1961",
+    "item_models": "721; missing 0; unresolved 0",
+    "bewlr": "15/15",
+    "research": "201/201",
+    "pages": 591
+  },
+  "runtime_manifest": {
+    "total": 62,
+    "verified": 0,
+    "added_tests": [
+      "research.note_creation_thaumonomicon_inventory_only",
+      "research.unfinished_note_requires_table_completed_note_item_use",
+      "research.table_bonus_bookshelf_brain_jar_persistence"
+    ]
+  },
+  "release_criteria": {
+    "passed": 0,
+    "total": 5,
+    "verdict": "НЕ ГОТОВ К РЕЛИЗУ"
+  }
+}

@@ -1,0 +1,255 @@
+
+=== [1] Validate Forge-only project ===
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+
+EXIT_CODE=0
+
+=== [2] Validate Java source text ===
+Java syntax guard: OK
+
+EXIT_CODE=0
+
+=== [3] Validate Forge 1.19.2 compile API usage ===
+Forge 1.19.2 compile API guard: OK
+
+EXIT_CODE=0
+
+=== [4] Validate JSON resources ===
+JSON resource validation: OK (1951 files)
+
+EXIT_CODE=0
+
+=== [5] Validate TC4 visual paths ===
+TC4 visual parity guard: OK
+
+EXIT_CODE=0
+
+=== [6] Validate integrated Research Table ===
+Research Table integration guard: OK
+
+EXIT_CODE=0
+
+=== [7] Validate Research Table opening path ===
+Research Table open guard: OK
+
+EXIT_CODE=0
+
+=== [8] Validate Magical Forest worldgen path ===
+Magical Forest worldgen guard: OK (serializable multi-noise source and locate validation)
+
+EXIT_CODE=0
+
+=== [9] Validate feature-cycle-safe biome generation ===
+Feature cycle guard: OK
+
+EXIT_CODE=0
+
+=== [10] Validate TC4 research links and Expertise/Mastery ===
+Research connection / expertise guard: OK
+
+EXIT_CODE=0
+
+=== [11] Validate Thaumometer scanning path ===
+Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, 25/20 tick TC4 hold)
+
+EXIT_CODE=0
+
+=== [12] Validate screenshot-driven runtime visuals ===
+Runtime visual guard: OK (BER-only matrix/transducer/table, two-block item, world tags, transparent armor)
+
+EXIT_CODE=0
+
+=== [13] Validate magical leaves, wand UV and Research Table renderer ===
+Leaves/Wand/Research Table guard: OK (LeavesBlock states, restored TC4 ModelWand transforms and UVs, original two-block BER)
+
+EXIT_CODE=0
+
+=== [14] Validate byte-exact original TC4 texture bank ===
+TC4 original texture bank guard: OK — 940 / 940 exact textures
+
+EXIT_CODE=0
+
+=== [15] Validate TC4 runtime visual parity ===
+TC4 runtime visual parity guard: OK
+
+EXIT_CODE=0
+
+=== [16] Validate legacy runtime repairs ===
+Runtime fix guard: OK (wand, node, Thaumometer, research cheat book, Nitor)
+
+EXIT_CODE=0
+
+=== [17] Audit every item model and texture chain ===
+Item visual audit: 721 models, 0 missing, 0 unresolved, 392 exact-original refs
+reports/item_visual_audit_v11.62.78.json
+reports/ITEM_VISUAL_AUDIT_V11_62_78.md
+
+EXIT_CODE=0
+
+=== [18] Audit parent chains and display transforms ===
+Semantic model audit: 721 models, 0 problems, 0 warnings
+reports/model_transform_audit_v11.62.78.json
+reports/MODEL_TRANSFORM_AUDIT_V11_62_78.md
+
+EXIT_CODE=0
+
+=== [19] Audit Forge builtin entity render contracts ===
+BEWLR audit: 15/15 complete, 0 problems
+reports/bewlr_contract_audit_v11.62.78.json
+reports/BEWLR_CONTRACT_AUDIT_V11_62_78.md
+
+EXIT_CODE=0
+
+=== [20] Audit aura node, node jar and stabilizer parity ===
+Aura-node parity audit: 16/16 passed
+reports/aura_node_parity_audit_v11.62.78.json
+reports/AURA_NODE_PARITY_AUDIT_V11_62_78.md
+
+EXIT_CODE=0
+
+=== [21] Validate v11.62.45 parity fixes ===
+v11.62.45 parity guard: OK (research transaction, book GUI, scanner, nodes, wand lighting)
+
+EXIT_CODE=0
+
+=== [22] Validate v11.62.46 audit and node parity regressions ===
+v11.62.46 audit guard: OK (v11.62.46+ metadata, 15 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)
+
+EXIT_CODE=0
+
+=== [23] Validate v11.62.47 Arcane Workbench and wand cost regressions ===
+v11.62.47 arcane/wand guard: OK (5 shapeless recipes, exact occupied-slot matching, catalyst normalization, player-aware armor/bauble vis discounts, TC4 truncation)
+
+EXIT_CODE=0
+
+=== [24] Validate v11.62.48 aura-node scheduler and Aspect Orb baseline ===
+v11.62.48 node/orb guard: OK (local per-node scheduler, TC4 reload phase, unstable-node Aspect Orb emission, hotbar wand pickup, TC4 particle-sheet renderer)
+
+EXIT_CODE=0
+
+=== [25] Validate v11.62.49 Aspect Orb renderer and entity parity ===
+
+=== [25] Validate v11.62.49 Aspect Orb renderer and entity parity ===
+v11.62.49 Aspect Orb parity guard: OK (smooth lifetime scale, exact +120 raw lightmap, lava physics, dual TC4 pickup gates and aspect-specific blending)
+
+EXIT_CODE=0
+
+=== [26] Validate v11.62.50 real-client screenshot fixes ===
+v11.62.50 runtime screenshot guard: OK (node HUD/beam, first-person wand, TC4 tables/matrix, starter aspects, Thaumometer and book layout)
+
+EXIT_CODE=0
+
+=== [27] Validate v11.62.51 research, scan and node-tag parity ===
+v11.62.51 research/scan/HUD guard: OK (single starter pool, TC4 @-scan rewards, map sampling, warp aura, sibling links and animated node tags)
+
+EXIT_CODE=0
+
+=== [28] Validate v11.62.52 runtime-risk hardening ===
+v11.62.52 runtime-risk guard: OK (exact browser coordinates, verified 32x32 node atlas, time-correct tag animation, TC4 amount text and logout reset)
+
+EXIT_CODE=0
+
+=== [29] Validate v11.62.53 wand beam and Thaumometer lighting ===
+v11.62.53 wand/beam/Thaumometer guard: OK (exact TC4 floaty line, drain lifecycle, ambient scanner body and original glass lightmap)
+
+EXIT_CODE=0
+
+=== [30] Validate v11.62.54 original wand HUD and focus cycling ===
+v11.62.54 focus HUD/cycle guard: OK (original 32x32 dial, focus/trade icon, cooldown, TreeMap cycle and transactional rollback)
+
+EXIT_CODE=0
+
+=== [31] Validate registry and resources ===
+Audited 721 item models
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected problems: 0
+
+EXIT_CODE=0
+
+=== [32] Regenerate-check exact TC4 research runtime ===
+TC4 research runtime generation check: PASS
+
+EXIT_CODE=0
+
+=== [33] Audit all 201 TC4 research entries and Thaumonomicon assets ===
+/mnt/data/tc_work/working_116278/reports/tc4_full_research_thaumonomicon_audit_11.62.78.json
+{"research_entries": 201, "categories": {"THAUMATURGY": 42, "ARTIFICE": 50, "ALCHEMY": 35, "GOLEMANCY": 39, "BASICS": 19, "ELDRITCH": 16}, "pages": 591, "concealed_pages": 15, "explicit_recipe_keys": 272, "mapped_icons": 201, "missing_icon_textures": 0, "missing_language_keys": 0, "status": "pass"}
+
+EXIT_CODE=0
+
+=== [34] Validate v11.62.70 visual, texture, wand and Thaumometer baseline ===
+TC4 11.62.70 regression guard: PASS (100 checks)
+
+EXIT_CODE=0
+
+=== [35] Validate v11.62.71 original GUI offsets and complete infusion set ===
+TC4 11.62.78 original GUI/infusion guard: PASS (106 checks)
+
+EXIT_CODE=0
+
+=== [36] Validate Brain in a Jar runtime parity ===
+TC4 11.62.78 Brain Jar runtime guard: PASS (58 checks)
+
+EXIT_CODE=0
+
+=== [37] Validate TC4 mirror runtime parity ===
+TC4 11.62.78 mirror runtime guard: PASS (176/176 checks)
+
+EXIT_CODE=0
+
+=== [38] Audit TC4 custom visual contracts (P0) ===
+Visual parity audit: complete=6, partial=1, runtime PASS 0/7
+reports/visual_parity_audit_v11.62.78.json
+
+EXIT_CODE=0
+
+=== [39] Validate v11.62.76 compile and evidence contracts ===
+TC4 11.62.78 compile/runtime contract guard: PASS (38 checks)
+
+EXIT_CODE=0
+
+=== [40] Validate v11.62.77 Outer Lands generation and boss-lock cycle ===
+TC4 11.62.77 Outer Lands cycle guard: PASS (37 checks)
+
+EXIT_CODE=0
+
+=== [41] Validate v11.62.78 golem USE, fishing and creeper-avoidance parity ===
+PASS: functional golems pre-empt normal tasks for creeper swell avoidance
+PASS: creeper avoidance accepts normal swelling and explicit ignition
+PASS: creeper avoidance keeps original priority diagnostic
+PASS: USE core permits empty-hand action only without a home inventory
+PASS: USE marker free-side check follows marker.side rather than opposite
+PASS: USE empty-space marker clicks the block behind the marked air cell
+PASS: USE navigation still targets the marker location
+PASS: USE click acts on resolved interaction position
+PASS: FakePlayer first by-product becomes the new carried stack
+PASS: fishing core passes the selected water position to the loot roll
+PASS: fishing checks junk before treasure like TC4 AIFish
+PASS: fishing water quality adjusts junk and treasure chances
+PASS: fishing junk table uses explicit TC4-style weights
+PASS: runtime manifest contains golems.use_core_marker_side_empty_hand
+PASS: runtime manifest contains golems.fishing_water_quality_weighted_loot
+PASS: runtime manifest contains golems.creeper_swell_avoidance
+PASS: runtime manifest version is v11.62.78
+Golem core parity guard: 17/17
+
+EXIT_CODE=0
+
+=== [42] Validate runtime evidence manifest template ===
+runtime manifest: PASS (50 tests; template=True)
+
+EXIT_CODE=0
+
+=== [43] Compile objective audit tools ===
+
+EXIT_CODE=0
+
+=== [44] Generate objective port status (pre-build) ===
+TC4_PORT_STATUS_V3.md
+/mnt/data/tc_work/working_116278/reports/tc4_port_status_v3_11.62.78.json
+release criteria: 0/5; build=FAIL_NO_CONFIRMED_BUILD
+
+EXIT_CODE=0
+
+STATIC_WORKFLOW_PASS=44/44

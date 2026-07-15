@@ -1,0 +1,7 @@
+{
+  "parent": "thaumcraft:item/tc4_bonebow",
+  "textures": {
+    "layer0": "thaumcraft:item/tc4/bonebow_pulling_0"
+  },
+  "overrides": []
+}

@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "version": "11.62.81",
+    "checks": 16,
+    "passed": 16,
+    "problem_count": 0
+  },
+  "checks": [
+    {
+      "check": "world_node_original_sheet",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": "ORIGINAL_NODES",
+      "ok": true
+    },
+    {
+      "check": "world_node_32_frames",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/TC4AuraNodeHudParity.java",
+      "token": "NODE_SHEET_FRAMES = 32",
+      "ok": true
+    },
+    {
+      "check": "world_node_nanotime",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": "System.nanoTime()",
+      "ok": true
+    },
+    {
+      "check": "world_node_camera_billboard",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": "getMainCamera().rotation()",
+      "ok": true
+    },
+    {
+      "check": "world_node_view_cone",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": ">= 0.44D",
+      "ok": true
+    },
+    {
+      "check": "world_node_hidden_fallback",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": "0.10F, frame, 1",
+      "ok": true
+    },
+    {
+      "check": "world_node_additive_types",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": "type != AuraNodeType.DARK && type != AuraNodeType.TAINTED",
+      "ok": true
+    },
+    {
+      "check": "drain_wispy_texture",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java",
+      "token": "ORIGINAL_WISPY",
+      "ok": true
+    },
+    {
+      "check": "jar_node_nanotime",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeJarItemRenderer.java",
+      "token": "nanoTime / 40_000_000L + 1L",
+      "ok": true
+    },
+    {
+      "check": "jar_node_same_frame",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeJarItemRenderer.java",
+      "token": "layerAlpha, frame, 0",
+      "ok": true
+    },
+    {
+      "check": "jar_node_white_type_layer",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeJarItemRenderer.java",
+      "token": "typeScale, 0xFFFFFFFF",
+      "ok": true
+    },
+    {
+      "check": "jar_node_additive_contract",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeJarItemRenderer.java",
+      "token": "TC4NodeRenderTypes.node",
+      "ok": true
+    },
+    {
+      "check": "stabilizer_original_mesh",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeStabilizerRenderer.java",
+      "token": "TC4NodeStabilizerModel.PISTON_TRIANGLES",
+      "ok": true
+    },
+    {
+      "check": "stabilizer_lightmap_not_alpha",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeStabilizerRenderer.java",
+      "token": "tc4LightCoordinate",
+      "ok": true
+    },
+    {
+      "check": "stabilizer_overlay_cutout",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeStabilizerRenderer.java",
+      "token": "entityCutoutNoCull(OVERLAY)",
+      "ok": true
+    },
+    {
+      "check": "stabilizer_additive_field",
+      "file": "src/main/java/com/darkifov/thaumcraft/client/render/NodeStabilizerRenderer.java",
+      "token": "TC4NodeRenderTypes.node(BUBBLE, true, false)",
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "version": "11.62.82",
+  "scope": "TC4 warp buckets/counter, Warp Ward migration, event spawning, Death Gaze cone and network sync source contracts",
+  "checks_total": 50,
+  "checks_passed": 50,
+  "failed": [],
+  "runtime_verified": false,
+  "known_deviations": [
+    "original PacketMiscEvent warp post-processing is still approximated by particles/GUI overlays",
+    "runtime event distribution, multiplayer sync and effect visuals require evidence"
+  ]
+}

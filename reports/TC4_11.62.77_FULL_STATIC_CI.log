@@ -1,0 +1,156 @@
+===== 01 =====
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+EXIT=0
+===== 02 =====
+Java syntax guard: OK
+EXIT=0
+===== 03 =====
+Forge 1.19.2 compile API guard: OK
+EXIT=0
+===== 04 =====
+JSON resource validation: OK (1951 files)
+EXIT=0
+===== 05 =====
+TC4 visual parity guard: OK
+EXIT=0
+===== 06 =====
+Research Table integration guard: OK
+EXIT=0
+===== 07 =====
+Research Table open guard: OK
+EXIT=0
+===== 08 =====
+Magical Forest worldgen guard: OK (serializable multi-noise source and locate validation)
+EXIT=0
+===== 09 =====
+Feature cycle guard: OK
+EXIT=0
+===== 10 =====
+Research connection / expertise guard: OK
+EXIT=0
+===== 11 =====
+Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, 25/20 tick TC4 hold)
+EXIT=0
+===== 12 =====
+Runtime visual guard: OK (BER-only matrix/transducer/table, two-block item, world tags, transparent armor)
+EXIT=0
+===== 13 =====
+Leaves/Wand/Research Table guard: OK (LeavesBlock states, restored TC4 ModelWand transforms and UVs, original two-block BER)
+EXIT=0
+===== 14 =====
+TC4 original texture bank guard: OK — 940 / 940 exact textures
+EXIT=0
+===== 15 =====
+TC4 runtime visual parity guard: OK
+EXIT=0
+===== 16 =====
+Runtime fix guard: OK (wand, node, Thaumometer, research cheat book, Nitor)
+EXIT=0
+===== 17 =====
+Item visual audit: 721 models, 0 missing, 0 unresolved, 392 exact-original refs
+reports/item_visual_audit_v11.62.77.json
+reports/ITEM_VISUAL_AUDIT_V11_62_77.md
+EXIT=0
+===== 18 =====
+Semantic model audit: 721 models, 0 problems, 0 warnings
+reports/model_transform_audit_v11.62.77.json
+reports/MODEL_TRANSFORM_AUDIT_V11_62_77.md
+EXIT=0
+===== 19 =====
+BEWLR audit: 15/15 complete, 0 problems
+reports/bewlr_contract_audit_v11.62.77.json
+reports/BEWLR_CONTRACT_AUDIT_V11_62_77.md
+EXIT=0
+===== 20 =====
+Aura-node parity audit: 16/16 passed
+reports/aura_node_parity_audit_v11.62.77.json
+reports/AURA_NODE_PARITY_AUDIT_V11_62_77.md
+EXIT=0
+===== 21 =====
+v11.62.45 parity guard: OK (research transaction, book GUI, scanner, nodes, wand lighting)
+EXIT=0
+===== 22 =====
+v11.62.46 audit guard: OK (v11.62.46+ metadata, 15 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)
+EXIT=0
+===== 23 =====
+v11.62.47 arcane/wand guard: OK (5 shapeless recipes, exact occupied-slot matching, catalyst normalization, player-aware armor/bauble vis discounts, TC4 truncation)
+EXIT=0
+===== 24 =====
+v11.62.48 node/orb guard: OK (local per-node scheduler, TC4 reload phase, unstable-node Aspect Orb emission, hotbar wand pickup, TC4 particle-sheet renderer)
+EXIT=0
+===== 25 =====
+v11.62.49 Aspect Orb parity guard: OK (smooth lifetime scale, exact +120 raw lightmap, lava physics, dual TC4 pickup gates and aspect-specific blending)
+EXIT=0
+===== 26 =====
+v11.62.50 runtime screenshot guard: OK (node HUD/beam, first-person wand, TC4 tables/matrix, starter aspects, Thaumometer and book layout)
+EXIT=0
+===== 27 =====
+v11.62.51 research/scan/HUD guard: OK (single starter pool, TC4 @-scan rewards, map sampling, warp aura, sibling links and animated node tags)
+EXIT=0
+===== 28 =====
+v11.62.52 runtime-risk guard: OK (exact browser coordinates, verified 32x32 node atlas, time-correct tag animation, TC4 amount text and logout reset)
+EXIT=0
+===== 29 =====
+v11.62.53 wand/beam/Thaumometer guard: OK (exact TC4 floaty line, drain lifecycle, ambient scanner body and original glass lightmap)
+EXIT=0
+===== 30 =====
+v11.62.54 focus HUD/cycle guard: OK (original 32x32 dial, focus/trade icon, cooldown, TreeMap cycle and transactional rollback)
+EXIT=0
+===== 31 =====
+Audited 721 item models
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected problems: 0
+EXIT=0
+===== 32 =====
+TC4 research runtime generation check: PASS
+EXIT=0
+===== 33 =====
+/mnt/data/tc_work/active_116277/reports/tc4_full_research_thaumonomicon_audit_11.62.77.json
+{"research_entries": 201, "categories": {"THAUMATURGY": 42, "ARTIFICE": 50, "ALCHEMY": 35, "GOLEMANCY": 39, "BASICS": 19, "ELDRITCH": 16}, "pages": 591, "concealed_pages": 15, "explicit_recipe_keys": 272, "mapped_icons": 201, "missing_icon_textures": 0, "missing_language_keys": 0, "status": "pass"}
+EXIT=0
+===== 34 =====
+TC4 11.62.70 regression guard: PASS (100 checks)
+EXIT=0
+===== 35 =====
+TC4 11.62.77 original GUI/infusion guard: PASS (106 checks)
+EXIT=0
+===== 36 =====
+TC4 11.62.77 Brain Jar runtime guard: PASS (58 checks)
+EXIT=0
+===== 37 =====
+TC4 11.62.77 mirror runtime guard: PASS (176/176 checks)
+EXIT=0
+===== 38 =====
+Visual parity audit: complete=6, partial=1, runtime PASS 0/7
+reports/visual_parity_audit_v11.62.77.json
+EXIT=0
+===== 39 =====
+TC4 11.62.77 compile/runtime contract guard: PASS (38 checks)
+EXIT=0
+===== 40 =====
+TC4 11.62.77 Outer Lands cycle guard: PASS (37 checks)
+EXIT=0
+===== 41 =====
+runtime manifest: PASS (47 tests; template=True)
+EXIT=0
+===== 42 =====
+EXIT=0
+===== 43 =====
+TC4_PORT_STATUS_V3.md
+/mnt/data/tc_work/active_116277/reports/tc4_port_status_v3_11.62.77.json
+release criteria: 0/5; build=FAIL_NO_CONFIRMED_BUILD
+EXIT=0
+STATIC_CI_RESULT=43/43 PASS
+===== FINAL RECHECK: python3 tools/tc4_116276_compile_runtime_contract_guard.py =====
+TC4 11.62.77 compile/runtime contract guard: PASS (38 checks)
+===== FINAL RECHECK: python3 tools/tc4_116277_outer_lands_cycle_guard.py =====
+TC4 11.62.77 Outer Lands cycle guard: PASS (37 checks)
+===== FINAL RECHECK: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.62.77 --template =====
+runtime manifest: PASS (47 tests; template=True)
+===== FINAL RECHECK: python3 -m py_compile tools/generate_port_status_v3.py tools/validate_runtime_manifest.py tools/compare_visual_artifacts.py =====
+===== FINAL RECHECK: python3 tools/generate_port_status_v3.py --version 11.62.77 =====
+TC4_PORT_STATUS_V3.md
+/mnt/data/tc_work/active_116277/reports/tc4_port_status_v3_11.62.77.json
+release criteria: 0/5; build=FAIL_NO_CONFIRMED_BUILD
+FINAL_RECHECK=PASS

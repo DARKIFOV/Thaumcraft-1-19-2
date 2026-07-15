@@ -1,0 +1,4626 @@
+{
+  "stats": {
+    "version": "11.62.76",
+    "item_model_json": 721,
+    "parse_errors": 0,
+    "p0_total": 7,
+    "p0_source_contract_complete": 6,
+    "p0_static_partial": 1,
+    "p0_runtime_visual_pass": 0,
+    "p0_runtime_not_tested": 7,
+    "failure_count": 0
+  },
+  "p0": [
+    {
+      "key": "essentia_jars",
+      "title": "Essentia jars in item contexts",
+      "original_contract": "ItemJarFilledRenderer: temporary TileJar, liquid/aspect/filter/label and jar shell",
+      "static_status": "SOURCE_CONTRACT_COMPLETE",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "three_builtin_entity_models": true,
+        "nbt_aware_block_item": true,
+        "bewlr_renders_world_contents": true,
+        "pickup_and_placement_preserve_nbt": true
+      },
+      "missing": []
+    },
+    {
+      "key": "aura_node_item",
+      "title": "Aura node item policy",
+      "original_contract": "ItemNodeRenderer or the normal player-facing Node in a Jar path",
+      "static_status": "SOURCE_CONTRACT_COMPLETE",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "raw_node_is_migration_only": true,
+        "raw_node_has_no_block_loot": true,
+        "node_jar_has_bewlr": true,
+        "node_jar_builtin_entity": true
+      },
+      "missing": []
+    },
+    {
+      "key": "bone_bow",
+      "title": "Bone Bow",
+      "original_contract": "ItemBowBoneRenderer plus 0/8/13-tick icon stages and faster ItemBowBone projectile curve",
+      "static_status": "SOURCE_CONTRACT_COMPLETE",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "functional_bow_item": true,
+        "original_charge_cap": true,
+        "pull_properties_registered": true,
+        "three_pull_models": true,
+        "three_overrides": true
+      },
+      "missing": []
+    },
+    {
+      "key": "traveling_trunk",
+      "title": "Traveling Trunk",
+      "original_contract": "ItemTrunkSpawnerRenderer + EntityTravelingTrunk, ModelTrunk, inventory/owner/lid behavior",
+      "static_status": "SOURCE_CONTRACT_COMPLETE",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "entity_registered": true,
+        "inventory_owner_ai_nbt": true,
+        "animated_entity_model": true,
+        "entity_renderer": true,
+        "item_bewlr": true
+      },
+      "missing": []
+    },
+    {
+      "key": "crimson_cultists",
+      "title": "Crimson cultists",
+      "original_contract": "RenderCultist ModelBiped base, original skin, role equipment/armor layers and 1.25 leader scale",
+      "static_status": "SOURCE_CONTRACT_COMPLETE",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "humanoid_renderer_registered_four_times": true,
+        "old_block_placeholders_removed": true,
+        "role_models": true,
+        "original_textures": true,
+        "held_item_and_leader_scale": true
+      },
+      "missing": []
+    },
+    {
+      "key": "fortress_armor",
+      "title": "Fortress Armor",
+      "original_contract": "ModelFortressArmor with custom 128x64 geometry, three NBT masks, goggles and set-dependent ornaments",
+      "static_status": "SOURCE_CONTRACT_COMPLETE",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "dedicated_model": true,
+        "layer_uses_dedicated_model": true,
+        "vanilla_model_approximation_removed": true,
+        "all_three_masks_and_goggles": true,
+        "set_dependent_details": true
+      },
+      "missing": []
+    },
+    {
+      "key": "outer_lands",
+      "title": "Outer Lands",
+      "original_contract": "ChunkProviderOuter, MazeHandler rooms/passages/loot, portal progression, Warden and persistent return path",
+      "static_status": "STATIC_PARTIAL",
+      "runtime_visual_status": "NOT_TESTED",
+      "checks": {
+        "dimension_resources": true,
+        "portal_teleporter": true,
+        "maze_rooms_and_loot": true,
+        "boss_registered": true,
+        "server_tick_population_wired": true,
+        "population_persisted": true
+      },
+      "missing": []
+    }
+  ],
+  "item_models": [
+    {
+      "item": "addon_completion_ledger",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "advanced_alchemical_furnace",
+      "parent": "thaumcraft:block/advanced_alchemical_furnace",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "advanced_essentia_speed_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "advanced_node_stabilizer",
+      "parent": "builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aer_crystal",
+      "parent": "thaumcraft:block/aer_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aer_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "alchemical_centrifuge",
+      "parent": "minecraft:block/block",
+      "display_contexts": [
+        "fixed",
+        "ground",
+        "gui"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "alchemical_furnace",
+      "parent": "thaumcraft:block/alchemical_furnace",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "alchemy_dust",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "alembic",
+      "parent": "thaumcraft:block/alembic",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "amber",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "amber_block",
+      "parent": "thaumcraft:block/amber_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "amber_bricks",
+      "parent": "thaumcraft:block/amber_bricks",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "amber_ore",
+      "parent": "thaumcraft:block/amber_ore",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aqua_crystal",
+      "parent": "thaumcraft:block/aqua_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aqua_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_assembler",
+      "parent": "thaumcraft:block/arcane_assembler",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_crafting_terminal",
+      "parent": "thaumcraft:block/arcane_crafting_terminal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_pattern_encoder",
+      "parent": "thaumcraft:block/arcane_pattern_encoder",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_pattern_provider",
+      "parent": "thaumcraft:block/arcane_pattern_provider",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_pedestal",
+      "parent": "thaumcraft:block/arcane_pedestal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_stone",
+      "parent": "thaumcraft:block/arcane_stone",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_stone_bricks",
+      "parent": "thaumcraft:block/arcane_stone_bricks",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "arcane_workbench",
+      "parent": "thaumcraft:block/arcane_workbench",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_aer",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_aqua",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_ignis",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_metallum",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_ordo",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_perditio",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_praecantatio",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_terra",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aspect_vitreus",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node_aer",
+      "parent": "thaumcraft:block/aura_node_aer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node_aqua",
+      "parent": "thaumcraft:block/aura_node_aqua",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node_ignis",
+      "parent": "thaumcraft:block/aura_node_ignis",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node_ordo",
+      "parent": "thaumcraft:block/aura_node_ordo",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node_perditio",
+      "parent": "thaumcraft:block/aura_node_perditio",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "aura_node_terra",
+      "parent": "thaumcraft:block/aura_node_terra",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "avaritia_creative_wand",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "awakened_crimson_key",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "balanced_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "bellows",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "bottomless_pouch",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "cinnabar_ore",
+      "parent": "thaumcraft:block/cinnabar_ore",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "coalescence_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crafting_aspect",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "creative_essentia_cell",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crimson_key",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crimson_plate_boots",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crimson_plate_chest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crimson_plate_helm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crimson_plate_legs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "crucible",
+      "parent": "thaumcraft:block/crucible",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "deconstruction_table",
+      "parent": "thaumcraft:block/deconstruction_table",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "diffusion_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "digital_essentia_cell_16k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "digital_essentia_cell_1k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "digital_essentia_cell_4k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "digital_essentia_cell_64k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "distillation_pattern_encoder",
+      "parent": "thaumcraft:block/distillation_pattern_encoder",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_altar",
+      "parent": "thaumcraft:block/eldritch_altar",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_cap",
+      "parent": "thaumcraft:block/eldritch_cap",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_crab_spawner",
+      "parent": "thaumcraft:block/eldritch_crab_spawner",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_crust",
+      "parent": "thaumcraft:block/eldritch_crust",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_crystal",
+      "parent": "thaumcraft:block/eldritch_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_decorative",
+      "parent": "thaumcraft:block/eldritch_decorative",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_door",
+      "parent": "thaumcraft:block/eldritch_door",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_eye",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_guardian_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_lock",
+      "parent": "thaumcraft:block/eldritch_lock",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_obelisk",
+      "parent": "thaumcraft:block/eldritch_obelisk",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_portal",
+      "parent": "thaumcraft:block/eldritch_portal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_relic",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_stone",
+      "parent": "thaumcraft:block/eldritch_stone",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "eldritch_trap",
+      "parent": "thaumcraft:block/eldritch_trap",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "encoded_essentia_pattern",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_acceleration_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_capacity_upgrade",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_cell_casing",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_cell_workbench",
+      "parent": "thaumcraft:block/essentia_cell_workbench",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_conversion_monitor",
+      "parent": "thaumcraft:block/essentia_conversion_monitor",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_crystalizer",
+      "parent": "thaumcraft:block/essentia_crystalizer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_digitizer_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_drive",
+      "parent": "thaumcraft:block/essentia_drive",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_export_bus",
+      "parent": "thaumcraft:block/essentia_export_bus",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_fuzzy_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_import_bus",
+      "parent": "thaumcraft:block/essentia_import_bus",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_interface",
+      "parent": "thaumcraft:block/essentia_interface",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar_aer",
+      "parent": "thaumcraft:block/essentia_jar_aer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar_aqua",
+      "parent": "thaumcraft:block/essentia_jar_aqua",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar_ignis",
+      "parent": "thaumcraft:block/essentia_jar_ignis",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar_ordo",
+      "parent": "thaumcraft:block/essentia_jar_ordo",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar_perditio",
+      "parent": "thaumcraft:block/essentia_jar_perditio",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_jar_terra",
+      "parent": "thaumcraft:block/essentia_jar_terra",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_level_emitter",
+      "parent": "thaumcraft:block/essentia_level_emitter",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_partition_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_phial",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_provider",
+      "parent": "thaumcraft:block/essentia_provider",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_reservoir",
+      "parent": "thaumcraft:block/essentia_reservoir",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_speed_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_storage_bus",
+      "parent": "thaumcraft:block/essentia_storage_bus",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_storage_component_16k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_storage_component_1k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_storage_component_4k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_storage_component_64k",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_storage_monitor",
+      "parent": "thaumcraft:block/essentia_storage_monitor",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_terminal",
+      "parent": "thaumcraft:block/essentia_terminal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_tube",
+      "parent": "thaumcraft:block/essentia_tube",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_tube_buffer",
+      "parent": "thaumcraft:block/essentia_tube_buffer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_tube_filter",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_tube_oneway",
+      "parent": "thaumcraft:block/essentia_tube_oneway",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_tube_restrict",
+      "parent": "thaumcraft:block/essentia_tube_restrict",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_valve",
+      "parent": "thaumcraft:block/essentia_valve",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_vibration_chamber",
+      "parent": "thaumcraft:block/essentia_vibration_chamber",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "essentia_view_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ethereal_platform",
+      "parent": "thaumcraft:block/ethereal_platform",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "experience_extractor",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "experience_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "extras_air_block",
+      "parent": "thaumcraft:block/extras_air_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "extras_earth_block",
+      "parent": "thaumcraft:block/extras_earth_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "extras_ender_block",
+      "parent": "thaumcraft:block/extras_ender_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "extras_fire_block",
+      "parent": "thaumcraft:block/extras_fire_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "extras_light_block",
+      "parent": "thaumcraft:block/extras_light_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "extras_water_block",
+      "parent": "thaumcraft:block/extras_water_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "filtered_essentia_jar",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "flesh_block",
+      "parent": "thaumcraft:block/flesh_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "flux_crystal",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "flux_gas",
+      "parent": "thaumcraft:block/flux_gas",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "flux_goo",
+      "parent": "thaumcraft:block/flux_goo",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_ae_wrench",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_arrow",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_blink",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_destroy",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_dispel",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_equal_trade",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_excavation",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_exchange",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_experience",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_fire",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_freeze",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_frost",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_heal",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_pech_summon",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_portable_hole",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_pouch",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_primal",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_return",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_shock",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "focus_smelting",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_speed",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "focus_warding",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "fume_dissipator",
+      "parent": "thaumcraft:block/fume_dissipator",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "gear_box",
+      "parent": "thaumcraft:block/gear_box",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "goggles_of_revealing",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "gold_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_bell",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_armor",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_bowtie",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_dart_launcher",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_fez",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_glasses",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_mace",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_tophat",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_deco_visor",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_filter",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_gear_box",
+      "parent": "thaumcraft:block/golem_gear_box",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_seal_collect",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_seal_collect_block",
+      "parent": "thaumcraft:block/golem_seal_collect_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_task_marker",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_upgrade_air",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_upgrade_earth",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_upgrade_entropy",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_upgrade_fire",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_upgrade_order",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_upgrade_water",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "golem_wireless_backpack",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_leaves",
+      "parent": "thaumcraft:block/greatwood_leaves",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_log",
+      "parent": "thaumcraft:block/greatwood_log",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_planks",
+      "parent": "thaumcraft:block/greatwood_planks",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_sapling",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_slab",
+      "parent": "thaumcraft:block/greatwood_slab",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_stairs",
+      "parent": "thaumcraft:block/greatwood_stairs",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_wand",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "greatwood_wand_core",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "helmet_of_revealing",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "herba_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "hungry_chest",
+      "parent": "builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichor",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichor_pickaxe",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "ichor_sword",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "ichorcloth",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichorcloth_boots",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichorcloth_hood",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichorcloth_leggings",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichorcloth_robe",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ichorium_ingot",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ignis_crystal",
+      "parent": "thaumcraft:block/ignis_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ignis_fuel",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ignis_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "infused_scribing_tools",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "infusion_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "infusion_matrix",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "infusion_pillar",
+      "parent": "thaumcraft:block/infusion_pillar",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "infusion_provider",
+      "parent": "thaumcraft:block/infusion_provider",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "iron_capped_wooden_wand",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "iron_gear",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "iron_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "item_grate",
+      "parent": "thaumcraft:block/item_grate",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "jar_label",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "kami_research_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "knowledge_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "knowledge_inscriber",
+      "parent": "thaumcraft:block/knowledge_inscriber",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "lux_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "matrix_accelerator",
+      "parent": "thaumcraft:block/matrix_accelerator",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "matrix_stabilizer",
+      "parent": "thaumcraft:block/matrix_stabilizer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "metallum_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "mnemonic_matrix",
+      "parent": "thaumcraft:block/mnemonic_matrix",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "nitor",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "node_jar",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "node_stabilizer",
+      "parent": "builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "node_transducer",
+      "parent": null,
+      "display_contexts": [
+        "fixed",
+        "ground",
+        "gui"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "obsidian_tile",
+      "parent": "thaumcraft:block/obsidian_tile",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "obsidian_totem",
+      "parent": "thaumcraft:block/obsidian_totem",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ordo_crystal",
+      "parent": "thaumcraft:block/ordo_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "ordo_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "osmotic_enchanter",
+      "parent": "thaumcraft:block/osmotic_enchanter",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "osmotic_enchantment_focus",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "outer_lands_loot_crate",
+      "parent": "thaumcraft:block/outer_lands_loot_crate",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "outer_lands_loot_urn",
+      "parent": "thaumcraft:block/outer_lands_loot_urn",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "pech_ledger",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "pech_trade_tier_1",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "pech_trade_tier_2",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "pech_trade_tier_3",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "pech_trade_tier_4",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "pech_trade_tier_5",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "perditio_crystal",
+      "parent": "thaumcraft:block/perditio_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "perditio_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "porting_ledger",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "potentia_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "praecantatio_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "primordial_pearl",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "quicksilver_drop",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_cache_block",
+      "parent": "thaumcraft:block/research_cache_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_note",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_note_available",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_note_complete",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_note_locked",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_note_selected",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_point",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "research_table",
+      "parent": "thaumcraft:block/research_table_item",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "sanity_soap",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "scribing_tools",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_leaves",
+      "parent": "thaumcraft:block/silverwood_leaves",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_log",
+      "parent": "thaumcraft:block/silverwood_log",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_planks",
+      "parent": "thaumcraft:block/silverwood_planks",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_sapling",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_slab",
+      "parent": "thaumcraft:block/silverwood_slab",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_stairs",
+      "parent": "thaumcraft:block/silverwood_stairs",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_wand",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "silverwood_wand_core",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "spellbinding_cloth",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "table",
+      "parent": "thaumcraft:block/table",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "taint_crust",
+      "parent": "thaumcraft:block/taint_crust",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "taint_fibres",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "taint_seed",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "taint_soil",
+      "parent": "thaumcraft:block/taint_soil",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tainted_slime",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tainted_soil",
+      "parent": "thaumcraft:block/tainted_soil",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle",
+      "parent": "thaumcraft:block/tallow_candle",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_black",
+      "parent": "thaumcraft:block/tallow_candle_black",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_blue",
+      "parent": "thaumcraft:block/tallow_candle_blue",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_brown",
+      "parent": "thaumcraft:block/tallow_candle_brown",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_cyan",
+      "parent": "thaumcraft:block/tallow_candle_cyan",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_gray",
+      "parent": "thaumcraft:block/tallow_candle_gray",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_green",
+      "parent": "thaumcraft:block/tallow_candle_green",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_light_blue",
+      "parent": "thaumcraft:block/tallow_candle_light_blue",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_light_gray",
+      "parent": "thaumcraft:block/tallow_candle_light_gray",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_lime",
+      "parent": "thaumcraft:block/tallow_candle_lime",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_magenta",
+      "parent": "thaumcraft:block/tallow_candle_magenta",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_orange",
+      "parent": "thaumcraft:block/tallow_candle_orange",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_pink",
+      "parent": "thaumcraft:block/tallow_candle_pink",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_purple",
+      "parent": "thaumcraft:block/tallow_candle_purple",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_red",
+      "parent": "thaumcraft:block/tallow_candle_red",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tallow_candle_yellow",
+      "parent": "thaumcraft:block/tallow_candle_yellow",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_alumentum",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_amber",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_arcanedoor",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bath_salts",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bauble_amulet",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bauble_belt",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bauble_ring",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bauble_ring_iron",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_advanced_alchemical_furnace",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_alchemical_construct",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_alembic",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_bore",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_bore_base",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_ear",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_lamp",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_pedestal",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_pressure_plate",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_spa",
+      "parent": "thaumcraft:block/tc4_block_arcane_spa",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_stone",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_arcane_stone_slab",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_banner",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_bellows",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_cinderpearl",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_crystal_cluster",
+      "parent": "thaumcraft:block/tc4_block_crystal_cluster",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_essentia_jar",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_essentia_reservoir",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_essentia_tube",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_ethereal_bloom",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_flux_scrubber",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_focal_manipulator",
+      "parent": "thaumcraft:block/tc4_block_focal_manipulator",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_greatwood_leaves",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_greatwood_log",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_greatwood_planks",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_greatwood_sapling",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_infusion_matrix",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_lamp_fertility",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_lamp_growth",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_levitator",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_metal_base",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_mnemonic_matrix",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_node_stabilizer",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_node_stabilizer_advanced",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_node_transducer",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_tile",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_totem_1",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_totem_2",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_totem_3",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_totem_4",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_totem_base",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_obsidian_totem_shaded",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_paving_travel",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_paving_warding",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_shimmerleaf",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_silverwood_leaves",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_silverwood_log",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_silverwood_planks",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_silverwood_sapling",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_tallow",
+      "parent": "thaumcraft:block/tc4_block_tallow",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_thaumium",
+      "parent": "thaumcraft:block/tc4_block_thaumium",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_vishroom",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_wand_pedestal",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_block_wand_pedestal_focus",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bonebow",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 3
+    },
+    {
+      "item": "tc4_bonebow_pulling_0",
+      "parent": "thaumcraft:item/tc4_bonebow",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bonebow_pulling_1",
+      "parent": "thaumcraft:item/tc4_bonebow",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bonebow_pulling_2",
+      "parent": "thaumcraft:item/tc4_bonebow",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bootstraveler",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bottle_taint",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_brain",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bucket_death",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_bucket_pure",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_charm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cloth",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clothboots",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clothbootsover",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clothchest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clothchestover",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clothlegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clothlegsover",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clustercinnabar",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clustercopper",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clustergold",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clusteriron",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clusterlead",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clustersilver",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_clustertin",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_coin",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_crimson_blade",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_crimson_rites",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_crystalessence",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistboots",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistplatechest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistplatehelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistplateleaderchest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistplateleaderhelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistplateleaderlegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistplatelegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistrobechest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistrobehelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_cultistrobelegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_discovery",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_dust",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_el_arrow_air",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_el_arrow_earth",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_el_arrow_entropy",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_el_arrow_fire",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_el_arrow_order",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_el_arrow_water",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_eldritch_object",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_eldritch_object_2",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_eldritch_object_3",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_elementalaxe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_elementalhoe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_elementalpick",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_elementalshovel",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_elementalsword",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_essence",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_filter",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_excavation",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_fire",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_frost",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_hellbat",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_pech",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_portablehole",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_primal",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_reversal",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_shock",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_trade",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focus_warding",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focuspouch",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_focuspouchbauble",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_gogglesrevealing",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_clay",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_blank",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_bodyguard",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_butcher",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_empty",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_essentia",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_fill",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_fish",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_gather",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_guard",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_harvest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_liquid",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_lumber",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_patrol",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_sorting",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_core_use",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_flesh",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_iron",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_stone",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_straw",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_tallow",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_thaumium",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_air",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_earth",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_empty",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_entropy",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_fire",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_order",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_upgrade_water",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golem_wood",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecoarmor",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecobowtie",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecodart",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecofez",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecoglasses",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecomace",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecotophat",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_golemdecovisor",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_hovergirdle",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_hoverharness",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_inkwell",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_ironbell",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_jar_brain",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_keygold",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_keyiron",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_knowledgefragment",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_label",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_lightningring",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_lootbag",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_lootbagrare",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_lootbagunc",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mana_bean",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mask_angry_ghost",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mask_grinning_devil",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mask_sipping_fiend",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mirrorframe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mirrorframe2",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mirrorglass",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_mirrorhand",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nitor",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetbeef",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetchicken",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetcopper",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetfish",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetiron",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetlead",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetpork",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetquicksilver",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetsilver",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetthaumium",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggettin",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_nuggetvoid",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_ob_placer",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_phial",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_primal_crusher",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_quicksilver",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_researchnotes",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_resonator",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_amulet",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_amulet_emergency",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_girdle",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_girdle_kinetic",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_ring",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_ring_charged",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_ring_lesser",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_runic_ring_regen",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_sanitychecker",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_aer",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_aqua",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_balanced",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_ignis",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_ordo",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_perditio",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_shard_terra",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_sinister_stone",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_sinister_stone_active",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_soap",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_blaze",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_bone",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_greatwood",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_ice",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_obsidian",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_primal",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_quartz",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_reed",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_staff_rod_silverwood",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_taint_slime",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_taint_tendril",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_tallow",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumaxe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumboots",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumchest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumfortresschest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumfortresshelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumfortresslegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumhelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumhoe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumingot",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumlegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumpick",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumshovel",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumiumsword",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumonomicon",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_thaumonomiconcheat",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_travel_trunk",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_tripletreat",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_vis_amulet",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_vis_amulet_lesser",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidaxe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidboots",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidchest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidhelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidhoe",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidingot",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidlegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidpick",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidrobeboots",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidrobechest",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidrobechestover",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidrobehelm",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidrobelegs",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidrobelegsover",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidseed",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidshovel",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_voidsword",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_copper",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_gold",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_iron",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_silver",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_silver_inert",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_thaumium",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_thaumium_inert",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_void",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_cap_void_inert",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_blaze",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_bone",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_greatwood",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_ice",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_obsidian",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_quartz",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_reed",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wand_rod_silverwood",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tc4_wispessence",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_api_crystal",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_api_nugget",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_api_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_cable",
+      "parent": "thaumcraft:block/tce_cable",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_cactus",
+      "parent": "thaumcraft:block/tce_cactus",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_charger",
+      "parent": "thaumcraft:block/tce_charger",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_clear_glass",
+      "parent": "thaumcraft:block/tce_clear_glass",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_color_block",
+      "parent": "thaumcraft:block/tce_color_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_color_pouch",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_comb",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_crystal",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_infuser",
+      "parent": "thaumcraft:block/tce_dark_infuser",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_nugget",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_silverwood",
+      "parent": "thaumcraft:block/tce_dark_silverwood",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_silverwood_planks",
+      "parent": "thaumcraft:block/tce_dark_silverwood_planks",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_thaumium_pickaxe",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_thaumium_shovel",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tce_dark_thaumium_sword",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tce_empty_focus",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_exchanger",
+      "parent": "thaumcraft:block/tce_exchanger",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_hidden_warded",
+      "parent": "thaumcraft:block/tce_hidden_warded",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_ignis_fuel_block",
+      "parent": "thaumcraft:block/tce_ignis_fuel_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_info_book",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_infusion_info",
+      "parent": "thaumcraft:block/tce_infusion_info",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_lava_block",
+      "parent": "thaumcraft:block/tce_lava_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_magic_charger",
+      "parent": "thaumcraft:block/tce_magic_charger",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_magic_generator",
+      "parent": "thaumcraft:block/tce_magic_generator",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_magic_solar_panel",
+      "parent": "thaumcraft:block/tce_magic_solar_panel",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_magic_wrench",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tce_open_warded",
+      "parent": "thaumcraft:block/tce_open_warded",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_teleporter",
+      "parent": "thaumcraft:block/tce_teleporter",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_tesla",
+      "parent": "thaumcraft:block/tce_tesla",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tce_wand_rod",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tce_warded_carpet",
+      "parent": "thaumcraft:block/tce_warded_carpet",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_warded_cover",
+      "parent": "thaumcraft:block/tce_warded_cover",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_warded_glass",
+      "parent": "thaumcraft:block/tce_warded_glass",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_warded_pillar",
+      "parent": "thaumcraft:block/tce_warded_pillar",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_warded_slab",
+      "parent": "thaumcraft:block/tce_warded_slab",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tce_warded_wall",
+      "parent": "thaumcraft:block/tce_warded_wall",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "terra_crystal",
+      "parent": "thaumcraft:block/terra_crystal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "terra_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumatorium",
+      "parent": "thaumcraft:block/thaumatorium",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_channel_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_coprocessor_card",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_crafting_cpu",
+      "parent": "thaumcraft:block/thaumic_crafting_cpu",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_crafting_cpu_core",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_energy_acceptor",
+      "parent": "thaumcraft:block/thaumic_energy_acceptor",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_grid_tool",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_me_cable",
+      "parent": "thaumcraft:block/thaumic_me_cable",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumic_me_controller",
+      "parent": "thaumcraft:block/thaumic_me_controller",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumium_ingot",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumium_nugget",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumium_plate",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumium_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumometer",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumonomicon",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "thaumonomicon_cheat",
+      "parent": "item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tome_of_knowledge_sharing",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "transvector_binder",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "transvector_interface",
+      "parent": "thaumcraft:block/transvector_interface",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_animation_tablet",
+      "parent": "thaumcraft:block/tt_animation_tablet",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_aspect_analyzer",
+      "parent": "thaumcraft:block/tt_aspect_analyzer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_bedrock_portal",
+      "parent": "thaumcraft:block/tt_bedrock_portal",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_bright_nitor",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_cat_amulet",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_cleansing_talisman",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_connector",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_dark_quartz",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_dark_quartz_block",
+      "parent": "thaumcraft:block/tt_dark_quartz_block",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_enchanter",
+      "parent": "thaumcraft:block/tt_enchanter",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_fire_air",
+      "parent": "thaumcraft:block/tt_fire_air",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_fire_chaos",
+      "parent": "thaumcraft:block/tt_fire_chaos",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_fire_earth",
+      "parent": "thaumcraft:block/tt_fire_earth",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_fire_order",
+      "parent": "thaumcraft:block/tt_fire_order",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_fire_water",
+      "parent": "thaumcraft:block/tt_fire_water",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_deflect",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_dislocation",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_ender_chest",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_flight",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_recall",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_shadowbeam",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_telekinesis",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_focus_xp_drain",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_forcefield",
+      "parent": "thaumcraft:block/tt_forcefield",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_funnel",
+      "parent": "thaumcraft:block/tt_funnel",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_gas_remover",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_gaseous_light",
+      "parent": "thaumcraft:block/tt_gaseous_light",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_gaseous_shadow",
+      "parent": "thaumcraft:block/tt_gaseous_shadow",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_golem_connector",
+      "parent": "thaumcraft:block/tt_golem_connector",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_axe",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_gem_boots",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_gem_chest",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_gem_helm",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_gem_legs",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_pouch",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_shovel",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_wand_cap",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_ichor_wand_rod",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [
+        "firstperson_lefthand",
+        "firstperson_righthand",
+        "thirdperson_lefthand",
+        "thirdperson_righthand"
+      ],
+      "override_count": 0
+    },
+    {
+      "item": "tt_infused_farmland",
+      "parent": "thaumcraft:block/tt_infused_farmland",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_infused_grain",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_infused_inkwell",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_infused_potion",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_infused_seed",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_kami_resource",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_mob_display",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_mob_magnet",
+      "parent": "thaumcraft:block/tt_mob_magnet",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_mobilizer",
+      "parent": "thaumcraft:block/tt_mobilizer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_mobilizer_relay",
+      "parent": "thaumcraft:block/tt_mobilizer_relay",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_nitor_gas",
+      "parent": "thaumcraft:block/tt_nitor_gas",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_placement_mirror",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_protoclay",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_remote_placer",
+      "parent": "thaumcraft:block/tt_remote_placer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_repairer",
+      "parent": "thaumcraft:block/tt_repairer",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_research_stamp",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_sky_pearl",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_soul_mould",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_spell_cloth",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_summon_tablet",
+      "parent": "thaumcraft:block/tt_summon_tablet",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_transvector_dislocator",
+      "parent": "thaumcraft:block/tt_transvector_dislocator",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_warp_gate",
+      "parent": "thaumcraft:block/tt_warp_gate",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "tt_xp_talisman",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "unstable_singularity",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "vacuos_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "vis_charge_relay",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "vis_interface",
+      "parent": "thaumcraft:block/vis_interface",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "vis_relay",
+      "parent": "thaumcraft:block/vis_relay",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "vitreus_shard",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "void_essentia_jar",
+      "parent": "minecraft:builtin/entity",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "void_metal_ingot",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "warded_glass",
+      "parent": "thaumcraft:block/warded_glass",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "warp_charm",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "warp_ward_talisman",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "wireless_essentia_terminal",
+      "parent": "minecraft:item/generated",
+      "display_contexts": [],
+      "override_count": 0
+    },
+    {
+      "item": "wooden_wand_core",
+      "parent": "minecraft:item/handheld",
+      "display_contexts": [],
+      "override_count": 0
+    }
+  ],
+  "parse_errors": []
+}
