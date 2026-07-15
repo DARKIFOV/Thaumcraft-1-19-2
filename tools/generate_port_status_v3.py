@@ -163,7 +163,7 @@ def generate(version: str, jar: Path | None, output: Path) -> dict[str, Any]:
         ("Crimson cultists", "crimson_cultists", "PARTIAL", set(), "humanoid renderer source contract; four-role side-by-side runtime required"),
         ("Fortress Armor", "fortress_armor", "PARTIAL", {"W"}, "dedicated model source contract; slim/default/masks runtime required"),
         ("Големы", "golems", "PARTIAL", {"W"}, "USE marker-side/empty-hand handling, weighted fishing quality and priority creeper avoidance are source-guarded; all materials/cores/upgrades/markers still require runtime"),
-        ("Warp/Eldritch", "warp_eldritch", "PARTIAL", set(), "v11.62.82 source audit: effect-only Warp Ward authority with legacy NBT migration, separate sticky-event decay, full bucket/counter sync, TC4 spawn search and 0.75 Death Gaze cone; runtime/network/visual proof required"),
+        ("Warp/Eldritch", "warp_eldritch", "PARTIAL", set(), "v11.62.81 source audit: effect-only Warp Ward authority with legacy NBT migration, separate sticky-event decay, full bucket/counter sync, TC4 spawn search and 0.75 Death Gaze cone; runtime/network/visual proof required"),
         ("Taint/Eerie/Forest", "taint_eerie_forest", "PARTIAL", set(), "v11.62.80 source audit: five fibre states, persistent taint columns, original spread thresholds, spore lifecycle and taint-spider renderer; biome colours/weather, cleanse and structures still require runtime"),
         ("Outer Lands", "outer_lands", "PARTIAL", set(), "aligned portal maze, TC4 portal-room geometry and lock-gated boss cycle in source; traversal/save/return runtime required"),
         ("Mirrors", "mirrors", "PARTIAL", {"W"}, "source mirror contracts; cross-dimension/save/automation runtime required"),
@@ -370,7 +370,7 @@ Source status не закрывает P0. Требуются build PASS и runti
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.82")
+    parser.add_argument("--version", default="11.62.83")
     parser.add_argument("--jar", type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "TC4_PORT_STATUS_V3.md")
     args = parser.parse_args()

@@ -1,3 +1,4 @@
 {
-  "parent": "thaumcraft:block/essentia_tube_filter"
+  "parent": "minecraft:item/generated",
+  "textures": {"layer0": "thaumcraft:original/thaumcraft4/items/filter"}
 }

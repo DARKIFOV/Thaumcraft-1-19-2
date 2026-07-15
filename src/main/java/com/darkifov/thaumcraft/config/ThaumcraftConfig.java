@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public final class ThaumcraftConfig {
     public static final ForgeConfigSpec SPEC;
 
+    public static final ForgeConfigSpec.BooleanValue WARP_EVENTS_ENABLED;
     public static final ForgeConfigSpec.IntValue WARP_EVENT_MIN_CHANCE;
     public static final ForgeConfigSpec.IntValue WARP_EVENT_MAX_CHANCE;
     public static final ForgeConfigSpec.IntValue WARP_EVENT_CHANCE_PER_WARP;
@@ -35,12 +36,17 @@ public final class ThaumcraftConfig {
     public static final ForgeConfigSpec.IntValue RUNIC_SHIELD_WAIT_TICKS;
     public static final ForgeConfigSpec.IntValue RUNIC_SHIELD_COST;
 
+    public static final ForgeConfigSpec.IntValue TAINT_SPREAD_RATE;
+    public static final ForgeConfigSpec.BooleanValue SPAWN_TAINT_SPORES;
+
     public static final ForgeConfigSpec.BooleanValue CHAMPION_MOBS;
+    public static final ForgeConfigSpec.BooleanValue WAND_DIAL_BOTTOM;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.push("warp");
+        WARP_EVENTS_ENABLED = builder.comment("TC4 Config.wuss inverse: enable random Warp events.").define("eventsEnabled", true);
         WARP_EVENT_MIN_CHANCE = builder.comment("Minimum Warp event chance percent when event check runs.").defineInRange("eventMinChance", 2, 0, 100);
         WARP_EVENT_MAX_CHANCE = builder.comment("Maximum Warp event chance percent when event check runs.").defineInRange("eventMaxChance", 42, 0, 100);
         WARP_EVENT_CHANCE_PER_WARP = builder.comment("Percent chance added per Warp point.").defineInRange("eventChancePerWarp", 2, 0, 20);
@@ -74,8 +80,19 @@ public final class ThaumcraftConfig {
         ESSENTIA_TUBE_MAX_NETWORK = builder.comment("Maximum tube blocks in one network scan.").defineInRange("tubeMaxNetwork", 48, 4, 256);
         builder.pop();
 
+        builder.push("taint");
+        TAINT_SPREAD_RATE = builder.comment("TC4 Config.taintSpreadRate; 0 disables persistent taint-column spread.")
+                .defineInRange("spreadRate", 200, 0, 10_000);
+        SPAWN_TAINT_SPORES = builder.comment("TC4 Config.spawnTaintSpore: allow mature stalks to grow stationary spores.")
+                .define("spawnSpores", true);
+        builder.pop();
+
         builder.push("champions");
         CHAMPION_MOBS = builder.comment("TC4 Config.championMobs: allow natural champion mob generation; dangerous places can still force a reduced chance when disabled.").define("championMobs", true);
+        builder.pop();
+
+        builder.push("client_parity");
+        WAND_DIAL_BOTTOM = builder.comment("TC4 Config.wand_dial_bottom: place the 32x32 wand vis dial at the bottom-left instead of its original top-left default.").define("wandDialBottom", false);
         builder.pop();
 
         builder.push("runic_shielding");

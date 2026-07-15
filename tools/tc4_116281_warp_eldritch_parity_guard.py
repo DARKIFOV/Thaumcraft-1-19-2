@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static source/network contract guard for v11.62.82 TC4 Warp/Eldritch parity."""
+"""Static source/network contract guard for v11.62.83 TC4 Warp/Eldritch parity."""
 from __future__ import annotations
 
 import json
@@ -31,8 +31,8 @@ network = text("src/main/java/com/darkifov/thaumcraft/network/ThaumcraftNetwork.
 client = text("src/main/java/com/darkifov/thaumcraft/client/ClientResearchData.java")
 manifest = json.loads(text("runtime_artifacts/runtime_test_manifest.template.json"))
 
-check("build version 11.62.82", "version = '11.62.82'" in build)
-check("mods version 11.62.82", 'version="11.62.82"' in mods)
+check("build version 11.62.83", "version = '11.62.83'" in build)
+check("mods version 11.62.83", 'version="11.62.83"' in mods)
 check("warp check interval 2000", "CHECK_INTERVAL = 2000" in warp)
 check("death gaze interval ten", "player.tickCount % 10 == 0" in warp)
 check("event roll sqrt counter", "roll <= Math.sqrt(warpCounter)" in warp)
@@ -84,14 +84,14 @@ required = {
     "warp.death_gaze_forward_cone_pvp_aggro",
 }
 ids = {entry.get("id") for entry in manifest.get("tests", [])}
-check("manifest version 11.62.82", manifest.get("version") == "11.62.82")
+check("manifest version 11.62.83", manifest.get("version") == "11.62.83")
 check("manifest retains at least the 59 warp-era cases", len(manifest.get("tests", [])) >= 59)
 for test_id in required:
     check(f"runtime case {test_id}", test_id in ids)
 
 failed = [name for name, ok in checks if not ok]
 payload = {
-    "version": "11.62.82",
+    "version": "11.62.83",
     "scope": "TC4 warp buckets/counter, Warp Ward migration, event spawning, Death Gaze cone and network sync source contracts",
     "checks_total": len(checks),
     "checks_passed": len(checks) - len(failed),

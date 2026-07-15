@@ -12,6 +12,7 @@ import com.darkifov.thaumcraft.block.BellowsBlock;
 import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
 import com.darkifov.thaumcraft.block.EssentiaValveBlock;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
+import com.darkifov.thaumcraft.mirror.EssentiaMirrorBlockEntity;
 import com.darkifov.thaumcraft.essentia.EssentiaSuction;
 import com.darkifov.thaumcraft.essentia.EssentiaBackflowResult;
 import com.darkifov.thaumcraft.essentia.EssentiaSuctionResolver;
@@ -131,6 +132,13 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return takeFromBuffer(aspect, amount);
     }
 
+    public void restoreBufferForNetwork(Aspect aspect, int amount) {
+        if (aspect != null && amount > 0 && subtype.storesBufferEssentia()) {
+            bufferAspects.add(aspect, amount);
+            setChangedAndSync();
+        }
+    }
+
     public boolean isVenting() {
         return venting > 0;
     }
@@ -179,7 +187,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         if (subtype.redstoneValve() && direction == facing) {
             return false;
         }
-        return !subtype.redstoneValve() || allowFlow;
+        // TileTubeValve only overrides setSuction while powered. Its inherited
+        // canInputFrom/canOutputTo remain available, so a neighbouring tube may
+        // still drain the single essentia unit already trapped inside the valve.
+        return true;
     }
 
     /**
@@ -699,7 +710,9 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                 continue;
             }
             int sideSuction = originalBufferSuctionAmount(direction);
-            if (sideSuction <= 0 || source.priority() >= sideSuction) {
+            if (sideSuction <= 0
+                    || source.suctionAmount() >= sideSuction
+                    || sideSuction < source.minimumSuction()) {
                 continue;
             }
             int removed = source.remove(1);
@@ -886,9 +899,8 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                 return jar.originalSuctionAmount(level.getBlockState(tubePos.relative(direction)).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get()));
             }
         }
-        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir && aspect != null
-                && reservoir.canAccessFrom(direction.getOpposite())
-                && reservoir.canAcceptAspect(aspect)) {
+        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir
+                && reservoir.canAccessFrom(direction.getOpposite())) {
             return reservoir.originalSuctionAmount(aspect);
         }
         Destination destination = destinationFrom(level, tubePos, direction, aspect);
@@ -925,9 +937,9 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
                 return jar.storedAspect();
             }
         }
-        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir && aspect != null
-                && reservoir.canAcceptAspect(aspect)) {
-            return aspect;
+        if (blockEntity instanceof EssentiaReservoirBlockEntity reservoir
+                && reservoir.canAccessFrom(direction.getOpposite())) {
+            return null;
         }
         return null;
     }
@@ -988,7 +1000,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         return best;
     }
 
-    private Source sourceFrom(BlockEntity blockEntity, Direction sideFromContainer) {
+    private static Source sourceFrom(BlockEntity blockEntity, Direction sideFromContainer) {
         if (blockEntity instanceof AlchemicalFurnaceBlockEntity furnace
                 && furnace.isAdvanced() && furnace.canAdvancedOutputTo(sideFromContainer)) {
             Aspect aspect = furnace.advancedOutputType(sideFromContainer);
@@ -1027,14 +1039,71 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
             }
         }
 
+        if (blockEntity instanceof EssentiaMirrorBlockEntity mirror) {
+            Aspect aspect = mirror.peekRemoteAspect();
+            if (aspect != null) {
+                return new MirrorSource(mirror, aspect);
+            }
+        }
+
         if (blockEntity instanceof EssentiaTubeBlockEntity tube && tube.subtype.storesBufferEssentia()) {
             Aspect aspect = tube.bufferAspects.firstAspect();
             if (aspect != null) {
-                return new BufferSource(tube, aspect);
+                return new BufferSource(tube, aspect, sideFromContainer);
             }
         }
 
         return null;
+    }
+
+    /**
+     * TC4-compatible direct transport pull used by TileEssentiaReservoir.
+     * Unlike the older port path this accepts any supported adjacent transport
+     * source, not only a regular tube, while preserving neighbour suction and
+     * minimum-suction arbitration and rolling the unit back on rejection.
+     */
+    public static int pullOneIntoReservoirLikeTC4(BlockEntity blockEntity, Direction sideFromNeighbour,
+                                                   int reservoirSuction, EssentiaReservoirBlockEntity reservoir) {
+        if (blockEntity == null || sideFromNeighbour == null || reservoir == null || reservoirSuction <= 0) {
+            return 0;
+        }
+        if (blockEntity instanceof EssentiaTubeBlockEntity tube) {
+            if (!tube.allowsOutputTo(sideFromNeighbour)
+                    || tube.getTransportEssentiaAmount(sideFromNeighbour) <= 0
+                    || tube.getSuctionAmount(sideFromNeighbour) >= reservoirSuction
+                    || reservoirSuction < tube.getMinimumSuction()) {
+                return 0;
+            }
+            Aspect aspect = tube.getTransportEssentiaType(sideFromNeighbour);
+            if (aspect == null) {
+                return 0;
+            }
+            int removed = tube.takeEssentiaOriginal(aspect, 1, sideFromNeighbour);
+            if (removed <= 0) {
+                return 0;
+            }
+            int accepted = reservoir.acceptFromTube(aspect, removed);
+            if (accepted < removed) {
+                tube.addEssentiaToLocalTubeLikeTC4(aspect, removed - accepted, sideFromNeighbour);
+            }
+            return accepted;
+        }
+        Source source = sourceFrom(blockEntity, sideFromNeighbour);
+        if (source == null || source.aspect() == null
+                || source.suctionAmount() >= reservoirSuction
+                || reservoirSuction < source.minimumSuction()) {
+            return 0;
+        }
+        Aspect aspect = source.aspect();
+        int removed = source.remove(1);
+        if (removed <= 0) {
+            return 0;
+        }
+        int accepted = reservoir.acceptFromTube(aspect, removed);
+        if (accepted < removed) {
+            source.restore(removed - accepted);
+        }
+        return accepted;
     }
 
     private int countSources(Level level, Set<BlockPos> network) {
@@ -1284,13 +1353,12 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         @Override
         public int suctionAmount() {
-            // Adjacent source containers in TC4 do not behave like competing destination suction.
-            return EssentiaSuction.SOURCE_NONE;
+            return source.suctionAmount();
         }
 
         @Override
         public int minimumSuction() {
-            return 1;
+            return source.minimumSuction();
         }
 
         @Override
@@ -1311,6 +1379,10 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
 
         int priority();
 
+        int suctionAmount();
+
+        int minimumSuction();
+
         int remove(int amount);
 
         void restore(int amount);
@@ -1325,6 +1397,16 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         @Override
         public int priority() {
             return EssentiaSuction.ALEMBIC_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int suctionAmount() {
+            return EssentiaSuction.SOURCE_NONE;
+        }
+
+        @Override
+        public int minimumSuction() {
+            return 0;
         }
 
         @Override
@@ -1350,6 +1432,16 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
 
         @Override
+        public int suctionAmount() {
+            return EssentiaSuction.SOURCE_NONE;
+        }
+
+        @Override
+        public int minimumSuction() {
+            return 0;
+        }
+
+        @Override
         public int remove(int amount) {
             return centrifuge.takeOutput(aspect, amount, face);
         }
@@ -1372,6 +1464,16 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
 
         @Override
+        public int suctionAmount() {
+            return EssentiaSuction.SOURCE_NONE;
+        }
+
+        @Override
+        public int minimumSuction() {
+            return 0;
+        }
+
+        @Override
         public int remove(int amount) {
             return alembic.removeEssentia(aspect, amount);
         }
@@ -1382,7 +1484,7 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
     }
 
-    private record BufferSource(EssentiaTubeBlockEntity tube, Aspect aspect) implements Source {
+    private record BufferSource(EssentiaTubeBlockEntity tube, Aspect aspect, Direction face) implements Source {
         @Override
         public BlockPos pos() {
             return tube.getBlockPos();
@@ -1398,8 +1500,18 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
 
         @Override
+        public int suctionAmount() {
+            return tube.getSuctionAmount(face);
+        }
+
+        @Override
+        public int minimumSuction() {
+            return tube.getMinimumSuction();
+        }
+
+        @Override
         public int remove(int amount) {
-            return tube.takeFromBuffer(aspect, amount);
+            return tube.takeEssentiaOriginal(aspect, amount, face);
         }
 
         @Override
@@ -1418,6 +1530,16 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         @Override
         public int priority() {
             return EssentiaSuction.RESERVOIR_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int suctionAmount() {
+            return reservoir.originalSuctionAmount(aspect);
+        }
+
+        @Override
+        public int minimumSuction() {
+            return EssentiaReservoirBlockEntity.ORIGINAL_RESERVOIR_SUCTION;
         }
 
         @Override
@@ -1443,6 +1565,18 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         }
 
         @Override
+        public int suctionAmount() {
+            boolean voidJar = jar.getBlockState().is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+            return jar.originalSuctionAmount(voidJar);
+        }
+
+        @Override
+        public int minimumSuction() {
+            boolean voidJar = jar.getBlockState().is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
+            return jar.originalMinimumSuction(voidJar);
+        }
+
+        @Override
         public int remove(int amount) {
             int removed = Math.min(amount, jar.aspects().get(aspect));
             return removed > 0 && jar.takeFromContainerOriginal(aspect, removed) ? removed : 0;
@@ -1451,6 +1585,38 @@ public class EssentiaTubeBlockEntity extends BlockEntity {
         @Override
         public void restore(int amount) {
             jar.acceptFromTube(aspect, amount, false);
+        }
+    }
+
+    private record MirrorSource(EssentiaMirrorBlockEntity mirror, Aspect aspect) implements Source {
+        @Override
+        public BlockPos pos() {
+            return mirror.getBlockPos();
+        }
+
+        @Override
+        public int priority() {
+            return EssentiaSuction.JAR_SOURCE_PRIORITY;
+        }
+
+        @Override
+        public int suctionAmount() {
+            return EssentiaSuction.SOURCE_NONE;
+        }
+
+        @Override
+        public int minimumSuction() {
+            return 0;
+        }
+
+        @Override
+        public int remove(int amount) {
+            return amount <= 0 ? 0 : mirror.takeRemoteEssentia(aspect, 1);
+        }
+
+        @Override
+        public void restore(int amount) {
+            mirror.restoreRemoteEssentia(aspect, amount);
         }
     }
 

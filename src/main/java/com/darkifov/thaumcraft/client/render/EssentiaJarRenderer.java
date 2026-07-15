@@ -35,6 +35,18 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
     @Override
     public void render(EssentiaJarBlockEntity jar, float partialTick, PoseStack poseStack,
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        renderContents(jar, poseStack, buffer, packedLight, packedOverlay, true);
+    }
+
+    /** ItemJarFilledRenderer parity: dynamic liquid and label without world-only goggles text. */
+    public void renderItemContents(EssentiaJarBlockEntity jar, PoseStack poseStack,
+                                   MultiBufferSource buffer, int packedLight, int packedOverlay) {
+        renderContents(jar, poseStack, buffer, packedLight, packedOverlay, false);
+    }
+
+    private void renderContents(EssentiaJarBlockEntity jar, PoseStack poseStack,
+                                MultiBufferSource buffer, int packedLight, int packedOverlay,
+                                boolean includeWorldAspectTag) {
         Aspect aspect = jar.storedAspect();
 
         if (aspect != null && jar.amount() > 0) {
@@ -58,7 +70,7 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
 
         // Original TC4 goggles draw a small world-space aspect tag on the
         // container itself. Never replace it with a giant screen-space scanner.
-        if (aspect != null && jar.amount() > 0) {
+        if (includeWorldAspectTag && aspect != null && jar.amount() > 0) {
             RevealerAspectTagRenderer.renderSingle(jar.getBlockPos(), aspect, jar.amount(),
                     1.12D, poseStack, buffer);
         }

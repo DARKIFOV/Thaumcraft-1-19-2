@@ -5,10 +5,10 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:essentia_tube",
   "components": [
-    "thaumcraft:tc4_voidingot",
+    "thaumcraft:void_metal_ingot",
     "thaumcraft:essentia_jar",
     "thaumcraft:essentia_jar",
-    "thaumcraft:tc4_voidingot",
+    "thaumcraft:void_metal_ingot",
     "thaumcraft:essentia_jar",
     "thaumcraft:essentia_jar"
   ],

@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=down,linked=false": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_down_unlinked"
+    },
+    "facing=down,linked=true": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_down_linked"
+    },
+    "facing=up,linked=false": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_up_unlinked"
+    },
+    "facing=up,linked=true": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_up_linked"
+    },
+    "facing=north,linked=false": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_north_unlinked"
+    },
+    "facing=north,linked=true": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_north_linked"
+    },
+    "facing=south,linked=false": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_south_unlinked"
+    },
+    "facing=south,linked=true": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_south_linked"
+    },
+    "facing=west,linked=false": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_west_unlinked"
+    },
+    "facing=west,linked=true": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_west_linked"
+    },
+    "facing=east,linked=false": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_east_unlinked"
+    },
+    "facing=east,linked=true": {
+      "model": "thaumcraft:block/tc4_mirrorframe2_east_linked"
+    }
+  }
+}

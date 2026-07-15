@@ -3,9 +3,11 @@ package com.darkifov.thaumcraft.research;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.ResearchNoteItem;
 import com.darkifov.thaumcraft.block.ScribingToolsItem;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -70,6 +72,8 @@ public final class TC4ResearchNoteCreator {
         player.displayClientMessage(Component.literal("Research note created: ")
                 .withStyle(ChatFormatting.GOLD)
                 .append(Component.literal(entry.title()).withStyle(ChatFormatting.YELLOW)), false);
+        player.level.playSound(null, player.blockPosition(), TC4Sounds.event("learn"),
+                SoundSource.PLAYERS, 0.75F, 1.0F);
         return note;
     }
 

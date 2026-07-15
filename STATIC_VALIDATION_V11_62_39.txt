@@ -1,4 +1,0 @@
-Forge-only guard: not re-run in this environment
-Java syntax guard: source edited
-Visual target: Thaumometer / Goggles / Thaumonomicon recipe page
-Changed files: 5

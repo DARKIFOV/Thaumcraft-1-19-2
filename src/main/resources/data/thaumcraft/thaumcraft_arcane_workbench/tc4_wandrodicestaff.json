@@ -3,22 +3,25 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "ROD_ice_staff",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:warp_charm",
+  "catalyst": "thaumcraft:tc4_charm",
   "ingredients": [
     "thaumcraft:tc4_wand_rod_ice"
   ],
-  "aspects": {},
+  "aspects": {
+    "ORDO": 14
+  },
   "pattern": [
-    "S",
-    "G",
-    "G"
+    "  S",
+    " G ",
+    "G  "
   ],
   "key": {
-    "S": "thaumcraft:warp_charm",
+    "S": "thaumcraft:tc4_charm",
     "G": "thaumcraft:tc4_wand_rod_ice"
   },
   "result": {
     "item": "thaumcraft:tc4_staff_rod_ice",
     "count": 1
-  }
+  },
+  "v11_62_60_strict_original": true
 }

@@ -1,17 +1,281 @@
 {
+  "credit": "TC4 ModelTable geometry and 64x32 table.png UV atlas",
   "textures": {
-    "wood": "thaumcraft:block/table",
-    "particle": "thaumcraft:block/table"
+    "atlas": "thaumcraft:models/table",
+    "particle": "thaumcraft:models/table"
   },
   "elements": [
-    { "from": [1, 13, 1], "to": [15, 16, 15], "faces": {
-      "down": { "texture": "#wood" }, "up": { "texture": "#wood" },
-      "north": { "texture": "#wood" }, "south": { "texture": "#wood" },
-      "west": { "texture": "#wood" }, "east": { "texture": "#wood" }
-    }},
-    { "from": [2, 0, 2], "to": [5, 13, 5], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }},
-    { "from": [11, 0, 2], "to": [14, 13, 5], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }},
-    { "from": [2, 0, 11], "to": [5, 13, 14], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }},
-    { "from": [11, 0, 11], "to": [14, 13, 14], "faces": { "down": { "texture": "#wood" }, "up": { "texture": "#wood" }, "north": { "texture": "#wood" }, "south": { "texture": "#wood" }, "west": { "texture": "#wood" }, "east": { "texture": "#wood" } }}
+    {
+      "from": [
+        0,
+        12,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            4.0,
+            0.0,
+            8.0,
+            8.0
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            8.0,
+            0.0,
+            12.0,
+            8.0
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            8.0,
+            4.0,
+            10.0
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            4.0,
+            8.0,
+            8.0,
+            10.0
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            8.0,
+            8.0,
+            12.0,
+            10.0
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            12.0,
+            8.0,
+            16.0,
+            10.0
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        4,
+        6
+      ],
+      "to": [
+        14,
+        12,
+        10
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            1.0,
+            10.0,
+            2.0,
+            12.0
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2.0,
+            10.0,
+            3.0,
+            12.0
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            12.0,
+            1.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            1.0,
+            12.0,
+            2.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            2.0,
+            12.0,
+            3.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            3.0,
+            12.0,
+            4.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        4,
+        6
+      ],
+      "to": [
+        6,
+        12,
+        10
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            1.0,
+            10.0,
+            2.0,
+            12.0
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2.0,
+            10.0,
+            3.0,
+            12.0
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            0.0,
+            12.0,
+            1.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            1.0,
+            12.0,
+            2.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            2.0,
+            12.0,
+            3.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            3.0,
+            12.0,
+            4.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        4
+      ],
+      "to": [
+        16,
+        4,
+        12
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            6.0,
+            10.0,
+            10.0,
+            14.0
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            10.0,
+            10.0,
+            14.0,
+            14.0
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            4.0,
+            14.0,
+            6.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "north": {
+          "uv": [
+            6.0,
+            14.0,
+            10.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            10.0,
+            14.0,
+            12.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            12.0,
+            14.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#atlas"
+        }
+      }
+    }
   ]
 }

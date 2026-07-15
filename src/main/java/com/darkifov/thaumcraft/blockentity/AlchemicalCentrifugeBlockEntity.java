@@ -131,7 +131,7 @@ public class AlchemicalCentrifugeBlockEntity extends BlockEntity {
     }
 
     public int addInput(Aspect aspect, int amount, Direction face) {
-        if (!canInputFrom(face) || aspect == null || aspect.isPrimal() || amount <= 0 || aspectIn != null || aspectOut != null || isPowered()) {
+        if (!canInputFrom(face) || aspect == null || aspect.isPrimal() || amount <= 0 || aspectIn != null) {
             return 0;
         }
         aspectIn = aspect;

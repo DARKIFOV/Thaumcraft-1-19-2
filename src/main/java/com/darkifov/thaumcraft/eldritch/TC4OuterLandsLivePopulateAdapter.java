@@ -2,10 +2,9 @@ package com.darkifov.thaumcraft.eldritch;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Stage323-342 live tick bridge for TC4 ChunkProviderOuter.populate.
@@ -19,7 +18,6 @@ import java.util.Set;
  * being ported.</p>
  */
 public final class TC4OuterLandsLivePopulateAdapter {
-    private static final Set<String> POPULATED = new HashSet<>();
     private static final int PLAYER_CHUNK_RADIUS = 1;
 
     private TC4OuterLandsLivePopulateAdapter() {
@@ -44,11 +42,21 @@ public final class TC4OuterLandsLivePopulateAdapter {
         if (!TC4OuterLandsDimensionAdapter.isOuterLands(level.dimension())) {
             return false;
         }
-        String key = level.dimension().location() + ":" + level.getSeed() + ":" + chunkX + ":" + chunkZ;
-        if (!POPULATED.add(key)) {
+        BlockPos chunkProbe = new BlockPos((chunkX << 4) + 8, level.getMinBuildHeight(), (chunkZ << 4) + 8);
+        if (!level.hasChunkAt(chunkProbe)) {
             return false;
         }
-        TC4OuterLandsChunkProviderBridge.populateLikeTC4(level, chunkX, chunkZ);
+        TC4OuterLandsMazeSavedData data = TC4OuterLandsMazeSavedData.get(level);
+        if (data.isChunkPopulated(chunkX, chunkZ)) {
+            return false;
+        }
+        if (!TC4OuterLandsChunkProviderBridge.populateLikeTC4(level, chunkX, chunkZ)) {
+            return false;
+        }
+        if (!data.markChunkPopulated(chunkX, chunkZ)) {
+            return false;
+        }
+        data.setDirty();
         return true;
     }
 }

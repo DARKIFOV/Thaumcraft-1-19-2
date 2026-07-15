@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "tc4_source": "ConfigRecipes.java:3476 oreDictRecipe(Thaumometer)",
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3476 Thaumometer",
   "pattern": [
     " 1 ",
     "IGI",

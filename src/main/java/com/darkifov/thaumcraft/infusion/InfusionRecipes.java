@@ -50,6 +50,16 @@ public final class InfusionRecipes {
     private InfusionRecipes() {
     }
 
+
+    public static void ensureBundledRecipesLoaded() {
+        if (STRICT_ORIGINAL.isEmpty()) {
+            List<InfusionRecipe> bundled = InfusionRecipeManager.loadBundledRecipes();
+            if (!bundled.isEmpty()) {
+                setLoadedRecipes(bundled);
+            }
+        }
+    }
+
     public static List<InfusionRecipe> recipes() {
         List<InfusionRecipe> base;
         if (!STRICT_ORIGINAL.isEmpty()) {

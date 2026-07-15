@@ -7,7 +7,7 @@
   "components": [
     "minecraft:gold_ingot",
     "minecraft:diamond",
-    "thaumcraft:warp_charm",
+    "thaumcraft:tc4_charm",
     "minecraft:diamond"
   ],
   "aspects": {
@@ -19,5 +19,6 @@
   "result": {
     "item": "thaumcraft:tc4_block_wand_pedestal",
     "count": 1
-  }
+  },
+  "v11_62_60_itemresource15_fixed": true
 }

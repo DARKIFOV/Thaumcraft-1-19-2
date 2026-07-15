@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
     private static final ResourceLocation SCANNER = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/scanner.png");
     private static final ResourceLocation SCANNER_SCREEN = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/scanscreen.png");
     private static final float MODEL_SCALE = 0.30F;
+    private static final float SCANNER_READOUT_SCALE = 0.0040F;
+    private static final float ASPECT_RELATIVE_SCALE = 0.0075F / SCANNER_READOUT_SCALE;
     // Stage443-462 transform ledger: the mesh remains the numeric scanner.obj
     // transcription; only Forge item-context transforms may be adapted here.
     private static final float[] SCANNER_VERTICES = new float[] {
@@ -93,14 +96,43 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
     public void renderByItem(ItemStack stack, ItemTransforms.TransformType transformType, PoseStack poseStack,
                              MultiBufferSource buffer, int packedLight, int packedOverlay) {
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.5D, 0.5D);
+        boolean firstPerson = transformType == ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
+                || transformType == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
+        // Item renderer models normally receive a +0.5 block-space origin, but the
+        // original scanner.obj mesh is already centred around its own origin. In
+        // first person that extra offset moved the scanner into the near plane,
+        // producing the giant detached strips visible in the supplied screenshot.
+        if (!firstPerson) {
+            poseStack.translate(0.5D, 0.5D, 0.5D);
+        }
         applyScannerTransform(transformType, poseStack);
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(SCANNER));
-        int light = Math.max(packedLight, 15728880);
-        renderOriginalScannerObj(poseStack.last().pose(), consumer, light);
-        renderScannerScreen(poseStack, buffer, light);
-        renderOriginalScanReadout(stack, transformType, poseStack, buffer, light);
+        int bodyLight = packedLight;
+        int screenLight = originalScannerScreenLight(packedLight);
+        renderOriginalScannerObj(poseStack.last().pose(), consumer, bodyLight);
+        renderScannerScreen(poseStack, buffer, screenLight);
+        renderOriginalScanReadout(stack, transformType, poseStack, buffer, screenLight);
         poseStack.popPose();
+    }
+
+
+    /**
+     * ItemThaumometerRenderer keeps the scanner body at ambient light and only
+     * raises the glass/readout to the original 190..210 lightmap coordinate.
+     * Comparing packed-light integers (the old Math.max path) mixed block and
+     * sky bit fields and effectively washed the entire item out at fullbright.
+     */
+    private int originalScannerScreenLight(int packedLight) {
+        Minecraft minecraft = Minecraft.getInstance();
+        float ticks = minecraft.player == null
+                ? 0.0F
+                : minecraft.player.tickCount + minecraft.getFrameTime();
+        int jitter = minecraft.player == null ? 0 : (minecraft.player.tickCount & 1);
+        int originalCoordinate = (int)(190.0F + Mth.sin(ticks - jitter) * 10.0F + 10.0F);
+        int ambientBlock = (packedLight >> 4) & 15;
+        int ambientSky = (packedLight >> 20) & 15;
+        int scannerBlock = Mth.clamp(Math.round(originalCoordinate / 16.0F), 0, 15);
+        return (Math.max(ambientBlock, scannerBlock) << 4) | (ambientSky << 20);
     }
 
     private void applyScannerTransform(ItemTransforms.TransformType transformType, PoseStack poseStack) {
@@ -150,18 +182,16 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         // scanner.obj is remapped into the XY plane; the scan screen sits just
         // above the centre opening, as in TC4 ItemThaumometerRenderer.
         poseStack.translate(0.0D, 0.0D, 0.036D);
-        float pulse = 0.86F + 0.08F * (float)Math.sin((Minecraft.getInstance().level == null
-                ? 0.0D : Minecraft.getInstance().level.getGameTime()) * 0.18D);
         float half = 0.215F;
         Matrix4f matrix = poseStack.last().pose();
         VertexConsumer screen = buffer.getBuffer(RenderType.entityTranslucent(SCANNER_SCREEN));
-        screen.vertex(matrix, -half, -half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(0.0F,1.0F)
+        screen.vertex(matrix, -half, -half, 0.0F).color(255,255,255,255).uv(0.0F,1.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
-        screen.vertex(matrix, half, -half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(1.0F,1.0F)
+        screen.vertex(matrix, half, -half, 0.0F).color(255,255,255,255).uv(1.0F,1.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
-        screen.vertex(matrix, half, half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(1.0F,0.0F)
+        screen.vertex(matrix, half, half, 0.0F).color(255,255,255,255).uv(1.0F,0.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
-        screen.vertex(matrix, -half, half, 0.0F).color(255,255,255,(int)(210 * pulse)).uv(0.0F,0.0F)
+        screen.vertex(matrix, -half, half, 0.0F).color(255,255,255,255).uv(0.0F,0.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F,0.0F,1.0F).endVertex();
         poseStack.popPose();
     }
@@ -196,7 +226,7 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
 
         poseStack.pushPose();
         poseStack.translate(0.0D, 0.0D, 0.041D);
-        poseStack.scale(0.0040F, -0.0040F, 0.0040F);
+        poseStack.scale(SCANNER_READOUT_SCALE, -SCANNER_READOUT_SCALE, SCANNER_READOUT_SCALE);
 
         drawScannerTitle(poseStack, buffer, target.displayName(), light);
 
@@ -225,23 +255,24 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
             return;
         }
 
-        // Original ItemThaumometerRenderer uses a 5/4/3/2/1 triangular
-        // arrangement and can display fifteen aspects.  Earlier rebuild code
-        // used 4/3/2/1 and silently discarded the remaining five.
+        // Exact ItemThaumometerRenderer 5/4/3/2/1 layout. The original
+        // re-centres every incomplete row from the number of aspects remaining,
+        // rather than from the row's maximum capacity.
         int shown = Math.min(15, aspects.size());
-        int index = 0;
-        int row = 0;
-        while (index < shown && row < 5) {
-            int capacity = 5 - row;
-            int rowCount = Math.min(capacity, shown - index);
-            float baseX = capacity * 8.0F;
-            for (int col = 0; col < rowCount; col++) {
-                AspectStack aspect = aspects.get(index++);
-                float x = -baseX + col * 16.0F;
-                float y = -8.0F + row * 16.0F;
-                drawAspectOnScanner(poseStack, buffer, aspect, x, y, light);
+        int posX = 0;
+        int posY = 0;
+        int remaining = shown;
+        int baseX = Math.min(5, remaining) * 8;
+        for (int index = 0; index < shown; index++) {
+            drawAspectOnScanner(poseStack, buffer, aspects.get(index),
+                    -baseX + posX * 16.0F, -8.0F + posY * 16.0F, light);
+            posX++;
+            if (posX >= 5 - posY) {
+                posX = 0;
+                posY++;
+                remaining -= Math.max(0, 5 - posY);
+                baseX = Math.min(Math.max(0, 5 - posY), remaining) * 8;
             }
-            row++;
         }
 
         poseStack.popPose();
@@ -260,7 +291,7 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         if (width > 90) {
             originalScale = Math.max(0.0024F, originalScale - 0.000025F * (width - 90));
         }
-        float relativeScale = originalScale / 0.0040F;
+        float relativeScale = originalScale / SCANNER_READOUT_SCALE;
         poseStack.pushPose();
         poseStack.translate(0.0D, -51.0D, 0.0D);
         poseStack.scale(relativeScale, relativeScale, 1.0F);
@@ -307,6 +338,11 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
 
     private void drawAspectOnScanner(PoseStack poseStack, MultiBufferSource buffer, AspectStack stack,
                                      float x, float y, int light) {
+        poseStack.pushPose();
+        poseStack.translate(x, y, 0.0D);
+        // The common readout plane is 0.004; TC4 draws each aspect at 0.0075.
+        poseStack.scale(ASPECT_RELATIVE_SCALE, ASPECT_RELATIVE_SCALE, 1.0F);
+
         ResourceLocation texture = new ResourceLocation(ThaumcraftMod.MOD_ID,
                 "textures/aspects/" + stack.aspect().id() + ".png");
         int rgb = stack.aspect().nativeColor();
@@ -316,19 +352,20 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         float size = 16.0F;
         Matrix4f matrix = poseStack.last().pose();
         VertexConsumer icon = buffer.getBuffer(RenderType.entityTranslucent(texture));
-        icon.vertex(matrix, x, y + size, 0.0F).color(red, green, blue, 245).uv(0.0F, 1.0F)
+        icon.vertex(matrix, 0.0F, size, 0.0F).color(red, green, blue, 245).uv(0.0F, 1.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        icon.vertex(matrix, x + size, y + size, 0.0F).color(red, green, blue, 245).uv(1.0F, 1.0F)
+        icon.vertex(matrix, size, size, 0.0F).color(red, green, blue, 245).uv(1.0F, 1.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        icon.vertex(matrix, x + size, y, 0.0F).color(red, green, blue, 245).uv(1.0F, 0.0F)
+        icon.vertex(matrix, size, 0.0F, 0.0F).color(red, green, blue, 245).uv(1.0F, 0.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
-        icon.vertex(matrix, x, y, 0.0F).color(red, green, blue, 245).uv(0.0F, 0.0F)
+        icon.vertex(matrix, 0.0F, 0.0F, 0.0F).color(red, green, blue, 245).uv(0.0F, 0.0F)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0.0F, 0.0F, 1.0F).endVertex();
 
         String amount = String.valueOf(stack.amount());
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.font.drawInBatch(amount, x + 11.0F, y + 8.0F, 0xFFFFFFFF, true,
+        minecraft.font.drawInBatch(amount, 11.0F, 8.0F, 0xFFFFFFFF, true,
                 matrix, buffer, false, 0, light);
+        poseStack.popPose();
     }
 
     private void renderOriginalScannerObj(Matrix4f matrix, VertexConsumer consumer, int light) {

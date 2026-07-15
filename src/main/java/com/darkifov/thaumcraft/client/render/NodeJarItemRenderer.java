@@ -84,33 +84,78 @@ public final class NodeJarItemRenderer extends BlockEntityWithoutLevelRenderer {
         aspects.load(nodeTag.getCompound("Aspects"));
         AuraNodeType type = AuraNodeType.fromName(nodeTag.getString("NodeType"));
         AuraNodeModifier modifier = AuraNodeModifier.fromName(nodeTag.getString("NodeModifier"));
-        long time = Minecraft.getInstance().level == null ? 0L : Minecraft.getInstance().level.getGameTime();
-        int frame = (int)Math.floorMod(time / 2L + TC4AuraNodeHudParity.frameOffsetFor(modifier), TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
-        float size = 0.20F * modifier.sizeScale();
+        if (aspects.isEmpty()) {
+            return;
+        }
+
+        // ItemNodeRenderer uses the same nanosecond-driven frame as the world
+        // renderer. Item NBT must not change animation speed or phase by aspect.
+        long nanoTime = System.nanoTime();
+        int frame = (int) Math.floorMod(nanoTime / 40_000_000L + 1L,
+                TC4AuraNodeHudParity.NODE_SHEET_FRAMES);
+        float baseAlpha = 0.50F;
+        if (modifier == AuraNodeModifier.BRIGHT) {
+            baseAlpha *= 1.50F;
+        } else if (modifier == AuraNodeModifier.PALE) {
+            baseAlpha *= 0.66F;
+        } else if (modifier == AuraNodeModifier.FADING) {
+            int viewerTicks = Minecraft.getInstance().player == null ? 0 : Minecraft.getInstance().player.tickCount;
+            baseAlpha *= net.minecraft.util.Mth.sin(viewerTicks / 3.0F) * 0.25F + 0.33F;
+        }
+
+        int activeAspectCount = 0;
+        float average = 0.0F;
+        for (AspectStack stack : aspects.all()) {
+            if (stack != null && stack.amount() > 0) {
+                activeAspectCount++;
+                average += stack.amount();
+            }
+        }
+        if (activeAspectCount == 0) {
+            return;
+        }
+        average /= activeAspectCount;
 
         poseStack.pushPose();
-        poseStack.translate(0.0D, -0.02D, 0.0D);
+        poseStack.translate(0.0D, -0.10D, 0.0D);
         for (int plane = 0; plane < 3; plane++) {
             poseStack.pushPose();
-            if (plane == 1) poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-            if (plane == 2) poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
-            int index = 0;
-            for (AspectStack aspect : aspects.all()) {
-                if (aspect.amount() <= 0 || index >= 6) continue;
-                float localSize = size * (0.70F + Math.min(0.45F, aspect.amount() / 90.0F));
-                renderNodePlane(poseStack, buffer, localSize, aspect.aspect().argbColor(),
-                        TC4AuraNodeHudParity.alphaFor(modifier, 0.46F), (frame + index * 4) % 32, 0);
-                index++;
+            if (plane == 1) {
+                poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+            } else if (plane == 2) {
+                poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
             }
-            renderNodePlane(poseStack, buffer, size * 1.12F, 0xFF000000 | type.color(),
-                    TC4AuraNodeHudParity.alphaFor(modifier, 0.32F), frame, TC4AuraNodeHudParity.stripFor(type));
+
+            int count = 0;
+            int viewerTicks = Minecraft.getInstance().player == null ? 0 : Minecraft.getInstance().player.tickCount;
+            for (AspectStack stack : aspects.all()) {
+                if (stack == null || stack.amount() <= 0) {
+                    continue;
+                }
+                float wave = net.minecraft.util.Mth.sin(viewerTicks / Math.max(1.0F, 14.0F - count))
+                        * 0.25F + 0.50F;
+                float scale = 0.20F + wave * (stack.amount() / 50.0F);
+                boolean alphaBlend = stack.aspect().usesAlphaBlend();
+                float layerAlpha = baseAlpha * (alphaBlend ? 1.50F : 1.0F) / activeAspectCount;
+                renderNodePlane(poseStack, buffer, scale, stack.aspect().argbColor(),
+                        layerAlpha, frame, 0, !alphaBlend);
+                count++;
+            }
+
+            float typeScale = 0.10F + average / 150.0F;
+            if (type == AuraNodeType.HUNGRY) {
+                typeScale *= 0.75F;
+            }
+            renderNodePlane(poseStack, buffer, typeScale, 0xFFFFFFFF,
+                    baseAlpha, frame, TC4AuraNodeHudParity.stripFor(type),
+                    type != AuraNodeType.DARK && type != AuraNodeType.TAINTED);
             poseStack.popPose();
         }
         poseStack.popPose();
     }
 
     private static void renderNodePlane(PoseStack poseStack, MultiBufferSource buffer, float size,
-                                        int color, float alpha, int frame, int strip) {
+                                        int color, float alpha, int frame, int strip, boolean additive) {
         float cell = TC4AuraNodeHudParity.NODE_SHEET_CELL_UV;
         float u0 = frame * cell;
         float u1 = (frame + 1) * cell;
@@ -121,7 +166,8 @@ public final class NodeJarItemRenderer extends BlockEntityWithoutLevelRenderer {
         int b = color & 255;
         int a = Math.max(1, Math.min(255, Math.round(alpha * 255.0F)));
         Matrix4f matrix = poseStack.last().pose();
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(TC4AuraNodeHudParity.ORIGINAL_NODES));
+        VertexConsumer consumer = buffer.getBuffer(TC4NodeRenderTypes.node(
+                TC4AuraNodeHudParity.ORIGINAL_NODES, additive, false));
         vertex(matrix, consumer, -size,-size,0, r,g,b,a, u0,v1, LightTexture.FULL_BRIGHT);
         vertex(matrix, consumer, size,-size,0, r,g,b,a, u1,v1, LightTexture.FULL_BRIGHT);
         vertex(matrix, consumer, size,size,0, r,g,b,a, u1,v0, LightTexture.FULL_BRIGHT);

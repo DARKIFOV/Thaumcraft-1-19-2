@@ -64,7 +64,9 @@ public class EldritchLockBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack held = player.getItemInHand(hand);
-        boolean key = held.is(ThaumcraftMod.ELDRITCH_EYE.get()) || held.is(ThaumcraftMod.AWAKENED_CRIMSON_KEY.get()) || held.is(ThaumcraftMod.CRIMSON_KEY.get());
+        // TC4 BlockEldritch metadata 8 accepts only ItemEldritchObject meta 2,
+        // represented by ELDRITCH_EYE in the flattened registry.
+        boolean key = held.is(ThaumcraftMod.ELDRITCH_EYE.get());
         if (!key) {
             return InteractionResult.PASS;
         }
@@ -76,6 +78,8 @@ public class EldritchLockBlock extends BaseEntityBlock {
                 if (!player.getAbilities().instabuild) {
                     held.shrink(1);
                 }
+                level.playSound(null, pos, com.darkifov.thaumcraft.porting.TC4Sounds.event("runicShieldCharge"),
+                        net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
             }
         }
         return InteractionResult.sidedSuccess(level.isClientSide);

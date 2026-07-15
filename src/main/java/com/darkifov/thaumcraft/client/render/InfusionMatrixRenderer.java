@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.client.render;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
+import com.darkifov.thaumcraft.client.render.model.TC4InfusionMatrixModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
@@ -25,9 +26,11 @@ import net.minecraft.util.Mth;
  * a crafting halo sourced from textures/models/infuser.png.</p>
  */
 public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatrixBlockEntity> {
+    private final TC4InfusionMatrixModel model;
     private static final ResourceLocation INFUSER_TEXTURE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/infuser.png");
 
     public InfusionMatrixRenderer(BlockEntityRendererProvider.Context context) {
+        this.model = new TC4InfusionMatrixModel(context.bakeLayer(TC4InfusionMatrixModel.LAYER));
     }
 
     @Override
@@ -44,7 +47,7 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
 
         float instability = Math.min(6.0F, 1.0F + matrix.currentInstability() * 0.66F * (Math.min(matrix.craftCount(), 50) / 50.0F));
         VertexConsumer solid = bufferSource.getBuffer(RenderType.entityCutoutNoCull(INFUSER_TEXTURE));
-        VertexConsumer glow = bufferSource.getBuffer(RenderType.entityTranslucent(INFUSER_TEXTURE));
+        VertexConsumer glow = bufferSource.getBuffer(TC4NodeRenderTypes.node(INFUSER_TEXTURE, true, false));
 
         for (int a = 0; a < 2; a++) {
             for (int b = 0; b < 2; b++) {
@@ -52,10 +55,10 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
                     float wobbleX = matrix.active() ? Mth.sin((ticks + a * 10.0F) / (15.0F - instability / 2.0F)) * 0.01F * startUp * instability : 0.0F;
                     float wobbleY = matrix.active() ? Mth.sin((ticks + b * 10.0F) / (14.0F - instability / 2.0F)) * 0.01F * startUp * instability : 0.0F;
                     float wobbleZ = matrix.active() ? Mth.sin((ticks + c * 10.0F) / (13.0F - instability / 2.0F)) * 0.01F * startUp * instability : 0.0F;
-                    renderPiece(poseStack, solid, a, b, c, wobbleX, wobbleY, wobbleZ, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                    renderPiece(poseStack, solid, a, b, c, wobbleX, wobbleY, wobbleZ, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F, false);
                     if (matrix.active()) {
                         float alpha = (Mth.sin((ticks + a * 2.0F + b * 3.0F + c * 4.0F) / 4.0F) * 0.1F + 0.2F) * startUp;
-                        renderPiece(poseStack, glow, a, b, c, wobbleX, wobbleY, wobbleZ, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0.8F, 0.1F, 1.0F, alpha);
+                        renderPiece(poseStack, glow, a, b, c, wobbleX, wobbleY, wobbleZ, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0.8F, 0.1F, 1.0F, alpha, true);
                     }
                 }
             }
@@ -67,9 +70,9 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
         }
     }
 
-    private static void renderPiece(PoseStack poseStack, VertexConsumer consumer, int a, int b, int c,
-                                    float wobbleX, float wobbleY, float wobbleZ, int light, int overlay,
-                                    float red, float green, float blue, float alpha) {
+    private void renderPiece(PoseStack poseStack, VertexConsumer consumer, int a, int b, int c,
+                             float wobbleX, float wobbleY, float wobbleZ, int light, int overlay,
+                             float red, float green, float blue, float alpha, boolean overlayPass) {
         int aa = a == 0 ? -1 : 1;
         int bb = b == 0 ? -1 : 1;
         int cc = c == 0 ? -1 : 1;
@@ -85,12 +88,16 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
         }
         poseStack.scale(0.45F, 0.45F, 0.45F);
-        cube(poseStack, consumer, -0.5F, -0.5F, -0.5F, 0.5F, 0.5F, 0.5F, light, overlay, red, green, blue, alpha, false);
+        if (overlayPass) {
+            model.renderOverlay(poseStack, consumer, light, overlay, red, green, blue, alpha);
+        } else {
+            model.renderBase(poseStack, consumer, light, overlay);
+        }
         poseStack.popPose();
     }
 
     private static void renderHalo(InfusionMatrixBlockEntity matrix, float ticks, PoseStack poseStack, MultiBufferSource bufferSource) {
-        VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityTranslucent(INFUSER_TEXTURE));
+        VertexConsumer consumer = bufferSource.getBuffer(TC4NodeRenderTypes.node(INFUSER_TEXTURE, true, false));
         int rays = Minecraft.useFancyGraphics() ? 20 : 10;
         float growth = Math.min(matrix.craftCount(), 50) / 50.0F;
         poseStack.pushPose();
@@ -115,34 +122,6 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
         vertex(consumer, matrix, normal, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, 0.65F, 0.5F, 0.5F, light, 0.0F, 1.0F, 0.0F);
         vertex(consumer, matrix, normal, -width, length, -width, 0.52F, 0.2F, 1.0F, 0.0F, 0.0F, 1.0F, light, 0.0F, 1.0F, 0.0F);
         vertex(consumer, matrix, normal, width, length, -width, 0.52F, 0.2F, 1.0F, 0.0F, 1.0F, 1.0F, light, 0.0F, 1.0F, 0.0F);
-    }
-
-    private static void cube(PoseStack poseStack, VertexConsumer consumer, float minX, float minY, float minZ, float maxX, float maxY, float maxZ,
-                             int light, int overlay, float red, float green, float blue, float alpha, boolean halo) {
-        PoseStack.Pose pose = poseStack.last();
-        Matrix4f matrix = pose.pose();
-        Matrix3f normal = pose.normal();
-        float u0 = halo ? 0.5F : 0.0F;
-        float u1 = halo ? 1.0F : 0.5F;
-        float v0 = 0.0F;
-        float v1 = 0.5F;
-
-        quad(consumer, matrix, normal, minX, minY, maxZ, maxX, minY, maxZ, maxX, maxY, maxZ, minX, maxY, maxZ, red, green, blue, alpha, u0, v0, u1, v1, light, overlay, 0.0F, 0.0F, 1.0F);
-        quad(consumer, matrix, normal, maxX, minY, minZ, minX, minY, minZ, minX, maxY, minZ, maxX, maxY, minZ, red, green, blue, alpha, u0, v0, u1, v1, light, overlay, 0.0F, 0.0F, -1.0F);
-        quad(consumer, matrix, normal, maxX, minY, maxZ, maxX, minY, minZ, maxX, maxY, minZ, maxX, maxY, maxZ, red, green, blue, alpha, u0, v0, u1, v1, light, overlay, 1.0F, 0.0F, 0.0F);
-        quad(consumer, matrix, normal, minX, minY, minZ, minX, minY, maxZ, minX, maxY, maxZ, minX, maxY, minZ, red, green, blue, alpha, u0, v0, u1, v1, light, overlay, -1.0F, 0.0F, 0.0F);
-        quad(consumer, matrix, normal, minX, maxY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ, minX, maxY, minZ, red, green, blue, alpha, u0, v0, u1, v1, light, overlay, 0.0F, 1.0F, 0.0F);
-        quad(consumer, matrix, normal, minX, minY, minZ, maxX, minY, minZ, maxX, minY, maxZ, minX, minY, maxZ, red, green, blue, alpha, u0, v0, u1, v1, light, overlay, 0.0F, -1.0F, 0.0F);
-    }
-
-    private static void quad(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal,
-                             float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4,
-                             float red, float green, float blue, float alpha, float u0, float v0, float u1, float v1, int light, int overlay,
-                             float normalX, float normalY, float normalZ) {
-        vertex(consumer, matrix, normal, x1, y1, z1, red, green, blue, alpha, u0, v1, light, normalX, normalY, normalZ);
-        vertex(consumer, matrix, normal, x2, y2, z2, red, green, blue, alpha, u1, v1, light, normalX, normalY, normalZ);
-        vertex(consumer, matrix, normal, x3, y3, z3, red, green, blue, alpha, u1, v0, light, normalX, normalY, normalZ);
-        vertex(consumer, matrix, normal, x4, y4, z4, red, green, blue, alpha, u0, v0, light, normalX, normalY, normalZ);
     }
 
     private static void vertex(VertexConsumer consumer, Matrix4f matrix, Matrix3f normal,

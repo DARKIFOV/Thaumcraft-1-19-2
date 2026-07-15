@@ -3,7 +3,6 @@ package com.darkifov.thaumcraft.block;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -74,16 +73,8 @@ public class AuraNodeBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextFloat() < 0.65F) {
-            double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * 0.85D;
-            double y = pos.getY() + 0.5D + (random.nextDouble() - 0.5D) * 0.85D;
-            double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * 0.85D;
-            level.addParticle(ParticleTypes.ENCHANT, x, y, z, 0.0D, 0.02D, 0.0D);
-        }
-
-        if (random.nextFloat() < 0.18F) {
-            level.addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0.0D, 0.01D, 0.0D);
-        }
+        // TileNodeRenderer owns the complete TC4 visual. Vanilla enchant/end
+        // rod particles added a second, unrelated effect over the node.
     }
 
 

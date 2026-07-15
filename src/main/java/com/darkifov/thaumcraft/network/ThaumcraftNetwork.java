@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public final class ThaumcraftNetwork {
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "2"; // v11.62.45 changes the research-completion packet payload.
     private static int packetId = 0;
 
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
@@ -130,14 +130,6 @@ public final class ThaumcraftNetwork {
                 RequestResearchTableActionPacket::encode,
                 RequestResearchTableActionPacket::decode,
                 RequestResearchTableActionPacket::handle
-        );
-
-        CHANNEL.registerMessage(
-                packetId++,
-                RequestResearchUnlockPacket.class,
-                RequestResearchUnlockPacket::encode,
-                RequestResearchUnlockPacket::decode,
-                RequestResearchUnlockPacket::handle
         );
 
         CHANNEL.registerMessage(
@@ -431,7 +423,14 @@ public final class ThaumcraftNetwork {
     public static void syncResearch(ServerPlayer player) {
         CHANNEL.send(
                 PacketDistributor.PLAYER.with(() -> player),
-                new ResearchSyncPacket(PlayerThaumData.getResearchSet(player), PlayerThaumData.getWarp(player))
+                new ResearchSyncPacket(
+                        PlayerThaumData.getResearchSet(player),
+                        PlayerThaumData.getWarpTotal(player),
+                        PlayerThaumData.getWarpPerm(player),
+                        PlayerThaumData.getWarpSticky(player),
+                        PlayerThaumData.getWarpTemporary(player),
+                        PlayerThaumData.getWarpCounter(player)
+                )
         );
     }
 
@@ -461,16 +460,12 @@ public final class ThaumcraftNetwork {
         );
     }
 
-    public static void requestUnlockFromClient() {
-        CHANNEL.sendToServer(new RequestResearchUnlockPacket());
-    }
-
     public static void requestSelectResearchFromClient(String researchKey) {
         CHANNEL.sendToServer(new RequestSelectResearchPacket(researchKey));
     }
 
-    public static void requestCompleteSelectedResearchFromClient() {
-        CHANNEL.sendToServer(new RequestCompleteSelectedResearchPacket());
+    public static void requestCompleteSelectedResearchFromClient(String researchKey) {
+        CHANNEL.sendToServer(new RequestCompleteSelectedResearchPacket(researchKey));
     }
 
     public static void requestCombineAspectsFromClient(String firstId, String secondId) {

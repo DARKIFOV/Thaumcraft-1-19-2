@@ -5,7 +5,7 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_bauble_amulet",
   "components": [
-    "thaumcraft:warp_charm",
+    "thaumcraft:tc4_charm",
     "thaumcraft:tc4_amber",
     "thaumcraft:tc4_cloth",
     "thaumcraft:tc4_nitor",
@@ -20,5 +20,6 @@
   "result": {
     "item": "thaumcraft:tc4_runic_ring",
     "count": 1
-  }
+  },
+  "v11_62_60_itemresource15_fixed": true
 }

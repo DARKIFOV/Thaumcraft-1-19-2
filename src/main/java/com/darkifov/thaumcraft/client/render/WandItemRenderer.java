@@ -43,8 +43,6 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         WandComponentData data = WandComponentData.from(stack);
 
         poseStack.pushPose();
-        poseStack.translate(0.5D, 0.5D, 0.5D);
-
         applyOriginalTC4ItemTransform(data, transformType, stack, poseStack);
 
         renderOriginalTC4WandComponents(stack, data, poseStack, buffer, packedLight);
@@ -130,8 +128,20 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
-        int j = (int)(200.0F + Mth.sin(ticks) * 5.0F + 5.0F);
-        return Math.max(packedLight, Math.max(15728880, j));
+        int originalLightmapCoordinate = (int)(200.0F + Mth.sin(ticks) * 5.0F + 5.0F);
+        return originalBlockGlow(packedLight, originalLightmapCoordinate);
+    }
+
+    /**
+     * Converts TC4's 0..240 lightmap coordinate into the packed 1.19.2 light
+     * format while preserving ambient sky light. Integer Math.max on packed
+     * light values is invalid because block and sky occupy separate bit fields.
+     */
+    private int originalBlockGlow(int packedLight, int originalLightmapCoordinate) {
+        int ambientBlock = (packedLight >> 4) & 15;
+        int ambientSky = (packedLight >> 20) & 15;
+        int originalBlock = Mth.clamp(Math.round(originalLightmapCoordinate / 16.0F), 0, 15);
+        return (Math.max(ambientBlock, originalBlock) << 4) | (ambientSky << 20);
     }
 
     /** Stage185 ModelWand Rod box: ModelRenderer.addBox(-1,-1,-1, 2,18,2), rotation point 0,2,0, rendered at 0.0625F. */
@@ -152,51 +162,59 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
                 light, 255, 255, 255, 255);
     }
 
-    /** Stage183: Forge 1.19.2 adapter for the transform constants in original ItemWandRenderer. */
-    private void applyOriginalTC4ItemTransform(WandComponentData data, ItemTransforms.TransformType transformType, ItemStack stack, PoseStack poseStack) {
+    /**
+     * Forge 1.19.2 adapter for the original TC4 ItemWandRenderer contexts.
+     *
+     * <p>These are the original ItemWandRenderer matrices. Built-in/entity has
+     * no JSON display transform, so applying extra modern hand offsets here
+     * double-mirrors the left hand and moves the mesh away from the camera.</p>
+     */
+    private void applyOriginalTC4ItemTransform(WandComponentData data, ItemTransforms.TransformType transformType,
+                                                ItemStack stack, PoseStack poseStack) {
         boolean staff = data.rod().staff();
         if (staff) {
-            // ItemWandRenderer line 77: outer staff offset before render type.
-            poseStack.translate(0.0D, 0.50D, 0.0D);
+            poseStack.translate(0.0D, 0.5D, 0.0D);
         }
 
         if (transformType == ItemTransforms.TransformType.GUI) {
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(66.0F));
-            poseStack.translate(-0.34D, -0.62D, 0.0D);
-            poseStack.scale(0.72F, 0.72F, 0.72F);
+            // Original ItemWandRenderer inventory matrix: no modern camera tilt
+            // and no extra 0.60 scale. Those two additions made every cap/rod
+            // texture look compressed and moved the held wand out of frame.
             if (staff) {
                 poseStack.scale(0.80F, 0.80F, 0.80F);
-                poseStack.translate(-0.25D, -0.10D, 0.0D);
             }
-        } else if (transformType.firstPerson()) {
-            // Original ItemWandRenderer EQUIPPED_FIRST_PERSON translates the
-            // model to (0.5, 1.5, 0.5) and scales only Y by 1.1. renderByItem
-            // has already applied the common (0.5, 0.5, 0.5) centre offset,
-            // therefore the remaining Forge 1.19.2 adapter translation is +1Y.
-            poseStack.translate(0.0D, 1.0D, 0.0D);
-            poseStack.scale(1.0F, 1.1F, 1.0F);
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
-            applyFocusUseAnimation(stack, poseStack, true);
-            return;
-        } else if (transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
-                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
-            // Original EQUIPPED transform, adapted after the shared centre
-            // offset. Hand mirroring/arm placement is already supplied by the
-            // vanilla third-person item transform; adding another lateral
-            // offset was what left only a tiny focus ring below the player.
-            poseStack.translate(0.0D, 1.0D, 0.0D);
-        } else if (transformType == ItemTransforms.TransformType.GROUND || transformType == ItemTransforms.TransformType.FIXED) {
-            poseStack.translate(0.0D, staff ? 1.50D : 1.00D, 0.0D);
+            poseStack.mulPose(Vector3f.ZP.rotationDegrees(66.0F));
+            poseStack.translate(0.0D, 0.60D, 0.0D);
             if (staff) {
+                poseStack.translate(-0.70D, 0.60D, 0.0D);
+            }
+        } else if (transformType == ItemTransforms.TransformType.GROUND
+                || transformType == ItemTransforms.TransformType.FIXED) {
+            if (staff) {
+                poseStack.translate(0.0D, 1.50D, 0.0D);
                 poseStack.scale(0.90F, 0.90F, 0.90F);
+            } else {
+                poseStack.translate(0.0D, 1.00D, 0.0D);
+            }
+        } else if (transformType.firstPerson()
+                || transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
+            // Exact TC4 EQUIPPED/EQUIPPED_FIRST_PERSON origin. The old port used
+            // Y=1.0 plus an invented 0.5 scale, which is the first-person breakage
+            // visible in the supplied screenshot.
+            poseStack.translate(0.50D, 1.50D, 0.50D);
+            if (transformType.firstPerson()) {
+                poseStack.scale(1.00F, 1.10F, 1.00F);
             }
         } else {
-            poseStack.translate(0.0D, 0.60D, 0.0D);
-            poseStack.scale(0.72F, 0.72F, 0.72F);
+            poseStack.translate(0.50D, 1.50D, 0.50D);
         }
-
         poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
-        if (transformType != ItemTransforms.TransformType.GUI) {
+
+        if (transformType.firstPerson()) {
+            applyFocusUseAnimation(stack, poseStack, true);
+        } else if (transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+                || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
             applyFocusUseAnimation(stack, poseStack, false);
         }
     }
@@ -257,7 +275,10 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         int r = (focusColor >> 16) & 255;
         int g = (focusColor >> 8) & 255;
         int b = focusColor & 255;
-        int light = Math.max(packedLight, 15728880);
+        Player player = Minecraft.getInstance().player;
+        float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
+        int focusLightmapCoordinate = (int)(195.0F + Mth.sin(ticks / 3.0F) * 10.0F + 10.0F);
+        int light = originalBlockGlow(packedLight, focusLightmapCoordinate);
 
         if (depth != null) {
             poseStack.pushPose();
@@ -310,7 +331,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
         VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(ORIGINAL_SCRIPT));
-        int light = Math.max(packedLight, 15728880);
+        int light = originalBlockGlow(packedLight, 200);
         poseStack.pushPose();
         for (int rot = 0; rot < 10; rot++) {
             poseStack.pushPose();
@@ -329,7 +350,7 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         Player player = Minecraft.getInstance().player;
         float ticks = player == null ? 0.0F : player.tickCount + Minecraft.getInstance().getFrameTime();
         VertexConsumer consumer = buffer.getBuffer(RenderType.eyes(ORIGINAL_SCRIPT));
-        int light = Math.max(packedLight, 15728880);
+        int light = originalBlockGlow(packedLight, 200);
         poseStack.pushPose();
         for (int rot = 0; rot < 4; rot++) {
             poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));

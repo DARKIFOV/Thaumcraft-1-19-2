@@ -1,57 +1,41 @@
 package com.darkifov.thaumcraft.entity;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
-import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 
-public class TaintCrawlerEntity extends Monster {
-    public TaintCrawlerEntity(EntityType<? extends Monster> type, Level level) {
+/** Legacy registry id backed by TC4's real EntityTaintSpider behavior. */
+public class TaintCrawlerEntity extends Spider {
+    public TaintCrawlerEntity(EntityType<? extends Spider> type, Level level) {
         super(type, level);
+        xpReward = 2;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 14.0D)
-                .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.28D)
-                .add(Attributes.FOLLOW_RANGE, 20.0D)
-                .add(Attributes.ARMOR, 1.0D);
+                .add(Attributes.MAX_HEALTH, 5.0D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.30D)
+                .add(Attributes.FOLLOW_RANGE, 12.0D);
     }
 
-    @Override
-    protected void registerGoals() {
-        goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, true));
-        goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
-        goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
+    @Override protected float getStandingEyeHeight(net.minecraft.world.entity.Pose pose,
+                                                     net.minecraft.world.entity.EntityDimensions dimensions) {
+        return 0.1F;
     }
 
-    @Override
-    public void aiStep() {
-        super.aiStep();
+    @Override public float getVoicePitch() { return 0.7F; }
 
-        if (!level.isClientSide && tickCount % 60 == 0 && random.nextFloat() < 0.45F) {
-            BlockPos center = blockPosition().below();
-            TaintSpreadRuntime.trySpreadNear(level, center, random, 2, true);
-        }
-    }
+    @Override protected SoundEvent getAmbientSound() { return SoundEvents.SPIDER_AMBIENT; }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return true;
+    @Override protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
+        if (random.nextInt(6) == 0) spawnAtLocation(ThaumcraftMod.TAINTED_SLIME.get());
     }
 }

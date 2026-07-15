@@ -775,8 +775,10 @@ public class ThaumGolemEntity extends PathfinderMob {
             if (taskBackoffTicks > 0) {
                 taskBackoffTicks = Math.max(0, taskBackoffTicks - GolemTaskAIRuntime.ORIGINAL_GOLEM_DELAY_TICKS);
             } else if (!waiting && !pausedByGolemGui) {
-                runCoreBehavior();
-                returnHomeLikeTC4();
+                if (!avoidSwellingCreeperLikeTC4()) {
+                    runCoreBehavior();
+                    returnHomeLikeTC4();
+                }
             } else {
                 getNavigation().stop();
             }
@@ -835,6 +837,40 @@ public class ThaumGolemEntity extends PathfinderMob {
             case ESSENTIA -> handleEssentiaCore();
             case PATROL -> patrolBetweenMarkers();
         }
+    }
+
+    /**
+     * Forge 1.19.2 adaptation of TC4 AIAvoidCreeperSwell. Every functional
+     * core temporarily yields its normal task when a nearby creeper is already
+     * swelling or has been ignited. The original goal had priority zero, ahead
+     * of inventory, harvesting, combat and return-home goals.
+     */
+    private boolean avoidSwellingCreeperLikeTC4() {
+        if (coreType == GolemCoreType.BLANK) {
+            return false;
+        }
+        List<Creeper> creepers = level.getEntitiesOfClass(
+                Creeper.class,
+                getBoundingBox().inflate(4.0D, 2.0D, 4.0D),
+                creeper -> creeper.isAlive() && (creeper.getSwellDir() > 0 || creeper.isIgnited())
+        );
+        if (creepers.isEmpty()) {
+            return false;
+        }
+        creepers.sort(Comparator.comparingDouble(this::distanceToSqr));
+        Creeper threat = creepers.get(0);
+        Vec3 away = position().subtract(threat.position());
+        if (away.lengthSqr() < 1.0E-4D) {
+            away = new Vec3(random.nextBoolean() ? 1.0D : -1.0D, 0.0D,
+                    random.nextBoolean() ? 1.0D : -1.0D);
+        }
+        Vec3 escape = position().add(away.normalize().scale(6.0D));
+        double speed = GolemOriginalRuntime.movementSpeed(
+                material, originalUpgradeSlots, decorationCode, advanced, isInWater()) * 1.15D;
+        getNavigation().moveTo(escape.x, getY(), escape.z, speed);
+        setTarget(null);
+        lastOriginalTask = "AIAvoidCreeperSwell";
+        return true;
     }
 
     private void runOriginalItemPickupAndHomeDrop() {
@@ -1831,7 +1867,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         int air = getUpgradeAmount(GolemUpgradeType.AIR);
         if (air > 0 && random.nextInt(10) < air) catches++;
         for (int i = 0; i < catches; i++) {
-            ItemStack catchStack = rollFishingCatchLikeTC4();
+            ItemStack catchStack = rollFishingCatchLikeTC4(water);
             if (getUpgradeAmount(GolemUpgradeType.FIRE) > 0) catchStack = cookFishingCatch(catchStack);
             ItemEntity entity = new ItemEntity(serverLevel, water.getX() + 0.5D, water.getY() + 1.0D, water.getZ() + 0.5D, catchStack);
             double dx = getX() - entity.getX();
@@ -1862,25 +1898,85 @@ public class ThaumGolemEntity extends PathfinderMob {
         return best;
     }
 
-    private ItemStack rollFishingCatchLikeTC4() {
-        int entropy = getUpgradeAmount(GolemUpgradeType.ENTROPY);
-        int order = getUpgradeAmount(GolemUpgradeType.ORDER);
-        float junkChance = Math.max(0.0F, 0.10F - entropy * 0.025F);
-        float treasureChance = 0.05F + order * 0.0125F;
+    private ItemStack rollFishingCatchLikeTC4(BlockPos water) {
+        float[] chances = fishingChancesLikeTC4(water);
+        float junkChance = chances[0];
+        float treasureChance = chances[1];
         float roll = random.nextFloat();
-        if (roll < treasureChance) {
-            ItemStack[] treasure = {new ItemStack(Items.NAME_TAG), new ItemStack(Items.SADDLE), new ItemStack(Items.NAUTILUS_SHELL), new ItemStack(Items.BOW), new ItemStack(Items.FISHING_ROD), new ItemStack(Items.ENCHANTED_BOOK)};
-            return treasure[random.nextInt(treasure.length)].copy();
+
+        // AIFish checks junk first, subtracts it, and only then checks treasure.
+        // Reversing this order changes both probabilities when the intervals
+        // overlap, which the older compact port did.
+        if (roll < junkChance) {
+            ItemStack[] junk = {
+                    new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER),
+                    new ItemStack(Items.BONE), new ItemStack(Items.INK_SAC),
+                    new ItemStack(Items.STRING), new ItemStack(Items.FISHING_ROD),
+                    new ItemStack(Items.BOWL), new ItemStack(Items.STICK),
+                    new ItemStack(Items.TRIPWIRE_HOOK), new ItemStack(Items.LILY_PAD),
+                    new ItemStack(Items.ROTTEN_FLESH)
+            };
+            int[] weights = {10, 10, 10, 10, 5, 2, 10, 5, 5, 10, 10};
+            return pickWeightedFishingStack(junk, weights);
         }
-        if (roll < treasureChance + junkChance) {
-            ItemStack[] junk = {new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER), new ItemStack(Items.BONE), new ItemStack(Items.INK_SAC), new ItemStack(Items.STRING), new ItemStack(Items.BOWL), new ItemStack(Items.STICK), new ItemStack(Items.TRIPWIRE_HOOK), new ItemStack(Items.LILY_PAD), new ItemStack(Items.ROTTEN_FLESH)};
-            return junk[random.nextInt(junk.length)].copy();
+        roll -= junkChance;
+        if (roll < treasureChance) {
+            ItemStack[] treasure = {
+                    new ItemStack(Items.NAME_TAG), new ItemStack(Items.SADDLE),
+                    new ItemStack(Items.NAUTILUS_SHELL), new ItemStack(Items.BOW),
+                    new ItemStack(Items.FISHING_ROD), new ItemStack(Items.ENCHANTED_BOOK)
+            };
+            int[] weights = {1, 1, 1, 1, 1, 1};
+            return pickWeightedFishingStack(treasure, weights);
         }
         int fish = random.nextInt(100);
         if (fish < 60) return new ItemStack(Items.COD);
         if (fish < 85) return new ItemStack(Items.SALMON);
         if (fish < 87) return new ItemStack(Items.TROPICAL_FISH);
         return new ItemStack(Items.PUFFERFISH);
+    }
+
+    private float[] fishingChancesLikeTC4(BlockPos water) {
+        float junk = 0.10F - getUpgradeAmount(GolemUpgradeType.ENTROPY) * 0.025F;
+        float treasure = 0.05F + getUpgradeAmount(GolemUpgradeType.ORDER) * 0.0125F;
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockPos neighbor = water.relative(direction);
+            if (!level.getFluidState(neighbor).is(FluidTags.WATER)
+                    || !level.getBlockState(neighbor.above()).isAir()) {
+                continue;
+            }
+            junk -= 0.005F;
+            treasure += 0.00125F;
+            if (level.canSeeSky(neighbor.above())) {
+                junk -= 0.005F;
+                treasure += 0.00125F;
+            }
+            for (int depth = 1; depth <= 3; depth++) {
+                if (level.getFluidState(neighbor.below(depth)).is(FluidTags.WATER)) {
+                    treasure += 0.001F;
+                }
+            }
+        }
+        return new float[]{Math.max(0.0F, Math.min(1.0F, junk)),
+                Math.max(0.0F, Math.min(1.0F, treasure))};
+    }
+
+    private ItemStack pickWeightedFishingStack(ItemStack[] stacks, int[] weights) {
+        int total = 0;
+        for (int weight : weights) {
+            total += Math.max(0, weight);
+        }
+        if (stacks.length == 0 || stacks.length != weights.length || total <= 0) {
+            return new ItemStack(Items.COD);
+        }
+        int selected = random.nextInt(total);
+        for (int i = 0; i < stacks.length; i++) {
+            selected -= Math.max(0, weights[i]);
+            if (selected < 0) {
+                return stacks[i].copy();
+            }
+        }
+        return stacks[stacks.length - 1].copy();
     }
 
     private ItemStack cookFishingCatch(ItemStack stack) {
@@ -1909,9 +2005,10 @@ public class ThaumGolemEntity extends PathfinderMob {
         if (!(level instanceof ServerLevel serverLevel) || ownerUuid == null) {
             return;
         }
-        if (itemCarried.isEmpty()) {
-            // Original AIUseItem reads only EntityGolemBase.itemCarried. The
-            // ContainerGolem slots are SlotGhost filters and are never consumed.
+        if (itemCarried.isEmpty() && originalHomeContainer() != null) {
+            // AIUseItem allows an empty-hand click only when no inventory exists
+            // behind the golem home. With a home inventory the golem must first
+            // wait for AIHomeTake to provide the configured tool or block.
             moveTowardHomeIfNeeded();
             return;
         }
@@ -1921,7 +2018,7 @@ public class ThaumGolemEntity extends PathfinderMob {
             patrolBetweenMarkers();
             return;
         }
-        BlockPos targetPos = target.pos();
+        BlockPos targetPos = target.markerPos();
         if (distanceToSqr(targetPos.getX() + 0.5D, targetPos.getY() + 0.5D, targetPos.getZ() + 0.5D) > 4.0D) {
             getNavigation().moveTo(targetPos.getX() + 0.5D, targetPos.getY(), targetPos.getZ() + 0.5D,
                     GolemOriginalRuntime.movementSpeed(material, originalUpgradeSlots, decorationCode, advanced, isInWater()));
@@ -1959,20 +2056,27 @@ public class ThaumGolemEntity extends PathfinderMob {
                     continue;
                 }
                 Direction side = Direction.from3DDataValue(marker.side() & 255);
-                if (!level.getBlockState(pos.relative(side.getOpposite())).isAir()) {
+                // TC4 AIUseItem.findSomething checks the space in marker.side,
+                // not the opposite side. For an empty-space marker the actual
+                // block clicked is one block behind the marker, using marker.side
+                // as the hit face.
+                if (!level.getBlockState(pos.relative(side)).isAir()) {
                     continue;
                 }
+                BlockPos interactionPos = empty ? pos.relative(side.getOpposite()) : pos;
                 double distance = distanceToSqr(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
                 if (distance < closestDistance) {
                     closestDistance = distance;
-                    closest = new UseMarkerTarget(pos.immutable(), side, marker.color());
+                    closest = new UseMarkerTarget(pos.immutable(), interactionPos.immutable(), side, marker.color());
                 }
             }
         }
         if (closest == null && workPos != null) {
             BlockState state = level.getBlockState(workPos);
-            if (state.isAir() == requireEmpty) {
-                closest = new UseMarkerTarget(workPos.immutable(), Direction.from3DDataValue(homeFacing), (byte) -1);
+            Direction side = Direction.from3DDataValue(homeFacing);
+            if (state.isAir() == requireEmpty && level.getBlockState(workPos.relative(side)).isAir()) {
+                BlockPos interactionPos = state.isAir() ? workPos.relative(side.getOpposite()) : workPos;
+                closest = new UseMarkerTarget(workPos.immutable(), interactionPos.immutable(), side, (byte) -1);
             }
         }
         return closest;
@@ -1995,7 +2099,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         fake.setShiftKeyDown(originalToggleEnabled(2));
         fake.setItemInHand(InteractionHand.MAIN_HAND, itemCarried.copy());
 
-        BlockPos pos = target.pos();
+        BlockPos pos = target.interactionPos();
         Direction side = target.side();
         Vec3 hitLocation = Vec3.atCenterOf(pos).add(
                 side.getStepX() * 0.5D, side.getStepY() * 0.5D, side.getStepZ() * 0.5D);
@@ -2031,7 +2135,14 @@ public class ThaumGolemEntity extends PathfinderMob {
             }
             ItemStack extra = fake.getInventory().getItem(slot);
             if (!extra.isEmpty()) {
-                spawnAtLocation(extra.copy(), 0.2F);
+                // Original AIUseItem keeps the first generated remainder as the
+                // carried stack when the used item was consumed; only additional
+                // by-products are dropped by the fake player.
+                if (itemCarried.isEmpty()) {
+                    itemCarried = extra.copy();
+                } else {
+                    spawnAtLocation(extra.copy(), 0.2F);
+                }
                 fake.getInventory().setItem(slot, ItemStack.EMPTY);
             }
         }
@@ -2043,7 +2154,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         }
     }
 
-    private record UseMarkerTarget(BlockPos pos, Direction side, byte color) {
+    private record UseMarkerTarget(BlockPos markerPos, BlockPos interactionPos, Direction side, byte color) {
     }
 
     private void handleLiquidCore() {

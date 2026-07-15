@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.block.ResearchNoteItem;
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
 import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.client.ClientResearchNoteData;
+import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.menu.ResearchTableMenu;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
@@ -428,6 +429,19 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
                 if (bonus > 0) {
                     lines.add(Component.translatable("thaumcraft.gui.aspect.bonus", bonus));
                 }
+                if (hasResearchExpertise() && !aspect.isPrimal()) {
+                    Aspect[] components = AspectCombinationRegistry.decompose(aspect).orElse(null);
+                    if (components != null) {
+                        lines.add(Component.translatable("thaumcraft.gui.research.expertise_components",
+                                Component.translatable("aspect.thaumcraft." + components[0].id())
+                                        .withStyle(style -> style.withColor(components[0].textColor())),
+                                Component.translatable("aspect.thaumcraft." + components[1].id())
+                                        .withStyle(style -> style.withColor(components[1].textColor()))));
+                        if (hasResearchMastery()) {
+                            lines.add(Component.translatable("thaumcraft.gui.research.mastery_shift"));
+                        }
+                    }
+                }
                 renderComponentTooltip(poseStack, lines, mouseX, mouseY);
                 return;
             }
@@ -456,19 +470,9 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
         double localY = mouseY - topPos;
         ItemStack note = currentNote();
 
-        if (button == 1 && TC4ResearchTableParity.isNoteSlotHit(localX, localY)) {
-            if (!hasResearchNote(note)) {
-                ThaumcraftNetwork.requestResearchTableActionFromClient(
-                        menu.blockPos(), TC4ResearchTableParity.ACTION_CREATE_NOTE);
-            } else if (ResearchNoteState.solved(note) && hasShiftDown()) {
-                ThaumcraftNetwork.requestResearchTableActionFromClient(
-                        menu.blockPos(), TC4ResearchTableParity.ACTION_COMPLETE_SOLVED_NOTE);
-            } else {
-                ThaumcraftNetwork.requestResearchTableActionFromClient(
-                        menu.blockPos(), TC4ResearchTableParity.ACTION_SYNC_NOTE);
-            }
-            return true;
-        }
+        // The note slot is a real container slot in TC4. Let vanilla/Forge
+        // slot handling insert and remove notes; note creation happens in the
+        // Thaumonomicon and completed discoveries are learned from the item.
 
         if (button == 1 && hasResearchNote(note)) {
             java.util.Optional<ResearchNoteGrid.GridSlot> hit = ResearchNoteGrid.hitTest(
@@ -532,7 +536,20 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
                 return true;
             }
 
-            Aspect paletteAspect = paletteAspectAt(mouseX, mouseY);
+            Aspect knownPaletteAspect = knownPaletteAspectAt(mouseX, mouseY);
+            if (knownPaletteAspect != null && hasShiftDown() && hasResearchMastery()
+                    && !knownPaletteAspect.isPrimal()) {
+                Aspect[] components = AspectCombinationRegistry.decompose(knownPaletteAspect).orElse(null);
+                if (components != null) {
+                    combineFlashUntilNanos = System.nanoTime() + 200_000_000L;
+                    ThaumcraftNetwork.requestCombineAspectsFromClient(
+                            components[0].id(), components[1].id());
+                }
+                return true;
+            }
+
+            Aspect paletteAspect = knownPaletteAspect != null && availableAspect(knownPaletteAspect) > 0
+                    ? knownPaletteAspect : null;
             if (paletteAspect != null) {
                 draggedAspect = paletteAspect;
                 draggingAspect = true;
@@ -621,7 +638,7 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
                 : null;
     }
 
-    private Aspect paletteAspectAt(double mouseX, double mouseY) {
+    private Aspect knownPaletteAspectAt(double mouseX, double mouseY) {
         List<Aspect> known = knownAspects();
         int start = TC4ResearchTableParity.aspectPageStart(aspectPage);
         int end = Math.min(start + ASPECTS_PER_PAGE, known.size());
@@ -629,11 +646,15 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
             int local = i - start;
             if (TC4ResearchTableParity.isAspectIconHit(
                     mouseX - leftPos, mouseY - topPos, local)) {
-                Aspect aspect = known.get(i);
-                return availableAspect(aspect) > 0 ? aspect : null;
+                return known.get(i);
             }
         }
         return null;
+    }
+
+    private Aspect paletteAspectAt(double mouseX, double mouseY) {
+        Aspect aspect = knownPaletteAspectAt(mouseX, mouseY);
+        return aspect != null && availableAspect(aspect) > 0 ? aspect : null;
     }
 
     private void renderDraggedAspect(PoseStack poseStack, int mouseX, int mouseY) {
@@ -648,7 +669,30 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
                 && aspect != null
                 && availableAspect(aspect) > 0
                 && ClientResearchNoteData.emptyAt(slot)
-                && ClientResearchNoteData.aspectAt(slot) == null;
+                && ClientResearchNoteData.aspectAt(slot) == null
+                && touchesCompatibleClientNeighbor(slot, aspect);
+    }
+
+    private boolean touchesCompatibleClientNeighbor(int slot, Aspect aspect) {
+        for (int neighbor : ResearchNoteGrid.neighbors(slot)) {
+            Aspect other = ClientResearchNoteData.aspectAt(neighbor);
+            if (other != null && ResearchAspectGraph.canConnect(aspect, other)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasResearchExpertise() {
+        // ResearchSyncPacket fills ClientResearchData. Reading Player persistent
+        // data on the logical client left RESEARCHER1/2 permanently false after
+        // login, so Expertise tooltips and Mastery shift-combination never ran.
+        return ClientResearchData.hasResearch("RESEARCHER1")
+                || ClientResearchData.hasResearch("RESEARCHER2");
+    }
+
+    private boolean hasResearchMastery() {
+        return ClientResearchData.hasResearch("RESEARCHER2");
     }
 
     private ItemStack currentNote() {

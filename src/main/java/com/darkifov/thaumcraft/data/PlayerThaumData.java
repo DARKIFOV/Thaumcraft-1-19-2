@@ -99,7 +99,7 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP, Math.max(0, root.getInt(WARP) + amount));
-        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount) * 3));
+        resetWarpCounterToTotal(root);
     }
 
     public static void addWarpSticky(Player player, int amount) {
@@ -109,7 +109,7 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP_STICKY, Math.max(0, root.getInt(WARP_STICKY) + amount));
-        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount) * 2));
+        resetWarpCounterToTotal(root);
     }
 
     public static void addWarpTemporary(Player player, int amount) {
@@ -119,7 +119,7 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP_TEMPORARY, Math.max(0, root.getInt(WARP_TEMPORARY) + amount));
-        root.putInt(WARP_COUNTER, Math.max(0, root.getInt(WARP_COUNTER) + Math.max(0, amount)));
+        resetWarpCounterToTotal(root);
     }
 
     public static void removeWarp(Player player, int amount) {
@@ -151,6 +151,25 @@ public final class PlayerThaumData {
 
         CompoundTag root = root(player);
         root.putInt(WARP_TEMPORARY, Math.max(0, root.getInt(WARP_TEMPORARY) - amount));
+    }
+
+    /**
+     * TC4 WarpEvents directly decremented sticky warp for the rare cleansing
+     * event without resetting the event counter. Public warp-grant/removal
+     * APIs do reset the counter, so this path must remain separate.
+     */
+    public static void decayStickyWarpFromEvent(Player player, int amount) {
+        if (amount <= 0) {
+            return;
+        }
+
+        CompoundTag root = root(player);
+        root.putInt(WARP_STICKY, Math.max(0, root.getInt(WARP_STICKY) - amount));
+    }
+
+    private static void resetWarpCounterToTotal(CompoundTag root) {
+        int total = Math.max(0, root.getInt(WARP) + root.getInt(WARP_STICKY) + root.getInt(WARP_TEMPORARY));
+        root.putInt(WARP_COUNTER, total);
     }
 
     public static int getWarpCounter(Player player) {
@@ -187,6 +206,22 @@ public final class PlayerThaumData {
         root(player).putInt(WARP_WARD_TICKS, Math.max(0, ticks));
     }
 
+    /**
+     * Consumes the pre-11.62.82 persistent ward timer so it can be migrated
+     * once into the real synced MobEffect. Keeping both timers authoritative
+     * made milk unable to remove Warp Ward, unlike TC4.
+     */
+    public static int takeLegacyWarpWardTicks(Player player) {
+        CompoundTag root = root(player);
+        if (!root.contains(WARP_WARD_TICKS)) {
+            return 0;
+        }
+        int ticks = Math.max(0, root.getInt(WARP_WARD_TICKS));
+        root.remove(WARP_WARD_TICKS);
+        return ticks;
+    }
+
+    /** Legacy-save probe only. Runtime ward authority is the MobEffect. */
     public static boolean hasWarpWard(Player player) {
         return getWarpWardTicks(player) > 0;
     }

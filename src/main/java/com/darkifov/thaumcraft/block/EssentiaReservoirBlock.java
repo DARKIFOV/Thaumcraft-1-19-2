@@ -12,13 +12,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -34,11 +34,11 @@ import net.minecraft.world.phys.BlockHitResult;
  * original-facing NBT and exposes exactly one tube access side.
  */
 public class EssentiaReservoirBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     public EssentiaReservoirBlock(Properties properties) {
         super(properties);
-        registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
+        registerDefaultState(defaultBlockState().setValue(FACING, Direction.DOWN));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class EssentiaReservoirBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return defaultBlockState().setValue(FACING, Direction.DOWN);
     }
 
     @Override
@@ -79,11 +79,11 @@ public class EssentiaReservoirBlock extends BaseEntityBlock {
         if (!(blockEntity instanceof EssentiaReservoirBlockEntity reservoir)) {
             return InteractionResult.PASS;
         }
-        if (player.getItemInHand(hand).getItem() instanceof WandItem && player.isShiftKeyDown()) {
-            Direction next = state.getValue(FACING).getClockWise();
-            level.setBlock(pos, state.setValue(FACING, next), 3);
-            reservoir.setFacing(next);
-            player.displayClientMessage(Component.literal("Essentia Reservoir | access side=" + next.getName()).withStyle(ChatFormatting.GOLD), false);
+        if (player.getItemInHand(hand).getItem() instanceof WandItem) {
+            Direction selected = player.isShiftKeyDown() ? hit.getDirection() : hit.getDirection().getOpposite();
+            level.setBlock(pos, state.setValue(FACING, selected), 3);
+            reservoir.setFacing(selected);
+            player.displayClientMessage(Component.literal("Essentia Reservoir | access side=" + selected.getName()).withStyle(ChatFormatting.GOLD), false);
             return InteractionResult.CONSUME;
         }
         player.displayClientMessage(Component.literal("Essentia Reservoir | " + reservoir.amount() + "/" + EssentiaReservoirBlockEntity.CAPACITY

@@ -452,9 +452,6 @@
     "COGNITIO": 4,
     "PRAECANTATIO": 1
   },
-  "thaumcraft:research_point": {
-    "COGNITIO": 1
-  },
   "thaumcraft:scribing_tools": {
     "INSTRUMENTUM": 1,
     "COGNITIO": 1

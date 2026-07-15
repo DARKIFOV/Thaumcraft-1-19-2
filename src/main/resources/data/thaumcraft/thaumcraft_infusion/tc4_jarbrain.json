@@ -1,0 +1,24 @@
+{
+  "tc4_key": "JarBrain",
+  "tc4_source": "addInfusionCraftingRecipe",
+  "research": "JARBRAIN",
+  "tc4_kind": "INFUSION",
+  "catalyst": "thaumcraft:essentia_jar",
+  "components": [
+    "thaumcraft:tc4_brain",
+    "minecraft:spider_eye",
+    "minecraft:fermented_spider_eye",
+    "minecraft:spider_eye"
+  ],
+  "aspects": {
+    "COGNITIO": 10,
+    "SENSUS": 10,
+    "EXANIMIS": 20
+  },
+  "instability": 4,
+  "result": {
+    "item": "thaumcraft:tc4_jar_brain",
+    "count": 1
+  },
+  "v11_62_71_strict_original": true
+}

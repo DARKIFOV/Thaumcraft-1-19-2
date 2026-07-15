@@ -8,7 +8,7 @@
     "thaumcraft:aer_shard",
     "thaumcraft:aer_shard",
     "minecraft:diamond",
-    "thaumcraft:tc4_block_greatwood_log"
+    "thaumcraft:greatwood_log"
   ],
   "aspects": {
     "AER": 8,

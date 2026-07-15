@@ -1,19 +1,90 @@
 {
-  "variants": {
-    "age=0": {
-      "model": "thaumcraft:block/taint_fibres"
+  "multipart": [
+    {
+      "when": {
+        "age": "0",
+        "down": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_fibres_down"
+      }
     },
-    "age=1": {
-      "model": "thaumcraft:block/taint_fibres"
+    {
+      "when": {
+        "age": "0",
+        "up": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_fibres_up"
+      }
     },
-    "age=2": {
-      "model": "thaumcraft:block/taint_fibres"
+    {
+      "when": {
+        "age": "0",
+        "north": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_fibres_north"
+      }
     },
-    "age=3": {
-      "model": "thaumcraft:block/taint_fibres"
+    {
+      "when": {
+        "age": "0",
+        "south": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_fibres_south"
+      }
     },
-    "age=4": {
-      "model": "thaumcraft:block/taint_fibres"
+    {
+      "when": {
+        "age": "0",
+        "west": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_fibres_west"
+      }
+    },
+    {
+      "when": {
+        "age": "0",
+        "east": "true"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_fibres_east"
+      }
+    },
+    {
+      "when": {
+        "age": "1"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taintgrass1"
+      }
+    },
+    {
+      "when": {
+        "age": "2"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taintgrass2"
+      }
+    },
+    {
+      "when": {
+        "age": "3"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_spore_stalk_1"
+      }
+    },
+    {
+      "when": {
+        "age": "4"
+      },
+      "apply": {
+        "model": "thaumcraft:block/taint_spore_stalk_2"
+      }
     }
-  }
+  ]
 }

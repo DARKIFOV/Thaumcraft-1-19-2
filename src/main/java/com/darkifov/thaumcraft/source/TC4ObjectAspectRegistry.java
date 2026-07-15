@@ -171,7 +171,6 @@ public final class TC4ObjectAspectRegistry {
         exact("minecraft:ender_eye", aspects(Aspect.ALIENIS, 4, Aspect.SENSUS, 2, Aspect.ITER, 2));
         exact("thaumcraft:thaumonomicon", aspects(Aspect.COGNITIO, 10, Aspect.PRAECANTATIO, 2, Aspect.ARBOR, 1));
         exact("thaumcraft:research_note", aspects(Aspect.COGNITIO, 4, Aspect.PRAECANTATIO, 1));
-        exact("thaumcraft:research_point", aspects(Aspect.COGNITIO, 1));
         exact("thaumcraft:scribing_tools", aspects(Aspect.INSTRUMENTUM, 1, Aspect.COGNITIO, 1));
         exact("thaumcraft:infused_scribing_tools", aspects(Aspect.INSTRUMENTUM, 2, Aspect.COGNITIO, 2, Aspect.PRAECANTATIO, 2));
         exact("thaumcraft:thaumometer", aspects(Aspect.SENSUS, 4, Aspect.VITREUS, 2, Aspect.PRAECANTATIO, 2, Aspect.METALLUM, 2));

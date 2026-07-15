@@ -46,11 +46,13 @@ public class RequestResearchTableActionPacket {
                 return;
             }
             if (packet.action == TC4ResearchTableParity.ACTION_CREATE_NOTE) {
-                table.createResearchNote(player);
+                player.displayClientMessage(Component.literal("Create research notes from an available Thaumonomicon entry.")
+                        .withStyle(ChatFormatting.GRAY), false);
             } else if (packet.action == TC4ResearchTableParity.ACTION_OPEN_NOTE) {
-                table.openResearchNote(player);
+                table.syncResearchNote(player);
             } else if (packet.action == TC4ResearchTableParity.ACTION_COMPLETE_SOLVED_NOTE) {
-                table.completeResearchNote(player);
+                player.displayClientMessage(Component.literal("Take the completed discovery and use it to learn the research.")
+                        .withStyle(ChatFormatting.GRAY), false);
             } else if (packet.action == TC4ResearchTableParity.ACTION_SYNC_NOTE) {
                 table.syncResearchNote(player);
             } else if (packet.action == 3 || packet.action == 5 || TC4ResearchTableParity.isCopyAction(packet.action)) {

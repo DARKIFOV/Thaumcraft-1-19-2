@@ -1,20 +1,28 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " S ",
-    "SQS",
-    " S "
-  ],
-  "key": {
-    "S": {
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
       "item": "thaumcraft:aer_shard"
     },
-    "Q": {
-      "item": "minecraft:quartz"
+    {
+      "item": "thaumcraft:aer_shard"
+    },
+    {
+      "item": "thaumcraft:aer_shard"
+    },
+    {
+      "item": "thaumcraft:aer_shard"
+    },
+    {
+      "item": "thaumcraft:aer_shard"
+    },
+    {
+      "item": "thaumcraft:aer_shard"
     }
-  },
+  ],
   "result": {
     "item": "thaumcraft:aer_crystal",
     "count": 1
-  }
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3382 Clusters0"
 }

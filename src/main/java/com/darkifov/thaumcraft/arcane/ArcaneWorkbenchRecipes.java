@@ -9,6 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public final class ArcaneWorkbenchRecipes {
     private static final List<ArcaneWorkbenchRecipe> FALLBACK = new ArrayList<>();
@@ -52,11 +54,25 @@ public final class ArcaneWorkbenchRecipes {
     }
 
     private static List<ArcaneWorkbenchRecipe> withWandAssembly(List<ArcaneWorkbenchRecipe> base) {
+        // The data pack still contains a few historical materialized copies of
+        // generated wand-component recipes. Merge by original TC4 key so the
+        // authoritative runtime recipe replaces the stale copy instead of JEI
+        // showing two recipes with different costs or ingredients.
+        Map<String, ArcaneWorkbenchRecipe> merged = new LinkedHashMap<>();
+        mergeRecipes(merged, base);
+        mergeRecipes(merged, TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes());
+        mergeRecipes(merged, WandCraftingRuntime.generatedWandAssemblyRecipes());
+
         WITH_WAND_ASSEMBLY.clear();
-        WITH_WAND_ASSEMBLY.addAll(base);
-        WITH_WAND_ASSEMBLY.addAll(TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes());
-        WITH_WAND_ASSEMBLY.addAll(WandCraftingRuntime.generatedWandAssemblyRecipes());
+        WITH_WAND_ASSEMBLY.addAll(merged.values());
         return WITH_WAND_ASSEMBLY;
+    }
+
+    private static void mergeRecipes(Map<String, ArcaneWorkbenchRecipe> merged, List<ArcaneWorkbenchRecipe> recipes) {
+        for (ArcaneWorkbenchRecipe recipe : recipes) {
+            String key = recipe.tc4Key().isBlank() ? "id:" + recipe.id() : "tc4:" + recipe.tc4Key();
+            merged.put(key, recipe);
+        }
     }
 
     public static List<ArcaneWorkbenchRecipe> nonOriginalRecipes() {

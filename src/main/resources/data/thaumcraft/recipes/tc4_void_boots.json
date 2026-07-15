@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3561",
+  "pattern": [
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/void_metal"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_voidboots",
+    "count": 1
+  }
+}

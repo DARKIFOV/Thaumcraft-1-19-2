@@ -10,6 +10,7 @@ import com.darkifov.thaumcraft.aura.AuraNodeType;
 import com.darkifov.thaumcraft.aura.AuraNodeWorldRuntime;
 import com.darkifov.thaumcraft.block.NodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.NodeTransducerBlock;
+import com.darkifov.thaumcraft.entity.AspectOrbEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -54,6 +55,8 @@ public class AuraNodeBlockEntity extends BlockEntity {
     private int lastDrainerEntityId = -1;
     private long lastActiveMillis = System.currentTimeMillis();
     private boolean catchUpPending;
+    /** Per-node scheduler matching TileNode.count instead of world-global time. */
+    private long nodeTick;
 
     public AuraNodeBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), pos, state);
@@ -168,6 +171,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
         energizedTicks = 0;
         lastActiveMillis = System.currentTimeMillis();
         catchUpPending = false;
+        nodeTick = 0L;
         initialized = true;
         setChangedAndSync();
     }
@@ -194,6 +198,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
         }
         lastActiveMillis = System.currentTimeMillis();
         catchUpPending = false;
+        nodeTick = 0L;
         initialized = true;
         setChangedAndSync();
     }
@@ -232,6 +237,24 @@ public class AuraNodeBlockEntity extends BlockEntity {
         lastDrainColor = aspect.nativeColor();
         lastDrainGameTime = level == null ? 0L : level.getGameTime();
         lastDrainerEntityId = drainer == null ? -1 : drainer.getId();
+        setChangedAndSync();
+    }
+
+    /**
+     * Original TileNode clears drainEntity/drainCollision whenever the current
+     * five-tick tap fails, the player looks away, or wand use stops. Keeping a
+     * stale entity id for a fixed grace window made the rebuilt beam linger
+     * after release and made a full wand look as if it was still draining.
+     */
+    public void clearWandDrain(Player drainer) {
+        if (drainer != null && lastDrainerEntityId >= 0 && lastDrainerEntityId != drainer.getId()) {
+            return;
+        }
+        if (lastDrainerEntityId < 0 && lastDrainGameTime <= Long.MIN_VALUE / 8L) {
+            return;
+        }
+        lastDrainerEntityId = -1;
+        lastDrainGameTime = Long.MIN_VALUE / 4L;
         setChangedAndSync();
     }
 
@@ -387,13 +410,11 @@ public class AuraNodeBlockEntity extends BlockEntity {
             tickDark(level);
         }
 
-        if (type == AuraNodeType.UNSTABLE) {
-            tickUnstable(level, stabilized);
-        }
+        tickNodeStability(level);
     }
 
     private void tickTainted(Level level) {
-        if (level.getGameTime() % 160L == 0L) {
+        if (nodeTick % 160L == 0L) {
             BlockPos target = worldPosition.offset(level.random.nextInt(9) - 4, -1, level.random.nextInt(9) - 4);
             if (!level.isOutsideBuildHeight(target) && !level.getBlockState(target).isAir() && !level.getBlockState(target).is(Blocks.BEDROCK)) {
                 level.setBlock(target, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), 3);
@@ -402,14 +423,14 @@ public class AuraNodeBlockEntity extends BlockEntity {
     }
 
     private void tickPure(Level level) {
-        if (level.getGameTime() % 120L == 0L) {
+        if (nodeTick % 120L == 0L) {
             BlockPos target = worldPosition.offset(level.random.nextInt(9) - 4, -1, level.random.nextInt(9) - 4);
             if (!level.isOutsideBuildHeight(target) && level.getBlockState(target).is(ThaumcraftMod.TAINTED_SOIL.get())) {
                 level.setBlock(target, Blocks.DIRT.defaultBlockState(), 3);
             }
         }
 
-        if (level.getGameTime() % 80L == 0L) {
+        if (nodeTick % 80L == 0L) {
             for (LivingEntity living : level.getEntitiesOfClass(LivingEntity.class, new AABB(worldPosition).inflate(5.5D), LivingEntity::isAlive)) {
                 living.removeEffect(MobEffects.POISON);
                 living.removeEffect(MobEffects.WITHER);
@@ -422,7 +443,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
         if (hungerCooldown > 0) {
             hungerCooldown--;
         }
-        if (level.getGameTime() % 10L == 0L) {
+        if (nodeTick % 10L == 0L) {
             AABB area = new AABB(worldPosition).inflate(7.0D);
             List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, area, item -> item.isAlive() && !item.getItem().isEmpty());
 
@@ -451,7 +472,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
                 double dy = worldPosition.getY() + 0.5D - living.getY();
                 double dz = worldPosition.getZ() + 0.5D - living.getZ();
                 living.setDeltaMovement(living.getDeltaMovement().add(dx * 0.010D, dy * 0.006D, dz * 0.010D));
-                if (level.getGameTime() % 40L == 0L && living.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D, worldPosition.getZ() + 0.5D) < 3.0D) {
+                if (nodeTick % 40L == 0L && living.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D, worldPosition.getZ() + 0.5D) < 3.0D) {
                     living.addEffect(new MobEffectInstance(MobEffects.HUNGER, 80, 0));
                 }
             }
@@ -459,7 +480,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
     }
 
     private void tickDark(Level level) {
-        if (level.getGameTime() % 80L == 0L) {
+        if (nodeTick % 80L == 0L) {
             AABB area = new AABB(worldPosition).inflate(5.0D);
             for (LivingEntity living : level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAlive)) {
                 living.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 120, 0));
@@ -468,26 +489,53 @@ public class AuraNodeBlockEntity extends BlockEntity {
         }
     }
 
-    private void tickUnstable(Level level, boolean stabilized) {
-        long interval = stabilized ? 260L : 100L;
-        if (level.getGameTime() % interval != 0L) {
+    /**
+     * Original TileNode.handleNodeStability parity.
+     * Unstable nodes eject one random primal aspect as a collectible orb rather
+     * than converting it into another aspect. Stabilizers can very rarely calm
+     * unstable nodes and can repair fading modifiers back to pale.
+     */
+    private void tickNodeStability(Level level) {
+        if (nodeTick % 100L != 0L || level.isClientSide()) {
             return;
         }
-        Aspect from = null;
-        for (Aspect aspect : PRIMARY) {
-            if (aspects.get(aspect) > 1) {
-                from = aspect;
-                break;
+
+        int lock = stabilizerStrength();
+        boolean changed = false;
+        if (typedNodeType() == AuraNodeType.UNSTABLE && level.random.nextBoolean()) {
+            if (lock == 0) {
+                List<Aspect> available = new java.util.ArrayList<>();
+                for (Aspect aspect : PRIMARY) {
+                    if (aspects.get(aspect) > 0) {
+                        available.add(aspect);
+                    }
+                }
+                if (!available.isEmpty()) {
+                    Aspect emitted = available.get(level.random.nextInt(available.size()));
+                    if (aspects.remove(emitted, 1) && level instanceof ServerLevel serverLevel) {
+                        AspectOrbEntity orb = new AspectOrbEntity(
+                                ThaumcraftMod.ASPECT_ORB.get(), serverLevel,
+                                worldPosition.getX() + 0.5D,
+                                worldPosition.getY() + 0.5D,
+                                worldPosition.getZ() + 0.5D,
+                                emitted, 1);
+                        serverLevel.addFreshEntity(orb);
+                        changed = true;
+                    }
+                }
+            } else if (level.random.nextInt(Math.max(1, 10_000 / lock)) == 42) {
+                nodeType = AuraNodeType.NORMAL.name();
+                changed = true;
             }
         }
-        Aspect to = PRIMARY[Math.floorMod(worldPosition.getX() + worldPosition.getZ() + (int) level.getGameTime(), PRIMARY.length)];
-        if (from != null && to != from && aspects.remove(from, 1)) {
-            aspects.add(to, 1);
-            if (!stabilized) {
-                stability = Math.max(0, stability - 1);
-            } else {
-                stability = Math.min(100, stability + 1);
-            }
+
+        if (typedNodeModifier() == AuraNodeModifier.FADING && lock > 0
+                && level.random.nextInt(Math.max(1, 12_500 / lock)) == 69) {
+            nodeModifier = AuraNodeModifier.PALE.name();
+            changed = true;
+        }
+
+        if (changed) {
             setChangedAndSync();
         }
     }
@@ -505,12 +553,16 @@ public class AuraNodeBlockEntity extends BlockEntity {
             node.initializeFromPosition();
         }
 
+        // TileNode increments its own count before running node handlers.
+        // A world-global modulo synchronized every node and changed the first
+        // recharge delay after placement/chunk load.
+        node.nodeTick++;
         int regeneration = node.regenerationInterval();
         node.applyCatchUpRecharge(regeneration);
-        if (regeneration > 0 && level.getGameTime() % regeneration == 0L) {
+        if (regeneration > 0 && node.nodeTick % regeneration == 0L) {
             node.regenerateSlowly();
         }
-        if (level.getGameTime() % 1200L == 0L) {
+        if (node.nodeTick % 1200L == 0L) {
             node.handleDepletedBaseAspect();
         }
 
@@ -538,7 +590,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
             }
         }
 
-        if (energized && level.getGameTime() % 100L == 0L) {
+        if (energized && nodeTick % 100L == 0L) {
             for (Aspect aspect : PRIMARY) {
                 int base = Math.max(1, baseAspects.get(aspect));
                 if (aspects.get(aspect) < base + 8) {
@@ -556,8 +608,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
             return;
         }
 
-        long time = node.level.getGameTime();
-        if (time % 200L == 0L) {
+        if (node.nodeTick % 200L == 0L) {
             int total = node.aspects.totalAmount();
 
             if (total <= 0) {

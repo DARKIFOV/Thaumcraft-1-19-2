@@ -7,6 +7,10 @@ import java.util.Set;
 public final class ClientResearchData {
     private static final Set<String> RESEARCH = new HashSet<>();
     private static int warp = 0;
+    private static int permanentWarp = 0;
+    private static int stickyWarp = 0;
+    private static int temporaryWarp = 0;
+    private static int warpCounter = 0;
 
     static {
         RESEARCH.add("FIRST_STEPS");
@@ -15,7 +19,8 @@ public final class ClientResearchData {
     private ClientResearchData() {
     }
 
-    public static void setResearch(Set<String> research, int newWarp) {
+    public static void setResearch(Set<String> research, int totalWarp, int permanent,
+                                   int sticky, int temporary, int counter) {
         RESEARCH.clear();
         RESEARCH.add("FIRST_STEPS");
 
@@ -23,7 +28,11 @@ public final class ClientResearchData {
             RESEARCH.addAll(research);
         }
 
-        warp = Math.max(0, newWarp);
+        warp = Math.max(0, totalWarp);
+        permanentWarp = Math.max(0, permanent);
+        stickyWarp = Math.max(0, sticky);
+        temporaryWarp = Math.max(0, temporary);
+        warpCounter = Math.max(0, counter);
     }
 
     public static boolean hasResearch(String key) {
@@ -36,5 +45,21 @@ public final class ClientResearchData {
 
     public static int warp() {
         return warp;
+    }
+
+    public static int permanentWarp() {
+        return permanentWarp;
+    }
+
+    public static int stickyWarp() {
+        return stickyWarp;
+    }
+
+    public static int temporaryWarp() {
+        return temporaryWarp;
+    }
+
+    public static int warpCounter() {
+        return warpCounter;
     }
 }

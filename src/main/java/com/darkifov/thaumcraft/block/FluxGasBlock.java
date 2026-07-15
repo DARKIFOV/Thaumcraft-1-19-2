@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.effect.TC4WarpMobEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -37,9 +38,9 @@ public class FluxGasBlock extends Block {
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!level.isClientSide && entity instanceof LivingEntity living && living.tickCount % 20 == 0 && level.random.nextInt(10) == 0) {
             if (level.random.nextBoolean()) {
-                living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 1200, 0, true, true));
+                living.addEffect(TC4WarpMobEffect.configureCuratives(new MobEffectInstance(ThaumcraftMod.VIS_EXHAUST.get(), 1200, 0, true, true, true)));
             } else {
-                living.addEffect(new MobEffectInstance(MobEffects.POISON, 80, 0, false, true));
+                living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 80, 0, false, true, true));
             }
             if (level.random.nextBoolean()) {
                 level.removeBlock(pos, false);

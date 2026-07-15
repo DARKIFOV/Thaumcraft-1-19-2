@@ -3,6 +3,20 @@ package com.darkifov.thaumcraft.porting;
 import com.darkifov.thaumcraft.block.TC4FortressArmorItem;
 import com.darkifov.thaumcraft.block.TC4FortressMaskItem;
 import com.darkifov.thaumcraft.item.TC4ResearchComponentItem;
+import com.darkifov.thaumcraft.item.BoneBowItem;
+import com.darkifov.thaumcraft.item.TravelingTrunkItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumArmorItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumAxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumHoeItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumPickaxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumShovelItem;
+import com.darkifov.thaumcraft.item.gear.TC4ThaumiumSwordItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidArmorItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidAxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidHoeItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidPickaxeItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidShovelItem;
+import com.darkifov.thaumcraft.item.gear.TC4VoidSwordItem;
 import com.darkifov.thaumcraft.item.TC4GolemPlacerItem;
 import com.darkifov.thaumcraft.item.TC4GolemCoreComponentItem;
 import com.darkifov.thaumcraft.block.GolemUpgradeItem;
@@ -18,8 +32,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -53,6 +70,7 @@ public final class TC4ResearchItems {
             e("tc4_bootstraveler", "bootstraveler", "TC4 texture sprite from assets/thaumcraft/textures/items", "bootstraveler"),
             e("tc4_bottle_taint", "bottle_taint", "TC4 texture sprite from assets/thaumcraft/textures/items", "bottle_taint"),
             e("tc4_brain", "brain", "ConfigItems.itemResource meta 5", "brain"),
+            e("tc4_jar_brain", "jar_brain", "ConfigBlocks.blockJar meta 1 migration output", "jar_brain"),
             e("tc4_bucket_death", "bucket_death", "TC4 texture sprite from assets/thaumcraft/textures/items", "bucket_death"),
             e("tc4_bucket_pure", "bucket_pure", "TC4 texture sprite from assets/thaumcraft/textures/items", "bucket_pure"),
             e("tc4_charm", "charm", "ConfigItems.itemResource meta 15", "charm"),
@@ -172,6 +190,7 @@ public final class TC4ResearchItems {
             e("tc4_mirrorframe2", "mirrorframe2", "TC4 texture sprite from assets/thaumcraft/textures/items", "mirrorframe2"),
             e("tc4_mirrorglass", "mirrorglass", "ConfigItems.itemResource meta 10", "mirrorglass"),
             e("tc4_mirrorhand", "mirrorhand", "TC4 texture sprite from assets/thaumcraft/textures/items", "mirrorhand"),
+            e("tc4_travel_trunk", "travel_trunk", "ConfigItems.itemTrunkSpawner migration output", "travel_trunk"),
             e("tc4_nitor", "nitor", "ConfigItems.itemResource meta 1", "nitor"),
             e("tc4_nuggetbeef", "nuggetbeef", "TC4 texture sprite from assets/thaumcraft/textures/items", "nuggetbeef"),
             e("tc4_nuggetchicken", "nuggetchicken", "TC4 texture sprite from assets/thaumcraft/textures/items", "nuggetchicken"),
@@ -372,6 +391,16 @@ public final class TC4ResearchItems {
         FIELD_TEXTURE.put("itemHandMirror", "mirrorhand");
         FIELD_TEXTURE.put("itemInkwell", "inkwell");
         FIELD_TEXTURE.put("itemLootbag", "lootbag");
+        FIELD_TEXTURE.put("itemPickElemental", "elementalpick");
+        FIELD_TEXTURE.put("itemPickThaumium", "thaumiumpick");
+        FIELD_TEXTURE.put("itemPickVoid", "voidpick");
+        FIELD_TEXTURE.put("itemShovelElemental", "elementalshovel");
+        FIELD_TEXTURE.put("itemShovelThaumium", "thaumiumshovel");
+        FIELD_TEXTURE.put("itemShovelVoid", "voidshovel");
+        FIELD_TEXTURE.put("itemAxeElemental", "elementalaxe");
+        FIELD_TEXTURE.put("itemAxeThaumium", "thaumiumaxe");
+        FIELD_TEXTURE.put("itemSwordElemental", "elementalsword");
+        FIELD_TEXTURE.put("itemSwordThaumium", "thaumiumsword");
         FIELD_TEXTURE.put("itemNugget", "nuggetiron");
         FIELD_TEXTURE.put("itemPrimalCrusher", "primal_crusher");
         FIELD_TEXTURE.put("itemResearchNotes", "researchnotes");
@@ -513,7 +542,10 @@ public final class TC4ResearchItems {
         for (Entry entry : ENTRIES) {
             // v11.62.14: metadata 13 is now a real block + BlockItem. Do not
             // double-register the old flat research-component placeholder.
-            if (entry.id().equals("tc4_block_focal_manipulator")) continue;
+            if (entry.id().equals("tc4_block_focal_manipulator")
+                    || entry.id().equals("tc4_block_thaumium")
+                    || entry.id().equals("tc4_block_tallow")
+                    || entry.id().equals("tc4_block_crystal_cluster")) continue;
 
             // v11.62.26: a functional replacement may already own this exact
             // registry id. Keep it in the lookup map and never register it twice.
@@ -530,52 +562,73 @@ public final class TC4ResearchItems {
         // here made the vanilla Search tab expose hundreds of inert clones even
         // though the Thaumcraft tab filtered them after population.
         Item.Properties properties = new Item.Properties();
+        Item.Properties functionalProperties = new Item.Properties().tab(tab);
         return switch (entry.id()) {
-            case "tc4_thaumiumfortresshelm" -> new TC4FortressArmorItem(EquipmentSlot.HEAD, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
-            case "tc4_thaumiumfortresschest" -> new TC4FortressArmorItem(EquipmentSlot.CHEST, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
-            case "tc4_thaumiumfortresslegs" -> new TC4FortressArmorItem(EquipmentSlot.LEGS, properties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
-            case "tc4_mask_grinning_devil" -> new TC4FortressMaskItem(properties, 0, entry.originalSource(), entry.legacyTexture());
-            case "tc4_mask_angry_ghost" -> new TC4FortressMaskItem(properties, 1, entry.originalSource(), entry.legacyTexture());
-            case "tc4_mask_sipping_fiend" -> new TC4FortressMaskItem(properties, 2, entry.originalSource(), entry.legacyTexture());
-            case "tc4_focus_hellbat" -> new WandFocusItem(properties, WandFocusType.HELLBAT);
-            case "tc4_focus_pech" -> new WandFocusItem(properties, WandFocusType.PECH_CURSE);
-            case "tc4_golem_straw" -> new TC4GolemPlacerItem(properties, GolemMaterial.STRAW, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_wood" -> new TC4GolemPlacerItem(properties, GolemMaterial.WOOD, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_tallow" -> new TC4GolemPlacerItem(properties, GolemMaterial.TALLOW, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_clay" -> new TC4GolemPlacerItem(properties, GolemMaterial.CLAY, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_flesh" -> new TC4GolemPlacerItem(properties, GolemMaterial.FLESH, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_stone" -> new TC4GolemPlacerItem(properties, GolemMaterial.STONE, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_iron" -> new TC4GolemPlacerItem(properties, GolemMaterial.IRON, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_thaumium" -> new TC4GolemPlacerItem(properties, GolemMaterial.THAUMIUM, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_blank" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.BLANK, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_fill" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.FILL, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_empty" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.EMPTY, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_gather" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.GATHER, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_harvest" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.HARVEST, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_guard" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.GUARD, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_liquid" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.LIQUID, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_essentia" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.ESSENTIA, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_lumber" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.LUMBER, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_use" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.USE, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_butcher" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.BUTCHER, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_sorting" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.SORTING, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_fish" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.FISH, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_bodyguard" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.BODYGUARD, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_core_patrol" -> new TC4GolemCoreComponentItem(properties, GolemCoreType.PATROL, entry.originalSource(), entry.legacyTexture());
-            case "tc4_golem_upgrade_air" -> new GolemUpgradeItem(properties, GolemUpgradeType.AIR);
-            case "tc4_golem_upgrade_earth" -> new GolemUpgradeItem(properties, GolemUpgradeType.EARTH);
-            case "tc4_golem_upgrade_fire" -> new GolemUpgradeItem(properties, GolemUpgradeType.FIRE);
-            case "tc4_golem_upgrade_water" -> new GolemUpgradeItem(properties, GolemUpgradeType.WATER);
-            case "tc4_golem_upgrade_order" -> new GolemUpgradeItem(properties, GolemUpgradeType.ORDER);
-            case "tc4_golem_upgrade_entropy" -> new GolemUpgradeItem(properties, GolemUpgradeType.ENTROPY);
-            case "tc4_golemdecotophat" -> new GolemDecorationItem(properties, GolemDecorationType.TOP_HAT);
-            case "tc4_golemdecoglasses" -> new GolemDecorationItem(properties, GolemDecorationType.GLASSES);
-            case "tc4_golemdecobowtie" -> new GolemDecorationItem(properties, GolemDecorationType.BOWTIE);
-            case "tc4_golemdecofez" -> new GolemDecorationItem(properties, GolemDecorationType.FEZ);
-            case "tc4_golemdecodart" -> new GolemDecorationItem(properties, GolemDecorationType.DART_LAUNCHER);
-            case "tc4_golemdecovisor" -> new GolemDecorationItem(properties, GolemDecorationType.VISOR);
-            case "tc4_golemdecoarmor" -> new GolemDecorationItem(properties, GolemDecorationType.ARMOR);
-            case "tc4_golemdecomace" -> new GolemDecorationItem(properties, GolemDecorationType.MACE);
+            case "tc4_bonebow" -> new BoneBowItem(functionalProperties);
+            case "tc4_travel_trunk" -> new TravelingTrunkItem(functionalProperties);
+            case "tc4_thaumiumhelm" -> new TC4ThaumiumArmorItem(EquipmentSlot.HEAD, functionalProperties);
+            case "tc4_thaumiumchest" -> new TC4ThaumiumArmorItem(EquipmentSlot.CHEST, functionalProperties);
+            case "tc4_thaumiumlegs" -> new TC4ThaumiumArmorItem(EquipmentSlot.LEGS, functionalProperties);
+            case "tc4_thaumiumboots" -> new TC4ThaumiumArmorItem(EquipmentSlot.FEET, functionalProperties);
+            case "tc4_thaumiumshovel" -> new TC4ThaumiumShovelItem(functionalProperties);
+            case "tc4_thaumiumpick" -> new TC4ThaumiumPickaxeItem(functionalProperties);
+            case "tc4_thaumiumaxe" -> new TC4ThaumiumAxeItem(functionalProperties);
+            case "tc4_thaumiumhoe" -> new TC4ThaumiumHoeItem(functionalProperties);
+            case "tc4_thaumiumsword" -> new TC4ThaumiumSwordItem(functionalProperties);
+            case "tc4_voidhelm" -> new TC4VoidArmorItem(EquipmentSlot.HEAD, functionalProperties);
+            case "tc4_voidchest" -> new TC4VoidArmorItem(EquipmentSlot.CHEST, functionalProperties);
+            case "tc4_voidlegs" -> new TC4VoidArmorItem(EquipmentSlot.LEGS, functionalProperties);
+            case "tc4_voidboots" -> new TC4VoidArmorItem(EquipmentSlot.FEET, functionalProperties);
+            case "tc4_voidshovel" -> new TC4VoidShovelItem(functionalProperties);
+            case "tc4_voidpick" -> new TC4VoidPickaxeItem(functionalProperties);
+            case "tc4_voidaxe" -> new TC4VoidAxeItem(functionalProperties);
+            case "tc4_voidhoe" -> new TC4VoidHoeItem(functionalProperties);
+            case "tc4_voidsword" -> new TC4VoidSwordItem(functionalProperties);
+            case "tc4_thaumiumfortresshelm" -> new TC4FortressArmorItem(EquipmentSlot.HEAD, functionalProperties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
+            case "tc4_thaumiumfortresschest" -> new TC4FortressArmorItem(EquipmentSlot.CHEST, functionalProperties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
+            case "tc4_thaumiumfortresslegs" -> new TC4FortressArmorItem(EquipmentSlot.LEGS, functionalProperties.stacksTo(1), entry.originalSource(), entry.legacyTexture());
+            case "tc4_mask_grinning_devil" -> new TC4FortressMaskItem(functionalProperties, 0, entry.originalSource(), entry.legacyTexture());
+            case "tc4_mask_angry_ghost" -> new TC4FortressMaskItem(functionalProperties, 1, entry.originalSource(), entry.legacyTexture());
+            case "tc4_mask_sipping_fiend" -> new TC4FortressMaskItem(functionalProperties, 2, entry.originalSource(), entry.legacyTexture());
+            case "tc4_focus_hellbat" -> new WandFocusItem(functionalProperties, WandFocusType.HELLBAT);
+            case "tc4_focus_pech" -> new WandFocusItem(functionalProperties, WandFocusType.PECH_CURSE);
+            case "tc4_golem_straw" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.STRAW, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_wood" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.WOOD, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_tallow" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.TALLOW, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_clay" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.CLAY, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_flesh" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.FLESH, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_stone" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.STONE, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_iron" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.IRON, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_thaumium" -> new TC4GolemPlacerItem(functionalProperties, GolemMaterial.THAUMIUM, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_blank" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.BLANK, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_fill" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.FILL, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_empty" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.EMPTY, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_gather" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.GATHER, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_harvest" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.HARVEST, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_guard" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.GUARD, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_liquid" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.LIQUID, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_essentia" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.ESSENTIA, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_lumber" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.LUMBER, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_use" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.USE, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_butcher" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.BUTCHER, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_sorting" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.SORTING, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_fish" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.FISH, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_bodyguard" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.BODYGUARD, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_core_patrol" -> new TC4GolemCoreComponentItem(functionalProperties, GolemCoreType.PATROL, entry.originalSource(), entry.legacyTexture());
+            case "tc4_golem_upgrade_air" -> new GolemUpgradeItem(functionalProperties, GolemUpgradeType.AIR);
+            case "tc4_golem_upgrade_earth" -> new GolemUpgradeItem(functionalProperties, GolemUpgradeType.EARTH);
+            case "tc4_golem_upgrade_fire" -> new GolemUpgradeItem(functionalProperties, GolemUpgradeType.FIRE);
+            case "tc4_golem_upgrade_water" -> new GolemUpgradeItem(functionalProperties, GolemUpgradeType.WATER);
+            case "tc4_golem_upgrade_order" -> new GolemUpgradeItem(functionalProperties, GolemUpgradeType.ORDER);
+            case "tc4_golem_upgrade_entropy" -> new GolemUpgradeItem(functionalProperties, GolemUpgradeType.ENTROPY);
+            case "tc4_golemdecotophat" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.TOP_HAT);
+            case "tc4_golemdecoglasses" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.GLASSES);
+            case "tc4_golemdecobowtie" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.BOWTIE);
+            case "tc4_golemdecofez" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.FEZ);
+            case "tc4_golemdecodart" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.DART_LAUNCHER);
+            case "tc4_golemdecovisor" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.VISOR);
+            case "tc4_golemdecoarmor" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.ARMOR);
+            case "tc4_golemdecomace" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.MACE);
             default -> new TC4ResearchComponentItem(properties, entry.originalSource(), entry.legacyTexture());
         };
     }
@@ -600,8 +653,164 @@ public final class TC4ResearchItems {
         return texture == null ? Optional.empty() : byLegacyTexture(texture);
     }
 
+    /**
+     * Resolves a preserved 1.7.10 recipe expression to a real 1.19.2 stack.
+     *
+     * <p>The old book renderer only resolved {@code ConfigItems.itemResource}
+     * style metadata entries. As a result catalysts, vanilla ingredients,
+     * blocks and most tools appeared as empty beige squares in the runtime
+     * Thaumonomicon. This method is deliberately broader: it resolves the
+     * de-metadata'd TC4 registry mirror first, then functional block replacements,
+     * vanilla MCP fields and common ore-dictionary literals.</p>
+     */
+    public static Optional<ItemStack> resolveLegacyStack(String expression) {
+        if (expression == null || expression.isBlank()) return Optional.empty();
+
+        String compact = expression.replace(" ", "");
+        // Resolve metadata-heavy ConfigBlocks families before the generic
+        // source-ledger aliases. Otherwise blockTable/blockStoneDevice can be
+        // captured by a visually similar component item and the book shows an
+        // icon that cannot actually be placed or crafted.
+        ItemStack blockReplacement = resolveFunctionalBlockStack(compact);
+        if (!blockReplacement.isEmpty()) return Optional.of(blockReplacement);
+
+        ItemStack itemReplacement = resolveFunctionalItemStack(compact);
+        if (!itemReplacement.isEmpty()) return Optional.of(itemReplacement);
+
+        Optional<Entry> entry = resolveLegacyExpression(expression);
+        if (entry.isPresent()) {
+            RegistryObject<Item> object = registered.get(entry.get().id());
+            if (object != null && object.isPresent()) {
+                return Optional.of(new ItemStack(object.get()));
+            }
+            Item registryItem = ForgeRegistries.ITEMS.getValue(entry.get().registryName());
+            if (registryItem != null && registryItem != Items.AIR) {
+                return Optional.of(new ItemStack(registryItem));
+            }
+        }
+
+        Item vanilla = resolveVanillaItem(compact);
+        if (vanilla != null && vanilla != Items.AIR) return Optional.of(new ItemStack(vanilla));
+
+        String ore = expression.replace(Character.toString((char) 39), "")
+                .replace(Character.toString((char) 34), "")
+                .trim();
+        Item oreRepresentative = switch (ore) {
+            case "slabWood" -> Blocks.OAK_SLAB.asItem();
+            case "plankWood" -> Blocks.OAK_PLANKS.asItem();
+            case "logWood" -> Blocks.OAK_LOG.asItem();
+            case "stickWood" -> Items.STICK;
+            case "dustGlowstone" -> Items.GLOWSTONE_DUST;
+            case "dustRedstone" -> Items.REDSTONE;
+            case "oreIron" -> Blocks.IRON_ORE.asItem();
+            case "oreGold" -> Blocks.GOLD_ORE.asItem();
+            case "nuggetIron" -> Items.IRON_NUGGET;
+            case "nuggetGold" -> Items.GOLD_NUGGET;
+            case "gemDiamond" -> Items.DIAMOND;
+            case "ingotIron" -> Items.IRON_INGOT;
+            case "ingotGold" -> Items.GOLD_INGOT;
+            default -> Items.AIR;
+        };
+        return oreRepresentative == Items.AIR ? Optional.empty() : Optional.of(new ItemStack(oreRepresentative));
+    }
+
     public static String resolveLegacyExpressionLabel(String expression) {
-        return resolveLegacyExpression(expression).map(e -> e.registryName().toString()).orElse("");
+        return resolveLegacyStack(expression)
+                .map(stack -> String.valueOf(ForgeRegistries.ITEMS.getKey(stack.getItem())))
+                .orElse("");
+    }
+
+    private static ItemStack resolveFunctionalItemStack(String compact) {
+        Item item = Items.AIR;
+        int meta = expressionMeta(compact);
+        if (compact.contains("ConfigItems.itemResource")) {
+            item = switch (meta) {
+                case 1 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "nitor"));
+                case 2 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "thaumium_ingot"));
+                case 3 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "quicksilver_drop"));
+                case 6 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "amber"));
+                case 16 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "void_metal_ingot"));
+                default -> Items.AIR;
+            };
+        } else if (compact.contains("ConfigItems.itemNugget")) {
+            item = switch (meta) {
+                case 0 -> Items.IRON_NUGGET;
+                case 6 -> ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "thaumium_nugget"));
+                default -> Items.AIR;
+            };
+        }
+        return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
+    }
+
+    private static ItemStack resolveFunctionalBlockStack(String compact) {
+        String id = null;
+        if (compact.contains("ConfigBlocks.blockTable")) {
+            int meta = expressionMeta(compact);
+            id = meta == 1 ? "research_table" : meta == 15 ? "arcane_workbench" : "table";
+        } else if (compact.contains("ConfigBlocks.blockMagicalLog")) {
+            id = expressionMeta(compact) == 1 ? "silverwood_log" : "greatwood_log";
+        } else if (compact.contains("ConfigBlocks.blockJar")) {
+            int meta = expressionMeta(compact);
+            id = meta == 3 ? "void_essentia_jar" : "essentia_jar";
+        } else if (compact.contains("ConfigBlocks.blockStoneDevice")) {
+            int meta = expressionMeta(compact);
+            id = switch (meta) {
+                case 1 -> "arcane_pedestal";
+                case 2 -> "infusion_matrix";
+                case 9 -> "node_stabilizer";
+                case 10 -> "advanced_node_stabilizer";
+                case 11 -> "node_transducer";
+                case 12 -> "arcane_spa";
+                case 13 -> "focal_manipulator";
+                default -> null;
+            };
+        } else if (compact.contains("ConfigBlocks.blockAiry") && expressionMeta(compact) == 5) {
+            id = "aura_node";
+        }
+        if (id == null) return ItemStack.EMPTY;
+        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", id));
+        return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
+    }
+
+    private static int expressionMeta(String compact) {
+        java.util.regex.Matcher matcher = java.util.regex.Pattern
+                .compile("newItemStack\\([^,()]+(?:\\.[^,()]+)?(?:,(-?\\d+))?(?:,(-?\\d+))?\\)")
+                .matcher(compact);
+        if (!matcher.find()) return 0;
+        String meta = matcher.group(2);
+        if (meta == null) return 0;
+        try { return Integer.parseInt(meta); } catch (NumberFormatException ignored) { return 0; }
+    }
+
+    private static Item resolveVanillaItem(String compact) {
+        // MCP 1.7.10 fields used by the preserved ConfigRecipes source. Keep
+        // this explicit so the book never guesses a visually unrelated item.
+        if (compact.contains("Items.field_151045_i")) return Items.DIAMOND;
+        if (compact.contains("Items.field_151042_j")) return Items.IRON_INGOT;
+        if (compact.contains("Items.field_151043_k")) return Items.GOLD_INGOT;
+        if (compact.contains("Items.field_151044_h")) return Items.COAL;
+        if (compact.contains("Items.field_151016_H")) return Items.GUNPOWDER;
+        if (compact.contains("Items.field_151123_aH")) return Items.SLIME_BALL;
+        if (compact.contains("Items.field_151119_aD")) return Items.CLAY_BALL;
+        if (compact.contains("Items.field_151114_aO")) return Items.GLOWSTONE_DUST;
+        if (compact.contains("Items.field_151100_aR")) return Items.INK_SAC;
+        if (compact.contains("Items.field_151007_F")) return Items.STRING;
+        if (compact.contains("Items.field_151103_aS")) return Items.BONE;
+        if (compact.contains("Items.field_151074_bl")) return Items.GOLD_NUGGET;
+        if (compact.contains("Items.field_151014_N")) return Items.ENDER_PEARL;
+        if (compact.contains("Items.field_151078_bh")) return Items.ROTTEN_FLESH;
+        if (compact.contains("Items.field_151065_br")) return Items.QUARTZ;
+
+        if (compact.contains("Blocks.field_150359_w")) return Blocks.GLASS.asItem();
+        if (compact.contains("Blocks.field_150342_X")) return Blocks.BOOKSHELF.asItem();
+        if (compact.contains("Blocks.field_150410_aZ")) return Blocks.GLASS_PANE.asItem();
+        if (compact.contains("Blocks.field_150343_Z")) return Blocks.OBSIDIAN.asItem();
+        if (compact.contains("Blocks.field_150347_e")) return Blocks.COBBLESTONE.asItem();
+        if (compact.contains("Blocks.field_150341_Y")) return Blocks.MOSSY_COBBLESTONE.asItem();
+        if (compact.contains("Blocks.field_150432_aD")) return Blocks.ICE.asItem();
+        if (compact.contains("Blocks.field_150433_aE")) return Blocks.PACKED_ICE.asItem();
+        if (compact.contains("Blocks.field_150417_aV")) return Blocks.STONE_BRICKS.asItem();
+        return Items.AIR;
     }
 
     private static String textureFromExpression(String expression) {
@@ -616,6 +825,31 @@ public final class TC4ResearchItems {
         if (compact.contains("ConfigItems.itemGolemUpgrade")) return resolveMeta(compact, GOLEM_UPGRADE_META, "itemGolemUpgrade");
         for (Map.Entry<String, String> e : FIELD_TEXTURE.entrySet()) {
             if (compact.contains("ConfigItems." + e.getKey())) return e.getValue();
+        }
+        // Non-metadata equipment fields (itemPickElemental, itemPickThaumium,
+        // etc.) are already represented by ENTRIES. Derive those mappings from
+        // the source ledger instead of maintaining another fragile hand list.
+        for (Entry entry : ENTRIES) {
+            java.util.regex.Matcher itemField = java.util.regex.Pattern
+                    .compile("ConfigItems\\.([A-Za-z0-9_]+)")
+                    .matcher(entry.originalSource());
+            if (itemField.find() && compact.contains("ConfigItems." + itemField.group(1))) {
+                return entry.legacyTexture();
+            }
+        }
+        // The same fallback covers de-metadata'd block aliases. Metadata-heavy
+        // block families are resolved to functional replacements by
+        // resolveFunctionalBlockStack before this path is needed.
+        int requestedMeta = expressionMeta(compact);
+        for (Entry entry : ENTRIES) {
+            java.util.regex.Matcher blockField = java.util.regex.Pattern
+                    .compile("ConfigBlocks\\.([A-Za-z0-9_]+)")
+                    .matcher(entry.originalSource());
+            if (!blockField.find() || !compact.contains("ConfigBlocks." + blockField.group(1))) continue;
+            java.util.regex.Matcher sourceMeta = java.util.regex.Pattern.compile("meta\\s+(-?\\d+)").matcher(entry.originalSource());
+            if (!sourceMeta.find() || Integer.parseInt(sourceMeta.group(1)) == requestedMeta) {
+                return entry.legacyTexture();
+            }
         }
         return null;
     }

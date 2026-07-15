@@ -101,14 +101,13 @@ public final class ResearchTableBonusRuntime {
         if (state == null || state.isAir()) {
             return false;
         }
-        if (state.is(Blocks.BOOKSHELF) && level.getRandom().nextInt(300) == 0) {
+        int chance = state.is(Blocks.BOOKSHELF) ? 300
+                : state.is(ThaumcraftMod.BRAIN_JAR.get()) ? 200 : 0;
+        if (chance > 0 && level.getRandom().nextInt(chance) == 0) {
             Aspect[] aspects = Aspect.values();
             bonusAspects.add(aspects[level.getRandom().nextInt(aspects.length)], 1);
             return true;
         }
-        // Original TC4 also used brain-in-a-jar (blockJar meta 1) here. The exact
-        // block is not fully ported yet, so Stage169 deliberately does not map a
-        // normal essentia jar as a fake brain jar.
         return false;
     }
 

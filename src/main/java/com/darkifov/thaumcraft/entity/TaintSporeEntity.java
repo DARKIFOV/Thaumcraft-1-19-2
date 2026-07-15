@@ -64,7 +64,7 @@ public class TaintSporeEntity extends Monster {
             if (displaySize < getSporeSize()) displaySize = Math.min(getSporeSize(), displaySize + 0.02F);
             return;
         }
-        if (tickCount % 20 == 0 && level instanceof ServerLevel server && !TaintSpreadRuntime.isTaintedColumn(server, blockPosition())) {
+        if (tickCount % 20 == 0 && level instanceof ServerLevel server && !TaintSpreadRuntime.isColumnTainted(server, blockPosition())) {
             hurt(DamageSource.STARVE, 1.0F);
         }
         if (getSporeSize() < 10 && ++growth >= 1200) {

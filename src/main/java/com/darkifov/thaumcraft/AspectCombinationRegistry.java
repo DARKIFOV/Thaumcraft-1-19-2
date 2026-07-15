@@ -93,8 +93,10 @@ public final class AspectCombinationRegistry {
         if (first == null || second == null) {
             return false;
         }
+        // Original TC4 research links require a parent/component relation.
+        // Two identical aspects do not form a valid research connection.
         if (first == second) {
-            return true;
+            return false;
         }
         return first.firstComponent() == second
                 || first.secondComponent() == second

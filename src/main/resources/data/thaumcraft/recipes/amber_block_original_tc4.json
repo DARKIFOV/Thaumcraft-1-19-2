@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "thaumcraft:amber"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:amber_block",
+    "count": 1
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3406"
+}

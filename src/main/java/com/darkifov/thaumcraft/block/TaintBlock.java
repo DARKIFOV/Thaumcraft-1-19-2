@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,49 +13,32 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import com.mojang.math.Vector3f;
 
-/**
- * TC4 blockTaint metadata bridge for Forge 1.19.2.
- *
- * Original TC4 stores three blockTaint variants as metadata:
- * 0 = taint_crust, 1 = taint_soil, 2 = fleshblock.
- * 1.19.2 no longer uses item/block metadata the same way, so Stage145 exposes
- * them as explicit registered blocks while preserving the original behavior and
- * source texture names.
- */
 public class TaintBlock extends Block {
-    public enum Variant {
-        CRUST,
-        SOIL,
-        FLESH
-    }
-
+    public enum Variant { CRUST, SOIL, FLESH }
     private final Variant variant;
 
-    public TaintBlock(Properties properties, Variant variant) {
-        super(properties);
-        this.variant = variant;
-    }
+    public TaintBlock(Properties properties, Variant variant) { super(properties); this.variant = variant; }
+    public Variant variant() { return variant; }
 
-    public Variant variant() {
-        return variant;
-    }
-
-    @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        super.randomTick(state, level, pos, random);
+    @Override public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         TaintSpreadRuntime.randomTick(level, pos, random, variant);
     }
 
-    @Override
-    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        super.entityInside(state, level, pos, entity);
-        if (!level.isClientSide && entity instanceof LivingEntity living && !living.isInvertedHealAndHarm()) {
-            int chance = living instanceof Player ? 1000 : 500;
-            int duration = living instanceof Player ? 80 : 160;
-            if (level.random.nextInt(chance) == 0) {
-                living.addEffect(new MobEffectInstance(MobEffects.POISON, duration, 0, false, false));
-            }
+    @Override public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (variant == Variant.FLESH || level.isClientSide || !(entity instanceof LivingEntity living)
+                || living.isInvertedHealAndHarm()) return;
+        int chance = living instanceof Player ? 100 : 20;
+        int duration = living instanceof Player ? 80 : 160;
+        if (level.random.nextInt(chance) == 0) living.addEffect(new MobEffectInstance(MobEffects.POISON, duration, 0, false, false));
+    }
+
+    @Override public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (variant == Variant.CRUST && level.isEmptyBlock(pos.below()) && random.nextInt(10) == 0) {
+            level.addParticle(new DustParticleOptions(new Vector3f(0.3F, 0.1F, 0.8F), 0.8F),
+                    pos.getX() + 0.1D + random.nextDouble() * 0.8D, pos.getY(),
+                    pos.getZ() + 0.1D + random.nextDouble() * 0.8D, 0.0D, -0.02D, 0.0D);
         }
     }
 }

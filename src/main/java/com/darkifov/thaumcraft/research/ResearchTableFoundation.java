@@ -41,20 +41,14 @@ public final class ResearchTableFoundation {
         PlayerAspectKnowledge.seedPrimals(player);
         OriginalResearchProgression.seedAutoUnlocks(player);
 
-        // Stage136: TC4 gives the player primal understanding as the foundation of research,
-        // but it must not duplicate free research pool points every time the table is clicked.
-        // The old Stage135 behavior could be spammed; now the starter pool is granted once per player.
-        if (player.getPersistentData().getBoolean(FOUNDATION_POOL_SEEDED)) {
-            return;
+        // v11.62.51: PlayerAspectKnowledge.seedPrimals is the single source of the
+        // starter pool (10 of each primal in this rebuild).  Older code added a
+        // second +3 grant the first time a Research Table was opened, silently
+        // turning the advertised 10/10/10/10/10/10 start into 13 each.  Keep the
+        // legacy marker for save compatibility, but never mint another pool here.
+        if (!player.getPersistentData().getBoolean(FOUNDATION_POOL_SEEDED)) {
+            player.getPersistentData().putBoolean(FOUNDATION_POOL_SEEDED, true);
         }
-
-        for (Aspect aspect : Aspect.values()) {
-            if (aspect.isPrimal()) {
-                PlayerAspectKnowledge.addPool(player, aspect, 3);
-            }
-        }
-
-        player.getPersistentData().putBoolean(FOUNDATION_POOL_SEEDED, true);
     }
 
     public static Optional<Aspect> combine(Player player, Aspect first, Aspect second) {

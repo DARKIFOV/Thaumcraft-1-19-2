@@ -5,7 +5,9 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.43' // Forge 1.19.2 TC4 texture-bank, wand/node/thaumometer/goggles/GUI parity audit.
+version = '11.62.83' // Forge compile hotfix: Traveling Trunk Mojmap import and stable taint-column entity API.
+// v11.62.54 gameplay baseline marker: version = '11.62.54'
+// v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'
 // v11.62.30 compatibility marker: version = '11.62.30'
 // v11.62.29 compatibility marker: version = '11.62.29'
@@ -160,10 +162,13 @@ minecraft {
 
 repositories {
     mavenCentral()
+    maven { url = 'https://maven.blamejared.com' }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.5.2'
+    compileOnly fg.deobf('mezz.jei:jei-1.19.2-common-api:11.8.1.1035')
+    compileOnly fg.deobf('mezz.jei:jei-1.19.2-forge-api:11.8.1.1035')
 }
 
 tasks.withType(JavaCompile).configureEach {

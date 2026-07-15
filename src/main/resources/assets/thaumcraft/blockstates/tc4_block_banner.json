@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "thaumcraft:block/tc4_block_banner"
+      }
+    }
+  ]
+}

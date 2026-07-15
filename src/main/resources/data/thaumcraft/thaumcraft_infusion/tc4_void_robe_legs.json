@@ -6,8 +6,8 @@
   "catalyst": "thaumcraft:tc4_voidlegs",
   "components": [
     "thaumcraft:tc4_clothlegs",
-    "thaumcraft:tc4_voidingot",
-    "thaumcraft:tc4_thaumiumingot",
+    "thaumcraft:void_metal_ingot",
+    "thaumcraft:thaumium_ingot",
     "thaumcraft:tc4_dust",
     "thaumcraft:tc4_cloth",
     "minecraft:sugar"

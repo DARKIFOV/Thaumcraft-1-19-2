@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "tc4_source": "ConfigRecipes.java:3265",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "thaumcraft:tc4_nuggetbeef"
+    },
+    {
+      "item": "thaumcraft:tc4_nuggetfish"
+    },
+    {
+      "item": "thaumcraft:tc4_nuggetpork"
+    }
+  ],
+  "result": {
+    "item": "thaumcraft:tc4_tripletreat",
+    "count": 1
+  }
+}

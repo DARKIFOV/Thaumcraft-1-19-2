@@ -18,12 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 /** Stage503-522 TileEssentiaReservoir parity adapter. */
 public class EssentiaReservoirBlockEntity extends BlockEntity {
     public static final int CAPACITY = 256;
-    public static final int ORIGINAL_RESERVOIR_SUCTION = 48;
+    public static final int ORIGINAL_RESERVOIR_SUCTION = 24;
     public static final String NBT_ASPECTS = "Aspects";
     public static final String NBT_FACING = "facing";
 
     private final AspectList aspects = new AspectList();
-    private Direction facing = Direction.NORTH;
+    private Direction facing = Direction.DOWN;
+    private int originalTickCounter;
 
     public EssentiaReservoirBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.ESSENTIA_RESERVOIR_BLOCK_ENTITY.get(), pos, state);
@@ -37,6 +38,13 @@ public class EssentiaReservoirBlockEntity extends BlockEntity {
             reservoir.facing = state.getValue(EssentiaReservoirBlock.FACING);
             reservoir.setChanged();
         }
+        if (level == null || level.isClientSide) {
+            return;
+        }
+        reservoir.originalTickCounter++;
+        if (reservoir.originalTickCounter % 5 == 0 && reservoir.amount() < CAPACITY) {
+            reservoir.fillFromFacingLikeTC4();
+        }
     }
 
     public AspectList aspects() {
@@ -48,7 +56,7 @@ public class EssentiaReservoirBlockEntity extends BlockEntity {
     }
 
     public void setFacing(Direction facing) {
-        if (facing != null && facing.getAxis().isHorizontal()) {
+        if (facing != null) {
             this.facing = facing;
             setChangedAndSync();
         }
@@ -84,7 +92,27 @@ public class EssentiaReservoirBlockEntity extends BlockEntity {
     }
 
     public int originalSuctionAmount(Aspect aspect) {
-        return canAcceptAspect(aspect) ? ORIGINAL_RESERVOIR_SUCTION : EssentiaSuction.SOURCE_NONE;
+        return amount() < CAPACITY ? ORIGINAL_RESERVOIR_SUCTION : EssentiaSuction.SOURCE_NONE;
+    }
+
+    /**
+     * Original TileEssentiaReservoir.fillReservoir(): every five ticks the
+     * reservoir actively pulls one unit from the transport on its configured
+     * face when its suction (24) beats the neighbour suction and satisfies the
+     * neighbour minimum suction.
+     */
+    private void fillFromFacingLikeTC4() {
+        if (level == null || amount() >= CAPACITY) {
+            return;
+        }
+        BlockEntity neighbour = level.getBlockEntity(worldPosition.relative(facing));
+        Direction sideFromNeighbour = facing.getOpposite();
+        EssentiaTubeBlockEntity.pullOneIntoReservoirLikeTC4(
+                neighbour, sideFromNeighbour, ORIGINAL_RESERVOIR_SUCTION, this);
+    }
+
+    public int originalTickCounter() {
+        return originalTickCounter;
     }
 
     public Aspect firstAspect() {
@@ -119,12 +147,13 @@ public class EssentiaReservoirBlockEntity extends BlockEntity {
         aspects.clear();
         if (tag.contains(NBT_ASPECTS)) {
             aspects.load(tag.getCompound(NBT_ASPECTS));
+            if (aspects.totalAmount() > CAPACITY) {
+                aspects.clear();
+            }
         }
         if (tag.contains(NBT_FACING)) {
             Direction loaded = Direction.from3DDataValue(tag.getByte(NBT_FACING));
-            if (loaded.getAxis().isHorizontal()) {
-                facing = loaded;
-            }
+            facing = loaded == null ? Direction.DOWN : loaded;
         }
     }
 

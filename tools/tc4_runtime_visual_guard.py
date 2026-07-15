@@ -7,7 +7,7 @@ read = lambda rel: (root / rel).read_text(encoding="utf-8")
 errors = []
 
 thaumometer = read("src/main/java/com/darkifov/thaumcraft/client/render/ThaumometerItemRenderer.java")
-for token in ["Math.min(15, aspects.size())", "int capacity = 5 - row", "float size = 16.0F", "Comparator.comparing(stack -> stack.aspect().id())"]:
+for token in ["Math.min(15, aspects.size())", "int posY = 0", "remaining -= Math.max(0, 5 - posY)", "ASPECT_RELATIVE_SCALE = 0.0075F / SCANNER_READOUT_SCALE", "float size = 16.0F", "Comparator.comparing(stack -> stack.aspect().id())"]:
     if token not in thaumometer:
         errors.append(f"Thaumometer original readout token missing: {token}")
 for forbidden in ["drawNodeOnScanner(", "ORIGINAL_NODE_BUBBLE", "comparingInt(AspectStack::amount).reversed()", "Math.min(10, aspects.size())"]:

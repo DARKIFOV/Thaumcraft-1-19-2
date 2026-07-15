@@ -1,6 +1,99 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "thaumcraft:item/tc4/bonebow"
-  }
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        -20,
+        -60,
+        90
+      ],
+      "translation": [
+        -2.0,
+        1.0,
+        2.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -20,
+        60,
+        -90
+      ],
+      "translation": [
+        -2.0,
+        1.0,
+        2.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        25
+      ],
+      "translation": [
+        1.13,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.68,
+        0.68,
+        0.68
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -25
+      ],
+      "translation": [
+        1.13,
+        3.2,
+        1.13
+      ],
+      "scale": [
+        0.68,
+        0.68,
+        0.68
+      ]
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumcraft:pulling": 1.0,
+        "thaumcraft:pull": 0.01
+      },
+      "model": "thaumcraft:item/tc4_bonebow_pulling_0"
+    },
+    {
+      "predicate": {
+        "thaumcraft:pulling": 1.0,
+        "thaumcraft:pull": 0.44
+      },
+      "model": "thaumcraft:item/tc4_bonebow_pulling_1"
+    },
+    {
+      "predicate": {
+        "thaumcraft:pulling": 1.0,
+        "thaumcraft:pull": 0.72
+      },
+      "model": "thaumcraft:item/tc4_bonebow_pulling_2"
+    }
+  ]
 }

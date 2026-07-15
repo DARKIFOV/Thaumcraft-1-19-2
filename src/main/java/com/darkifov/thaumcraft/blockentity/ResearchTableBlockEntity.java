@@ -437,7 +437,9 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
 
     @Override
     public void clearContent() {
-        items.clear();
+        for (int i = 0; i < items.size(); i++) {
+            items.set(i, ItemStack.EMPTY);
+        }
         setChanged();
     }
 
@@ -452,7 +454,9 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        items.clear();
+        for (int i = 0; i < items.size(); i++) {
+            items.set(i, ItemStack.EMPTY);
+        }
         ContainerHelper.loadAllItems(tag, items);
         nextRecalc = tag.getInt("nextRecalc");
         loadBonusAspects(tag.getList("bonusAspects", 10));

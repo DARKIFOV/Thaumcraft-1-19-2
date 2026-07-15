@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3587",
+  "pattern": [
+    "II",
+    "S ",
+    "S "
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/void_metal"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_voidhoe",
+    "count": 1
+  }
+}

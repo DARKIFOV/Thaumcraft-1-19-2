@@ -1,17 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " G ",
+    " C ",
     "G G",
     " G "
   ],
   "key": {
     "G": {
       "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "minecraft:clay_ball"
     }
   },
   "result": {
     "item": "thaumcraft:essentia_phial",
-    "count": 4
-  }
+    "count": 8
+  },
+  "tc4_source": "ConfigRecipes.initializeNormalRecipes:3440 Phial"
 }

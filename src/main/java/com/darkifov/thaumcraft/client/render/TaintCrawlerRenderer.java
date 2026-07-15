@@ -3,41 +3,33 @@ package com.darkifov.thaumcraft.client.render;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.model.SpiderModel;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 
-public class TaintCrawlerRenderer extends EntityRenderer<TaintCrawlerEntity> {
+/** TC4 EntityTaintSpider renderer replacing the former block placeholder. */
+public class TaintCrawlerRenderer extends MobRenderer<TaintCrawlerEntity, SpiderModel<TaintCrawlerEntity>> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/taint_spider.png");
+    private static final ResourceLocation EYES = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/taint_spider_eyes.png");
+
     public TaintCrawlerRenderer(EntityRendererProvider.Context context) {
-        super(context);
-        this.shadowRadius = 0.32F;
+        super(context, new SpiderModel<>(context.bakeLayer(ModelLayers.SPIDER)), 0.2F);
+        addLayer(new TaintEyesLayer(this));
     }
 
-    @Override
-    public void render(TaintCrawlerEntity entity, float entityYaw, float partialTicks, PoseStack poseStack,
-                       MultiBufferSource buffer, int packedLight) {
-        poseStack.pushPose();
-        poseStack.translate(-0.22D, 0.0D, -0.22D);
-        poseStack.scale(0.44F, 0.42F, 0.44F);
-
-        Minecraft.getInstance().getBlockRenderer().renderSingleBlock(
-                ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(),
-                poseStack,
-                buffer,
-                packedLight,
-                OverlayTexture.NO_OVERLAY
-        );
-
-        poseStack.popPose();
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    @Override protected void scale(TaintCrawlerEntity entity, PoseStack poseStack, float partialTickTime) {
+        poseStack.scale(0.4F, 0.4F, 0.4F);
     }
 
-    @Override
-    public ResourceLocation getTextureLocation(TaintCrawlerEntity entity) {
-        return InventoryMenu.BLOCK_ATLAS;
+    @Override public ResourceLocation getTextureLocation(TaintCrawlerEntity entity) { return TEXTURE; }
+
+    private static final class TaintEyesLayer extends EyesLayer<TaintCrawlerEntity, SpiderModel<TaintCrawlerEntity>> {
+        private TaintEyesLayer(RenderLayerParent<TaintCrawlerEntity, SpiderModel<TaintCrawlerEntity>> parent) { super(parent); }
+        @Override public RenderType renderType() { return RenderType.eyes(EYES); }
     }
 }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3358 BlockFlesh",
+  "pattern": [
+    "KKK",
+    "KKK",
+    "KKK"
+  ],
+  "key": {
+    "K": {
+      "item": "minecraft:rotten_flesh"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:flesh_block",
+    "count": 1
+  }
+}

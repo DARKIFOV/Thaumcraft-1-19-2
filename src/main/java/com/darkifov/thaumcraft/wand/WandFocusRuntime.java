@@ -176,14 +176,14 @@ public final class WandFocusRuntime {
             return true;
         }
         for (var entry : cost.entries().entrySet()) {
-            int needed = modifiedFocusVisCost(wandStack, entry.getKey(), entry.getValue());
+            int needed = modifiedFocusVisCost(wandStack, player, entry.getKey(), entry.getValue());
             if (WandItem.getVis(wandStack, entry.getKey()) < needed) {
                 player.displayClientMessage(Component.literal("Not enough " + entry.getKey().displayName() + " vis for " + type.displayName() + ": need " + WandItem.formatVis(needed) + " after cap modifier.").withStyle(ChatFormatting.RED), true);
                 return false;
             }
         }
         for (var entry : cost.entries().entrySet()) {
-            WandItem.consumeVis(wandStack, entry.getKey(), modifiedFocusVisCost(wandStack, entry.getKey(), entry.getValue()));
+            WandItem.consumeVis(wandStack, entry.getKey(), modifiedFocusVisCost(wandStack, player, entry.getKey(), entry.getValue()));
         }
         return true;
     }
@@ -358,12 +358,11 @@ public final class WandFocusRuntime {
     }
 
     public static int modifiedFocusVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
-        if (baseAmount <= 0 || WandItem.hasInfiniteVis(wandStack)) {
-            return 0;
-        }
-        float capModifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
-        float frugalModifier = focusUpgradeLevel(wandStack, FocusUpgradeType.FRUGAL) / 10.0F;
-        return Math.max(1, (int) Math.ceil(baseAmount * Math.max(0.1F, capModifier - frugalModifier)));
+        return modifiedFocusVisCost(wandStack, null, aspect, baseAmount);
+    }
+
+    public static int modifiedFocusVisCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount) {
+        return WandItem.modifiedVisCost(wandStack, player, aspect, baseAmount, false);
     }
 
     public static ItemStack focusStack(WandFocusType type) {
@@ -1061,7 +1060,7 @@ public final class WandFocusRuntime {
             return true;
         }
         for (var entry : cost.entries().entrySet()) {
-            if (WandItem.getVis(wandStack, entry.getKey()) < modifiedFocusVisCost(wandStack, entry.getKey(), entry.getValue())) {
+            if (WandItem.getVis(wandStack, entry.getKey()) < modifiedFocusVisCost(wandStack, player, entry.getKey(), entry.getValue())) {
                 return false;
             }
         }

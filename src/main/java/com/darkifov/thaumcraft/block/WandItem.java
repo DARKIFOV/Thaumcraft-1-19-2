@@ -10,19 +10,16 @@ import com.darkifov.thaumcraft.wand.WandComponentData;
 import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
 import com.darkifov.thaumcraft.wand.WandFocusType;
+import com.darkifov.thaumcraft.wand.TC4VisDiscountRuntime;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
-import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
-import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
@@ -40,7 +37,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -211,20 +207,70 @@ public class WandItem extends Item {
         ensureCentivisStorage(stack);
     }
 
+    /**
+     * Compatibility overload for contexts without a player. It applies the cap
+     * and sceptre modifiers but cannot apply equipped vis-discount gear.
+     */
     public static int modifiedVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
+        return modifiedVisCost(wandStack, null, aspect, baseAmount, true);
+    }
+
+    /**
+     * Exact ItemWandCasting#getConsumptionModifier adapter. Cap/aspect and
+     * sceptre modifiers come from {@link WandComponentData}; equipped armor or
+     * accessory discounts are subtracted through TC4VisDiscountRuntime. Focus
+     * Frugal is applied only outside crafting, exactly like TC4.
+     */
+    public static float consumptionModifier(ItemStack wandStack, Player player, Aspect aspect, boolean crafting) {
+        float modifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
+        modifier -= TC4VisDiscountRuntime.totalDiscount(player, aspect);
+
+        // TC4 WandManager#getTotalVisDiscount subtracts ten percentage points
+        // per level of Vis Exhaustion (normal or infectious). Since this port
+        // stores discounts as a fraction subtracted from the cap modifier, the
+        // harmful effect is represented by adding the same fraction here.
+        if (player != null) {
+            int exhaustAmplifier = -1;
+            var normal = player.getEffect(ThaumcraftMod.VIS_EXHAUST.get());
+            var infectious = player.getEffect(ThaumcraftMod.INFECTIOUS_VIS_EXHAUST.get());
+            if (normal != null) exhaustAmplifier = Math.max(exhaustAmplifier, normal.getAmplifier());
+            if (infectious != null) exhaustAmplifier = Math.max(exhaustAmplifier, infectious.getAmplifier());
+            if (exhaustAmplifier >= 0) {
+                modifier += (exhaustAmplifier + 1) / 10.0F;
+            }
+        }
+
+        if (!crafting && WandFocusRuntime.hasFocus(wandStack)) {
+            modifier -= WandFocusRuntime.focusUpgradeLevel(wandStack, com.darkifov.thaumcraft.wand.FocusUpgradeType.FRUGAL) / 10.0F;
+        }
+        return Math.max(modifier, 0.1F);
+    }
+
+    /**
+     * TC4 multiplies centivis by the modifier and truncates with an int cast; it
+     * does not round upward. This matters at percentage-discount boundaries.
+     */
+    public static int modifiedVisCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount, boolean crafting) {
         if (baseAmount <= 0 || hasInfiniteVis(wandStack)) {
             return 0;
         }
-        float modifier = WandComponentData.from(wandStack).visCostModifier(wandStack, aspect);
-        return Math.max(1, (int) Math.ceil(baseAmount * modifier));
+        return Math.max(0, (int) (baseAmount * consumptionModifier(wandStack, player, aspect, crafting)));
+    }
+
+    public static boolean hasVisForCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount, boolean crafting) {
+        return hasVis(wandStack, aspect, modifiedVisCost(wandStack, player, aspect, baseAmount, crafting));
+    }
+
+    public static boolean consumeVisCost(ItemStack wandStack, Player player, Aspect aspect, int baseAmount, boolean crafting) {
+        return consumeVis(wandStack, aspect, modifiedVisCost(wandStack, player, aspect, baseAmount, crafting));
     }
 
     public static boolean hasVisForCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
-        return hasVis(wandStack, aspect, modifiedVisCost(wandStack, aspect, baseAmount));
+        return hasVisForCost(wandStack, null, aspect, baseAmount, true);
     }
 
     public static boolean consumeVisCost(ItemStack wandStack, Aspect aspect, int baseAmount) {
-        return consumeVis(wandStack, aspect, modifiedVisCost(wandStack, aspect, baseAmount));
+        return consumeVisCost(wandStack, null, aspect, baseAmount, true);
     }
 
     public static void clampVisToCapacity(ItemStack stack) {
@@ -301,7 +347,7 @@ public class WandItem extends Item {
             return true;
         }
 
-        int realCost = modifiedVisCost(stack, aspect, amount * 100);
+        int realCost = modifiedVisCost(stack, player, aspect, amount * 100, true);
         if (consumeVis(stack, aspect, realCost)) {
             return true;
         }
@@ -438,23 +484,15 @@ public class WandItem extends Item {
         return new NodeTapResult(aspect, drained);
     }
 
-    private static void emitNodeTapFx(ServerLevel level, Player player, BlockPos nodePos, Aspect aspect) {
-        int color = aspect.nativeColor();
-        Vector3f rgb = new Vector3f(((color >> 16) & 255) / 255.0F, ((color >> 8) & 255) / 255.0F, (color & 255) / 255.0F);
-        DustParticleOptions dust = new DustParticleOptions(rgb, 0.75F);
-        Vec3 from = Vec3.atCenterOf(nodePos);
-        Vec3 to = player.getEyePosition().add(0.0D, -0.25D, 0.0D);
-        for (int step = 0; step <= 8; step++) {
-            double t = step / 8.0D;
-            Vec3 point = from.lerp(to, t);
-            level.sendParticles(dust, point.x, point.y, point.z, 1, 0.015D, 0.015D, 0.015D, 0.0D);
-        }
-        if (player.getTicksUsingItem() % 10 == 0) {
-            level.playSound(null, nodePos, TC4Sounds.event("wand"), net.minecraft.sounds.SoundSource.PLAYERS, 0.20F, 1.25F);
+    private static void clearNodeDrain(Player player, ItemStack wandStack) {
+        BlockPos target = nodeTarget(wandStack, player.level);
+        if (target != null && player.level.getBlockEntity(target) instanceof AuraNodeBlockEntity node) {
+            node.clearWandDrain(player);
         }
     }
 
     private void stopNodeUse(Player player, ItemStack wandStack) {
+        clearNodeDrain(player, wandStack);
         clearNodeUse(wandStack);
         player.stopUsingItem();
     }
@@ -614,10 +652,8 @@ public class WandItem extends Item {
                 // has no eligible primal.  It only clears the beam until a transfer
                 // becomes possible or the player releases/looks away.
                 if (result.moved() <= 0 || result.aspect() == null) {
+                    node.clearWandDrain(player);
                     return;
-                }
-                if (level instanceof ServerLevel serverLevel) {
-                    emitNodeTapFx(serverLevel, player, target, result.aspect());
                 }
             }
             return;
@@ -634,7 +670,7 @@ public class WandItem extends Item {
             return;
         }
         if (hasNodeTarget(stack)) {
-            clearNodeUse(stack);
+            stopNodeUse(player, stack);
             return;
         }
         WandFocusRuntime.onPlayerStoppedUsingFocus(stack, level, player, remainingUseDuration);
@@ -644,6 +680,7 @@ public class WandItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack wandStack = player.getItemInHand(hand);
         if (hasNodeTarget(wandStack) && !player.isUsingItem()) {
+            clearNodeDrain(player, wandStack);
             clearNodeUse(wandStack);
         }
 

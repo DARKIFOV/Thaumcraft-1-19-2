@@ -3,7 +3,7 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "ARCANEBORE",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_block_greatwood_planks",
+  "catalyst": "thaumcraft:greatwood_planks",
   "ingredients": [
     "minecraft:iron_ingot",
     "minecraft:oak_log"
@@ -20,7 +20,7 @@
   "key": {
     "W": "minecraft:iron_ingot",
     "I": "minecraft:oak_log",
-    "D": "thaumcraft:tc4_block_greatwood_planks"
+    "D": "thaumcraft:greatwood_planks"
   },
   "result": {
     "item": "thaumcraft:tc4_block_arcane_bore_base",

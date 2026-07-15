@@ -160,13 +160,10 @@ public final class TC4OuterLandsBossRoomPlacer {
         };
         TC4OuterLandsRoomAdapter.generate2x2(level, cellOrigin, cell, quadrant);
         placeOriginalBossDoor(level, cellOrigin, cell, feature);
-        BlockPos bossPos = cellOrigin.offset(8, 2, 8);
-        if ((feature & 1) == 0) {
-            spawnGolem(level, bossPos);
-        } else {
-            spawnWarden(level, bossPos);
-        }
-        level.playSound(null, bossPos, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 0.55F, 0.55F);
+
+        // GenBossRoom only builds the 2x2 chamber and places TileEldritchLock
+        // in PAT_DOORWAY.  The boss must not exist until the player activates
+        // that lock and its 100-tick pump sequence completes.
     }
 
     /** Stage243-252: cell-local bridge for original GenKeyRoom.generateRoom. */
@@ -254,7 +251,7 @@ public final class TC4OuterLandsBossRoomPlacer {
                 if (cell.west()) { xx = 3; zz = 5 + a; dir = Direction.WEST; }
                 int code = TC4OuterLandsBossRoomMetadata.PAT_DOORWAY[a][b];
                 if (code == 1) {
-                    TC4OuterLandsGenCommonAdapter.placeBlock(level, origin.offset(xx, 2 + b, zz), TC4OuterLandsGenCommonAdapter.CODE_CRAB_SPAWNER_B, dir, cell);
+                    TC4OuterLandsGenCommonAdapter.placeBlock(level, origin.offset(xx, 2 + b, zz), TC4OuterLandsGenCommonAdapter.CODE_ELDRITCH_LOCK, dir, cell);
                 } else if (code == 2) {
                     TC4OuterLandsGenCommonAdapter.placeBlock(level, origin.offset(xx, 2 + b, zz), TC4OuterLandsGenCommonAdapter.CODE_CRAB_SPAWNER_A, dir, cell);
                 } else if (code == 9) {

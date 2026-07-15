@@ -90,6 +90,11 @@ public class CrimsonCultistEntity extends Monster {
         return effectiveRole();
     }
 
+    public boolean isRitualCasting() {
+        Role effective = effectiveRole();
+        return (effective == Role.CLERIC || effective == Role.LEADER) && castCooldown > 0;
+    }
+
     @Override
     protected void registerGoals() {
         Role effective = effectiveRole();

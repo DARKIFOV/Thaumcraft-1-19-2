@@ -39,7 +39,7 @@ public final class TC4OuterLandsDecorationAdapter {
         BlockPos immutable = pos.immutable();
         switch (code) {
             case TC4OuterLandsGenCommonAdapter.CODE_CRAB_SPAWNER_A,
-                    TC4OuterLandsGenCommonAdapter.CODE_CRAB_SPAWNER_B,
+                    TC4OuterLandsGenCommonAdapter.CODE_ELDRITCH_LOCK,
                     TC4OuterLandsGenCommonAdapter.CODE_AIR -> removeAll(immutable);
             case TC4OuterLandsGenCommonAdapter.CODE_COSMETIC_SOLID -> recordCommonOrCrab(level, immutable, feature, false);
             case TC4OuterLandsGenCommonAdapter.CODE_COSMETIC_META_14 -> recordCommonOrCrab(level, immutable, feature, true);

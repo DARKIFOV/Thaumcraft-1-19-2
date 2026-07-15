@@ -1,0 +1,1344 @@
+{
+  "version": "11.62.66",
+  "original_source": "/mnt/data/originals/tc4/Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java",
+  "method": "ConfigRecipes.initializeArcaneRecipes",
+  "literal_shaped_call_sites": 84,
+  "expanded_shaped_registrations": 104,
+  "literal_shapeless_call_sites": 5,
+  "expanded_shapeless_registrations": 5,
+  "literal_arcane_call_sites_total": 89,
+  "expanded_arcane_workbench_registrations_total": 109,
+  "loop_expansion": {
+    "Banner_": 16,
+    "PrimalArrow_": 6,
+    "extra_registrations_beyond_literal_calls": 20
+  },
+  "excluded_from_arcane_workbench_count": {
+    "normal_crafting": [
+      {
+        "tc4_key": "ArcaneStone2",
+        "original_line": 830
+      },
+      {
+        "tc4_key": "ArcaneStone3",
+        "original_line": 835
+      },
+      {
+        "tc4_key": "ArcaneStone4",
+        "original_line": 838
+      }
+    ],
+    "infusion_enchantments": [
+      {
+        "tc4_key": "InfEnchRepair",
+        "original_line": 1759
+      },
+      {
+        "tc4_key": "InfEnchHaste",
+        "original_line": 1775
+      },
+      {
+        "tc4_key": "InfEnch0",
+        "original_line": 1794
+      },
+      {
+        "tc4_key": "InfEnch1",
+        "original_line": 1806
+      },
+      {
+        "tc4_key": "InfEnch2",
+        "original_line": 1820
+      },
+      {
+        "tc4_key": "InfEnch3",
+        "original_line": 1835
+      },
+      {
+        "tc4_key": "InfEnch4",
+        "original_line": 1850
+      },
+      {
+        "tc4_key": "InfEnch5",
+        "original_line": 1864
+      },
+      {
+        "tc4_key": "InfEnch6",
+        "original_line": 1875
+      },
+      {
+        "tc4_key": "InfEnch7",
+        "original_line": 1889
+      },
+      {
+        "tc4_key": "InfEnch8",
+        "original_line": 1903
+      },
+      {
+        "tc4_key": "InfEnch9",
+        "original_line": 1915
+      },
+      {
+        "tc4_key": "InfEnch10",
+        "original_line": 1930
+      },
+      {
+        "tc4_key": "InfEnch11",
+        "original_line": 1945
+      },
+      {
+        "tc4_key": "InfEnch12",
+        "original_line": 1959
+      },
+      {
+        "tc4_key": "InfEnch13",
+        "original_line": 1973
+      },
+      {
+        "tc4_key": "InfEnch14",
+        "original_line": 1987
+      },
+      {
+        "tc4_key": "InfEnch15",
+        "original_line": 2000
+      },
+      {
+        "tc4_key": "InfEnch16",
+        "original_line": 2016
+      },
+      {
+        "tc4_key": "InfEnch17",
+        "original_line": 2030
+      },
+      {
+        "tc4_key": "InfEnch18",
+        "original_line": 2044
+      },
+      {
+        "tc4_key": "InfEnch19",
+        "original_line": 2056
+      },
+      {
+        "tc4_key": "InfEnch20",
+        "original_line": 2070
+      },
+      {
+        "tc4_key": "InfEnch21",
+        "original_line": 2084
+      }
+    ]
+  },
+  "implementation_counts": {
+    "DATAPACK_JSON": 104,
+    "GENERATED_JAVA": 5
+  },
+  "mapped": 109,
+  "missing": [],
+  "coverage_percent": 100.0,
+  "status": "STATIC_MAPPING_COMPLETE",
+  "registrations": [
+    {
+      "registration": 1,
+      "tc4_key": "Banner_0",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 0,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_0.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 2,
+      "tc4_key": "Banner_1",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 1,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_1.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 3,
+      "tc4_key": "Banner_2",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 2,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_2.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 4,
+      "tc4_key": "Banner_3",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 3,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_3.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 5,
+      "tc4_key": "Banner_4",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 4,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_4.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 6,
+      "tc4_key": "Banner_5",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 5,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_5.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 7,
+      "tc4_key": "Banner_6",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 6,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_6.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 8,
+      "tc4_key": "Banner_7",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 7,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_7.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 9,
+      "tc4_key": "Banner_8",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 8,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_8.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 10,
+      "tc4_key": "Banner_9",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 9,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_9.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 11,
+      "tc4_key": "Banner_10",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 10,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_10.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 12,
+      "tc4_key": "Banner_11",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 11,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_11.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 13,
+      "tc4_key": "Banner_12",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 12,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_12.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 14,
+      "tc4_key": "Banner_13",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 13,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_13.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 15,
+      "tc4_key": "Banner_14",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 14,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_14.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 16,
+      "tc4_key": "Banner_15",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 628,
+      "loop_family": "Banner_",
+      "loop_variant": 15,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_banner_15.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 17,
+      "tc4_key": "PrimalCharm",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 637,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalcharm.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 18,
+      "tc4_key": "ArcaneDoor",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 654,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanedoor.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 19,
+      "tc4_key": "WardedGlass",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 668,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wardedglass.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 20,
+      "tc4_key": "IronKey",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 680,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_ironkey.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 21,
+      "tc4_key": "FluxScrubber",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 688,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_fluxscrubber.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 22,
+      "tc4_key": "GoldKey",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 699,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_goldkey.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 23,
+      "tc4_key": "ArcanePressurePlate",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 710,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanepressureplate.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 24,
+      "tc4_key": "NodeStabilizer",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 740,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_nodestabilizer.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 25,
+      "tc4_key": "NodeTransducer",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 755,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_nodetransducer.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 26,
+      "tc4_key": "NodeRelay",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 770,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_node_relay.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 27,
+      "tc4_key": "NodeChargeRelay",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 778,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_nodechargerelay.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 28,
+      "tc4_key": "FocalManipulator",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 788,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focalmanipulator.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 29,
+      "tc4_key": "GolemFetter",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 801,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_golemfetter.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 30,
+      "tc4_key": "ArcaneStone1",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 822,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanestone1.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 31,
+      "tc4_key": "PaveTravel",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 843,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_pavetravel.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 32,
+      "tc4_key": "ArcaneLamp",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 859,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanelamp.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 33,
+      "tc4_key": "ArcaneSpa",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 879,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanespa.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 34,
+      "tc4_key": "PaveWard",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 890,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_paveward.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 35,
+      "tc4_key": "Levitator",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 907,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_levitator.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 36,
+      "tc4_key": "ArcaneEar",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 927,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcaneear.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 37,
+      "tc4_key": "MirrorGlass",
+      "call_type": "ARCANE_SHAPELESS",
+      "original_line": 953,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_mirrorglass.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 38,
+      "tc4_key": "BoneBow",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 960,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_bonebow.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 39,
+      "tc4_key": "PrimalArrow_0",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 975,
+      "loop_family": "PrimalArrow_",
+      "loop_variant": 0,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalarrow_0.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 40,
+      "tc4_key": "PrimalArrow_1",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 975,
+      "loop_family": "PrimalArrow_",
+      "loop_variant": 1,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalarrow_1.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 41,
+      "tc4_key": "PrimalArrow_2",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 975,
+      "loop_family": "PrimalArrow_",
+      "loop_variant": 2,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalarrow_2.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 42,
+      "tc4_key": "PrimalArrow_3",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 975,
+      "loop_family": "PrimalArrow_",
+      "loop_variant": 3,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalarrow_3.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 43,
+      "tc4_key": "PrimalArrow_4",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 975,
+      "loop_family": "PrimalArrow_",
+      "loop_variant": 4,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalarrow_4.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 44,
+      "tc4_key": "PrimalArrow_5",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 975,
+      "loop_family": "PrimalArrow_",
+      "loop_variant": 5,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_primalarrow_5.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 45,
+      "tc4_key": "InfusionMatrix",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 997,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_infusionmatrix.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 46,
+      "tc4_key": "ArcanePedestal",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1016,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcanepedestal.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 47,
+      "tc4_key": "WardedJar",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1029,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wardedjar.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 48,
+      "tc4_key": "JarVoid",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1039,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_jar_void.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 49,
+      "tc4_key": "WandCapGold",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1058,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "GENERATED_JAVA",
+      "implementation_path": "src/main/java/com/darkifov/thaumcraft/wand/TC4ConfigRecipesWandIndex.java",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 50,
+      "tc4_key": "WandCapCopper",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1078,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "GENERATED_JAVA",
+      "implementation_path": "src/main/java/com/darkifov/thaumcraft/wand/TC4ConfigRecipesWandIndex.java",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 51,
+      "tc4_key": "WandCapSilverInert",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1097,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "GENERATED_JAVA",
+      "implementation_path": "src/main/java/com/darkifov/thaumcraft/wand/TC4ConfigRecipesWandIndex.java",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 52,
+      "tc4_key": "WandCapThaumiumInert",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1115,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "GENERATED_JAVA",
+      "implementation_path": "src/main/java/com/darkifov/thaumcraft/wand/TC4ConfigRecipesWandIndex.java",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 53,
+      "tc4_key": "WandCapVoidInert",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1132,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "GENERATED_JAVA",
+      "implementation_path": "src/main/java/com/darkifov/thaumcraft/wand/TC4ConfigRecipesWandIndex.java",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 54,
+      "tc4_key": "WandRodGreatwood",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1144,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodgreatwood.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 55,
+      "tc4_key": "WandRodGreatwoodStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1152,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodgreatwoodstaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 56,
+      "tc4_key": "WandRodObsidianStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1161,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodobsidianstaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 57,
+      "tc4_key": "WandRodSilverwoodStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1170,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodsilverwoodstaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 58,
+      "tc4_key": "WandRodIceStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1179,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodicestaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 59,
+      "tc4_key": "WandRodQuartzStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1188,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodquartzstaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 60,
+      "tc4_key": "WandRodReedStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1197,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodreedstaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 61,
+      "tc4_key": "WandRodBlazeStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1206,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodblazestaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 62,
+      "tc4_key": "WandRodBoneStaff",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1215,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodbonestaff.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 63,
+      "tc4_key": "FocusFire",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1226,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusfire.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 64,
+      "tc4_key": "FocusFrost",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1237,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusfrost.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 65,
+      "tc4_key": "FocusShock",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1249,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusshock.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 66,
+      "tc4_key": "FocusTrade",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1261,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focustrade.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 67,
+      "tc4_key": "FocusExcavation",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1276,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusexcavation.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 68,
+      "tc4_key": "FocusPrimal",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1288,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focusprimal.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 69,
+      "tc4_key": "FocusPouch",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1303,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_focuspouch.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 70,
+      "tc4_key": "Deconstructor",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1320,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_deconstructor.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 71,
+      "tc4_key": "ArcaneBoreBase",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1335,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_arcaneborebase.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 72,
+      "tc4_key": "EnchantedFabric",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1351,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_enchantedfabric.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 73,
+      "tc4_key": "RobeChest",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1370,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_robechest.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 74,
+      "tc4_key": "RobeLegs",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1376,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_robelegs.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 75,
+      "tc4_key": "RobeBoots",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1382,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_robeboots.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 76,
+      "tc4_key": "Goggles",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1393,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_goggles.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 77,
+      "tc4_key": "HungryChest",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1408,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_hungrychest.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 78,
+      "tc4_key": "GolemBell",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1419,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_golembell.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 79,
+      "tc4_key": "CoreBlank",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1429,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_coreblank.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 80,
+      "tc4_key": "UpgradeAir",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1451,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_upgradeair.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 81,
+      "tc4_key": "UpgradeEarth",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1459,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_upgradeearth.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 82,
+      "tc4_key": "UpgradeFire",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1467,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_upgradefire.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 83,
+      "tc4_key": "UpgradeWater",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1475,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_upgradewater.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 84,
+      "tc4_key": "UpgradeOrder",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1483,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_upgradeorder.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 85,
+      "tc4_key": "UpgradeEntropy",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1491,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_upgradeentropy.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 86,
+      "tc4_key": "TinyHat",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1500,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinyhat.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 87,
+      "tc4_key": "TinyFez",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1511,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinyfez.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 88,
+      "tc4_key": "TinyBowtie",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1522,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinybowtie.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 89,
+      "tc4_key": "TinyGlasses",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1532,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinyglasses.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 90,
+      "tc4_key": "TinyDart",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1542,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinydart.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 91,
+      "tc4_key": "TinyVisor",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1551,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinyvisor.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 92,
+      "tc4_key": "TinyArmor",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1558,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinyarmor.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 93,
+      "tc4_key": "TinyHammer",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1565,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tinyhammer.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 94,
+      "tc4_key": "Filter",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1571,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_filter.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 95,
+      "tc4_key": "AlchemyFurnace",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1580,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_alchemyfurnace.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 96,
+      "tc4_key": "Alembic",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1591,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_alembic.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 97,
+      "tc4_key": "Bellows",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1614,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_bellows.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 98,
+      "tc4_key": "Tube",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1628,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tube.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 99,
+      "tc4_key": "Resonator",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1639,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_resonator.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 100,
+      "tc4_key": "TubeValve",
+      "call_type": "ARCANE_SHAPELESS",
+      "original_line": 1648,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tubevalve.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 101,
+      "tc4_key": "TubeFilter",
+      "call_type": "ARCANE_SHAPELESS",
+      "original_line": 1656,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tubefilter.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 102,
+      "tc4_key": "TubeRestrict",
+      "call_type": "ARCANE_SHAPELESS",
+      "original_line": 1667,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tuberestrict.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 103,
+      "tc4_key": "TubeOneway",
+      "call_type": "ARCANE_SHAPELESS",
+      "original_line": 1675,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tubeoneway.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 104,
+      "tc4_key": "TubeBuffer",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1685,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_tubebuffer.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 105,
+      "tc4_key": "AlchemicalConstruct",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1697,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_alchemicalconstruct.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 106,
+      "tc4_key": "AdvAlchemyConstruct",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1709,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_advalchemyconstruct.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 107,
+      "tc4_key": "Centrifuge",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1719,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_centrifuge.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 108,
+      "tc4_key": "EssentiaCrystalizer",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1729,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_essentia_crystalizer.json",
+      "status": "MAPPED"
+    },
+    {
+      "registration": 109,
+      "tc4_key": "MnemonicMatrix",
+      "call_type": "ARCANE_SHAPED",
+      "original_line": 1740,
+      "loop_family": null,
+      "loop_variant": null,
+      "implementation": "DATAPACK_JSON",
+      "implementation_path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_mnemonicmatrix.json",
+      "status": "MAPPED"
+    }
+  ],
+  "limitations": [
+    "This is a source/static registration map, not proof of Java compilation or runtime behavior.",
+    "The 84 shaped figure is the number of literal call sites; it is not the expanded registration count.",
+    "JEI, research gating, vis payment, NBT outputs and networking still require runtime verification."
+  ]
+}

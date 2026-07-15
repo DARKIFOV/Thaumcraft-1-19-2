@@ -3,7 +3,7 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "ARCANEEAR",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_block_greatwood_planks",
+  "catalyst": "thaumcraft:greatwood_planks",
   "ingredients": [
     "minecraft:shears",
     "minecraft:iron_ingot",
@@ -22,7 +22,7 @@
   "key": {
     "G": "minecraft:shears",
     "I": "minecraft:iron_ingot",
-    "B": "thaumcraft:tc4_block_greatwood_planks",
+    "B": "thaumcraft:greatwood_planks",
     "W": "minecraft:gold_ingot",
     "R": "thaumcraft:tc4_brain"
   },

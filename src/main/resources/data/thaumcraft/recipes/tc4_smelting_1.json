@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "tc4_source": "ConfigRecipes.java:3629 GameRegistry.addSmelting(ConfigBlocks.blockMagicalLog)",
+  "ingredient": {
+    "tag": "thaumcraft:magical_logs"
+  },
+  "result": "minecraft:charcoal",
+  "experience": 0.5,
+  "cookingtime": 200
+}

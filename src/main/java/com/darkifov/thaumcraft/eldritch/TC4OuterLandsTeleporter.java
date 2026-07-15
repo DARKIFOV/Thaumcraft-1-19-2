@@ -46,8 +46,7 @@ public final class TC4OuterLandsTeleporter {
         }
 
         PlayerThaumData.setOuterLandsReturnPos(player, sourcePortal.asLong());
-        BlockPos destinationPortal = new BlockPos(sourcePortal.getX(), TC4OuterLandsDimensionAdapter.ORIGINAL_ROOM_Y, sourcePortal.getZ());
-        prepareDestination(destination, destinationPortal);
+        BlockPos destinationPortal = prepareDestination(destination, sourcePortal);
 
         player.setPortalCooldown();
         player.teleportTo(destination, destinationPortal.getX() + 1.5D, destinationPortal.getY(),
@@ -78,18 +77,35 @@ public final class TC4OuterLandsTeleporter {
         return true;
     }
 
-    private static void prepareDestination(ServerLevel level, BlockPos portalPos) {
-        level.getChunkAt(portalPos);
-        TC4OuterLandsMazeHandler.ensurePortalMaze(level, portalPos);
-        TC4OuterLandsMazeHandler.generateAround(level, portalPos, 2);
+    private static BlockPos prepareDestination(ServerLevel level, BlockPos sourcePortal) {
+        // TC4 GenPortal always receives chunk-aligned cell coordinates and places
+        // its actual portal at local (8, 3, 8).  The previous bridge used the
+        // arbitrary Overworld portal coordinates as a room corner, then placed a
+        // second portal at that corner.  That produced overlapping rooms and a
+        // return portal that was not part of the generated maze.
+        int originX = Math.floorDiv(sourcePortal.getX(), TC4OuterLandsDimensionAdapter.ORIGINAL_CELL_SIZE)
+                * TC4OuterLandsDimensionAdapter.ORIGINAL_CELL_SIZE;
+        int originZ = Math.floorDiv(sourcePortal.getZ(), TC4OuterLandsDimensionAdapter.ORIGINAL_CELL_SIZE)
+                * TC4OuterLandsDimensionAdapter.ORIGINAL_CELL_SIZE;
+        BlockPos mazeOrigin = new BlockPos(originX, TC4OuterLandsDimensionAdapter.ORIGINAL_ROOM_Y, originZ);
 
-        for (int x = -2; x <= 2; x++) {
-            for (int z = -2; z <= 2; z++) {
-                level.setBlock(portalPos.offset(x, -1, z), ThaumcraftMod.ELDRITCH_STONE.get().defaultBlockState(), 3);
-            }
+        level.getChunkAt(mazeOrigin);
+        TC4OuterLandsMazeHandler.ensurePortalMaze(level, mazeOrigin);
+        TC4OuterLandsMazeHandler.generateAround(level, mazeOrigin, 2);
+
+        BlockPos generatedPortal = mazeOrigin.offset(8, 3, 8);
+        if (!level.getBlockState(generatedPortal).is(ThaumcraftMod.ELDRITCH_PORTAL.get())) {
+            TC4OuterLandsGenCommonAdapter.generatePortalRoom(
+                    level,
+                    mazeOrigin,
+                    TC4OuterLandsGenCommonAdapter.portalCell()
+            );
         }
-        level.setBlock(portalPos, ThaumcraftMod.ELDRITCH_PORTAL.get().defaultBlockState(), 3);
-        level.removeBlock(portalPos.east(), false);
-        level.removeBlock(portalPos.east().above(), false);
+
+        // Keep the same safe one-block offset used by TeleporterThaumcraft while
+        // preserving the portal and obelisk at the exact TC4 room coordinates.
+        level.removeBlock(generatedPortal.east(), false);
+        level.removeBlock(generatedPortal.east().above(), false);
+        return generatedPortal;
     }
 }

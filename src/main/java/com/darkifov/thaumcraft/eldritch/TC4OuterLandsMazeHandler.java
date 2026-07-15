@@ -49,6 +49,10 @@ public final class TC4OuterLandsMazeHandler {
         return labyrinth.getOrDefault(key, (short) 0);
     }
 
+    public static synchronized boolean hasMazeCell(int cellX, int cellZ) {
+        return labyrinth.containsKey(new TC4OuterLandsMazeCellLoc(cellX, cellZ));
+    }
+
     public static synchronized void removeFromHashMap(TC4OuterLandsMazeCellLoc key) {
         labyrinth.remove(key);
     }

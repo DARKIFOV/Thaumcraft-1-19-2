@@ -5,10 +5,12 @@ import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
 import com.darkifov.thaumcraft.block.ThaumometerItem;
 import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLivePopulateAdapter;
 import com.darkifov.thaumcraft.network.RequestThaumometerScanPacket;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
 import com.darkifov.thaumcraft.research.OriginalResearchProgression;
+import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
 import com.darkifov.thaumcraft.runic.TC4FortressArmorRuntime;
 import com.darkifov.thaumcraft.runic.TC4FortressMaskRuntime;
@@ -29,6 +31,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ChunkEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -44,6 +47,20 @@ public final class CommonEvents {
     }
 
 
+
+    @SubscribeEvent
+    public static void onBathSaltsExpire(ItemExpireEvent event) {
+        ItemEntity itemEntity = event.getEntity();
+        if (!itemEntity.getItem().is(ThaumcraftMod.BATH_SALTS.get()) || itemEntity.level.isClientSide) {
+            return;
+        }
+        BlockPos pos = itemEntity.blockPosition();
+        var fluidState = itemEntity.level.getFluidState(pos);
+        if (!fluidState.isSource() || fluidState.getType() != net.minecraft.world.level.material.Fluids.WATER) {
+            return;
+        }
+        itemEntity.level.setBlockAndUpdate(pos, ThaumcraftMod.PURIFYING_FLUID_BLOCK.get().defaultBlockState());
+    }
 
     @SubscribeEvent
     public static void onChunkLoad(ChunkEvent.Load event) {
@@ -69,6 +86,7 @@ public final class CommonEvents {
 
         for (ServerPlayer player : level.players()) {
             TC4RunicShieldRuntime.tick(player);
+            TC4OuterLandsLivePopulateAdapter.tickPlayerArea(level, player);
         }
 
         if (level.getGameTime() % 5L != 0L) {
@@ -80,6 +98,20 @@ public final class CommonEvents {
             AABB scan = player.getBoundingBox().inflate(24.0D);
             for (ItemEntity itemEntity : level.getEntitiesOfClass(ItemEntity.class, scan, ItemEntity::isAlive)) {
                 tryFeedCrucible(level, itemEntity);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END || event.player.level.isClientSide
+                || !(event.player instanceof ServerPlayer player)) {
+            return;
+        }
+        for (net.minecraft.world.InteractionHand hand : net.minecraft.world.InteractionHand.values()) {
+            net.minecraft.world.item.ItemStack held = player.getItemInHand(hand);
+            if (held.getItem() instanceof ThaumometerItem thaumometer) {
+                thaumometer.serverTickPendingScan(player, hand);
             }
         }
     }
@@ -210,6 +242,7 @@ public final class CommonEvents {
 
         if (event.getEntity() instanceof ServerPlayer player && event.getOriginal() instanceof ServerPlayer oldPlayer) {
             PlayerThaumData.copyFrom(oldPlayer, player);
+            PlayerAspectKnowledge.copyFrom(oldPlayer, player);
             ThaumcraftNetwork.syncResearch(player);
             ThaumcraftNetwork.syncAspectKnowledge(player);
             ThaumcraftNetwork.syncScanKnowledge(player);

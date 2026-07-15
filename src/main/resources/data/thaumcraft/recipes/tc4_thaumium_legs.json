@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "tc4_source": "ConfigRecipes.java:3503",
+  "pattern": [
+    "III",
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/thaumium"
+    }
+  },
+  "result": {
+    "item": "thaumcraft:tc4_thaumiumlegs",
+    "count": 1
+  }
+}

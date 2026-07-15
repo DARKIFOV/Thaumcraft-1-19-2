@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -23,6 +24,11 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class EssentiaJarBlock extends BaseEntityBlock {
     private static final VoxelShape JAR_SHAPE = Block.box(3.5D, 0.0D, 3.5D, 12.5D, 15.0D, 12.5D);
@@ -69,6 +75,37 @@ public class EssentiaJarBlock extends BaseEntityBlock {
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return JAR_SHAPE;
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        // BlockItem applies BlockEntityTag after placement. This explicit legacy
+        // fallback also accepts old TC4/root-NBT filled-jar stacks.
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof EssentiaJarBlockEntity jar
+                && stack.getItem() instanceof EssentiaJarBlockItem) {
+            jar.load(EssentiaJarBlockItem.readJarData(stack));
+            jar.setChangedAndSync();
+        }
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        ItemStack stack = new ItemStack(state.getBlock());
+        BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (blockEntity instanceof EssentiaJarBlockEntity jar) {
+            EssentiaJarBlockItem.writeJarData(stack, jar);
+        }
+        return List.of(stack);
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
+        ItemStack stack = new ItemStack(state.getBlock());
+        if (level.getBlockEntity(pos) instanceof EssentiaJarBlockEntity jar) {
+            EssentiaJarBlockItem.writeJarData(stack, jar);
+        }
+        return stack;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.darkifov.thaumcraft.eldritch;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.Random;
@@ -17,10 +16,16 @@ public final class TC4OuterLandsChunkProviderBridge {
         return random;
     }
 
-    public static void populateLikeTC4(ServerLevel level, int chunkX, int chunkZ) {
-        Random random = chunkRandom(level.getSeed(), chunkX, chunkZ);
-        BlockPos origin = new BlockPos(chunkX * 16 + 8, TC4OuterLandsDimensionParity.AVERAGE_GROUND_LEVEL, chunkZ * 16 + 8);
-        TC4OuterLandsMazeHandler.ensurePortalMaze(level, origin);
-        TC4OuterLandsMazeHandler.generateAround(level, origin, 2);
+    public static boolean populateLikeTC4(ServerLevel level, int chunkX, int chunkZ) {
+        // ChunkProviderOuter populated the already-generated global labyrinth.
+        // It never created a new maze for every chunk.  Maze creation belongs
+        // exclusively to the entry portal path.
+        if (!TC4OuterLandsDimensionAdapter.isOuterLands(level.dimension())
+                || !TC4OuterLandsMazeHandler.hasMazeCell(chunkX, chunkZ)) {
+            return false;
+        }
+        chunkRandom(level.getSeed(), chunkX, chunkZ); // preserve TC4 seed contract for audits/future decoration use
+        TC4OuterLandsMazeHandler.generateForNewChunk(level, new net.minecraft.world.level.ChunkPos(chunkX, chunkZ));
+        return true;
     }
 }

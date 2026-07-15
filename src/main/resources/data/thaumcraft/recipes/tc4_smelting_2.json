@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "tc4_source": "ConfigRecipes.java:3623 blockCustomOre meta 0 -> itemResource meta 3",
+  "ingredient": {
+    "item": "thaumcraft:cinnabar_ore"
+  },
+  "result": "thaumcraft:quicksilver_drop",
+  "experience": 1.0,
+  "cookingtime": 200
+}

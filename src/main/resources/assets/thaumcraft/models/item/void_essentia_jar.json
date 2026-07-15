@@ -1,3 +1,6 @@
 {
-  "parent": "thaumcraft:block/void_essentia_jar"
+  "parent": "minecraft:builtin/entity",
+  "textures": {
+    "particle": "thaumcraft:block/tc4/jar_side"
+  }
 }

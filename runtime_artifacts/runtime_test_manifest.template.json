@@ -1,0 +1,963 @@
+{
+  "version": "11.62.83",
+  "environment": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java": "17",
+    "original": "Thaumcraft 4.2.3.5"
+  },
+  "client": {
+    "status": "NOT_TESTED",
+    "artifacts": []
+  },
+  "dedicated_server": {
+    "status": "NOT_TESTED",
+    "artifacts": []
+  },
+  "runtime_protocol": {
+    "status": "NOT_TESTED",
+    "artifacts": []
+  },
+  "world_migration": {
+    "status": "NOT_TESTED",
+    "artifacts": []
+  },
+  "jei": {
+    "status": "NOT_TESTED",
+    "artifacts": []
+  },
+  "p0": {
+    "essentia_jars": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    "aura_node_item": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    "bone_bow": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    "traveling_trunk": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    "crimson_cultists": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    "fortress_armor": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    "outer_lands": {
+      "status": "NOT_TESTED",
+      "artifacts": []
+    }
+  },
+  "subsystems": {
+    "aspects_tags": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "thaumometer": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "thaumonomicon": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "research_table": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "arcane_workbench": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "wands_foci": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "aura_nodes_node_jar": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "essentia_jars": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "essentia_transport": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "processing_devices": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "infusion_matrix": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "jei": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "bone_bow": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "traveling_trunk": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "crimson_cultists": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "fortress_armor": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "golems": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "warp_eldritch": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "taint_eerie_forest": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "outer_lands": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "mirrors": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "brain_jar": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "C": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      }
+    },
+    "world_migration": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "N/A",
+        "artifacts": []
+      }
+    },
+    "dedicated_server": {
+      "G": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "V": {
+        "status": "N/A",
+        "artifacts": []
+      },
+      "N": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "W": {
+        "status": "NOT_TESTED",
+        "artifacts": []
+      },
+      "C": {
+        "status": "N/A",
+        "artifacts": []
+      }
+    }
+  },
+  "tests": [
+    {
+      "id": "client.clean_launch",
+      "subsystem": "dedicated_server",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "server.clean_launch_two_clients",
+      "subsystem": "dedicated_server",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "thaumometer.block_scan",
+      "subsystem": "thaumometer",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "thaumometer.entity_scan",
+      "subsystem": "thaumometer",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "thaumometer.item_entity_scan",
+      "subsystem": "thaumometer",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "thaumometer.node_scan_repeat_overlay_sound",
+      "subsystem": "thaumometer",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "thaumonomicon.all_201_research",
+      "subsystem": "thaumonomicon",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "thaumonomicon.all_591_pages_gui_scale_1_4",
+      "subsystem": "thaumonomicon",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "research_table.minigame_save_reload",
+      "subsystem": "research_table",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "research_table.expertise_25_mastery_50_free_10",
+      "subsystem": "research_table",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "arcane_workbench.vis_cost_research_gate_gui",
+      "subsystem": "arcane_workbench",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "wands.all_rod_cap_focus_combinations",
+      "subsystem": "wands_foci",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "wands.item_transforms_all_contexts",
+      "subsystem": "wands_foci",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "wands.wave_charge_vis_network_sync",
+      "subsystem": "wands_foci",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "nodes.six_types_three_modifiers",
+      "subsystem": "aura_nodes_node_jar",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "nodes.jar_stabilizer_transducer_drain_beam",
+      "subsystem": "aura_nodes_node_jar",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "jars.48_aspects_content_amount_label_filter_all_contexts",
+      "subsystem": "essentia_jars",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "jars.cleaning_recipe_and_nbt_roundtrip",
+      "subsystem": "essentia_jars",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "essentia.network_suction_conflicts_filters_valves_buffers",
+      "subsystem": "essentia_transport",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "essentia.rollback_and_soak",
+      "subsystem": "essentia_transport",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "processing.furnace_alembic_centrifuge_chain",
+      "subsystem": "processing_devices",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "infusion.simple_recipe",
+      "subsystem": "infusion_matrix",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "infusion.unstable_recipe_stabilizers_events_animation_sound",
+      "subsystem": "infusion_matrix",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "mirrors.cross_dimension_item_queue_instability_ordo",
+      "subsystem": "mirrors",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "mirrors.essentia_rollback_automation_save_reload",
+      "subsystem": "mirrors",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "golems.materials_cores_upgrades_markers",
+      "subsystem": "golems",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "golems.collect_craft_attack_liquid_essentia_ai",
+      "subsystem": "golems",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "warp.temporary_sticky_permanent_effects_sync",
+      "subsystem": "warp_eldritch",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "warp.soap_talismans_eldritch_progress",
+      "subsystem": "warp_eldritch",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "worldgen.taint_eerie_forest_generation",
+      "subsystem": "taint_eerie_forest",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "worldgen.taint_spread_cleanse_nodes_structures",
+      "subsystem": "taint_eerie_forest",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "outer_lands.portal_entry_maze_rooms",
+      "subsystem": "outer_lands",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "outer_lands.locks_traps_loot_warden_progress",
+      "subsystem": "outer_lands",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "outer_lands.save_reload_return_overworld",
+      "subsystem": "outer_lands",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "jei.normal_86_and_labels_49",
+      "subsystem": "jei",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "jei.arcane_alchemy_infusion_no_duplicates",
+      "subsystem": "jei",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "jei.launch_without_jei",
+      "subsystem": "jei",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "migration.11_62_58",
+      "subsystem": "world_migration",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "migration.11_62_60",
+      "subsystem": "world_migration",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "migration.11_62_62",
+      "subsystem": "world_migration",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "migration.11_62_73",
+      "subsystem": "world_migration",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "migration.11_62_74",
+      "subsystem": "world_migration",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "p0.bone_bow_pull_arrows_enchantments",
+      "subsystem": "bone_bow",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "p0.traveling_trunk_inventory_ai_animation_drop",
+      "subsystem": "traveling_trunk",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "p0.crimson_four_roles_weapons_effects",
+      "subsystem": "crimson_cultists",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "p0.fortress_default_slim_three_masks",
+      "subsystem": "fortress_armor",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "brain_jar.xp_attract_click_comparator_nbt_visual_sound",
+      "subsystem": "brain_jar",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "golems.use_core_marker_side_empty_hand",
+      "subsystem": "golems",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "golems.fishing_water_quality_weighted_loot",
+      "subsystem": "golems",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "golems.creeper_swell_avoidance",
+      "subsystem": "golems",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "essentia.reservoir_24_suction_six_faces_active_pull",
+      "subsystem": "essentia_transport",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "essentia.buffer_real_neighbor_suction_minimum_arbitration",
+      "subsystem": "essentia_transport",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "processing.centrifuge_input_queue_output_occupied_redstone",
+      "subsystem": "processing_devices",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "taint.column_spread_thresholds_decay_persistence",
+      "subsystem": "taint_eerie_forest",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "taint.fibre_five_states_spore_growth_burst",
+      "subsystem": "taint_eerie_forest",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "taint.spider_geometry_eyes_poison_drops",
+      "subsystem": "taint_eerie_forest",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "warp.buckets_counter_effect_only_ward_migration",
+      "subsystem": "warp_eldritch",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "warp.guardian_mind_spider_valid_spawn_search",
+      "subsystem": "warp_eldritch",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "warp.death_gaze_forward_cone_pvp_aggro",
+      "subsystem": "warp_eldritch",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "research.note_creation_thaumonomicon_inventory_only",
+      "subsystem": "thaumonomicon",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "research.unfinished_note_requires_table_completed_note_item_use",
+      "subsystem": "research_table",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    },
+    {
+      "id": "research.table_bonus_bookshelf_brain_jar_persistence",
+      "subsystem": "research_table",
+      "status": "NOT_TESTED",
+      "artifacts": []
+    }
+  ]
+}

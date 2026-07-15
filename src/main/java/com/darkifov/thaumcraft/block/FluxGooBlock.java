@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.effect.TC4WarpMobEffect;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -8,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -43,7 +43,7 @@ public class FluxGooBlock extends Block {
         if (!level.isClientSide) {
             entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.65D, 1.0D, 0.65D));
             if (entity instanceof LivingEntity living && living.tickCount % 20 == 0) {
-                living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 600, 0, true, true));
+                living.addEffect(TC4WarpMobEffect.configureCuratives(new MobEffectInstance(ThaumcraftMod.VIS_EXHAUST.get(), 600, 0, true, true, true)));
             }
         }
         super.entityInside(state, level, pos, entity);

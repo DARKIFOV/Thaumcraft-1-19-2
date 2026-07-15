@@ -35,7 +35,7 @@ public final class TC4OuterLandsGenCommonAdapter {
     public static final int CODE_STAIRS_NORMAL = 10;
     public static final int CODE_STAIRS_INVERTED = 11;
     public static final int CODE_CRAB_SPAWNER_A = 15;
-    public static final int CODE_CRAB_SPAWNER_B = 16;
+    public static final int CODE_ELDRITCH_LOCK = 16;
     public static final int CODE_AIRY_META_12 = 17;
     public static final int CODE_COSMETIC_META_12 = 18;
     public static final int CODE_COSMETIC_META_13 = 19;
@@ -94,6 +94,22 @@ public final class TC4OuterLandsGenCommonAdapter {
                 placeBlock(level, origin.offset(a, 13, b), CODE_BEDROCK_IF_AIR, Direction.NORTH, cell);
                 placeBlock(level, origin.offset(a, 12, b), CODE_ELDRITCH_NOTHING, Direction.NORTH, cell);
                 placeBlock(level, origin.offset(a, 11, b), CODE_COSMETIC_SOLID, Direction.NORTH, cell);
+
+                // GenPortal lines 48-57: stepped lower floor and mirrored upper
+                // ceiling.  These loops are part of the visible TC4 portal-room
+                // silhouette and were missing from the previous bridge.
+                if (a > 1 && a < 15 && b > 1 && b < 15) {
+                    int q = Math.min(Math.abs(8 - a), Math.abs(8 - b));
+                    for (int g = 0; g < q - 1; g++) {
+                        placeBlock(level, origin.offset(a, 1 + g, b), CODE_COSMETIC_META_13, Direction.NORTH, cell);
+                    }
+                }
+                if (a > 3 && a < 13 && b > 3 && b < 13) {
+                    int q = Math.min(Math.abs(8 - a), Math.abs(8 - b));
+                    for (int g = 0; g < q; g++) {
+                        placeBlock(level, origin.offset(a, 11 - g, b), CODE_COSMETIC_META_13, Direction.NORTH, cell);
+                    }
+                }
             }
         }
         for (int g = 0; g < 5; g++) {
@@ -103,10 +119,63 @@ public final class TC4OuterLandsGenCommonAdapter {
             placeBlock(level, origin.offset(4, 2, 6 + g), CODE_STAIRS_NORMAL, Direction.WEST, cell);
         }
         generateConnections(level, origin, cell, 3, true);
+
+        // GenPortal lines 69-103: hollow the four corner shafts and restore the
+        // lower/upper stair triplets around them.  Without this the room looked
+        // like a generic square hall even though the correct textures existed.
+        for (int a = 3; a <= 13; a++) {
+            for (int b = 3; b <= 13; b++) {
+                for (int c = 1; c < 12; c++) {
+                    boolean corner = (a <= 4 && b <= 4)
+                            || (a <= 4 && b >= 12)
+                            || (a >= 12 && b <= 4)
+                            || (a >= 12 && b >= 12);
+                    if (corner) {
+                        placeBlock(level, origin.offset(a, c, b), CODE_AIR, Direction.NORTH, cell);
+                    }
+                }
+            }
+        }
+        placePortalCornerStairs(level, origin, cell);
+
         level.setBlock(origin.offset(8, 2, 8), ThaumcraftMod.ELDRITCH_ALTAR.get().defaultBlockState(), 3);
         level.setBlock(origin.offset(8, 3, 8), ThaumcraftMod.ELDRITCH_PORTAL.get().defaultBlockState(), 3);
         genObelisk(level, origin.offset(8, 4, 8));
     }
+
+
+    private static void placePortalCornerStairs(ServerLevel level, BlockPos origin, Cell cell) {
+        // Lower north-west / north-east.
+        placeBlock(level, origin.offset(5, 3, 5), CODE_STAIRS_NORMAL, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(4, 3, 5), CODE_STAIRS_NORMAL, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(5, 3, 4), CODE_STAIRS_NORMAL, Direction.WEST, cell);
+        placeBlock(level, origin.offset(12, 3, 5), CODE_STAIRS_NORMAL, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(11, 3, 5), CODE_STAIRS_NORMAL, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(11, 3, 4), CODE_STAIRS_NORMAL, Direction.EAST, cell);
+
+        // Lower south-west / south-east.
+        placeBlock(level, origin.offset(5, 3, 11), CODE_STAIRS_NORMAL, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(4, 3, 11), CODE_STAIRS_NORMAL, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(5, 3, 12), CODE_STAIRS_NORMAL, Direction.WEST, cell);
+        placeBlock(level, origin.offset(12, 3, 11), CODE_STAIRS_NORMAL, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(11, 3, 11), CODE_STAIRS_NORMAL, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(11, 3, 12), CODE_STAIRS_NORMAL, Direction.EAST, cell);
+
+        // Mirrored upper triplets from GenPortal use the inverted stair palette.
+        placeBlock(level, origin.offset(5, 8, 5), CODE_STAIRS_INVERTED, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(4, 8, 5), CODE_STAIRS_INVERTED, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(5, 8, 4), CODE_STAIRS_INVERTED, Direction.WEST, cell);
+        placeBlock(level, origin.offset(12, 8, 5), CODE_STAIRS_INVERTED, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(11, 8, 5), CODE_STAIRS_INVERTED, Direction.NORTH, cell);
+        placeBlock(level, origin.offset(11, 8, 4), CODE_STAIRS_INVERTED, Direction.EAST, cell);
+        placeBlock(level, origin.offset(5, 8, 11), CODE_STAIRS_INVERTED, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(4, 8, 11), CODE_STAIRS_INVERTED, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(5, 8, 12), CODE_STAIRS_INVERTED, Direction.WEST, cell);
+        placeBlock(level, origin.offset(12, 8, 11), CODE_STAIRS_INVERTED, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(11, 8, 11), CODE_STAIRS_INVERTED, Direction.SOUTH, cell);
+        placeBlock(level, origin.offset(11, 8, 12), CODE_STAIRS_INVERTED, Direction.EAST, cell);
+    }
+
 
 
     public static void generateLibraryRoom(ServerLevel level, BlockPos origin, Cell cell) {
@@ -273,7 +342,11 @@ public final class TC4OuterLandsGenCommonAdapter {
             case CODE_COSMETIC_SOLID, CODE_COSMETIC_META_12, CODE_COSMETIC_META_13, CODE_COSMETIC_META_14 -> ThaumcraftMod.OBSIDIAN_TILE.get().defaultBlockState();
             case CODE_ELDRITCH_META_4 -> TC4EldritchBlockVariantAdapter.stateForMeta(TC4EldritchBlockVariantAdapter.META_CRUST_SOURCE);
             case CODE_ELDRITCH_META_10 -> TC4EldritchBlockVariantAdapter.stateForMeta(TC4EldritchBlockVariantAdapter.META_TRAPPED);
-            case CODE_CRAB_SPAWNER_A, CODE_CRAB_SPAWNER_B -> ThaumcraftMod.ELDRITCH_CRAB_SPAWNER.get().defaultBlockState().setValue(BlockStateProperties.FACING, dir == null ? Direction.NORTH : dir);
+            case CODE_CRAB_SPAWNER_A -> ThaumcraftMod.ELDRITCH_CRAB_SPAWNER.get().defaultBlockState()
+                    .setValue(BlockStateProperties.FACING, horizontal(dir));
+            case CODE_ELDRITCH_LOCK -> ThaumcraftMod.ELDRITCH_LOCK.get().defaultBlockState()
+                    .setValue(com.darkifov.thaumcraft.block.EldritchLockBlock.FACING, horizontal(dir))
+                    .setValue(com.darkifov.thaumcraft.block.EldritchLockBlock.OPEN, false);
             case CODE_ELDRITCH_NOTHING, CODE_AIRY_META_12 -> ThaumcraftMod.ELDRITCH_NOTHING.get().defaultBlockState();
             case CODE_AIR -> Blocks.AIR.defaultBlockState();
             case CODE_STAIRS_NORMAL, CODE_STAIRS_INVERTED, CODE_STAIRS_UP_A, CODE_STAIRS_UP_B, CODE_STAIRS_DOWN_A, CODE_STAIRS_DOWN_B -> stairsFor(dir, code);
@@ -305,6 +378,10 @@ public final class TC4OuterLandsGenCommonAdapter {
             {1, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1},
             {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}
     };
+
+    private static Direction horizontal(Direction direction) {
+        return direction == null || direction.getAxis() == Direction.Axis.Y ? Direction.NORTH : direction;
+    }
 
     private static BlockState stairsFor(Direction dir, int code) {
         BlockState state = Blocks.STONE_BRICK_STAIRS.defaultBlockState();
