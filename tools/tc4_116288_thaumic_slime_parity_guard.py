@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static parity guard for the TC4 4.2.3.5 Thaumic Slime port in v11.62.88."""
+"""Static parity guard for the TC4 4.2.3.5 Thaumic Slime port in v11.62.89."""
 from pathlib import Path
 import sys
 
@@ -32,8 +32,8 @@ registry = "src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java"
 client = "src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java"
 aspects = "src/main/java/com/darkifov/thaumcraft/source/TC4EntityAspectRegistry.java"
 
-need("build.gradle", "version = '11.62.88'")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.88"')
+need("build.gradle", "version = '11.62.89'")
+need("src/main/resources/META-INF/mods.toml", 'version="11.62.89"')
 for token in (
     "private static final int MAX_TC4_SIZE = 100;",
     "setTc4Size(1 << random.nextInt(3), true);",
@@ -64,13 +64,13 @@ need(renderer, '"textures/models/tslime.png"')
 need(renderer, "0.6F * (float) Math.sqrt")
 need(aspects, 'exact("thaumcraft:thaumic_slime", aspects(Aspect.LIMUS, 2, Aspect.AQUA, 2, Aspect.PRAECANTATIO, 1))')
 need("src/main/resources/assets/thaumcraft/models/item/thaumic_slime_spawn_egg.json", '"parent": "minecraft:item/template_spawn_egg"')
-need(".github/workflows/build.yml", "Validate v11.62.88 Thaumic Slime parity")
-need(".github/workflows/release.yml", "Validate v11.62.88 Thaumic Slime parity")
+need(".github/workflows/build.yml", "Validate v11.62.89 Thaumic Slime parity")
+need(".github/workflows/release.yml", "Validate v11.62.89 Thaumic Slime parity")
 forbid(entity, "Math.min(16")
 
 if errors:
-    print(f"TC4 11.62.88 Thaumic Slime parity guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.62.89 Thaumic Slime parity guard: FAIL ({len(errors)} problems; {checks} checks)")
     for error in errors:
         print(" -", error)
     sys.exit(1)
-print(f"TC4 11.62.88 Thaumic Slime parity guard: PASS ({checks}/{checks} checks)")
+print(f"TC4 11.62.89 Thaumic Slime parity guard: PASS ({checks}/{checks} checks)")

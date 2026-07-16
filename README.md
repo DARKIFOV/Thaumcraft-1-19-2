@@ -1,4 +1,14 @@
-# Thaumcraft Legacy Rebuild — v11.62.84
+# Thaumcraft Legacy Rebuild — v11.62.89
+
+
+## v11.62.89 Forge compile hotfix — ServerLevelAccessor
+
+- Fixes GitHub Actions run `79791726865`, where `:compileJava` reported four errors caused by importing `ServerLevelAccessor` from the wrong Mojmap package.
+- `TC4WispEntity` and `TC4ThaumicSlimeEntity` now import `net.minecraft.world.level.ServerLevelAccessor`, the Forge/Mojmap 1.19.2 location.
+- No Wisp or Thaumic Slime gameplay behavior was changed.
+- The generic Forge 1.19.2 compile API guard now rejects the wrong package across the full Java tree.
+- Adds `tc4_116289_server_level_accessor_compile_guard.py` and runs it before Gradle in both workflows.
+- All 55 pre-build/static checks pass; a networked CI rerun is still required for a confirmed JAR.
 
 ## v11.62.84 Forge compile hotfix — Traveling Trunk and Taint Spore
 

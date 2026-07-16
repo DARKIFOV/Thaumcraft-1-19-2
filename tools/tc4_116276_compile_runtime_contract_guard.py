@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for v11.62.88 compile-risk and runtime evidence contracts."""
+"""Regression guard for v11.62.89 compile-risk and runtime evidence contracts."""
 from pathlib import Path
 import sys
 
@@ -29,8 +29,8 @@ def forbid(rel: str, token: str) -> None:
     if token in text(rel):
         errors.append(f"{rel}: forbidden {token!r}")
 
-need("build.gradle", "version = '11.62.88'")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.88"')
+need("build.gradle", "version = '11.62.89'")
+need("src/main/resources/META-INF/mods.toml", 'version="11.62.89"')
 
 trunk = "src/main/java/com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java"
 for token in (
@@ -55,16 +55,16 @@ if out.find("populateLikeTC4") > out.find("data.markChunkPopulated"):
 for rel, tokens in {
     "tools/validate_runtime_manifest.py": ("SHA-256 mismatch", "PASS", "PARTIAL", "FAIL", "NOT_TESTED"),
     "tools/compare_visual_artifacts.py": ("global_ssim_luma", "Diagnostic only", "human side-by-side review"),
-    "runtime_artifacts/runtime_test_manifest.template.json": ('"version": "11.62.88"', '"outer_lands"', '"tests"'),
-    ".github/workflows/build.yml": ("Validate runtime evidence manifest template", "11.62.88", "gradle-build.log", "continue-on-error: true", "Fail job after preserving compiler log"),
-    ".github/workflows/release.yml": ("Validate runtime evidence manifest template", "11.62.88", "gradle-build.log", "continue-on-error: true", "Fail job after preserving compiler log"),
+    "runtime_artifacts/runtime_test_manifest.template.json": ('"version": "11.62.89"', '"outer_lands"', '"tests"'),
+    ".github/workflows/build.yml": ("Validate runtime evidence manifest template", "11.62.89", "gradle-build.log", "continue-on-error: true", "Fail job after preserving compiler log"),
+    ".github/workflows/release.yml": ("Validate runtime evidence manifest template", "11.62.89", "gradle-build.log", "continue-on-error: true", "Fail job after preserving compiler log"),
 }.items():
     for token in tokens:
         need(rel, token)
 
 if errors:
-    print(f"TC4 11.62.88 compile/runtime contract guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.62.89 compile/runtime contract guard: FAIL ({len(errors)} problems; {checks} checks)")
     for error in errors:
         print(" -", error)
     sys.exit(1)
-print(f"TC4 11.62.88 compile/runtime contract guard: PASS ({checks} checks)")
+print(f"TC4 11.62.89 compile/runtime contract guard: PASS ({checks} checks)")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static source-contract guard for v11.62.88 TC4 essentia transport parity.
+"""Static source-contract guard for v11.62.89 TC4 essentia transport parity.
 
 This proves only that the source contains the audited TC4 pressure/reservoir/
 centrifuge rules. It does not award runtime parity.
@@ -30,8 +30,8 @@ centrifuge = text("src/main/java/com/darkifov/thaumcraft/blockentity/AlchemicalC
 blockstate = json.loads(text("src/main/resources/assets/thaumcraft/blockstates/essentia_reservoir.json"))
 manifest = json.loads(text("runtime_artifacts/runtime_test_manifest.template.json"))
 
-check("build version 11.62.88", "version = '11.62.88'" in build)
-check("mods version 11.62.88", 'version="11.62.88"' in mods)
+check("build version 11.62.89", "version = '11.62.89'" in build)
+check("mods version 11.62.89", 'version="11.62.89"' in mods)
 check("reservoir suction is original 24", "ORIGINAL_RESERVOIR_SUCTION = 24" in reservoir)
 check("reservoir capacity remains 256", "CAPACITY = 256" in reservoir)
 check("reservoir default side down", "private Direction facing = Direction.DOWN" in reservoir)
@@ -78,14 +78,14 @@ required_tests = {
     "processing.centrifuge_input_queue_output_occupied_redstone",
 }
 manifest_ids = {entry.get("id") for entry in manifest.get("tests", [])}
-check("runtime manifest version 11.62.88", manifest.get("version") == "11.62.88")
+check("runtime manifest version 11.62.89", manifest.get("version") == "11.62.89")
 check("runtime manifest retains at least the 53 transport-era cases", len(manifest.get("tests", [])) >= 53)
 for test_id in sorted(required_tests):
     check(f"runtime case {test_id}", test_id in manifest_ids)
 
 failed = [name for name, ok in checks if not ok]
 report = {
-    "version": "11.62.88",
+    "version": "11.62.89",
     "scope": "TC4 essentia reservoir, buffer suction arbitration and centrifuge input queue source contracts",
     "checks_total": len(checks),
     "checks_passed": len(checks) - len(failed),

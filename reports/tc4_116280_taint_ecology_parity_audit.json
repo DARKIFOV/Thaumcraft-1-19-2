@@ -1,5 +1,5 @@
 {
-  "version": "11.62.88",
+  "version": "11.62.89",
   "scope": "TC4 taint blocks/fibres, persistent spread, taint spider and stationary spore source contracts",
   "checks_total": 64,
   "checks_passed": 64,

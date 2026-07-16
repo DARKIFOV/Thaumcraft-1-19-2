@@ -22,6 +22,8 @@ for path in SRC.rglob("*.java"):
         errors.append(f"{rel}: Entity#onGround() is not the Mojmap 1.19.2 accessor; use isOnGround()")
     if "net.minecraft.world.entity.animal.TamableAnimal" in text:
         errors.append(f"{rel}: TamableAnimal is in net.minecraft.world.entity in Forge/Mojmap 1.19.2")
+    if "net.minecraft.server.level.ServerLevelAccessor" in text:
+        errors.append(f"{rel}: ServerLevelAccessor is in net.minecraft.world.level in Forge/Mojmap 1.19.2")
     if "BlockPos.containing(" in text:
         errors.append(f"{rel}: BlockPos.containing(double,double,double) is unavailable in Mojmap 1.19.2; floor coordinates explicitly")
     if ".canBeReplaced()" in text:
