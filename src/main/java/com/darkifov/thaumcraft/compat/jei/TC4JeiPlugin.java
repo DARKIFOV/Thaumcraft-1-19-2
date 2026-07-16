@@ -10,6 +10,8 @@ import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipe;
 import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipes;
 import com.darkifov.thaumcraft.infusion.InfusionRecipe;
 import com.darkifov.thaumcraft.infusion.InfusionRecipes;
+import com.darkifov.thaumcraft.wand.WandCraftingRuntime;
+import com.darkifov.thaumcraft.wand.WandVariantRuntime;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.IModPlugin;
@@ -25,6 +27,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -60,6 +63,17 @@ public final class TC4JeiPlugin implements IModPlugin {
     @Override
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(ThaumcraftMod.MOD_ID, "tc4_recipe_viewer");
+    }
+
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistration registration) {
+        // All ordinary wands, staffs and sceptres share one registry item. Only
+        // rod/cap/sceptre NBT defines the visual subtype; stored vis and focus
+        // data must not split an otherwise identical component combination.
+        registration.registerSubtypeInterpreter(
+                ThaumcraftMod.IRON_CAPPED_WOODEN_WAND.get(),
+                (stack, context) -> WandVariantRuntime.subtypeKey(stack)
+        );
     }
 
     @Override
@@ -172,7 +186,10 @@ public final class TC4JeiPlugin implements IModPlugin {
                             .addIngredients(asIngredient(inputs.get(i)));
                 }
             }
-            builder.addSlot(RecipeIngredientRole.OUTPUT, 148, 20).addItemStack(recipe.result());
+            ItemStack output = WandCraftingRuntime.isGeneratedAssembly(recipe)
+                    ? WandCraftingRuntime.resultFor(recipe)
+                    : recipe.result();
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 148, 20).addItemStack(output);
         }
 
         @Override

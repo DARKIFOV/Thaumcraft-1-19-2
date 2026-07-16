@@ -87,6 +87,24 @@ public class WandItem extends Item {
         return WandComponentData.from(stack).capacity(stack);
     }
 
+    /**
+     * Creates the same fully charged subtype stacks that original TC4 exposed
+     * through ItemWandCasting#getSubItems. Values are stored in centivis and
+     * therefore remain correct for wood, greatwood, elemental, silverwood,
+     * staff and sceptre rods instead of falling back to the default 25-vis rod.
+     */
+    public static void fillToCapacity(ItemStack stack) {
+        if (stack == null || stack.isEmpty() || !(stack.getItem() instanceof WandItem wandItem)) {
+            return;
+        }
+        int capacity = wandItem.stackVisCapacity(stack);
+        CompoundTag root = stack.getOrCreateTag();
+        root.putByte(TAG_VIS_FORMAT, VIS_FORMAT_CENTIVIS);
+        for (Aspect aspect : PRIMAL_VIS) {
+            storeVisRaw(stack, aspect, capacity);
+        }
+    }
+
     public float stackVisCostModifier(ItemStack stack) {
         return WandComponentData.from(stack).visCostModifier();
     }

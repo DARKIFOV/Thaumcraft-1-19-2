@@ -1,4 +1,17 @@
-# Thaumcraft Legacy Rebuild — v11.62.92
+# Thaumcraft Legacy Rebuild
+
+## 11.62.94 — alembic and vis-relay model/UV hotfix
+
+- replaces the cuboid Alembic block model with the original TC4 `alembic.obj` geometry and `alembic.png` UV unwrap in world and item contexts;
+- replaces the invented cube used by `vis_relay` with the original `vis_relay.obj` renderer;
+- fixes OBJ triangle submission to Minecraft's QUADS render mode by emitting a degenerate fourth vertex per source triangle;
+- preserves the existing essentia fill overlay and relay gameplay/network behavior;
+- runtime screenshots remain required before visual PASS.
+
+## 11.62.93 — wand variants, vis capacity, JEI and textures
+
+The canonical wand item now exposes every craftable TC4 rod/cap combination in the Thaumcraft creative tab, registers its NBT variants with JEI, and supplies NBT-aware outputs for generated Arcane Wand/Sceptre recipes. This prevents non-wood recipes from collapsing to the 25-vis wood/iron fallback and lets the existing BEWLR select the correct byte-exact original rod/cap textures.
+
 
 ## v11.62.92 full texture/UV audit and confirmed visual hotfixes
 
@@ -396,3 +409,14 @@ Fixes research puzzle parity: identical aspects no longer connect, new placement
 - Regenerates the machine-readable full research audit with duplicate-trigger detection.
 - Normalizes the consolidated report revision history, numbering and hotfix appendices.
 - Clarifies that `gui_research.png` supplies frames/tabs while research icon content may come from an `ItemStack` or a standalone resource texture.
+
+
+## 11.62.96 — P0 item geometry / UV hotfix
+
+- Bellows item: original five-part ModelBellows geometry and per-part UV normalization via BEWLR.
+- Alchemical Centrifuge: exact six-part ModelCentrifuge UV layout; full 3D animated item preview.
+- Infusion Matrix: real eight-piece ModelCube geometry in all item contexts.
+- Brain in a Jar: real jar + brine + original ModelBrain instead of a flat icon.
+- Essentia Reservoir: original reservoir OBJ/UV for world and item.
+- Advanced Alchemical Furnace: compact centered original OBJ for item contexts.
+- Runtime visual parity remains NOT TESTED until client screenshots are captured.

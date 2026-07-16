@@ -39,19 +39,25 @@ for path in models.rglob("*.json"):
         dynamic.append(path.stem)
 expected_dynamic = {
     "advanced_node_stabilizer",
+    "alchemical_centrifuge",
+    "alembic",
     "avaritia_creative_wand",
+    "bellows",
     "essentia_jar",
     "filtered_essentia_jar",
     "greatwood_wand",
     "hungry_chest",
+    "infusion_matrix",
     "iron_capped_wooden_wand",
     "node_jar",
     "node_stabilizer",
     "silverwood_wand",
     "tc4_block_banner",
+    "tc4_jar_brain",
     "tc4_travel_trunk",
     "thaumometer",
     "vis_charge_relay",
+    "vis_relay",
     "void_essentia_jar",
 }
 actual_dynamic = set(dynamic)
@@ -75,4 +81,4 @@ if errors:
     for error in errors:
         print(" -", error)
     raise SystemExit(1)
-print("v11.62.46 audit guard: OK (v11.62.46+ metadata, 15 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)")
+print("v11.62.46 audit guard: OK (v11.62.46+ metadata, 21 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)")

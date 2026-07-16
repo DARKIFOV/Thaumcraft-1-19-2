@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:translucent",
   "ambientocclusion": false,
   "textures": {
     "all": "thaumcraft:block/matrix_stabilizer",

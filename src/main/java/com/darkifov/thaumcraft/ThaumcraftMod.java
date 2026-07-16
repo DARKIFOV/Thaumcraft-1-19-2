@@ -5,6 +5,7 @@ import com.darkifov.thaumcraft.block.ArcaneSpaBlock;
 import com.darkifov.thaumcraft.block.BathSaltsItem;
 import com.darkifov.thaumcraft.block.PurifyingFluidBlock;
 import com.darkifov.thaumcraft.wand.WandRodType;
+import com.darkifov.thaumcraft.wand.WandVariantRuntime;
 import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.wand.WandFocusType;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipeManager;
@@ -13,10 +14,15 @@ import com.darkifov.thaumcraft.block.AddonCompletionLedgerItem;
 import com.darkifov.thaumcraft.block.AdvancedNodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.AlchemicalFurnaceBlock;
 import com.darkifov.thaumcraft.block.AlchemicalCentrifugeBlock;
+import com.darkifov.thaumcraft.block.AlchemicalCentrifugeBlockItem;
+import com.darkifov.thaumcraft.block.BellowsBlockItem;
+import com.darkifov.thaumcraft.block.BrainJarBlockItem;
+import com.darkifov.thaumcraft.block.InfusionMatrixBlockItem;
 import com.darkifov.thaumcraft.block.DeconstructionTableBlock;
 import com.darkifov.thaumcraft.block.EssentiaCrystalizerBlock;
 import com.darkifov.thaumcraft.block.EssentiaCrystalItem;
 import com.darkifov.thaumcraft.block.AlembicBlock;
+import com.darkifov.thaumcraft.block.AlembicBlockItem;
 import com.darkifov.thaumcraft.block.EssentiaReservoirBlock;
 import com.darkifov.thaumcraft.block.ThaumatoriumBlock;
 import com.darkifov.thaumcraft.block.ArcanePedestalBlock;
@@ -91,6 +97,7 @@ import com.darkifov.thaumcraft.block.NodeTransducerBlock;
 import com.darkifov.thaumcraft.block.NitorLightBlock;
 import com.darkifov.thaumcraft.block.NitorItem;
 import com.darkifov.thaumcraft.block.VisRelayBlock;
+import com.darkifov.thaumcraft.block.VisRelayBlockItem;
 import com.darkifov.thaumcraft.block.VisChargeRelayBlock;
 import com.darkifov.thaumcraft.block.PortingLedgerItem;
 import com.darkifov.thaumcraft.block.TableBlock;
@@ -171,6 +178,7 @@ import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ItemGrateBlockEntity;
 import com.darkifov.thaumcraft.blockentity.HungryChestBlockEntity;
 import com.darkifov.thaumcraft.blockentity.VisChargeRelayBlockEntity;
+import com.darkifov.thaumcraft.blockentity.VisRelayBlockEntity;
 import com.darkifov.thaumcraft.blockentity.WardedGlassBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ResearchTableBlockEntity;
 import com.darkifov.thaumcraft.blockentity.TemporaryHoleBlockEntity;
@@ -370,6 +378,16 @@ public class ThaumcraftMod {
         @Override
         public void fillItemList(NonNullList<ItemStack> items) {
             super.fillItemList(items);
+
+            // The three historical registry IDs remain for save compatibility,
+            // but the creative catalogue must mirror original ItemWandCasting:
+            // one NBT-backed item with every craftable rod/cap combination and
+            // one silverwood/thaumium sceptre, all filled to their own capacity.
+            items.removeIf(stack -> stack.getItem() == IRON_CAPPED_WOODEN_WAND.get()
+                    || stack.getItem() == GREATWOOD_WAND.get()
+                    || stack.getItem() == SILVERWOOD_WAND.get());
+            items.addAll(WandVariantRuntime.creativeVariants());
+
             TC4RegistryGarbageGuard.filterCreativeItems(items);
         }
     };
@@ -478,7 +496,7 @@ public class ThaumcraftMod {
             () -> new BrainJarBlock(BlockBehaviour.Properties.of(Material.GLASS)
                     .strength(2.0F, 4.0F).requiresCorrectToolForDrops().noOcclusion()));
     public static final RegistryObject<Item> BRAIN_JAR_ITEM = ITEMS.register("tc4_jar_brain",
-            () -> new BlockItem(BRAIN_JAR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
+            () -> new BrainJarBlockItem(BRAIN_JAR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
                     .rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Block> MAGIC_MIRROR = BLOCKS.register("tc4_mirrorframe",
@@ -1277,6 +1295,8 @@ public class ThaumcraftMod {
             BLOCK_ENTITIES.register("tc4_block_banner", () -> BlockEntityType.Builder.of(TC4BannerBlockEntity::new, TC4_BANNER.get()).build(null));
     public static final RegistryObject<BlockEntityType<HungryChestBlockEntity>> HUNGRY_CHEST_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("hungry_chest", () -> BlockEntityType.Builder.of(HungryChestBlockEntity::new, HUNGRY_CHEST.get()).build(null));
+    public static final RegistryObject<BlockEntityType<VisRelayBlockEntity>> VIS_RELAY_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("vis_relay", () -> BlockEntityType.Builder.of(VisRelayBlockEntity::new, VIS_RELAY.get()).build(null));
     public static final RegistryObject<BlockEntityType<VisChargeRelayBlockEntity>> VIS_CHARGE_RELAY_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("vis_charge_relay", () -> BlockEntityType.Builder.of(VisChargeRelayBlockEntity::new, VIS_CHARGE_RELAY.get()).build(null));
     public static final RegistryObject<BlockEntityType<WardedGlassBlockEntity>> WARDED_GLASS_BLOCK_ENTITY =
@@ -1822,7 +1842,7 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> bellowsBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new BellowsBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new BellowsBlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
 
@@ -1908,13 +1928,13 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> alembicBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new AlembicBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new AlembicBlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
 
     private static RegistryObject<Block> alchemicalCentrifugeBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new AlchemicalCentrifugeBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new AlchemicalCentrifugeBlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
 
@@ -2008,7 +2028,7 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> infusionMatrixBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new InfusionMatrixBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new InfusionMatrixBlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
 
@@ -2044,7 +2064,7 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> visRelayBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new VisRelayBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new VisRelayBlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
 

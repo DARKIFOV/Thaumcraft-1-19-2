@@ -103,7 +103,13 @@ public final class WandCraftingRuntime {
         return matchesSceptrePattern(table, assembly);
     }
 
-    public static ItemStack resultFor(ArcaneWorkbenchRecipe recipe, ArcaneWorkbenchBlockEntity table) {
+    /**
+     * Produces the authoritative NBT result for runtime crafting and JEI.
+     * ArcaneWorkbenchRecipe#result is necessarily the shared registry item and
+     * has no rod/cap tags, so exposing it directly makes every recipe look like
+     * and report the 25-vis wood/iron fallback.
+     */
+    public static ItemStack resultFor(ArcaneWorkbenchRecipe recipe) {
         if (!isGeneratedAssembly(recipe)) {
             return ItemStack.EMPTY;
         }
@@ -111,11 +117,16 @@ public final class WandCraftingRuntime {
         if (assembly == null) {
             return ItemStack.EMPTY;
         }
-        ItemStack result = new ItemStack(ThaumcraftMod.IRON_CAPPED_WOODEN_WAND.get(), 1);
-        WandComponentData.write(result, assembly.rod(), assembly.cap());
-        WandComponentData.setSceptre(result, TC4_KIND_SCEPTRE_ASSEMBLY.equals(recipe.tc4Kind()));
-        WandItem.clampVisToCapacity(result);
-        return result;
+        return WandVariantRuntime.create(
+                assembly.rod(),
+                assembly.cap(),
+                TC4_KIND_SCEPTRE_ASSEMBLY.equals(recipe.tc4Kind()),
+                false
+        );
+    }
+
+    public static ItemStack resultFor(ArcaneWorkbenchRecipe recipe, ArcaneWorkbenchBlockEntity table) {
+        return resultFor(recipe);
     }
 
     public static boolean consumeAssemblyItems(ArcaneWorkbenchRecipe recipe, ArcaneWorkbenchBlockEntity table) {

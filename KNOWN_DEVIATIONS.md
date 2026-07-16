@@ -78,3 +78,36 @@ not a waiver for release readiness; each deviation must remain visible in
 - **Remaining limitation:** source and pixel hashes do not prove final GPU output, item transforms, lighting, interpolation or z-sorting. Runtime side-by-side screenshots remain mandatory.
 - **Release impact:** visual/runtime status remains `NOT TESTED` until the evidence manifest references real client captures.
 
+## Wand subtype catalogue and runtime visual verification (11.62.93)
+
+- The original wand registry is represented by one Forge item plus root NBT `rod`, `cap` and optional `sceptre`, rather than one registered item per combination.
+- The creative tab now exposes 108 craftable rod/cap wand-or-staff combinations plus the canonical silverwood/thaumium sceptre. The separate Avaritia creative wand remains its own compatibility item; infinity-only rod/cap combinations are intentionally not duplicated in the ordinary matrix.
+- Active wand rod/cap PNG files are byte-identical to the original TC4 model textures. The confirmed defect was subtype identity: untagged JEI outputs fell back to wood/iron, so capacity and BEWLR textures both appeared wrong.
+- Runtime screenshots for all 109 NBT combinations and JEI focus/recipe navigation remain NOT TESTED until a 11.62.93 client JAR is built and exercised.
+
+## Alembic and vis-relay OBJ runtime verification (11.62.94)
+
+- The original TC4 `alembic.obj`, `alembic.png`, `vis_relay.obj` and `vis_relay.png` are now used directly by BER/BEWLR paths.
+- The previous cuboid Alembic and cube Vis Relay were confirmed source-level model mismatches and are removed.
+- OBJ faces are triangles while Forge entity render buffers use quads; each triangle is preserved with a degenerate repeated fourth vertex.
+- Final lighting, culling, item transforms and liquid depth remain `NOT TESTED` until a built 11.62.94 client is captured side-by-side with TC4 4.2.3.5.
+
+
+## 11.62.95 — all-block render layer / core geometry pass
+
+- All 49 block models previously confirmed as alpha-on-solid now declare an explicit Forge 1.19 render type.
+- Six primal crystals and the balanced cluster use the original `vcrystal.obj` geometry.
+- Flux Goo uses its real 3/16-height model; Flux Gas uses intersecting translucent planes.
+- Bellows uses the five source model parts at a neutral inflation state; live compression animation remains runtime work.
+- Eldritch Portal uses the original 16-frame camera-facing texture strip through a full-bright BER.
+- Advanced Alchemical Furnace uses the original Base/Tank OBJ groups and textures; live on/off texture switching remains runtime work.
+- Final appearance, sorting, culling and animation timing remain NOT TESTED until a client build is run.
+
+
+## 11.62.96 item geometry notes
+
+- Bellows item uses neutral inflation 0.70; world compression remains a static block model because the port has no TileBellows BlockEntity.
+- Centrifuge item rotates decoratively; world rotation remains authoritative from its BlockEntity.
+- Infusion Matrix item uses a stable inactive preview; active instability/glow remains world-only.
+- Advanced Alchemical Furnace item uses a normalized copy of the original three-block OBJ so it fits GUI/hand contexts; UV/material assignments are unchanged.
+- Final transform, culling, mipmap and translucency parity remain NOT TESTED in runtime.

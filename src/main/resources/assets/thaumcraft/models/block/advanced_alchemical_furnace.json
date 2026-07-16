@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "thaumcraft:models/block/tc4_advanced_alchemical_furnace.obj",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
   "textures": {
-    "all": "thaumcraft:block/alchemyblockadv"
+    "base": "thaumcraft:models/alch_furnace",
+    "tank": "thaumcraft:models/alch_furnace_tank",
+    "particle": "thaumcraft:block/alchemyblockadv"
   }
 }

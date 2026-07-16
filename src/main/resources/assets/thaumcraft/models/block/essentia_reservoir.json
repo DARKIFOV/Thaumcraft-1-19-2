@@ -1,6 +1,11 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "thaumcraft:models/block/tc4_essentia_reservoir.obj",
+  "render_type": "minecraft:cutout",
+  "ambientocclusion": false,
   "textures": {
-    "all": "thaumcraft:block/essentiareservoir"
+    "body": "thaumcraft:models/reservoir",
+    "particle": "thaumcraft:block/essentiareservoir"
   }
 }

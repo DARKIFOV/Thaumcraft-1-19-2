@@ -165,7 +165,7 @@ def parse_resource_locations(source: str) -> list[str]:
 def main() -> int:
     ap=argparse.ArgumentParser()
     ap.add_argument('--root',required=True)
-    ap.add_argument('--version',default='11.62.92')
+    ap.add_argument('--version',default='11.62.96')
     ap.add_argument('--out',required=True)
     ap.add_argument('--baseline-wisp',action='store_true')
     args=ap.parse_args()

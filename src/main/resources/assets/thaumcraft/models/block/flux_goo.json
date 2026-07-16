@@ -1,6 +1,43 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
   "textures": {
-    "all": "thaumcraft:block/flux_goo"
-  }
+    "all": "thaumcraft:block/flux_goo",
+    "particle": "thaumcraft:block/flux_goo"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        3,
+        16
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "texture": "#all"
+        },
+        "up": {
+          "texture": "#all"
+        },
+        "north": {
+          "texture": "#all"
+        },
+        "south": {
+          "texture": "#all"
+        },
+        "west": {
+          "texture": "#all"
+        },
+        "east": {
+          "texture": "#all"
+        }
+      }
+    }
+  ]
 }

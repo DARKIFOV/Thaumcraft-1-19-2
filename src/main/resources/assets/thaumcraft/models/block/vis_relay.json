@@ -1,6 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "thaumcraft:block/vis_relay"
+    "particle": "thaumcraft:models/vis_relay"
   }
 }

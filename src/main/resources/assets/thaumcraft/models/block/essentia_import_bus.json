@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:translucent",
   "textures": {
     "front": "thaumcraft:block/essentia_import_bus",
     "side": "thaumcraft:block/thaumic_me_cable",

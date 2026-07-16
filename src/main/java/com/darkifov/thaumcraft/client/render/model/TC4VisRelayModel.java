@@ -288,14 +288,26 @@ public final class TC4VisRelayModel {
                                int red, int green, int blue, int alpha) {
         Matrix4f matrix = pose.pose();
         Matrix3f normal = pose.normal();
-        for (int i = 0; i < data.length; i += 8) {
-            consumer.vertex(matrix, data[i], data[i + 1], data[i + 2])
-                    .color(red, green, blue, alpha)
-                    .uv(data[i + 3], data[i + 4])
-                    .overlayCoords(overlay)
-                    .uv2(light)
-                    .normal(normal, data[i + 5], data[i + 6], data[i + 7])
-                    .endVertex();
+        // Entity render types use QUADS. Each OBJ face is a triangle, so emit
+        // a degenerate fourth vertex instead of letting adjacent triangles be
+        // grouped into unrelated four-vertex polygons.
+        for (int i = 0; i < data.length; i += 24) {
+            emit(data, i, matrix, normal, consumer, light, overlay, red, green, blue, alpha);
+            emit(data, i + 8, matrix, normal, consumer, light, overlay, red, green, blue, alpha);
+            emit(data, i + 16, matrix, normal, consumer, light, overlay, red, green, blue, alpha);
+            emit(data, i + 16, matrix, normal, consumer, light, overlay, red, green, blue, alpha);
         }
+    }
+
+    private static void emit(float[] data, int i, Matrix4f matrix, Matrix3f normal,
+                             VertexConsumer consumer, int light, int overlay,
+                             int red, int green, int blue, int alpha) {
+        consumer.vertex(matrix, data[i], data[i + 1], data[i + 2])
+                .color(red, green, blue, alpha)
+                .uv(data[i + 3], data[i + 4])
+                .overlayCoords(overlay)
+                .uv2(light)
+                .normal(normal, data[i + 5], data[i + 6], data[i + 7])
+                .endVertex();
     }
 }

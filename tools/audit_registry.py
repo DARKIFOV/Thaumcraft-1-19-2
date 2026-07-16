@@ -158,7 +158,8 @@ def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
         "node_stabilizer", "advanced_node_stabilizer",
         "iron_capped_wooden_wand", "greatwood_wand", "silverwood_wand",
         "avaritia_creative_wand", "thaumometer", "node_jar",
-        "hungry_chest", "tc4_block_banner", "vis_charge_relay",
+        "hungry_chest", "tc4_block_banner", "vis_charge_relay", "vis_relay", "alembic",
+        "alchemical_centrifuge", "bellows", "infusion_matrix", "tc4_jar_brain",
         "essentia_jar", "filtered_essentia_jar", "void_essentia_jar", "tc4_travel_trunk",
     }
 

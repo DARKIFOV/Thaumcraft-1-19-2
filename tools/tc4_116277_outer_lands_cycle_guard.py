@@ -30,8 +30,8 @@ def forbid(rel: str, token: str) -> None:
         errors.append(f"{rel}: forbidden {token!r}")
 
 
-need("build.gradle", "version = '11.62.92'")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.92"')
+need("build.gradle", "version = '11.62.96'")
+need("src/main/resources/META-INF/mods.toml", 'version="11.62.96"')
 
 teleporter = "src/main/java/com/darkifov/thaumcraft/eldritch/TC4OuterLandsTeleporter.java"
 for token in (

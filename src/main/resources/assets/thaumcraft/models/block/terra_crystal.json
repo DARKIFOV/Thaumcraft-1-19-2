@@ -1,6 +1,11 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "thaumcraft:models/block/tc4_vcrystal.obj",
+  "render_type": "minecraft:translucent",
+  "ambientocclusion": false,
   "textures": {
-    "all": "thaumcraft:block/terra_crystal"
+    "texture0": "thaumcraft:block/terra_crystal",
+    "particle": "thaumcraft:block/terra_crystal"
   }
 }

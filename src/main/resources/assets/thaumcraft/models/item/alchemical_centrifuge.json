@@ -1,18 +1,4 @@
 {
-  "parent": "minecraft:block/block",
-  "textures": {
-    "all": "thaumcraft:models/centrifuge",
-    "particle": "thaumcraft:models/centrifuge"
-  },
-  "elements": [
-    {"from":[3,0,3],"to":[13,3,13],"faces":{"north":{"texture":"#all"},"south":{"texture":"#all"},"east":{"texture":"#all"},"west":{"texture":"#all"},"up":{"texture":"#all"},"down":{"texture":"#all"}}},
-    {"from":[4,3,4],"to":[12,11,12],"faces":{"north":{"texture":"#all"},"south":{"texture":"#all"},"east":{"texture":"#all"},"west":{"texture":"#all"},"up":{"texture":"#all"},"down":{"texture":"#all"}}},
-    {"from":[2,7,2],"to":[14,9,14],"faces":{"north":{"texture":"#all"},"south":{"texture":"#all"},"east":{"texture":"#all"},"west":{"texture":"#all"},"up":{"texture":"#all"},"down":{"texture":"#all"}}},
-    {"from":[6,11,6],"to":[10,16,10],"faces":{"north":{"texture":"#all"},"south":{"texture":"#all"},"east":{"texture":"#all"},"west":{"texture":"#all"},"up":{"texture":"#all"},"down":{"texture":"#all"}}}
-  ],
-  "display": {
-    "gui": {"rotation":[30,225,0],"scale":[0.85,0.85,0.85]},
-    "ground": {"scale":[0.5,0.5,0.5]},
-    "fixed": {"scale":[0.75,0.75,0.75]}
-  }
+  "parent": "builtin/entity",
+  "gui_light": "front"
 }

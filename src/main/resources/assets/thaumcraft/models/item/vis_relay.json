@@ -1,3 +1,4 @@
 {
-  "parent": "thaumcraft:block/vis_relay"
+  "parent": "builtin/entity",
+  "gui_light": "front"
 }
