@@ -206,7 +206,11 @@ def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
             if item_id in registered_ids and not is_quarantined(item_id, exact, prefixes, model_ids)
         ]
         all_dynamic = bool(visible) and all(item_id in dynamic_rendered_ids for item_id in visible)
-        if len(visible) > 1 and not all_dynamic and frozenset(visible) not in intentional_shared_visuals:
+        # Spawn eggs intentionally share minecraft:item/template_spawn_egg; their
+        # two registry colours are applied at runtime by ForgeSpawnEggItem.
+        all_spawn_eggs = bool(visible) and all(item_id.endswith("_spawn_egg") for item_id in visible)
+        if (len(visible) > 1 and not all_dynamic and not all_spawn_eggs
+                and frozenset(visible) not in intentional_shared_visuals):
             leaking_groups.append(visible)
 
     # Also find identical item texture PNGs; this catches placeholder copies

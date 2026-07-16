@@ -193,6 +193,8 @@ import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
 import com.darkifov.thaumcraft.entity.TaintSporeEntity;
 import com.darkifov.thaumcraft.entity.TravelingTrunkEntity;
 import com.darkifov.thaumcraft.entity.TC4FireBatEntity;
+import com.darkifov.thaumcraft.entity.TC4WispEntity;
+import com.darkifov.thaumcraft.entity.TC4ThaumicSlimeEntity;
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EmberEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EldritchOrbEntity;
@@ -238,6 +240,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.item.BlockItem;
@@ -253,6 +256,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -266,6 +270,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -1561,6 +1566,28 @@ public class ThaumcraftMod {
                     .updateInterval(1)
                     .build(MOD_ID + ":firebat"));
 
+    public static final RegistryObject<EntityType<TC4WispEntity>> WISP =
+            ENTITY_TYPES.register("wisp", () -> EntityType.Builder.<TC4WispEntity>of(TC4WispEntity::new, MobCategory.MONSTER)
+                    .sized(0.9F, 0.9F)
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":wisp"));
+
+    public static final RegistryObject<EntityType<TC4ThaumicSlimeEntity>> THAUMIC_SLIME =
+            ENTITY_TYPES.register("thaumic_slime", () -> EntityType.Builder.<TC4ThaumicSlimeEntity>of(TC4ThaumicSlimeEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 0.6F)
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":thaumic_slime"));
+
+    public static final RegistryObject<Item> WISP_SPAWN_EGG = ITEMS.register("wisp_spawn_egg",
+            () -> new ForgeSpawnEggItem(WISP, 0xFFCFFF, 0xFFFFFF,
+                    new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Item> THAUMIC_SLIME_SPAWN_EGG = ITEMS.register("thaumic_slime_spawn_egg",
+            () -> new ForgeSpawnEggItem(THAUMIC_SLIME, 0xFFC0FF, 0xFF80FF,
+                    new Item.Properties().tab(THAUMCRAFT_TAB)));
+
     public static final RegistryObject<EntityType<TC4PechBlastEntity>> FOCUS_PECH_BLAST =
             ENTITY_TYPES.register("focus_pech_blast", () -> EntityType.Builder.<TC4PechBlastEntity>of(TC4PechBlastEntity::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F)
@@ -1639,8 +1666,11 @@ public class ThaumcraftMod {
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> DispenserBlock.registerBehavior(
-                PURIFYING_FLUID_BUCKET.get(), DispenseFluidContainer.getInstance()));
+        event.enqueueWork(() -> {
+            DispenserBlock.registerBehavior(PURIFYING_FLUID_BUCKET.get(), DispenseFluidContainer.getInstance());
+            SpawnPlacements.register(WISP.get(), SpawnPlacements.Type.NO_RESTRICTIONS,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TC4WispEntity::checkWispSpawnRules);
+        });
     }
 
     private void onEntityAttributeCreation(EntityAttributeCreationEvent event) {
@@ -1649,6 +1679,8 @@ public class ThaumcraftMod {
         event.put(TAINT_CRAWLER.get(), TaintCrawlerEntity.createAttributes().build());
         event.put(TAINT_SPORE.get(), TaintSporeEntity.createAttributes().build());
         event.put(FIREBAT.get(), TC4FireBatEntity.createAttributes().build());
+        event.put(WISP.get(), TC4WispEntity.createAttributes().build());
+        event.put(THAUMIC_SLIME.get(), TC4ThaumicSlimeEntity.createAttributes().build());
         event.put(PECH.get(), PechEntity.createAttributes().build());
         event.put(ELDRITCH_GUARDIAN.get(), EldritchGuardianEntity.createAttributes().build());
         event.put(ELDRITCH_CRAB.get(), EldritchCrabEntity.createAttributes().build());

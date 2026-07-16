@@ -4261,5 +4261,9 @@
   "tooltip.thaumcraft.mirror.unlinked": "Используйте на несвязанном зеркале, затем установите связанную раму.",
   "tooltip.thaumcraft.hand_mirror.bind": "Используйте на обычном магическом зеркале для привязки.",
   "tooltip.thaumcraft.travel_trunk_place": "Установите, чтобы призвать Путешествующий сундук",
-  "entity.thaumcraft.taint_spore": "Спора заражения"
+  "entity.thaumcraft.taint_spore": "Спора заражения",
+  "entity.thaumcraft.wisp": "Висп",
+  "item.thaumcraft.wisp_spawn_egg": "Яйцо призыва виспа",
+  "entity.thaumcraft.thaumic_slime": "Таумический слизень",
+  "item.thaumcraft.thaumic_slime_spawn_egg": "Яйцо призыва таумического слизня"
 }

@@ -90,7 +90,7 @@ def validate_artifacts(entry: dict[str, Any], location: str, template: bool, err
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, required=True)
-    parser.add_argument("--version", default="11.62.84")
+    parser.add_argument("--version", default="11.62.88")
     parser.add_argument("--template", action="store_true")
     args = parser.parse_args()
 

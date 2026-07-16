@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.source;
 
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectList;
+import com.darkifov.thaumcraft.entity.TC4WispEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -56,6 +57,8 @@ public final class TC4EntityAspectRegistry {
         exact("minecraft:wither_skeleton", aspects(Aspect.EXANIMIS, 4, Aspect.HUMANUS, 1, Aspect.IGNIS, 2));
         exact("thaumcraft:primal_orb", aspects(Aspect.AER, 5, Aspect.PERDITIO, 10, Aspect.PRAECANTATIO, 10, Aspect.POTENTIA, 10));
         exact("thaumcraft:firebat", aspects(Aspect.BESTIA, 2, Aspect.VOLATUS, 1, Aspect.IGNIS, 2));
+        exact("thaumcraft:wisp", aspects(Aspect.PRAECANTATIO, 1, Aspect.AER, 1));
+        exact("thaumcraft:thaumic_slime", aspects(Aspect.LIMUS, 2, Aspect.AQUA, 2, Aspect.PRAECANTATIO, 1));
         exact("thaumcraft:giant_brainy_zombie", aspects(Aspect.EXANIMIS, 4, Aspect.HUMANUS, 2, Aspect.COGNITIO, 1, Aspect.TERRA, 2));
         exact("thaumcraft:taintacle_tiny", aspects(Aspect.VITIUM, 1, Aspect.AQUA, 1));
         exact("thaumcraft:taint_spider", aspects(Aspect.VITIUM, 1, Aspect.TERRA, 1));
@@ -96,7 +99,13 @@ public final class TC4EntityAspectRegistry {
             return new AspectList();
         }
         AspectList aspects = EXACT.get(id.toString().toLowerCase(Locale.ROOT));
-        return aspects == null ? new AspectList() : copyOf(aspects);
+        AspectList result = aspects == null ? new AspectList() : copyOf(aspects);
+        // TC4 scans a Wisp as its own attuned aspect x2, plus the fixed
+        // Praecantatio and Aer entries registered in ConfigAspects.
+        if (entity instanceof TC4WispEntity wisp && wisp.getAspect() != null) {
+            result.add(wisp.getAspect(), 2);
+        }
+        return result;
     }
 
 

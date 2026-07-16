@@ -24,7 +24,7 @@ import net.minecraftforge.event.ForgeEventFactory;
  */
 public final class BoneBowItem extends BowItem {
     public BoneBowItem(Properties properties) {
-        super(properties.durability(512).stacksTo(1));
+        super(properties.durability(512));
     }
 
     public static float getBonePowerForTime(int charge) {

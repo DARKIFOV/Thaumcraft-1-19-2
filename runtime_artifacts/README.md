@@ -1,4 +1,4 @@
-# Runtime protocol artifacts — 11.62.84
+# Runtime protocol artifacts — 11.62.88
 
 Эта папка предназначена только для реальных логов клиента/сервера, скриншотов,
 видео и результатов миграционных тестов. Статический source guard не является
@@ -24,13 +24,13 @@ runtime-доказательством.
 ```bash
 python3 tools/validate_runtime_manifest.py \
   --manifest runtime_artifacts/runtime_test_manifest.json \
-  --version 11.62.84
+  --version 11.62.88
 ```
 
 5. Повторно создать отчёт. SHA-256 JAR добавляется только после успешного build:
 
 ```bash
-python3 tools/generate_port_status_v3.py --version 11.62.84 --jar build/libs/<main.jar>
+python3 tools/generate_port_status_v3.py --version 11.62.88 --jar build/libs/<main.jar>
 ```
 
 `PASS` без существующего файла и совпадающего SHA-256 запрещён. Текущий статус:

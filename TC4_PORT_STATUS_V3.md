@@ -1,6 +1,6 @@
-# Thaumcraft Legacy Rebuild 11.62.84 — объективный статус порта
+# Thaumcraft Legacy Rebuild 11.62.88 — объективный статус порта
 
-**Дата:** 2026-07-15  
+**Дата:** 2026-07-16  
 **Целевая платформа:** Minecraft 1.19.2, Forge 43.5.2, Java 17  
 **Эталон:** Thaumcraft 4.2.3.5  
 **Общий статус:** **FAIL**  
@@ -17,7 +17,7 @@
 |---|---:|---|
 | Успешная компиляция `gradlew build` | ❌ | Для этой версии подтверждённого build нет |
 | SHA-256 JAR | `N/A — JAR не собран` | Вычисляется только после успешного Gradle-шага |
-| Java-файлы | 593 | Статический count |
+| Java-файлы | 598 | Статический count |
 | Исследования | 201 / 201 | Runtime просмотрено 0 / 201 без manifest |
 | Страницы исследований | 591 | Runtime просмотрено 0 без manifest |
 | Аспекты | 48 / 48 | Runtime проверено 0 / 48 без manifest |
@@ -26,11 +26,11 @@
 | Arcane recipe JSON | 114 | Эталонный denominator должен быть зафиксирован отдельным source manifest |
 | Alchemy recipe JSON | 70 | Эталонный denominator должен быть зафиксирован отдельным source manifest |
 | Infusion recipe JSON | 78 | Materialized/JEI запись не является runtime PASS |
-| Mod entity types | 28 / 50 | Полнота TC4 не подтверждена |
+| Mod entity types | 30 / 50 | Полнота TC4 не подтверждена |
 | BlockEntity types | 37 / 73 | Полнота TC4 не подтверждена |
-| Entity renderer calls | 52 | Не эквивалентно числу оригинальных entity |
+| Entity renderer calls | 54 | Не эквивалентно числу оригинальных entity |
 | BlockEntity renderer calls | 24 / 50 TESR reference | Runtime проверено 0 без manifest |
-| Item model JSON | 721 | Парсинг модели не доказывает внешний вид |
+| Item model JSON | 723 | Парсинг модели не доказывает внешний вид |
 | Runtime test cases | 0 / 62 | Учитываются только статусы с существующим SHA-256-проверенным артефактом |
 | P0 source contracts | 6 complete + 1 partial / 7 | Runtime visual PASS: 0 / 7 |
 
@@ -51,30 +51,30 @@
 
 | Подсистема | S | G | V | N | W | C | Доказательство S / требуемый runtime |
 |---|---|---|---|---|---|---|---|
-| Аспекты и tags | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; 48 source entries; scan/tag runtime required |
-| Таумометр | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; scan/overlay source guards; range/sound/repeat runtime required |
-| Таумономикон | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; 201 entries/591 pages plus v11.62.82 targeted-note inventory flow source audit; browser popup, GUI scales and note-creation runtime required |
-| Research Table | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; v11.62.82 source audit: Thaumonomicon-only note creation, table-only unfinished-note editing, completed item learning, fixed inventory and bookshelf/Brain Jar bonus sources; Expertise/Mastery/duplication/save runtime required |
-| Arcane Workbench | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; recipe/cost source guards; vis/research/GUI runtime required |
-| Жезлы/фокусы | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; renderer and cost source guards; all contexts/network runtime required |
-| Узлы/Node Jar | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; node source audit; six types/three modifiers runtime required |
-| Essentia jars | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; NBT-aware BEWLR source contract; 48 labels runtime required |
-| Essentia transport | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; v11.62.79 source audit: reservoir suction 24/six faces/active pull and buffer real-suction arbitration; conflict/rollback/soak runtime required |
-| Furnace/alembics/centrifuge | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; v11.62.79 source audit: centrifuge queues input while output is occupied or redstone-paused; complete chain runtime required |
-| Infusion Matrix | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; recipe and renderer guards; stability/events/save runtime required |
-| JEI | PARTIAL | NOT TESTED | NOT TESTED | N/A | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; source plugin/recipe registration; JEI and no-JEI runtime required |
-| Bone Bow | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; charge/item-model source contract; arrows/enchants/visual runtime required |
-| Traveling Trunk | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; entity/inventory/model/capability source contract; runtime required |
-| Crimson cultists | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; humanoid renderer source contract; four-role side-by-side runtime required |
-| Fortress Armor | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; dedicated model source contract; slim/default/masks runtime required |
-| Големы | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; USE marker-side/empty-hand handling, weighted fishing quality and priority creeper avoidance are source-guarded; all materials/cores/upgrades/markers still require runtime |
-| Warp/Eldritch | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; v11.62.81 source audit: effect-only Warp Ward authority with legacy NBT migration, separate sticky-event decay, full bucket/counter sync, TC4 spawn search and 0.75 Death Gaze cone; runtime/network/visual proof required |
-| Taint/Eerie/Forest | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; v11.62.80 source audit: five fibre states, persistent taint columns, original spread thresholds, spore lifecycle and taint-spider renderer; biome colours/weather, cleanse and structures still require runtime |
-| Outer Lands | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; aligned portal maze, TC4 portal-room geometry and lock-gated boss cycle in source; traversal/save/return runtime required |
-| Mirrors | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; source mirror contracts; cross-dimension/save/automation runtime required |
-| Brain in a Jar | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; source XP/renderer contract; comparator/NBT/visual runtime required |
-| Миграция миров | PARTIAL | NOT TESTED | N/A | NOT TESTED | NOT TESTED | N/A | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; legacy aliases/source mapping; five-version migration runtime required |
-| Dedicated server | PARTIAL | NOT TESTED | N/A | NOT TESTED | NOT TESTED | N/A | `reports/TC4_11.62.84_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.84.json`; server-safe source guards; two-client runtime required |
+| Аспекты и tags | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; 48 source entries; scan/tag runtime required |
+| Таумометр | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; scan/overlay source guards; range/sound/repeat runtime required |
+| Таумономикон | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; 201 entries/591 pages plus v11.62.82 targeted-note inventory flow source audit; browser popup, GUI scales and note-creation runtime required |
+| Research Table | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; v11.62.82 source audit: Thaumonomicon-only note creation, table-only unfinished-note editing, completed item learning, fixed inventory and bookshelf/Brain Jar bonus sources; Expertise/Mastery/duplication/save runtime required |
+| Arcane Workbench | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; recipe/cost source guards; vis/research/GUI runtime required |
+| Жезлы/фокусы | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; renderer and cost source guards; all contexts/network runtime required |
+| Узлы/Node Jar | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; node source audit; six types/three modifiers runtime required |
+| Essentia jars | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; NBT-aware BEWLR source contract; 48 labels runtime required |
+| Essentia transport | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; v11.62.79 source audit: reservoir suction 24/six faces/active pull and buffer real-suction arbitration; conflict/rollback/soak runtime required |
+| Furnace/alembics/centrifuge | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; v11.62.79 source audit: centrifuge queues input while output is occupied or redstone-paused; complete chain runtime required |
+| Infusion Matrix | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; recipe and renderer guards; stability/events/save runtime required |
+| JEI | PARTIAL | NOT TESTED | NOT TESTED | N/A | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; source plugin/recipe registration; JEI and no-JEI runtime required |
+| Bone Bow | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; charge/item-model source contract; arrows/enchants/visual runtime required |
+| Traveling Trunk | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; entity/inventory/model/capability source contract; runtime required |
+| Crimson cultists | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; humanoid renderer source contract; four-role side-by-side runtime required |
+| Fortress Armor | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; dedicated model source contract; slim/default/masks runtime required |
+| Големы | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; USE marker-side/empty-hand handling, weighted fishing quality and priority creeper avoidance are source-guarded; all materials/cores/upgrades/markers still require runtime |
+| Warp/Eldritch | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; v11.62.81 source audit: effect-only Warp Ward authority with legacy NBT migration, separate sticky-event decay, full bucket/counter sync, TC4 spawn search and 0.75 Death Gaze cone; runtime/network/visual proof required |
+| Taint/Eerie/Forest | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; v11.62.80 source audit: five fibre states, persistent taint columns, original spread thresholds, spore lifecycle and taint-spider renderer; biome colours/weather, cleanse and structures still require runtime |
+| Outer Lands | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; aligned portal maze, TC4 portal-room geometry and lock-gated boss cycle in source; traversal/save/return runtime required |
+| Mirrors | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; source mirror contracts; cross-dimension/save/automation runtime required |
+| Brain in a Jar | PARTIAL | NOT TESTED | NOT TESTED | NOT TESTED | N/A | NOT TESTED | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; source XP/renderer contract; comparator/NBT/visual runtime required |
+| Миграция миров | PARTIAL | NOT TESTED | N/A | NOT TESTED | NOT TESTED | N/A | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; legacy aliases/source mapping; five-version migration runtime required |
+| Dedicated server | PARTIAL | NOT TESTED | N/A | NOT TESTED | NOT TESTED | N/A | `reports/TC4_11.62.88_FULL_STATIC_CI.log`, `reports/visual_parity_audit_v11.62.88.json`; server-safe source guards; two-client runtime required |
 
 ---
 
@@ -104,7 +104,7 @@ Source status не закрывает P0. Требуются build PASS и runti
 
 | Тест | Результат | Артефакт |
 |---|---|---|
-| `gradlew build` | FAIL / NOT OBTAINED | `reports/TC4_11.62.84_LOCAL_GRADLE_BUILD_ATTEMPT.log` |
+| `gradlew build` | FAIL / NOT OBTAINED | `reports/TC4_11.62.88_LOCAL_GRADLE_BUILD_ATTEMPT.log` |
 | Клиент | NOT TESTED | runtime manifest |
 | Dedicated server | NOT TESTED | runtime manifest |
 | P0 visuals | 0 / 7 PASS | runtime manifest + screenshots |

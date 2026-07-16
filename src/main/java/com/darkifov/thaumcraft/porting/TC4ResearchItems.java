@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.porting;
 
+import com.darkifov.thaumcraft.item.WispEssenceItem;
 import com.darkifov.thaumcraft.block.TC4FortressArmorItem;
 import com.darkifov.thaumcraft.block.TC4FortressMaskItem;
 import com.darkifov.thaumcraft.item.TC4ResearchComponentItem;
@@ -565,6 +566,7 @@ public final class TC4ResearchItems {
         Item.Properties functionalProperties = new Item.Properties().tab(tab);
         return switch (entry.id()) {
             case "tc4_bonebow" -> new BoneBowItem(functionalProperties);
+            case "tc4_wispessence" -> new WispEssenceItem(functionalProperties, entry.originalSource(), entry.legacyTexture());
             case "tc4_travel_trunk" -> new TravelingTrunkItem(functionalProperties);
             case "tc4_thaumiumhelm" -> new TC4ThaumiumArmorItem(EquipmentSlot.HEAD, functionalProperties);
             case "tc4_thaumiumchest" -> new TC4ThaumiumArmorItem(EquipmentSlot.CHEST, functionalProperties);

@@ -4225,5 +4225,9 @@
   "tooltip.thaumcraft.mirror.unlinked": "Use on an unlinked mirror, then place the linked frame.",
   "tooltip.thaumcraft.hand_mirror.bind": "Use on a regular magic mirror to bind it.",
   "tooltip.thaumcraft.travel_trunk_place": "Place to summon your Traveling Trunk",
-  "entity.thaumcraft.taint_spore": "Taint Spore"
+  "entity.thaumcraft.taint_spore": "Taint Spore",
+  "entity.thaumcraft.wisp": "Wisp",
+  "item.thaumcraft.wisp_spawn_egg": "Wisp Spawn Egg",
+  "entity.thaumcraft.thaumic_slime": "Thaumic Slime",
+  "item.thaumcraft.thaumic_slime_spawn_egg": "Thaumic Slime Spawn Egg"
 }

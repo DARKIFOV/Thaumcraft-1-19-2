@@ -132,7 +132,7 @@ public final class InfusionAltarStructure {
         int stabilityScore = Math.max(0, stabilizingBlocks + symmetricalPairs * 2 - tc4Penalty * 2);
         int instabilityPenalty = Math.max(0, tc4Penalty - cappedStabilizers * 2);
 
-        boolean valid = strictTc4Location && componentPedestals.size() > 0;
+        boolean valid = strictTc4Location;
 
         Component validity = Component.translatable(valid ? "thaumcraft.infusion.valid" : "thaumcraft.infusion.invalid")
                 .withStyle(valid ? ChatFormatting.GREEN : ChatFormatting.RED);
@@ -183,7 +183,7 @@ public final class InfusionAltarStructure {
     }
 
     private static boolean isInfusionPillar(BlockState state) {
-        return state.is(ThaumcraftMod.INFUSION_PILLAR.get()) || state.is(ThaumcraftMod.ARCANE_STONE_BRICKS.get());
+        return state.is(ThaumcraftMod.INFUSION_PILLAR.get());
     }
 
     private static boolean isStabilizer(BlockState state) {

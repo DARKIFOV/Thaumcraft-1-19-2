@@ -44,6 +44,8 @@ import com.darkifov.thaumcraft.client.render.TC4BlockMobRenderer;
 import com.darkifov.thaumcraft.client.render.TC4CrimsonCultistRenderer;
 import com.darkifov.thaumcraft.client.render.TC4FocusProjectileRenderer;
 import com.darkifov.thaumcraft.client.render.TC4FireBatRenderer;
+import com.darkifov.thaumcraft.client.render.TC4WispRenderer;
+import com.darkifov.thaumcraft.client.render.TC4ThaumicSlimeRenderer;
 import com.darkifov.thaumcraft.client.render.TC4FrostShardRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchOrbRenderer;
 import com.darkifov.thaumcraft.client.render.TC4EldritchGuardianRenderer;
@@ -203,6 +205,9 @@ public final class ClientModEvents {
             EntityRenderers.register(ThaumcraftMod.TAINTACLE_SMALL.get(), entityRenderer(ctx -> new TC4TaintacleRenderer<>(ctx)));
             EntityRenderers.register(ThaumcraftMod.TAINTACLE_GIANT.get(), entityRenderer(TC4TaintacleGiantRenderer::new));
             EntityRenderers.register(ThaumcraftMod.FIREBAT.get(), entityRenderer(TC4FireBatRenderer::new));
+            EntityRenderers.register(ThaumcraftMod.WISP.get(), entityRenderer(TC4WispRenderer::new));
+            EntityRenderers.register(ThaumcraftMod.THAUMIC_SLIME.get(), entityRenderer(context ->
+                    castEntityRenderer(new TC4ThaumicSlimeRenderer(context))));
             EntityRenderers.register(ThaumcraftMod.FOCUS_PECH_BLAST.get(), entityRenderer(ctx -> new TC4FocusProjectileRenderer<>(ctx)));
             EntityRenderers.register(ThaumcraftMod.FOCUS_EMBER.get(), entityRenderer(ctx -> new TC4FocusProjectileRenderer<>(ctx)));
             EntityRenderers.register(ThaumcraftMod.FOCUS_FROST_SHARD.get(), entityRenderer(TC4FrostShardRenderer::new));
@@ -252,6 +257,11 @@ public final class ClientModEvents {
                 return factory.apply(context);
             }
         };
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Entity> EntityRenderer<T> castEntityRenderer(EntityRenderer<?> renderer) {
+        return (EntityRenderer<T>) renderer;
     }
 
     private static <T extends Entity> EntityRendererProvider<T> entityRenderer(
@@ -331,6 +341,9 @@ public final class ClientModEvents {
                 ThaumcraftMod.SILVERWOOD_LEAVES.get());
         event.register(itemColor((stack, tintIndex) -> tintIndex == 0 ? com.darkifov.thaumcraft.block.EssentiaCrystalItem.tint(stack) : 0xFFFFFF),
                 ThaumcraftMod.ESSENTIA_CRYSTAL.get());
+        event.register(itemColor((stack, tintIndex) -> tintIndex == 1
+                        ? com.darkifov.thaumcraft.item.WispEssenceItem.tint(stack) : 0xFFFFFF),
+                ThaumcraftMod.TC4_RESEARCH_ITEMS.get("tc4_wispessence").get());
     }
 
 
