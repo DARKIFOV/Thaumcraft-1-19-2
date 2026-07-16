@@ -20,8 +20,8 @@ forge_guard = FORGE_GUARD.read_text(encoding="utf-8")
 build = BUILD.read_text(encoding="utf-8")
 mods = MODS.read_text(encoding="utf-8")
 
-require("build version 11.62.91", "version = '11.62.91'" in build)
-require("mods version 11.62.91", 'version="11.62.91"' in mods)
+require("build version 11.62.92", "version = '11.62.92'" in build)
+require("mods version 11.62.92", 'version="11.62.92"' in mods)
 require("Wisp remains a FlyingMob", "class TC4WispEntity extends FlyingMob implements Enemy" in wisp)
 require("incompatible Monster EntityType call removed", "Monster.checkMonsterSpawnRules(type, level, reason, pos, random)" not in wisp)
 require("peaceful difficulty gate retained", "level.getDifficulty() == Difficulty.PEACEFUL" in wisp)
@@ -34,7 +34,7 @@ require("early API guard covers FlyingMob type bound", "TC4WispEntity extends Fl
 if errors:
     for error in errors:
         print("::error::" + error)
-    print(f"TC4 11.62.91 Wisp FlyingMob spawn-rules compile guard: FAIL ({checks-len(errors)}/{checks})")
+    print(f"TC4 11.62.92 Wisp FlyingMob spawn-rules compile guard: FAIL ({checks-len(errors)}/{checks})")
     sys.exit(1)
 
-print(f"TC4 11.62.91 Wisp FlyingMob spawn-rules compile guard: PASS ({checks}/{checks})")
+print(f"TC4 11.62.92 Wisp FlyingMob spawn-rules compile guard: PASS ({checks}/{checks})")

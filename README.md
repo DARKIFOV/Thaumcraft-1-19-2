@@ -1,11 +1,18 @@
-# Thaumcraft Legacy Rebuild — v11.62.91
+# Thaumcraft Legacy Rebuild — v11.62.92
 
+## v11.62.92 full texture/UV audit and confirmed visual hotfixes
 
-## 11.62.91 — Wisp FlyingMob spawn-rules compile hotfix
+- audits all 921 original TC4 PNG/MCMETA resources, 1,653 active port texture resources, 988 JSON models, 70 custom renderer files, 25 GUI screens and 202 blockstate render-layer entries;
+- restores Wisp 4x4 frame UV selection, original particles.png halo row, additive full-bright layers, original scale/pulse and hurt tint;
+- restores the original Alchemical Furnace GUI texture, four gauge/overlay UV regions and original input/fuel slot positions;
+- includes machine-readable CSV reports, proof images and an explicit runtime evidence checklist;
+- static audit does not award runtime visual PASS without side-by-side client screenshots.
+
+## 11.62.92 — Wisp FlyingMob spawn-rules compile hotfix
 
 Fixes GitHub Actions run 79798875408: `TC4WispEntity` extends `FlyingMob`, so its `EntityType<TC4WispEntity>` cannot be passed to `Monster.checkMonsterSpawnRules`, whose type bound is `EntityType<? extends Monster>`. The predicate now preserves the same hostile-spawn contract by checking peaceful difficulty, `Monster.isDarkEnoughToSpawn`, `Mob.checkMobSpawnRules`, and the original nearby-Wisp cap separately.
 
-## v11.62.91 Forge compile hotfix — Monster spawn rule signature
+## v11.62.92 Forge compile hotfix — Monster spawn rule signature
 
 GitHub Actions run `79795527703` reached `:compileJava` and exposed one independent blocker in `TC4WispEntity`: the Forge/Mojmap 1.19.2 `Monster.checkMonsterSpawnRules` overload requires the complete five-argument spawn context (`EntityType`, `ServerLevelAccessor`, `MobSpawnType`, `BlockPos`, `RandomSource`). The old three-argument call was replaced without changing Wisp density or biome-spawn behavior.
 

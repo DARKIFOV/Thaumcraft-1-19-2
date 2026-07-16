@@ -71,3 +71,10 @@ not a waiver for release readiness; each deviation must remain visible in
 - **Forge port:** v11.62.80 restores source-level column persistence, crust/soil thresholds and decay, five distinct fibre/stalk states, anchored growing spores, taint-spider geometry/eyes and the original player/mob poison probabilities.
 - **Remaining deviations:** the SavedData column bridge does not yet reproduce the complete biome palette, weather and biome-replacement feedback; the flying Spore Swarmer entity is not implemented; the spider currently drops canonical tainted slime only because the taint-tendril item remains a migration mapping; vanilla Poison is used until a dedicated Taint Poison effect is implemented.
 - **Release impact:** Taint remains `PARTIAL / NOT TESTED`. Spread, persistence, visuals, poison, drops and dedicated-server synchronization require SHA-256-backed runtime artifacts.
+### Full texture and UV audit evidence
+
+- **Static coverage:** every original PNG/MCMETA resource, every shipped item/block JSON model, all client renderer files, GUI classes and block render layers are enumerated in `audit_reports/`.
+- **Confirmed fixes in 11.62.92:** Wisp atlas/halo render pipeline and Alchemical Furnace GUI/slot layout.
+- **Remaining limitation:** source and pixel hashes do not prove final GPU output, item transforms, lighting, interpolation or z-sorting. Runtime side-by-side screenshots remain mandatory.
+- **Release impact:** visual/runtime status remains `NOT TESTED` until the evidence manifest references real client captures.
+

@@ -76,16 +76,16 @@ jobs:
         run: python3 tools/runtime_fix_guard.py
 
       - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.91 --fail-on-missing
+        run: python3 tools/tc4_item_visual_audit.py --version 11.62.92 --fail-on-missing
 
       - name: Audit parent chains and display transforms
-        run: python3 tools/model_transform_audit.py --version 11.62.91 --fail-on-problems
+        run: python3 tools/model_transform_audit.py --version 11.62.92 --fail-on-problems
 
       - name: Audit Forge builtin entity render contracts
-        run: python3 tools/bewlr_contract_audit.py --version 11.62.91 --fail-on-problems
+        run: python3 tools/bewlr_contract_audit.py --version 11.62.92 --fail-on-problems
 
       - name: Audit aura node, node jar and stabilizer parity
-        run: python3 tools/aura_node_parity_audit.py --version 11.62.91 --fail-on-problems
+        run: python3 tools/aura_node_parity_audit.py --version 11.62.92 --fail-on-problems
 
       - name: Validate v11.62.45 parity fixes
         run: python3 tools/tc4_116245_parity_guard.py
@@ -118,13 +118,13 @@ jobs:
         run: python3 tools/tc4_116254_focus_hud_cycle_guard.py
 
       - name: Validate registry and resources
-        run: python3 tools/audit_registry.py --version 11.62.91 --fail-on-unexpected
+        run: python3 tools/audit_registry.py --version 11.62.92 --fail-on-unexpected
 
       - name: Regenerate-check exact TC4 research runtime
         run: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
 
       - name: Audit all 201 TC4 research entries and Thaumonomicon assets
-        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.91 --fail-on-problems
+        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.92 --fail-on-problems
 
       - name: Validate v11.62.70 visual, texture, wand and Thaumometer baseline
         run: python3 tools/tc4_116270_visual_runtime_regression_guard.py
@@ -140,7 +140,7 @@ jobs:
 
 
       - name: Audit TC4 custom visual contracts (P0)
-        run: python3 tools/audit_visual_parity.py --version 11.62.91 --fail-on-p0
+        run: python3 tools/audit_visual_parity.py --version 11.62.92 --fail-on-p0
 
       - name: Validate v11.62.76 compile and evidence contracts
         run: python3 tools/tc4_116276_compile_runtime_contract_guard.py
@@ -178,7 +178,7 @@ jobs:
       - name: Validate retained v11.62.87 Wisp parity
         run: python3 tools/tc4_116287_wisp_parity_guard.py
 
-      - name: Validate v11.62.91 Thaumic Slime parity
+      - name: Validate v11.62.92 Thaumic Slime parity
         run: python3 tools/tc4_116288_thaumic_slime_parity_guard.py
 
       - name: Validate retained v11.62.89 ServerLevelAccessor compile hotfix
@@ -187,17 +187,20 @@ jobs:
       - name: Validate retained v11.62.90 Monster spawn-rules compile hotfix
         run: python3 tools/tc4_116290_monster_spawn_rules_compile_guard.py
 
-      - name: Validate v11.62.91 Wisp FlyingMob spawn-rules compile hotfix
+      - name: Validate v11.62.92 Wisp FlyingMob spawn-rules compile hotfix
         run: python3 tools/tc4_116291_wisp_flying_mob_spawn_rules_compile_guard.py
 
+      - name: Validate v11.62.92 full texture and UV audit hotfix
+        run: python3 tools/tc4_116292_full_texture_uv_audit_guard.py
+
       - name: Validate runtime evidence manifest template
-        run: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.62.91 --template
+        run: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.62.92 --template
 
       - name: Compile objective audit tools
         run: python3 -m py_compile tools/generate_port_status_v3.py tools/validate_runtime_manifest.py tools/compare_visual_artifacts.py
 
       - name: Generate objective port status (pre-build)
-        run: python3 tools/generate_port_status_v3.py --version 11.62.91
+        run: python3 tools/generate_port_status_v3.py --version 11.62.92
 
       - name: Build Forge JAR
         id: forge_build
@@ -213,7 +216,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: forge-build-log-v11.62.91
+          name: forge-build-log-v11.62.92
           if-no-files-found: error
           path: build/ci/gradle-build.log
 
@@ -228,13 +231,13 @@ jobs:
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/generate_port_status_v3.py --version 11.62.91 --jar "$MAIN_JAR"
+          python3 tools/generate_port_status_v3.py --version 11.62.92 --jar "$MAIN_JAR"
 
       - name: Validate committed runtime evidence when present
         shell: bash
         run: |
           if [ -f runtime_artifacts/runtime_test_manifest.json ]; then
-            python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.json --version 11.62.91
+            python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.json --version 11.62.92
           else
             echo "No runtime manifest committed; runtime statuses remain NOT TESTED."
           fi
@@ -251,7 +254,7 @@ jobs:
         run: |
           MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
           test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.91 --report reports/release_jar_audit_v11.62.91.json
+          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.92 --report reports/release_jar_audit_v11.62.92.json
 
       - name: Prepare release bundle
         shell: bash
@@ -259,12 +262,12 @@ jobs:
           set -euo pipefail
           mkdir -p build/release/bundle
           cp build/libs/*.jar build/release/bundle/
-          cp reports/*11.62.91*.json build/release/bundle/
+          cp reports/*11.62.92*.json build/release/bundle/
           cp TC4_PORT_STATUS_V3.md build/release/bundle/
           (
             cd build/release/bundle
             sha256sum *.jar > SHA256SUMS.txt
-            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.91_RELEASE.zip .
+            zip -9 -r ../thaumcraft_legacy_rebuild_v11.62.92_RELEASE.zip .
           )
 
       - name: Publish release
@@ -273,7 +276,7 @@ jobs:
           body_path: README.md
           files: |
             build/libs/*.jar
-            build/release/thaumcraft_legacy_rebuild_v11.62.91_RELEASE.zip
+            build/release/thaumcraft_legacy_rebuild_v11.62.92_RELEASE.zip
             build/release/bundle/SHA256SUMS.txt
-            reports/*11.62.91*.json
+            reports/*11.62.92*.json
             TC4_PORT_STATUS_V3.md

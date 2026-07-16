@@ -1,0 +1,22 @@
+{
+  "version": "11.62.92",
+  "root": "/mnt/data/tc_visual_116292/Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.62.92_FULL_TEXTURE_UV_AUDIT_HOTFIX_SOURCE",
+  "status": "STATIC_AUDIT_COMPLETE_RUNTIME_NOT_TESTED",
+  "counts": {
+    "original_png_mcmeta": 921,
+    "original_exact_shipped": 921,
+    "original_referenced": 684,
+    "port_core_png_mcmeta": 1653,
+    "json_models": 988,
+    "custom_renderer_files": 70,
+    "gui_screens": 25,
+    "registered_blocks": 202,
+    "diffs": 2
+  },
+  "confirmed_mismatches": [],
+  "limitations": [
+    "No original 1.7.10 runtime screenshots were supplied or generated.",
+    "TC4 1.7.10 has no JSON model corpus for direct JSON-to-JSON UV comparison.",
+    "Static source/resource checks do not prove final GPU output."
+  ]
+}

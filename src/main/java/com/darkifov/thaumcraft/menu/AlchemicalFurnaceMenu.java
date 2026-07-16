@@ -32,12 +32,12 @@ public class AlchemicalFurnaceMenu extends AbstractContainerMenu {
         checkContainerDataCount(data, 5);
         addDataSlots(data);
 
-        addSlot(new Slot(furnace, AlchemicalFurnaceBlockEntity.SLOT_INPUT, 56, 17) {
+        addSlot(new Slot(furnace, AlchemicalFurnaceBlockEntity.SLOT_INPUT, 80, 8) {
             @Override public boolean mayPlace(ItemStack stack) {
                 return furnace.canPlaceItem(AlchemicalFurnaceBlockEntity.SLOT_INPUT, stack);
             }
         });
-        addSlot(new Slot(furnace, AlchemicalFurnaceBlockEntity.SLOT_FUEL, 56, 53) {
+        addSlot(new Slot(furnace, AlchemicalFurnaceBlockEntity.SLOT_FUEL, 80, 48) {
             @Override public boolean mayPlace(ItemStack stack) {
                 return furnace.canPlaceItem(AlchemicalFurnaceBlockEntity.SLOT_FUEL, stack);
             }
@@ -81,6 +81,11 @@ public class AlchemicalFurnaceMenu extends AbstractContainerMenu {
     public int burnProgress(int pixels) {
         int duration = Math.max(1, burnDuration());
         return Math.max(0, Math.min(pixels, burnProgress() * pixels / duration));
+    }
+
+    public int essentiaProgress(int pixels) {
+        int max = Math.max(1, capacity());
+        return Math.max(0, Math.min(pixels, storedEssentia() * pixels / max));
     }
 
     @Override

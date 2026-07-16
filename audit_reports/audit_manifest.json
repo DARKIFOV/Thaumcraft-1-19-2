@@ -1,0 +1,33 @@
+{
+  "version": "11.62.91",
+  "root": "/mnt/data/audit_116291/port/Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.62.91_WISP_FLYING_MOB_SPAWN_RULES_COMPILE_HOTFIX_SOURCE",
+  "status": "STATIC_AUDIT_COMPLETE_RUNTIME_NOT_TESTED",
+  "counts": {
+    "original_png_mcmeta": 921,
+    "original_exact_shipped": 921,
+    "original_referenced": 684,
+    "port_core_png_mcmeta": 1653,
+    "json_models": 988,
+    "custom_renderer_files": 70,
+    "gui_screens": 25,
+    "registered_blocks": 202,
+    "diffs": 2
+  },
+  "confirmed_mismatches": [
+    {
+      "class": "TC4WispRenderer",
+      "scope": "renderer",
+      "details": "Uses full 0..1 Wisp atlas for both shell and core; PARTICLES constant points to Minecraft and is unused; no 4x4/16x1 frame UV; size and additive blend differ from TC4 RenderWisp."
+    },
+    {
+      "class": "AlchemicalFurnaceScreen",
+      "scope": "gui",
+      "details": "Uses vanilla minecraft furnace GUI instead of TC4 textures/gui/gui_alchemyfurnace.png and original gauge UV/coordinates."
+    }
+  ],
+  "limitations": [
+    "No original 1.7.10 runtime screenshots were supplied or generated.",
+    "TC4 1.7.10 has no JSON model corpus for direct JSON-to-JSON UV comparison.",
+    "Static source/resource checks do not prove final GPU output."
+  ]
+}

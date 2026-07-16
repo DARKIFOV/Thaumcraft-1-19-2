@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static regression guard for v11.62.91 TC4 research-note/table workflow parity."""
+"""Static regression guard for v11.62.92 TC4 research-note/table workflow parity."""
 from __future__ import annotations
 
 import json
@@ -36,8 +36,8 @@ table_be = text("src/main/java/com/darkifov/thaumcraft/blockentity/ResearchTable
 bonus = text("src/main/java/com/darkifov/thaumcraft/research/ResearchTableBonusRuntime.java")
 manifest_text = text("runtime_artifacts/runtime_test_manifest.template.json")
 
-require("build version 11.62.91", "version = '11.62.91'" in build)
-require("mods version 11.62.91", 'version="11.62.91"' in mods)
+require("build version 11.62.92", "version = '11.62.92'" in build)
+require("mods version 11.62.92", 'version="11.62.92"' in mods)
 
 # Unfinished notes must not open a freehand puzzle; completed notes still learn on use.
 require("research note retains solved-note conversion", "ResearchNoteSolver.convertSolvedNote(player, stack)" in note_item)
@@ -74,7 +74,7 @@ except json.JSONDecodeError as exc:
     errors.append(f"runtime manifest invalid JSON: {exc}")
     manifest = {}
 
-require("runtime manifest version 11.62.91", manifest.get("version") == "11.62.91")
+require("runtime manifest version 11.62.92", manifest.get("version") == "11.62.92")
 test_ids = {entry.get("id") for entry in manifest.get("tests", []) if isinstance(entry, dict)}
 for test_id in (
     "research.note_creation_thaumonomicon_inventory_only",
@@ -84,9 +84,9 @@ for test_id in (
     require(f"runtime test present: {test_id}", test_id in test_ids)
 
 if errors:
-    print(f"TC4 11.62.91 research workflow parity guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.62.92 research workflow parity guard: FAIL ({len(errors)} problems; {checks} checks)")
     for problem in errors:
         print(f" - {problem}")
     raise SystemExit(1)
 
-print(f"TC4 11.62.91 research workflow parity guard: PASS ({checks}/{checks} checks)")
+print(f"TC4 11.62.92 research workflow parity guard: PASS ({checks}/{checks} checks)")

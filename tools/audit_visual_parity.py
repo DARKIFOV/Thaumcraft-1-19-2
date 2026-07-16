@@ -44,7 +44,7 @@ def source_contains(name: str, *tokens: str) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.91")
+    parser.add_argument("--version", default="11.62.92")
     parser.add_argument("--fail-on-p0", action="store_true")
     args = parser.parse_args()
 

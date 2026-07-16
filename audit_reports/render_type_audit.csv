@@ -1,0 +1,203 @@
+﻿block_id,registry_constant,render_layer,model_refs,texture_refs,alpha_present,missing_textures,status,priority,runtime_status
+advanced_alchemical_furnace,ADVANCED_ALCHEMICAL_FURNACE,solid(default),thaumcraft:block/advanced_alchemical_furnace,thaumcraft:block/alchemyblockadv,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+advanced_node_stabilizer,ADVANCED_NODE_STABILIZER,solid(default),thaumcraft:block/advanced_node_stabilizer,thaumcraft:original/thaumcraft4/models/node_stabilizer,True,,STATIC_RISK_SOLID_WITH_ALPHA,P0,NOT_TESTED
+aer_crystal,AER_CRYSTAL,solid(default),thaumcraft:block/aer_crystal,thaumcraft:block/aer_crystal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+alchemical_centrifuge,ALCHEMICAL_CENTRIFUGE_BLOCK_ENTITY,solid(default),thaumcraft:block/alchemical_centrifuge,thaumcraft:block/alchemical_furnace,False,,STATIC_VALID,P1,NOT_TESTED
+alchemical_furnace,ALCHEMICAL_FURNACE_BLOCK_ENTITY,solid(default),thaumcraft:block/alchemical_furnace,thaumcraft:block/alchemical_furnace,False,,STATIC_VALID,P1,NOT_TESTED
+alembic,ALEMBIC_BLOCK_ENTITY,solid(default),thaumcraft:block/alembic,thaumcraft:block/alchemical_furnace,False,,STATIC_VALID,P1,NOT_TESTED
+amber_block,AMBER_BLOCK,solid(default),thaumcraft:block/amber_block,thaumcraft:block/amber_block | thaumcraft:block/amber_block_top,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+amber_bricks,AMBER_BRICKS,solid(default),thaumcraft:block/amber_bricks,thaumcraft:block/amber_bricks,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+amber_ore,AMBER_ORE,solid(default),thaumcraft:block/amber_ore,thaumcraft:block/amber_ore,False,,STATIC_VALID,P1,NOT_TESTED
+aqua_crystal,AQUA_CRYSTAL,solid(default),thaumcraft:block/aqua_crystal,thaumcraft:block/aqua_crystal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+arcane_assembler,ARCANE_ASSEMBLER,solid(default),thaumcraft:block/arcane_assembler,thaumcraft:block/arcane_assembler,False,,STATIC_VALID,P1,NOT_TESTED
+arcane_crafting_terminal,ARCANE_CRAFTING_TERMINAL,solid(default),thaumcraft:block/arcane_crafting_terminal,thaumcraft:block/arcane_crafting_terminal | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+arcane_pattern_encoder,ARCANE_PATTERN_ENCODER,solid(default),thaumcraft:block/arcane_pattern_encoder,thaumcraft:block/arcane_pattern_encoder,False,,STATIC_VALID,P1,NOT_TESTED
+arcane_pattern_provider,ARCANE_PATTERN_PROVIDER,solid(default),thaumcraft:block/arcane_pattern_provider,thaumcraft:block/arcane_pattern_provider,False,,STATIC_VALID,P1,NOT_TESTED
+arcane_pedestal,ARCANE_PEDESTAL_BLOCK_ENTITY,solid(default),thaumcraft:block/arcane_pedestal,thaumcraft:original/thaumcraft4/blocks/pedestal_side | thaumcraft:original/thaumcraft4/blocks/pedestal_top,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+arcane_stone,ARCANE_STONE,solid(default),thaumcraft:block/arcane_stone,thaumcraft:block/arcane_stone,False,,STATIC_VALID,P1,NOT_TESTED
+arcane_stone_bricks,ARCANE_STONE_BRICKS,solid(default),thaumcraft:block/arcane_stone_bricks,thaumcraft:block/arcane_stone_bricks,False,,STATIC_VALID,P1,NOT_TESTED
+arcane_workbench,ARCANE_WORKBENCH_BLOCK_ENTITY,solid(default),thaumcraft:block/arcane_workbench,thaumcraft:original/thaumcraft4/models/worktable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+aura_node,AURA_NODE_BLOCK_ENTITY,solid(default),thaumcraft:block/aura_node,thaumcraft:block/aura_node_sprite,True,,STATIC_RISK_SOLID_WITH_ALPHA,P0,NOT_TESTED
+bellows,BELLOWS,solid(default),thaumcraft:block/bellows,thaumcraft:block/bellows,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+cinnabar_ore,CINNABAR_ORE,solid(default),thaumcraft:block/cinnabar_ore,thaumcraft:block/cinnabar_ore,False,,STATIC_VALID,P1,NOT_TESTED
+crucible,CRUCIBLE_BLOCK_ENTITY,solid(default),thaumcraft:block/crucible,thaumcraft:original/thaumcraft4/blocks/crucible1 | thaumcraft:original/thaumcraft4/blocks/crucible2 | thaumcraft:original/thaumcraft4/blocks/crucible3 | thaumcraft:original/thaumcraft4/blocks/crucible5 | thaumcraft:original/thaumcraft4/blocks/crucible6,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+deconstruction_table,DECONSTRUCTION_TABLE_BLOCK_ENTITY,solid(default),thaumcraft:block/deconstruction_table,thaumcraft:original/thaumcraft4/models/decontable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+distillation_pattern_encoder,DISTILLATION_PATTERN_ENCODER,solid(default),thaumcraft:block/distillation_pattern_encoder,thaumcraft:block/distillation_pattern_encoder,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_altar,ELDRITCH_ALTAR,solid(default),thaumcraft:block/eldritch_altar,thaumcraft:block/eldritch_altar,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_cap,ELDRITCH_CAP_BLOCK_ENTITY,solid(default),thaumcraft:block/eldritch_cap,thaumcraft:block/eldritch_cap,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_crab_spawner,ELDRITCH_CRAB_SPAWNER_BLOCK_ENTITY,solid(default),thaumcraft:block/eldritch_crab_spawner,thaumcraft:block/eldritch_stone,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_crust,ELDRITCH_CRUST,solid(default),thaumcraft:block/eldritch_crust,thaumcraft:block/eldritch_stone,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_crystal,ELDRITCH_CRYSTAL_BLOCK_ENTITY,solid(default),thaumcraft:block/eldritch_crystal,thaumcraft:block/eldritch_crystal,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_decorative,ELDRITCH_DECORATIVE,solid(default),thaumcraft:block/eldritch_decorative,thaumcraft:block/eldritch_stone,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_door,ELDRITCH_DOOR,solid(default),thaumcraft:block/eldritch_door,thaumcraft:block/eldritch_stone,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_lock,ELDRITCH_LOCK_BLOCK_ENTITY,solid(default),thaumcraft:block/eldritch_lock,thaumcraft:block/eldritch_lock,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_obelisk,ELDRITCH_OBELISK,solid(default),thaumcraft:block/eldritch_obelisk,thaumcraft:block/eldritch_obelisk,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_portal,ELDRITCH_PORTAL_BLOCK_ENTITY,solid(default),thaumcraft:block/eldritch_portal,thaumcraft:block/eldritch_portal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+eldritch_stone,ELDRITCH_STONE,solid(default),thaumcraft:block/eldritch_stone,thaumcraft:block/eldritch_stone,False,,STATIC_VALID,P1,NOT_TESTED
+eldritch_trap,ELDRITCH_TRAP_BLOCK_ENTITY,solid(default),thaumcraft:block/eldritch_trap,thaumcraft:block/eldritch_trap,False,,STATIC_VALID,P1,NOT_TESTED
+electric_shock,ELECTRIC_SHOCK,solid(default),minecraft:block/air,,False,,STATIC_VALID,P1,NOT_TESTED
+essentia_cell_workbench,ESSENTIA_CELL_WORKBENCH,solid(default),thaumcraft:block/essentia_cell_workbench,thaumcraft:block/essentia_cell_workbench,False,,STATIC_VALID,P1,NOT_TESTED
+essentia_conversion_monitor,ESSENTIA_CONVERSION_MONITOR,solid(default),thaumcraft:block/essentia_conversion_monitor,thaumcraft:block/essentia_conversion_monitor | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_crystalizer,ESSENTIA_CRYSTALIZER_BLOCK_ENTITY,solid(default),thaumcraft:block/essentia_crystalizer,thaumcraft:block/essentia_crystalizer,False,,STATIC_VALID,P1,NOT_TESTED
+essentia_drive,ESSENTIA_DRIVE_BLOCK_ENTITY,solid(default),thaumcraft:block/essentia_drive,thaumcraft:block/essentia_drive,False,,STATIC_VALID,P1,NOT_TESTED
+essentia_export_bus,ESSENTIA_EXPORT_BUS,solid(default),thaumcraft:block/essentia_export_bus,thaumcraft:block/essentia_export_bus | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_import_bus,ESSENTIA_IMPORT_BUS,solid(default),thaumcraft:block/essentia_import_bus,thaumcraft:block/essentia_import_bus | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_interface,ESSENTIA_INTERFACE,solid(default),thaumcraft:block/essentia_interface,thaumcraft:block/essentia_interface,False,,STATIC_VALID,P1,NOT_TESTED
+essentia_jar,ESSENTIA_JAR_BLOCK_ENTITY,solid(default),thaumcraft:block/essentia_jar,thaumcraft:block/tc4/jar_bottom | thaumcraft:block/tc4/jar_side | thaumcraft:block/tc4/jar_top,True,,STATIC_RISK_SOLID_WITH_ALPHA,P0,NOT_TESTED
+essentia_level_emitter,ESSENTIA_LEVEL_EMITTER,solid(default),thaumcraft:block/essentia_level_emitter,thaumcraft:block/essentia_level_emitter | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_provider,ESSENTIA_PROVIDER,solid(default),thaumcraft:block/essentia_provider,thaumcraft:block/essentia_provider,False,,STATIC_VALID,P1,NOT_TESTED
+essentia_reservoir,ESSENTIA_RESERVOIR_BLOCK_ENTITY,solid(default),thaumcraft:block/essentia_reservoir,thaumcraft:block/essentiareservoir,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_storage_bus,ESSENTIA_STORAGE_BUS,solid(default),thaumcraft:block/essentia_storage_bus,thaumcraft:block/essentia_storage_bus | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_storage_monitor,ESSENTIA_STORAGE_MONITOR,solid(default),thaumcraft:block/essentia_storage_monitor,thaumcraft:block/essentia_storage_monitor | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_terminal,ESSENTIA_TERMINAL,solid(default),thaumcraft:block/essentia_terminal,thaumcraft:block/essentia_terminal | thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_tube,ESSENTIA_TUBE_BLOCK_ENTITY,solid(default),thaumcraft:block/essentia_tube_arm_north | thaumcraft:block/essentia_tube_center,thaumcraft:block/pipe_1 | thaumcraft:block/pipe_2,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_tube_buffer,ESSENTIA_TUBE_BUFFER,solid(default),thaumcraft:block/essentia_tube_arm_north_buffer | thaumcraft:block/essentia_tube_center_buffer,thaumcraft:block/pipe_buffer,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_tube_filter,ESSENTIA_TUBE_FILTER,solid(default),thaumcraft:block/essentia_tube_arm_north_filter | thaumcraft:block/essentia_tube_center_filter,thaumcraft:block/pipe_filter | thaumcraft:block/pipe_filter_core,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_tube_oneway,ESSENTIA_TUBE_ONEWAY,solid(default),thaumcraft:block/essentia_tube_arm_north_oneway | thaumcraft:block/essentia_tube_center_oneway,thaumcraft:block/pipe_oneway,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_tube_restrict,ESSENTIA_TUBE_RESTRICT,solid(default),thaumcraft:block/essentia_tube_arm_north_restrict | thaumcraft:block/essentia_tube_center_restrict,thaumcraft:block/pipe_restrict,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_valve,ESSENTIA_VALVE,solid(default),thaumcraft:block/essentia_valve,thaumcraft:block/pipe_valve,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+essentia_vibration_chamber,ESSENTIA_VIBRATION_CHAMBER,solid(default),thaumcraft:block/essentia_vibration_chamber,thaumcraft:block/essentia_vibration_chamber,False,,STATIC_VALID,P1,NOT_TESTED
+ethereal_platform,ETHEREAL_PLATFORM,solid(default),thaumcraft:block/ethereal_platform,thaumcraft:block/ethereal_platform,False,,STATIC_VALID,P1,NOT_TESTED
+extras_air_block,EXTRAS_AIR_BLOCK,solid(default),thaumcraft:block/extras_air_block,thaumcraft:block/extras_air_block,False,,STATIC_VALID,P1,NOT_TESTED
+extras_earth_block,EXTRAS_EARTH_BLOCK,solid(default),thaumcraft:block/extras_earth_block,thaumcraft:block/extras_earth_block,False,,STATIC_VALID,P1,NOT_TESTED
+extras_ender_block,EXTRAS_ENDER_BLOCK,solid(default),thaumcraft:block/extras_ender_block,thaumcraft:block/extras_ender_block,False,,STATIC_VALID,P1,NOT_TESTED
+extras_fire_block,EXTRAS_FIRE_BLOCK,solid(default),thaumcraft:block/extras_fire_block,thaumcraft:block/extras_fire_block,False,,STATIC_VALID,P1,NOT_TESTED
+extras_light_block,EXTRAS_LIGHT_BLOCK,solid(default),thaumcraft:block/extras_light_block,thaumcraft:block/extras_light_block,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+extras_water_block,EXTRAS_WATER_BLOCK,solid(default),thaumcraft:block/extras_water_block,thaumcraft:block/extras_water_block,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+filtered_essentia_jar,FILTERED_ESSENTIA_JAR,translucent,thaumcraft:block/filtered_essentia_jar,thaumcraft:block/tc4/jar_bottom | thaumcraft:block/tc4/jar_side | thaumcraft:block/tc4/jar_top,True,,STATIC_VALID,P0,NOT_TESTED
+flesh_block,FLESH_BLOCK,solid(default),thaumcraft:block/flesh_block,thaumcraft:block/flesh_block,False,,STATIC_VALID,P1,NOT_TESTED
+flux_gas,FLUX_GAS,solid(default),thaumcraft:block/flux_gas,thaumcraft:block/flux_gas,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+flux_goo,FLUX_GOO,solid(default),thaumcraft:block/flux_goo,thaumcraft:block/flux_goo,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+fume_dissipator,FUME_DISSIPATOR,solid(default),thaumcraft:block/fume_dissipator,thaumcraft:block/fume_dissipator,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+gear_box,GEAR_BOX,solid(default),thaumcraft:block/gear_box,thaumcraft:block/gear_box,False,,STATIC_VALID,P1,NOT_TESTED
+golem_gear_box,GOLEM_GEAR_BOX,solid(default),thaumcraft:block/golem_gear_box,thaumcraft:block/golem_gear_box,False,,STATIC_VALID,P1,NOT_TESTED
+golem_seal_collect_block,GOLEM_SEAL_COLLECT_BLOCK,solid(default),thaumcraft:block/golem_seal_collect_block,thaumcraft:block/golem_seal_collect_block,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+greatwood_leaves,GREATWOOD_LEAVES,cutoutMipped,thaumcraft:block/greatwood_leaves,thaumcraft:block/tc4/greatwoodleaves,True,,STATIC_VALID,P1,NOT_TESTED
+greatwood_log,GREATWOOD_LOG,solid(default),thaumcraft:block/greatwood_log | thaumcraft:block/greatwood_log_horizontal,thaumcraft:block/greatwood_log | thaumcraft:block/greatwood_log_top,False,,STATIC_VALID,P1,NOT_TESTED
+greatwood_planks,GREATWOOD_PLANKS,solid(default),thaumcraft:block/greatwood_planks,thaumcraft:block/planks_greatwood,False,,STATIC_VALID,P1,NOT_TESTED
+greatwood_sapling,GREATWOOD_SAPLING,cutout,thaumcraft:block/greatwood_sapling,thaumcraft:block/tc4/greatwoodsapling,True,,STATIC_VALID,P1,NOT_TESTED
+greatwood_slab,GREATWOOD_SLAB,solid(default),thaumcraft:block/greatwood_planks | thaumcraft:block/greatwood_slab | thaumcraft:block/greatwood_slab_top,thaumcraft:block/planks_greatwood,False,,STATIC_VALID,P1,NOT_TESTED
+greatwood_stairs,GREATWOOD_STAIRS,solid(default),thaumcraft:block/greatwood_stairs | thaumcraft:block/greatwood_stairs_inner | thaumcraft:block/greatwood_stairs_outer,thaumcraft:block/planks_greatwood,False,,STATIC_VALID,P1,NOT_TESTED
+hungry_chest,HUNGRY_CHEST_BLOCK_ENTITY,solid(default),thaumcraft:block/hungry_chest,thaumcraft:block/woodplain,False,,STATIC_VALID,P1,NOT_TESTED
+ignis_crystal,IGNIS_CRYSTAL,solid(default),thaumcraft:block/ignis_crystal,thaumcraft:block/ignis_crystal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+infusion_matrix,INFUSION_MATRIX_BLOCK_ENTITY,solid(default),thaumcraft:block/infusion_matrix,thaumcraft:block/infusion_matrix,True,,STATIC_RISK_SOLID_WITH_ALPHA,P0,NOT_TESTED
+infusion_pillar,INFUSION_PILLAR,solid(default),thaumcraft:block/infusion_pillar,thaumcraft:block/infusion_pillar,False,,STATIC_VALID,P1,NOT_TESTED
+infusion_provider,INFUSION_PROVIDER,solid(default),thaumcraft:block/infusion_provider,thaumcraft:block/infusion_provider,False,,STATIC_VALID,P1,NOT_TESTED
+item_grate,ITEM_GRATE_BLOCK_ENTITY,solid(default),thaumcraft:block/item_grate | thaumcraft:block/item_grate_closed,thaumcraft:block/item_grate | thaumcraft:block/item_grate_closed,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+knowledge_inscriber,KNOWLEDGE_INSCRIBER,solid(default),thaumcraft:block/knowledge_inscriber,thaumcraft:block/knowledge_inscriber,False,,STATIC_VALID,P1,NOT_TESTED
+matrix_accelerator,MATRIX_ACCELERATOR,solid(default),thaumcraft:block/matrix_accelerator,thaumcraft:block/matrix_accelerator,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+matrix_stabilizer,MATRIX_STABILIZER,solid(default),thaumcraft:block/matrix_stabilizer,thaumcraft:block/matrix_stabilizer,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+mnemonic_matrix,MNEMONIC_MATRIX,solid(default),thaumcraft:block/mnemonic_matrix,thaumcraft:block/tc4/brainbox,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+nitor_light,NITOR_LIGHT,cutout,thaumcraft:block/nitor_light,thaumcraft:item/nitor,True,,STATIC_VALID,P1,NOT_TESTED
+node_stabilizer,NODE_STABILIZER_BLOCK_ENTITY,solid(default),thaumcraft:block/node_stabilizer,thaumcraft:original/thaumcraft4/models/node_stabilizer,True,,STATIC_RISK_SOLID_WITH_ALPHA,P0,NOT_TESTED
+node_transducer,NODE_TRANSDUCER_BLOCK_ENTITY,solid(default),thaumcraft:block/node_transducer,thaumcraft:block/node_transducer,True,,STATIC_RISK_SOLID_WITH_ALPHA,P0,NOT_TESTED
+obsidian_tile,OBSIDIAN_TILE,solid(default),thaumcraft:block/obsidian_tile,thaumcraft:block/obsidian_tile,False,,STATIC_VALID,P1,NOT_TESTED
+obsidian_totem,OBSIDIAN_TOTEM,solid(default),thaumcraft:block/obsidian_totem,thaumcraft:block/obsidian_totem,False,,STATIC_VALID,P1,NOT_TESTED
+ordo_crystal,ORDO_CRYSTAL,solid(default),thaumcraft:block/ordo_crystal,thaumcraft:block/ordo_crystal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+osmotic_enchanter,OSMOTIC_ENCHANTER,solid(default),thaumcraft:block/osmotic_enchanter,thaumcraft:block/osmotic_enchanter,False,,STATIC_VALID,P1,NOT_TESTED
+outer_lands_loot_crate,OUTER_LANDS_LOOT_CRATE,solid(default),thaumcraft:block/outer_lands_loot_crate,thaumcraft:block/tc4/crate_side_0 | thaumcraft:block/tc4/crate_top,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+outer_lands_loot_urn,OUTER_LANDS_LOOT_URN,solid(default),thaumcraft:block/outer_lands_loot_urn,thaumcraft:block/tc4/urn_side_0 | thaumcraft:block/tc4/urn_top,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+perditio_crystal,PERDITIO_CRYSTAL,solid(default),thaumcraft:block/perditio_crystal,thaumcraft:block/perditio_crystal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+purifying_fluid,PURIFYING_FLUID_BLOCK,solid(default),thaumcraft:block/purifying_fluid,thaumcraft:block/tc4/fluidpure,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+research_cache_block,RESEARCH_CACHE_BLOCK,solid(default),thaumcraft:block/research_cache_block,thaumcraft:block/research_cache_block,False,,STATIC_VALID,P1,NOT_TESTED
+research_table,RESEARCH_TABLE_BLOCK_ENTITY,solid(default),thaumcraft:block/research_table,thaumcraft:block/research_table_top,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+silverwood_leaves,SILVERWOOD_LEAVES,cutoutMipped,thaumcraft:block/silverwood_leaves,thaumcraft:block/tc4/silverwoodleaves,True,,STATIC_VALID,P1,NOT_TESTED
+silverwood_log,SILVERWOOD_LOG,solid(default),thaumcraft:block/silverwood_log | thaumcraft:block/silverwood_log_horizontal,thaumcraft:block/silverwood_log | thaumcraft:block/silverwood_log_top,False,,STATIC_VALID,P1,NOT_TESTED
+silverwood_planks,SILVERWOOD_PLANKS,solid(default),thaumcraft:block/silverwood_planks,thaumcraft:block/planks_silverwood,False,,STATIC_VALID,P1,NOT_TESTED
+silverwood_sapling,SILVERWOOD_SAPLING,cutout,thaumcraft:block/silverwood_sapling,thaumcraft:block/tc4/silverwoodsapling,True,,STATIC_VALID,P1,NOT_TESTED
+silverwood_slab,SILVERWOOD_SLAB,solid(default),thaumcraft:block/silverwood_planks | thaumcraft:block/silverwood_slab | thaumcraft:block/silverwood_slab_top,thaumcraft:block/planks_silverwood,False,,STATIC_VALID,P1,NOT_TESTED
+silverwood_stairs,SILVERWOOD_STAIRS,solid(default),thaumcraft:block/silverwood_stairs | thaumcraft:block/silverwood_stairs_inner | thaumcraft:block/silverwood_stairs_outer,thaumcraft:block/planks_silverwood,False,,STATIC_VALID,P1,NOT_TESTED
+table,TABLE,solid(default),thaumcraft:block/table,thaumcraft:models/table,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+taint_crust,TAINT_CRUST,solid(default),thaumcraft:block/taint_crust,thaumcraft:block/taint_crust,False,,STATIC_VALID,P1,NOT_TESTED
+taint_fibres,TAINT_FIBRES,cutout,thaumcraft:block/taint_fibres_down | thaumcraft:block/taint_fibres_east | thaumcraft:block/taint_fibres_north | thaumcraft:block/taint_fibres_south | thaumcraft:block/taint_fibres_up | thaumcraft:block/taint_fibres_west | thaumcraft:block/taint_spore_stalk_1 | thaumcraft:block/taint_spore_stalk_2 | thaumcraft:block/taintgrass1 | thaumcraft:block/taintgrass2,thaumcraft:block/tc4/taint_fibres | thaumcraft:block/tc4/taint_spore_stalk_1 | thaumcraft:block/tc4/taint_spore_stalk_2 | thaumcraft:block/tc4/taintgrass1 | thaumcraft:block/tc4/taintgrass2,True,,STATIC_VALID,P1,NOT_TESTED
+taint_soil,TAINT_SOIL,solid(default),thaumcraft:block/taint_soil,thaumcraft:block/taint_soil,False,,STATIC_VALID,P1,NOT_TESTED
+tainted_soil,TAINTED_SOIL,solid(default),thaumcraft:block/tainted_soil,thaumcraft:block/tainted_soil,False,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle,TALLOW_CANDLE,cutout,thaumcraft:block/tallow_candle,thaumcraft:block/tallow_candle | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_black,TALLOW_CANDLE_BLACK,cutout,thaumcraft:block/tallow_candle_black,thaumcraft:block/tallow_candle_black | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_blue,TALLOW_CANDLE_BLUE,cutout,thaumcraft:block/tallow_candle_blue,thaumcraft:block/tallow_candle_blue | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_brown,TALLOW_CANDLE_BROWN,cutout,thaumcraft:block/tallow_candle_brown,thaumcraft:block/tallow_candle_brown | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_cyan,TALLOW_CANDLE_CYAN,cutout,thaumcraft:block/tallow_candle_cyan,thaumcraft:block/tallow_candle_cyan | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_gray,TALLOW_CANDLE_GRAY,cutout,thaumcraft:block/tallow_candle_gray,thaumcraft:block/tallow_candle_gray | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_green,TALLOW_CANDLE_GREEN,cutout,thaumcraft:block/tallow_candle_green,thaumcraft:block/tallow_candle_green | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_light_blue,TALLOW_CANDLE_LIGHT_BLUE,cutout,thaumcraft:block/tallow_candle_light_blue,thaumcraft:block/tallow_candle_light_blue | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_light_gray,TALLOW_CANDLE_LIGHT_GRAY,cutout,thaumcraft:block/tallow_candle_light_gray,thaumcraft:block/tallow_candle_light_gray | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_lime,TALLOW_CANDLE_LIME,cutout,thaumcraft:block/tallow_candle_lime,thaumcraft:block/tallow_candle_lime | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_magenta,TALLOW_CANDLE_MAGENTA,cutout,thaumcraft:block/tallow_candle_magenta,thaumcraft:block/tallow_candle_magenta | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_orange,TALLOW_CANDLE_ORANGE,cutout,thaumcraft:block/tallow_candle_orange,thaumcraft:block/tallow_candle_orange | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_pink,TALLOW_CANDLE_PINK,cutout,thaumcraft:block/tallow_candle_pink,thaumcraft:block/tallow_candle_pink | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_purple,TALLOW_CANDLE_PURPLE,cutout,thaumcraft:block/tallow_candle_purple,thaumcraft:block/tallow_candle_purple | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_red,TALLOW_CANDLE_RED,cutout,thaumcraft:block/tallow_candle_red,thaumcraft:block/tallow_candle_red | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tallow_candle_yellow,TALLOW_CANDLE_YELLOW,cutout,thaumcraft:block/tallow_candle_yellow,thaumcraft:block/tallow_candle_yellow | thaumcraft:block/tc4/candlestub,True,,STATIC_VALID,P1,NOT_TESTED
+tc4_block_arcane_spa,ARCANE_SPA_BLOCK_ENTITY,solid(default),thaumcraft:block/tc4_block_arcane_spa,thaumcraft:block/tc4/pedestal_top | thaumcraft:block/tc4/spa_side | thaumcraft:block/tc4/spa_top,False,,STATIC_VALID,P1,NOT_TESTED
+tc4_block_banner,TC4_BANNER_BLOCK_ENTITY,solid(default),thaumcraft:block/tc4_block_banner,thaumcraft:block/greatwood_planks,False,,STATIC_VALID,P1,NOT_TESTED
+tc4_block_crystal_cluster,BALANCED_CRYSTAL,solid(default),thaumcraft:block/tc4_block_crystal_cluster,thaumcraft:block/tc4_block_crystal_cluster,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tc4_block_focal_manipulator,FOCAL_MANIPULATOR,solid(default),thaumcraft:block/tc4_block_focal_manipulator,thaumcraft:models/wandtable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tc4_block_tallow,TALLOW_BLOCK,solid(default),thaumcraft:block/tc4_block_tallow,thaumcraft:block/tc4_block_tallow | thaumcraft:block/tc4_block_tallow_top,False,,STATIC_VALID,P1,NOT_TESTED
+tc4_block_thaumium,THAUMIUM_STORAGE_BLOCK,solid(default),thaumcraft:block/tc4_block_thaumium,thaumcraft:block/tc4_block_thaumium,False,,STATIC_VALID,P1,NOT_TESTED
+tc4_jar_brain,BRAIN_JAR_BLOCK_ENTITY,solid(default),thaumcraft:block/tc4_jar_brain,,False,,STATIC_VALID,P0,NOT_TESTED
+tc4_mirrorframe,MAGIC_MIRROR,translucent,thaumcraft:block/tc4_mirrorframe_down_linked | thaumcraft:block/tc4_mirrorframe_down_unlinked | thaumcraft:block/tc4_mirrorframe_east_linked | thaumcraft:block/tc4_mirrorframe_east_unlinked | thaumcraft:block/tc4_mirrorframe_north_linked | thaumcraft:block/tc4_mirrorframe_north_unlinked | thaumcraft:block/tc4_mirrorframe_south_linked | thaumcraft:block/tc4_mirrorframe_south_unlinked | thaumcraft:block/tc4_mirrorframe_up_linked | thaumcraft:block/tc4_mirrorframe_up_unlinked | thaumcraft:block/tc4_mirrorframe_west_linked | thaumcraft:block/tc4_mirrorframe_west_unlinked,thaumcraft:block/tc4/mirrorframe | thaumcraft:block/tc4/mirrorpane | thaumcraft:block/tc4/mirrorpanetrans,True,,STATIC_VALID,P1,NOT_TESTED
+tc4_mirrorframe2,ESSENTIA_MIRROR,translucent,thaumcraft:block/tc4_mirrorframe2_down_linked | thaumcraft:block/tc4_mirrorframe2_down_unlinked | thaumcraft:block/tc4_mirrorframe2_east_linked | thaumcraft:block/tc4_mirrorframe2_east_unlinked | thaumcraft:block/tc4_mirrorframe2_north_linked | thaumcraft:block/tc4_mirrorframe2_north_unlinked | thaumcraft:block/tc4_mirrorframe2_south_linked | thaumcraft:block/tc4_mirrorframe2_south_unlinked | thaumcraft:block/tc4_mirrorframe2_up_linked | thaumcraft:block/tc4_mirrorframe2_up_unlinked | thaumcraft:block/tc4_mirrorframe2_west_linked | thaumcraft:block/tc4_mirrorframe2_west_unlinked,thaumcraft:block/tc4/mirrorframe2 | thaumcraft:block/tc4/mirrorpane | thaumcraft:block/tc4/mirrorpanetrans,True,,STATIC_VALID,P1,NOT_TESTED
+tce_cable,TCE_CABLE,solid(default),thaumcraft:block/tce_cable,thaumcraft:block/tce_cable,False,,STATIC_VALID,P1,NOT_TESTED
+tce_cactus,TCE_CACTUS,solid(default),thaumcraft:block/tce_cactus,thaumcraft:block/tce_cactus,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tce_charger,TCE_CHARGER,solid(default),thaumcraft:block/tce_charger,thaumcraft:block/tce_charger,False,,STATIC_VALID,P1,NOT_TESTED
+tce_clear_glass,TCE_CLEAR_GLASS,solid(default),thaumcraft:block/tce_clear_glass,thaumcraft:block/tce_clear_glass,False,,STATIC_VALID,P1,NOT_TESTED
+tce_color_block,TCE_COLOR_BLOCK,solid(default),thaumcraft:block/tce_color_block,thaumcraft:block/tce_color_block,False,,STATIC_VALID,P1,NOT_TESTED
+tce_dark_infuser,TCE_DARK_INFUSER,solid(default),thaumcraft:block/tce_dark_infuser,thaumcraft:block/tce_dark_infuser,False,,STATIC_VALID,P1,NOT_TESTED
+tce_dark_silverwood,TCE_DARK_SILVERWOOD,solid(default),thaumcraft:block/tce_dark_silverwood,thaumcraft:block/tce_dark_silverwood,False,,STATIC_VALID,P1,NOT_TESTED
+tce_dark_silverwood_planks,TCE_DARK_SILVERWOOD_PLANKS,solid(default),thaumcraft:block/tce_dark_silverwood_planks,thaumcraft:block/tce_dark_silverwood_planks,False,,STATIC_VALID,P1,NOT_TESTED
+tce_exchanger,TCE_EXCHANGER,solid(default),thaumcraft:block/tce_exchanger,thaumcraft:block/tce_exchanger,False,,STATIC_VALID,P1,NOT_TESTED
+tce_hidden_warded,TCE_HIDDEN_WARDED,solid(default),thaumcraft:block/tce_hidden_warded,thaumcraft:block/tce_hidden_warded,False,,STATIC_VALID,P1,NOT_TESTED
+tce_ignis_fuel_block,TCE_IGNIS_FUEL_BLOCK,solid(default),thaumcraft:block/tce_ignis_fuel_block,thaumcraft:block/tce_ignis_fuel_block,False,,STATIC_VALID,P1,NOT_TESTED
+tce_infusion_info,TCE_INFUSION_INFO,solid(default),thaumcraft:block/tce_infusion_info,thaumcraft:block/tce_infusion_info,False,,STATIC_VALID,P1,NOT_TESTED
+tce_lava_block,TCE_LAVA_BLOCK,solid(default),thaumcraft:block/tce_lava_block,thaumcraft:block/tce_lava_block,False,,STATIC_VALID,P1,NOT_TESTED
+tce_magic_charger,TCE_MAGIC_CHARGER,solid(default),thaumcraft:block/tce_magic_charger,thaumcraft:block/tce_magic_charger,False,,STATIC_VALID,P1,NOT_TESTED
+tce_magic_generator,TCE_MAGIC_GENERATOR,solid(default),thaumcraft:block/tce_magic_generator,thaumcraft:block/tce_magic_generator,False,,STATIC_VALID,P1,NOT_TESTED
+tce_magic_solar_panel,TCE_MAGIC_SOLAR_PANEL,solid(default),thaumcraft:block/tce_magic_solar_panel,thaumcraft:block/tce_magic_solar_panel,False,,STATIC_VALID,P1,NOT_TESTED
+tce_open_warded,TCE_OPEN_WARDED,solid(default),thaumcraft:block/tce_open_warded,thaumcraft:block/tce_open_warded,False,,STATIC_VALID,P1,NOT_TESTED
+tce_teleporter,TCE_TELEPORTER,solid(default),thaumcraft:block/tce_teleporter,thaumcraft:block/tce_teleporter,False,,STATIC_VALID,P1,NOT_TESTED
+tce_tesla,TCE_TESLA,solid(default),thaumcraft:block/tce_tesla,thaumcraft:block/tce_tesla,False,,STATIC_VALID,P1,NOT_TESTED
+tce_warded_carpet,TCE_WARDED_CARPET,solid(default),thaumcraft:block/tce_warded_carpet,thaumcraft:block/tce_warded_carpet,False,,STATIC_VALID,P1,NOT_TESTED
+tce_warded_cover,TCE_WARDED_COVER,solid(default),thaumcraft:block/tce_warded_cover,thaumcraft:block/tce_warded_cover,False,,STATIC_VALID,P1,NOT_TESTED
+tce_warded_glass,TCE_WARDED_GLASS,solid(default),thaumcraft:block/tce_warded_glass,thaumcraft:block/tce_warded_glass,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tce_warded_pillar,TCE_WARDED_PILLAR,solid(default),thaumcraft:block/tce_warded_pillar,thaumcraft:block/tce_warded_pillar,False,,STATIC_VALID,P1,NOT_TESTED
+tce_warded_slab,TCE_WARDED_SLAB,solid(default),thaumcraft:block/tce_warded_slab,thaumcraft:block/tce_warded_slab,False,,STATIC_VALID,P1,NOT_TESTED
+tce_warded_wall,TCE_WARDED_WALL,solid(default),thaumcraft:block/tce_warded_wall,thaumcraft:block/tce_warded_wall,False,,STATIC_VALID,P1,NOT_TESTED
+temporary_hole,TEMPORARY_HOLE_BLOCK_ENTITY,solid(default),thaumcraft:block/temporary_hole,thaumcraft:block/temporary_hole,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+terra_crystal,TERRA_CRYSTAL,solid(default),thaumcraft:block/terra_crystal,thaumcraft:block/terra_crystal,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+thaumatorium,THAUMATORIUM_BLOCK_ENTITY,solid(default),thaumcraft:block/thaumatorium,thaumcraft:models/thaumatorium,False,,STATIC_VALID,P1,NOT_TESTED
+thaumic_crafting_cpu,THAUMIC_CRAFTING_CPU,solid(default),thaumcraft:block/thaumic_crafting_cpu,thaumcraft:block/thaumic_crafting_cpu,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+thaumic_energy_acceptor,THAUMIC_ENERGY_ACCEPTOR,solid(default),thaumcraft:block/thaumic_energy_acceptor,thaumcraft:block/thaumic_energy_acceptor,False,,STATIC_VALID,P1,NOT_TESTED
+thaumic_me_cable,THAUMIC_ME_CABLE,solid(default),thaumcraft:block/thaumic_me_cable,thaumcraft:block/thaumic_me_cable,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+thaumic_me_controller,THAUMIC_ME_CONTROLLER,solid(default),thaumcraft:block/thaumic_me_controller,thaumcraft:block/thaumic_me_controller,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+transvector_interface,TRANSVECTOR_INTERFACE_BLOCK_ENTITY,solid(default),thaumcraft:block/transvector_interface,thaumcraft:block/transvector_interface,False,,STATIC_VALID,P1,NOT_TESTED
+tt_animation_tablet,TT_ANIMATION_TABLET,solid(default),thaumcraft:block/tt_animation_tablet,thaumcraft:block/tt_animation_tablet,False,,STATIC_VALID,P1,NOT_TESTED
+tt_aspect_analyzer,TT_ASPECT_ANALYZER,solid(default),thaumcraft:block/tt_aspect_analyzer,thaumcraft:block/tt_aspect_analyzer,False,,STATIC_VALID,P2,NOT_TESTED
+tt_bedrock_portal,TT_BEDROCK_PORTAL,solid(default),thaumcraft:block/tt_bedrock_portal,thaumcraft:block/tt_bedrock_portal,False,,STATIC_VALID,P1,NOT_TESTED
+tt_dark_quartz_block,TT_DARK_QUARTZ_BLOCK,solid(default),thaumcraft:block/tt_dark_quartz_block,thaumcraft:block/tt_dark_quartz_block,False,,STATIC_VALID,P1,NOT_TESTED
+tt_enchanter,TT_ENCHANTER,solid(default),thaumcraft:block/tt_enchanter,thaumcraft:block/tt_enchanter,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_fire_air,TT_FIRE_AIR,solid(default),thaumcraft:block/tt_fire_air,thaumcraft:block/tt_fire_air,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_fire_chaos,TT_FIRE_CHAOS,solid(default),thaumcraft:block/tt_fire_chaos,thaumcraft:block/tt_fire_chaos,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_fire_earth,TT_FIRE_EARTH,solid(default),thaumcraft:block/tt_fire_earth,thaumcraft:block/tt_fire_earth,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_fire_order,TT_FIRE_ORDER,solid(default),thaumcraft:block/tt_fire_order,thaumcraft:block/tt_fire_order,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_fire_water,TT_FIRE_WATER,solid(default),thaumcraft:block/tt_fire_water,thaumcraft:block/tt_fire_water,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_forcefield,TT_FORCEFIELD,solid(default),thaumcraft:block/tt_forcefield,thaumcraft:block/tt_forcefield,False,,STATIC_VALID,P1,NOT_TESTED
+tt_funnel,TT_FUNNEL,solid(default),thaumcraft:block/tt_funnel,thaumcraft:block/tt_funnel,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_gaseous_light,TT_GASEOUS_LIGHT,solid(default),thaumcraft:block/tt_gaseous_light,thaumcraft:block/tt_gaseous_light,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_gaseous_shadow,TT_GASEOUS_SHADOW,solid(default),thaumcraft:block/tt_gaseous_shadow,thaumcraft:block/tt_gaseous_shadow,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_golem_connector,TT_GOLEM_CONNECTOR,solid(default),thaumcraft:block/tt_golem_connector,thaumcraft:block/tt_golem_connector,False,,STATIC_VALID,P1,NOT_TESTED
+tt_infused_farmland,TT_INFUSED_FARMLAND,solid(default),thaumcraft:block/tt_infused_farmland,thaumcraft:block/tt_infused_farmland,False,,STATIC_VALID,P1,NOT_TESTED
+tt_mob_magnet,TT_MOB_MAGNET,solid(default),thaumcraft:block/tt_mob_magnet,thaumcraft:block/tt_mob_magnet,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_mobilizer,TT_MOBILIZER,solid(default),thaumcraft:block/tt_mobilizer,thaumcraft:block/tt_mobilizer,False,,STATIC_VALID,P1,NOT_TESTED
+tt_mobilizer_relay,TT_MOBILIZER_RELAY,solid(default),thaumcraft:block/tt_mobilizer_relay,thaumcraft:block/tt_mobilizer_relay,False,,STATIC_VALID,P1,NOT_TESTED
+tt_nitor_gas,TT_NITOR_GAS,solid(default),thaumcraft:block/tt_nitor_gas,thaumcraft:block/tt_nitor_gas,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_remote_placer,TT_REMOTE_PLACER,solid(default),thaumcraft:block/tt_remote_placer,thaumcraft:block/tt_remote_placer,False,,STATIC_VALID,P1,NOT_TESTED
+tt_repairer,TT_REPAIRER,solid(default),thaumcraft:block/tt_repairer,thaumcraft:block/tt_repairer,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+tt_summon_tablet,TT_SUMMON_TABLET,solid(default),thaumcraft:block/tt_summon_tablet,thaumcraft:block/tt_summon_tablet,False,,STATIC_VALID,P1,NOT_TESTED
+tt_transvector_dislocator,TT_TRANSVECTOR_DISLOCATOR,solid(default),thaumcraft:block/tt_transvector_dislocator,thaumcraft:block/tt_transvector_dislocator,False,,STATIC_VALID,P1,NOT_TESTED
+tt_warp_gate,TT_WARP_GATE,solid(default),thaumcraft:block/tt_warp_gate,thaumcraft:block/tt_warp_gate,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+vis_charge_relay,VIS_CHARGE_RELAY_BLOCK_ENTITY,solid(default),thaumcraft:block/vis_charge_relay,thaumcraft:block/vis_relay,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+vis_interface,VIS_INTERFACE,solid(default),thaumcraft:block/vis_interface,thaumcraft:block/vis_interface,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+vis_relay,VIS_RELAY,solid(default),thaumcraft:block/vis_relay,thaumcraft:block/vis_relay,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED
+void_essentia_jar,VOID_ESSENTIA_JAR,translucent,thaumcraft:block/void_essentia_jar,thaumcraft:block/tc4/jar_bottom | thaumcraft:block/tc4/jar_side_void | thaumcraft:block/tc4/jar_top_void,True,,STATIC_VALID,P0,NOT_TESTED
+warded_block,WARDED_BLOCK_ENTITY,solid(default),thaumcraft:block/warded_block,,False,,STATIC_VALID,P1,NOT_TESTED
+warded_glass,WARDED_GLASS_BLOCK_ENTITY,solid(default),thaumcraft:block/warded_glass,thaumcraft:block/tc4/warded_glass_1,True,,STATIC_RISK_SOLID_WITH_ALPHA,P1,NOT_TESTED

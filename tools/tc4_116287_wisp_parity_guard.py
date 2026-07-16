@@ -40,7 +40,7 @@ for token in (
 ):
     need(entity, token)
 need(renderer, '"textures/misc/wisp.png"')
-need(renderer, "RenderType.entityTranslucentEmissive")
+need(renderer, "TC4NodeRenderTypes.node(texture, true, false)")
 need(item, 'putString(TAG_ASPECT, aspect.id())')
 need(registry, 'ENTITY_TYPES.register("wisp"')
 need(registry, ".sized(0.9F, 0.9F)")

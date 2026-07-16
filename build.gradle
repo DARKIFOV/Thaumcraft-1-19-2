@@ -5,7 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.91' // Forge 1.19.2 compile hotfix: pass the full Monster spawn-rule context.
+version = '11.62.92' // Full TC4 texture/UV audit, Wisp atlas parity and Alchemical Furnace GUI restoration.
 // v11.62.54 gameplay baseline marker: version = '11.62.54'
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'

@@ -37,4 +37,4 @@ if errors:
         print("::error::" + error)
     sys.exit(1)
 
-print("TC4 11.62.91 retained Monster spawn-rules compile hotfix guard: 10/10 PASS")
+print("TC4 11.62.92 retained Monster spawn-rules compile hotfix guard: 10/10 PASS")
