@@ -30,6 +30,8 @@ for path in SRC.rglob("*.java"):
         errors.append(f"{rel}: no-arg BlockState#canBeReplaced() is unavailable in Mojmap 1.19.2; use the 1.19.2 material/context API")
     if "Monster.checkMonsterSpawnRules(level, pos, random)" in text:
         errors.append(f"{rel}: Mojmap 1.19.2 Monster.checkMonsterSpawnRules requires EntityType, ServerLevelAccessor, MobSpawnType, BlockPos and RandomSource")
+    if path.name == "TC4WispEntity.java" and "Monster.checkMonsterSpawnRules(type, level, reason, pos, random)" in text:
+        errors.append(f"{rel}: TC4WispEntity extends FlyingMob, but Monster.checkMonsterSpawnRules requires EntityType<? extends Monster>; decompose the hostile spawn checks")
 
 mod = (SRC / "com/darkifov/thaumcraft/ThaumcraftMod.java").read_text(encoding="utf-8")
 required = "RegistryObject<PurifyingFluidBlock> PURIFYING_FLUID_BLOCK"

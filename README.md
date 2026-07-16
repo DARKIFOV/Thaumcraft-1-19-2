@@ -1,6 +1,11 @@
-# Thaumcraft Legacy Rebuild — v11.62.90
+# Thaumcraft Legacy Rebuild — v11.62.91
 
-## v11.62.90 Forge compile hotfix — Monster spawn rule signature
+
+## 11.62.91 — Wisp FlyingMob spawn-rules compile hotfix
+
+Fixes GitHub Actions run 79798875408: `TC4WispEntity` extends `FlyingMob`, so its `EntityType<TC4WispEntity>` cannot be passed to `Monster.checkMonsterSpawnRules`, whose type bound is `EntityType<? extends Monster>`. The predicate now preserves the same hostile-spawn contract by checking peaceful difficulty, `Monster.isDarkEnoughToSpawn`, `Mob.checkMobSpawnRules`, and the original nearby-Wisp cap separately.
+
+## v11.62.91 Forge compile hotfix — Monster spawn rule signature
 
 GitHub Actions run `79795527703` reached `:compileJava` and exposed one independent blocker in `TC4WispEntity`: the Forge/Mojmap 1.19.2 `Monster.checkMonsterSpawnRules` overload requires the complete five-argument spawn context (`EntityType`, `ServerLevelAccessor`, `MobSpawnType`, `BlockPos`, `RandomSource`). The old three-argument call was replaced without changing Wisp density or biome-spawn behavior.
 

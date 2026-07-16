@@ -244,8 +244,9 @@ public class TC4WispEntity extends FlyingMob implements Enemy {
                                                MobSpawnType reason,
                                                BlockPos pos,
                                                RandomSource random) {
-        if (!Mob.checkMobSpawnRules(type, level, reason, pos, random)
-                || !Monster.checkMonsterSpawnRules(type, level, reason, pos, random)) {
+        if (level.getDifficulty() == Difficulty.PEACEFUL
+                || !Monster.isDarkEnoughToSpawn(level, pos, random)
+                || !Mob.checkMobSpawnRules(type, level, reason, pos, random)) {
             return false;
         }
         int nearby = level.getEntitiesOfClass(TC4WispEntity.class,
