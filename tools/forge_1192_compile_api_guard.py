@@ -28,6 +28,8 @@ for path in SRC.rglob("*.java"):
         errors.append(f"{rel}: BlockPos.containing(double,double,double) is unavailable in Mojmap 1.19.2; floor coordinates explicitly")
     if ".canBeReplaced()" in text:
         errors.append(f"{rel}: no-arg BlockState#canBeReplaced() is unavailable in Mojmap 1.19.2; use the 1.19.2 material/context API")
+    if "Monster.checkMonsterSpawnRules(level, pos, random)" in text:
+        errors.append(f"{rel}: Mojmap 1.19.2 Monster.checkMonsterSpawnRules requires EntityType, ServerLevelAccessor, MobSpawnType, BlockPos and RandomSource")
 
 mod = (SRC / "com/darkifov/thaumcraft/ThaumcraftMod.java").read_text(encoding="utf-8")
 required = "RegistryObject<PurifyingFluidBlock> PURIFYING_FLUID_BLOCK"

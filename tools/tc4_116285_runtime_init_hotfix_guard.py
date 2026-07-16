@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for the 11.62.84 client initialization crash fixed in v11.62.89."""
+"""Regression guard for the 11.62.84 client initialization crash fixed in v11.62.90."""
 from pathlib import Path
 import re
 import sys
@@ -27,9 +27,9 @@ def forbid(rel: str, token: str) -> None:
     if token in read(rel):
         errors.append(f"{rel}: forbidden {token!r}")
 
-need("build.gradle", "version = '11.62.89'")
+need("build.gradle", "version = '11.62.90'")
 need("build.gradle", "net.minecraftforge:forge:1.19.2-43.5.2")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.89"')
+need("src/main/resources/META-INF/mods.toml", 'version="11.62.90"')
 
 bone_bow = "src/main/java/com/darkifov/thaumcraft/item/BoneBowItem.java"
 need(bone_bow, "super(properties.durability(512));")
@@ -50,13 +50,13 @@ if bad_chains:
 
 need(".github/workflows/build.yml", "Validate retained v11.62.85 runtime initialization hotfix")
 need(".github/workflows/release.yml", "Validate retained v11.62.85 runtime initialization hotfix")
-need("runtime_artifacts/runtime_test_manifest.template.json", '"version": "11.62.89"')
-need("tools/validate_runtime_manifest.py", 'default="11.62.89"')
+need("runtime_artifacts/runtime_test_manifest.template.json", '"version": "11.62.90"')
+need("tools/validate_runtime_manifest.py", 'default="11.62.90"')
 
 if errors:
-    print(f"TC4 11.62.89 runtime init hotfix guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.62.90 runtime init hotfix guard: FAIL ({len(errors)} problems; {checks} checks)")
     for error in errors:
         print(" -", error)
     sys.exit(1)
 
-print(f"TC4 11.62.89 runtime init hotfix guard: PASS ({checks}/{checks} checks)")
+print(f"TC4 11.62.90 runtime init hotfix guard: PASS ({checks}/{checks} checks)")

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static source/resource contract guard for v11.62.89 TC4 taint ecology parity."""
+"""Static source/resource contract guard for v11.62.90 TC4 taint ecology parity."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -25,8 +25,8 @@ client=text('src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java')
 state=json.loads(text('src/main/resources/assets/thaumcraft/blockstates/taint_fibres.json'))
 manifest=json.loads(text('runtime_artifacts/runtime_test_manifest.template.json'))
 
-check('build version', "version = '11.62.89'" in build)
-check('mods version', 'version="11.62.89"' in mods)
+check('build version', "version = '11.62.90'" in build)
+check('mods version', 'version="11.62.90"' in mods)
 check('taint config rate', 'TAINT_SPREAD_RATE' in text('src/main/java/com/darkifov/thaumcraft/config/ThaumcraftConfig.java'))
 check('taint config spores', 'SPAWN_TAINT_SPORES' in text('src/main/java/com/darkifov/thaumcraft/config/ThaumcraftConfig.java'))
 check('persistent taint columns', 'putLongArray' in regions and 'setDirty()' in regions)
@@ -81,12 +81,12 @@ required={
  'taint.spider_geometry_eyes_poison_drops',
 }
 ids={x.get('id') for x in manifest.get('tests',[])}
-check('manifest version', manifest.get('version')=='11.62.89')
+check('manifest version', manifest.get('version')=='11.62.90')
 check('manifest retains at least the 56 taint-era cases', len(manifest.get('tests',[])) >= 56)
 for i in required: check(f'runtime case {i}', i in ids)
 
 failed=[n for n,o in checks if not o]
-payload={'version':'11.62.89','scope':'TC4 taint blocks/fibres, persistent spread, taint spider and stationary spore source contracts','checks_total':len(checks),'checks_passed':len(checks)-len(failed),'failed':failed,'runtime_verified':False,'known_deviations':['modern biome palette/colour/weather mutation not implemented','flying EntityTaintSporeSwarmer not implemented']}
+payload={'version':'11.62.90','scope':'TC4 taint blocks/fibres, persistent spread, taint spider and stationary spore source contracts','checks_total':len(checks),'checks_passed':len(checks)-len(failed),'failed':failed,'runtime_verified':False,'known_deviations':['modern biome palette/colour/weather mutation not implemented','flying EntityTaintSporeSwarmer not implemented']}
 out=ROOT/'reports/tc4_116280_taint_ecology_parity_audit.json'; out.parent.mkdir(exist_ok=True); out.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
 print(f"Taint ecology parity guard: {payload['checks_passed']}/{payload['checks_total']}")
 if failed:

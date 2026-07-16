@@ -1,14 +1,10 @@
-# Thaumcraft Legacy Rebuild — v11.62.89
+# Thaumcraft Legacy Rebuild — v11.62.90
 
+## v11.62.90 Forge compile hotfix — Monster spawn rule signature
 
-## v11.62.89 Forge compile hotfix — ServerLevelAccessor
+GitHub Actions run `79795527703` reached `:compileJava` and exposed one independent blocker in `TC4WispEntity`: the Forge/Mojmap 1.19.2 `Monster.checkMonsterSpawnRules` overload requires the complete five-argument spawn context (`EntityType`, `ServerLevelAccessor`, `MobSpawnType`, `BlockPos`, `RandomSource`). The old three-argument call was replaced without changing Wisp density or biome-spawn behavior.
 
-- Fixes GitHub Actions run `79791726865`, where `:compileJava` reported four errors caused by importing `ServerLevelAccessor` from the wrong Mojmap package.
-- `TC4WispEntity` and `TC4ThaumicSlimeEntity` now import `net.minecraft.world.level.ServerLevelAccessor`, the Forge/Mojmap 1.19.2 location.
-- No Wisp or Thaumic Slime gameplay behavior was changed.
-- The generic Forge 1.19.2 compile API guard now rejects the wrong package across the full Java tree.
-- Adds `tc4_116289_server_level_accessor_compile_guard.py` and runs it before Gradle in both workflows.
-- All 55 pre-build/static checks pass; a networked CI rerun is still required for a confirmed JAR.
+A dedicated guard now rejects the unavailable three-argument call before Gradle starts.
 
 ## v11.62.84 Forge compile hotfix — Traveling Trunk and Taint Spore
 
