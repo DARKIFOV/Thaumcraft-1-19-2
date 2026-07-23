@@ -1,0 +1,51 @@
+{
+  "textures": {
+    "down": "thaumcraft:block/tc4/furnace10",
+    "up": "thaumcraft:block/tc4/furnace10",
+    "north": "thaumcraft:block/tc4/furnace6",
+    "south": "thaumcraft:block/tc4/furnace6",
+    "west": "thaumcraft:block/tc4/furnace6",
+    "east": "thaumcraft:block/tc4/furnace6",
+    "particle": "thaumcraft:block/tc4/furnace6"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

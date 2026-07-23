@@ -1,5 +1,7 @@
 package com.darkifov.thaumcraft.wand;
 
+import com.darkifov.thaumcraft.entity.FollowingItemEntity;
+
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.block.WandItem;
 import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
@@ -112,8 +114,9 @@ public final class EqualTradeSwapRuntime {
             if (drop.isEmpty()) continue;
             ItemStack remainder = drop.copy();
             if (player.getInventory().add(remainder)) continue;
-            ItemEntity entity = new ItemEntity(level, task.pos().getX() + 0.5D, task.pos().getY() + 0.5D,
-                    task.pos().getZ() + 0.5D, remainder);
+            FollowingItemEntity entity = new FollowingItemEntity(level,
+                    task.pos().getX() + 0.5D, task.pos().getY() + 0.5D, task.pos().getZ() + 0.5D,
+                    remainder, player, 5);
             entity.setDefaultPickUpDelay();
             level.addFreshEntity(entity);
         }

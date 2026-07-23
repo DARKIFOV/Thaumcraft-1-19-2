@@ -1,0 +1,22 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.44
+
+SOURCE STATUS
+- Required Forge GameTest smoke suite implemented.
+- Six required server-only tests registered through RegisterGameTestsEvent.
+- Static CI: 108/108 PASS.
+- JSON validation: 2107/2107 PASS.
+- Runtime manifest template: 313 scenarios, PASS structure.
+- Generic registry fallback: 0.
+
+FORGE BUILD STATUS
+- No confirmed JAR produced.
+- ./gradlew compileJava/build stopped before project configuration.
+- Reason: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1.
+- Available runtime: OpenJDK 21.0.10.
+- Required development baseline for Forge/Minecraft 1.19.2: Java 17.
+
+GAMETEST STATUS
+- runGameTestServer was not executed successfully.
+- Required GameTests: 6.
+- Runtime evidence status: NOT_TESTED.
+- CI is configured to preserve the GameTest log and fail when any required test fails.

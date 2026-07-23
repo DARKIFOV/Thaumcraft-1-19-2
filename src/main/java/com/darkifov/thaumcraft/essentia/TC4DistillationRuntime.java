@@ -21,10 +21,10 @@ import java.util.Map;
  * aspect. The furnace itself is never exposed as a tube source.
  */
 public final class TC4DistillationRuntime {
-    public static final int ORIGINAL_MAX_ALEMBICS_ABOVE_FURNACE = 5;
-    public static final int ORIGINAL_DISTILLATION_INTERVAL_TICKS = 40;
-    public static final int ORIGINAL_ALUMENTUM_INTERVAL_TICKS = 20;
-    public static final int ORIGINAL_DISTILLATION_STEP = 1;
+    public static final int ORIGINAL_MAX_ALEMBICS_ABOVE_FURNACE = com.darkifov.thaumcraft.alchemy.TC4AlchemicalFurnaceParity.MAX_ALEMBICS;
+    public static final int ORIGINAL_DISTILLATION_INTERVAL_TICKS = com.darkifov.thaumcraft.alchemy.TC4AlchemicalFurnaceParity.NORMAL_INTERVAL;
+    public static final int ORIGINAL_ALUMENTUM_INTERVAL_TICKS = com.darkifov.thaumcraft.alchemy.TC4AlchemicalFurnaceParity.ALUMENTUM_INTERVAL;
+    public static final int ORIGINAL_DISTILLATION_STEP = com.darkifov.thaumcraft.alchemy.TC4AlchemicalFurnaceParity.DISTILLATION_STEP;
 
     private TC4DistillationRuntime() {
     }
@@ -34,7 +34,7 @@ public final class TC4DistillationRuntime {
             return;
         }
         int interval = Math.max(1, furnace.nextDistillationInterval());
-        if (level.getGameTime() % interval != 0L) {
+        if (furnace.distillationCounter() % interval != 0) {
             return;
         }
 

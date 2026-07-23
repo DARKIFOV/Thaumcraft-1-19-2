@@ -1,0 +1,4 @@
+COMMAND: javac --release 17 -proc:none -d <tmp> TC4AlchemicalCentrifugeParity.java TC4AlchemicalCentrifugeFullClosureSelfTest.java
+TC4AlchemicalCentrifugeFullClosureSelfTest: PASS
+JAVAC_RELEASE17_EXIT_CODE=0
+JAVA17_SELF_TEST_EXIT_CODE=0

@@ -16,14 +16,16 @@ public final class ClientScanData {
     private static final Set<String> OBJECTS = new LinkedHashSet<>();
     private static final Set<String> ENTITIES = new LinkedHashSet<>();
     private static final Set<String> NODES = new LinkedHashSet<>();
+    private static final Set<String> PHENOMENA = new LinkedHashSet<>();
 
     private ClientScanData() {
     }
 
-    public static void set(Set<String> objects, Set<String> entities, Set<String> nodes) {
+    public static void set(Set<String> objects, Set<String> entities, Set<String> nodes, Set<String> phenomena) {
         replace(OBJECTS, objects);
         replace(ENTITIES, entities);
         replace(NODES, nodes);
+        replace(PHENOMENA, phenomena);
     }
 
     private static void replace(Set<String> target, Set<String> source) {
@@ -45,6 +47,10 @@ public final class ClientScanData {
         return key != null && NODES.contains(key.trim());
     }
 
+    public static boolean hasPhenomenon(String key) {
+        return key != null && PHENOMENA.contains(key.trim());
+    }
+
     public static Set<String> objects() {
         return Collections.unmodifiableSet(OBJECTS);
     }
@@ -56,4 +62,6 @@ public final class ClientScanData {
     public static Set<String> nodes() {
         return Collections.unmodifiableSet(NODES);
     }
+
+    public static Set<String> phenomena() { return Collections.unmodifiableSet(PHENOMENA); }
 }

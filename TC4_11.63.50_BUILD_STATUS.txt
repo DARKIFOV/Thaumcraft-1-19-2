@@ -1,0 +1,10 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.50
+BUILD_STATUS=FAIL_NOT_OBTAINED
+GRADLE_RC=1
+COMMAND=./gradlew build --stacktrace --no-daemon
+BLOCKER=java.net.UnknownHostException: services.gradle.org
+INSTALLED_JAVA=OpenJDK 21.0.10
+TARGET_DEVELOPMENT_JAVA=Java 17
+JAR_CREATED=NO
+REQUIRED_GAMETESTS=18
+GAMETEST_STATUS=NOT_TESTED

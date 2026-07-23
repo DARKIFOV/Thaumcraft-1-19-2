@@ -1,0 +1,27 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.45
+
+SOURCE STATUS
+- Energized Aura Node transient-per-tick Vis pool implemented.
+- Loaded-chunk Vis Relay LoS/attunement graph implemented.
+- Vis Amulet relay recharge and exact five-centivis Workbench Charger implemented.
+- Required server-only Forge GameTest suite expanded from 6 to 9 tests.
+- Deferred world migration from v11.63.43 and all v11.63.44 tests retained.
+- Static CI: 109/109 PASS.
+- JSON validation: 2107/2107 PASS.
+- Runtime manifest template: 322 scenarios, PASS structure.
+- Generic registry fallback: 0.
+
+FORGE BUILD STATUS
+- No confirmed JAR produced.
+- ./gradlew compileJava stopped before project configuration.
+- Reason: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1.
+- Gradle return code: 1.
+- Available runtime: OpenJDK 21.0.10.
+- Project development baseline for Forge/Minecraft 1.19.2: Java 17.
+
+GAMETEST STATUS
+- runGameTestServer was not executed successfully because compileJava/build could not start.
+- Required GameTests: 9.
+- New relay GameTests: 3.
+- Runtime evidence status: NOT_TESTED.
+- CI is configured to preserve build/GameTest logs and fail on any required test failure.

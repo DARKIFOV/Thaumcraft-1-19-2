@@ -1,0 +1,26 @@
+Thaumcraft Legacy Rebuild v11.64.02 package manifest
+
+Base:
+- v11.64.01 Research Note completion transaction parity
+
+Production changes:
+- Added TC4ResearchCompletionWarpParity.
+- OriginalResearchProgression now splits research warp into permanent/sticky buckets exactly like TC4 ResearchManager.completeResearch.
+- Removed the all-permanent research-warp path.
+
+Coverage changes:
+- Added 3 GameTests (128 -> 131).
+- Runtime manifest scenarios: 456 -> 459.
+- Added source evidence, source guard, pure-Java self-test and targeted Java parse guard.
+- Made the v11.64.01 completion guard count-forward-compatible without weakening its named contract checks.
+
+Static result:
+- Focused CI: 22/22 PASS in split execution.
+- JSON resources: 2049/2049 PASS.
+- Recipe registrations: 258/258 STATICALLY MAPPED.
+- Smelting bonuses: 18 separate.
+
+Runtime boundary:
+- Gradle build not obtained: Gradle 7.5.1 download failed with UnknownHostException.
+- Environment Java: 21; target Java: 17.
+- Forge GameTest runtime: NOT VERIFIED.

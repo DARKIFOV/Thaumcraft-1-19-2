@@ -1,0 +1,505 @@
+===== CHECK 93/126: python3 tools/tc4_116329_simple_resource_families_parity_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 38, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 36, in main
+    req(runtime['version'] in ('11.63.52','11.63.53','11.63.54', '11.63.55', '11.63.56', '11.63.58', '11.63.59') and len(runtime['tests'])>=347,'runtime manifest')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 8, in req
+    if not c: raise AssertionError(m)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: runtime manifest
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116329_simple_resource_families_parity_guard.py", line 8, in <module>
+    subprocess.run([sys.executable, str(R / "tools/tc4_116352_duplicate_registry_purge_guard.py")], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python3', '/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py']' returned non-zero exit status 1.
+
+RC=1
+DURATION=7.48s
+===== CHECK 94/126: python3 tools/tc4_116330_passive_crafting_components_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+FAIL | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:CRAFTING_COMPONENT
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:String material()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:class TC4EmptyGolemUpgradeItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:properties.stacksTo(64)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:tc4_golem_upgrade_empty.desc
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_coin"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"gold_coin"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_dust"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"salis_mundus"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_filter"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"vis_filter"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_mirrorglass"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"mirrored_glass"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_voidseed"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"void_seed"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_golem_upgrade_empty"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:Rarity.UNCOMMON
+PASS | dedicated_tc4_coin
+PASS | dedicated_tc4_dust
+PASS | dedicated_tc4_filter
+PASS | dedicated_tc4_mirrorglass
+PASS | dedicated_tc4_voidseed
+PASS | dedicated_tc4_golem_upgrade_empty
+PASS | model_tc4_coin
+PASS | model_tc4_dust
+PASS | model_tc4_filter
+PASS | model_tc4_mirrorglass
+PASS | model_tc4_voidseed
+PASS | model_tc4_golem_upgrade_empty
+PASS | texture_tc4_coin
+PASS | texture_tc4_dust
+PASS | texture_tc4_filter
+PASS | texture_tc4_mirrorglass
+PASS | texture_tc4_voidseed
+PASS | texture_tc4_golem_upgrade_empty
+PASS | lang_en_us.json_tc4_coin
+PASS | lang_en_us.json_tc4_dust
+PASS | lang_en_us.json_tc4_filter
+PASS | lang_en_us.json_tc4_mirrorglass
+PASS | lang_en_us.json_tc4_voidseed
+PASS | lang_en_us.json_tc4_golem_upgrade_empty
+PASS | tooltip_en_us.json
+PASS | lang_ru_ru.json_tc4_coin
+PASS | lang_ru_ru.json_tc4_dust
+PASS | lang_ru_ru.json_tc4_filter
+PASS | lang_ru_ru.json_tc4_mirrorglass
+PASS | lang_ru_ru.json_tc4_voidseed
+PASS | lang_ru_ru.json_tc4_golem_upgrade_empty
+PASS | tooltip_ru_ru.json
+PASS | english_name_tc4_coin
+PASS | english_name_tc4_dust
+PASS | english_name_tc4_filter
+PASS | english_name_tc4_mirrorglass
+PASS | english_name_tc4_voidseed
+PASS | english_name_tc4_golem_upgrade_empty
+PASS | tag_thaumcraft:tc4_coin
+PASS | tag_thaumcraft:tc4_dust
+PASS | tag_thaumcraft:tc4_filter
+PASS | tag_thaumcraft:tc4_mirrorglass
+PASS | tag_thaumcraft:tc4_voidseed
+PASS | tag_thaumcraft:tc4_golem_upgrade_empty
+PASS | family_tag_tc4_coin
+PASS | family_tag_tc4_dust
+PASS | family_tag_tc4_filter
+PASS | family_tag_tc4_mirrorglass
+PASS | family_tag_tc4_voidseed
+PASS | family_tag_tc4_golem_upgrade_empty
+PASS | recipe_reference_tc4_dust
+PASS | recipe_reference_tc4_filter
+PASS | recipe_reference_tc4_mirrorglass
+PASS | recipe_reference_tc4_voidseed
+PASS | recipe_reference_tc4_golem_upgrade_empty
+PASS | runtime_items.passive_components_registry_and_names
+PASS | runtime_items.passive_components_recipe_compatibility
+PASS | runtime_items.passive_components_tags
+PASS | runtime_items.blank_golem_upgrade_properties
+PASS | runtime_items.passive_components_save_reload
+PASS | runtime_items.passive_components_multiplayer_dedicated
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_coin
+PASS | not_fallback_tc4_dust
+PASS | not_fallback_tc4_filter
+PASS | not_fallback_tc4_mirrorglass
+PASS | not_fallback_tc4_voidseed
+PASS | not_fallback_tc4_golem_upgrade_empty
+PASS | .github/workflows/build.yml:python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+PASS | .github/workflows/release.yml:python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+PASS | README.md:11.63.30 — Passive Crafting Components
+PASS | KNOWN_DEVIATIONS.md:11.63.30 Passive Crafting Components
+PASS | TC4_11.63.30_PASSIVE_CRAFTING_COMPONENTS_PORT_REPORT_RU.md:**148 fallback-ID**
+PASS | TC4_11.63.30_REMAINING_OBJECTS_AUDIT_RU.md:**148**
+SUMMARY | 97/98 passed
+
+RC=1
+DURATION=1.38s
+===== CHECK 95/126: python3 tools/tc4_116331_simple_consumables_label_parity_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 38, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 36, in main
+    req(runtime['version'] in ('11.63.52','11.63.53','11.63.54', '11.63.55', '11.63.56', '11.63.58', '11.63.59') and len(runtime['tests'])>=347,'runtime manifest')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 8, in req
+    if not c: raise AssertionError(m)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: runtime manifest
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116331_simple_consumables_label_parity_guard.py", line 8, in <module>
+    subprocess.run([sys.executable, str(R / "tools/tc4_116352_duplicate_registry_purge_guard.py")], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python3', '/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py']' returned non-zero exit status 1.
+
+RC=1
+DURATION=6.05s
+===== CHECK 96/126: python3 tools/tc4_116332_wand_component_families_parity_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 38, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 36, in main
+    req(runtime['version'] in ('11.63.52','11.63.53','11.63.54', '11.63.55', '11.63.56', '11.63.58', '11.63.59') and len(runtime['tests'])>=347,'runtime manifest')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 8, in req
+    if not c: raise AssertionError(m)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: runtime manifest
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116332_wand_component_families_parity_guard.py", line 8, in <module>
+    subprocess.run([sys.executable, str(R / "tools/tc4_116352_duplicate_registry_purge_guard.py")], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python3', '/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py']' returned non-zero exit status 1.
+
+RC=1
+DURATION=5.92s
+===== CHECK 97/126: python3 tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 38, in <module>
+    if __name__=='__main__': main()
+                             ~~~~^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 36, in main
+    req(runtime['version'] in ('11.63.52','11.63.53','11.63.54', '11.63.55', '11.63.56', '11.63.58', '11.63.59') and len(runtime['tests'])>=347,'runtime manifest')
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py", line 8, in req
+    if not c: raise AssertionError(m)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: runtime manifest
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py", line 8, in <module>
+    subprocess.run([sys.executable, str(R / "tools/tc4_116352_duplicate_registry_purge_guard.py")], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/pyvenv/bin/python3', '/mnt/data/tc4_116361_work/tools/tc4_116352_duplicate_registry_purge_guard.py']' returned non-zero exit status 1.
+
+RC=1
+DURATION=5.92s
+===== CHECK 98/126: python3 tools/tc4_116334_primordial_pearl_guard.py =====
+TC4 v11.63.34 primordial pearl guard: PASS
+
+RC=0
+DURATION=1.23s
+===== CHECK 99/126: python3 tools/tc4_116335_research_utility_aliases_guard.py =====
+TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+
+RC=0
+DURATION=1.23s
+===== CHECK 100/126: python3 tools/tc4_116336_simple_item_mechanics_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116336_simple_item_mechanics_guard.py", line 147, in <module>
+    assert manifest["version"] in ("11.63.36", "11.63.37", "11.63.38", "11.63.39", "11.63.40", "11.63.41", "11.63.42", "11.63.43", "11.63.44", "11.63.45", "11.63.46", "11.63.47", "11.63.48", "11.63.49", "11.63.50", "11.63.52", "11.63.53", "11.63.54", "11.63.55", "11.63.56", "11.63.58", "11.63.59")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+RC=1
+DURATION=1.12s
+===== CHECK 101/126: python3 tools/tc4_116337_unique_item_systems_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116337_unique_item_systems_guard.py", line 109, in <module>
+    assert manifest["version"] in ("11.63.37", "11.63.38", "11.63.39", "11.63.40", "11.63.41", "11.63.42", "11.63.43", "11.63.44", "11.63.45", "11.63.46", "11.63.47", "11.63.48", "11.63.49", "11.63.50", "11.63.52", "11.63.53", "11.63.54", "11.63.55", "11.63.56", "11.63.58", "11.63.59")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+RC=1
+DURATION=1.24s
+===== CHECK 102/126: python3 tools/tc4_116338_block_alias_normalization_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/tc4_116361_work/tools/tc4_116338_block_alias_normalization_guard.py", line 121, in <module>
+    assert manifest["version"] in {"11.63.38", "11.63.39", "11.63.40", "11.63.41", "11.63.42", "11.63.43", "11.63.44", "11.63.45", "11.63.46", "11.63.47", "11.63.48", "11.63.49", "11.63.50", "11.63.52", "11.63.53", "11.63.54", "11.63.55", "11.63.56", "11.63.58", "11.63.59"}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+RC=1
+DURATION=1.28s
+===== CHECK 93/126: python3 tools/tc4_116329_simple_resource_families_parity_guard.py =====
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+tc4_116329_simple_resource_families_parity_guard.py: PASS (legacy duplicate expectations superseded by v11.63.52 canonical registry purge)
+
+RC=0
+DURATION=5.94s
+===== CHECK 94/126: python3 tools/tc4_116330_passive_crafting_components_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+PASS | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:CRAFTING_COMPONENT
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:String material()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:class TC4EmptyGolemUpgradeItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:properties.stacksTo(64)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:tc4_golem_upgrade_empty.desc
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_coin"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"gold_coin"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_dust"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"salis_mundus"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_filter"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"vis_filter"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_mirrorglass"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"mirrored_glass"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_voidseed"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"void_seed"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_golem_upgrade_empty"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:Rarity.UNCOMMON
+PASS | dedicated_tc4_coin
+PASS | dedicated_tc4_dust
+PASS | dedicated_tc4_filter
+PASS | dedicated_tc4_mirrorglass
+PASS | dedicated_tc4_voidseed
+PASS | dedicated_tc4_golem_upgrade_empty
+PASS | model_tc4_coin
+PASS | model_tc4_dust
+PASS | model_tc4_filter
+PASS | model_tc4_mirrorglass
+PASS | model_tc4_voidseed
+PASS | model_tc4_golem_upgrade_empty
+PASS | texture_tc4_coin
+PASS | texture_tc4_dust
+PASS | texture_tc4_filter
+PASS | texture_tc4_mirrorglass
+PASS | texture_tc4_voidseed
+PASS | texture_tc4_golem_upgrade_empty
+PASS | lang_en_us.json_tc4_coin
+PASS | lang_en_us.json_tc4_dust
+PASS | lang_en_us.json_tc4_filter
+PASS | lang_en_us.json_tc4_mirrorglass
+PASS | lang_en_us.json_tc4_voidseed
+PASS | lang_en_us.json_tc4_golem_upgrade_empty
+PASS | tooltip_en_us.json
+PASS | lang_ru_ru.json_tc4_coin
+PASS | lang_ru_ru.json_tc4_dust
+PASS | lang_ru_ru.json_tc4_filter
+PASS | lang_ru_ru.json_tc4_mirrorglass
+PASS | lang_ru_ru.json_tc4_voidseed
+PASS | lang_ru_ru.json_tc4_golem_upgrade_empty
+PASS | tooltip_ru_ru.json
+PASS | english_name_tc4_coin
+PASS | english_name_tc4_dust
+PASS | english_name_tc4_filter
+PASS | english_name_tc4_mirrorglass
+PASS | english_name_tc4_voidseed
+PASS | english_name_tc4_golem_upgrade_empty
+PASS | tag_thaumcraft:tc4_coin
+PASS | tag_thaumcraft:tc4_dust
+PASS | tag_thaumcraft:tc4_filter
+PASS | tag_thaumcraft:tc4_mirrorglass
+PASS | tag_thaumcraft:tc4_voidseed
+PASS | tag_thaumcraft:tc4_golem_upgrade_empty
+PASS | family_tag_tc4_coin
+PASS | family_tag_tc4_dust
+PASS | family_tag_tc4_filter
+PASS | family_tag_tc4_mirrorglass
+PASS | family_tag_tc4_voidseed
+PASS | family_tag_tc4_golem_upgrade_empty
+PASS | recipe_reference_tc4_dust
+PASS | recipe_reference_tc4_filter
+PASS | recipe_reference_tc4_mirrorglass
+PASS | recipe_reference_tc4_voidseed
+PASS | recipe_reference_tc4_golem_upgrade_empty
+PASS | runtime_items.passive_components_registry_and_names
+PASS | runtime_items.passive_components_recipe_compatibility
+PASS | runtime_items.passive_components_tags
+PASS | runtime_items.blank_golem_upgrade_properties
+PASS | runtime_items.passive_components_save_reload
+PASS | runtime_items.passive_components_multiplayer_dedicated
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_coin
+PASS | not_fallback_tc4_dust
+PASS | not_fallback_tc4_filter
+PASS | not_fallback_tc4_mirrorglass
+PASS | not_fallback_tc4_voidseed
+PASS | not_fallback_tc4_golem_upgrade_empty
+PASS | .github/workflows/build.yml:python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+PASS | .github/workflows/release.yml:python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+PASS | README.md:11.63.30 — Passive Crafting Components
+PASS | KNOWN_DEVIATIONS.md:11.63.30 Passive Crafting Components
+PASS | TC4_11.63.30_PASSIVE_CRAFTING_COMPONENTS_PORT_REPORT_RU.md:**148 fallback-ID**
+PASS | TC4_11.63.30_REMAINING_OBJECTS_AUDIT_RU.md:**148**
+SUMMARY | 98/98 passed
+
+RC=0
+DURATION=1.28s
+===== CHECK 95/126: python3 tools/tc4_116331_simple_consumables_label_parity_guard.py =====
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+tc4_116331_simple_consumables_label_parity_guard.py: PASS (legacy duplicate expectations superseded by v11.63.52 canonical registry purge)
+
+RC=0
+DURATION=5.78s
+===== CHECK 96/126: python3 tools/tc4_116332_wand_component_families_parity_guard.py =====
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+tc4_116332_wand_component_families_parity_guard.py: PASS (legacy duplicate expectations superseded by v11.63.52 canonical registry purge)
+
+RC=0
+DURATION=6.47s
+===== CHECK 97/126: python3 tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py =====
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+tc4_116333_essentia_loot_eldritch_simple_parity_guard.py: PASS (legacy duplicate expectations superseded by v11.63.52 canonical registry purge)
+
+RC=0
+DURATION=6.00s
+===== CHECK 98/126: python3 tools/tc4_116334_primordial_pearl_guard.py =====
+TC4 v11.63.34 primordial pearl guard: PASS
+
+RC=0
+DURATION=1.23s
+===== CHECK 99/126: python3 tools/tc4_116335_research_utility_aliases_guard.py =====
+TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+
+RC=0
+DURATION=1.19s
+===== CHECK 100/126: python3 tools/tc4_116336_simple_item_mechanics_guard.py =====
+TC4 v11.63.36 simple item mechanics consolidation guard: PASS
+
+RC=0
+DURATION=1.22s
+===== CHECK 101/126: python3 tools/tc4_116337_unique_item_systems_guard.py =====
+TC4 v11.63.37 unique item systems and item fallback closure guard: PASS
+
+RC=0
+DURATION=1.22s
+===== CHECK 102/126: python3 tools/tc4_116338_block_alias_normalization_guard.py =====
+TC4 v11.63.38 block alias normalization guard: PASS
+
+RC=0
+DURATION=1.23s
+===== CHECK 103/126: python3 tools/tc4_116339_final_block_systems_guard.py =====
+TC4 v11.63.39 final block systems guard: PASS
+
+RC=0
+DURATION=1.24s
+===== CHECK 104/126: python3 tools/tc4_116340_wand_pedestal_visual_guard.py =====
+TC4 v11.63.40 wand pedestal visual parity guard: PASS
+
+RC=0
+DURATION=1.24s
+===== CHECK 105/126: python3 tools/tc4_116341_node_jar_ritual_guard.py =====
+TC4 v11.63.41 exact Node in a Jar ritual guard: PASS
+
+RC=0
+DURATION=1.18s
+===== CHECK 106/126: python3 tools/tc4_116342_mana_pod_parity_guard.py =====
+TC4 v11.63.42 Mana Pod cultivation, crossbreeding, worldgen and visual parity guard: PASS
+
+RC=0
+DURATION=1.28s
+===== CHECK 107/126: python3 tools/tc4_116343_world_migration_guard.py =====
+TC4 v11.63.43 deferred world migration and persistent chunk-ledger guard: PASS
+
+RC=0
+DURATION=1.53s
+===== CHECK 108/126: python3 tools/tc4_116344_gametest_smoke_guard.py =====
+v11.63.44 GameTest smoke guard: PASS (baseline six tests retained; server-only; evidence NOT_TESTED)
+
+RC=0
+DURATION=1.21s
+===== CHECK 109/126: python3 tools/tc4_116345_vis_relay_gametest_guard.py =====
+TC4 v11.63.45 energized Vis relay network plus required relay GameTests guard: PASS
+
+RC=0
+DURATION=1.22s
+===== CHECK 110/126: python3 tools/tc4_116346_flux_scrubber_gametest_guard.py =====
+TC4 v11.63.46 Flux Scrubber autonomous vis/essentia parity plus required GameTest guard: PASS
+
+RC=0
+DURATION=1.27s
+===== CHECK 111/126: python3 tools/tc4_116347_original_recipe_materialization_guard.py =====
+TC4 v11.63.47 original smelting and infusion-enchantment materialization plus required GameTests guard: PASS
+
+RC=0
+DURATION=1.13s
+===== CHECK 112/126: python3 tools/tc4_116348_oredict_wand_cap_recipe_guard.py =====
+TC4 v11.63.48 OreDictionary/tag, legacy smelting and wand-cap recipe closure guard: PASS
+
+RC=0
+DURATION=1.19s
+===== CHECK 113/126: python3 tools/tc4_116349_mcp_nbt_recipe_guard.py =====
+TC4 v11.63.49 MCP/OreDictionary/NBT recipe correction guard: PASS
+
+RC=0
+DURATION=1.17s
+===== CHECK 114/126: python3 tools/tc4_116350_final_recipe_closure_guard.py =====
+TC4 v11.63.50 final recipe closure guard: PASS (243/243, 18 GameTests, 346 scenarios)
+
+RC=0
+DURATION=1.16s
+===== CHECK 115/126: python3 tools/tc4_116351_java17_gametest_guard.py =====
+TC4 v11.63.51 Java 17/GameTest guard: PASS (6/6)
+
+RC=0
+DURATION=1.24s
+===== CHECK 116/126: python3 tools/tc4_116352_duplicate_registry_purge_guard.py =====
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+
+RC=0
+DURATION=4.83s
+===== CHECK 117/126: python3 tools/tc4_116353_p0_runtime_contract_guard.py =====
+TC4 v11.63.53 P0 runtime contract guard: PASS (56 GameTests, 384 scenarios, no direct FancyMenu mixin references)
+
+RC=0
+DURATION=1.25s
+===== CHECK 118/126: python3 tools/tc4_116354_p1_block_entity_runtime_guard.py =====
+TC4 v11.63.54 P1 block-entity runtime guard: PASS (28 GameTests, 356 scenarios)
+
+RC=0
+DURATION=1.21s
+===== CHECK 119/126: python3 tools/tc4_116355_essentia_storage_mirror_runtime_guard.py =====
+TC4 v11.63.55 essentia runtime guard: PASS (32 GameTests, 360 scenarios)
+
+RC=0
+DURATION=1.35s
+===== CHECK 120/126: python3 tools/tc4_116356_essentia_tube_transport_runtime_guard.py =====
+TC4 v11.63.56 essentia tube runtime guard: FAIL: mods.toml version
+
+RC=1
+DURATION=1.55s
+===== CHECK 121/126: python3 tools/tc4_116357_alchemical_processing_runtime_guard.py =====
+TC4 alchemical processing runtime guard: PASS (four alembics, local phase, 4 contracts)
+
+RC=0
+DURATION=1.30s
+===== CHECK 122/126: python3 tools/tc4_116358_thaumatorium_runtime_guard.py =====
+TC4 v11.63.58 Thaumatorium runtime guard: FAIL: mods version
+
+RC=1
+DURATION=1.19s
+===== CHECK 123/126: python3 tools/tc4_116359_infusion_stability_runtime_guard.py =====
+TC4 v11.63.59 infusion stability guard: PASS (48 GameTests, 376 scenarios)
+
+RC=0
+DURATION=1.21s
+===== CHECK 124/126: python3 tools/tc4_116360_infusion_lifecycle_runtime_guard.py =====
+TC4 v11.63.60 infusion lifecycle guard: PASS (52 GameTests, 380 scenarios)
+
+RC=0
+DURATION=1.22s
+===== CHECK 125/126: python3 tools/tc4_116361_infusion_pause_resume_runtime_guard.py =====
+TC4 v11.63.61 infusion pause/resume guard: PASS (56 GameTests, 384 scenarios)
+
+RC=0
+DURATION=1.27s
+===== CHECK 126/126: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.61 --template =====
+runtime manifest: PASS (384 tests; template=True)
+
+RC=0
+DURATION=1.14s
+BATCH SUMMARY | 21/23 passed | range 104-126

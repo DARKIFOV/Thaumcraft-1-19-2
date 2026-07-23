@@ -1,0 +1,19 @@
+{
+  "round": "11.64.11",
+  "original_source": "thaumcraft/common/lib/potions/PotionSunScorned.java",
+  "original_contract": {
+    "brightness_call": "target.func_70013_c(1.0F)",
+    "burn_threshold": "f > 0.5F",
+    "burn_roll": "random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F",
+    "burn_requires_sky": true,
+    "burn_seconds": 4,
+    "heal_threshold": "f < 0.25F",
+    "heal_roll": "random.nextFloat() > f * 2.0F",
+    "heal_amount": 1.0,
+    "tick_cadence": "duration % 40 == 0"
+  },
+  "pre_fix_port": "target.level.getMaxLocalRawBrightness(pos) / 15.0F",
+  "fixed_port": "target.getLightLevelDependentMagicValue()",
+  "runtime_status": "NOT_VERIFIED",
+  "build_status": "NOT_OBTAINED"
+}

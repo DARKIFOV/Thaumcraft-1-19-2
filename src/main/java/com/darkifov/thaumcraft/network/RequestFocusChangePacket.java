@@ -40,7 +40,6 @@ public class RequestFocusChangePacket {
                 return;
             }
             ItemStack held = player.getMainHandItem();
-            if (!(held.getItem() instanceof WandItem)) held = player.getOffhandItem();
             if (!(held.getItem() instanceof WandItem) || WandComponentData.isSceptre(held)) return;
             WandManagerRuntime.changeFocus(held, player.level, player, packet.focus);
         });

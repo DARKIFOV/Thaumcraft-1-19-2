@@ -1,0 +1,20 @@
+Thaumcraft Legacy Rebuild v11.63.49
+Date: 2026-07-19
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+
+STATIC CI: PASS (113/113)
+JSON RESOURCES: PASS (2110/2110)
+RUNTIME MANIFEST TEMPLATE: PASS (342 scenarios)
+REQUIRED FORGE GAMETESTS: 16, NOT_TESTED
+GENERIC REGISTRY FALLBACK: 0
+EXACT SOURCE RECIPE RECORDS: 248/258
+UNRESOLVED SOURCE RECIPE RECORDS: 10
+
+FORGE COMPILE: NOT COMPLETED
+Reason: Gradle Wrapper could not download Gradle 7.5.1 because services.gradle.org was not resolvable (UnknownHostException).
+Available runtime: OpenJDK 21.0.10.
+Required development JDK for Forge 1.19.2: Java 17.
+GRADLE_RC=1
+
+CONFIRMED JAR: NO
+RUNTIME/GAMETEST PASS CLAIMED: NO

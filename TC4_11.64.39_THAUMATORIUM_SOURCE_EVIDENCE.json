@@ -1,0 +1,88 @@
+{
+  "version": "11.64.39",
+  "scope": "Thaumatorium full closure parity",
+  "original": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/thaumcraft/common/tiles/TileThaumatorium.java",
+      "sha256": "EF2323C74DDA08FC55E6F5DB66462F661F4FEF205A11064CDD35DDB37C2BBCC2"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/thaumcraft/common/tiles/TileThaumatoriumTop.java",
+      "sha256": "AB13F249F8850E4DC4C6F196C9A01FAEC667D55EFCDFBBF930C02647D1A56C4E"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/thaumcraft/common/container/ContainerThaumatorium.java",
+      "sha256": "1581E60F5340BD46AB76613BF1A70B2C82BD6442E5BD50D99A598036064A9DE5"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/thaumcraft/client/gui/GuiThaumatorium.java",
+      "sha256": "9ED71C92042332AB152B0B0B073CEFA6D02B22E919DC77748EA8DBAF06DA2FA2"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/thaumcraft/client/renderers/tile/TileThaumatoriumRenderer.java",
+      "sha256": "09A2B7E7CD51D877481B740066D2C5C13446673A173A8EAE7240E3D018914BE1"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/thaumcraft/common/items/wands/WandManager.java",
+      "sha256": "720017327D26867360BA6037C02967C94DB80EDAB90C484EECBFD5115C423722"
+    }
+  ],
+  "original_resources": [
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/assets/thaumcraft/textures/models/thaumatorium.obj",
+      "sha256": "8C323496D7DD2F8AC9655D8FFC63626E93DCDBB14E9210107F3F2A781397AE26"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/assets/thaumcraft/textures/models/thaumatorium.mtl",
+      "sha256": "99C2D364D069660CA411350AE6FE00143D545882CED9981047E74F181A523AFF"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/assets/thaumcraft/textures/models/thaumatorium.png",
+      "sha256": "99D93F4ADDED9BD6D41280C9000A74A2EE17DA017E9ACD06AB6576E93DC665C8"
+    },
+    {
+      "path": "reference/original_source/Thaumcraft4-1.7.10-master/assets/thaumcraft/textures/gui/gui_thaumatorium.png",
+      "sha256": "F48C5CD0DF5794245D08366D340552FC99C0BF913F0E1AA7A6A88E656FCF273A"
+    }
+  ],
+  "production_implementation": [
+    "src/main/java/com/darkifov/thaumcraft/alchemy/TC4ThaumatoriumParity.java",
+    "src/main/java/com/darkifov/thaumcraft/alchemy/TC4ThaumatoriumMultiblock.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/ThaumatoriumBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/block/ThaumatoriumBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/block/ThaumatoriumUpperBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/block/MnemonicMatrixBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/menu/ThaumatoriumMenu.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumatoriumScreen.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/ThaumatoriumRenderer.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestThaumatoriumFormulaPacket.java"
+  ],
+  "contracts": {
+    "heat_refresh_ticks": 40,
+    "craft_and_suction_interval_ticks": 5,
+    "suction": 128,
+    "base_recipe_memory": 1,
+    "recipes_per_oriented_matrix": 2,
+    "wand_vis_centivis": {
+      "IGNIS": 1500,
+      "ORDO": 3000,
+      "AQUA": 3000
+    },
+    "gui": {
+      "width": 176,
+      "height": 166,
+      "catalyst_slot": [48, 16],
+      "output_slot": [112, 16]
+    }
+  },
+  "verification": {
+    "game_test_methods_source_count": 288,
+    "game_tests_executed": 282,
+    "thaumatorium_game_tests": 6,
+    "thaumatorium_game_tests_passed": 6,
+    "full_suite_required_failures": 32,
+    "runtime_manifest_scenarios": 854,
+    "runtime_status": "PARTIAL: dedicated GameTest server executed; all 6 scoped Thaumatorium tests passed; client and multiplayer were not executed; 32 inherited non-Thaumatorium required tests remain failing"
+  }
+}

@@ -25,6 +25,15 @@ public final class TC4ArcaneWorkbenchParity {
     public static final int OUTPUT_SLOT_X = 160;
     public static final int OUTPUT_SLOT_Y = 64;
 
+    // TileArcaneWorkbenchRenderer: exact installed-wand transform.
+    public static final double WAND_RENDER_X = 0.65D;
+    public static final double WAND_RENDER_Y = 1.0625D;
+    public static final double WAND_RENDER_Z = 0.25D;
+    public static final float WAND_RENDER_X_ROTATION = 90.0F;
+    public static final float WAND_RENDER_Z_ROTATION = 20.0F;
+    public static final float TRANSFORM_CLICK_VOLUME = 0.15F;
+    public static final float TRANSFORM_CLICK_PITCH = 0.5F;
+
     public static final Aspect[] PRIMALS = new Aspect[]{Aspect.AER, Aspect.TERRA, Aspect.IGNIS, Aspect.AQUA, Aspect.ORDO, Aspect.PERDITIO};
     public static final int[][] ASPECT_LOCS = new int[][]{
             {72, 21},   // Air

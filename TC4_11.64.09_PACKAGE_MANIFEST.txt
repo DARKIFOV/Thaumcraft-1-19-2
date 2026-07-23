@@ -1,0 +1,26 @@
+THAUMCRAFT LEGACY REBUILD - PACKAGE MANIFEST
+Version: 11.64.09 WARP_RESEARCH_POOL_CLIENT_SYNC_PARITY
+Platform: Minecraft 1.19.2 / Forge 43.5.2 / Java 17 target
+Reference oracle: Thaumcraft 4.2.3.5 (1.7.10)
+
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.09_WARP_RESEARCH_POOL_CLIENT_SYNC_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Source-tree files before archive: 8848
+Java source files: 803
+GameTest methods: 142 unique
+Runtime manifest scenarios: 470 unique
+JSON resources validated: 2049
+Recipe registrations mapped: 258/258
+Focused static CI: 13/13 PASS
+Targeted exact-helper javac --release 17 self-test: PASS
+
+Round scope:
+- Restore immediate client aspect-pool synchronization after TC4 warp grantResearch.
+- Share exact primal roll/application code between WarpEvents and Eldritch milestones.
+- Preserve final client-visible pool using one aggregate 1.19.2 sync packet.
+
+Build status:
+- Full Gradle build NOT OBTAINED.
+- Wrapper download blocked by UnknownHostException for services.gradle.org.
+- JAR not created.
+
+Archive SHA-256 is provided outside the self-contained ZIP in the final response and companion checksum file.

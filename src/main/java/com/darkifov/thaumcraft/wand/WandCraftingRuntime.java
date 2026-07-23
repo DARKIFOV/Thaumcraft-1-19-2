@@ -205,9 +205,9 @@ public final class WandCraftingRuntime {
 
     public static ResourceLocation capItemId(WandCapType cap) {
         String id = switch (cap) {
-            case IRON -> "tc4_wand_cap_iron";
-            case GOLD -> "tc4_wand_cap_gold";
-            case THAUMIUM -> "tc4_wand_cap_thaumium";
+            case IRON -> "iron_wand_cap";
+            case GOLD -> "gold_wand_cap";
+            case THAUMIUM -> "thaumium_wand_cap";
             case COPPER -> "tc4_wand_cap_copper";
             case SILVER -> "tc4_wand_cap_silver";
             case VOID -> "tc4_wand_cap_void";
@@ -220,14 +220,14 @@ public final class WandCraftingRuntime {
         String id = switch (rod) {
             // Original WandRod("wood") uses the vanilla stick directly.
             case WOOD -> "stick";
-            case GREATWOOD -> "tc4_wand_rod_greatwood";
+            case GREATWOOD -> "greatwood_wand_core";
             case OBSIDIAN -> "tc4_wand_rod_obsidian";
             case BLAZE -> "tc4_wand_rod_blaze";
             case ICE -> "tc4_wand_rod_ice";
             case QUARTZ -> "tc4_wand_rod_quartz";
             case BONE -> "tc4_wand_rod_bone";
             case REED -> "tc4_wand_rod_reed";
-            case SILVERWOOD -> "tc4_wand_rod_silverwood";
+            case SILVERWOOD -> "silverwood_wand_core";
             case GREATWOOD_STAFF -> "tc4_staff_rod_greatwood";
             case OBSIDIAN_STAFF -> "tc4_staff_rod_obsidian";
             case BLAZE_STAFF -> "tc4_staff_rod_blaze";

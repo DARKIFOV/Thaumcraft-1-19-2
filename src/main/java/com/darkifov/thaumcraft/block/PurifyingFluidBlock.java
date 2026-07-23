@@ -2,8 +2,8 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
+import com.darkifov.thaumcraft.warp.TC4BathSaltsParity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -37,24 +37,32 @@ public class PurifyingFluidBlock extends LiquidBlock {
         }
 
         int permanentWarp = PlayerThaumData.getWarpPerm(player);
-        int divisor = Math.max(1, (int) Math.floor(Math.sqrt(permanentWarp)));
-        int duration = Math.min(32000, 200000 / divisor);
+        int duration = TC4BathSaltsParity.wardDurationTicks(permanentWarp);
         player.addEffect(new MobEffectInstance(ThaumcraftMod.WARP_WARD.get(), duration, 0, true, true));
-        level.setBlockAndUpdate(pos, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        level.removeBlock(pos, false);
     }
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        super.animateTick(state, level, pos, random);
-        int levelValue = state.getValue(LEVEL);
-        double x = pos.getX() + random.nextDouble();
-        double y = pos.getY() + 0.125D * (8 - Math.min(7, levelValue));
-        double z = pos.getZ() + random.nextDouble();
-        level.addParticle(ParticleTypes.BUBBLE, x, y, z, 0.0D, 0.0D, 0.0D);
-        if (random.nextInt(25) == 0) {
-            level.playLocalSound(x, y, z, SoundEvents.LAVA_POP, SoundSource.BLOCKS,
-                    0.1F + random.nextFloat() * 0.1F,
-                    0.9F + random.nextFloat() * 0.15F, false);
+        int legacyMetadata = state.getValue(LEVEL);
+        double bubbleX = pos.getX() + random.nextFloat();
+        double bubbleY = pos.getY() + TC4BathSaltsParity.bubbleYOffset(legacyMetadata);
+        double bubbleZ = pos.getZ() + random.nextFloat();
+        level.addParticle(ThaumcraftMod.PURIFYING_BUBBLE_PARTICLE.get(),
+                bubbleX, bubbleY, bubbleZ, 0.0D, 0.0D, 0.0D);
+
+        if (TC4BathSaltsParity.playsPopSound(
+                random.nextInt(TC4BathSaltsParity.POP_SOUND_CHANCE_BOUND))) {
+            double soundX = pos.getX() + random.nextFloat();
+            double soundY = pos.getY() + TC4BathSaltsParity.POP_SOUND_Y_OFFSET;
+            double soundZ = pos.getZ() + random.nextFloat();
+            level.playLocalSound(soundX, soundY, soundZ, SoundEvents.LAVA_POP, SoundSource.BLOCKS,
+                    TC4BathSaltsParity.popVolume(random.nextFloat()),
+                    TC4BathSaltsParity.popPitch(random.nextFloat()), false);
         }
+
+        // TC4 invoked the superclass after its own bubble/sound RNG sequence.
+        super.animateTick(state, level, pos, random);
     }
+
 }

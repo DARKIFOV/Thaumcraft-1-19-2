@@ -1,0 +1,3 @@
+Command: javac --release 17 (exact production helper + minimal dependency stubs)
+Command: java test.GrantSelfTest
+TC4WarpResearchGrant Java 17 language-level self-test: PASS

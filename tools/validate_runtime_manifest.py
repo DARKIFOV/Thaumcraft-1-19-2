@@ -23,7 +23,7 @@ P0_KEYS = {
 SUBSYSTEM_KEYS = {
     "aspects_tags", "thaumometer", "thaumonomicon", "research_table",
     "arcane_workbench", "wands_foci", "aura_nodes_node_jar",
-    "essentia_jars", "essentia_transport", "processing_devices",
+    "essentia_jars", "essentia_transport", "essentia_tubes", "processing_devices", "alchemy",
     "infusion_matrix", "jei", "bone_bow", "traveling_trunk",
     "crimson_cultists", "fortress_armor", "golems", "warp_eldritch",
     "taint_eerie_forest", "outer_lands", "mirrors", "brain_jar",
@@ -90,7 +90,7 @@ def validate_artifacts(entry: dict[str, Any], location: str, template: bool, err
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, required=True)
-    parser.add_argument("--version", default="11.62.96")
+    parser.add_argument("--version", default="11.63.30")
     parser.add_argument("--template", action="store_true")
     args = parser.parse_args()
 

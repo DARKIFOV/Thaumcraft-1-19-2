@@ -1,81 +1,72 @@
 package com.darkifov.thaumcraft.research;
 
-import net.minecraft.nbt.CompoundTag;
+import com.darkifov.thaumcraft.Aspect;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/** Compatibility facade for old callers; all values now use PlayerAspectKnowledge. */
 public final class OriginalAspectWallet {
     public static final String[] PRIMAL = {"aer", "terra", "ignis", "aqua", "ordo", "perditio"};
-    private static final String ROOT = "ThaumcraftOriginalAspectWallet";
 
     private OriginalAspectWallet() {
     }
 
     public static Map<String, Integer> get(Player player) {
-        CompoundTag root = player.getPersistentData().getCompound(ROOT);
+        PlayerAspectKnowledge.seedPrimals(player);
         Map<String, Integer> result = new LinkedHashMap<>();
-
-        for (String aspect : PRIMAL) {
-            result.put(aspect, Math.max(0, root.getInt(aspect)));
+        for (String id : PRIMAL) {
+            result.put(id, get(player, id));
         }
-
         return result;
     }
 
     public static int get(Player player, String aspect) {
-        return Math.max(0, player.getPersistentData().getCompound(ROOT).getInt(normalize(aspect)));
+        Aspect resolved = resolve(aspect);
+        return resolved == null ? 0 : PlayerAspectKnowledge.pool(player).get(resolved);
     }
 
     public static void add(Player player, String aspect, int amount) {
-        if (amount <= 0) {
-            return;
+        Aspect resolved = resolve(aspect);
+        if (resolved != null && amount > 0) {
+            PlayerAspectKnowledge.addPool(player, resolved, amount);
         }
-
-        CompoundTag root = player.getPersistentData().getCompound(ROOT);
-        String key = normalize(aspect);
-        root.putInt(key, Math.max(0, root.getInt(key) + amount));
-        player.getPersistentData().put(ROOT, root);
     }
 
     public static boolean consume(Player player, Map<String, Integer> costs) {
+        if (player == null || costs == null) {
+            return false;
+        }
+        Map<Aspect, Integer> resolved = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> entry : costs.entrySet()) {
-            if (get(player, entry.getKey()) < entry.getValue()) {
+            Aspect aspect = resolve(entry.getKey());
+            int amount = Math.max(0, entry.getValue());
+            if (aspect == null) {
+                return false;
+            }
+            resolved.merge(aspect, amount, Integer::sum);
+        }
+        for (Map.Entry<Aspect, Integer> entry : resolved.entrySet()) {
+            if (PlayerAspectKnowledge.pool(player).get(entry.getKey()) < entry.getValue()) {
                 return false;
             }
         }
-
-        CompoundTag root = player.getPersistentData().getCompound(ROOT);
-        for (Map.Entry<String, Integer> entry : costs.entrySet()) {
-            String key = normalize(entry.getKey());
-            root.putInt(key, Math.max(0, root.getInt(key) - entry.getValue()));
+        for (Map.Entry<Aspect, Integer> entry : resolved.entrySet()) {
+            if (entry.getValue() > 0 && !PlayerAspectKnowledge.consumePool(player, entry.getKey(), entry.getValue())) {
+                return false;
+            }
         }
-        player.getPersistentData().put(ROOT, root);
         return true;
     }
 
+    /** TC4 only discovers the six primals; it does not grant free pool points. */
     public static void seedIfEmpty(Player player) {
-        CompoundTag root = player.getPersistentData().getCompound(ROOT);
-        boolean empty = true;
-
-        for (String aspect : PRIMAL) {
-            if (root.getInt(aspect) > 0) {
-                empty = false;
-                break;
-            }
-        }
-
-        if (empty) {
-            for (String aspect : PRIMAL) {
-                root.putInt(aspect, 5);
-            }
-            player.getPersistentData().put(ROOT, root);
-        }
+        PlayerAspectKnowledge.seedPrimals(player);
     }
 
-    private static String normalize(String aspect) {
-        return aspect == null ? "aer" : aspect.toLowerCase(Locale.ROOT);
+    private static Aspect resolve(String id) {
+        return Aspect.byId(id == null ? "" : id.toLowerCase(Locale.ROOT));
     }
 }

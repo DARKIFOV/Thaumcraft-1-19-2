@@ -1,0 +1,91 @@
+{
+  "round": "11.64.18",
+  "selected_object": "Arcane Bellows",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_oracles": [
+    {
+      "path": "thaumcraft/common/tiles/TileBellows.java",
+      "contracts": [
+        "inflation = 0.35F + rand * 0.55F",
+        "deflate 0.075F / inflate 0.025F",
+        "redstone pauses animation and generic contribution",
+        "vanilla furnace delay 2 and CookTime 1..198",
+        "orientation/onVanillaFurnace lowercase NBT",
+        "generic orientation and redstone filtered getBellows"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockWoodenDeviceItem.java",
+      "contracts": [
+        "clicked side opposite orientation",
+        "six-direction furnace attachment flag"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileCrucible.java",
+      "contracts": [
+        "four horizontal unfiltered bellows",
+        "heat gain 1 + bellows * 2"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileAlchemyFurnace.java",
+      "contracts": [
+        "all six generic bellows",
+        "smelt time vis*10*(1-0.125*bellows)"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileTubeBuffer.java",
+      "contracts": [
+        "all six generic bellows",
+        "suction bellows*32 with choke exceptions"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileArcaneFurnace.java",
+      "contracts": [
+        "distance-two five-direction scan excluding UP",
+        "cap three",
+        "cook time 140/80 minus 20 per bellows",
+        "44 percent bonus chance per bellows"
+      ],
+      "activation": "EXTERNAL_BLOCKER_UNTIL_INFERNAL_FURNACE_FULL_CLOSURE"
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigRecipes.java",
+      "contracts": [
+        "WW / LCI / WW",
+        "plankWood sugar Aer shard iron",
+        "Aer 10 Ordo 5"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigResearch.java",
+      "contracts": [
+        "BELLOWS ARTIFICE -6 -2 complexity 1",
+        "Aer 6 Machina 3 Motus 3",
+        "parent INFERNALFURNACE",
+        "secondary concealed",
+        "TEXT ARCANE_CRAFTING TEXT"
+      ]
+    }
+  ],
+  "production_paths": [
+    "BellowsBlock",
+    "BellowsBlockEntity",
+    "TC4ArcaneBellowsParity",
+    "BellowsRenderer",
+    "BellowsItemRenderer",
+    "TC4BellowsModel",
+    "CrucibleBlockEntity",
+    "AlchemicalFurnaceBlockEntity",
+    "EssentiaTubeBlockEntity",
+    "tc4_bellows.json",
+    "TC4ResearchRuntimeBridge"
+  ],
+  "proof_boundary": "Source/resource/static closure is not a substitute for a successful Forge build and runtime protocol."
+}

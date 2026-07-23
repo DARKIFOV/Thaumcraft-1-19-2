@@ -1,0 +1,13 @@
+Thaumcraft Legacy Rebuild 11.64.04 corrected package integrity plan
+
+Source tree checks before packaging:
+- build.gradle exists at archive root
+- no wrapper directory named port/
+- no build/, .gradle/, __pycache__/
+- no *.pyc or *.class files
+- 137 unique GameTest methods
+- 465 unique runtime manifest IDs
+- 2049 JSON resources validated
+- focused static CI 11/11 PASS
+
+The final ZIP is additionally tested with `unzip -t`; its SHA-256 is supplied beside the archive.

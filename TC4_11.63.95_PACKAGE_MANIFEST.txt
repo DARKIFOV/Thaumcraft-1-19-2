@@ -1,0 +1,36 @@
+TC4 v11.63.95 PACKAGE MANIFEST
+Base: v11.63.94_PARITY_CONSOLIDATION_REPAIR
+Release: v11.63.95_THAUMOMETER_PARITY
+
+Verified counters:
+- 101 unique @GameTest methods
+- 429 unique runtime-manifest scenarios
+- 2049 valid JSON resources
+- 258/258 original recipe registrations statically mapped
+- 18 smelting-bonus registrations tracked separately
+- focused static CI 11/11 PASS
+- Gradle/runtime NOT VERIFIED (Gradle distribution unavailable; Java 21 present, Java 17 required)
+
+Added files (6):
++ TC4_11.63.95_THAUMOMETER_PARITY_PORT_REPORT_RU.md
++ reports/TC4_11.63.95_FOCUSED_STATIC_CI_FINAL.log
++ reports/TC4_11.63.95_GRADLE_COMPILE_ATTEMPT.log
++ src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerParity.java
++ tools/run_focused_static_ci_116395.py
++ tools/tc4_116395_thaumometer_parity_guard.py
+
+Modified files (12):
+* KNOWN_DEVIATIONS.md
+* README.md
+* TC4_PORT_STATUS_V3.md
+* build.gradle
+* runtime_artifacts/runtime_test_manifest.template.json
+* src/main/java/com/darkifov/thaumcraft/aura/TC4AuraNodeScanParity.java
+* src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerTargeting.java
+* src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java
+* src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java
+* src/main/resources/META-INF/mods.toml
+* tools/tc4_116394_parity_consolidation_guard.py
+* tools/thaumometer_scan_guard.py
+
+Removed files (0):

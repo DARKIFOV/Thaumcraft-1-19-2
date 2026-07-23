@@ -1,0 +1,33 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2
+Release: 11.64.03 — Warp Runtime Propagation and Cleansing Parity
+Date: 2026-07-21
+
+Base:
+- v11.64.02 Research Completion Warp Parity
+
+Production changes:
+- Added TC4WarpRuntimeParity source-linked contract.
+- Infectious Vis Exhaust propagation keeps default milk curatives.
+- Initial warp-event Infectious Vis Exhaust remains uncurable.
+- Spread amplifier/radius/cadence/duration use original TC4 values.
+- Sanity Soap consumes one stack item in creative and survival.
+- Sanity Soap sticky-cleansing chance uses 0.33 + ward 0.25 + pure-fluid 0.25.
+- Purifying Fluid ward duration uses min(32000, 200000/max(1,floor(sqrt(permanentWarp)))).
+- Warp scheduler interval source-linked to 2000 ticks.
+
+Verification:
+- 136 unique annotated GameTest methods.
+- 464 unique runtime manifest scenarios.
+- Focused static CI: 15/15 PASS.
+- Pure-Java warp runtime self-test: PASS.
+- Targeted Java parse: PASS.
+- JSON resources: 2049/2049 PASS.
+- Recipe registrations: 258/258 STATICALLY MAPPED.
+- Smelting bonuses: 18 separate.
+- Java source files: 802.
+
+Build boundary:
+- Gradle 7.5.1 distribution unavailable: UnknownHostException services.gradle.org.
+- Installed JDK: Java 21; target build requires Java 17.
+- Release JAR: NOT BUILT.
+- Forge GameTest runtime: NOT VERIFIED.

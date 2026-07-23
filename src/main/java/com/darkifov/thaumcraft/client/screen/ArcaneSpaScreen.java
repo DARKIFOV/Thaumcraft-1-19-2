@@ -25,7 +25,7 @@ public class ArcaneSpaScreen extends AbstractContainerScreen<ArcaneSpaMenu> {
     private static final int TOGGLE_SIZE = 8;
     private static final int TANK_X = 107;
     private static final int TANK_Y = 15;
-    private static final int TANK_WIDTH = 10;
+    private static final int TANK_WIDTH = 8;
     private static final int TANK_HEIGHT = 48;
 
     public ArcaneSpaScreen(ArcaneSpaMenu menu, Inventory inventory, Component title) {
@@ -47,10 +47,17 @@ public class ArcaneSpaScreen extends AbstractContainerScreen<ArcaneSpaMenu> {
                 208, iconV, TOGGLE_SIZE, TOGGLE_SIZE);
 
         FluidStack fluid = menu.fluidStack();
-        int fluidHeight = menu.scaledFluidHeight(TANK_HEIGHT);
-        if (!fluid.isEmpty() && fluidHeight > 0) {
-            renderFluid(poseStack, fluid, leftPos + TANK_X,
-                    topPos + TANK_Y + TANK_HEIGHT - fluidHeight, TANK_WIDTH, fluidHeight);
+        if (!fluid.isEmpty()) {
+            // TC4 always tiled six complete 8x8 icons, then masked the empty top area.
+            renderFluid(poseStack, fluid, leftPos + TANK_X, topPos + TANK_Y,
+                    TANK_WIDTH, TANK_HEIGHT);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShaderTexture(0, GUI);
+            int emptyMask = menu.emptyFluidMaskHeight(TANK_HEIGHT);
+            if (emptyMask > 0) {
+                blit(poseStack, leftPos + TANK_X, topPos + TANK_Y,
+                        TANK_X, TANK_Y, 10, emptyMask);
+            }
         }
 
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -98,7 +105,7 @@ public class ArcaneSpaScreen extends AbstractContainerScreen<ArcaneSpaMenu> {
             if (!fluid.isEmpty()) {
                 renderComponentTooltip(poseStack, List.of(
                         fluid.getDisplayName(),
-                        Component.literal(menu.fluidAmount() + " mB")
+                        Component.literal(menu.fluidAmount() + " mb")
                 ), mouseX, mouseY);
                 return;
             }

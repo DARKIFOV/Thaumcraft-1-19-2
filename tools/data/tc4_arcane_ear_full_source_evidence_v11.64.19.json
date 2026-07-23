@@ -1,0 +1,94 @@
+{
+  "round": "11.64.19",
+  "selected_object": "Arcane Ear",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_oracles": [
+    {
+      "path": "thaumcraft/common/tiles/TileSensor.java",
+      "contracts": [
+        "note byte 0..24 and tone byte persistence only",
+        "redstoneSignal is transient and counts down from 10",
+        "matching tone/note within distance squared 4096",
+        "one matching buffered note event per ear tick",
+        "support material selects harp/bass drum/snare/hat/bass",
+        "solid block above suppresses note block event",
+        "manual pitch cycles modulo 25"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockWoodenDevice.java",
+      "contracts": [
+        "right click changes pitch then triggers configured note",
+        "weak and strong redstone output 15 while signal is active",
+        "neighbor changes refresh support tone",
+        "note sound volume 3 and pitch 2^((note-12)/12)",
+        "note particle at y+1.2 with note/24 color",
+        "hardness 2.5 resistance 10 and full collision"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/block/BlockWoodenDeviceRenderer.java",
+      "contracts": [
+        "ten exact cuboids",
+        "powered state swaps only top and side textures",
+        "four bell pairs use bell side/top textures"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/events/EventHandlerWorld.java",
+      "contracts": [
+        "server note events buffer source coordinates, instrument ordinal and vanilla note id"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/events/ServerTickEventsFML.java",
+      "contracts": [
+        "note event buffer clears at world tick end"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigRecipes.java",
+      "contracts": [
+        "pattern GIG / GBG / WRW",
+        "W greatwood planks, R redstone, I iron, G gold, B zombie brain",
+        "Aer 10 Ordo 10"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigResearch.java",
+      "contracts": [
+        "ARCANEEAR ARTIFICE 6 0 complexity 1",
+        "Sensus 3 Potentia 3 Aer 3",
+        "parent GOGGLES and concealed",
+        "TEXT then ARCANE_CRAFTING"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigAspects.java",
+      "contracts": [
+        "Arcane Ear object aspects are exactly Sensus 4"
+      ]
+    }
+  ],
+  "production_paths": [
+    "ArcaneEarBlock",
+    "ArcaneEarBlockEntity",
+    "TC4ArcaneEarParity",
+    "CommonEvents.onNoteBlockPlay",
+    "TC4ObjectAspectRegistry",
+    "tc4_arcaneear.json",
+    "TC4ResearchRuntimeBridge",
+    "tc4_block_arcane_ear block/item models and seven exact textures"
+  ],
+  "corrected_discrepancies": [
+    "removed persisted SignalTicks/powered pulse revival",
+    "removed extra support-tone refresh from manual right-click",
+    "corrected stale recipe symbol mapping that used shears and shifted W/R/G/B ingredients",
+    "restored common item rarity",
+    "registered missing Sensus 4 scan aspects"
+  ],
+  "proof_boundary": "Source/resource/static closure is not a substitute for a successful Forge build and runtime protocol."
+}

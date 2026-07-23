@@ -1,0 +1,351 @@
+{
+  "version": "11.63.10",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "project version",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "49-model mismatch inventory",
+      "status": "PASS",
+      "detail": "31 translucent + 18 cutout"
+    },
+    {
+      "name": "advanced_alchemical_furnace translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "aer_crystal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "amber_bricks translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "aqua_crystal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "arcane_crafting_terminal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "eldritch_portal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_conversion_monitor translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_export_bus translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_import_bus translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_level_emitter translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_storage_bus translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_storage_monitor translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "essentia_terminal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "extras_water_block translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "flux_gas translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "flux_goo translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "golem_seal_collect_block translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ignis_crystal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "matrix_accelerator translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "matrix_stabilizer translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "nitor_light translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ordo_crystal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "perditio_crystal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "taint_fibres translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tc4_block_crystal_cluster translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "terra_crystal translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "thaumic_crafting_cpu translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "thaumic_me_cable translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "thaumic_me_controller translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_enchanter translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_repairer translucent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "bellows cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "extras_light_block cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "fume_dissipator cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "mnemonic_matrix cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tce_cactus cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tce_warded_glass cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_fire_air cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_fire_chaos cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_fire_earth cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_fire_order cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_fire_water cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_funnel cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_gaseous_light cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_gaseous_shadow cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_mob_magnet cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_nitor_gas cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tt_warp_gate cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "vis_interface cutout",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "aer_crystal original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "aqua_crystal original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ignis_crystal original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "ordo_crystal original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "perditio_crystal original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "terra_crystal original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "tc4_block_crystal_cluster original OBJ geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "crystal OBJ+MTL exist",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Flux Goo 3/16 geometry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Flux Gas intersecting sheets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Bellows five source parts",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Advanced furnace original OBJ groups",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Advanced furnace Base/Tank materials",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Portal renderer-only block",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Portal 16-frame original strip",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Portal BER registered",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Explicit runtime fallback layers",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "problems": [],
+  "limitations": [
+    "Static source/resource contract only.",
+    "Runtime lighting, sorting, culling, animation and item transforms remain NOT TESTED."
+  ]
+}

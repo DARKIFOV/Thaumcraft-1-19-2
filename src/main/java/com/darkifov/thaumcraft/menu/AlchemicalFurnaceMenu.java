@@ -62,14 +62,14 @@ public class AlchemicalFurnaceMenu extends AbstractContainerMenu {
     }
 
     public boolean isLit() {
-        return data.get(0) > 0;
+        return data.get(1) > 0;
     }
 
-    public int fuelTime() { return data.get(0); }
-    public int currentFuelTime() { return data.get(1); }
-    public int burnProgress() { return data.get(2); }
-    public int burnDuration() { return data.get(3); }
-    public int storedEssentia() { return data.get(4); }
+    public int fuelTime() { return data.get(1); }
+    public int currentFuelTime() { return data.get(2); }
+    public int burnProgress() { return data.get(0); }
+    public int burnDuration() { return data.get(4); }
+    public int storedEssentia() { return data.get(3); }
     public int capacity() { return furnace.capacity(); }
     public BlockPos blockPos() { return pos; }
 
@@ -103,10 +103,10 @@ public class AlchemicalFurnaceMenu extends AbstractContainerMenu {
         result = stack.copy();
         if (index < 2) {
             if (!moveItemStackTo(stack, 2, slots.size(), true)) return ItemStack.EMPTY;
-        } else if (furnace.canPlaceItem(AlchemicalFurnaceBlockEntity.SLOT_INPUT, stack)) {
-            if (!moveItemStackTo(stack, 0, 1, false)) return ItemStack.EMPTY;
         } else if (furnace.canPlaceItem(AlchemicalFurnaceBlockEntity.SLOT_FUEL, stack)) {
             if (!moveItemStackTo(stack, 1, 2, false)) return ItemStack.EMPTY;
+        } else if (furnace.canPlaceItem(AlchemicalFurnaceBlockEntity.SLOT_INPUT, stack)) {
+            if (!moveItemStackTo(stack, 0, 1, false)) return ItemStack.EMPTY;
         } else if (index < 29) {
             if (!moveItemStackTo(stack, 29, 38, false)) return ItemStack.EMPTY;
         } else if (!moveItemStackTo(stack, 2, 29, false)) {

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_staff_rod_greatwood",
+    "thaumcraft:tc4_staff_rod_obsidian",
+    "thaumcraft:tc4_staff_rod_blaze",
+    "thaumcraft:tc4_staff_rod_ice",
+    "thaumcraft:tc4_staff_rod_quartz",
+    "thaumcraft:tc4_staff_rod_bone",
+    "thaumcraft:tc4_staff_rod_reed",
+    "thaumcraft:tc4_staff_rod_silverwood",
+    "thaumcraft:tc4_staff_rod_primal"
+  ]
+}

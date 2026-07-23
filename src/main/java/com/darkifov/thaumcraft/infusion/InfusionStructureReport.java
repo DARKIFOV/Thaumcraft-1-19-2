@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.infusion;
 
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public record InfusionStructureReport(
         int stabilityScore,
         int instabilityPenalty,
         int originalSymmetryPenalty,
+        List<BlockPos> pedestalPositions,
         List<ArcanePedestalBlockEntity> componentPedestals,
         Component summary
 ) {

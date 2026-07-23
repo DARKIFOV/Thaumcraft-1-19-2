@@ -1,0 +1,14 @@
+TC4 v11.63.41 STATIC CI FINAL SUMMARY
+
+Canonical checks: 105/105 PASS
+Failed: 0
+Skipped: 0
+Java syntax guard: PASS
+Forge 1.19.2 API guard: PASS
+JSON resources: 2101/2101 PASS
+Runtime manifest: PASS (296 scenarios; template=True)
+v11.63.39 final block systems guard: PASS
+v11.63.40 wand pedestal visual parity guard: PASS
+v11.63.41 exact Node in a Jar ritual guard: PASS
+Generic fallback IDs: 0
+Forge compileJava: NOT REACHED (Gradle distribution DNS failure)

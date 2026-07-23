@@ -1,0 +1,20 @@
+=== java -version ===
+openjdk version "21.0.10" 2026-01-20
+OpenJDK Runtime Environment (build 21.0.10+7-Debian-1deb13u1)
+OpenJDK 64-Bit Server VM (build 21.0.10+7-Debian-1deb13u1, mixed mode, sharing)
+
+=== javac -version ===
+javac 21.0.10
+
+=== JAVA_HOME ===
+<unset>
+
+=== installed JVMs ===
+total 19
+drwxr-xr-x 2 root root 4096 Mar 28 06:14 .
+drwxr-xr-x 2 root root 4096 Apr 17 22:50 ..
+-rw-r--r-- 1 root root 1840 Jan 22 22:10 .java-1.21.0-openjdk-amd64.jinfo
+lrwxrwxrwx 1 root root   25 Aug  3  2024 default-java -> java-1.21.0-openjdk-amd64
+lrwxrwxrwx 1 root root   21 Jan 22 22:10 java-1.21.0-openjdk-amd64 -> java-21-openjdk-amd64
+drwxr-xr-x 2 root root 4096 Mar 28 06:14 java-21-openjdk-amd64
+drwxr-xr-x 2 root root 4096 Mar 28 06:14 openjdk-21

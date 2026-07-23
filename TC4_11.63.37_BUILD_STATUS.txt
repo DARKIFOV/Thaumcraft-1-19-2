@@ -1,0 +1,29 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.37
+
+SOURCE STATUS: STATICALLY VALIDATED
+FORGE JAR STATUS: NOT PRODUCED / NOT CLAIMED
+
+Completed:
+- All 8 remaining item-like generic fallbacks now have concrete/canonical implementations or honest hidden texture-migration aliases.
+- Remaining fallback upper bound: 42 total = 0 item-like + 42 block migration aliases.
+- Arcane Door: two-block UUID owner/access storage, key binding, protected break/use and authorized Arcane Pressure Plate operation.
+- Crimson Blade, Golemancer's Bell alias, Essentia Resonator, Eldritch Obelisk Placer and Sinister Lodestone implemented.
+- Runtime manifest: 280 evidence scenarios; template validation PASS.
+- Full historical static CI: PASS 101/101; missing=0; fail=0.
+- Java source syntax guard: PASS.
+- Forge 1.19.2 API guard: PASS.
+- JSON resource validation: PASS (2042 files).
+- Stage guards v11.63.34, v11.63.35, v11.63.36 and v11.63.37: PASS.
+- Remaining-object audit: PASS; exact item-like remainder is zero.
+
+Build limitation:
+- Fresh Gradle Wrapper compile attempt on 2026-07-18 stopped before project configuration with java.net.UnknownHostException for services.gradle.org while downloading Gradle 7.5.1.
+- Local runtime is OpenJDK 21.0.10; this source line is intended for the Java 17 Forge 1.19.2 toolchain.
+- The local wrapper distribution and dependency cache are absent.
+- No compiled JAR, runtime client/server result, or gameplay parity claim is made from this environment.
+
+Evidence:
+- TC4_11.63.37_FULL_STATIC_CI.log
+- TC4_11.63.37_STATIC_CI_FINAL_SUMMARY.txt
+- TC4_11.63.37_GRADLE_COMPILE_ATTEMPT.log
+- reports/remaining_objects_v11.63.37.json

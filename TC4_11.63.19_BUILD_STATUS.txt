@@ -1,0 +1,22 @@
+Thaumcraft Legacy Rebuild v11.63.19 — build status
+
+Command:
+./gradlew compileJava --stacktrace --no-daemon
+
+Result: FAIL BEFORE JAVA COMPILATION
+Exit code: 1
+
+Gradle Wrapper attempted to download:
+https://services.gradle.org/distributions/gradle-7.5.1-bin.zip
+
+Failure:
+java.net.UnknownHostException: services.gradle.org
+
+Environment:
+OpenJDK 21.0.10 is installed. The project toolchain targets Java 17, and no local JDK 17 installation was found under /usr/lib/jvm.
+
+Consequences:
+- Java compiler was not started.
+- No JAR was created.
+- Static source/resource guards passed 83/83, including the v11.63.19 target guard at 84/84.
+- All 184 runtime scenarios remain NOT_TESTED unless backed by previous real artifacts; the six new worn-model scenarios are NOT_TESTED.

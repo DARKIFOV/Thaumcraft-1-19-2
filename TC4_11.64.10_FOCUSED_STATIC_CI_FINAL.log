@@ -1,0 +1,25 @@
+THAUMCRAFT LEGACY REBUILD v11.64.10 — FOCUSED STATIC CI
+Execution mode: split, because one long combined tool invocation exceeded the host command-duration limit.
+Every listed check was executed successfully in this session.
+
+[1/16] tc4_116410_death_gaze_cone_guard.py — PASS
+  143 unique GameTests; 471 unique manifest scenarios; exact aperture/body midpoint/round cap/pickable gate.
+[2/16] tc4_116409_warp_research_pool_sync_guard.py — PASS
+[3/16] tc4_116408_eldritch_milestone_grant_guard.py — PASS
+[4/16] tc4_116407_warp_message_parity_guard.py — PASS
+[5/16] tc4_116405_warp_spawn_collision_guard.py — PASS
+[6/16] tc4_116404_warp_spawn_offset_guard.py — PASS
+[7/16] tc4_116403_warp_runtime_guard.py — PASS
+[8/16] tc4_116281_warp_eldritch_parity_guard.py — PASS (50/50)
+[9/16] warp_runtime_selftest.py — PASS under javac --release 17
+[10/16] java_parse_guard_116410.py — PASS
+[11/16] java_syntax_guard.py — PASS
+[12/16] validate_json_resources.py — PASS (2049 files)
+[13/16] validate_runtime_manifest.py — PASS (471 tests; template=True)
+[14/16] tc4_recipe_registration_denominator_guard.py — PASS (258/258; 18 smelting bonuses separate)
+[15/16] tc4_116394_source_inventory_guard.py — PASS
+[16/16] tc4_116394_parity_consolidation_guard.py — PASS (143 GameTests; 471 scenarios)
+
+FOCUSED STATIC CI v11.64.10: PASS (16/16, split execution)
+Runtime status: NOT VERIFIED
+Gradle/JAR status: NOT OBTAINED

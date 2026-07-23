@@ -1,0 +1,25 @@
+Thaumcraft Legacy Rebuild for Forge 1.19.2
+Release: 11.63.35
+
+Target guard:
+  TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+
+Static checks:
+  Legacy regression suite: 97 PASS / 0 FAIL
+  Primordial Pearl retained guard: PASS
+  Java syntax guard: PASS
+  Forge 1.19.2 compile API guard: PASS
+  Forge-only guard: PASS
+  JSON resource validation: PASS
+  Research Table integration/open guards: PASS
+
+Gradle Wrapper build:
+  NOT RUN / NO JAR CLAIMED
+
+Reason:
+  The container has no cached Gradle 7.5.1 / Forge dependencies and cannot resolve
+  services.gradle.org for the wrapper download. It also provides JDK 21, while this
+  Forge 1.19.2 project is configured for Java 17.
+
+Runtime:
+  NOT TESTED. Use the protocol in TC4_11.63.35_RESEARCH_UTILITY_ALIASES_PORT_REPORT_RU.md.

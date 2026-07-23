@@ -1,0 +1,36 @@
+TC4 v11.63.40 WAND PEDESTAL VISUAL PARITY — BUILD/VALIDATION STATUS
+
+VERSION
+- build.gradle: 11.63.40
+- mods.toml: 11.63.40
+- runtime manifest: 11.63.40
+
+PORTING RESULT
+- Restored the TC4 Wand Pedestal wispy drain visual.
+- The held wand/Vis amulet uses the original bob formula and one-degree-per-tick rotation.
+- Drain pulses use the original wispy.png, drained-aspect colour, width 0.15, speed -0.02 and quality 16.
+- Existing BlockEntity update synchronization carries source, colour and start time; no duplicate custom packet was added.
+- Generic registry fallback remains 0 for all 294 mirror entries.
+
+STATIC VALIDATION
+- canonical historical CI: 104/104 PASS
+- missing checks: 0
+- failed checks: 0
+- Java syntax guard: PASS
+- Forge 1.19.2 API guard: PASS
+- JSON validation: PASS (2098 files)
+- runtime manifest validation: PASS (292 scenarios; template=True)
+- v11.63.39 final block systems guard: PASS
+- v11.63.40 wand pedestal visual parity guard: PASS
+
+GRADLE ATTEMPT
+- Command: ./gradlew compileJava --no-daemon --stacktrace
+- Result: project compilation NOT REACHED.
+- Cause: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1.
+- Available Java: OpenJDK 21.0.10.
+- Target toolchain for this Forge 1.19.2 project: Java 17.
+
+ARTIFACT CLAIM
+- Forge JAR: NOT CLAIMED.
+- Source ZIP: eligible after zip integrity and SHA-256 verification.
+- Runtime visual scenario remains NOT_TESTED until a real Java 17 Forge client/server run.

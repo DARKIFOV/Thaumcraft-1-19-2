@@ -29,20 +29,34 @@ public final class NodeTransducerRenderer implements BlockEntityRenderer<NodeTra
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
         float offset = transducer.pistonOffset(partialTick);
         long time = transducer.getLevel() == null ? 0L : transducer.getLevel().getGameTime();
-        int[] rgb = statusColor(transducer.status());
 
         poseStack.pushPose();
         poseStack.translate(0.5D, 1.0D, 0.5D);
+        renderStandalone(transducer.status(), offset, time, poseStack, buffer, packedLight);
+        poseStack.popPose();
+    }
+
+    /** Shared world/item path for TC4's node_stabilizer.obj converter mesh. */
+    public static void renderStandalone(int status, float pistonOffset, long animationTime,
+                                        PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        float offset = Mth.clamp(pistonOffset, 0.0F, NodeTransducerBlockEntity.MAX_EXTENSION_TICKS / 137.0F);
+        int[] rgb = statusColor(status);
+
+        poseStack.pushPose();
         poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
 
         VertexConsumer base = buffer.getBuffer(RenderType.entityCutoutNoCull(BASE));
+        VertexConsumer glow = buffer.getBuffer(RenderType.entityCutoutNoCull(OVERLAY));
         NodeStabilizerRenderer.renderMesh(poseStack, base, TC4NodeStabilizerModel.LOCK_TRIANGLES,
                 packedLight, 255, 255, 255, 255);
 
-        VertexConsumer glow = buffer.getBuffer(RenderType.entityCutoutNoCull(OVERLAY));
-        int lockAlpha = Mth.clamp(70 + (int)(150.0F * offset * 2.5F), 70, 220);
+        // TC4 changed the lightmap coordinate, not vertex alpha. The previous
+        // port used FULL_BRIGHT plus translucent alpha on a cutout layer, which
+        // flattened the converter into solid magenta/orange slabs.
+        float lockPulse = Mth.sin(animationTime / 3.0F) * 0.1F + 0.9F;
+        int lockLight = tc4OverlayLight(offset, lockPulse);
         NodeStabilizerRenderer.renderMesh(poseStack, glow, TC4NodeStabilizerModel.LOCK_TRIANGLES,
-                LightTexture.FULL_BRIGHT, rgb[0], rgb[1], rgb[2], lockAlpha);
+                lockLight, rgb[0], rgb[1], rgb[2], 255);
 
         for (int arm = 0; arm < 4; arm++) {
             poseStack.pushPose();
@@ -52,13 +66,18 @@ public final class NodeTransducerRenderer implements BlockEntityRenderer<NodeTra
 
             NodeStabilizerRenderer.renderMesh(poseStack, base, TC4NodeStabilizerModel.PISTON_TRIANGLES,
                     packedLight, 255, 255, 255, 255);
-            float pulse = Mth.sin((time + arm * 5.0F) / 3.0F) * 0.1F + 0.9F;
-            int alpha = Mth.clamp(50 + (int)(170.0F * offset * 2.5F * pulse), 50, 220);
+            float pulse = Mth.sin((animationTime + arm * 5.0F) / 3.0F) * 0.1F + 0.9F;
+            int overlayLight = tc4OverlayLight(offset, pulse);
             NodeStabilizerRenderer.renderMesh(poseStack, glow, TC4NodeStabilizerModel.PISTON_TRIANGLES,
-                    LightTexture.FULL_BRIGHT, rgb[0], rgb[1], rgb[2], alpha);
+                    overlayLight, rgb[0], rgb[1], rgb[2], 255);
             poseStack.popPose();
         }
         poseStack.popPose();
+    }
+
+    private static int tc4OverlayLight(float pistonOffset, float pulse) {
+        int coordinate = Mth.clamp(50 + (int)(170.0F * pistonOffset * 2.5F * pulse), 50, 220);
+        return LightTexture.pack(Mth.clamp(Math.round(coordinate / 16.0F), 0, 15), 0);
     }
 
     private static int[] statusColor(int status) {

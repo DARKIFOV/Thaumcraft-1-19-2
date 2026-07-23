@@ -8,7 +8,7 @@
     "minecraft:gold_ingot",
     "minecraft:obsidian",
     "minecraft:quartz_block",
-    "thaumcraft:tc4_nitor"
+    "thaumcraft:nitor"
   ],
   "aspects": {
     "AQUA": 32,
@@ -25,10 +25,10 @@
     "Q": "minecraft:obsidian",
     "P": "thaumcraft:tc4_block_paving_travel",
     "S": "minecraft:quartz_block",
-    "N": "thaumcraft:tc4_nitor"
+    "N": "thaumcraft:nitor"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_node_stabilizer",
+    "item": "thaumcraft:node_stabilizer",
     "count": 1
   }
 }

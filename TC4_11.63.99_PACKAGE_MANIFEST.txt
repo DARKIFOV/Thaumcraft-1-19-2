@@ -1,0 +1,46 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2
+Release: v11.63.99_RESEARCH_NOTE_GRAPH_TRANSACTION_PARITY
+Date: 2026-07-21
+
+Base:
+- Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.63.98_RESEARCH_MASTERY_COMBINATION_PARITY.zip
+
+Production changes:
+- Added TC4ResearchNoteGraphParity as the source-linked empty-hex placement contract.
+- Removed the non-original compatible-neighbour admission gate from ResearchNoteSolver.
+- Removed the same neighbour gate from both Research Note client screens.
+- Kept aspect-link compatibility in completion/path evaluation.
+- Required a live, distance-valid ResearchTableMenu for server packet note access.
+- Added atomic one-ink + one-aspect placement debit with exact rollback.
+- Rejected unknown aspects and occupied/anchor/inactive hexes before resource debit.
+- Avoided table dirty/sync work for rejected placement packets.
+
+Tests and evidence:
+- Added 5 real Research Table/Research Note GameTests.
+- GameTest methods: 116 unique.
+- Runtime manifest: 444 unique scenarios.
+- Focused static CI: 16/16 PASS.
+- Pure-Java graph self-test: PASS.
+- Targeted javac parse: PASS.
+- JSON resources: 2049/2049 valid.
+- Original recipe registrations: 258/258 STATICALLY MAPPED.
+- Smelting bonuses: 18 separate registrations.
+- Source evidence: tools/data/tc4_research_note_graph_source_evidence_v11.63.99.json.
+
+Build boundary:
+- ./gradlew compileJava attempted.
+- Gradle 7.5.1 download failed with UnknownHostException for services.gradle.org.
+- Available runtime is Java 21; target development JDK is Java 17.
+- JAR: NOT CREATED.
+- Forge GameTest runtime: NOT VERIFIED.
+
+Current-round files:
+- TC4_11.63.99_RESEARCH_NOTE_GRAPH_TRANSACTION_PARITY_PORT_REPORT_RU.md
+- TC4_11.63.99_FOCUSED_STATIC_CI_FINAL.log
+- TC4_11.63.99_RESEARCH_NOTE_GRAPH_SELFTEST.log
+- TC4_11.63.99_TARGETED_JAVA_PARSE.log
+- TC4_11.63.99_GRADLE_COMPILE_ATTEMPT.log
+- tools/tc4_116399_research_note_graph_guard.py
+- tools/research_note_graph_selftest.py
+- tools/java_parse_guard_116399.py
+- tools/run_focused_static_ci_116399.py

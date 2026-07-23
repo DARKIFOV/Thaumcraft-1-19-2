@@ -1,0 +1,17 @@
+TC4 v11.64.19 ARCANE EAR FULL CLOSURE
+
+Focused static CI: PASS 27/27
+Final independent recheck: PASS 10/10
+Unique GameTest methods: 172
+Unique runtime manifest scenarios: 564
+JSON resources: 2052/2052 PASS
+Original runtime recipe denominator: 258/258 STATICALLY MAPPED
+Java 17 dependency-free self-test: PASS
+Targeted Forge-source parse checks: PASS
+General Java syntax guard: PASS
+Mandatory universal prompt: PASS (two identical root copies)
+
+Gradle build: NOT VERIFIED
+Reason: Gradle Wrapper failed before project configuration with UnknownHostException for services.gradle.org.
+JAR: NOT OBTAINED
+Forge runtime/GameTest execution: NOT VERIFIED

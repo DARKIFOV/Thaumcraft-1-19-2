@@ -1,0 +1,6 @@
+TC4 v11.64.27 ZIP PREPACKAGE CONTRACT
+
+Expected entries after archive manifest insertion: 9131
+Every eligible source file is listed by SHA-256 in TC4_11.64.27_ARCHIVE_MANIFEST.json except that manifest itself.
+The external integrity report and ZIP SHA-256 are generated after packaging.
+No build, .gradle, __pycache__, .class or .pyc entries are permitted.

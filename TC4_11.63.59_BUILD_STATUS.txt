@@ -1,0 +1,9 @@
+Thaumcraft Legacy Rebuild v11.63.59 build status
+Date: 2026-07-20
+Command: ./gradlew clean build
+GRADLE_RC=1
+JAR_STATUS=NOT_CREATED
+GAMETEST_STATUS=NOT_TESTED
+REQUIRED_GAMETESTS=48
+RUNTIME_SCENARIOS=376
+Reason: see TC4_11.63.59_GRADLE_BUILD.log. A successful current-version Java 17 build and runGameTestServer result were not obtained.

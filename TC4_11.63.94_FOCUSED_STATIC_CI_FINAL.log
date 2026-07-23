@@ -1,0 +1,44 @@
+[1/14] python3 tools/forge_only_guard.py
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+PASS
+[2/14] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+PASS
+[3/14] python3 tools/forge_1192_compile_api_guard.py
+Forge 1.19.2 compile API guard: OK
+PASS
+[4/14] python3 tools/tc4_116367_dispatcher_parity_guard.py
+TC4 v11.63.67 dispatcher parity wiring guard: PASS (baseline 73/401; forward-compatible current release)
+PASS
+[5/14] python3 tools/tc4_116368_golem_parity_guard.py
+TC4 v11.63.68 golem parity guard: PASS (baseline 77/405; forward-compatible current release)
+PASS
+[6/14] python3 tools/tc4_116369_arcane_vis_guard.py
+TC4 v11.63.69 arcane vis guard: PASS (baseline 80/408; forward-compatible current release)
+PASS
+[7/14] python3 tools/tc4_116371_wand_parity_guard.py
+TC4 v11.63.71 wand parity guard: PASS (98 current GameTests; restored baseline 85/413)
+PASS
+[8/14] python3 tools/tc4_116372_essentia_parity_guard.py
+TC4 v11.63.72 essentia parity guard: PASS (baseline 89/417; forward-compatible current release)
+PASS
+[9/14] python3 tools/java_parse_guard.py
+Java parse guard: PASS (26 parity/GameTest files; unresolved Forge symbols ignored)
+PASS
+[10/14] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+PASS
+[11/14] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (98 GameTests; 426 manifest scenarios; source-linked contracts)
+PASS
+[12/14] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.94 --template
+runtime manifest: PASS (426 tests; template=True)
+PASS
+[13/14] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+PASS
+[14/14] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+PASS
+SUMMARY 14/14 PASS; 0 FAIL

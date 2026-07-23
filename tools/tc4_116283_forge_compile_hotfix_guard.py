@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for CI run 79587666588 compile blockers fixed in v11.62.96."""
+"""Regression guard for CI run 79587666588 compile blockers fixed in v11.63.10."""
 from pathlib import Path
 import sys
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,8 +19,8 @@ def forbid(rel, token):
     global checks
     checks += 1
     if token in read(rel): errors.append(f"{rel}: forbidden {token!r}")
-need("build.gradle", "version = '11.62.96'")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.96"')
+need("build.gradle", "version = '11.63.23'")
+need("src/main/resources/META-INF/mods.toml", 'version="11.63.23"')
 trunk="src/main/java/com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java"
 need(trunk, "import net.minecraft.world.entity.TamableAnimal;")
 need(trunk, "extends TamableAnimal")
@@ -35,7 +35,7 @@ need("tools/forge_1192_compile_api_guard.py", "net.minecraft.world.entity.animal
 need(".github/workflows/build.yml", "Validate retained v11.62.83 Forge compiler hotfix")
 need(".github/workflows/release.yml", "Validate retained v11.62.83 Forge compiler hotfix")
 if errors:
-    print(f"TC4 11.62.96 Forge compile hotfix guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.63.10 Forge compile hotfix guard: FAIL ({len(errors)} problems; {checks} checks)")
     for e in errors: print(" -",e)
     sys.exit(1)
-print(f"TC4 11.62.96 Forge compile hotfix guard: PASS ({checks} checks)")
+print(f"TC4 11.63.10 Forge compile hotfix guard: PASS ({checks} checks)")

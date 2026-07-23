@@ -5,7 +5,7 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:hungry_chest",
   "components": [
-    "minecraft:diamond",
+    "minecraft:iron_ingot",
     "thaumcraft:greatwood_planks",
     "thaumcraft:tc4_golem_wood",
     "thaumcraft:greatwood_planks"
@@ -21,5 +21,6 @@
     "item": "thaumcraft:tc4_travel_trunk",
     "count": 1
   },
-  "v11_62_71_strict_original": true
+  "v11_62_71_strict_original": true,
+  "v11_63_49_exact_source": true
 }

@@ -1,0 +1,45 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.61
+Recipe registration denominator correction manifest
+
+CANONICAL STATIC STATUS
+- Original recipe registrations: 258/258 STATICALLY MAPPED
+- Crucible: 54/54
+- Arcane shaped: 104/104
+- Arcane shapeless: 5/5
+- Infusion: 63/63
+- Infusion enchantment: 24/24
+- Furnace smelting: 8/8
+- Separate smelting-bonus mechanic: 18 registrations
+- Runtime recipe loading on v11.63.61: NOT VERIFIED
+
+ARCANE IMPLEMENTATION BREAKDOWN
+- Original shaped registrations: 104 total
+  - 99 datapack JSON
+  - 5 Java-generated wand-cap recipes
+- Original shapeless registrations: 5 datapack JSON
+- Original Arcane total: 109
+- Additional style/compatibility JSON: 10
+- Raw Arcane JSON files: 114 (not the original registration denominator)
+
+PATCH CONTENTS
+- Corrected README/status/reports from the stale 243 denominator to 258.
+- Corrected the canonical recipe-closure source mapping.
+- Added tc4_recipe_registration_denominator_v11_63_61.json evidence.
+- Added tc4_recipe_registration_denominator_guard.py and wired it into full static CI.
+- Updated status generation and runtime-manifest wording.
+- Restored omitted GitHub build/release workflows with Java 17 setup.
+- Preserved runtime verification as NOT VERIFIED.
+
+VERIFICATION PERFORMED
+- Full static CI: 127/127 PASS
+- JSON resources: 2049/2049 valid
+- Recipe denominator guard: PASS
+- Final recipe closure guard: PASS
+- Workflow-dependent guards: 65/65 PASS
+- GitHub workflow YAML parsing: PASS
+
+BUILD/RUNTIME LIMITATION
+- Local environment exposes OpenJDK 21, while Forge 1.19.2 development requires Java 17.
+- Gradle wrapper download failed with UnknownHostException for services.gradle.org.
+- No v11.63.61 JAR was created.
+- GameTest server and RecipeManager/custom serializer loading were not executed.

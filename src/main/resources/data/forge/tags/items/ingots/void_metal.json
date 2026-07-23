@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "thaumcraft:void_metal_ingot",
     "thaumcraft:void_metal_ingot"
   ]
 }

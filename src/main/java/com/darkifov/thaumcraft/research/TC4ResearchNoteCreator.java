@@ -11,80 +11,71 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-/**
- * Stage118: TC4-style research start flow. Clicking an available research in
- * the Thaumonomicon now creates a targeted research note from paper + scribing
- * tools ink, instead of instantly completing a rebuild placeholder entry.
- */
+/** Exact ResearchManager.createResearchNoteForPlayer adapter. */
 public final class TC4ResearchNoteCreator {
     private static final int INK_COST = 1;
 
     private TC4ResearchNoteCreator() {}
 
     public static ItemStack create(ServerPlayer player, ResearchEntry entry) {
-        if (player == null || entry == null) {
-            return ItemStack.EMPTY;
-        }
-        if (!OriginalResearchBridge.canUnlock(player, entry)) {
-            player.displayClientMessage(Component.literal("This research is not available yet.").withStyle(ChatFormatting.RED), false);
-            return ItemStack.EMPTY;
-        }
-        if (hasOpenNote(player, entry.key())) {
-            player.displayClientMessage(Component.literal("You already have a research note for ")
-                    .withStyle(ChatFormatting.GRAY)
-                    .append(Component.literal(entry.title()).withStyle(ChatFormatting.LIGHT_PURPLE)), false);
+        if (player == null || entry == null
+                || !ResearchRegistry.originalEntries().contains(entry)
+                || !OriginalResearchBridge.canUnlock(player, entry)
+                || !TC4ResearchFlagPolicy.canCreateNormalResearchNote(player, entry)
+                || entry.aspects().isEmpty()) {
             return ItemStack.EMPTY;
         }
 
-        boolean creative = player.getAbilities().instabuild;
+        ItemStack existing = findResearchNote(player, entry.key());
+        if (!existing.isEmpty()) {
+            OriginalResearchSelection.set(player, entry.key());
+            return existing;
+        }
+
         int paperSlot = findPaper(player);
         int toolsSlot = findScribingTools(player);
-        if (!creative && paperSlot < 0) {
-            player.displayClientMessage(Component.literal("You need paper to begin this research.").withStyle(ChatFormatting.RED), false);
-            return ItemStack.EMPTY;
-        }
-        if (!creative && toolsSlot < 0) {
-            player.displayClientMessage(Component.literal("You need scribing tools with ink to begin this research.").withStyle(ChatFormatting.RED), false);
+        if (paperSlot < 0 || toolsSlot < 0) {
             return ItemStack.EMPTY;
         }
 
-        ItemStack paperSnapshot = paperSlot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(paperSlot).copy();
-        ItemStack toolsSnapshot = toolsSlot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(toolsSlot).copy();
-        if (!creative) {
-            ItemStack paper = player.getInventory().getItem(paperSlot);
-            ItemStack tools = player.getInventory().getItem(toolsSlot);
-            if (paper.isEmpty() || !paper.is(Items.PAPER) || !ScribingToolsItem.consumeInk(tools, INK_COST)) {
-                player.getInventory().setItem(paperSlot, paperSnapshot);
-                player.getInventory().setItem(toolsSlot, toolsSnapshot);
-                player.displayClientMessage(Component.literal("Research note creation failed; resources were restored.").withStyle(ChatFormatting.RED), false);
-                return ItemStack.EMPTY;
-            }
-            paper.shrink(1);
+        ItemStack paper = player.getInventory().getItem(paperSlot);
+        ItemStack tools = player.getInventory().getItem(toolsSlot);
+        ItemStack paperSnapshot = paper.copy();
+        ItemStack toolsSnapshot = tools.copy();
+        if (paper.isEmpty() || !paper.is(Items.PAPER) || !ScribingToolsItem.consumeInk(tools, INK_COST)) {
+            return ItemStack.EMPTY;
+        }
+        paper.shrink(1);
+        if (paper.getCount() < 0) {
+            player.getInventory().setItem(paperSlot, paperSnapshot);
+            player.getInventory().setItem(toolsSlot, toolsSnapshot);
+            return ItemStack.EMPTY;
         }
 
         ItemStack note = new ItemStack(ThaumcraftMod.RESEARCH_NOTE.get());
         ResearchNoteState.initialize(note, entry.key(), player.getRandom().nextLong());
-        note.setHoverName(Component.literal("Research Notes - " + entry.title()).withStyle(ChatFormatting.DARK_PURPLE));
+        note.setHoverName(Component.translatable("item.researchnotes.name")
+                .append(" - ")
+                .append(Component.translatable("tc.research_name." + entry.key()))
+                .withStyle(ChatFormatting.DARK_PURPLE));
         if (!player.getInventory().add(note)) {
             player.drop(note, false);
         }
         OriginalResearchSelection.set(player, entry.key());
-        player.displayClientMessage(Component.literal("Research note created: ")
-                .withStyle(ChatFormatting.GOLD)
-                .append(Component.literal(entry.title()).withStyle(ChatFormatting.YELLOW)), false);
         player.level.playSound(null, player.blockPosition(), TC4Sounds.event("learn"),
                 SoundSource.PLAYERS, 0.75F, 1.0F);
         return note;
     }
 
-    private static boolean hasOpenNote(ServerPlayer player, String researchKey) {
+    private static ItemStack findResearchNote(ServerPlayer player, String researchKey) {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
-            if (stack.getItem() instanceof ResearchNoteItem && researchKey.equals(ResearchNoteState.target(stack)) && !ResearchNoteState.solved(stack)) {
-                return true;
+            if (stack.getItem() instanceof ResearchNoteItem
+                    && researchKey.equals(ResearchNoteState.target(stack))) {
+                return stack;
             }
         }
-        return false;
+        return ItemStack.EMPTY;
     }
 
     private static int findPaper(ServerPlayer player) {

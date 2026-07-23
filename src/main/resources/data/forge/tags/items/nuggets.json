@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/iron",
+    "#forge:nuggets/copper",
+    "#forge:nuggets/tin",
+    "#forge:nuggets/silver",
+    "#forge:nuggets/lead",
+    "#forge:nuggets/quicksilver",
+    "#forge:nuggets/thaumium",
+    "#forge:nuggets/void_metal"
+  ]
+}

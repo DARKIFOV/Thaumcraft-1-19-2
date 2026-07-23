@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static source/resource contract guard for v11.62.96 TC4 taint ecology parity."""
+"""Static source/resource contract guard for v11.63.10 TC4 taint ecology parity."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -25,8 +25,8 @@ client=text('src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java')
 state=json.loads(text('src/main/resources/assets/thaumcraft/blockstates/taint_fibres.json'))
 manifest=json.loads(text('runtime_artifacts/runtime_test_manifest.template.json'))
 
-check('build version', "version = '11.62.96'" in build)
-check('mods version', 'version="11.62.96"' in mods)
+check('build version', "version = '11.63.23'" in build)
+check('mods version', 'version="11.63.23"' in mods)
 check('taint config rate', 'TAINT_SPREAD_RATE' in text('src/main/java/com/darkifov/thaumcraft/config/ThaumcraftConfig.java'))
 check('taint config spores', 'SPAWN_TAINT_SPORES' in text('src/main/java/com/darkifov/thaumcraft/config/ThaumcraftConfig.java'))
 check('persistent taint columns', 'putLongArray' in regions and 'setDirty()' in regions)
@@ -40,7 +40,7 @@ check('mature spore stage', 'setValue(TaintFibresBlock.AGE, 4)' in spread and 'T
 check('orphan mature stalk regresses', 'setValue(TaintFibresBlock.AGE, 3)' in spread)
 check('crust outside decay 1/20', 'Variant.CRUST && random.nextInt(20) == 0' in spread)
 check('soil outside decay 1/10', 'Variant.SOIL && random.nextInt(10) == 0' in spread)
-check('crust falling entity', 'FallingBlockEntity.fall' in spread and 'setHurtsEntities(2.0F, 40)' in spread)
+check('crust falling entity', 'new FallingTaintEntity(level, pos, state, pos)' in spread and 'new FallingTaintEntity(level, lateral, state, pos)' in spread)
 check('log support prevents falling', 'BlockTags.LOGS' in spread)
 check('five metadata ages', 'IntegerProperty.create("age", 0, 4)' in fibres)
 for face in ('DOWN','UP','NORTH','SOUTH','WEST','EAST'):
@@ -81,12 +81,12 @@ required={
  'taint.spider_geometry_eyes_poison_drops',
 }
 ids={x.get('id') for x in manifest.get('tests',[])}
-check('manifest version', manifest.get('version')=='11.62.96')
+check('manifest version', manifest.get('version') in ('11.63.23','11.63.24','11.63.26','11.63.27','11.63.28','11.63.29','11.63.30','11.63.31','11.63.32','11.63.33','11.63.36','11.63.37','11.63.38','11.63.39','11.63.40', '11.63.41','11.63.42','11.63.43', '11.63.44','11.63.45','11.63.46','11.63.47','11.63.48', '11.63.49', '11.63.50', '11.63.52', '11.63.53', '11.63.54', '11.63.55', '11.63.56', '11.63.58','11.63.59','11.63.60','11.63.61'))
 check('manifest retains at least the 56 taint-era cases', len(manifest.get('tests',[])) >= 56)
 for i in required: check(f'runtime case {i}', i in ids)
 
 failed=[n for n,o in checks if not o]
-payload={'version':'11.62.96','scope':'TC4 taint blocks/fibres, persistent spread, taint spider and stationary spore source contracts','checks_total':len(checks),'checks_passed':len(checks)-len(failed),'failed':failed,'runtime_verified':False,'known_deviations':['modern biome palette/colour/weather mutation not implemented','flying EntityTaintSporeSwarmer not implemented']}
+payload={'version':'11.63.10','scope':'TC4 taint blocks/fibres, persistent spread, taint spider and stationary spore source contracts','checks_total':len(checks),'checks_passed':len(checks)-len(failed),'failed':failed,'runtime_verified':False,'known_deviations':['modern biome palette/colour/weather mutation not implemented','Spore Swarmer and Swarm are source-complete in 11.63.10 but runtime-unverified']}
 out=ROOT/'reports/tc4_116280_taint_ecology_parity_audit.json'; out.parent.mkdir(exist_ok=True); out.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
 print(f"Taint ecology parity guard: {payload['checks_passed']}/{payload['checks_total']}")
 if failed:

@@ -1,0 +1,162 @@
+{
+  "version": "11.63.48",
+  "source_of_truth": "Thaumcraft 4.2.3.5 ConfigRecipes.java + ConfigItems WandCap craftCost registrations",
+  "strict_rule": "Promote only legacy OreDictionary names with direct Forge tag equivalents and dynamic WandCap formulas whose craftCost constants are explicit in ConfigItems.java.",
+  "original_recipe_record_count": 243,
+  "stage121_exact_count": 189,
+  "stage156_additional_exact_count": 10,
+  "v11_63_48_promoted_count": 14,
+  "exact_runtime_source_record_count": 213,
+  "remaining_unresolved_count": 30,
+  "exact_counts_by_kind": {
+    "CRUCIBLE": 53,
+    "ARCANE_SHAPED_OR_SHAPELESS": 83,
+    "INFUSION": 45,
+    "INFUSION_ENCHANTMENT": 24,
+    "SMELTING": 8
+  },
+  "remaining_counts_by_kind": {
+    "CRUCIBLE": 1,
+    "ARCANE_SHAPED": 8,
+    "ARCANE_SHAPELESS": 3,
+    "INFUSION": 18,
+    "SMELTING": 0
+  },
+  "promoted": [
+    {
+      "key": "PureTin",
+      "kind": "CRUCIBLE",
+      "source_line": 387,
+      "runtime_path": "data/thaumcraft/thaumcraft_alchemy/tc4_pure_tin.json",
+      "evidence": "oreTin -> #forge:ores/tin"
+    },
+    {
+      "key": "PureSilver",
+      "kind": "CRUCIBLE",
+      "source_line": 396,
+      "runtime_path": "data/thaumcraft/thaumcraft_alchemy/tc4_pure_silver.json",
+      "evidence": "oreSilver -> #forge:ores/silver"
+    },
+    {
+      "key": "PureLead",
+      "kind": "CRUCIBLE",
+      "source_line": 405,
+      "runtime_path": "data/thaumcraft/thaumcraft_alchemy/tc4_pure_lead.json",
+      "evidence": "oreLead -> #forge:ores/lead"
+    },
+    {
+      "key": "WandCapGold",
+      "kind": "ARCANE_SHAPED",
+      "source_line": 1058,
+      "runtime_path": "TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes",
+      "evidence": "gold nugget; craftCost=3"
+    },
+    {
+      "key": "WandCapCopper",
+      "kind": "ARCANE_SHAPED",
+      "source_line": 1078,
+      "runtime_path": "TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes",
+      "evidence": "nuggetCopper -> #forge:nuggets/copper; craftCost=2"
+    },
+    {
+      "key": "WandCapSilverInert",
+      "kind": "ARCANE_SHAPED",
+      "source_line": 1097,
+      "runtime_path": "TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes",
+      "evidence": "nuggetSilver -> #forge:nuggets/silver; craftCost=4"
+    },
+    {
+      "key": "WandCapThaumiumInert",
+      "kind": "ARCANE_SHAPED",
+      "source_line": 1115,
+      "runtime_path": "TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes",
+      "evidence": "nuggetThaumium -> #forge:nuggets/thaumium; craftCost=6"
+    },
+    {
+      "key": "WandCapVoidInert",
+      "kind": "ARCANE_SHAPED",
+      "source_line": 1132,
+      "runtime_path": "TC4ConfigRecipesWandIndex.generatedArcaneComponentRecipes",
+      "evidence": "nuggetVoid -> #forge:nuggets/void_metal; craftCost=9"
+    },
+    {
+      "key": "WandCapSilver",
+      "kind": "INFUSION",
+      "source_line": 2118,
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_cap_silver.json",
+      "evidence": "craftCost=4"
+    },
+    {
+      "key": "WandCapThaumium",
+      "kind": "INFUSION",
+      "source_line": 2138,
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_cap_thaumium.json",
+      "evidence": "craftCost=6"
+    },
+    {
+      "key": "WandCapVoid",
+      "kind": "INFUSION",
+      "source_line": 2160,
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_cap_void.json",
+      "evidence": "craftCost=9"
+    },
+    {
+      "key": "Smelting_1",
+      "kind": "SMELTING",
+      "source_line": 3629,
+      "runtime_path": "data/thaumcraft/recipes/tc4_smelting_1.json",
+      "evidence": "blockMagicalLog wildcard -> #thaumcraft:magical_logs"
+    },
+    {
+      "key": "Smelting_2",
+      "kind": "SMELTING",
+      "source_line": 3623,
+      "runtime_path": "data/thaumcraft/recipes/tc4_smelting_2.json",
+      "evidence": "blockCustomOre:0 -> cinnabar_ore"
+    },
+    {
+      "key": "Smelting_3",
+      "kind": "SMELTING",
+      "source_line": 3626,
+      "runtime_path": "data/thaumcraft/recipes/tc4_smelting_3.json",
+      "evidence": "blockCustomOre:7 -> amber_ore"
+    }
+  ],
+  "remaining_unresolved_keys": [
+    "GolemFlesh",
+    "WardedGlass",
+    "NodeRelay",
+    "NodeChargeRelay",
+    "JarVoid",
+    "HungryChest",
+    "AlchemyFurnace",
+    "TubeFilter",
+    "TubeRestrict",
+    "TubeOneway",
+    "Centrifuge",
+    "EssentiaCrystalizer",
+    "WandRodObsidian",
+    "WandRodIce",
+    "WandRodQuartz",
+    "WandRodReed",
+    "WandRodBlaze",
+    "WandRodBone",
+    "WandRodSilverwood",
+    "WandRodPrimalStaff",
+    "JarBrain",
+    "AdvancedGolem",
+    "Mirror",
+    "MirrorHand",
+    "MirrorEssentia",
+    "TravelTrunk",
+    "HelmGoggles",
+    "MaskGrinningDevil",
+    "MaskAngryGhost",
+    "MaskSippingFiend"
+  ],
+  "notes": [
+    "Historical stage121/stage156 files remain immutable evidence and are not rewritten.",
+    "Empty forge:ores/tin|silver|lead tags are valid until a compatible content mod supplies ore items.",
+    "Arcane catalyst matching now understands the same tag sentinel as shaped ingredient matching and JEI."
+  ]
+}

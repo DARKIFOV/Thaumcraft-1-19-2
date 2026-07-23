@@ -1,0 +1,6 @@
+TC4 v11.64.27 JAVA STATIC STATUS
+
+javac --release 17 parity self-test: PASS
+Targeted Forge parse files: 19/19 PASS
+General Java syntax guard: PASS
+This is not a Forge compile and does not verify runtime linkage.

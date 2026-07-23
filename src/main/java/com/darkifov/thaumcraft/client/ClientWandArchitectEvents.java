@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.client;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.WandItem;
+import com.darkifov.thaumcraft.item.ElementalShovelItem;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.wand.FocusArchitectRuntime;
 import com.darkifov.thaumcraft.wand.FocusUpgradeType;
@@ -52,16 +53,11 @@ public final class ClientWandArchitectEvents {
         if (minecraft.player == null || minecraft.screen != null) {
             return;
         }
-        while (ClientWandArchitectKeybinds.KEY_CHANGE_WAND_FOCUS.consumeClick()) {
-            ItemStack held = heldWand(minecraft.player);
-            if (!held.isEmpty() && !WandComponentData.isSceptre(held)) {
-                String focus = minecraft.player.isShiftKeyDown() ? WandManagerRuntime.REMOVE : WandManagerRuntime.currentFocusSortKey(held);
-                ThaumcraftNetwork.requestFocusChangeFromClient(focus);
-            }
-        }
-
         while (ClientWandArchitectKeybinds.KEY_MISC_WAND_TOGGLE.consumeClick()) {
             ItemStack held = heldWand(minecraft.player);
+            if (held.isEmpty()) {
+                held = heldElementalShovel(minecraft.player);
+            }
             if (!held.isEmpty()) {
                 ThaumcraftNetwork.requestWandArchitectToggleFromClient();
             }
@@ -147,6 +143,13 @@ public final class ClientWandArchitectEvents {
         if (main.getItem() instanceof WandItem) return main;
         ItemStack off = player.getOffhandItem();
         return off.getItem() instanceof WandItem ? off : ItemStack.EMPTY;
+    }
+
+    private static ItemStack heldElementalShovel(net.minecraft.world.entity.player.Player player) {
+        ItemStack main = player.getMainHandItem();
+        if (main.getItem() instanceof ElementalShovelItem) return main;
+        ItemStack off = player.getOffhandItem();
+        return off.getItem() instanceof ElementalShovelItem ? off : ItemStack.EMPTY;
     }
 
     private static String axisLine(Preview preview) {

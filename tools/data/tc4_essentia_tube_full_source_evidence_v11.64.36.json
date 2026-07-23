@@ -1,0 +1,165 @@
+{
+  "version": "11.64.36",
+  "mechanic": "Essentia tubes, filtered/restricted/one-way tubes, valves and buffers",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/tiles/TileTube.java",
+      "evidence": [
+        "2-tick suction recalculation",
+        "5-tick equalization",
+        "normal suction neighbour-1",
+        "restricted suction neighbour/2",
+        "minimum suction 0",
+        "server/client venting 40/50",
+        "type/amount/side/open/stype/samount NBT",
+        "exact core and arm geometry"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileTubeFilter.java",
+      "evidence": [
+        "AspectFilter NBT",
+        "typed-label filter",
+        "filter passed into suction calculation"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileTubeRestrict.java",
+      "evidence": [
+        "restricted flag halves propagated suction"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileTubeOneway.java",
+      "evidence": [
+        "directional suction and equalization only",
+        "inherited side connectivity"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileTubeValve.java",
+      "evidence": [
+        "allowFlow manual state",
+        "flow/hadpower NBT",
+        "20 degree client animation",
+        "redstone transition",
+        "handle side not connectable",
+        "closed valve suppresses suction without deleting topology"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileTubeBuffer.java",
+      "evidence": [
+        "capacity 8",
+        "mixed AspectList storage",
+        "20-tick bellows refresh",
+        "5-tick transfer",
+        "side choke 0/1/2",
+        "bellows suction 32 each",
+        "root Aspects/open/choke NBT"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockTube.java",
+      "evidence": [
+        "wand side toggle",
+        "filtered label install/remove",
+        "manual valve toggle",
+        "buffer comparator formula",
+        "buffer choke cycling",
+        "blank label return"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileTubeValveRenderer.java",
+      "evidence": [
+        "valve transform and animated handle"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileTubeBufferRenderer.java",
+      "evidence": [
+        "per-side blue/red choke rods",
+        "buffer aspect display"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/models/ModelTubeValve.java",
+      "evidence": [
+        "original valve model geometry and texture mapping"
+      ]
+    }
+  ],
+  "production_contracts": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/essentia/TC4EssentiaTubeParity.java",
+      "contract": "dependency-free intervals, capacity, suction propagation, comparator, valve animation, choke and geometry"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaTubeSubtype.java",
+      "contract": "normal/filter/restrict/one-way/valve/buffer subtype behavior and minimum suction 0"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/EssentiaTubeBlockEntity.java",
+      "contract": "server lifecycle, transfer, mixed buffer, valve/redstone, subtype NBT, migration and synchronization"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/EssentiaTubeBlock.java",
+      "contract": "exact shape, connection blockstate, label/wand interaction, comparator and drops"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/EssentiaValveBlock.java",
+      "contract": "manual valve toggle, original exclusions and redstone-visible state"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaSuctionResolver.java",
+      "contract": "closed valve remains tube topology while suppressing suction"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/EssentiaTubeRenderer.java",
+      "contract": "valve animation, buffer chokes, filter and aspect visuals"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java",
+      "contract": "eight cumulative tube transport and persistence contracts"
+    },
+    {
+      "path": "tools/java_contracts/TC4EssentiaTubeFullClosureSelfTest.java",
+      "contract": "Java 17 pure math and boundary proof"
+    },
+    {
+      "path": "tools/tc4_116436_essentia_tube_full_closure_guard.py",
+      "contract": "original-source, production-binding, resources, GameTest and manifest proof"
+    },
+    {
+      "path": "runtime_artifacts/runtime_test_manifest.template.json",
+      "contract": "14 new NOT_TESTED gameplay/client/persistence/integration scenarios"
+    },
+    {
+      "path": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/blocks",
+      "contract": "nine exact original tube textures"
+    },
+    {
+      "path": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/models/valve.png",
+      "contract": "exact original valve model texture"
+    }
+  ],
+  "tests": {
+    "gametest_methods": 278,
+    "runtime_manifest_scenarios": 821,
+    "focused_static_ci": "59/59 PASS",
+    "java17_self_test": "PASS",
+    "targeted_parse": "8/8 PASS",
+    "json": "2189/2189 PASS",
+    "recipes": "258/258 STATICALLY MAPPED",
+    "exact_assets": "10/10 PASS"
+  },
+  "honest_status": {
+    "source_closed": true,
+    "resource_closed": true,
+    "build_verified": false,
+    "runtime_verified": false,
+    "jar_created": false
+  },
+  "known_runtime_boundary": "Client, dedicated server, multiplayer, chunk reload and actual GameTest execution remain unverified until a Java 17 Forge build/runtime succeeds."
+}

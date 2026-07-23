@@ -42,6 +42,9 @@ public class ArcaneWorkbenchBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
+        if (player.isShiftKeyDown()) {
+            return InteractionResult.PASS;
+        }
         if (!level.isClientSide) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
 

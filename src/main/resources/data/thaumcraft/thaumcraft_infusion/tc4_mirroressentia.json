@@ -5,9 +5,9 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_mirrorglass",
   "components": [
-    "minecraft:diamond",
-    "minecraft:diamond",
-    "minecraft:diamond",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
+    "minecraft:iron_ingot",
     "minecraft:ender_pearl"
   ],
   "aspects": {
@@ -20,5 +20,6 @@
     "item": "thaumcraft:tc4_mirrorframe2",
     "count": 1
   },
-  "v11_62_71_strict_original": true
+  "v11_62_71_strict_original": true,
+  "v11_63_49_exact_source": true
 }

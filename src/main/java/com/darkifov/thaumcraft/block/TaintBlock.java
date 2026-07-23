@@ -1,12 +1,12 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +31,7 @@ public class TaintBlock extends Block {
                 || living.isInvertedHealAndHarm()) return;
         int chance = living instanceof Player ? 100 : 20;
         int duration = living instanceof Player ? 80 : 160;
-        if (level.random.nextInt(chance) == 0) living.addEffect(new MobEffectInstance(MobEffects.POISON, duration, 0, false, false));
+        if (level.random.nextInt(chance) == 0) living.addEffect(new MobEffectInstance(ThaumcraftMod.TAINT_POISON.get(), duration, 0, false, false));
     }
 
     @Override public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {

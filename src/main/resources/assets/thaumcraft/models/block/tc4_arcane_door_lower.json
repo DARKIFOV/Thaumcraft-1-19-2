@@ -1,0 +1,48 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "door": "thaumcraft:block/tc4/adoorbot",
+    "particle": "thaumcraft:block/tc4/adoorbot"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        13
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#door",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#door",
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#door",
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#door",
+          "cullface": "west"
+        },
+        "up": {
+          "texture": "#door",
+          "cullface": "up"
+        },
+        "down": {
+          "texture": "#door",
+          "cullface": "down"
+        }
+      }
+    }
+  ]
+}

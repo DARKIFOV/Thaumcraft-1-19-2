@@ -1,0 +1,13 @@
+TC4 v11.64.17 — Java 17 parse/self-test status
+
+PASS: tools/java_parse_guard_116417.py
+- dependency-free TC4TallowCandleParity compiled with javac --release 17;
+- TC4TallowCandleParitySelfTest completed successfully;
+- 8 Forge production source bindings passed targeted parse checks.
+
+PASS: tools/java_syntax_guard.py
+- full project Java syntax guard completed successfully.
+
+This is static/source verification only. It is not a substitute for Gradle compilation or Forge runtime execution.
+BUILD VERIFIED: NO — Gradle distribution download blocked by UnknownHostException: services.gradle.org.
+RUNTIME VERIFIED: NO.

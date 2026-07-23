@@ -3,9 +3,10 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "DISTILESSENTIA",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "minecraft:oak_slab",
+  "catalyst": "minecraft:glass",
   "ingredients": [
-    "minecraft:hopper"
+    "minecraft:glass",
+    "#minecraft:wooden_slabs"
   ],
   "aspects": {
     "AQUA": 1
@@ -16,11 +17,12 @@
     "GGG"
   ],
   "key": {
-    "G": "minecraft:hopper",
-    "W": "minecraft:oak_slab"
+    "G": "minecraft:glass",
+    "W": "#minecraft:wooden_slabs"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_essentia_jar",
+    "item": "thaumcraft:essentia_jar",
     "count": 1
-  }
+  },
+  "v11_64_35_exact_source": true
 }

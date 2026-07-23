@@ -1,0 +1,11 @@
+Thaumcraft Legacy Rebuild 1.19.2 v11.63.22 build status
+
+Status: FAIL_NO_NETWORK
+Command: ./gradlew compileJava --stacktrace --no-daemon
+Exit code: 1
+Gradle Wrapper could not resolve/download from services.gradle.org; Java compilation did not start.
+
+Environment: OpenJDK output is recorded in TC4_11.63.22_LOCAL_GRADLE_BUILD_ATTEMPT.log.
+Static CI: 86/86 commands have a successful final run.
+Arcane Bellows guard: 146/146 PASS.
+Runtime manifest: 202 scenarios, template validated; runtime remains NOT TESTED.

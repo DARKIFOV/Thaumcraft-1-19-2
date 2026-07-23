@@ -1,0 +1,183 @@
+{
+  "version": "11.64.26",
+  "object": "Thaumonomicon / Таумономикон",
+  "source_closure": "CLOSED_WITH_EXPLICIT_EXTERNAL_ACQUISITION_BOUNDARIES",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_paths": [
+    {
+      "path": "thaumcraft/common/items/relics/ItemThaumonomicon.java",
+      "contracts": [
+        "max stack 1",
+        "normal uncommon / metadata 42 epic",
+        "normal use repairs missing siblings",
+        "Cheat Sheet completes research and gives 50 only to undiscovered aspects",
+        "sync research and aspects",
+        "page sound 1.0/1.0",
+        "Cheat Sheet tooltip"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/gui/GuiResearchBrowser.java",
+      "contracts": [
+        "256x230 browser",
+        "static lastX=-5,lastY=-6",
+        "static selectedCategory",
+        "shared map pan",
+        "category click sound 0.4",
+        "3-second research popup",
+        "paper+ink+no open note preconditions"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/gui/GuiResearchRecipe.java",
+      "contracts": [
+        "static recipe-reference history",
+        "even two-page spreads",
+        "page/back sound 0.66",
+        "center back only with history",
+        "Escape/inventory returns browser",
+        "no mouse-wheel paging"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/WandManager.java",
+      "contracts": [
+        "bookshelf transform requires empty focus",
+        "no vis cost",
+        "remove shelf",
+        "spawn zero-motion special book",
+        "sparkle packet",
+        "wand sound 1.0/1.0"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigResearch.java",
+      "contracts": [
+        "compound recipe wand + bookshelf",
+        "dimensions 1x2x1",
+        "zero aspects",
+        "THAUMONOMICON BASICS 1,-2 auto/stub/round parent RESEARCH"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigAspects.java",
+      "contracts": [
+        "bookshelf base aspects + MAGIC 2 + MIND 2"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/Config.java",
+      "contracts": [
+        "rare Thaumonomicon in seven ChestGenHooks tables count 1 weight 1"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/world/ComponentWizardTower.java",
+      "contracts": [
+        "wizard tower chest count 1 weight 20"
+      ]
+    }
+  ],
+  "production_paths": [
+    "src/main/java/com/darkifov/thaumcraft/block/ThaumonomiconItem.java",
+    "src/main/java/com/darkifov/thaumcraft/block/CreativeThaumonomiconItem.java",
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ThaumonomiconParity.java",
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ThaumonomiconLootParity.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchProgression.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java",
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchNoteCreator.java",
+    "src/main/java/com/darkifov/thaumcraft/client/ClientHooks.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/TC4ThaumonomiconClientState.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/TC4ThaumonomiconPageHistory.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/ThaumonomiconScreen.java",
+    "src/main/java/com/darkifov/thaumcraft/client/screen/TC4ResearchPageScreen.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestCompleteSelectedResearchPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/block/WandItem.java",
+    "src/main/java/com/darkifov/thaumcraft/recipe/TC4RecipeRuntimeBridge.java"
+  ],
+  "matrix": [
+    {
+      "original": "normal open repairs siblings and syncs two ledgers",
+      "before": "book only opened GUI / incomplete repair-sync path",
+      "fix": "seed auto, repair completed siblings, sync research and aspects",
+      "proof": "ThaumonomiconItem + guard + runtime scenario"
+    },
+    {
+      "original": "Cheat Sheet metadata 42",
+      "before": "non-original broad completion/pool behavior and messages",
+      "fix": "dedicated epic item; original entries only; exact 50 only for newly discovered aspects; silent",
+      "proof": "CreativeThaumonomiconItem + parity self-test"
+    },
+    {
+      "original": "static category/shared pan",
+      "before": "per-category/rebuilt state and wheel navigation",
+      "fix": "one static selected category/shared pan; no wheel behavior",
+      "proof": "TC4ThaumonomiconClientState + screen guards"
+    },
+    {
+      "original": "two-page recipe book/history",
+      "before": "incomplete reference/back semantics",
+      "fix": "even spreads, static history, completed-research reference resolution, original sounds and return rules",
+      "proof": "TC4ResearchPageScreen + page history"
+    },
+    {
+      "original": "primary/secondary research actions",
+      "before": "fallback/wrong selection and invented feedback",
+      "fix": "single authoritative key packet; exact preconditions; silent secondary purchase; targeted note",
+      "proof": "RequestCompleteSelectedResearchPacket + creator"
+    },
+    {
+      "original": "wand + bookshelf compound",
+      "before": "required Ordo / accepted focused wand / ordinary item path",
+      "fix": "no vis cost, reject focus, SpecialItemEntity zero velocity, particles/sound",
+      "proof": "WandItem + recipe bridge"
+    },
+    {
+      "original": "rare chest and wizard-tower acquisition",
+      "before": "no exact modern integration",
+      "fix": "exact dependency-free count/table/weight contract; no approximate injection",
+      "proof": "TC4ThaumonomiconLootParity",
+      "external_blocker": "TC4 wizard-tower structure and exact global ChestGenHooks adapter are absent from the port"
+    }
+  ],
+  "resources": [
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/item/thaumonomicon.png",
+      "original": "assets/thaumcraft/textures/items/thaumonomicon.png",
+      "sha256": "31231734fee929ee7e29998cd0ced59135aedfd72830bf1d5b4122145367cf3d",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/item/tc4/thaumonomiconcheat.png",
+      "original": "assets/thaumcraft/textures/items/thaumonomiconcheat.png",
+      "sha256": "eecd7212229f38ed2382af8299c862e89b24b9ccd55edeb94a5cc7cfba69e048",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/gui/gui_research.png",
+      "original": "assets/thaumcraft/textures/gui/gui_research.png",
+      "sha256": "c4b87469a14935ae2a1472c32814560cc0d637c9ba59ebb20314a251a37ae9b3",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/gui/gui_researchbook.png",
+      "original": "assets/thaumcraft/textures/gui/gui_researchbook.png",
+      "sha256": "6c0ab436415fb985e4aa0a27f8c67ea651ae078623d2b4dc05d5edb99630a921",
+      "byte_identical": true
+    }
+  ],
+  "static_proof": {
+    "gametests": 218,
+    "runtime_scenarios": 672,
+    "forge_parse_files": 16,
+    "recipe_denominator": "258/258",
+    "json_expected": 2054
+  },
+  "external_integration_blockers": [
+    "The original TC4 wizard-tower structure registry is not implemented, so its chest cannot be truthfully populated yet.",
+    "The exact legacy ChestGenHooks rare-pool composition/weight denominator has no modern global-loot adapter in this project; approximate vanilla-table injection is intentionally forbidden."
+  ],
+  "honesty": "No BUILD VERIFIED or RUNTIME VERIFIED claim is allowed without successful Gradle/JDK17 and client/dedicated multiplayer execution."
+}

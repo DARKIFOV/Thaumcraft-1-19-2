@@ -1,0 +1,13 @@
+TC4 v11.63.48 STATIC CI FINAL SUMMARY
+Checks: 112/112 PASS
+Unique checks: 112
+RC=0 records: 112
+Non-zero RC records: 0
+JSON resources: 2109/2109 PASS
+Runtime manifest: 336 scenarios PASS (template structure only)
+Required Forge GameTests: 14 (NOT_TESTED)
+Exact original recipe records: 228/258
+Remaining unresolved recipe records: 30
+Generic registry fallback: 0
+Forge compile: NOT COMPLETED (UnknownHostException while downloading Gradle 7.5.1)
+Confirmed JAR: NO

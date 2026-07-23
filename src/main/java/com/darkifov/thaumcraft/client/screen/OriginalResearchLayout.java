@@ -94,7 +94,7 @@ final class OriginalResearchLayout {
         // Audit markers: TC4ResearchFlagPolicy.HIDDEN / TC4ResearchFlagPolicy.LOST.
         // Concealed nodes can reveal when parents/hidden parents are complete, but
         // hidden/lost entries stay invisible until a real trigger unlocks them.
-        return TC4ResearchFlagPolicy.visibleInBook(entry, unlocked(unlockedResearch, entry), available(unlockedResearch, entry));
+        return TC4ResearchFlagPolicy.visibleInBook(entry, unlocked(unlockedResearch, entry), unlockedResearch.contains("@" + entry.key()), available(unlockedResearch, entry));
     }
 
     static boolean secondary(ResearchEntry entry) {

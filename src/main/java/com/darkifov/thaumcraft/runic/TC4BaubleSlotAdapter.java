@@ -1,6 +1,6 @@
 package com.darkifov.thaumcraft.runic;
 
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import java.lang.reflect.Method;
@@ -22,7 +22,7 @@ public final class TC4BaubleSlotAdapter {
     private TC4BaubleSlotAdapter() {
     }
 
-    public static List<ItemStack> findEquippedBaubles(ServerPlayer player) {
+    public static List<ItemStack> findEquippedBaubles(Player player) {
         List<ItemStack> stacks = new ArrayList<>();
         stacks.addAll(readCurios(player));
         if (stacks.size() < TC4_BAUBLE_SLOT_LIMIT) {
@@ -34,7 +34,7 @@ public final class TC4BaubleSlotAdapter {
         return stacks;
     }
 
-    private static List<ItemStack> readCurios(ServerPlayer player) {
+    private static List<ItemStack> readCurios(Player player) {
         List<ItemStack> stacks = new ArrayList<>();
         try {
             Class<?> curiosApi = Class.forName(CURIOS_API_CLASS);
@@ -71,7 +71,7 @@ public final class TC4BaubleSlotAdapter {
         return resolved instanceof Optional<?> opt ? opt : Optional.empty();
     }
 
-    private static List<ItemStack> readLegacyBaubles(ServerPlayer player) {
+    private static List<ItemStack> readLegacyBaubles(Player player) {
         List<ItemStack> stacks = new ArrayList<>();
         try {
             Class<?> baublesApi = Class.forName(LEGACY_BAUBLES_API_CLASS);

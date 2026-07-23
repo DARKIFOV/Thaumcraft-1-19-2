@@ -18,7 +18,7 @@
     "I": "minecraft:iron_ingot"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecomace",
+    "item": "thaumcraft:golem_deco_mace",
     "count": 1
   },
   "v11_62_22_strict_original": true

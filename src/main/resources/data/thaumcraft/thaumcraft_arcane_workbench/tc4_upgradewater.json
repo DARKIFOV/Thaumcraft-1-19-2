@@ -20,7 +20,7 @@
     "C": "thaumcraft:aqua_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_golem_upgrade_water",
+    "item": "thaumcraft:golem_upgrade_water",
     "count": 1
   },
   "v11_62_22_strict_original": true

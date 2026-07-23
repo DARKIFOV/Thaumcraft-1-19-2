@@ -1,0 +1,20 @@
+TC4 v11.63.31 BUILD STATUS
+
+RESULT: NOT BUILT
+BUILD SUCCESSFUL: NO
+NEW JAR: NO
+JAR SHA-256: N/A
+
+Environment:
+- Required JVM: JDK 17
+- Available JVM: OpenJDK 21.0.10
+- JDK 17 found: NO
+- Gradle Wrapper JAR: PRESENT
+- Wrapper distribution: Gradle 7.5.1
+- ./gradlew --version RC: 1
+
+compileJava: NOT RUN because JDK 17 is unavailable.
+clean build: NOT RUN because JDK 17 is unavailable.
+The diagnostic Wrapper command also cannot obtain Gradle 7.5.1 because services.gradle.org is not resolvable from this environment.
+
+No old JAR was copied or renamed as v11.63.31.

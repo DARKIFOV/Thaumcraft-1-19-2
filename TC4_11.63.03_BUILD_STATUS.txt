@@ -1,0 +1,17 @@
+Thaumcraft Legacy Rebuild 11.63.03 / Minecraft 1.19.2 / Forge 43.5.2
+
+Static source/resource CI: PASS (67/67 groups).
+Runtime manifest template: PASS (88 cases).
+Targeted hotfix guard: PASS (37/37).
+Liquid Death regression guard: PASS (116/116).
+JSON/resource/model/Forge-API regression suite: PASS.
+
+Gradle compileJava: NOT OBTAINED.
+The wrapper stopped before compilation because services.gradle.org could not be
+resolved (UnknownHostException). The available runtime is Java 21.0.10; this
+Forge 1.19.2 project is intended to be built and run with Java 17.
+
+Minecraft client/runtime verification: NOT TESTED in this container.
+The supplied world should be used to verify first-person wand/sceptre bounds,
+Node Stabilizer/Advanced Stabilizer/Transducer visuals, and the full Outer Lands
+entry, boss, save/reload and return cycle.

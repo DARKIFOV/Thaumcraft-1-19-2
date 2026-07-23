@@ -2,6 +2,8 @@ package com.darkifov.thaumcraft.eldritch;
 
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.warp.TC4WarpRuntimeParity;
+import com.darkifov.thaumcraft.warp.TC4WarpResearchGrant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,6 +25,12 @@ public final class TC4EldritchProgression {
     public static final int BATHSALTS_WARP = 10;
     public static final int ELDRITCH_MINOR_WARP = 25;
     public static final int ELDRITCH_MAJOR_WARP = 50;
+    /** TC4 grantResearch magnitude at the ELDRITCHMINOR (warp > 25) milestone. */
+    public static final int ELDRITCH_MINOR_RESEARCH_GRANTS = 10;
+    /** TC4 grantResearch magnitude at the ELDRITCHMAJOR (warp > 50) milestone. */
+    public static final int ELDRITCH_MAJOR_RESEARCH_GRANTS = 20;
+    public static final int CRIMSON_RITES_STICKY_WARP = 1;
+    public static final int CRIMSON_RITES_ATTUNEMENT = 5;
 
     private TC4EldritchProgression() {
     }
@@ -32,17 +40,44 @@ public final class TC4EldritchProgression {
         boolean changed = false;
 
         if (actualWarp > BATHSALTS_WARP) {
-            changed |= unlock(player, "BATHSALTS", "Your mind searches for a way to cleanse itself.");
+            // TC4 checkWarpEvent showed warp.text.8 once, when actual warp first
+            // exceeded 10 and BATHSALTS had not yet been granted, then completed
+            // the hidden @BATHSALTS research. The dark-purple italic styling
+            // matches the original §5§o chat prefix.
+            boolean hadBathSalts = PlayerThaumData.hasResearch(player, "BATHSALTS")
+                    || PlayerThaumData.hasResearch(player, "@BATHSALTS");
+            changed |= unlock(player, "BATHSALTS", null);
             changed |= unlock(player, "@BATHSALTS", null);
+            if (!hadBathSalts) {
+                player.displayClientMessage(
+                        Component.translatable(TC4WarpRuntimeParity.BATHSALTS_MILESTONE_MESSAGE_KEY)
+                                .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC),
+                        false);
+            }
         }
 
         if (actualWarp > ELDRITCH_MINOR_WARP) {
-            changed |= unlock(player, "ELDRITCHMINOR", "Something alien becomes visible at the edge of thought.");
+            // TC4 checkWarpEvent: when actual warp first exceeded 25 and
+            // ELDRITCHMINOR had not been granted, it silently called
+            // grantResearch(player, 10) (a random burst of primal aspect
+            // research) and completed ELDRITCHMINOR. No chat line was shown.
+            boolean minorUnlocked = unlock(player, "ELDRITCHMINOR", null);
+            if (minorUnlocked) {
+                grantResearch(player, ELDRITCH_MINOR_RESEARCH_GRANTS);
+            }
+            changed |= minorUnlocked;
             changed |= unlock(player, "ELDRITCH_WHISPERS", null);
         }
 
         if (actualWarp > ELDRITCH_MAJOR_WARP) {
-            changed |= unlock(player, "ELDRITCHMAJOR", "The Eldritch tab opens fully.");
+            // TC4 checkWarpEvent: actual warp > 50 silently called
+            // grantResearch(player, 20) and completed ELDRITCHMAJOR, again
+            // with no chat message.
+            boolean majorUnlocked = unlock(player, "ELDRITCHMAJOR", null);
+            if (majorUnlocked) {
+                grantResearch(player, ELDRITCH_MAJOR_RESEARCH_GRANTS);
+            }
+            changed |= majorUnlocked;
             changed |= unlock(player, "ELDRITCH_START", null);
             changed |= unlock(player, "ELDRITCH_ALTAR", null);
         }
@@ -59,8 +94,8 @@ public final class TC4EldritchProgression {
 
     public static boolean readCrimsonRites(Player player) {
         boolean changed = PlayerThaumData.unlockResearch(player, "CRIMSON");
-        PlayerThaumData.addWarpSticky(player, 1);
-        PlayerThaumData.addEldritchAttunement(player, 5);
+        PlayerThaumData.addWarpSticky(player, CRIMSON_RITES_STICKY_WARP);
+        PlayerThaumData.addEldritchAttunement(player, CRIMSON_RITES_ATTUNEMENT);
 
         if (!player.level.isClientSide) {
             player.displayClientMessage(Component.literal("The Crimson Rites are now known to you.").withStyle(ChatFormatting.DARK_RED), false);
@@ -117,6 +152,15 @@ public final class TC4EldritchProgression {
     public static boolean canStartGuardianTrial(Player player) {
         return PlayerThaumData.hasResearch(player, "ELDRITCHMAJOR")
                 || PlayerThaumData.hasResearch(player, "ELDRITCH_START");
+    }
+
+    /**
+     * Faithful port of TC4 WarpEvents.grantResearch: award {@code 1 + rand(times)}
+     * points spread across randomly chosen primal aspects, matching the same
+     * algorithm used by {@code WarpEvents.grantResearch}. No chat message.
+     */
+    private static void grantResearch(ServerPlayer player, int times) {
+        TC4WarpResearchGrant.grantAndSync(player, times);
     }
 
     private static boolean unlock(ServerPlayer player, String key, String message) {

@@ -3,6 +3,9 @@
   "values": [
     "thaumcraft:iron_wand_cap",
     "thaumcraft:gold_wand_cap",
-    "thaumcraft:thaumium_wand_cap"
+    "thaumcraft:thaumium_wand_cap",
+    "thaumcraft:tc4_wand_cap_copper",
+    "thaumcraft:tc4_wand_cap_silver",
+    "thaumcraft:tc4_wand_cap_void"
   ]
 }

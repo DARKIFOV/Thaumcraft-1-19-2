@@ -1,0 +1,3 @@
+Java 17 dependency-free Arcane Lamp parity self-test: PASS
+Targeted parse checks for 10 Forge production/test files: PASS
+Full Forge compile: NOT VERIFIED because Gradle Wrapper could not download Gradle 7.5.1.

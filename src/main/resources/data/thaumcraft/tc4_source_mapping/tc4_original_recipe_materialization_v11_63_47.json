@@ -1,0 +1,74 @@
+{
+  "version": "11.63.47",
+  "source_of_truth": [
+    "Thaumcraft4-1.7.10-master/thaumcraft/common/config/ConfigRecipes.java",
+    "Thaumcraft4-1.7.10-master/thaumcraft/api/crafting/InfusionEnchantmentRecipe.java",
+    "tc4_stage121_materialized_recipes.json"
+  ],
+  "stage121_materialized_recipe_count": 189,
+  "runtime_materialized_recipe_count": 189,
+  "runtime_counts_by_kind": {
+    "CRUCIBLE": 50,
+    "ARCANE_SHAPED": 69,
+    "ARCANE_SHAPELESS": 2,
+    "INFUSION": 39,
+    "INFUSION_ENCHANTMENT": 24,
+    "SMELTING": 5
+  },
+  "infusion_enchantment": {
+    "count": 24,
+    "custom_thaumcraft": 2,
+    "vanilla": 22,
+    "runtime": "TC4InfusionEnchantmentIndex + TC4InfusionEnchantmentAdapter + InfusionMatrixBlockEntity",
+    "formulas": [
+      "recipeXP = max(1, minCost(1)/3)",
+      "xp = recipeXP * (1 + current target level)",
+      "instability = base + floor(sum existing levels / 2)",
+      "essentia modifier = target level + 0.1 * other enchantment levels"
+    ]
+  },
+  "smelting": [
+    {
+      "key": "Smelting_4",
+      "input": "thaumcraft:tc4_clusteriron",
+      "output": "minecraft:iron_ingot",
+      "count": 2,
+      "experience": 1.0,
+      "cookingtime": 200
+    },
+    {
+      "key": "Smelting_5",
+      "input": "thaumcraft:tc4_clustercinnabar",
+      "output": "thaumcraft:tc4_quicksilver",
+      "count": 2,
+      "experience": 1.0,
+      "cookingtime": 200
+    },
+    {
+      "key": "Smelting_6",
+      "input": "thaumcraft:tc4_clustergold",
+      "output": "minecraft:gold_ingot",
+      "count": 2,
+      "experience": 1.0,
+      "cookingtime": 200
+    },
+    {
+      "key": "Smelting_7",
+      "input": "thaumcraft:tc4_shard_balanced",
+      "output": "thaumcraft:tc4_dust",
+      "count": 1,
+      "experience": 1.0,
+      "cookingtime": 200
+    },
+    {
+      "key": "Smelting_8",
+      "input": "thaumcraft:tc4_coin",
+      "output": "minecraft:gold_nugget",
+      "count": 1,
+      "experience": 0.0,
+      "cookingtime": 200
+    }
+  ],
+  "remaining_stage121_unresolved_recipe_count": 54,
+  "strict_note": "Historical stage153 data remains unchanged; this ledger records the later runtime completion of all 189 recipes that stage121 had already resolved exactly."
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_bauble_ring",
+    "thaumcraft:tc4_bauble_ring_iron",
+    "thaumcraft:tc4_runic_ring_lesser",
+    "thaumcraft:tc4_runic_ring",
+    "thaumcraft:tc4_runic_ring_charged",
+    "thaumcraft:tc4_runic_ring_regen"
+  ]
+}

@@ -31,6 +31,8 @@ if not errors:
     require("MultiNoiseBiomeSource" in installer, "installer no longer uses the vanilla serializable source")
     require("source.parameters.values()" in installer, "installer no longer preserves the climate table")
     require("Biomes.FLOWER_FOREST" in installer, "rare forest climate replacement was removed")
+    require("preservedFlowerForest" in installer and "flowerForestPoint" in installer,
+            "installer deletes Flower Forest instead of splitting compatible climate points")
     require("new Climate.ParameterList" in installer, "installer no longer rebuilds climate parameters")
     require("generator.biomeSource = replacement" in installer, "live generator source is not replaced")
     require("possibleBiomes().contains(magicalForest)" in installer,
@@ -47,6 +49,21 @@ if not errors:
             "required narrow access-transformer entries are missing")
     require("alone are deliberately not treated as proof" in biomes,
             "TC4Biomes again treats Forge compatibility lists as generation proof")
+    require("ORIGINAL_MAGICAL_FOREST_WEIGHT = 5" in biomes,
+            "Magical Forest lost the original TC4 default biome weight")
+    require("BiomeManager.BiomeType.WARM" in biomes and "BiomeManager.BiomeType.COOL" in biomes,
+            "Magical Forest must be registered in both original WARM and COOL pools")
+    for token in (".temperature(0.7F)", ".downfall(0.6F)", ".waterColor(0x0077EE)",
+                  ".grassColorOverride(0x55FF81)", ".foliageColorOverride(0x66FFC5)"):
+        require(token in biomes, f"Magical Forest original climate/colour token missing: {token}")
+
+    spawns_path = ROOT / "src/main/resources/data/thaumcraft/forge/biome_modifier/magical_forest_spawns.json"
+    require(spawns_path.is_file(), "missing original Magical Forest spawn biome modifier")
+    if spawns_path.is_file():
+        spawns = spawns_path.read_text(encoding="utf-8")
+        for token in ('"minecraft:wolf"', '"minecraft:horse"', '"minecraft:witch"',
+                      '"minecraft:enderman"', '"thaumcraft:pech"', '"thaumcraft:wisp"'):
+            require(token in spawns, f"Magical Forest spawn entry missing: {token}")
 
 for namespace, tag_name in (
     ("forge", "is_overworld"),

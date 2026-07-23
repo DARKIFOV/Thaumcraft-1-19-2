@@ -1,0 +1,20 @@
+TC4 v11.64.06 FOCUSED STATIC CI — HONEST STATUS
+
+Python source/contract guards (executed, PASS):
+[1] tc4_116406_warp_message_parity_guard.py    PASS (140 GameTests; 468 scenarios; warp.text.8 production-linked)
+[2] tc4_116405_warp_spawn_collision_guard.py    PASS (forward-compatible)
+[3] tc4_116404_warp_spawn_offset_guard.py       PASS (forward-compatible)
+[4] tc4_116403_warp_runtime_guard.py            PASS (forward-compatible)
+[5] tc4_116281_warp_eldritch_parity_guard.py    PASS (50/50)
+[8] validate_json_resources.py                  PASS (2049 files)
+[9] validate_runtime_manifest.py --version 11.64.06 --template  PASS (468 tests)
+[10] tc4_recipe_registration_denominator_guard.py  PASS (258/258)
+[11] tc4_116394_source_inventory_guard.py       PASS
+[12] tc4_116394_parity_consolidation_guard.py   PASS (140 GameTests; 468 scenarios)
+
+JDK-dependent checks (NOT VERIFIED in this sandbox):
+[6] warp_runtime_selftest.py    NOT VERIFIED — 'javac' not found (FileNotFoundError)
+[7] java_parse_guard_116406.py  NOT VERIFIED — requires javac (unavailable)
+
+Environment: OpenJDK 25.0.3 Corretto runtime present, but no 'javac' compiler; target is Java 17.
+Conclusion: static/source contracts PASS; compile/runtime remain NOT VERIFIED.

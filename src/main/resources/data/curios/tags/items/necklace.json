@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_bauble_amulet",
+    "thaumcraft:tc4_runic_amulet",
+    "thaumcraft:tc4_runic_amulet_emergency",
+    "thaumcraft:tc4_vis_amulet",
+    "thaumcraft:tc4_vis_amulet_lesser"
+  ]
+}

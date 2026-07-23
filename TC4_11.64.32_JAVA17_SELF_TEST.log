@@ -1,0 +1,4 @@
+$ javac --release 17 -proc:none -d <temp> src/main/java/com/darkifov/thaumcraft/wand/TC4WandComponentMath.java tools/java_contracts/TC4WandComponentMathSelfTest.java
+TC4WandComponentMathSelfTest: PASS
+JAVAC_EXIT_CODE=0
+JAVA_EXIT_CODE=0

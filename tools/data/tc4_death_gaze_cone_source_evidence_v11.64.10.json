@@ -1,0 +1,31 @@
+{
+  "round": "11.64.10",
+  "subsystem": "warp_death_gaze",
+  "original_sources": [
+    {
+      "path": "reference/Thaumcraft4-1.7.10-4.2.3.5-source.zip!/thaumcraft/common/lib/WarpEvents.java",
+      "evidence": "checkDeathGaze queries an inflated range AABB, requires Entity.canBeCollidedWith(), then calls EntityUtils.isVisibleTo(0.75F, player, entity, range), line of sight, PVP admission and absence of Wither."
+    },
+    {
+      "path": "reference/Thaumcraft4-1.7.10-4.2.3.5-source.zip!/thaumcraft/common/lib/utils/EntityUtils.java",
+      "evidence": "isVisibleTo targets entity x/z and boundingBox.minY + height/2, builds an axis of look*range, and delegates to Utils.isLyingInCone."
+    },
+    {
+      "path": "reference/Thaumcraft4-1.7.10-4.2.3.5-source.zip!/thaumcraft/common/lib/utils/Utils.java",
+      "evidence": "isLyingInCone uses halfAperture=aperture/2, cosine comparison against cos(halfAperture), then strict axial projection < axis length as a round cap."
+    }
+  ],
+  "pre_fix_discrepancy": [
+    "The port compared a normalized dot product directly against 0.75, making the cone almost twice as wide as TC4.",
+    "The port aimed at target eye position instead of the original body midpoint.",
+    "The port imposed Euclidean distance <= range, while TC4 used the cone axial round-cap projection.",
+    "The port did not preserve the original canBeCollidedWith/isPickable admission gate."
+  ],
+  "production_contract": [
+    "TC4WarpRuntimeParity.deathGazeConeContains implements full aperture 0.75 radians, cosine(aperture/2), and strict axial projection < range.",
+    "WarpEvents.checkDeathGaze targets the living entity body midpoint and delegates geometry to the shared production helper.",
+    "WarpEvents uses isPickable before cone/LOS/PVP/effect checks and no longer prefilters by spherical distance."
+  ],
+  "runtime_status": "NOT_VERIFIED",
+  "build_status": "NOT_OBTAINED"
+}

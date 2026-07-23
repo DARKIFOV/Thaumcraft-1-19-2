@@ -1,0 +1,175 @@
+{
+  "version": "11.64.30",
+  "target": "Lamp of Fertility / TileArcaneLampFertility",
+  "baseline": "Thaumcraft 4.2.3.5 / Minecraft 1.7.10",
+  "scope": {
+    "source_closed": true,
+    "resource_closed": true,
+    "build_verified": false,
+    "runtime_verified": false,
+    "jar_created": false
+  },
+  "original_source_files": {
+    "thaumcraft/common/tiles/TileArcaneLampFertility.java": {
+      "sha256": "50b05feaf1634cd51a3f0c7644d7f1b69a3e46f95ba8696775972d88c8ef8ae9",
+      "bytes": 7641
+    },
+    "thaumcraft/common/blocks/BlockMetalDevice.java": {
+      "sha256": "a2afd88072ad43893952f58f90879d81b63d8659cfc4f70cc132514ff6b1d8f3",
+      "bytes": 41741
+    },
+    "thaumcraft/common/config/ConfigRecipes.java": {
+      "sha256": "7a525af2ccca83cbe7c38ed7361b9a910c2829247738e8bb6c0bfa8be920cda3",
+      "bytes": 171944
+    },
+    "thaumcraft/common/config/ConfigResearch.java": {
+      "sha256": "4dfd57f37f0b11de094e926041cd925ae51918b94fa682f543d35e3a3f242de6",
+      "bytes": 139238
+    },
+    "thaumcraft/common/tiles/TileJarFillable.java": {
+      "sha256": "0db247ae6bd97ce40a49d200e1a7796e1a1901f825a29663da059aca274aacd7",
+      "bytes": 8419
+    }
+  },
+  "resource_hashes": [
+    {
+      "name": "lamp_fert_side.png",
+      "port_sha256": "2934f98fd519d40ed4e4202cb97b42d60b889c823d4197ddfcd7ce5c6cc32646",
+      "original_sha256": "2934f98fd519d40ed4e4202cb97b42d60b889c823d4197ddfcd7ce5c6cc32646",
+      "match": true
+    },
+    {
+      "name": "lamp_fert_side.png.mcmeta",
+      "port_sha256": "c6b398fa59f5238e96e7325928e990ab6b18df7204325949238609d712d0bf99",
+      "original_sha256": "c6b398fa59f5238e96e7325928e990ab6b18df7204325949238609d712d0bf99",
+      "match": true
+    },
+    {
+      "name": "lamp_fert_side_off.png",
+      "port_sha256": "1f81a2726fec4524b4c0a6da334e397655079684cc04a3483126750151753f66",
+      "original_sha256": "1f81a2726fec4524b4c0a6da334e397655079684cc04a3483126750151753f66",
+      "match": true
+    },
+    {
+      "name": "lamp_fert_top.png",
+      "port_sha256": "78ff322d9a22223e26ceb79e0cd0bc248d5f97e99bff4e4232161448def78049",
+      "original_sha256": "78ff322d9a22223e26ceb79e0cd0bc248d5f97e99bff4e4232161448def78049",
+      "match": true
+    },
+    {
+      "name": "lamp_fert_top.png.mcmeta",
+      "port_sha256": "c6b398fa59f5238e96e7325928e990ab6b18df7204325949238609d712d0bf99",
+      "original_sha256": "c6b398fa59f5238e96e7325928e990ab6b18df7204325949238609d712d0bf99",
+      "match": true
+    },
+    {
+      "name": "lamp_fert_top_off.png",
+      "port_sha256": "e93cd77230e1e62f4c98c54370e5d2011b821454a00eb706f32310fc887d602f",
+      "original_sha256": "e93cd77230e1e62f4c98c54370e5d2011b821454a00eb706f32310fc887d602f",
+      "match": true
+    },
+    {
+      "name": "Bore.png",
+      "port_sha256": "d1527e8c995e3e576a37200bc334e77f35f628515a678565d811fb618e7ed71f",
+      "original_sha256": "d1527e8c995e3e576a37200bc334e77f35f628515a678565d811fb618e7ed71f",
+      "match": true
+    }
+  ],
+  "production_contract": {
+    "charges": {
+      "initial": 0,
+      "max": 4,
+      "cost_per_pair": 2
+    },
+    "essentia": {
+      "aspect": "VICTUS",
+      "draw_interval_ticks": 5,
+      "suction": "128 - charges * 10",
+      "connector_only": true,
+      "direct_jar_side": "UP"
+    },
+    "breeding": {
+      "radius": 7,
+      "first_scan_counter": 0,
+      "interval_ticks": 300,
+      "same_exact_class": true,
+      "max_existing_same_class": 7,
+      "age": 0,
+      "requires_not_in_love": true
+    },
+    "persistence": [
+      "orientation",
+      "charges"
+    ],
+    "light": {
+      "inactive": 8,
+      "active": 15
+    },
+    "research": "LAMPFERTILITY",
+    "recipe": "LampFertility"
+  },
+  "static_results": {
+    "focused_static_ci": "36/36 PASS",
+    "gametest_methods": 247,
+    "runtime_scenarios": 736,
+    "json_files": 2190,
+    "recipes": "258/258 STATICALLY MAPPED",
+    "targeted_parse": "8/8 PASS",
+    "java17_selftest": "PASS"
+  },
+  "build_attempt": {
+    "command": "./gradlew build --no-daemon --console=plain",
+    "exit_code": 1,
+    "failure": "UnknownHostException: services.gradle.org",
+    "environment_java": "OpenJDK 21.0.10",
+    "required_java": "17"
+  },
+  "modified_files": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/TC4FertilityLampParity.java",
+      "sha256": "d20eb850f773563ce21e803c3aee97ea312c273d7c584940bcbbd6fb5cab95ae"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/TC4EssentiaLampBlock.java",
+      "sha256": "189081ac65c151e62f0d2ab7c773c8c8dd6bd5feed975f1c38a54f9bd49ed844"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/TC4EssentiaLampBlockEntity.java",
+      "sha256": "db64d7d296647651b660faccb310dc938864a863e854228f4b0d7c79ae6dd0eb"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/TC4EssentiaLampRenderer.java",
+      "sha256": "46e4a1f1a4f1194bfd71cf93bf03d66593ecf31e7efe69084d4e8b960459c285"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
+      "sha256": "b2d0d4dc89e1e9892bdeb5fec0325d447923d055de89fb70e52cd938d53fa7b6"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java",
+      "sha256": "ddd22859942d56a25103f7272cd017ba334a64febf4a0b3f00e8ea0d175f5cc8"
+    },
+    {
+      "path": "src/main/resources/assets/thaumcraft/blockstates/tc4_block_lamp_fertility.json",
+      "sha256": "25260c7be52f1dc1b6936c8019d7a30d1701d1ed02a1bb70211cc96303d134d4"
+    },
+    {
+      "path": "src/main/resources/assets/thaumcraft/models/block/tc4_block_lamp_fertility.json",
+      "sha256": "462398ce09aa2563d84c153ea093ef837fdf727f31bfb423158020e766d63960"
+    },
+    {
+      "path": "src/main/resources/assets/thaumcraft/models/block/tc4_block_lamp_fertility_off.json",
+      "sha256": "4e725c25159e524eeff0eaaa87b33780b9e7045f16587148fd1ecc837d89417f"
+    },
+    {
+      "path": "src/main/resources/data/thaumcraft/thaumcraft_infusion/tc4_lamp_fertility.json",
+      "sha256": "7c1663d556ccdb06f3d0add835931cb7ca96df5f40cdab7882d12d4f3d3c3212"
+    },
+    {
+      "path": "runtime_artifacts/runtime_test_manifest.template.json",
+      "sha256": "ee90e4ad38854f6f2a4c4b11ec1e78756688f5e12dcea565412df10b1815fcc6"
+    }
+  ],
+  "status_plan": "TC4_11.64.30_FULL_CLOSURE_STATUS_AND_PLAN_RU.md",
+  "mandatory_prompt": "UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md"
+}

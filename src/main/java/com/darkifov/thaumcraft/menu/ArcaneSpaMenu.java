@@ -92,6 +92,11 @@ public class ArcaneSpaMenu extends AbstractContainerMenu {
         return Math.max(0, Math.min(pixels, fluidAmount() * pixels / fluidCapacity()));
     }
 
+    /** Exact TC4 GUI mask: (int)(pixels - pixels * amount/capacity). */
+    public int emptyFluidMaskHeight(int pixels) {
+        return com.darkifov.thaumcraft.block.TC4ArcaneSpaParity.emptyFluidMaskHeight(fluidAmount(), pixels);
+    }
+
     public BlockPos blockPos() {
         return pos;
     }

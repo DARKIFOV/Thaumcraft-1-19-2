@@ -1,0 +1,128 @@
+{
+  "version": "11.63.50",
+  "source_of_truth": "Thaumcraft 4.2.3.5 ConfigRecipes.java runtime registrations with loop expansion + embedded original recipe index + MCP 1.7.10 field mappings + explicit 1.19.2 de-metadata registry map",
+  "strict_rule": "Promote only when result metadata/NBT, catalyst, ordered components or shaped keys, aspects, instability and every legacy field/metadata mapping have an explicit runtime path.",
+  "original_recipe_record_count": 258,
+  "previous_exact_runtime_source_record_count": 248,
+  "v11_63_50_promoted_count": 10,
+  "exact_runtime_source_record_count": 258,
+  "remaining_unresolved_count": 0,
+  "exact_counts_by_kind": {
+    "CRUCIBLE": 54,
+    "ARCANE_SHAPED": 104,
+    "ARCANE_SHAPELESS": 5,
+    "INFUSION": 63,
+    "INFUSION_ENCHANTMENT": 24,
+    "SMELTING": 8
+  },
+  "remaining_counts_by_kind": {
+    "CRUCIBLE": 0,
+    "ARCANE_SHAPED": 0,
+    "ARCANE_SHAPELESS": 0,
+    "INFUSION": 0,
+    "SMELTING": 0
+  },
+  "promoted": [
+    {
+      "key": "GolemFlesh",
+      "kind": "CRUCIBLE",
+      "runtime_path": "data/thaumcraft/thaumcraft_alchemy/tc4_golemflesh.json",
+      "evidence": "blockTaint meta2 -> flesh_block; itemGolemPlacer meta4 -> tc4_golem_flesh; Humanus/Motus/Spiritus 8"
+    },
+    {
+      "key": "WardedGlass",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_wardedglass.json",
+      "evidence": "blockCosmeticOpaque meta2 count8; glass/woodenDevice meta6/brain; Aqua5 Ordo10 Terra5 Ignis5"
+    },
+    {
+      "key": "NodeRelay",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_node_relay.json",
+      "evidence": "blockMetalDevice meta14 count2; iron/balanced shard; Ignis8 Ordo8"
+    },
+    {
+      "key": "NodeChargeRelay",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_nodechargerelay.json",
+      "evidence": "blockMetalDevice meta2; relay meta14/greatwood rod meta0/iron; Ignis16 Ordo16 Aer16"
+    },
+    {
+      "key": "JarVoid",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_jar_void.json",
+      "evidence": "blockJar meta3; obsidian/jar meta0/blaze powder; Aqua5 Perditio15"
+    },
+    {
+      "key": "HungryChest",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_hungrychest.json",
+      "evidence": "plankWood -> #minecraft:planks and legacy wooden trapdoor; Aer5 Ordo3 Perditio3"
+    },
+    {
+      "key": "AlchemyFurnace",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_alchemyfurnace.json",
+      "evidence": "arcane stone/crucible/furnace exact metadata aliases; Ignis5 Aqua5"
+    },
+    {
+      "key": "TubeFilter",
+      "kind": "ARCANE_SHAPELESS",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_tubefilter.json",
+      "evidence": "tube meta0 + resource meta8 filter; Aqua5 Ordo16"
+    },
+    {
+      "key": "Centrifuge",
+      "kind": "ARCANE_SHAPED",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_centrifuge.json",
+      "evidence": "tube meta0/alembic meta1/alchemical construct meta9/piston; Aqua5 Ordo5 Perditio5"
+    },
+    {
+      "key": "AdvancedGolem",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_advancedgolem_{straw,wood,tallow,clay,flesh,stone,iron,thaumium}.json",
+      "evidence": "one wildcard itemGolemPlacer metadata 32767 recipe expanded over exact legacy metas 0..7; central stack retained with byte advanced=1; shears/glowstone/gunpowder/jar/brain"
+    }
+  ],
+  "remaining_unresolved_keys": [],
+  "advanced_golem_demetadata": {
+    "legacy_catalyst": "new ItemStack(ConfigItems.itemGolemPlacer, 1, 32767)",
+    "legacy_output_operation": {
+      "label": "advanced",
+      "type": "byte",
+      "value": 1
+    },
+    "legacy_metadata_to_registry": {
+      "0": "thaumcraft:tc4_golem_straw",
+      "1": "thaumcraft:tc4_golem_wood",
+      "2": "thaumcraft:tc4_golem_tallow",
+      "3": "thaumcraft:tc4_golem_clay",
+      "4": "thaumcraft:tc4_golem_flesh",
+      "5": "thaumcraft:tc4_golem_stone",
+      "6": "thaumcraft:tc4_golem_iron",
+      "7": "thaumcraft:tc4_golem_thaumium"
+    },
+    "ordered_components": [
+      "minecraft:shears",
+      "minecraft:glowstone_dust",
+      "minecraft:gunpowder",
+      "thaumcraft:essentia_jar",
+      "thaumcraft:tc4_brain"
+    ],
+    "runtime_semantics": "Each registry-specific recipe accepts exactly one flattened legacy material item, copies that central ItemStack, and adds byte tag advanced=1. The union of the eight catalysts equals the original valid metadata domain 0..7."
+  },
+  "notes": [
+    "The historical runtime-registration ledger is fully statically mapped at 258/258.",
+    "Arcane totals are 104 shaped plus 5 shapeless registrations; 84 literal shaped call sites expand to 104 registrations through loops.",
+    "Eight JSON files for AdvancedGolem are implementation expansion only and count as one historical source registration.",
+    "The 18 ThaumcraftApi.addSmeltingBonus registrations are a separate mechanic and are not furnace recipes.",
+    "Runtime loading for the exact v11.63.61 source state remains NOT VERIFIED until Java 17 build and runGameTestServer succeed."
+  ],
+  "counting_correction": {
+    "old_incorrect_denominator": 243,
+    "correct_denominator": 258,
+    "reason": "The old ledger counted 109 Arcane records. ConfigRecipes actually creates 104 shaped and 5 shapeless Arcane registrations after expanding the Banner and PrimalArrow loops.",
+    "arcane_mapping_evidence": "tools/data/tc4_arcane_recipe_full_mapping_v11.62.66.json",
+    "smelting_bonus_registrations_excluded": 18
+  }
+}

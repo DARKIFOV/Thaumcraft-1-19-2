@@ -1,0 +1,11 @@
+TC4 v11.64.27 RESEARCH SYSTEM STATIC SUMMARY
+
+Focused static CI: 42/42 PASS
+GameTest source methods: 226 unique
+Runtime manifest scenarios: 688 unique
+JSON resources: 2054/2054 PASS
+Recipe registration denominator: 258/258 STATICALLY MAPPED
+Java 17 parity self-test: PASS
+Targeted Forge parse: 19/19 PASS
+Full Gradle build: NOT OBTAINED
+Forge runtime: NOT VERIFIED

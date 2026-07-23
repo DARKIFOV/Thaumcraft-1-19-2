@@ -1,0 +1,47 @@
+[1/13] python3 tools/tc4_116414_bath_salts_full_closure_guard.py
+TC4 v11.64.14 Bath Salts full-closure guard: PASS (149 GameTests; 489 scenarios; item/fluid/ward/particle/bucket/recipe/research/spa)
+[2/13] python3 tools/tc4_116413_unnatural_hunger_full_closure_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (149 GameTests; 489 scenarios; exact runtime + food + icon + post chain)
+[3/13] python3 tools/tc4_116412_unnatural_hunger_food_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (149 GameTests; 489 scenarios; exact runtime + food + icon + post chain)
+TC4 v11.64.12 Unnatural Hunger food guard: PASS (forward-compatible via v11.64.13 full closure)
+[4/13] python3 tools/tc4_116411_sun_scorned_brightness_guard.py
+TC4 v11.64.11 Sun Scorned brightness guard: PASS (149 GameTests; 489 scenarios; brightness table + exact strict thresholds/rolls)
+[5/13] python3 tools/tc4_116410_death_gaze_cone_guard.py
+TC4 v11.64.10 Death Gaze cone guard: PASS (149 GameTests; 489 scenarios; exact aperture/body midpoint/round cap/pickable gate)
+[6/13] python3 tools/tc4_116409_warp_research_pool_sync_guard.py
+TC4 v11.64.09 warp research pool sync guard: PASS (149 GameTests; 489 scenarios; exact primal roll + aggregate client pool sync)
+[7/13] python3 tools/tc4_116408_eldritch_milestone_grant_guard.py
+TC4 v11.64.08 eldritch milestone guard: PASS (149 GameTests; 489 scenarios; MINOR/MAJOR grant research 10/20 silently, no fabricated chat)
+[8/13] python3 tools/tc4_116407_warp_message_parity_guard.py
+TC4 v11.64.07 warp message guard: PASS (149 GameTests; 489 scenarios; warp.text.8 correctly placed on the BATHSALTS milestone, blurred-vision shows no line)
+[9/13] python3 tools/tc4_116405_warp_spawn_collision_guard.py
+TC4 v11.64.05+ warp spawn collision guard: PASS (149 GameTests; 489 scenarios; entity-aware collision/liquid admission production-linked)
+[10/13] python3 tools/tc4_116404_warp_spawn_offset_guard.py
+TC4 v11.64.04+ warp spawn guard: PASS (149 GameTests; 489 scenarios; original -1/0/+1 offsets production-linked)
+[11/13] python3 tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (cumulative GameTests/scenarios; spread curatives and cleansing source-linked)
+[12/13] python3 tools/tc4_116281_warp_eldritch_parity_guard.py
+Warp/Eldritch parity guard: 50/50
+STATIC SOURCE/NETWORK CONTRACT PASS; runtime remains NOT TESTED
+[13/13] python3 tools/warp_runtime_selftest.py
+Warp runtime pure-Java self-test: PASS (spread downgrade, curative contract, soap chance/consumption, ward duration, original tri-state (-1/0/+1) offsets, entity-aware collision/liquid admission, BATHSALTS milestone message key, Unnatural Hunger 600-tick/one-amplifier food reduction, Sun Scorned brightness-table thresholds/rolls, and exact Death Gaze aperture/round-cap geometry)
+FOCUSED STATIC CI v11.64.14 PART 1: PASS (13/13)
+[14/20] python3 tools/java_parse_guard_116414.py
+Targeted Java parse guard v11.64.14: PASS (pure Java 17 self-test + 8 Forge source parse checks)
+[15/20] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+[16/20] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2051 files)
+[17/20] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.14 --template
+runtime manifest: PASS (489 tests; template=True)
+[18/20] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[19/20] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[20/20] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (149 GameTests; 489 manifest scenarios; source-linked contracts retained)
+FOCUSED STATIC CI v11.64.14 PART 3: PASS (6/6)
+
+FOCUSED STATIC CI v11.64.14: PASS (20/20, split execution)

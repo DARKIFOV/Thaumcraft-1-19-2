@@ -1,0 +1,18 @@
+[56/63] python3 tools/tc4_116404_warp_spawn_offset_guard.py
+TC4 v11.64.04+ warp spawn guard: PASS (286 GameTests; 850 scenarios; original -1/0/+1 offsets production-linked)
+[57/63] python3 tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (cumulative GameTests/scenarios; spread curatives and cleansing source-linked)
+[58/63] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+[59/63] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2189 files)
+[60/63] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.38 --template
+runtime manifest: PASS (850 tests; template=True)
+[61/63] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[62/63] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 54+ top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[63/63] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (286 GameTests; 850 manifest scenarios; source-linked contracts retained)
+SEGMENT PASS 56-63

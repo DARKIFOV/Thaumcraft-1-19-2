@@ -1,0 +1,89 @@
+===== CHECK 27/104: python3 tools/tc4_116251_research_scan_hud_guard.py =====
+v11.62.51 research/scan/HUD guard: OK (single starter pool, TC4 @-scan rewards, map sampling, warp aura, sibling links and animated node tags)
+
+RC=0
+DURATION=1.15s
+
+===== CHECK 28/104: python3 tools/tc4_116252_runtime_risk_guard.py =====
+v11.62.52 runtime-risk guard: OK (exact browser coordinates, verified 32x32 node atlas, time-correct tag animation, TC4 amount text and logout reset)
+
+RC=0
+DURATION=1.10s
+
+===== CHECK 29/104: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py =====
+v11.62.53 wand/beam/Thaumometer guard: OK (exact TC4 floaty line, drain lifecycle, ambient scanner body and original glass lightmap)
+
+RC=0
+DURATION=1.08s
+
+===== CHECK 30/104: python3 tools/tc4_116254_focus_hud_cycle_guard.py =====
+v11.62.54 focus HUD/cycle guard: OK (original 32x32 dial, focus/trade icon, cooldown, TreeMap cycle and transactional rollback)
+
+RC=0
+DURATION=1.13s
+
+===== CHECK 31/104: python3 tools/audit_registry.py --version 11.63.29 --fail-on-unexpected =====
+Audited 726 item models
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected problems: 0
+
+RC=0
+DURATION=1.42s
+
+===== CHECK 32/104: python3 tools/generate_tc4_research_runtime_from_source_map.py --check =====
+TC4 research runtime generation check: PASS
+
+RC=0
+DURATION=1.27s
+
+===== CHECK 33/104: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.63.29 --fail-on-problems =====
+/mnt/data/port_next/reports/tc4_full_research_thaumonomicon_audit_11.63.29.json
+{"research_entries": 201, "categories": {"THAUMATURGY": 42, "ARTIFICE": 50, "ALCHEMY": 35, "GOLEMANCY": 39, "BASICS": 19, "ELDRITCH": 16}, "pages": 591, "concealed_pages": 15, "explicit_recipe_keys": 272, "mapped_icons": 201, "missing_icon_textures": 0, "missing_language_keys": 0, "status": "pass"}
+
+RC=0
+DURATION=2.38s
+
+===== CHECK 34/104: python3 tools/tc4_116270_visual_runtime_regression_guard.py =====
+TC4 11.62.70 regression guard: PASS (100 checks)
+
+RC=0
+DURATION=1.19s
+
+===== CHECK 35/104: python3 tools/tc4_116271_original_gui_infusion_guard.py =====
+TC4 11.63.10 original GUI/infusion guard: PASS (106 checks)
+
+RC=0
+DURATION=1.11s
+
+===== CHECK 36/104: python3 tools/tc4_116272_brain_jar_runtime_guard.py =====
+TC4 11.63.10 Brain Jar runtime guard: PASS (58 checks)
+
+RC=0
+DURATION=1.17s
+
+===== CHECK 37/104: python3 tools/tc4_116273_mirror_runtime_guard.py =====
+TC4 11.63.10 mirror runtime guard: PASS (176/176 checks)
+
+RC=0
+DURATION=1.19s
+
+===== CHECK 38/104: python3 tools/audit_visual_parity.py --version 11.63.29 --fail-on-p0 =====
+Visual parity audit: complete=6, partial=1, runtime PASS 0/7
+reports/visual_parity_audit_v11.63.29.json
+
+RC=0
+DURATION=1.26s
+
+===== CHECK 39/104: python3 tools/tc4_116276_compile_runtime_contract_guard.py =====
+TC4 11.63.10 compile/runtime contract guard: PASS (38 checks)
+
+RC=0
+DURATION=1.38s
+
+===== CHECK 40/104: python3 tools/tc4_116277_outer_lands_cycle_guard.py =====
+TC4 11.62.77 Outer Lands cycle guard: PASS (37 checks)
+
+RC=0
+DURATION=1.35s
+

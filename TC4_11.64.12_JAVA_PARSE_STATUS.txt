@@ -1,0 +1,5 @@
+Targeted Java parse guard v11.64.12: PASS
+- TC4WarpRuntimeParity.java compiled with javac --release 17.
+- WarpEvents.java parsed with javac parse-stop; no structural syntax markers.
+- TC4BlockEntityGameTests.java parsed with javac parse-stop; no structural syntax markers.
+Full Forge type-check/build: NOT OBTAINED because Gradle Wrapper could not resolve services.gradle.org.

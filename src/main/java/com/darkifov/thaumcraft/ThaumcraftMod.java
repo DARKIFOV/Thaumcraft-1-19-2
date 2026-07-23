@@ -1,13 +1,30 @@
 package com.darkifov.thaumcraft;
 
+import com.darkifov.thaumcraft.warp.TC4BathSaltsParity;
 import com.darkifov.thaumcraft.block.AvaritiaCreativeWandItem;
+import com.darkifov.thaumcraft.item.ArcaneDoorItem;
 import com.darkifov.thaumcraft.block.ArcaneSpaBlock;
+import com.darkifov.thaumcraft.block.TC4ArcaneSpaParity;
+import com.darkifov.thaumcraft.block.ArcaneLampBlock;
+import com.darkifov.thaumcraft.block.ArcaneLampLightBlock;
+import com.darkifov.thaumcraft.block.ArcaneEarBlock;
+import com.darkifov.thaumcraft.block.ArcanePressurePlateBlock;
+import com.darkifov.thaumcraft.block.TC4ArcanePressurePlateParity;
+import com.darkifov.thaumcraft.block.TC4ArcaneLampParity;
+import com.darkifov.thaumcraft.block.ArcaneDoorBlock;
+import com.darkifov.thaumcraft.block.ArcaneLevitatorBlock;
+import com.darkifov.thaumcraft.block.ArcaneBoreBlock;
+import com.darkifov.thaumcraft.block.ArcaneBoreBaseBlock;
+import com.darkifov.thaumcraft.block.InfernalFurnaceBlock;
+import com.darkifov.thaumcraft.block.TC4InfernalFurnaceParity;
 import com.darkifov.thaumcraft.block.BathSaltsItem;
 import com.darkifov.thaumcraft.block.PurifyingFluidBlock;
+import com.darkifov.thaumcraft.block.LiquidDeathBlock;
 import com.darkifov.thaumcraft.wand.WandRodType;
 import com.darkifov.thaumcraft.wand.WandVariantRuntime;
 import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.wand.WandFocusType;
+import com.darkifov.thaumcraft.item.TC4WandComponentItem;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipeManager;
 import com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipeManager;
 import com.darkifov.thaumcraft.block.AddonCompletionLedgerItem;
@@ -25,16 +42,25 @@ import com.darkifov.thaumcraft.block.AlembicBlock;
 import com.darkifov.thaumcraft.block.AlembicBlockItem;
 import com.darkifov.thaumcraft.block.EssentiaReservoirBlock;
 import com.darkifov.thaumcraft.block.ThaumatoriumBlock;
+import com.darkifov.thaumcraft.block.ThaumatoriumUpperBlock;
+import com.darkifov.thaumcraft.block.MnemonicMatrixBlock;
+import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
 import com.darkifov.thaumcraft.block.ArcanePedestalBlock;
 import com.darkifov.thaumcraft.block.AspectCrystalItem;
 import com.darkifov.thaumcraft.block.ArcaneWorkbenchBlock;
 import com.darkifov.thaumcraft.block.AuraNodeBlock;
 import com.darkifov.thaumcraft.block.BellowsBlock;
+import com.darkifov.thaumcraft.block.TC4ArcaneBellowsParity;
+import com.darkifov.thaumcraft.block.TC4ArcaneEarParity;
 import com.darkifov.thaumcraft.block.BrainJarBlock;
+import com.darkifov.thaumcraft.blockentity.InfernalFurnaceBlockEntity;
+import com.darkifov.thaumcraft.blockentity.InfernalFurnaceNozzleBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TC4BrainJarParity;
 import com.darkifov.thaumcraft.block.MirrorBlock;
 import com.darkifov.thaumcraft.block.MirrorBlockItem;
 import com.darkifov.thaumcraft.block.HandMirrorItem;
 import com.darkifov.thaumcraft.block.CrucibleBlock;
+import com.darkifov.thaumcraft.block.CrystalClusterBlock;
 import com.darkifov.thaumcraft.block.CreativeThaumonomiconItem;
 import com.darkifov.thaumcraft.block.FilteredEssentiaJarBlock;
 import com.darkifov.thaumcraft.block.EldritchAltarBlock;
@@ -87,13 +113,16 @@ import com.darkifov.thaumcraft.block.GolemDecorationItem;
 import com.darkifov.thaumcraft.block.GolemTaskMarkerItem;
 import com.darkifov.thaumcraft.block.GolemUpgradeItem;
 import com.darkifov.thaumcraft.block.InfusionMatrixBlock;
+import com.darkifov.thaumcraft.block.InfusionPillarBlock;
 import com.darkifov.thaumcraft.block.InfusionMatrixAuxiliaryBlock;
 import com.darkifov.thaumcraft.block.PechLedgerItem;
 import com.darkifov.thaumcraft.block.PechTradeTokenItem;
 import com.darkifov.thaumcraft.block.NodeJarItem;
+import com.darkifov.thaumcraft.block.NodeJarBlock;
 import com.darkifov.thaumcraft.block.NodeStabilizerBlock;
 import com.darkifov.thaumcraft.block.NodeStabilizerItem;
 import com.darkifov.thaumcraft.block.NodeTransducerBlock;
+import com.darkifov.thaumcraft.block.NodeTransducerItem;
 import com.darkifov.thaumcraft.block.NitorLightBlock;
 import com.darkifov.thaumcraft.block.NitorItem;
 import com.darkifov.thaumcraft.block.VisRelayBlock;
@@ -102,6 +131,8 @@ import com.darkifov.thaumcraft.block.VisChargeRelayBlock;
 import com.darkifov.thaumcraft.block.PortingLedgerItem;
 import com.darkifov.thaumcraft.block.TableBlock;
 import com.darkifov.thaumcraft.block.TallowCandleBlock;
+import com.darkifov.thaumcraft.block.TC4TallowCandleParity;
+import com.darkifov.thaumcraft.block.TallowCandleBlockItem;
 import com.darkifov.thaumcraft.block.ItemGrateBlock;
 import com.darkifov.thaumcraft.block.HungryChestBlock;
 import com.darkifov.thaumcraft.block.HungryChestBlockItem;
@@ -112,6 +143,14 @@ import com.darkifov.thaumcraft.block.VisChargeRelayBlockItem;
 import com.darkifov.thaumcraft.block.WardedGlassBlock;
 import com.darkifov.thaumcraft.block.TC4SaplingBlock;
 import com.darkifov.thaumcraft.block.TC4MagicalLeavesBlock;
+import com.darkifov.thaumcraft.block.TC4MagicalPlantBlock;
+import com.darkifov.thaumcraft.block.ManaPodBlock;
+import com.darkifov.thaumcraft.block.TC4PavingStoneBlock;
+import com.darkifov.thaumcraft.block.TC4EssentiaLampBlock;
+import com.darkifov.thaumcraft.block.TC4GrowthLampParity;
+import com.darkifov.thaumcraft.block.TC4FertilityLampParity;
+import com.darkifov.thaumcraft.block.TC4WandPedestalBlock;
+import com.darkifov.thaumcraft.block.TC4WandPedestalFocusBlock;
 import com.darkifov.thaumcraft.block.ShardItem;
 import com.darkifov.thaumcraft.block.ResearchTableBlock;
 import com.darkifov.thaumcraft.block.SanitySoapItem;
@@ -148,18 +187,27 @@ import com.darkifov.thaumcraft.block.WarpWardTalismanItem;
 import com.darkifov.thaumcraft.block.WarpCharmItem;
 import com.darkifov.thaumcraft.blockentity.AlchemicalFurnaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcaneSpaBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneLampBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneLampLightBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneEarBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcanePressurePlateBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneDoorBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AlchemicalCentrifugeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.DeconstructionTableBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaCrystalizerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TC4EssentiaLampBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TC4WandPedestalBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ManaPodBlockEntity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.BrainJarBlockEntity;
 import com.darkifov.thaumcraft.mirror.MirrorBlockEntity;
 import com.darkifov.thaumcraft.mirror.EssentiaMirrorBlockEntity;
 import com.darkifov.thaumcraft.blockentity.NodeStabilizerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.NodeTransducerBlockEntity;
+import com.darkifov.thaumcraft.blockentity.NodeJarBlockEntity;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchPortalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchCrabSpawnerBlockEntity;
@@ -169,6 +217,7 @@ import com.darkifov.thaumcraft.blockentity.EldritchLockBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EldritchCapBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaDriveBlockEntity;
 import com.darkifov.thaumcraft.blockentity.FocalManipulatorBlockEntity;
+import com.darkifov.thaumcraft.blockentity.FumeDissipatorBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
@@ -176,7 +225,13 @@ import com.darkifov.thaumcraft.blockentity.ThaumatoriumBlockEntity;
 import com.darkifov.thaumcraft.blockentity.TransvectorInterfaceBlockEntity;
 import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ItemGrateBlockEntity;
+import com.darkifov.thaumcraft.blockentity.BellowsBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneLevitatorBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneBoreBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneBoreBaseBlockEntity;
 import com.darkifov.thaumcraft.blockentity.HungryChestBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TC4HungryChestParity;
+import com.darkifov.thaumcraft.blockentity.TallowCandleBlockEntity;
 import com.darkifov.thaumcraft.blockentity.VisChargeRelayBlockEntity;
 import com.darkifov.thaumcraft.blockentity.VisRelayBlockEntity;
 import com.darkifov.thaumcraft.blockentity.WardedGlassBlockEntity;
@@ -186,6 +241,13 @@ import com.darkifov.thaumcraft.blockentity.WardedBlockEntity;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
 import com.darkifov.thaumcraft.world.TC4Biomes;
 import com.darkifov.thaumcraft.entity.AspectOrbEntity;
+import com.darkifov.thaumcraft.entity.FallingTaintEntity;
+import com.darkifov.thaumcraft.entity.FollowingItemEntity;
+import com.darkifov.thaumcraft.entity.PermanentItemEntity;
+import com.darkifov.thaumcraft.entity.SpecialItemEntity;
+import com.darkifov.thaumcraft.entity.BrainyZombieEntity;
+import com.darkifov.thaumcraft.entity.GiantBrainyZombieEntity;
+import com.darkifov.thaumcraft.entity.InhabitedZombieEntity;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
 import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.entity.EldritchCrabEntity;
@@ -198,12 +260,23 @@ import com.darkifov.thaumcraft.entity.TaintacleSmallEntity;
 import com.darkifov.thaumcraft.entity.TaintacleEntity;
 import com.darkifov.thaumcraft.entity.PechEntity;
 import com.darkifov.thaumcraft.entity.TaintCrawlerEntity;
+import com.darkifov.thaumcraft.entity.TaintChickenEntity;
+import com.darkifov.thaumcraft.entity.TaintCowEntity;
+import com.darkifov.thaumcraft.entity.TaintCreeperEntity;
+import com.darkifov.thaumcraft.entity.TaintPigEntity;
+import com.darkifov.thaumcraft.entity.TaintSheepEntity;
+import com.darkifov.thaumcraft.entity.TaintVillagerEntity;
 import com.darkifov.thaumcraft.entity.TaintSporeEntity;
+import com.darkifov.thaumcraft.entity.TaintSporeSwarmerEntity;
+import com.darkifov.thaumcraft.entity.TaintSwarmEntity;
+import com.darkifov.thaumcraft.item.TaintedResourceItem;
+import com.darkifov.thaumcraft.item.TC4PrimordialPearlItem;
 import com.darkifov.thaumcraft.entity.TravelingTrunkEntity;
 import com.darkifov.thaumcraft.entity.TC4FireBatEntity;
 import com.darkifov.thaumcraft.entity.TC4WispEntity;
 import com.darkifov.thaumcraft.entity.TC4ThaumicSlimeEntity;
 import com.darkifov.thaumcraft.entity.ThaumGolemEntity;
+import com.darkifov.thaumcraft.entity.GolemBobberEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EmberEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4EldritchOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ExplosiveOrbEntity;
@@ -212,9 +285,15 @@ import com.darkifov.thaumcraft.entity.projectile.TC4GolemOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PrimalOrbEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4PechBlastEntity;
 import com.darkifov.thaumcraft.entity.projectile.TC4ShockOrbEntity;
+import com.darkifov.thaumcraft.entity.projectile.AlumentumProjectileEntity;
+import com.darkifov.thaumcraft.entity.projectile.BottleTaintProjectileEntity;
+import com.darkifov.thaumcraft.entity.projectile.PrimalArrowEntity;
+import com.darkifov.thaumcraft.entity.projectile.GolemDartEntity;
 import com.darkifov.thaumcraft.infusion.InfusionRecipeManager;
+import com.darkifov.thaumcraft.infusion.TC4InfusionAltarFullClosureParity;
 import com.darkifov.thaumcraft.enchantment.TC4HasteEnchantment;
 import com.darkifov.thaumcraft.effect.TC4WarpMobEffect;
+import com.darkifov.thaumcraft.effect.TaintPoisonMobEffect;
 import com.darkifov.thaumcraft.enchantment.TC4RepairEnchantment;
 import com.darkifov.thaumcraft.essentia.EssentiaTubeSubtype;
 import com.darkifov.thaumcraft.golem.GolemUpgradeType;
@@ -224,11 +303,13 @@ import com.darkifov.thaumcraft.menu.EssentiaTerminalMenu;
 import com.darkifov.thaumcraft.menu.BottomlessPouchMenu;
 import com.darkifov.thaumcraft.menu.HandMirrorMenu;
 import com.darkifov.thaumcraft.menu.FocusPouchMenu;
+import com.darkifov.thaumcraft.menu.HoverHarnessMenu;
 import com.darkifov.thaumcraft.menu.FocalManipulatorMenu;
 import com.darkifov.thaumcraft.menu.GolemMenu;
 import com.darkifov.thaumcraft.menu.AlchemicalFurnaceMenu;
 import com.darkifov.thaumcraft.menu.ArcaneWorkbenchMenu;
 import com.darkifov.thaumcraft.menu.ArcaneSpaMenu;
+import com.darkifov.thaumcraft.menu.ArcaneBoreMenu;
 import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import com.darkifov.thaumcraft.menu.TransvectorInterfaceMenu;
 import com.darkifov.thaumcraft.menu.PechTradeMenu;
@@ -242,6 +323,8 @@ import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.recipe.CountedSmeltingRecipeSerializer;
 import com.darkifov.thaumcraft.recipe.JarLabelRecipe;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -256,6 +339,7 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.inventory.MenuType;
@@ -293,6 +377,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 import net.minecraftforge.registries.RegistryObject;
 import java.util.Map;
 
@@ -333,6 +418,16 @@ public class ThaumcraftMod {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MOD_ID);
 
+    public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
+            DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, MOD_ID);
+
+    public static final RegistryObject<SimpleParticleType> PURIFYING_BUBBLE_PARTICLE =
+            PARTICLE_TYPES.register("purifying_bubble", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> BRAIN_JAR_FULL_PARTICLE =
+            PARTICLE_TYPES.register("brain_jar_full", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> ARCANE_LEVITATOR_SPARKLE_PARTICLE =
+            PARTICLE_TYPES.register("arcane_levitator_sparkle", () -> new SimpleParticleType(false));
+
     public static final RegistryObject<MobEffect> VIS_EXHAUST =
             MOB_EFFECTS.register("vis_exhaust", () -> new TC4WarpMobEffect(TC4WarpMobEffect.Mode.VIS_EXHAUST, MobEffectCategory.HARMFUL, 0x664477));
 
@@ -357,6 +452,9 @@ public class ThaumcraftMod {
     public static final RegistryObject<MobEffect> WARP_WARD =
             MOB_EFFECTS.register("warp_ward", () -> new TC4WarpMobEffect(TC4WarpMobEffect.Mode.WARP_WARD, MobEffectCategory.BENEFICIAL, 0xE0F2F7));
 
+    public static final RegistryObject<MobEffect> TAINT_POISON =
+            MOB_EFFECTS.register("taint_poison", TaintPoisonMobEffect::new);
+
     public static final RegistryObject<Enchantment> HASTE_ENCHANTMENT =
             ENCHANTMENTS.register("haste", TC4HasteEnchantment::new);
 
@@ -380,9 +478,8 @@ public class ThaumcraftMod {
             super.fillItemList(items);
 
             // The three historical registry IDs remain for save compatibility,
-            // but the creative catalogue must mirror original ItemWandCasting:
-            // one NBT-backed item with every craftable rod/cap combination and
-            // one silverwood/thaumium sceptre, all filled to their own capacity.
+            // but original ItemWandCasting#getSubItems exposes exactly four
+            // fully charged representative NBT stacks.
             items.removeIf(stack -> stack.getItem() == IRON_CAPPED_WOODEN_WAND.get()
                     || stack.getItem() == GREATWOOD_WAND.get()
                     || stack.getItem() == SILVERWOOD_WAND.get());
@@ -396,36 +493,39 @@ public class ThaumcraftMod {
             () -> new AddonCompletionLedgerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
     public static final RegistryObject<Item> THAUMONOMICON = specialItem("thaumonomicon",
-            () -> new ThaumonomiconItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+            () -> new ThaumonomiconItem(new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .stacksTo(1).rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> THAUMONOMICON_CHEAT = specialItem("thaumonomicon_cheat",
-            () -> new CreativeThaumonomiconItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1)));
+            () -> new CreativeThaumonomiconItem(new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .stacksTo(1).rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> PORTING_LEDGER = specialItem("porting_ledger",
             () -> new PortingLedgerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
 
-    public static final RegistryObject<Item> NODE_JAR = specialItem("node_jar",
-            () -> new NodeJarItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1)));
-
     public static final RegistryObject<Item> IRON_CAPPED_WOODEN_WAND = specialItem("iron_capped_wooden_wand",
-            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 50, WandRodType.WOOD, WandCapType.IRON));
+            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1).rarity(Rarity.UNCOMMON),
+                    50, WandRodType.WOOD, WandCapType.IRON));
 
     public static final RegistryObject<Item> GREATWOOD_WAND = specialItem("greatwood_wand",
-            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 150, WandRodType.GREATWOOD, WandCapType.GOLD));
+            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1).rarity(Rarity.UNCOMMON),
+                    150, WandRodType.GREATWOOD, WandCapType.GOLD));
 
     public static final RegistryObject<Item> SILVERWOOD_WAND = specialItem("silverwood_wand",
-            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB), 300, WandRodType.SILVERWOOD, WandCapType.THAUMIUM));
+            () -> new WandItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1).rarity(Rarity.UNCOMMON),
+                    300, WandRodType.SILVERWOOD, WandCapType.THAUMIUM));
 
     public static final RegistryObject<Item> AVARITIA_CREATIVE_WAND = specialItem("avaritia_creative_wand",
             () -> new AvaritiaCreativeWandItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> THAUMOMETER = specialItem("thaumometer",
-            () -> new ThaumometerItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+            () -> new ThaumometerItem(new Item.Properties().tab(THAUMCRAFT_TAB).stacksTo(1).rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> GOGGLES_OF_REVEALING = specialItem("goggles_of_revealing",
-            () -> new GogglesOfRevealingItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+            () -> new GogglesOfRevealingItem(new Item.Properties().tab(THAUMCRAFT_TAB).rarity(Rarity.RARE)));
     public static final RegistryObject<Item> RESEARCH_NOTE = specialItem("research_note",
-            () -> new ResearchNoteItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+            () -> new ResearchNoteItem(new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .stacksTo(1).rarity(Rarity.RARE)));
     public static final RegistryObject<Item> ESSENTIA_CRYSTAL = specialItem("tc4_crystalessence",
             () -> new EssentiaCrystalItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Block> TC4_BANNER = BLOCKS.register("tc4_block_banner",
@@ -438,7 +538,9 @@ public class ThaumcraftMod {
     public static final RegistryObject<FluidType> PURIFYING_FLUID_TYPE =
             FLUID_TYPES.register("purifying_fluid", () -> new FluidType(FluidType.Properties.create()
                     .descriptionId("fluid_type.thaumcraft.purifying_fluid")
-                    .lightLevel(10).density(1000).viscosity(1000).rarity(Rarity.RARE)
+                    .lightLevel(TC4BathSaltsParity.FLUID_LIGHT_LEVEL)
+                    .density(TC4BathSaltsParity.FLUID_DENSITY)
+                    .viscosity(TC4BathSaltsParity.FLUID_VISCOSITY).rarity(Rarity.RARE)
                     .canSwim(true).canDrown(true).canExtinguish(true)
                     .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
                     .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)) {
@@ -466,6 +568,48 @@ public class ThaumcraftMod {
                 }
             });
 
+    public static final RegistryObject<FluidType> LIQUID_DEATH_FLUID_TYPE =
+            FLUID_TYPES.register("liquid_death", () -> new FluidType(FluidType.Properties.create()
+                    .descriptionId("fluid_type.thaumcraft.liquid_death")
+                    .density(1200).viscosity(1500).rarity(Rarity.RARE)
+                    .canSwim(false).canDrown(true).canExtinguish(false)
+                    .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
+                    .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY)) {
+                @Override
+                public void initializeClient(java.util.function.Consumer<IClientFluidTypeExtensions> consumer) {
+                    consumer.accept(new IClientFluidTypeExtensions() {
+                        private final ResourceLocation texture =
+                                new ResourceLocation(MOD_ID, "block/tc4/fluiddeath");
+
+                        @Override
+                        public ResourceLocation getStillTexture() {
+                            return texture;
+                        }
+
+                        @Override
+                        public ResourceLocation getFlowingTexture() {
+                            return texture;
+                        }
+
+                        @Override
+                        public int getTintColor() {
+                            return 0xFFFFFFFF;
+                        }
+                    });
+                }
+            });
+
+    public static final RegistryObject<FlowingFluid> LIQUID_DEATH_FLUID =
+            FLUIDS.register("liquid_death", () -> new ForgeFlowingFluid.Source(liquidDeathFluidProperties()));
+    public static final RegistryObject<FlowingFluid> FLOWING_LIQUID_DEATH_FLUID =
+            FLUIDS.register("flowing_liquid_death", () -> new ForgeFlowingFluid.Flowing(liquidDeathFluidProperties()));
+    public static final RegistryObject<LiquidDeathBlock> LIQUID_DEATH_BLOCK = BLOCKS.register("liquid_death",
+            () -> new LiquidDeathBlock(LIQUID_DEATH_FLUID,
+                    BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noLootTable()));
+    public static final RegistryObject<Item> LIQUID_DEATH_BUCKET = ITEMS.register("tc4_bucket_death",
+            () -> new BucketItem(LIQUID_DEATH_FLUID, new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.RARE)));
+
     public static final RegistryObject<FlowingFluid> PURIFYING_FLUID =
             FLUIDS.register("purifying_fluid", () -> new ForgeFlowingFluid.Source(purifyingFluidProperties()));
     public static final RegistryObject<FlowingFluid> FLOWING_PURIFYING_FLUID =
@@ -473,18 +617,105 @@ public class ThaumcraftMod {
     public static final RegistryObject<PurifyingFluidBlock> PURIFYING_FLUID_BLOCK = BLOCKS.register("purifying_fluid",
             () -> new PurifyingFluidBlock(PURIFYING_FLUID,
                     BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F)
-                            .noLootTable().lightLevel(state -> 10)));
+                            .noLootTable().lightLevel(state -> TC4BathSaltsParity.FLUID_LIGHT_LEVEL)));
     public static final RegistryObject<Item> PURIFYING_FLUID_BUCKET = ITEMS.register("tc4_bucket_pure",
             () -> new BucketItem(PURIFYING_FLUID, new Item.Properties().tab(THAUMCRAFT_TAB)
-                    .craftRemainder(Items.BUCKET).stacksTo(1).rarity(Rarity.RARE)));
+                    .craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final RegistryObject<Item> BATH_SALTS = ITEMS.register("tc4_bath_salts",
-            () -> new BathSaltsItem(new Item.Properties().tab(THAUMCRAFT_TAB).rarity(Rarity.UNCOMMON)));
+            () -> new BathSaltsItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Block> ARCANE_SPA = BLOCKS.register("tc4_block_arcane_spa",
-            () -> new ArcaneSpaBlock(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(3.5F, 10.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)));
+            () -> new ArcaneSpaBlock(BlockBehaviour.Properties.of(Material.STONE).noOcclusion()
+                    .strength(TC4ArcaneSpaParity.BLOCK_HARDNESS, TC4ArcaneSpaParity.BLOCK_RESISTANCE)
+                    .sound(SoundType.STONE)));
     public static final RegistryObject<Item> ARCANE_SPA_ITEM = ITEMS.register("tc4_block_arcane_spa",
-            () -> new BlockItem(ARCANE_SPA.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
+            () -> new BlockItem(ARCANE_SPA.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> ARCANE_BORE_BASE = BLOCKS.register("tc4_block_arcane_bore_base",
+            () -> new ArcaneBoreBaseBlock(BlockBehaviour.Properties.of(Material.WOOD)
+                    .strength(2.5F, 10.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistryObject<Item> ARCANE_BORE_BASE_ITEM = ITEMS.register("tc4_block_arcane_bore_base",
+            () -> new BlockItem(ARCANE_BORE_BASE.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> ARCANE_BORE = BLOCKS.register("tc4_block_arcane_bore",
+            () -> new ArcaneBoreBlock(BlockBehaviour.Properties.of(Material.WOOD)
+                    .strength(2.5F, 10.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistryObject<Item> ARCANE_BORE_ITEM = ITEMS.register("tc4_block_arcane_bore",
+            () -> new BlockItem(ARCANE_BORE.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> INFERNAL_FURNACE = BLOCKS.register("tc4_block_arcane_furnace",
+            () -> new InfernalFurnaceBlock(BlockBehaviour.Properties.of(Material.STONE).noOcclusion().noLootTable()
+                    .strength(TC4InfernalFurnaceParity.BLOCK_HARDNESS, TC4InfernalFurnaceParity.BLOCK_RESISTANCE)
+                    .sound(SoundType.STONE).lightLevel(state -> {
+                        int part = state.hasProperty(InfernalFurnaceBlock.PART) ? state.getValue(InfernalFurnaceBlock.PART) : -1;
+                        return part == 0 || part == 10 ? TC4InfernalFurnaceParity.LIGHT_LEVEL : 0;
+                    })));
+    public static final RegistryObject<Block> ARCANE_EAR = BLOCKS.register("tc4_block_arcane_ear",
+            () -> new ArcaneEarBlock(BlockBehaviour.Properties.of(Material.WOOD)
+                    .strength(TC4ArcaneEarParity.BLOCK_HARDNESS, TC4ArcaneEarParity.BLOCK_RESISTANCE)
+                    .sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistryObject<Item> ARCANE_EAR_ITEM = ITEMS.register("tc4_block_arcane_ear",
+            () -> new BlockItem(ARCANE_EAR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> ARCANE_LAMP = BLOCKS.register("tc4_block_arcane_lamp",
+            () -> new ArcaneLampBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(TC4ArcaneLampParity.BLOCK_HARDNESS, TC4ArcaneLampParity.BLOCK_RESISTANCE).requiresCorrectToolForDrops().sound(SoundType.METAL)
+                    .noOcclusion().lightLevel(state -> 15)));
+    public static final RegistryObject<Item> ARCANE_LAMP_ITEM = ITEMS.register("tc4_block_arcane_lamp",
+            () -> new BlockItem(ARCANE_LAMP.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> TC4_LAMP_GROWTH = BLOCKS.register("tc4_block_lamp_growth",
+            () -> new TC4EssentiaLampBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(TC4GrowthLampParity.BLOCK_HARDNESS, TC4GrowthLampParity.BLOCK_RESISTANCE)
+                    .requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion()
+                    .lightLevel(state -> state.getValue(TC4EssentiaLampBlock.ACTIVE)
+                            ? TC4GrowthLampParity.ACTIVE_LIGHT : TC4GrowthLampParity.INACTIVE_LIGHT),
+                    TC4EssentiaLampBlock.Kind.GROWTH));
+    public static final RegistryObject<Item> TC4_LAMP_GROWTH_ITEM = ITEMS.register("tc4_block_lamp_growth",
+            () -> new BlockItem(TC4_LAMP_GROWTH.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> TC4_LAMP_FERTILITY = BLOCKS.register("tc4_block_lamp_fertility",
+            () -> new TC4EssentiaLampBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(TC4FertilityLampParity.BLOCK_HARDNESS, TC4FertilityLampParity.BLOCK_RESISTANCE)
+                    .requiresCorrectToolForDrops().sound(SoundType.METAL).noOcclusion()
+                    .lightLevel(state -> state.getValue(TC4EssentiaLampBlock.ACTIVE)
+                            ? TC4FertilityLampParity.ACTIVE_LIGHT : TC4FertilityLampParity.INACTIVE_LIGHT),
+                    TC4EssentiaLampBlock.Kind.FERTILITY));
+    public static final RegistryObject<Item> TC4_LAMP_FERTILITY_ITEM = ITEMS.register("tc4_block_lamp_fertility",
+            () -> new BlockItem(TC4_LAMP_FERTILITY.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<Block> TC4_WAND_PEDESTAL = BLOCKS.register("tc4_block_wand_pedestal",
+            () -> new TC4WandPedestalBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(3.0F, 17.0F).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+    public static final RegistryObject<Item> TC4_WAND_PEDESTAL_ITEM = ITEMS.register("tc4_block_wand_pedestal",
+            () -> new BlockItem(TC4_WAND_PEDESTAL.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Block> TC4_WAND_PEDESTAL_FOCUS = BLOCKS.register("tc4_block_wand_pedestal_focus",
+            () -> new TC4WandPedestalFocusBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(3.0F, 17.0F).requiresCorrectToolForDrops().sound(SoundType.STONE).noOcclusion()));
+    public static final RegistryObject<Item> TC4_WAND_PEDESTAL_FOCUS_ITEM = ITEMS.register("tc4_block_wand_pedestal_focus",
+            () -> new BlockItem(TC4_WAND_PEDESTAL_FOCUS.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
                     .rarity(Rarity.RARE)));
+    public static final RegistryObject<Block> TC4_MANA_POD = BLOCKS.register("tc4_block_mana_pod",
+            () -> new ManaPodBlock(BlockBehaviour.Properties.of(Material.PLANT)
+                    .strength(0.5F).sound(SoundType.GRASS).randomTicks().noOcclusion()
+                    .lightLevel(state -> state.getValue(ManaPodBlock.AGE))));
+    public static final RegistryObject<Block> ARCANE_LAMP_LIGHT = BLOCKS.register("arcane_lamp_light",
+            () -> new ArcaneLampLightBlock(BlockBehaviour.Properties.of(Material.AIR)
+                    .strength(0.0F).noCollission().noOcclusion().noLootTable()
+                    .lightLevel(state -> TC4ArcaneLampParity.LIGHT_LEVEL)));
+    public static final RegistryObject<Block> ARCANE_PRESSURE_PLATE = BLOCKS.register("tc4_block_arcane_pressure_plate",
+            () -> new ArcanePressurePlateBlock(BlockBehaviour.Properties.of(Material.WOOD)
+                    .strength(TC4ArcanePressurePlateParity.WARDED_HARDNESS,
+                            TC4ArcanePressurePlateParity.EXPLOSION_RESISTANCE)
+                    .sound(SoundType.WOOD).noOcclusion().noCollission().noLootTable()));
+    public static final RegistryObject<Item> ARCANE_PRESSURE_PLATE_ITEM = ITEMS.register("tc4_block_arcane_pressure_plate",
+            () -> new BlockItem(ARCANE_PRESSURE_PLATE.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+    public static final RegistryObject<ArcaneDoorBlock> ARCANE_DOOR = BLOCKS.register("tc4_arcane_door_block",
+            () -> new ArcaneDoorBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(15.0F, 999.0F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Item> ARCANE_DOOR_ITEM = ITEMS.register("tc4_arcanedoor",
+            () -> new ArcaneDoorItem(ARCANE_DOOR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
+                    .rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Block> ARCANE_LEVITATOR = BLOCKS.register("tc4_block_levitator",
+            () -> new ArcaneLevitatorBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(com.darkifov.thaumcraft.block.TC4ArcaneLevitatorParity.BLOCK_HARDNESS,
+                            com.darkifov.thaumcraft.block.TC4ArcaneLevitatorParity.BLOCK_EXPLOSION_RESISTANCE)
+                    .sound(SoundType.STONE).noOcclusion()));
+    public static final RegistryObject<Item> ARCANE_LEVITATOR_ITEM = ITEMS.register("tc4_block_levitator",
+            () -> new BlockItem(ARCANE_LEVITATOR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
     /** Legacy registry ID retained only so existing saves do not lose stacks. Not exposed in the creative tab. */
     public static final RegistryObject<Item> RESEARCH_POINT = specialItem("research_point",
             () -> new ResearchPointItem(new Item.Properties()));
@@ -494,10 +725,11 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> BRAIN_JAR = BLOCKS.register("tc4_jar_brain",
             () -> new BrainJarBlock(BlockBehaviour.Properties.of(Material.GLASS)
-                    .strength(2.0F, 4.0F).requiresCorrectToolForDrops().noOcclusion()));
+                    .strength(TC4BrainJarParity.BLOCK_HARDNESS, TC4BrainJarParity.BLOCK_EXPLOSION_RESISTANCE)
+                    .lightLevel(state -> TC4BrainJarParity.BLOCK_LIGHT_LEVEL)
+                    .noOcclusion()));
     public static final RegistryObject<Item> BRAIN_JAR_ITEM = ITEMS.register("tc4_jar_brain",
-            () -> new BrainJarBlockItem(BRAIN_JAR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)
-                    .rarity(Rarity.UNCOMMON)));
+            () -> new BrainJarBlockItem(BRAIN_JAR.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
 
     public static final RegistryObject<Block> MAGIC_MIRROR = BLOCKS.register("tc4_mirrorframe",
             () -> new MirrorBlock(BlockBehaviour.Properties.of(Material.GLASS)
@@ -526,7 +758,19 @@ public class ThaumcraftMod {
                     Map.entry("tc4_block_banner", TC4_BANNER_ITEM),
                     Map.entry("tc4_bath_salts", BATH_SALTS),
                     Map.entry("tc4_bucket_pure", PURIFYING_FLUID_BUCKET),
+                    Map.entry("tc4_bucket_death", LIQUID_DEATH_BUCKET),
                     Map.entry("tc4_block_arcane_spa", ARCANE_SPA_ITEM),
+                    Map.entry("tc4_block_arcane_bore_base", ARCANE_BORE_BASE_ITEM),
+                    Map.entry("tc4_block_arcane_bore", ARCANE_BORE_ITEM),
+                    Map.entry("tc4_block_arcane_ear", ARCANE_EAR_ITEM),
+                    Map.entry("tc4_block_arcane_lamp", ARCANE_LAMP_ITEM),
+                    Map.entry("tc4_block_lamp_growth", TC4_LAMP_GROWTH_ITEM),
+                    Map.entry("tc4_block_lamp_fertility", TC4_LAMP_FERTILITY_ITEM),
+                    Map.entry("tc4_block_wand_pedestal", TC4_WAND_PEDESTAL_ITEM),
+                    Map.entry("tc4_block_wand_pedestal_focus", TC4_WAND_PEDESTAL_FOCUS_ITEM),
+                    Map.entry("tc4_block_arcane_pressure_plate", ARCANE_PRESSURE_PLATE_ITEM),
+                    Map.entry("tc4_arcanedoor", ARCANE_DOOR_ITEM),
+                    Map.entry("tc4_block_levitator", ARCANE_LEVITATOR_ITEM),
                     Map.entry("tc4_jar_brain", BRAIN_JAR_ITEM),
                     Map.entry("tc4_mirrorframe", MAGIC_MIRROR_ITEM),
                     Map.entry("tc4_mirrorframe2", ESSENTIA_MIRROR_ITEM),
@@ -535,12 +779,19 @@ public class ThaumcraftMod {
     );
     public static final Map<String, RegistryObject<SoundEvent>> TC4_SOUND_EVENTS = TC4Sounds.registerAll(SOUND_EVENTS);
 
-    public static final RegistryObject<Item> IRON_WAND_CAP = item("iron_wand_cap");
-    public static final RegistryObject<Item> GOLD_WAND_CAP = item("gold_wand_cap");
-    public static final RegistryObject<Item> THAUMIUM_WAND_CAP = item("thaumium_wand_cap");
-    public static final RegistryObject<Item> WOODEN_WAND_CORE = item("wooden_wand_core");
-    public static final RegistryObject<Item> GREATWOOD_WAND_CORE = item("greatwood_wand_core");
-    public static final RegistryObject<Item> SILVERWOOD_WAND_CORE = item("silverwood_wand_core");
+    public static final RegistryObject<Item> IRON_WAND_CAP = specialItem("iron_wand_cap",
+            () -> TC4WandComponentItem.activeCap(new Item.Properties().tab(THAUMCRAFT_TAB), WandCapType.IRON));
+    public static final RegistryObject<Item> GOLD_WAND_CAP = specialItem("gold_wand_cap",
+            () -> TC4WandComponentItem.activeCap(new Item.Properties().tab(THAUMCRAFT_TAB), WandCapType.GOLD));
+    public static final RegistryObject<Item> THAUMIUM_WAND_CAP = specialItem("thaumium_wand_cap",
+            () -> TC4WandComponentItem.activeCap(new Item.Properties().tab(THAUMCRAFT_TAB), WandCapType.THAUMIUM));
+    /** Original wood rod component is minecraft:stick; keep this old registry id hidden for save migration only. */
+    public static final RegistryObject<Item> WOODEN_WAND_CORE = specialItem("wooden_wand_core",
+            () -> TC4WandComponentItem.rod(new Item.Properties(), WandRodType.WOOD));
+    public static final RegistryObject<Item> GREATWOOD_WAND_CORE = specialItem("greatwood_wand_core",
+            () -> TC4WandComponentItem.rod(new Item.Properties().tab(THAUMCRAFT_TAB), WandRodType.GREATWOOD));
+    public static final RegistryObject<Item> SILVERWOOD_WAND_CORE = specialItem("silverwood_wand_core",
+            () -> TC4WandComponentItem.rod(new Item.Properties().tab(THAUMCRAFT_TAB), WandRodType.SILVERWOOD));
 
     public static final RegistryObject<Item> AER_SHARD = specialItem("aer_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.AER, false));
     public static final RegistryObject<Item> TERRA_SHARD = specialItem("terra_shard", () -> new ShardItem(new Item.Properties().tab(THAUMCRAFT_TAB), Aspect.TERRA, false));
@@ -658,13 +909,17 @@ public class ThaumcraftMod {
     public static final RegistryObject<Item> VOID_METAL_INGOT = item("void_metal_ingot");
     public static final RegistryObject<Item> AMBER = item("amber");
     public static final RegistryObject<Item> QUICKSILVER_DROP = item("quicksilver_drop");
-    public static final RegistryObject<Item> PRIMORDIAL_PEARL = item("primordial_pearl");
+    /** Rebuild alias retained for saves; behavior is identical to TC4 metadata-3 pearl. */
+    public static final RegistryObject<Item> PRIMORDIAL_PEARL = specialItem("primordial_pearl",
+            () -> new TC4PrimordialPearlItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> NITOR = specialItem("nitor",
             () -> new NitorItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
     public static final RegistryObject<Item> ALCHEMY_DUST = item("alchemy_dust");
     public static final RegistryObject<Item> ESSENTIA_PHIAL = specialItem("essentia_phial",
             () -> new EssentiaPhialItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
-    public static final RegistryObject<Item> TAINTED_SLIME = item("tainted_slime");
+    public static final RegistryObject<Item> TAINTED_SLIME = specialItem("tainted_slime",
+            () -> new TaintedResourceItem(new Item.Properties().tab(THAUMCRAFT_TAB),
+                    "ConfigItems.itemResource meta 11", "taint_slime"));
     public static final RegistryObject<Item> FLUX_CRYSTAL = item("flux_crystal");
     public static final RegistryObject<Item> INFUSION_CORE = item("infusion_core");
     public static final RegistryObject<Item> UNSTABLE_SINGULARITY = item("unstable_singularity");
@@ -747,7 +1002,7 @@ public class ThaumcraftMod {
     public static final RegistryObject<Item> FOCUS_WARDING = focusItem("focus_warding", WandFocusType.WARDING);
     public static final RegistryObject<Item> FOCUS_PRIMAL = focusItem("focus_primal", WandFocusType.PRIMAL);
     public static final RegistryObject<Item> FOCUS_POUCH = specialItem("focus_pouch",
-            () -> new FocusPouchBaubleItem(new Item.Properties().tab(THAUMCRAFT_TAB)));
+            () -> new FocusPouchBaubleItem(new Item.Properties().tab(THAUMCRAFT_TAB).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> FOCUS_BLINK = extrasFocus("focus_blink", ThaumcraftExtrasFocusItem.Mode.BLINK);
     public static final RegistryObject<Item> FOCUS_ARROW = extrasFocus("focus_arrow", ThaumcraftExtrasFocusItem.Mode.ARROW);
@@ -836,8 +1091,9 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> ARCANE_STONE_BRICKS = block("arcane_stone_bricks",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops());
-    public static final RegistryObject<Block> INFUSION_PILLAR = block("infusion_pillar",
-            BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
+    public static final RegistryObject<Block> INFUSION_PILLAR = internalBlock("infusion_pillar",
+            () -> new InfusionPillarBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion()));
 
     public static final RegistryObject<Block> ELDRITCH_STONE = block("eldritch_stone",
             BlockBehaviour.Properties.of(Material.STONE).strength(5.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 2));
@@ -937,6 +1193,26 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> SILVERWOOD_SAPLING = tc4SaplingBlock("silverwood_sapling", TC4SaplingBlock.Kind.SILVERWOOD,
             BlockBehaviour.Properties.of(Material.PLANT).strength(0.0F).randomTicks().noCollission().noOcclusion().lightLevel(state -> 1));
 
+    // v11.63.38: exact de-metadata registry ids for TC4 BlockCustomPlant meta 2..5.
+    // Their BlockItems are registered by TC4ResearchItems so old item stacks and
+    // placed blocks share the same migration id without duplicate registration.
+    public static final RegistryObject<Block> TC4_SHIMMERLEAF = BLOCKS.register("tc4_block_shimmerleaf",
+            () -> new TC4MagicalPlantBlock(BlockBehaviour.Properties.of(Material.PLANT)
+                    .strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 8),
+                    TC4MagicalPlantBlock.Kind.SHIMMERLEAF));
+    public static final RegistryObject<Block> TC4_CINDERPEARL = BLOCKS.register("tc4_block_cinderpearl",
+            () -> new TC4MagicalPlantBlock(BlockBehaviour.Properties.of(Material.PLANT)
+                    .strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 8),
+                    TC4MagicalPlantBlock.Kind.CINDERPEARL));
+    public static final RegistryObject<Block> TC4_ETHEREAL_BLOOM = BLOCKS.register("tc4_block_ethereal_bloom",
+            () -> new TC4MagicalPlantBlock(BlockBehaviour.Properties.of(Material.PLANT)
+                    .strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 15),
+                    TC4MagicalPlantBlock.Kind.ETHEREAL_BLOOM));
+    public static final RegistryObject<Block> TC4_VISHROOM = BLOCKS.register("tc4_block_vishroom",
+            () -> new TC4MagicalPlantBlock(BlockBehaviour.Properties.of(Material.PLANT)
+                    .strength(0.0F).noCollission().noOcclusion().lightLevel(state -> 8),
+                    TC4MagicalPlantBlock.Kind.VISHROOM));
+
     public static final RegistryObject<Block> GREATWOOD_PLANKS = block("greatwood_planks",
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F));
     public static final RegistryObject<Block> SILVERWOOD_PLANKS = block("silverwood_planks",
@@ -961,7 +1237,7 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion());
 
     public static final RegistryObject<Block> ARCANE_WORKBENCH = arcaneWorkbenchBlock("arcane_workbench",
-            BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F, 4.0F));
+            BlockBehaviour.Properties.of(Material.WOOD).strength(2.5F).sound(SoundType.WOOD).noOcclusion());
 
     public static final RegistryObject<Block> FOCAL_MANIPULATOR = focalManipulatorBlock("tc4_block_focal_manipulator",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
@@ -970,7 +1246,9 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 6.0F).requiresCorrectToolForDrops());
 
     public static final RegistryObject<Block> BELLOWS = bellowsBlock("bellows",
-            BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion());
+            BlockBehaviour.Properties.of(Material.WOOD)
+                    .strength(TC4ArcaneBellowsParity.BLOCK_HARDNESS, TC4ArcaneBellowsParity.BLOCK_RESISTANCE)
+                    .sound(SoundType.WOOD).noOcclusion());
     public static final RegistryObject<Block> ESSENTIA_JAR = essentiaJarBlock("essentia_jar",
             BlockBehaviour.Properties.of(Material.GLASS).strength(2.0F, 4.0F).requiresCorrectToolForDrops().noOcclusion());
 
@@ -987,7 +1265,7 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
 
     public static final RegistryObject<Block> ALCHEMICAL_CENTRIFUGE = alchemicalCentrifugeBlock("alchemical_centrifuge",
-            BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 8.0F).requiresCorrectToolForDrops().noOcclusion());
+            BlockBehaviour.Properties.of(Material.METAL).strength(0.5F, 5.0F).sound(SoundType.METAL).noOcclusion());
 
     public static final RegistryObject<Block> ESSENTIA_CRYSTALIZER = essentiaCrystalizerBlock("essentia_crystalizer",
             BlockBehaviour.Properties.of(Material.METAL).strength(3.5F, 8.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 3));
@@ -1011,7 +1289,7 @@ public class ThaumcraftMod {
             BlockBehaviour.Properties.of(Material.GLASS).strength(1.2F, 2.5F).requiresCorrectToolForDrops().noOcclusion());
 
     public static final RegistryObject<Block> ALCHEMICAL_FURNACE = alchemicalFurnaceBlock("alchemical_furnace",
-            BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> 4));
+            BlockBehaviour.Properties.of(Material.STONE).strength(3.5F, 6.0F).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(com.darkifov.thaumcraft.block.AlchemicalFurnaceBlock.LIT) ? 12 : 0));
 
     public static final RegistryObject<Block> ADVANCED_ALCHEMICAL_FURNACE = alchemicalFurnaceBlock("advanced_alchemical_furnace",
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 10.0F).requiresCorrectToolForDrops().lightLevel(state -> 5));
@@ -1019,9 +1297,20 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> THAUMATORIUM = thaumatoriumBlock("thaumatorium",
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion());
 
-    /** Stage523-542: runtime replacement for original ConfigBlocks.blockMetalDevice meta 12 / TileMemory. */
-    public static final RegistryObject<Block> MNEMONIC_MATRIX = block("mnemonic_matrix",
-            BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 4));
+    /** Internal upper half; the original construct renders and operates from the lower tile. */
+    public static final RegistryObject<Block> THAUMATORIUM_UPPER = BLOCKS.register("thaumatorium_upper",
+            () -> new ThaumatoriumUpperBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(4.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion()));
+
+    /** Original ConfigBlocks.blockMetalDevice metadata 9, used by the wand multiblock. */
+    public static final RegistryObject<Block> TC4_ALCHEMICAL_CONSTRUCT = BLOCKS.register("tc4_block_alchemical_construct",
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(4.0F, 10.0F).requiresCorrectToolForDrops()));
+
+    /** Original ConfigBlocks.blockMetalDevice metadata 12 / TileBrainbox. */
+    public static final RegistryObject<Block> MNEMONIC_MATRIX = BLOCKS.register("mnemonic_matrix",
+            () -> new MnemonicMatrixBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(4.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 4)));
 
     public static final RegistryObject<Block> EXTRAS_FIRE_BLOCK = extrasElementBlock("extras_fire_block", ThaumcraftExtrasElementalBlock.Mode.FIRE,
             BlockBehaviour.Properties.of(Material.STONE).strength(2.5F, 6.0F).lightLevel(state -> 10));
@@ -1056,6 +1345,40 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> OBSIDIAN_TILE = block("obsidian_tile",
             BlockBehaviour.Properties.of(Material.STONE).strength(10.0F, 1200.0F).requiresCorrectToolForDrops());
+
+    // v11.63.38: simple TC4 cosmetic-solid and slab migration blocks. The
+    // aliases keep exact de-metadata ids while delegating complex families to
+    // their already functional modern blocks through TC4ResearchItems.
+    public static final RegistryObject<Block> TC4_ARCANE_STONE_SLAB = BLOCKS.register("tc4_block_arcane_stone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(3.0F, 6.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_METAL_BASE = BLOCKS.register("tc4_block_metal_base",
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(3.0F, 6.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_OBSIDIAN_TOTEM_BASE = BLOCKS.register("tc4_block_obsidian_totem_base",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(10.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_OBSIDIAN_TOTEM_1 = BLOCKS.register("tc4_block_obsidian_totem_1",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(10.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_OBSIDIAN_TOTEM_2 = BLOCKS.register("tc4_block_obsidian_totem_2",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(10.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_OBSIDIAN_TOTEM_3 = BLOCKS.register("tc4_block_obsidian_totem_3",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(10.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_OBSIDIAN_TOTEM_4 = BLOCKS.register("tc4_block_obsidian_totem_4",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(10.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_OBSIDIAN_TOTEM_SHADED = BLOCKS.register("tc4_block_obsidian_totem_shaded",
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(10.0F, 1200.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> TC4_PAVING_TRAVEL = BLOCKS.register("tc4_block_paving_travel",
+            () -> new TC4PavingStoneBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(2.0F, 10.0F).lightLevel(state -> 9), TC4PavingStoneBlock.Kind.TRAVEL));
+    public static final RegistryObject<Block> TC4_PAVING_WARDING = BLOCKS.register("tc4_block_paving_warding",
+            () -> new TC4PavingStoneBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(2.0F, 10.0F), TC4PavingStoneBlock.Kind.WARDING));
     public static final RegistryObject<Block> THAUMIUM_STORAGE_BLOCK = block("tc4_block_thaumium",
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 12.0F).requiresCorrectToolForDrops());
     public static final RegistryObject<Block> TALLOW_BLOCK = block("tc4_block_tallow",
@@ -1069,7 +1392,8 @@ public class ThaumcraftMod {
                     .strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion()));
     public static final RegistryObject<Block> HUNGRY_CHEST = hungryChestBlock("hungry_chest",
             () -> new HungryChestBlock(BlockBehaviour.Properties.of(Material.WOOD)
-                    .strength(2.5F, 4.0F).sound(SoundType.WOOD).noOcclusion()));
+                    .strength(TC4HungryChestParity.BLOCK_HARDNESS, TC4HungryChestParity.BLOCK_EXPLOSION_RESISTANCE)
+                    .sound(SoundType.WOOD).noOcclusion()));
     public static final RegistryObject<Block> WARDED_GLASS = customBlock("warded_glass",
             () -> new WardedGlassBlock(BlockBehaviour.Properties.of(Material.GLASS)
                     .strength(-1.0F, 999.0F).sound(SoundType.GLASS).noOcclusion()));
@@ -1252,7 +1576,8 @@ public class ThaumcraftMod {
     public static final RegistryObject<Block> ARCANE_PEDESTAL = pedestalBlock("arcane_pedestal",
             BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion());
     public static final RegistryObject<Block> INFUSION_MATRIX = infusionMatrixBlock("infusion_matrix",
-            BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 8));
+            BlockBehaviour.Properties.of(Material.METAL).strength(5.0F, 8.0F).requiresCorrectToolForDrops()
+                    .lightLevel(state -> TC4InfusionAltarFullClosureParity.MATRIX_LIGHT_LEVEL));
     public static final RegistryObject<Block> MATRIX_ACCELERATOR = infusionMatrixAuxiliaryBlock("matrix_accelerator", InfusionMatrixAuxiliaryBlock.Mode.ACCELERATOR,
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 7));
     public static final RegistryObject<Block> MATRIX_STABILIZER = infusionMatrixAuxiliaryBlock("matrix_stabilizer", InfusionMatrixAuxiliaryBlock.Mode.STABILIZER,
@@ -1262,6 +1587,12 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<Block> AURA_NODE = auraNodeBlock("aura_node",
             BlockBehaviour.Properties.of(Material.GLASS).strength(0.2F, 0.2F).lightLevel(state -> 12).noOcclusion().noCollission());
+
+    public static final RegistryObject<Block> NODE_JAR_BLOCK = BLOCKS.register("node_jar",
+            () -> new NodeJarBlock(BlockBehaviour.Properties.of(Material.GLASS)
+                    .strength(0.3F, 0.3F).sound(SoundType.GLASS).lightLevel(state -> 11).noOcclusion()));
+    public static final RegistryObject<Item> NODE_JAR = ITEMS.register("node_jar",
+            () -> new NodeJarItem(NODE_JAR_BLOCK.get(), new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Block> NODE_STABILIZER = nodeStabilizerBlock("node_stabilizer",
             BlockBehaviour.Properties.of(Material.METAL).strength(4.0F, 8.0F).requiresCorrectToolForDrops().lightLevel(state -> 5));
@@ -1293,8 +1624,41 @@ public class ThaumcraftMod {
             BLOCK_ENTITIES.register("item_grate", () -> BlockEntityType.Builder.of(ItemGrateBlockEntity::new, ITEM_GRATE.get()).build(null));
     public static final RegistryObject<BlockEntityType<TC4BannerBlockEntity>> TC4_BANNER_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("tc4_block_banner", () -> BlockEntityType.Builder.of(TC4BannerBlockEntity::new, TC4_BANNER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<BellowsBlockEntity>> BELLOWS_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("bellows", () -> BlockEntityType.Builder.of(BellowsBlockEntity::new, BELLOWS.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneLevitatorBlockEntity>> ARCANE_LEVITATOR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_levitator", () -> BlockEntityType.Builder.of(
+                    ArcaneLevitatorBlockEntity::new, ARCANE_LEVITATOR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneEarBlockEntity>> ARCANE_EAR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_ear", () -> BlockEntityType.Builder.of(
+                    ArcaneEarBlockEntity::new, ARCANE_EAR.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneLampBlockEntity>> ARCANE_LAMP_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_lamp", () -> BlockEntityType.Builder.of(
+                    ArcaneLampBlockEntity::new, ARCANE_LAMP.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TC4EssentiaLampBlockEntity>> TC4_ESSENTIA_LAMP_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_essentia_lamp", () -> BlockEntityType.Builder.of(
+                    TC4EssentiaLampBlockEntity::new, TC4_LAMP_GROWTH.get(), TC4_LAMP_FERTILITY.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneLampLightBlockEntity>> ARCANE_LAMP_LIGHT_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("arcane_lamp_light", () -> BlockEntityType.Builder.of(
+                    ArcaneLampLightBlockEntity::new).build(null));
+    public static final RegistryObject<BlockEntityType<ArcanePressurePlateBlockEntity>> ARCANE_PRESSURE_PLATE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_pressure_plate", () -> BlockEntityType.Builder.of(
+                    ArcanePressurePlateBlockEntity::new, ARCANE_PRESSURE_PLATE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneDoorBlockEntity>> ARCANE_DOOR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_arcane_door_block", () -> BlockEntityType.Builder.of(
+                    ArcaneDoorBlockEntity::new, ARCANE_DOOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<HungryChestBlockEntity>> HUNGRY_CHEST_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("hungry_chest", () -> BlockEntityType.Builder.of(HungryChestBlockEntity::new, HUNGRY_CHEST.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TallowCandleBlockEntity>> TALLOW_CANDLE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tallow_candle", () -> BlockEntityType.Builder.of(TallowCandleBlockEntity::new,
+                    TALLOW_CANDLE.get(), TALLOW_CANDLE_ORANGE.get(), TALLOW_CANDLE_MAGENTA.get(),
+                    TALLOW_CANDLE_LIGHT_BLUE.get(), TALLOW_CANDLE_YELLOW.get(), TALLOW_CANDLE_LIME.get(),
+                    TALLOW_CANDLE_PINK.get(), TALLOW_CANDLE_GRAY.get(), TALLOW_CANDLE_LIGHT_GRAY.get(),
+                    TALLOW_CANDLE_CYAN.get(), TALLOW_CANDLE_PURPLE.get(), TALLOW_CANDLE_BLUE.get(),
+                    TALLOW_CANDLE_BROWN.get(), TALLOW_CANDLE_GREEN.get(), TALLOW_CANDLE_RED.get(),
+                    TALLOW_CANDLE_BLACK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FumeDissipatorBlockEntity>> FUME_DISSIPATOR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("flux_scrubber", () -> BlockEntityType.Builder.of(FumeDissipatorBlockEntity::new, FUME_DISSIPATOR.get()).build(null));
     public static final RegistryObject<BlockEntityType<VisRelayBlockEntity>> VIS_RELAY_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("vis_relay", () -> BlockEntityType.Builder.of(VisRelayBlockEntity::new, VIS_RELAY.get()).build(null));
     public static final RegistryObject<BlockEntityType<VisChargeRelayBlockEntity>> VIS_CHARGE_RELAY_BLOCK_ENTITY =
@@ -1304,6 +1668,18 @@ public class ThaumcraftMod {
     public static final RegistryObject<BlockEntityType<ArcaneSpaBlockEntity>> ARCANE_SPA_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("tc4_block_arcane_spa", () ->
                     BlockEntityType.Builder.of(ArcaneSpaBlockEntity::new, ARCANE_SPA.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneBoreBaseBlockEntity>> ARCANE_BORE_BASE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_bore_base", () -> BlockEntityType.Builder.of(
+                    ArcaneBoreBaseBlockEntity::new, ARCANE_BORE_BASE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ArcaneBoreBlockEntity>> ARCANE_BORE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_bore", () -> BlockEntityType.Builder.of(
+                    ArcaneBoreBlockEntity::new, ARCANE_BORE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<InfernalFurnaceBlockEntity>> INFERNAL_FURNACE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_furnace", () -> BlockEntityType.Builder.of(
+                    InfernalFurnaceBlockEntity::new, INFERNAL_FURNACE.get()).build(null));
+    public static final RegistryObject<BlockEntityType<InfernalFurnaceNozzleBlockEntity>> INFERNAL_FURNACE_NOZZLE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_arcane_furnace_nozzle", () -> BlockEntityType.Builder.of(
+                    InfernalFurnaceNozzleBlockEntity::new, INFERNAL_FURNACE.get()).build(null));
 
 
     public static final RegistryObject<BlockEntityType<TemporaryHoleBlockEntity>> TEMPORARY_HOLE_BLOCK_ENTITY =
@@ -1368,6 +1744,12 @@ public class ThaumcraftMod {
 
     public static final RegistryObject<BlockEntityType<ArcanePedestalBlockEntity>> ARCANE_PEDESTAL_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("arcane_pedestal", () -> BlockEntityType.Builder.of(ArcanePedestalBlockEntity::new, ARCANE_PEDESTAL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TC4WandPedestalBlockEntity>> TC4_WAND_PEDESTAL_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_wand_pedestal", () -> BlockEntityType.Builder.of(
+                    TC4WandPedestalBlockEntity::new, TC4_WAND_PEDESTAL.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ManaPodBlockEntity>> MANA_POD_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tc4_block_mana_pod", () -> BlockEntityType.Builder.of(
+                    ManaPodBlockEntity::new, TC4_MANA_POD.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<InfusionMatrixBlockEntity>> INFUSION_MATRIX_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("infusion_matrix", () -> BlockEntityType.Builder.of(InfusionMatrixBlockEntity::new, INFUSION_MATRIX.get()).build(null));
@@ -1393,6 +1775,9 @@ public class ThaumcraftMod {
     public static final RegistryObject<BlockEntityType<AuraNodeBlockEntity>> AURA_NODE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("aura_node", () -> BlockEntityType.Builder.of(AuraNodeBlockEntity::new, AURA_NODE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<NodeJarBlockEntity>> NODE_JAR_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("node_jar", () -> BlockEntityType.Builder.of(NodeJarBlockEntity::new, NODE_JAR_BLOCK.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<NodeStabilizerBlockEntity>> NODE_STABILIZER_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("node_stabilizer", () -> BlockEntityType.Builder.of(
                     NodeStabilizerBlockEntity::new, NODE_STABILIZER.get(), ADVANCED_NODE_STABILIZER.get()).build(null));
@@ -1416,6 +1801,9 @@ public class ThaumcraftMod {
     public static final RegistryObject<MenuType<ArcaneSpaMenu>> ARCANE_SPA_MENU =
             MENUS.register("arcane_spa", () -> IForgeMenuType.create(
                     (windowId, inv, data) -> new ArcaneSpaMenu(windowId, inv, data)));
+    public static final RegistryObject<MenuType<ArcaneBoreMenu>> ARCANE_BORE_MENU =
+            MENUS.register("arcane_bore", () -> IForgeMenuType.create(
+                    (windowId, inv, data) -> new ArcaneBoreMenu(windowId, inv, data)));
 
     public static final RegistryObject<MenuType<FocalManipulatorMenu>> FOCAL_MANIPULATOR_MENU =
             MENUS.register("focal_manipulator", () -> IForgeMenuType.create(
@@ -1454,8 +1842,32 @@ public class ThaumcraftMod {
     public static final RegistryObject<MenuType<FocusPouchMenu>> FOCUS_POUCH_MENU =
             MENUS.register("focus_pouch", () -> IForgeMenuType.create((windowId, inv, data) -> new FocusPouchMenu(windowId, inv, data)));
 
+    public static final RegistryObject<MenuType<HoverHarnessMenu>> HOVER_HARNESS_MENU =
+            MENUS.register("hover_harness", () -> IForgeMenuType.create((windowId, inv, data) -> new HoverHarnessMenu(windowId, inv, data)));
+
     public static final RegistryObject<MenuType<GolemMenu>> GOLEM_MENU =
             MENUS.register("golem", () -> IForgeMenuType.create((windowId, inv, data) -> new GolemMenu(windowId, inv, data)));
+
+    public static final RegistryObject<EntityType<SpecialItemEntity>> SPECIAL_ITEM =
+            ENTITY_TYPES.register("special_item", () -> EntityType.Builder.<SpecialItemEntity>of(SpecialItemEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build(MOD_ID + ":special_item"));
+
+    public static final RegistryObject<EntityType<PermanentItemEntity>> PERMANENT_ITEM =
+            ENTITY_TYPES.register("permanent_item", () -> EntityType.Builder.<PermanentItemEntity>of(PermanentItemEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build(MOD_ID + ":permanent_item"));
+
+    public static final RegistryObject<EntityType<FollowingItemEntity>> FOLLOWING_ITEM =
+            ENTITY_TYPES.register("following_item", () -> EntityType.Builder.<FollowingItemEntity>of(FollowingItemEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(20)
+                    .build(MOD_ID + ":following_item"));
 
     public static final RegistryObject<EntityType<TravelingTrunkEntity>> TRAVELING_TRUNK =
             ENTITY_TYPES.register("traveling_trunk", () -> EntityType.Builder.of(TravelingTrunkEntity::new, MobCategory.CREATURE)
@@ -1476,12 +1888,54 @@ public class ThaumcraftMod {
                     .clientTrackingRange(8)
                     .build(MOD_ID + ":taint_crawler"));
 
+    public static final RegistryObject<EntityType<TaintChickenEntity>> TAINT_CHICKEN =
+            ENTITY_TYPES.register("taint_chicken", () -> EntityType.Builder.of(TaintChickenEntity::new, MobCategory.MONSTER)
+                    .sized(0.5F, 0.8F).clientTrackingRange(8).build(MOD_ID + ":taint_chicken"));
+    public static final RegistryObject<EntityType<TaintCowEntity>> TAINT_COW =
+            ENTITY_TYPES.register("taint_cow", () -> EntityType.Builder.of(TaintCowEntity::new, MobCategory.MONSTER)
+                    .sized(0.9F, 1.3F).clientTrackingRange(8).build(MOD_ID + ":taint_cow"));
+    public static final RegistryObject<EntityType<TaintCreeperEntity>> TAINT_CREEPER =
+            ENTITY_TYPES.register("taint_creeper", () -> EntityType.Builder.of(TaintCreeperEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.7F).clientTrackingRange(8).build(MOD_ID + ":taint_creeper"));
+    public static final RegistryObject<EntityType<TaintPigEntity>> TAINT_PIG =
+            ENTITY_TYPES.register("taint_pig", () -> EntityType.Builder.of(TaintPigEntity::new, MobCategory.MONSTER)
+                    .sized(0.9F, 0.9F).clientTrackingRange(8).build(MOD_ID + ":taint_pig"));
+    public static final RegistryObject<EntityType<TaintSheepEntity>> TAINT_SHEEP =
+            ENTITY_TYPES.register("taint_sheep", () -> EntityType.Builder.of(TaintSheepEntity::new, MobCategory.MONSTER)
+                    .sized(0.9F, 1.3F).clientTrackingRange(8).build(MOD_ID + ":taint_sheep"));
+    public static final RegistryObject<EntityType<TaintVillagerEntity>> TAINT_VILLAGER =
+            ENTITY_TYPES.register("taint_villager", () -> EntityType.Builder.of(TaintVillagerEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).clientTrackingRange(8).build(MOD_ID + ":taint_villager"));
+
     public static final RegistryObject<EntityType<TaintSporeEntity>> TAINT_SPORE =
             ENTITY_TYPES.register("taint_spore", () -> EntityType.Builder.of(TaintSporeEntity::new, MobCategory.MONSTER)
                     .sized(0.5F, 0.5F)
                     .clientTrackingRange(8)
                     .fireImmune()
                     .build(MOD_ID + ":taint_spore"));
+
+    public static final RegistryObject<EntityType<TaintSporeSwarmerEntity>> TAINT_SWARMER =
+            ENTITY_TYPES.register("taint_swarmer", () -> EntityType.Builder.of(TaintSporeSwarmerEntity::new, MobCategory.MONSTER)
+                    .sized(1.0F, 1.0F)
+                    .clientTrackingRange(8)
+                    .updateInterval(20)
+                    .fireImmune()
+                    .build(MOD_ID + ":taint_swarmer"));
+
+    public static final RegistryObject<EntityType<TaintSwarmEntity>> TAINT_SWARM =
+            ENTITY_TYPES.register("taint_swarm", () -> EntityType.Builder.of(TaintSwarmEntity::new, MobCategory.MONSTER)
+                    .sized(2.0F, 2.0F)
+                    .clientTrackingRange(8)
+                    .updateInterval(3)
+                    .fireImmune()
+                    .build(MOD_ID + ":taint_swarm"));
+
+    public static final RegistryObject<EntityType<FallingTaintEntity>> FALLING_TAINT =
+            ENTITY_TYPES.register("falling_taint", () -> EntityType.Builder.<FallingTaintEntity>of(FallingTaintEntity::new, MobCategory.MISC)
+                    .sized(0.98F, 0.98F)
+                    .clientTrackingRange(4)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":falling_taint"));
 
     public static final RegistryObject<EntityType<PechEntity>> PECH =
             ENTITY_TYPES.register("pech", () -> EntityType.Builder.of(PechEntity::new, MobCategory.CREATURE)
@@ -1600,12 +2054,80 @@ public class ThaumcraftMod {
                     .updateInterval(3)
                     .build(MOD_ID + ":thaumic_slime"));
 
+    public static final RegistryObject<EntityType<BrainyZombieEntity>> BRAINY_ZOMBIE =
+            ENTITY_TYPES.register("brainy_zombie", () -> EntityType.Builder.<BrainyZombieEntity>of(BrainyZombieEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":brainy_zombie"));
+
+    public static final RegistryObject<EntityType<GiantBrainyZombieEntity>> GIANT_BRAINY_ZOMBIE =
+            ENTITY_TYPES.register("giant_brainy_zombie", () -> EntityType.Builder.<GiantBrainyZombieEntity>of(GiantBrainyZombieEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":giant_brainy_zombie"));
+
+    public static final RegistryObject<EntityType<InhabitedZombieEntity>> INHABITED_ZOMBIE =
+            ENTITY_TYPES.register("inhabited_zombie", () -> EntityType.Builder.<InhabitedZombieEntity>of(InhabitedZombieEntity::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F)
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":inhabited_zombie"));
+
+    public static final RegistryObject<EntityType<AlumentumProjectileEntity>> ALUMENTUM_PROJECTILE =
+            ENTITY_TYPES.register("alumentum_projectile", () -> EntityType.Builder.<AlumentumProjectileEntity>of(AlumentumProjectileEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(10)
+                    .build(MOD_ID + ":alumentum_projectile"));
+
+    public static final RegistryObject<EntityType<BottleTaintProjectileEntity>> BOTTLE_TAINT_PROJECTILE =
+            ENTITY_TYPES.register("bottle_taint_projectile", () -> EntityType.Builder.<BottleTaintProjectileEntity>of(BottleTaintProjectileEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(8)
+                    .updateInterval(10)
+                    .build(MOD_ID + ":bottle_taint_projectile"));
+
+    public static final RegistryObject<EntityType<PrimalArrowEntity>> PRIMAL_ARROW =
+            ENTITY_TYPES.register("primal_arrow", () -> EntityType.Builder.<PrimalArrowEntity>of(PrimalArrowEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(64)
+                    .updateInterval(20)
+                    .build(MOD_ID + ":primal_arrow"));
+
+    public static final RegistryObject<EntityType<GolemDartEntity>> GOLEM_DART =
+            ENTITY_TYPES.register("golem_dart", () -> EntityType.Builder.<GolemDartEntity>of(GolemDartEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(64)
+                    .updateInterval(20)
+                    .build(MOD_ID + ":golem_dart"));
+
+    public static final RegistryObject<EntityType<GolemBobberEntity>> GOLEM_BOBBER =
+            ENTITY_TYPES.register("golem_bobber", () -> EntityType.Builder.<GolemBobberEntity>of(GolemBobberEntity::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(64)
+                    .updateInterval(3)
+                    .build(MOD_ID + ":golem_bobber"));
+
     public static final RegistryObject<Item> WISP_SPAWN_EGG = ITEMS.register("wisp_spawn_egg",
             () -> new ForgeSpawnEggItem(WISP, 0xFFCFFF, 0xFFFFFF,
                     new Item.Properties().tab(THAUMCRAFT_TAB)));
 
     public static final RegistryObject<Item> THAUMIC_SLIME_SPAWN_EGG = ITEMS.register("thaumic_slime_spawn_egg",
             () -> new ForgeSpawnEggItem(THAUMIC_SLIME, 0xFFC0FF, 0xFF80FF,
+                    new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Item> BRAINY_ZOMBIE_SPAWN_EGG = ITEMS.register("brainy_zombie_spawn_egg",
+            () -> new ForgeSpawnEggItem(BRAINY_ZOMBIE, 0xFFBFFF, 0x008000,
+                    new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Item> GIANT_BRAINY_ZOMBIE_SPAWN_EGG = ITEMS.register("giant_brainy_zombie_spawn_egg",
+            () -> new ForgeSpawnEggItem(GIANT_BRAINY_ZOMBIE, 0xFFBFFF, 0x004000,
+                    new Item.Properties().tab(THAUMCRAFT_TAB)));
+
+    public static final RegistryObject<Item> INHABITED_ZOMBIE_SPAWN_EGG = ITEMS.register("inhabited_zombie_spawn_egg",
+            () -> new ForgeSpawnEggItem(INHABITED_ZOMBIE, 0x557755, 0x550000,
                     new Item.Properties().tab(THAUMCRAFT_TAB)));
 
     public static final RegistryObject<EntityType<TC4PechBlastEntity>> FOCUS_PECH_BLAST =
@@ -1678,18 +2200,72 @@ public class ThaumcraftMod {
         RECIPE_SERIALIZERS.register(modBus);
         ENCHANTMENTS.register(modBus);
         MOB_EFFECTS.register(modBus);
+        PARTICLE_TYPES.register(modBus);
         TC4Biomes.register(modBus);
         modBus.addListener(this::onCommonSetup);
         modBus.addListener(this::onEntityAttributeCreation);
         MinecraftForge.EVENT_BUS.addListener(this::onAddReloadListeners);
+        MinecraftForge.EVENT_BUS.addListener(this::onMissingMappings);
         ThaumcraftNetwork.register();
+    }
+
+    private void onMissingMappings(MissingMappingsEvent event) {
+        event.getMappings(ForgeRegistries.Keys.ITEMS, MOD_ID).forEach(mapping -> {
+            String canonicalPath = TC4LegacyDuplicateItemMigrator
+                    .canonicalPath(mapping.getKey().getPath())
+                    .orElse(null);
+            if (canonicalPath == null) return;
+            Item target = ForgeRegistries.ITEMS.getValue(new ResourceLocation(MOD_ID, canonicalPath));
+            if (target != null && target != Items.AIR) {
+                mapping.remap(target);
+            }
+        });
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             DispenserBlock.registerBehavior(PURIFYING_FLUID_BUCKET.get(), DispenseFluidContainer.getInstance());
+            DispenserBlock.registerBehavior(LIQUID_DEATH_BUCKET.get(), DispenseFluidContainer.getInstance());
+            DispenserBlock.registerBehavior(TC4_RESEARCH_ITEMS.get("tc4_alumentum").get(),
+                    new net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior() {
+                        @Override
+                        protected net.minecraft.world.entity.projectile.Projectile getProjectile(
+                                Level level, net.minecraft.core.Position position, ItemStack stack) {
+                            AlumentumProjectileEntity projectile = new AlumentumProjectileEntity(
+                                    ALUMENTUM_PROJECTILE.get(), level, position.x(), position.y(), position.z());
+                            projectile.setItem(stack);
+                            return projectile;
+                        }
+
+                        @Override
+                        protected float getPower() {
+                            return 0.75F;
+                        }
+                    });
+            DispenserBlock.registerBehavior(TC4_RESEARCH_ITEMS.get("tc4_bottle_taint").get(),
+                    new net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior() {
+                        @Override
+                        protected net.minecraft.world.entity.projectile.Projectile getProjectile(
+                                Level level, net.minecraft.core.Position position, ItemStack stack) {
+                            BottleTaintProjectileEntity projectile = new BottleTaintProjectileEntity(
+                                    BOTTLE_TAINT_PROJECTILE.get(), level, position.x(), position.y(), position.z());
+                            projectile.setItem(stack);
+                            return projectile;
+                        }
+
+                        @Override
+                        protected float getPower() {
+                            return 0.5F;
+                        }
+                    });
             SpawnPlacements.register(WISP.get(), SpawnPlacements.Type.NO_RESTRICTIONS,
                     Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TC4WispEntity::checkWispSpawnRules);
+            SpawnPlacements.register(BRAINY_ZOMBIE.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(GIANT_BRAINY_ZOMBIE.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(INHABITED_ZOMBIE.get(), SpawnPlacements.Type.ON_GROUND,
+                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, InhabitedZombieEntity::checkInhabitedZombieSpawnRules);
         });
     }
 
@@ -1697,10 +2273,21 @@ public class ThaumcraftMod {
         event.put(TRAVELING_TRUNK.get(), TravelingTrunkEntity.createAttributes().build());
         event.put(THAUM_GOLEM.get(), ThaumGolemEntity.createAttributes().build());
         event.put(TAINT_CRAWLER.get(), TaintCrawlerEntity.createAttributes().build());
+        event.put(TAINT_CHICKEN.get(), TaintChickenEntity.createAttributes().build());
+        event.put(TAINT_COW.get(), TaintCowEntity.createAttributes().build());
+        event.put(TAINT_CREEPER.get(), TaintCreeperEntity.createAttributes().build());
+        event.put(TAINT_PIG.get(), TaintPigEntity.createAttributes().build());
+        event.put(TAINT_SHEEP.get(), TaintSheepEntity.createAttributes().build());
+        event.put(TAINT_VILLAGER.get(), TaintVillagerEntity.createAttributes().build());
         event.put(TAINT_SPORE.get(), TaintSporeEntity.createAttributes().build());
+        event.put(TAINT_SWARMER.get(), TaintSporeSwarmerEntity.createAttributes().build());
+        event.put(TAINT_SWARM.get(), TaintSwarmEntity.createAttributes().build());
         event.put(FIREBAT.get(), TC4FireBatEntity.createAttributes().build());
         event.put(WISP.get(), TC4WispEntity.createAttributes().build());
         event.put(THAUMIC_SLIME.get(), TC4ThaumicSlimeEntity.createAttributes().build());
+        event.put(BRAINY_ZOMBIE.get(), BrainyZombieEntity.createAttributes().build());
+        event.put(GIANT_BRAINY_ZOMBIE.get(), GiantBrainyZombieEntity.createAttributes().build());
+        event.put(INHABITED_ZOMBIE.get(), InhabitedZombieEntity.createAttributes().build());
         event.put(PECH.get(), PechEntity.createAttributes().build());
         event.put(ELDRITCH_GUARDIAN.get(), EldritchGuardianEntity.createAttributes().build());
         event.put(ELDRITCH_CRAB.get(), EldritchCrabEntity.createAttributes().build());
@@ -1725,7 +2312,17 @@ public class ThaumcraftMod {
 
     private static ForgeFlowingFluid.Properties purifyingFluidProperties() {
         return new ForgeFlowingFluid.Properties(PURIFYING_FLUID_TYPE, PURIFYING_FLUID, FLOWING_PURIFYING_FLUID)
-                .bucket(PURIFYING_FLUID_BUCKET).block(PURIFYING_FLUID_BLOCK);
+                .bucket(PURIFYING_FLUID_BUCKET).block(PURIFYING_FLUID_BLOCK)
+                .slopeFindDistance(TC4BathSaltsParity.FLUID_SLOPE_FIND_DISTANCE)
+                .levelDecreasePerBlock(TC4BathSaltsParity.FLUID_LEVEL_DECREASE_PER_BLOCK)
+                .tickRate(TC4BathSaltsParity.FLUID_TICK_RATE)
+                .explosionResistance(100.0F);
+    }
+
+    private static ForgeFlowingFluid.Properties liquidDeathFluidProperties() {
+        return new ForgeFlowingFluid.Properties(LIQUID_DEATH_FLUID_TYPE, LIQUID_DEATH_FLUID, FLOWING_LIQUID_DEATH_FLUID)
+                .bucket(LIQUID_DEATH_BUCKET).block(LIQUID_DEATH_BLOCK)
+                .slopeFindDistance(4).levelDecreasePerBlock(2).tickRate(5).explosionResistance(100.0F);
     }
 
     private static RegistryObject<Item> item(String name) {
@@ -1768,6 +2365,13 @@ public class ThaumcraftMod {
         return block;
     }
 
+    /** Internal multiblock part: registry-compatible item exists, but TC4 never exposed it in creative. */
+    private static RegistryObject<Block> internalBlock(String name, java.util.function.Supplier<? extends Block> factory) {
+        RegistryObject<Block> block = BLOCKS.register(name, factory);
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        return block;
+    }
+
     private static RegistryObject<Block> hungryChestBlock(String name,
                                                            java.util.function.Supplier<? extends Block> factory) {
         RegistryObject<Block> block = BLOCKS.register(name, factory);
@@ -1777,9 +2381,15 @@ public class ThaumcraftMod {
     }
 
     private static RegistryObject<Block> tallowCandle(String name) {
-        return customBlock(name, () -> new TallowCandleBlock(
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new TallowCandleBlock(
                 BlockBehaviour.Properties.of(Material.DECORATION)
-                        .strength(0.1F).noCollission().noOcclusion().lightLevel(state -> 14)));
+                        .strength(TC4TallowCandleParity.BLOCK_HARDNESS)
+                        .sound(SoundType.WOOL)
+                        .noCollission().noOcclusion()
+                        .lightLevel(state -> TC4TallowCandleParity.BLOCK_LIGHT_LEVEL)));
+        ITEMS.register(name, () -> new TallowCandleBlockItem(block.get(),
+                new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
     }
 
     private static RegistryObject<Block> nitorLightBlock(String name, BlockBehaviour.Properties properties) {
@@ -1986,7 +2596,7 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> filteredEssentiaJarBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new FilteredEssentiaJarBlock(properties));
-        ITEMS.register(name, () -> new EssentiaJarBlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new EssentiaJarBlockItem(block.get(), new Item.Properties()));
         return block;
     }
 
@@ -2058,7 +2668,7 @@ public class ThaumcraftMod {
 
     private static RegistryObject<Block> nodeTransducerBlock(String name, BlockBehaviour.Properties properties) {
         RegistryObject<Block> block = BLOCKS.register(name, () -> new NodeTransducerBlock(properties));
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        ITEMS.register(name, () -> new NodeTransducerItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
         return block;
     }
 
@@ -2077,10 +2687,13 @@ public class ThaumcraftMod {
     }
 
     private static RegistryObject<Block> crystalBlock(String name, int light) {
-        return block(name, BlockBehaviour.Properties.of(Material.GLASS)
-                .strength(1.5F, 3.0F)
-                .requiresCorrectToolForDrops()
-                .lightLevel(state -> light));
+        RegistryObject<Block> block = BLOCKS.register(name, () -> new CrystalClusterBlock(
+                BlockBehaviour.Properties.of(Material.GLASS)
+                        .strength(1.5F, 3.0F)
+                        .requiresCorrectToolForDrops()
+                        .lightLevel(state -> light)));
+        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(THAUMCRAFT_TAB)));
+        return block;
     }
 
     private static RegistryObject<Item> ttParityItem(String name, ThaumicTinkererParityItem.Mode mode) {

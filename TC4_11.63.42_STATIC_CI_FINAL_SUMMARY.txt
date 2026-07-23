@@ -1,0 +1,13 @@
+TC4 v11.63.42 STATIC CI FINAL SUMMARY
+======================================
+Full historical checks: 106/106 PASS
+Failed checks: 0
+Skipped checks: 0
+Java syntax guard: PASS
+Forge 1.19.2 API guard: PASS
+JSON resources: 2107/2107 PASS
+Runtime manifest: PASS (302 scenarios; template=true)
+Stage guard v11.63.42: PASS
+Generic registry fallback IDs: 0
+Confirmed Forge JAR: NO
+Reason: Gradle Wrapper failed before project configuration with UnknownHostException for services.gradle.org.

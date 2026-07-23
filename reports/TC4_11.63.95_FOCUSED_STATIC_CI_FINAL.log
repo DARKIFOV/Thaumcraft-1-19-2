@@ -1,0 +1,35 @@
+[1/11] python3 tools/forge_only_guard.py
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+PASS
+[2/11] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+PASS
+[3/11] python3 tools/forge_1192_compile_api_guard.py
+Forge 1.19.2 compile API guard: OK
+PASS
+[4/11] python3 tools/java_parse_guard.py
+Java parse guard: PASS (27 parity/GameTest files; unresolved Forge symbols ignored)
+PASS
+[5/11] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+PASS
+[6/11] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (101 GameTests; 429 manifest scenarios; source-linked contracts retained)
+PASS
+[7/11] python3 tools/tc4_116395_thaumometer_parity_guard.py
+TC4 v11.63.95 Thaumometer parity guard: PASS (101 GameTests; 429 manifest scenarios; production-linked timing/target contracts)
+PASS
+[8/11] python3 tools/thaumometer_scan_guard.py
+Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, source-linked 25/20 timing and known-target rejection)
+PASS
+[9/11] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.95 --template
+runtime manifest: PASS (429 tests; template=True)
+PASS
+[10/11] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+PASS
+[11/11] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+PASS
+SUMMARY 11/11 PASS; 0 FAIL

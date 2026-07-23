@@ -29,8 +29,8 @@ wand = (java / 'client/render/WandItemRenderer.java').read_text()
 for token in ['RenderType.entityTranslucent(rodTexture)',
               'renderModelBoxColor',
               '0, 8, 2, 18, 2',
-              'poseStack.translate(0.50D, 1.50D, 0.50D)',
-              'poseStack.scale(1.00F, 1.10F, 1.00F)',
+              'poseStack.translate(0.50D, 0.78D, 0.50D)',
+              'poseStack.scale(heldScale, heldScale * 1.05F, heldScale)',
               'poseStack.translate(0.0D, 0.20D, 0.0D)',
               'Vector3f.XP.rotationDegrees(180.0F)']:
     if token not in wand:

@@ -1,6 +1,17 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "thaumcraft:models/block/tc4_infusion_pillar.obj",
+  "ambientocclusion": false,
+  "transform": {
+    "matrix": [
+      [1, 0, 0, 0.5],
+      [0, 0, 1, 0],
+      [0, -1, 0, 0.5]
+    ]
+  },
   "textures": {
-    "all": "thaumcraft:block/infusion_pillar"
+    "texture0": "thaumcraft:models/pillar",
+    "particle": "thaumcraft:models/pillar"
   }
 }

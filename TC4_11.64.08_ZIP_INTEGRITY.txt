@@ -1,0 +1,5 @@
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.08_ELDRITCH_MILESTONE_GRANT_RESEARCH_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Bytes: 
+Entries: 
+SHA-256: 
+unzip -t: OK

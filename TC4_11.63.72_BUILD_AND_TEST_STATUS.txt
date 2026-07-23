@@ -1,0 +1,15 @@
+Thaumcraft Legacy Rebuild v11.63.72
+
+Build environment:
+- Available Java: OpenJDK 21.0.10
+- Required development target: Java 17 / Forge 1.19.2
+- Gradle wrapper: 7.5.1 distribution not cached
+- Network: unavailable; services.gradle.org lookup failed
+
+Verification:
+- Annotated GameTests: 89
+- Runtime manifest scenarios: 417
+- Focused current-round static CI: see TC4_11.63.72_FOCUSED_STATIC_CI_FINAL.log
+- Gradle compile: NOT RUN (wrapper download failed before Gradle execution)
+- Forge GameTest server: NOT RUN
+- Runtime claims: NOT VERIFIED

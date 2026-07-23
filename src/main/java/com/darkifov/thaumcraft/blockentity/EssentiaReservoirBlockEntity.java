@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class EssentiaReservoirBlockEntity extends BlockEntity {
     public static final int CAPACITY = 256;
     public static final int ORIGINAL_RESERVOIR_SUCTION = 24;
+    public static final int ORIGINAL_FILL_INTERVAL_TICKS = 5;
     public static final String NBT_ASPECTS = "Aspects";
     public static final String NBT_FACING = "facing";
 
@@ -42,7 +43,7 @@ public class EssentiaReservoirBlockEntity extends BlockEntity {
             return;
         }
         reservoir.originalTickCounter++;
-        if (reservoir.originalTickCounter % 5 == 0 && reservoir.amount() < CAPACITY) {
+        if (reservoir.originalTickCounter % ORIGINAL_FILL_INTERVAL_TICKS == 0 && reservoir.amount() < CAPACITY) {
             reservoir.fillFromFacingLikeTC4();
         }
     }

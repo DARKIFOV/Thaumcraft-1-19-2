@@ -1,0 +1,27 @@
+{
+  "version": "11.63.98",
+  "original": "Thaumcraft 4.2.3.5",
+  "sources": [
+    {
+      "file": "thaumcraft/client/gui/GuiResearchTable.java",
+      "lines": "820-833",
+      "fact": "Research Mastery shift-click selects the clicked compound aspect components and sends the normal combination packet when both component sources are available."
+    },
+    {
+      "file": "thaumcraft/common/lib/network/playerdata/PacketAspectCombinationToServer.java",
+      "lines": "82-117",
+      "fact": "Both component points are consumed before checking whether the combination result is non-null; player pool has priority and table bonus is used only when the pool is empty."
+    },
+    {
+      "file": "assets/thaumcraft/lang/en_US.lang",
+      "key": "tc.research_page.RESEARCHER2.1",
+      "fact": "Shift-click automatically combines the clicked compound aspect when enough component aspects are available."
+    }
+  ],
+  "port_contract": {
+    "atomic_preflight": true,
+    "pool_before_table_bonus": true,
+    "invalid_resource_complete_pair_consumes_both": true,
+    "shortage_consumes_nothing": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": "11.62.84",
+  "date": "2026-07-15",
+  "source_ci_run": "79602857964",
+  "compiler_errors_before": 5,
+  "compiler_warnings_before": 100,
+  "fixes": [
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/entity/TravelingTrunkEntity.java",
+      "change": "mobInteract access protected -> public"
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/entity/TaintSporeEntity.java",
+      "change": "BlockPos.containing -> explicit Mth.floor + BlockPos(int,int,int)"
+    },
+    {
+      "file": "src/main/java/com/darkifov/thaumcraft/taint/TaintSpreadRuntime.java",
+      "change": "three no-arg canBeReplaced calls -> Material.isReplaceable"
+    }
+  ],
+  "guard_checks": 13,
+  "static_ci": "PASS 50/50",
+  "local_gradle": "DNS_BLOCKED",
+  "jar": null,
+  "runtime": "NOT_TESTED"
+}

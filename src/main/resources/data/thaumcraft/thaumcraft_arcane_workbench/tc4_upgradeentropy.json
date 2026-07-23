@@ -20,7 +20,7 @@
     "C": "thaumcraft:perditio_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_golem_upgrade_entropy",
+    "item": "thaumcraft:golem_upgrade_entropy",
     "count": 1
   },
   "v11_62_22_strict_original": true

@@ -1,0 +1,26 @@
+===== python3 tools/tc4_116410_death_gaze_cone_guard.py =====
+TC4 v11.64.10 Death Gaze cone guard: PASS (143 GameTests; 471 scenarios; exact aperture/body midpoint/round cap/pickable gate)
+
+===== python3 tools/warp_runtime_selftest.py =====
+Warp runtime pure-Java self-test: PASS (spread downgrade, curative contract, soap chance/consumption, ward duration, original tri-state (-1/0/+1) offsets, entity-aware collision/liquid admission, BATHSALTS milestone message key, and exact Death Gaze aperture/round-cap geometry)
+
+===== python3 tools/java_parse_guard_116410.py =====
+Targeted Java parse guard v11.64.10: PASS (3 changed Java files; pure contract compiled with --release 17)
+
+===== python3 tools/validate_json_resources.py =====
+JSON resource validation: OK (2049 files)
+
+===== python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.10 --template =====
+runtime manifest: PASS (471 tests; template=True)
+
+===== python3 tools/tc4_recipe_registration_denominator_guard.py =====
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+
+===== python3 tools/tc4_116394_source_inventory_guard.py =====
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+
+===== python3 tools/tc4_116394_parity_consolidation_guard.py =====
+TC4 v11.63.94 parity consolidation guard: PASS (143 GameTests; 471 manifest scenarios; source-linked contracts retained)
+
+FINAL RECHECK: PASS (8/8)

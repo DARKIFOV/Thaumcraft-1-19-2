@@ -1,0 +1,17 @@
+Thaumcraft Legacy Rebuild v11.63.18
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+
+STATIC_CI: PASS 82/82
+TARGET_GUARD: PASS 117/117
+RUNTIME_MANIFEST_TEMPLATE: PASS 178 scenarios
+COMPILE_JAVA: NOT RUN (Gradle wrapper distribution unavailable)
+JAR: NOT CREATED
+
+Command:
+./gradlew compileJava --stacktrace --no-daemon
+
+Failure before Java compiler:
+java.net.UnknownHostException: services.gradle.org
+while downloading gradle-7.5.1-bin.zip
+
+Runtime, client visual, dedicated-server, multiplayer and save/reload tests: NOT TESTED.

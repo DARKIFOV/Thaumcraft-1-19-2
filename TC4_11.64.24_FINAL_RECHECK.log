@@ -1,0 +1,26 @@
+PASS | version agreement
+PASS | mandatory prompt identity
+PASS | prompt token Один релиз — один предмет или одна цельная механика
+PASS | prompt token Упаковка архива без этого файла запрещена
+PASS | prompt token SOURCE CLOSED
+PASS | prompt token RESOURCE CLOSED
+PASS | prompt token BUILD VERIFIED
+PASS | prompt token RUNTIME VERIFIED
+PASS | Arcane Bore full-closure guard
+PASS | historical Arcane Bore guard
+PASS | Java 17 self-test and targeted parse
+PASS | JSON resources
+PASS | runtime manifest
+PASS | recipe denominator
+PASS | GameTest uniqueness
+PASS | manifest uniqueness
+PASS | clean source tree
+PASS | report and evidence
+PASS | evidence copies identity
+PASS | honest statuses
+PASS | honest Gradle evidence
+PASS | required Java evidence
+PASS | focused CI evidence
+PASS | source/resource status in report
+PASS | build/runtime status in report
+FINAL RECHECK v11.64.24: PASS (25/25)

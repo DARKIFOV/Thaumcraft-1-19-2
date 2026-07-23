@@ -1,0 +1,12 @@
+{
+  "round": "11.64.07",
+  "supersedes": "11.64.06",
+  "correction": "v11.64.06 wrongly attached warp.text.8 to the blurred-vision warp event (effectRoll<=36). The authoritative TC4 4.2.3.5 source (thaumcraft/common/lib/WarpEvents.java) shows the blurred-vision branch applies Config.potionBlurredID with NO chat line, and warp.text.8 is displayed once by the BATHSALTS milestone (checkWarpEvent: actualwarp > 10, when BATHSALTS/@BATHSALTS not yet complete).",
+  "oracle_source": "reference/Thaumcraft4-1.7.10-4.2.3.5-source.zip -> Thaumcraft4-1.7.10-master/thaumcraft/common/lib/WarpEvents.java",
+  "original_blurred_vision_branch": "else if (eff <= 36) { try { player.func_70690_d(new PotionEffect(Config.potionBlurredID, Math.min(32000, 10 * warp), 0, true)); } catch (Exception e) { e.printStackTrace(); } }",
+  "original_bathsalts_milestone": "if (actualwarp > 10) { if (!isResearchComplete(BATHSALTS) && !isResearchComplete(@BATHSALTS)) { player.func_145747_a(new ChatComponentText(\"\u00a75\u00a7o\" + StatCollector.func_74838_a(\"warp.text.8\"))); ...completeResearch(@BATHSALTS); } }",
+  "confirmed_contract": ["warp.text.8"],
+  "production_placement": "TC4EldritchProgression.syncFromWarp -> actualWarp > BATHSALTS_WARP first-unlock branch",
+  "runtime_status": "NOT_VERIFIED",
+  "runtime_status_reason": "No javac and no Gradle network access in the sandbox; Forge GameTest server and in-game chat display were not executed. Static/source parity only."
+}

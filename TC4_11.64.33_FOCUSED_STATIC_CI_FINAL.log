@@ -1,0 +1,92 @@
+[1/44] python3 tools/tc4_116433_wand_foci_full_closure_guard.py
+TC4 v11.64.33 wand foci full-closure guard: PASS
+[2/44] python3 tools/java_parse_guard_116433.py
+Targeted Java parse guard v11.64.33: PASS (Java 17 self-test + 15 Forge parse checks)
+[3/44] python3 tools/tc4_116432_wand_rods_caps_full_closure_guard.py
+TC4 v11.64.32 Wand rods/caps full-closure guard: PASS
+[4/44] python3 tools/java_parse_guard_116432.py
+Targeted Java parse guard v11.64.32: PASS (Java 17 self-test + 11 Forge parse checks)
+[5/44] python3 tools/tc4_116371_wand_parity_guard.py
+TC4 v11.63.71 wand parity guard: PASS (259 current GameTests; restored baseline 85/413)
+[6/44] python3 tools/tc4_116332_wand_component_families_parity_guard.py
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+tc4_116332_wand_component_families_parity_guard.py: PASS (legacy duplicate expectations superseded by canonical registry purge)
+[7/44] python3 tools/tc4_116431_arcane_workbench_full_closure_guard.py
+TC4 v11.64.31 Arcane Workbench full-closure guard: PASS
+[8/44] python3 tools/java_parse_guard_116431.py
+Targeted Java parse guard v11.64.31: PASS (Java 17 self-test + 10 Forge parse checks)
+[9/44] python3 tools/tc4_116430_fertility_lamp_full_closure_guard.py
+TC4 v11.64.30 Fertility Lamp full-closure guard: PASS
+[10/44] python3 tools/java_parse_guard_116430.py
+Targeted Java parse guard v11.64.30: PASS (Java 17 self-test + 8 Forge parse checks)
+[11/44] python3 tools/tc4_116429_growth_lamp_full_closure_guard.py
+TC4 v11.64.29 Growth Lamp full-closure guard: PASS
+[12/44] python3 tools/java_parse_guard_116429.py
+Targeted Java parse guard v11.64.29: PASS (Java 17 self-test + 8 Forge parse checks)
+[13/44] python3 tools/tc4_116428_infernal_furnace_full_closure_guard.py
+TC4 v11.64.28 Infernal Furnace full-closure guard: PASS
+[14/44] python3 tools/java_parse_guard_116428.py
+Targeted Java parse guard v11.64.28: PASS (Java 17 self-test + 10 Forge parse checks)
+[15/44] python3 tools/tc4_116427_research_system_full_closure_guard.py
+TC4 v11.64.27 research-system full-closure guard: PASS
+[16/44] python3 tools/tc4_116426_thaumonomicon_full_closure_guard.py
+TC4 v11.64.26 Thaumonomicon full-closure guard: PASS (259 GameTests; 775 scenarios; core source/resource/prompt; external acquisition boundaries explicit)
+[17/44] python3 tools/tc4_116425_thaumometer_full_closure_guard.py
+TC4 v11.64.25 Thaumometer full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[18/44] python3 tools/tc4_116424_arcane_bore_full_closure_guard.py
+TC4 v11.64.24 Arcane Bore full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[19/44] python3 tools/tc4_116423_arcane_spa_full_closure_guard.py
+TC4 v11.64.23 Arcane Spa full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[20/44] python3 tools/tc4_116422_arcane_lamp_full_closure_guard.py
+TC4 v11.64.22 Arcane Lamp full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[21/44] python3 tools/tc4_116421_arcane_pressure_plate_full_closure_guard.py
+TC4 v11.64.21 Arcane Pressure Plate full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[22/44] python3 tools/tc4_116420_arcane_levitator_full_closure_guard.py
+TC4 v11.64.20 Arcane Levitator full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[23/44] python3 tools/tc4_116419_arcane_ear_full_closure_guard.py
+TC4 v11.64.19 Arcane Ear full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt)
+[24/44] python3 tools/tc4_116418_arcane_bellows_full_closure_guard.py
+TC4 v11.64.18 Arcane Bellows full-closure guard: PASS (259 GameTests; 775 scenarios; source/resource/prompt/external-contract)
+[25/44] python3 tools/tc4_116417_tallow_candle_full_closure_guard.py
+TC4 v11.64.17 Tallow Candle full-closure guard: PASS (259 GameTests; 775 scenarios; 16 colours/geometry/UV/resources/recipes/research/aspects/prompt)
+[26/44] python3 tools/tc4_116416_hungry_chest_full_closure_guard.py
+TC4 v11.64.16 Hungry Chest full-closure guard: PASS (259 GameTests; 775 scenarios; collision/insertion/lid/drops/NBT/model/recipe/research/prompt)
+[27/44] python3 tools/tc4_116415_brain_jar_full_closure_guard.py
+TC4 v11.64.15 Brain Jar full-closure guard: PASS (259 GameTests; 775 scenarios; XP/NBT/model/brine/particle/item-warp/recipe/research/prompt)
+[28/44] python3 tools/tc4_116414_bath_salts_full_closure_guard.py
+TC4 v11.64.14 Bath Salts full-closure guard: PASS (259 GameTests; 775 scenarios; item/fluid/ward/particle/bucket/recipe/research/spa)
+[29/44] python3 tools/tc4_116413_unnatural_hunger_full_closure_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (259 GameTests; 775 scenarios; exact runtime + food + icon + post chain)
+[30/44] python3 tools/tc4_116412_unnatural_hunger_food_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (259 GameTests; 775 scenarios; exact runtime + food + icon + post chain)
+TC4 v11.64.12 Unnatural Hunger food guard: PASS (forward-compatible via v11.64.13 full closure)
+[31/44] python3 tools/tc4_116411_sun_scorned_brightness_guard.py
+TC4 v11.64.11 Sun Scorned brightness guard: PASS (259 GameTests; 775 scenarios; brightness table + exact strict thresholds/rolls)
+[32/44] python3 tools/tc4_116410_death_gaze_cone_guard.py
+TC4 v11.64.10 Death Gaze cone guard: PASS (259 GameTests; 775 scenarios; exact aperture/body midpoint/round cap/pickable gate)
+[33/44] python3 tools/tc4_116409_warp_research_pool_sync_guard.py
+TC4 v11.64.09 warp research pool sync guard: PASS (259 GameTests; 775 scenarios; exact primal roll + aggregate client pool sync)
+[34/44] python3 tools/tc4_116408_eldritch_milestone_grant_guard.py
+TC4 v11.64.08 eldritch milestone guard: PASS (259 GameTests; 775 scenarios; MINOR/MAJOR grant research 10/20 silently, no fabricated chat)
+[35/44] python3 tools/tc4_116407_warp_message_parity_guard.py
+TC4 v11.64.07 warp message guard: PASS (259 GameTests; 775 scenarios; warp.text.8 correctly placed on the BATHSALTS milestone, blurred-vision shows no line)
+[36/44] python3 tools/tc4_116405_warp_spawn_collision_guard.py
+TC4 v11.64.05+ warp spawn collision guard: PASS (259 GameTests; 775 scenarios; entity-aware collision/liquid admission production-linked)
+[37/44] python3 tools/tc4_116404_warp_spawn_offset_guard.py
+TC4 v11.64.04+ warp spawn guard: PASS (259 GameTests; 775 scenarios; original -1/0/+1 offsets production-linked)
+[38/44] python3 tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (cumulative GameTests/scenarios; spread curatives and cleansing source-linked)
+[39/44] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+[40/44] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2190 files)
+[41/44] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.33 --template
+runtime manifest: PASS (775 tests; template=True)
+[42/44] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[43/44] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 54+ top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[44/44] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (259 GameTests; 775 manifest scenarios; source-linked contracts retained)
+FOCUSED STATIC CI v11.64.33: PASS (44/44)

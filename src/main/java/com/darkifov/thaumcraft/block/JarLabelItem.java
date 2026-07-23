@@ -5,40 +5,38 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.darkifov.thaumcraft.jar.JarTubeInteractionRuntime;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
-/**
- * TC4 jar label. A blank label has no NBT; an aspect label stores the original
- * essentia filter in the Aspect tag. This replaces TC4's itemResource:13
- * metadata/NBT variants without creating 48 registry placeholder items.
- */
+/** TC4 itemResource metadata 13 label: AspectList root entry with amount zero. */
 public class JarLabelItem extends Item {
-    private static final String TAG_ASPECT = "Aspect";
-    private static final Aspect[] CYCLE = Aspect.values();
+    private static final String LEGACY_TAG_ASPECT = "Aspect";
 
     public JarLabelItem(Properties properties) {
         super(properties);
     }
 
     public static Aspect getAspect(ItemStack stack) {
-        if (stack == null || stack.isEmpty()) {
-            return null;
-        }
+        if (stack == null || stack.isEmpty()) return null;
         CompoundTag tag = stack.getTag();
-        return tag == null ? null : Aspect.byId(tag.getString(TAG_ASPECT));
+        if (tag == null) return null;
+        if (tag.contains(EssentiaJarBlockItem.ITEM_ASPECTS, Tag.TAG_LIST)) {
+            ListTag list = tag.getList(EssentiaJarBlockItem.ITEM_ASPECTS, Tag.TAG_COMPOUND);
+            if (!list.isEmpty()) {
+                return Aspect.byId(list.getCompound(0).getString(EssentiaJarBlockItem.ITEM_ASPECT_KEY));
+            }
+        }
+        return Aspect.byId(tag.getString(LEGACY_TAG_ASPECT));
     }
 
     public static boolean isBlank(ItemStack stack) {
@@ -46,25 +44,27 @@ public class JarLabelItem extends Item {
     }
 
     public static void setAspect(ItemStack stack, Aspect aspect) {
-        if (stack == null || stack.isEmpty()) {
-            return;
-        }
+        if (stack == null || stack.isEmpty()) return;
         if (aspect == null) {
             clearAspect(stack);
             return;
         }
-        stack.getOrCreateTag().putString(TAG_ASPECT, aspect.id());
+        CompoundTag root = stack.getOrCreateTag();
+        root.remove(LEGACY_TAG_ASPECT);
+        ListTag list = new ListTag();
+        CompoundTag entry = new CompoundTag();
+        entry.putString(EssentiaJarBlockItem.ITEM_ASPECT_KEY, aspect.id());
+        entry.putInt(EssentiaJarBlockItem.ITEM_ASPECT_AMOUNT, 0);
+        list.add(entry);
+        root.put(EssentiaJarBlockItem.ITEM_ASPECTS, list);
     }
 
     public static void clearAspect(ItemStack stack) {
-        if (stack == null || stack.isEmpty() || stack.getTag() == null) {
-            return;
-        }
+        if (stack == null || stack.isEmpty() || stack.getTag() == null) return;
         CompoundTag tag = stack.getTag();
-        tag.remove(TAG_ASPECT);
-        if (tag.isEmpty()) {
-            stack.setTag(null);
-        }
+        tag.remove(LEGACY_TAG_ASPECT);
+        tag.remove(EssentiaJarBlockItem.ITEM_ASPECTS);
+        if (tag.isEmpty()) stack.setTag(null);
     }
 
     public static ItemStack withAspect(Aspect aspect) {
@@ -75,64 +75,23 @@ public class JarLabelItem extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        if (context.getLevel().isClientSide || context.getPlayer() == null) {
-            return InteractionResult.SUCCESS;
-        }
-
-        BlockPos pos = context.getClickedPos();
-        BlockState state = context.getLevel().getBlockState(pos);
-        BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
-
-        if (!(blockEntity instanceof EssentiaJarBlockEntity jar)) {
+        if (!(context.getLevel().getBlockEntity(context.getClickedPos()) instanceof EssentiaJarBlockEntity jar)
+                || context.getPlayer() == null) {
             return InteractionResult.PASS;
         }
-
-        if (JarTubeInteractionRuntime.applyLabelToJar(jar, context.getPlayer(), context.getItemInHand(),
-                context.getPlayer().getItemInHand(context.getHand() == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND),
-                context.getClickedFace())) {
-            return InteractionResult.CONSUME;
+        if (!context.getLevel().isClientSide) {
+            JarTubeInteractionRuntime.applyLabelToJar(jar, context.getPlayer(), context.getItemInHand(), context.getClickedFace());
         }
-
-        if (!state.is(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get())) {
-            context.getPlayer().displayClientMessage(Component.literal("Jar Labels only configure Filtered Essentia Jars.").withStyle(ChatFormatting.GRAY), false);
-            return InteractionResult.CONSUME;
-        }
-
-        Aspect next = nextAspect(jar.filterAspect(), context.getPlayer().isShiftKeyDown());
-        jar.setFilterAspect(next);
-
-        context.getPlayer().displayClientMessage(
-                Component.literal("Filtered Jar set to: ").append(Component.literal(next.displayName()).withStyle(next.color())),
-                false
-        );
-
-        return InteractionResult.CONSUME;
+        return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         Aspect aspect = getAspect(stack);
         if (aspect == null) {
-            tooltip.add(Component.literal("Blank essentia label").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("tooltip.thaumcraft.jar_label.blank").withStyle(ChatFormatting.GRAY));
         } else {
-            tooltip.add(Component.literal(aspect.displayName()).withStyle(aspect.color()));
-            tooltip.add(Component.literal("AspectFilter: " + aspect.id()).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("aspect.thaumcraft." + aspect.id()).withStyle(aspect.color()));
         }
-    }
-
-    private Aspect nextAspect(Aspect current, boolean reverse) {
-        if (current == null) {
-            return reverse ? CYCLE[CYCLE.length - 1] : CYCLE[0];
-        }
-
-        for (int i = 0; i < CYCLE.length; i++) {
-            if (CYCLE[i] == current) {
-                int next = reverse ? i - 1 : i + 1;
-                if (next < 0) next = CYCLE.length - 1;
-                if (next >= CYCLE.length) next = 0;
-                return CYCLE[next];
-            }
-        }
-        return CYCLE[0];
     }
 }

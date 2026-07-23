@@ -1,0 +1,38 @@
+{
+  "version": "11.62.83",
+  "date": "2026-07-15",
+  "target": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java": "17"
+  },
+  "source_ci_run": "79587666588",
+  "ci_reached_compile_java": true,
+  "compiler_errors_printed": 100,
+  "compiler_warnings_printed": 100,
+  "root_causes": [
+    {
+      "id": "traveling_trunk_tamable_import",
+      "status": "fixed_source",
+      "bad": "net.minecraft.world.entity.animal.TamableAnimal",
+      "fixed": "net.minecraft.world.entity.TamableAnimal"
+    },
+    {
+      "id": "taint_spore_column_contract",
+      "status": "fixed_source",
+      "fixed": "TaintSpreadRuntime.isColumnTainted(ServerLevel, BlockPos)",
+      "compatibility_wrapper": "isTaintedColumn"
+    }
+  ],
+  "prebuild_checks": {
+    "passed": 49,
+    "total": 49
+  },
+  "gradle_build": "not_confirmed_local_dns_failure",
+  "jar_sha256": null,
+  "runtime_tests": {
+    "passed": 0,
+    "total": 62
+  },
+  "release_ready": false
+}

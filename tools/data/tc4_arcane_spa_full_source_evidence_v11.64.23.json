@@ -1,0 +1,53 @@
+{
+  "round": "11.64.23",
+  "object": "Arcane Spa / TileSpa (blockStoneDevice metadata 12), including its direct filled-container interaction, tank/inventory automation, GUI, recipe and research",
+  "scope_exclusions": [
+    "Purifying Bath Salts internal expiry/warp-cleansing implementation was already closed in v11.64.14 and is only used here as an ingredient/output dependency",
+    "Other blockStoneDevice metadata variants"
+  ],
+  "original_sources": [
+    "thaumcraft/common/tiles/TileSpa.java",
+    "thaumcraft/common/blocks/BlockStoneDevice.java",
+    "thaumcraft/common/blocks/BlockStoneDeviceItem.java",
+    "thaumcraft/common/container/ContainerSpa.java",
+    "thaumcraft/client/gui/GuiSpa.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java"
+  ],
+  "proved_discrepancies": [
+    "The port always opened the GUI and omitted TC4's filled-container-first interaction, including whole-container consumption on a partial final fill.",
+    "The port saved Mix/Tank/Salts nested compounds instead of lowercase mix, root FluidStack and root Items used by TileSpa.",
+    "The port rejected replaceable positions containing a BlockEntity although TileSpa only checks top-solid support, replaceability and same-source exclusion.",
+    "The port consumed fluid/salts only after successful setBlock, while TileSpa consumes before the placement call and ignores its result.",
+    "The block used metal-like properties and non-original rarity instead of BlockStoneDevice rock hardness 3, resistance 25, stone sound and common rarity.",
+    "The GUI fluid strip width/phase and top masking differed from six full 8x8 tiles followed by the original 10px-wide empty-area mask.",
+    "New saves used incompatible key casing/layout and therefore did not directly interoperate with original TileSpa NBT semantics."
+  ],
+  "production_bindings": [
+    "ArcaneSpaBlock::use -> filled-container inspection -> ArcaneSpaBlockEntity::fillFromHeldContainer or NetworkHooks.openScreen",
+    "ArcaneSpaBlockEntity::serverTick -> TC4ArcaneSpaParity::shouldRunCycle -> tryDispense",
+    "ArcaneSpaBlockEntity::tryDispense -> findOutput -> consume-before-level.setBlock",
+    "ArcaneSpaBlockEntity capabilities -> TC4ArcaneSpaParity::exposesAutomationSide",
+    "ArcaneSpaBlockEntity save/load -> exact TC4 keys plus legacy port migration",
+    "ArcaneSpaMenu/ArcaneSpaScreen -> exact slot, toggle, tank gauge and mask contract"
+  ],
+  "resource_evidence": {
+    "spa_side": "byte-identical to original TC4 spa_side.png",
+    "spa_top": "byte-identical to original TC4 spa_top.png",
+    "pedestal_bottom": "byte-identical original pedestal_top.png used on bottom face",
+    "gui": "byte-identical to original TC4 gui_spa.png",
+    "purifying_fluid": "byte-identical to original TC4 fluidpure.png",
+    "bath_salts": "byte-identical to original TC4 bath_salts.png",
+    "recipe_pattern": [
+      "QIQ",
+      "SJS",
+      "SPS"
+    ]
+  },
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "build_blocker": "Gradle Wrapper cannot download Gradle 7.5.1 because services.gradle.org is unavailable in the execution environment; installed runtime is Java 21 rather than the required Java 17.",
+  "honesty": "No BUILD VERIFIED or RUNTIME VERIFIED claim is made."
+}

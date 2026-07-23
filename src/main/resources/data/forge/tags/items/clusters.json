@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:clusters/iron",
+    "#forge:clusters/gold",
+    "#forge:clusters/copper",
+    "#forge:clusters/tin",
+    "#forge:clusters/silver",
+    "#forge:clusters/lead",
+    "#forge:clusters/cinnabar"
+  ]
+}

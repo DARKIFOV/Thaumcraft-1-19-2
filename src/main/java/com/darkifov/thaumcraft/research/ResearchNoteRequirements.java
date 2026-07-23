@@ -11,22 +11,24 @@ public final class ResearchNoteRequirements {
     private ResearchNoteRequirements() {
     }
 
+    /** Original ConfigResearch notes use exactly the entry tag set, including one-tag notes. */
     public static Set<Aspect> requiredFor(String researchKey) {
-        Set<Aspect> result = originalAspectListFor(researchKey);
-        Optional<ResearchEntry> originalEntry = originalEntry(researchKey);
-        if (result.size() >= 2) {
-            return result;
-        }
-        if (originalEntry.isPresent()) {
-            supplementFromOriginalAspectComponents(result);
-            if (result.size() < 2) {
-                add(result, Aspect.COGNITIO, Aspect.PRAECANTATIO);
+        Optional<ResearchEntry> original = originalEntry(researchKey);
+        if (original.isPresent()) {
+            Set<Aspect> exact = new LinkedHashSet<>();
+            for (String id : original.get().aspects().keySet()) {
+                Aspect aspect = Aspect.byId(id);
+                if (aspect != null) {
+                    exact.add(aspect);
+                }
             }
-            return result;
+            return exact;
         }
 
+        // Rebuild/addon-only entries retain a deterministic compatibility set,
+        // but normal TC4 table progression is restricted to originalEntries().
+        Set<Aspect> result = new LinkedHashSet<>();
         String key = researchKey == null ? "" : researchKey.toLowerCase(Locale.ROOT);
-
         if (key.contains("wand") || key.contains("focus")) {
             add(result, Aspect.PRAECANTATIO, Aspect.POTENTIA, Aspect.INSTRUMENTUM, Aspect.AURAM);
         } else if (key.contains("alchemy") || key.contains("crucible") || key.contains("essentia") || key.contains("jar")) {
@@ -37,28 +39,8 @@ public final class ResearchNoteRequirements {
             add(result, Aspect.ALIENIS, Aspect.TENEBRAE, Aspect.VACUOS, Aspect.PRAECANTATIO);
         } else if (key.contains("infusion") || key.contains("matrix") || key.contains("altar")) {
             add(result, Aspect.PRAECANTATIO, Aspect.AURAM, Aspect.POTENTIA, Aspect.ORDO);
-        } else if (key.contains("thaumometer") || key.contains("scan")) {
-            add(result, Aspect.SENSUS, Aspect.COGNITIO, Aspect.AURAM, Aspect.PRAECANTATIO);
-        } else if (key.contains("research")) {
-            add(result, Aspect.COGNITIO, Aspect.PRAECANTATIO, Aspect.SENSUS, Aspect.ORDO);
         } else {
             add(result, Aspect.COGNITIO, Aspect.PRAECANTATIO, Aspect.ORDO, Aspect.AURAM);
-        }
-
-        return result;
-    }
-
-    private static Set<Aspect> originalAspectListFor(String researchKey) {
-        Set<Aspect> result = new LinkedHashSet<>();
-        Optional<ResearchEntry> entry = originalEntry(researchKey);
-        if (entry.isEmpty()) {
-            return result;
-        }
-        for (String id : entry.get().aspects().keySet()) {
-            Aspect aspect = Aspect.byId(id);
-            if (aspect != null) {
-                result.add(aspect);
-            }
         }
         return result;
     }
@@ -67,35 +49,23 @@ public final class ResearchNoteRequirements {
         if (researchKey == null || researchKey.isBlank()) {
             return Optional.empty();
         }
-        Optional<ResearchEntry> entry = ResearchRegistry.byKey(researchKey);
-        if (entry.isEmpty()) {
-            entry = ResearchRegistry.byKey(researchKey.toUpperCase(Locale.ROOT));
-        }
-        return entry;
-    }
-
-    private static void supplementFromOriginalAspectComponents(Set<Aspect> result) {
-        java.util.ArrayList<Aspect> existing = new java.util.ArrayList<>(result);
-        for (Aspect aspect : existing) {
-            if (result.size() >= 2) {
-                return;
+        for (ResearchEntry entry : ResearchRegistry.originalEntries()) {
+            if (entry.key().equalsIgnoreCase(researchKey)) {
+                return Optional.of(entry);
             }
-            add(result, aspect.firstComponent(), aspect.secondComponent());
         }
+        return Optional.empty();
     }
 
     public static Aspect startFor(String researchKey) {
-        Set<Aspect> required = requiredFor(researchKey);
-        return required.stream().findFirst().orElse(Aspect.COGNITIO);
+        return requiredFor(researchKey).stream().findFirst().orElse(Aspect.COGNITIO);
     }
 
     public static Aspect endFor(String researchKey) {
         Aspect result = Aspect.PRAECANTATIO;
-
         for (Aspect aspect : requiredFor(researchKey)) {
             result = aspect;
         }
-
         return result;
     }
 

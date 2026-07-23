@@ -1,0 +1,38 @@
+Thaumcraft Legacy Rebuild for Forge 1.19.2
+Release: 11.63.51
+Date: 2026-07-19
+
+Java:
+  Eclipse Temurin 17.0.19+10
+
+Compile correction run:
+  gradlew.bat compileJava --no-daemon --console=plain
+  BUILD SUCCESSFUL in 49s
+
+Required Forge GameTest run:
+  gradlew.bat runGameTestServer --no-daemon --console=plain
+  BUILD SUCCESSFUL in 1m 23s
+  18/18 required GameTests PASS
+
+Runtime startup facts:
+  Alchemy recipes loaded: 70
+  Arcane Workbench recipes loaded: 114
+  Infusion recipes loaded: 78
+  Magical Forest active biome-source diagnostic: PASS
+  Outer Lands dimension load/save: PASS
+
+Release build:
+  gradlew.bat build --no-daemon --console=plain
+  BUILD SUCCESSFUL in 1m 7s
+  reobf JAR and GitHub JAR produced
+  JAR SHA-256: 4500701BA6633A369D943BED91F99D64A19F03776172C89A60F4463435643033
+
+Retained static regression suite:
+  114/114 PASS
+
+Target v11.63.51 guard:
+  PASS (6/6)
+
+Not claimed by this server-side evidence:
+  client visuals, GUI scaling, JEI interaction, two-client networking,
+  and historical world migration fixtures.

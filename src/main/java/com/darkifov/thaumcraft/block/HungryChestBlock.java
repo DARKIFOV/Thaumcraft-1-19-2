@@ -2,14 +2,18 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.HungryChestBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TC4HungryChestParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -24,20 +28,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-/**
- * Functional port of TC4's BlockChestHungry. The chest exposes a normal
- * three-row inventory and automatically consumes dropped item entities that
- * collide with its inset chest body.
- */
+/** Complete production port of TC4 4.2.3.5 {@code BlockChestHungry}. */
 public class HungryChestBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+    private static final VoxelShape OUTLINE_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 14.0D, 15.0D);
+    private static final VoxelShape COLLISION_SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 15.0D, 15.0D);
 
     public HungryChestBlock(Properties properties) {
         super(properties);
@@ -67,12 +69,12 @@ public class HungryChestBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return OUTLINE_SHAPE;
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return COLLISION_SHAPE;
     }
 
     @Override
@@ -97,20 +99,63 @@ public class HungryChestBlock extends BaseEntityBlock {
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!level.isClientSide && entity instanceof ItemEntity itemEntity && itemEntity.isAlive()
-                && level.getBlockEntity(pos) instanceof HungryChestBlockEntity chest) {
+                && level.getBlockEntity(pos) instanceof HungryChestBlockEntity chest
+                && intersectsOriginalCollision(itemEntity.getBoundingBox(), pos)) {
             chest.eat(itemEntity);
         }
         super.entityInside(state, level, pos, entity);
+    }
+
+    public static boolean intersectsOriginalCollision(AABB entityBounds, BlockPos pos) {
+        return TC4HungryChestParity.intersectsCollision(
+                entityBounds.minX, entityBounds.minY, entityBounds.minZ,
+                entityBounds.maxX, entityBounds.maxY, entityBounds.maxZ,
+                pos.getX(), pos.getY(), pos.getZ());
     }
 
     @Override
     public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean moving) {
         if (!oldState.is(newState.getBlock())) {
             if (level.getBlockEntity(pos) instanceof HungryChestBlockEntity chest) {
-                net.minecraft.world.Containers.dropContents(level, pos, chest);
+                dropContentsOriginal(level, pos, chest, level.random);
                 level.updateNeighbourForOutputSignal(pos, this);
             }
             super.onRemove(oldState, level, pos, newState, moving);
+        }
+    }
+
+    /** Exact 1.7.10 break-drop splitting: one position per slot, chunks of 10..30, copied NBT. */
+    public static void dropContentsOriginal(Level level, BlockPos pos, Container inventory, RandomSource random) {
+        if (level.isClientSide) {
+            return;
+        }
+        for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
+            ItemStack stored = inventory.getItem(slot);
+            if (stored.isEmpty()) {
+                continue;
+            }
+            float offsetX = random.nextFloat() * TC4HungryChestParity.DROP_POSITION_RANGE
+                    + TC4HungryChestParity.DROP_POSITION_MIN;
+            float offsetY = random.nextFloat() * TC4HungryChestParity.DROP_POSITION_RANGE
+                    + TC4HungryChestParity.DROP_POSITION_MIN;
+            float offsetZ = random.nextFloat() * TC4HungryChestParity.DROP_POSITION_RANGE
+                    + TC4HungryChestParity.DROP_POSITION_MIN;
+            while (!stored.isEmpty()) {
+                int count = TC4HungryChestParity.nextDropCount(stored.getCount(),
+                        random.nextInt(TC4HungryChestParity.DROP_RANDOM_BOUND));
+                ItemStack droppedStack = stored.copy();
+                droppedStack.setCount(count);
+                stored.shrink(count);
+                ItemEntity dropped = new ItemEntity(level,
+                        pos.getX() + offsetX, pos.getY() + offsetY, pos.getZ() + offsetZ, droppedStack);
+                dropped.setDeltaMovement(
+                        random.nextGaussian() * TC4HungryChestParity.DROP_MOTION_SIGMA,
+                        random.nextGaussian() * TC4HungryChestParity.DROP_MOTION_SIGMA
+                                + TC4HungryChestParity.DROP_MOTION_Y_BIAS,
+                        random.nextGaussian() * TC4HungryChestParity.DROP_MOTION_SIGMA);
+                level.addFreshEntity(dropped);
+            }
+            inventory.setItem(slot, ItemStack.EMPTY);
         }
     }
 

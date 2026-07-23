@@ -3,7 +3,7 @@ package com.darkifov.thaumcraft.aura;
 import com.darkifov.thaumcraft.AspectDatabase;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
-import com.darkifov.thaumcraft.data.NodeScanData;
+import com.darkifov.thaumcraft.blockentity.ManaPodBlockEntity;
 import com.darkifov.thaumcraft.source.TC4EntityAspectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -38,7 +38,8 @@ public final class TC4ThaumometerTargeting {
         BLOCK,
         ITEM,
         ENTITY,
-        NODE
+        NODE,
+        PHENOMENON
     }
 
     public record ScanTarget(
@@ -72,13 +73,11 @@ public final class TC4ThaumometerTargeting {
         }
         if (entity instanceof ItemEntity itemEntity) {
             ItemStack stack = itemEntity.getItem();
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-            String key = id == null ? "unknown" : id.toString();
+            String key = TC4ThaumometerScanKeys.itemKey(stack);
             return new ScanTarget(Kind.ITEM, null, itemEntity, stack.getHoverName(),
                     AspectDatabase.getAspectsForItem(stack), key, null);
         }
-        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType());
-        String key = id == null ? "unknown" : id.toString();
+        String key = TC4ThaumometerScanKeys.entityKey(entity);
         return new ScanTarget(Kind.ENTITY, null, entity, entity.getDisplayName(),
                 TC4EntityAspectRegistry.getAspectsForEntity(entity), key, null);
     }
@@ -91,14 +90,18 @@ public final class TC4ThaumometerTargeting {
         if (blockEntity instanceof AuraNodeBlockEntity node) {
             return new ScanTarget(Kind.NODE, pos.immutable(), null,
                     Component.translatable("block.thaumcraft.aura_node"), node.aspects(),
-                    NodeScanData.key(pos), node);
+                    TC4ThaumometerScanKeys.nodeKey(node), node);
         }
         BlockState state = player.level.getBlockState(pos);
+        if (blockEntity instanceof ManaPodBlockEntity pod && !pod.exposedAspects().isEmpty()) {
+            String key = TC4ThaumometerScanKeys.blockKey(player, pos, state);
+            return new ScanTarget(Kind.BLOCK, pos.immutable(), null, state.getBlock().getName(),
+                    pod.exposedAspects(), key, null);
+        }
         if (state.isAir()) {
             return ScanTarget.none();
         }
-        ResourceLocation id = ForgeRegistries.BLOCKS.getKey(state.getBlock());
-        String key = id == null ? "unknown" : id.toString();
+        String key = TC4ThaumometerScanKeys.blockKey(player, pos, state);
         return new ScanTarget(Kind.BLOCK, pos.immutable(), null, state.getBlock().getName(),
                 AspectDatabase.getAspectsForBlock(state), key, null);
     }
@@ -108,7 +111,7 @@ public final class TC4ThaumometerTargeting {
             return ScanTarget.none();
         }
 
-        double reach = TC4AuraNodeScanParity.THAUMOMETER_SCAN_RANGE;
+        double reach = TC4ThaumometerParity.ENTITY_SCAN_RANGE;
         Vec3 eye = player.getEyePosition(partialTick);
         Vec3 look = player.getViewVector(partialTick);
         Vec3 end = eye.add(look.scale(reach));
@@ -124,25 +127,30 @@ public final class TC4ThaumometerTargeting {
             return forEntity(entity);
         }
 
-        if (!(blockHit instanceof BlockHitResult hit) || blockHit.getType() != HitResult.Type.BLOCK) {
-            return ScanTarget.none();
+        if (blockHit instanceof BlockHitResult hit && blockHit.getType() == HitResult.Type.BLOCK) {
+            ScanTarget blockTarget = forBlock(player, hit.getBlockPos());
+            if (blockTarget.isPresent()) {
+                return blockTarget;
+            }
         }
 
-        return forBlock(player, hit.getBlockPos());
+        ItemStack scanner = player.isUsingItem() ? player.getUseItem() : player.getMainHandItem();
+        ScanTarget phenomenon = TC4ThaumometerPhenomenaRegistry.find(player, scanner, partialTick);
+        return phenomenon == null ? ScanTarget.none() : phenomenon;
     }
 
     @Nullable
     private static Entity findEntity(Player player, Vec3 eye, Vec3 end, Vec3 look, double maximumDistanceSq) {
         AABB searchBox = player.getBoundingBox()
-                .expandTowards(look.scale(TC4AuraNodeScanParity.THAUMOMETER_SCAN_RANGE))
-                .inflate(TC4AuraNodeScanParity.THAUMOMETER_ENTITY_EXPAND);
+                .expandTowards(look.scale(TC4ThaumometerParity.ENTITY_SCAN_RANGE))
+                .inflate(TC4ThaumometerParity.ENTITY_TARGET_EXPAND);
         Entity best = null;
         double bestDistance = maximumDistanceSq;
 
         for (Entity candidate : player.level.getEntities(player, searchBox,
                 entity -> entity.isAlive() && (entity instanceof ItemEntity || entity.isPickable()))) {
             AABB hitBox = candidate.getBoundingBox().inflate(
-                    candidate.getPickRadius() + TC4AuraNodeScanParity.THAUMOMETER_ENTITY_EXPAND);
+                    candidate.getPickRadius() + TC4ThaumometerParity.ENTITY_TARGET_EXPAND);
             double distance;
             if (hitBox.contains(eye)) {
                 distance = 0.0D;

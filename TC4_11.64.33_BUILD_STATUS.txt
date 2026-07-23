@@ -1,0 +1,22 @@
+TC4 v11.64.33 — BUILD / RUNTIME STATUS
+
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+JAR CREATED: NO
+
+Фактическая команда:
+./gradlew build --no-daemon --console=plain
+
+Фактический результат:
+- Gradle Wrapper начал загрузку gradle-7.5.1-bin.zip;
+- загрузка остановилась на java.net.UnknownHostException: services.gradle.org;
+- EXIT_CODE=1;
+- компиляция Forge production-кода не началась;
+- активная Java среды: OpenJDK 21.0.10;
+- требуемая Java проекта: JDK 17.
+
+Отдельный dependency-free контракт успешно проверен через javac --release 17. Это не является подтверждением полной Forge-сборки.
+
+Не подтверждены: клиент, dedicated server, multiplayer, фактический GameTest runtime и готовый JAR.

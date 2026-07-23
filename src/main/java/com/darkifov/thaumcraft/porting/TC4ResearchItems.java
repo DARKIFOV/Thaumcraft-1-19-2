@@ -1,11 +1,73 @@
 package com.darkifov.thaumcraft.porting;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.item.WispEssenceItem;
+import com.darkifov.thaumcraft.item.TC4CrimsonBladeItem;
+import com.darkifov.thaumcraft.item.TC4LegacyTextureArtifactItem;
+import com.darkifov.thaumcraft.item.TC4ObeliskPlacerItem;
+import com.darkifov.thaumcraft.item.TC4ResonatorItem;
+import com.darkifov.thaumcraft.item.TC4SinisterStoneItem;
+import com.darkifov.thaumcraft.block.GolemBellItem;
+import com.darkifov.thaumcraft.block.BellowsBlockItem;
+import com.darkifov.thaumcraft.block.AlembicBlockItem;
+import com.darkifov.thaumcraft.block.EssentiaJarBlockItem;
+import com.darkifov.thaumcraft.block.InfusionMatrixBlockItem;
+import com.darkifov.thaumcraft.block.NodeStabilizerItem;
+import com.darkifov.thaumcraft.block.NodeTransducerItem;
+import com.darkifov.thaumcraft.item.AlumentumItem;
+import com.darkifov.thaumcraft.item.ArcaneKeyItem;
+import com.darkifov.thaumcraft.item.BottleTaintItem;
+import com.darkifov.thaumcraft.item.ElementalAxeItem;
+import com.darkifov.thaumcraft.item.ElementalHoeItem;
+import com.darkifov.thaumcraft.item.ElementalPickaxeItem;
+import com.darkifov.thaumcraft.item.ElementalShovelItem;
+import com.darkifov.thaumcraft.item.ElementalSwordItem;
+import com.darkifov.thaumcraft.item.PrimalArrowItem;
+import com.darkifov.thaumcraft.item.PrimalCrusherItem;
 import com.darkifov.thaumcraft.block.TC4FortressArmorItem;
 import com.darkifov.thaumcraft.block.TC4FortressMaskItem;
 import com.darkifov.thaumcraft.item.TC4ResearchComponentItem;
+import com.darkifov.thaumcraft.item.TC4SimpleResourceItem;
+import com.darkifov.thaumcraft.item.TC4EdibleNuggetItem;
+import com.darkifov.thaumcraft.item.TC4OreClusterItem;
+import com.darkifov.thaumcraft.item.TC4EmptyGolemUpgradeItem;
+import com.darkifov.thaumcraft.item.ZombieBrainItem;
+import com.darkifov.thaumcraft.item.TripleMeatTreatItem;
+import com.darkifov.thaumcraft.item.TC4KnowledgeFragmentItem;
+import com.darkifov.thaumcraft.item.TC4WandComponentItem;
+import com.darkifov.thaumcraft.item.TC4LootBagItem;
+import com.darkifov.thaumcraft.item.TC4CrimsonRitesItem;
+import com.darkifov.thaumcraft.item.TC4EldritchObjectItem;
+import com.darkifov.thaumcraft.item.TC4PrimordialPearlItem;
+import com.darkifov.thaumcraft.item.TC4SanityCheckerItem;
+import com.darkifov.thaumcraft.item.TC4EssenceItem;
+import com.darkifov.thaumcraft.item.simple.TC4BaubleItem;
+import com.darkifov.thaumcraft.item.simple.TC4RunicBaubleItem;
+import com.darkifov.thaumcraft.item.simple.TC4LegacyFocusComponentItem;
+import com.darkifov.thaumcraft.item.simple.TC4ManaBeanItem;
+import com.darkifov.thaumcraft.item.simple.TC4VisAmuletItem;
+import com.darkifov.thaumcraft.item.simple.TC4ClothRobeItem;
+import com.darkifov.thaumcraft.item.simple.TC4CultistArmorItem;
+import com.darkifov.thaumcraft.item.simple.TC4VoidRobeItem;
+import com.darkifov.thaumcraft.block.JarLabelItem;
+import com.darkifov.thaumcraft.block.ThaumonomiconItem;
+import com.darkifov.thaumcraft.block.CreativeThaumonomiconItem;
+import com.darkifov.thaumcraft.block.ResearchNoteItem;
+import com.darkifov.thaumcraft.block.FocusPouchItem;
+import com.darkifov.thaumcraft.block.FocusPouchBaubleItem;
+import com.darkifov.thaumcraft.block.GogglesOfRevealingItem;
+import com.darkifov.thaumcraft.block.ScribingToolsItem;
+import com.darkifov.thaumcraft.block.SanitySoapItem;
+import com.darkifov.thaumcraft.block.ShardItem;
+import com.darkifov.thaumcraft.block.NitorItem;
+import com.darkifov.thaumcraft.block.EssentiaPhialItem;
+import com.darkifov.thaumcraft.Aspect;
+import com.darkifov.thaumcraft.item.TaintedResourceItem;
 import com.darkifov.thaumcraft.item.BoneBowItem;
 import com.darkifov.thaumcraft.item.TravelingTrunkItem;
+import com.darkifov.thaumcraft.item.gear.BootsOfTravellerItem;
+import com.darkifov.thaumcraft.item.gear.HoverHarnessItem;
+import com.darkifov.thaumcraft.item.gear.HoverGirdleItem;
 import com.darkifov.thaumcraft.item.gear.TC4ThaumiumArmorItem;
 import com.darkifov.thaumcraft.item.gear.TC4ThaumiumAxeItem;
 import com.darkifov.thaumcraft.item.gear.TC4ThaumiumHoeItem;
@@ -28,11 +90,15 @@ import com.darkifov.thaumcraft.golem.GolemUpgradeType;
 import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import com.darkifov.thaumcraft.block.WandFocusItem;
 import com.darkifov.thaumcraft.wand.WandFocusType;
+import com.darkifov.thaumcraft.wand.WandCapType;
+import com.darkifov.thaumcraft.wand.WandRodType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
@@ -541,6 +607,11 @@ public final class TC4ResearchItems {
         if (preRegistered != null) out.putAll(preRegistered);
 
         for (Entry entry : ENTRIES) {
+            // v11.63.52: exact duplicate aliases are removed from the registry.
+            // Their historical source records remain in ENTRIES and old saves are
+            // remapped by MissingMappingsEvent to one canonical functional item.
+            if (TC4LegacyDuplicateItemMigrator.isRemovedDuplicateId(entry.id())) continue;
+
             // v11.62.14: metadata 13 is now a real block + BlockItem. Do not
             // double-register the old flat research-component placeholder.
             if (entry.id().equals("tc4_block_focal_manipulator")
@@ -565,7 +636,164 @@ public final class TC4ResearchItems {
         Item.Properties properties = new Item.Properties();
         Item.Properties functionalProperties = new Item.Properties().tab(tab);
         return switch (entry.id()) {
+            case "tc4_alumentum" -> new AlumentumItem(functionalProperties, entry.originalSource(), entry.legacyTexture());
+            case "tc4_thaumonomicon" -> new ThaumonomiconItem(functionalProperties.stacksTo(1).rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_thaumonomiconcheat" -> new CreativeThaumonomiconItem(functionalProperties.stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_researchnotes" -> new ResearchNoteItem(functionalProperties.stacksTo(1).rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_discovery" -> new ResearchNoteItem(functionalProperties.stacksTo(1).rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_focuspouch" -> new FocusPouchItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_focuspouchbauble" -> new FocusPouchBaubleItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_gogglesrevealing" -> new GogglesOfRevealingItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_inkwell" -> new ScribingToolsItem(functionalProperties);
+            case "tc4_soap" -> new SanitySoapItem(functionalProperties);
+            case "tc4_sanitychecker" -> new TC4SanityCheckerItem(functionalProperties.stacksTo(1).rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_crimson_blade" -> new TC4CrimsonBladeItem(functionalProperties);
+            case "tc4_ironbell" -> new GolemBellItem(functionalProperties);
+            case "tc4_lightningring" -> new TC4LegacyTextureArtifactItem(properties,
+                    "ItemHoverHarness renderer texture; not a standalone TC4 registry item");
+            case "tc4_ob_placer" -> new TC4ObeliskPlacerItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_resonator" -> new TC4ResonatorItem(functionalProperties);
+            case "tc4_sinister_stone" -> new TC4SinisterStoneItem(functionalProperties, false);
+            case "tc4_sinister_stone_active" -> new TC4SinisterStoneItem(properties, true);
+            case "tc4_bauble_amulet" -> new TC4BaubleItem(functionalProperties, TC4BaubleItem.SlotType.AMULET);
+            case "tc4_bauble_belt" -> new TC4BaubleItem(functionalProperties, TC4BaubleItem.SlotType.BELT);
+            case "tc4_bauble_ring", "tc4_bauble_ring_iron" -> new TC4BaubleItem(functionalProperties, TC4BaubleItem.SlotType.RING);
+            case "tc4_runic_ring_lesser", "tc4_runic_ring", "tc4_runic_ring_charged", "tc4_runic_ring_regen" ->
+                    new TC4RunicBaubleItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE), TC4BaubleItem.SlotType.RING);
+            case "tc4_runic_amulet", "tc4_runic_amulet_emergency" ->
+                    new TC4RunicBaubleItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE), TC4BaubleItem.SlotType.AMULET);
+            case "tc4_runic_girdle", "tc4_runic_girdle_kinetic" ->
+                    new TC4RunicBaubleItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE), TC4BaubleItem.SlotType.BELT);
+            case "tc4_vis_amulet_lesser" -> new TC4VisAmuletItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON), 2500);
+            case "tc4_vis_amulet" -> new TC4VisAmuletItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE), 25000);
+            case "tc4_focus" -> new TC4LegacyFocusComponentItem(functionalProperties, false);
+            case "tc4_focus_reversal" -> new TC4LegacyFocusComponentItem(functionalProperties, true);
+            case "tc4_focus_excavation" -> new WandFocusItem(functionalProperties, WandFocusType.EXCAVATION);
+            case "tc4_focus_fire" -> new WandFocusItem(functionalProperties, WandFocusType.FIRE);
+            case "tc4_focus_frost" -> new WandFocusItem(functionalProperties, WandFocusType.FROST);
+            case "tc4_focus_portablehole" -> new WandFocusItem(functionalProperties, WandFocusType.PORTABLE_HOLE);
+            case "tc4_focus_primal" -> new WandFocusItem(functionalProperties, WandFocusType.PRIMAL);
+            case "tc4_focus_shock" -> new WandFocusItem(functionalProperties, WandFocusType.SHOCK);
+            case "tc4_focus_trade" -> new WandFocusItem(functionalProperties, WandFocusType.EQUAL_TRADE);
+            case "tc4_focus_warding" -> new WandFocusItem(functionalProperties, WandFocusType.WARDING);
+            case "tc4_mana_bean" -> new TC4ManaBeanItem(functionalProperties.food(new FoodProperties.Builder()
+                    .nutrition(1).saturationMod(0.5F).alwaysEat().meat().build()));
+            case "tc4_nitor" -> new NitorItem(functionalProperties);
+            case "tc4_phial" -> new EssentiaPhialItem(functionalProperties);
+            case "tc4_charm" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.CRAFTING_COMPONENT, "primal_charm");
+            case "tc4_clothboots", "tc4_clothbootsover" -> new TC4ClothRobeItem(EquipmentSlot.FEET, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_clothchest", "tc4_clothchestover" -> new TC4ClothRobeItem(EquipmentSlot.CHEST, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_clothlegs", "tc4_clothlegsover" -> new TC4ClothRobeItem(EquipmentSlot.LEGS, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistboots" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.ROBE, EquipmentSlot.FEET, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistrobehelm" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.ROBE, EquipmentSlot.HEAD, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistrobechest" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.ROBE, EquipmentSlot.CHEST, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistrobelegs" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.ROBE, EquipmentSlot.LEGS, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistplatehelm" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.PLATE, EquipmentSlot.HEAD, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistplatechest" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.PLATE, EquipmentSlot.CHEST, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistplatelegs" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.PLATE, EquipmentSlot.LEGS, functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_cultistplateleaderhelm" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.LEADER, EquipmentSlot.HEAD, functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_cultistplateleaderchest" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.LEADER, EquipmentSlot.CHEST, functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_cultistplateleaderlegs" -> new TC4CultistArmorItem(TC4CultistArmorItem.Family.LEADER, EquipmentSlot.LEGS, functionalProperties.rarity(net.minecraft.world.item.Rarity.RARE));
+            case "tc4_voidrobeboots" -> new TC4VoidRobeItem(EquipmentSlot.FEET, functionalProperties.rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_voidrobehelm" -> new TC4VoidRobeItem(EquipmentSlot.HEAD, functionalProperties.rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_voidrobechest", "tc4_voidrobechestover" -> new TC4VoidRobeItem(EquipmentSlot.CHEST, functionalProperties.rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_voidrobelegs", "tc4_voidrobelegsover" -> new TC4VoidRobeItem(EquipmentSlot.LEGS, functionalProperties.rarity(net.minecraft.world.item.Rarity.EPIC));
+            case "tc4_nuggetbeef", "tc4_nuggetchicken", "tc4_nuggetfish", "tc4_nuggetpork" ->
+                    new TC4EdibleNuggetItem(functionalProperties);
+            case "tc4_nuggetiron" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "iron");
+            case "tc4_nuggetcopper" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "copper");
+            case "tc4_nuggettin" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "tin");
+            case "tc4_nuggetsilver" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "silver");
+            case "tc4_nuggetlead" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "lead");
+            case "tc4_nuggetquicksilver" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "quicksilver");
+            case "tc4_nuggetthaumium" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "thaumium");
+            case "tc4_nuggetvoid" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.METAL_NUGGET, "void_metal");
+            case "tc4_shard_aer" -> new ShardItem(functionalProperties, Aspect.AER, false);
+            case "tc4_shard_terra" -> new ShardItem(functionalProperties, Aspect.TERRA, false);
+            case "tc4_shard_ignis" -> new ShardItem(functionalProperties, Aspect.IGNIS, false);
+            case "tc4_shard_aqua" -> new ShardItem(functionalProperties, Aspect.AQUA, false);
+            case "tc4_shard_ordo" -> new ShardItem(functionalProperties, Aspect.ORDO, false);
+            case "tc4_shard_perditio" -> new ShardItem(functionalProperties, Aspect.PERDITIO, false);
+            case "tc4_shard_balanced" -> new ShardItem(functionalProperties, Aspect.PRAECANTATIO, true);
+            case "tc4_shard" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.NEUTRAL_SHARD, "untyped");
+            case "tc4_clusteriron" -> new TC4OreClusterItem(functionalProperties, "iron");
+            case "tc4_clustergold" -> new TC4OreClusterItem(functionalProperties, "gold");
+            case "tc4_clustercopper" -> new TC4OreClusterItem(functionalProperties, "copper");
+            case "tc4_clustertin" -> new TC4OreClusterItem(functionalProperties, "tin");
+            case "tc4_clustersilver" -> new TC4OreClusterItem(functionalProperties, "silver");
+            case "tc4_clusterlead" -> new TC4OreClusterItem(functionalProperties, "lead");
+            case "tc4_clustercinnabar" -> new TC4OreClusterItem(functionalProperties, "cinnabar");
+            case "tc4_thaumiumingot" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.MATERIAL, "thaumium_ingot");
+            case "tc4_voidingot" -> new TC4SimpleResourceItem(functionalProperties.fireResistant(), TC4SimpleResourceItem.Kind.MATERIAL, "void_metal_ingot");
+            case "tc4_quicksilver" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.MATERIAL, "quicksilver");
+            case "tc4_amber" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.MATERIAL, "amber");
+            case "tc4_tallow" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.MATERIAL, "tallow");
+            case "tc4_cloth" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.MATERIAL, "enchanted_fabric");
+            case "tc4_coin" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.CRAFTING_COMPONENT, "gold_coin");
+            case "tc4_dust" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.CRAFTING_COMPONENT, "salis_mundus");
+            case "tc4_filter" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.CRAFTING_COMPONENT, "vis_filter");
+            case "tc4_mirrorglass" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.CRAFTING_COMPONENT, "mirrored_glass");
+            case "tc4_voidseed" -> new TC4SimpleResourceItem(functionalProperties, TC4SimpleResourceItem.Kind.CRAFTING_COMPONENT, "void_seed");
+            case "tc4_golem_upgrade_empty" -> new TC4EmptyGolemUpgradeItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON));
+            case "tc4_brain" -> new ZombieBrainItem(functionalProperties);
+            case "tc4_tripletreat" -> new TripleMeatTreatItem(functionalProperties);
+            case "tc4_knowledgefragment" -> new TC4KnowledgeFragmentItem(functionalProperties);
+            case "tc4_label" -> new JarLabelItem(functionalProperties);
+            case "tc4_essence" -> new TC4EssenceItem(functionalProperties);
+            case "tc4_lootbag" -> new TC4LootBagItem(functionalProperties, 0);
+            case "tc4_lootbagunc" -> new TC4LootBagItem(functionalProperties, 1);
+            case "tc4_lootbagrare" -> new TC4LootBagItem(functionalProperties, 2);
+            case "tc4_crimson_rites" -> new TC4CrimsonRitesItem(functionalProperties);
+            case "tc4_eldritch_object" -> new TC4EldritchObjectItem(functionalProperties, TC4EldritchObjectItem.Variant.ELDRITCH_EYE);
+            case "tc4_eldritch_object_2" -> new TC4EldritchObjectItem(functionalProperties, TC4EldritchObjectItem.Variant.RUNED_TABLET);
+            case "tc4_eldritch_object_3" -> new TC4PrimordialPearlItem(functionalProperties);
+            case "tc4_wand_cap_iron" -> TC4WandComponentItem.activeCap(properties, WandCapType.IRON);
+            case "tc4_wand_cap_gold" -> TC4WandComponentItem.activeCap(properties, WandCapType.GOLD);
+            case "tc4_wand_cap_thaumium" -> TC4WandComponentItem.activeCap(properties, WandCapType.THAUMIUM);
+            case "tc4_wand_cap_copper" -> TC4WandComponentItem.activeCap(functionalProperties, WandCapType.COPPER);
+            case "tc4_wand_cap_silver" -> TC4WandComponentItem.activeCap(functionalProperties, WandCapType.SILVER);
+            case "tc4_wand_cap_void" -> TC4WandComponentItem.activeCap(functionalProperties, WandCapType.VOID);
+            case "tc4_wand_cap_silver_inert" -> TC4WandComponentItem.inertCap(functionalProperties, WandCapType.SILVER);
+            case "tc4_wand_cap_thaumium_inert" -> TC4WandComponentItem.inertCap(functionalProperties, WandCapType.THAUMIUM);
+            case "tc4_wand_cap_void_inert" -> TC4WandComponentItem.inertCap(functionalProperties, WandCapType.VOID);
+            case "tc4_wand_rod_greatwood" -> TC4WandComponentItem.rod(properties, WandRodType.GREATWOOD);
+            case "tc4_wand_rod_obsidian" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.OBSIDIAN);
+            case "tc4_wand_rod_blaze" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.BLAZE);
+            case "tc4_wand_rod_ice" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.ICE);
+            case "tc4_wand_rod_quartz" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.QUARTZ);
+            case "tc4_wand_rod_bone" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.BONE);
+            case "tc4_wand_rod_reed" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.REED);
+            case "tc4_wand_rod_silverwood" -> TC4WandComponentItem.rod(properties, WandRodType.SILVERWOOD);
+            case "tc4_staff_rod_greatwood" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.GREATWOOD_STAFF);
+            case "tc4_staff_rod_obsidian" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.OBSIDIAN_STAFF);
+            case "tc4_staff_rod_blaze" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.BLAZE_STAFF);
+            case "tc4_staff_rod_ice" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.ICE_STAFF);
+            case "tc4_staff_rod_quartz" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.QUARTZ_STAFF);
+            case "tc4_staff_rod_bone" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.BONE_STAFF);
+            case "tc4_staff_rod_reed" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.REED_STAFF);
+            case "tc4_staff_rod_silverwood" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.SILVERWOOD_STAFF);
+            case "tc4_staff_rod_primal" -> TC4WandComponentItem.rod(functionalProperties, WandRodType.PRIMAL_STAFF);
+            case "tc4_bottle_taint" -> new BottleTaintItem(functionalProperties.stacksTo(8), entry.originalSource(), entry.legacyTexture());
+            case "tc4_taint_slime", "tc4_taint_tendril" ->
+                    new TaintedResourceItem(properties, entry.originalSource(), entry.legacyTexture());
             case "tc4_bonebow" -> new BoneBowItem(functionalProperties);
+            case "tc4_bootstraveler" -> new BootsOfTravellerItem(functionalProperties);
+            case "tc4_hoverharness" -> new HoverHarnessItem(functionalProperties);
+            case "tc4_hovergirdle" -> new HoverGirdleItem(functionalProperties);
+            case "tc4_elementalaxe" -> new ElementalAxeItem(functionalProperties);
+            case "tc4_elementalhoe" -> new ElementalHoeItem(functionalProperties);
+            case "tc4_elementalpick" -> new ElementalPickaxeItem(functionalProperties);
+            case "tc4_elementalshovel" -> new ElementalShovelItem(functionalProperties);
+            case "tc4_elementalsword" -> new ElementalSwordItem(functionalProperties);
+            case "tc4_primal_crusher" -> new PrimalCrusherItem(functionalProperties);
+            case "tc4_el_arrow_air" -> new PrimalArrowItem(functionalProperties, 0);
+            case "tc4_el_arrow_fire" -> new PrimalArrowItem(functionalProperties, 1);
+            case "tc4_el_arrow_water" -> new PrimalArrowItem(functionalProperties, 2);
+            case "tc4_el_arrow_earth" -> new PrimalArrowItem(functionalProperties, 3);
+            case "tc4_el_arrow_order" -> new PrimalArrowItem(functionalProperties, 4);
+            case "tc4_el_arrow_entropy" -> new PrimalArrowItem(functionalProperties, 5);
+            case "tc4_keyiron" -> new ArcaneKeyItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON), false);
+            case "tc4_keygold" -> new ArcaneKeyItem(functionalProperties.rarity(net.minecraft.world.item.Rarity.UNCOMMON), true);
             case "tc4_wispessence" -> new WispEssenceItem(functionalProperties, entry.originalSource(), entry.legacyTexture());
             case "tc4_travel_trunk" -> new TravelingTrunkItem(functionalProperties);
             case "tc4_thaumiumhelm" -> new TC4ThaumiumArmorItem(EquipmentSlot.HEAD, functionalProperties);
@@ -631,6 +859,48 @@ public final class TC4ResearchItems {
             case "tc4_golemdecovisor" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.VISOR);
             case "tc4_golemdecoarmor" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.ARMOR);
             case "tc4_golemdecomace" -> new GolemDecorationItem(functionalProperties, GolemDecorationType.MACE);
+
+            // v11.63.38: block migration aliases. Existing systems receive a
+            // real BlockItem that places the functional 1.19.2 block; variants
+            // without a modern canonical id use exact tc4_block_* registrations.
+            case "tc4_block_advanced_alchemical_furnace" -> new BlockItem(ThaumcraftMod.ADVANCED_ALCHEMICAL_FURNACE.get(), functionalProperties);
+            case "tc4_block_alchemical_construct" -> new BlockItem(ThaumcraftMod.TC4_ALCHEMICAL_CONSTRUCT.get(), functionalProperties);
+            case "tc4_block_alembic" -> new AlembicBlockItem(ThaumcraftMod.ALEMBIC.get(), functionalProperties);
+            case "tc4_block_arcane_pedestal" -> new BlockItem(ThaumcraftMod.ARCANE_PEDESTAL.get(), functionalProperties);
+            case "tc4_block_arcane_stone" -> new BlockItem(ThaumcraftMod.ARCANE_STONE.get(), functionalProperties);
+            case "tc4_block_arcane_stone_slab" -> new BlockItem(ThaumcraftMod.TC4_ARCANE_STONE_SLAB.get(), functionalProperties);
+            case "tc4_block_bellows" -> new BellowsBlockItem(ThaumcraftMod.BELLOWS.get(), functionalProperties);
+            case "tc4_block_cinderpearl" -> new BlockItem(ThaumcraftMod.TC4_CINDERPEARL.get(), functionalProperties);
+            case "tc4_block_essentia_jar" -> new EssentiaJarBlockItem(ThaumcraftMod.ESSENTIA_JAR.get(), functionalProperties);
+            case "tc4_block_essentia_reservoir" -> new BlockItem(ThaumcraftMod.ESSENTIA_RESERVOIR.get(), functionalProperties);
+            case "tc4_block_essentia_tube" -> new BlockItem(ThaumcraftMod.ESSENTIA_TUBE.get(), functionalProperties);
+            case "tc4_block_ethereal_bloom" -> new BlockItem(ThaumcraftMod.TC4_ETHEREAL_BLOOM.get(), functionalProperties);
+            case "tc4_block_flux_scrubber" -> new BlockItem(ThaumcraftMod.FUME_DISSIPATOR.get(), functionalProperties);
+            case "tc4_block_greatwood_leaves" -> new BlockItem(ThaumcraftMod.GREATWOOD_LEAVES.get(), functionalProperties);
+            case "tc4_block_greatwood_log" -> new BlockItem(ThaumcraftMod.GREATWOOD_LOG.get(), functionalProperties);
+            case "tc4_block_greatwood_planks" -> new BlockItem(ThaumcraftMod.GREATWOOD_PLANKS.get(), functionalProperties);
+            case "tc4_block_greatwood_sapling" -> new BlockItem(ThaumcraftMod.GREATWOOD_SAPLING.get(), functionalProperties);
+            case "tc4_block_infusion_matrix" -> new InfusionMatrixBlockItem(ThaumcraftMod.INFUSION_MATRIX.get(), functionalProperties);
+            case "tc4_block_metal_base" -> new BlockItem(ThaumcraftMod.TC4_METAL_BASE.get(), functionalProperties);
+            case "tc4_block_mnemonic_matrix" -> new BlockItem(ThaumcraftMod.MNEMONIC_MATRIX.get(), functionalProperties);
+            case "tc4_block_node_stabilizer" -> new NodeStabilizerItem(ThaumcraftMod.NODE_STABILIZER.get(), functionalProperties, false);
+            case "tc4_block_node_stabilizer_advanced" -> new NodeStabilizerItem(ThaumcraftMod.ADVANCED_NODE_STABILIZER.get(), functionalProperties, true);
+            case "tc4_block_node_transducer" -> new NodeTransducerItem(ThaumcraftMod.NODE_TRANSDUCER.get(), functionalProperties);
+            case "tc4_block_obsidian_tile" -> new BlockItem(ThaumcraftMod.OBSIDIAN_TILE.get(), functionalProperties);
+            case "tc4_block_obsidian_totem_base" -> new BlockItem(ThaumcraftMod.TC4_OBSIDIAN_TOTEM_BASE.get(), functionalProperties);
+            case "tc4_block_obsidian_totem_1" -> new BlockItem(ThaumcraftMod.TC4_OBSIDIAN_TOTEM_1.get(), functionalProperties);
+            case "tc4_block_obsidian_totem_2" -> new BlockItem(ThaumcraftMod.TC4_OBSIDIAN_TOTEM_2.get(), functionalProperties);
+            case "tc4_block_obsidian_totem_3" -> new BlockItem(ThaumcraftMod.TC4_OBSIDIAN_TOTEM_3.get(), functionalProperties);
+            case "tc4_block_obsidian_totem_4" -> new BlockItem(ThaumcraftMod.TC4_OBSIDIAN_TOTEM_4.get(), functionalProperties);
+            case "tc4_block_obsidian_totem_shaded" -> new BlockItem(ThaumcraftMod.TC4_OBSIDIAN_TOTEM_SHADED.get(), functionalProperties);
+            case "tc4_block_paving_travel" -> new BlockItem(ThaumcraftMod.TC4_PAVING_TRAVEL.get(), functionalProperties);
+            case "tc4_block_paving_warding" -> new BlockItem(ThaumcraftMod.TC4_PAVING_WARDING.get(), functionalProperties);
+            case "tc4_block_shimmerleaf" -> new BlockItem(ThaumcraftMod.TC4_SHIMMERLEAF.get(), functionalProperties);
+            case "tc4_block_silverwood_leaves" -> new BlockItem(ThaumcraftMod.SILVERWOOD_LEAVES.get(), functionalProperties);
+            case "tc4_block_silverwood_log" -> new BlockItem(ThaumcraftMod.SILVERWOOD_LOG.get(), functionalProperties);
+            case "tc4_block_silverwood_planks" -> new BlockItem(ThaumcraftMod.SILVERWOOD_PLANKS.get(), functionalProperties);
+            case "tc4_block_silverwood_sapling" -> new BlockItem(ThaumcraftMod.SILVERWOOD_SAPLING.get(), functionalProperties);
+            case "tc4_block_vishroom" -> new BlockItem(ThaumcraftMod.TC4_VISHROOM.get(), functionalProperties);
             default -> new TC4ResearchComponentItem(properties, entry.originalSource(), entry.legacyTexture());
         };
     }
@@ -645,8 +915,17 @@ public final class TC4ResearchItems {
         Entry entry = BY_TEXTURE.get(texture);
         if (entry == null) return Optional.empty();
         RegistryObject<Item> object = registered.get(entry.id());
-        if (object == null) return Optional.empty();
-        return Optional.of(new ItemStack(object.get()));
+        if (object != null && object.isPresent()) return Optional.of(new ItemStack(object.get()));
+        return canonicalReplacementStack(entry.id());
+    }
+
+    private static Optional<ItemStack> canonicalReplacementStack(String legacyId) {
+        String canonicalPath = TC4LegacyDuplicateItemMigrator.canonicalPath(legacyId).orElse(null);
+        if (canonicalPath == null) return Optional.empty();
+        Item canonical = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", canonicalPath));
+        return canonical == null || canonical == Items.AIR
+                ? Optional.empty()
+                : Optional.of(new ItemStack(canonical));
     }
 
     public static Optional<Entry> resolveLegacyExpression(String expression) {
@@ -685,6 +964,8 @@ public final class TC4ResearchItems {
             if (object != null && object.isPresent()) {
                 return Optional.of(new ItemStack(object.get()));
             }
+            Optional<ItemStack> canonical = canonicalReplacementStack(entry.get().id());
+            if (canonical.isPresent()) return canonical;
             Item registryItem = ForgeRegistries.ITEMS.getValue(entry.get().registryName());
             if (registryItem != null && registryItem != Items.AIR) {
                 return Optional.of(new ItemStack(registryItem));

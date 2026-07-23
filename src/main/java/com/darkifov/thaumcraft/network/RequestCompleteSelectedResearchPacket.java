@@ -5,9 +5,7 @@ import com.darkifov.thaumcraft.research.OriginalResearchSelection;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.TC4ResearchFlagPolicy;
 import com.darkifov.thaumcraft.research.TC4ResearchNoteCreator;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -48,16 +46,12 @@ public class RequestCompleteSelectedResearchPacket {
 
             Optional<ResearchEntry> target = OriginalResearchBridge.byKey(packet.researchKey);
             if (target.isEmpty()) {
-                player.displayClientMessage(Component.literal("Unknown research key: " + packet.researchKey)
-                        .withStyle(ChatFormatting.RED), false);
                 ThaumcraftNetwork.syncResearch(player);
                 return;
             }
 
             ResearchEntry entry = target.get();
             if (!OriginalResearchBridge.canUnlock(player, entry)) {
-                player.displayClientMessage(Component.literal("That research is not available yet.")
-                        .withStyle(ChatFormatting.GRAY), false);
                 ThaumcraftNetwork.syncResearch(player);
                 return;
             }
@@ -65,12 +59,9 @@ public class RequestCompleteSelectedResearchPacket {
             OriginalResearchSelection.set(player, entry.key());
             if (TC4ResearchFlagPolicy.isSecondary(entry)) {
                 // TC4 secondary research is purchased directly with research aspects.
-                OriginalResearchBridge.completeWithAspectCost(player, entry);
+                OriginalResearchBridge.completeSecondaryFromThaumonomicon(player, entry);
             } else if (TC4ResearchFlagPolicy.canCreateNormalResearchNote(player, entry)) {
                 TC4ResearchNoteCreator.create(player, entry);
-            } else {
-                player.displayClientMessage(Component.literal("This entry is unlocked by its original trigger, not by a research note.")
-                        .withStyle(ChatFormatting.GRAY), false);
             }
 
             ThaumcraftNetwork.syncResearch(player);

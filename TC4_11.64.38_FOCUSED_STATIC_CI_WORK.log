@@ -1,0 +1,54 @@
+[1/63] python3 tools/tc4_116438_alchemical_centrifuge_full_closure_guard.py
+TC4 v11.64.38 alchemical centrifuge full-closure guard: PASS (286 GameTests, 849 scenarios, exact source/resource/recipe/research parity)
+[2/63] python3 tools/java_parse_guard_116438.py
+Targeted Java parse guard v11.64.38: PASS (Java 17 self-test + 8 Forge parse checks)
+[3/63] python3 tools/tc4_116437_alchemical_furnace_alembic_full_closure_guard.py
+TC4 v11.64.37 furnace/alembic full-closure guard: PASS (281 GameTests, 835 scenarios, 9 exact assets)
+[4/63] python3 tools/java_parse_guard_116437.py
+Targeted Java parse guard v11.64.37: PASS (Java 17 self-test + 9 Forge parse checks)
+[5/63] python3 tools/tc4_116436_essentia_tube_full_closure_guard.py
+TC4 v11.64.36 essentia tube full-closure guard: PASS (278 GameTests, 821 scenarios, 10 exact assets)
+[6/63] python3 tools/java_parse_guard_116436.py
+Targeted Java parse guard v11.64.36: PASS (Java 17 self-test + 8 Forge parse checks)
+[7/63] python3 tools/tc4_116435_essentia_jar_full_closure_guard.py
+TC4 v11.64.35 essentia jar full-closure guard: PASS (286 GameTests, 849 scenarios, 14 exact assets)
+[8/63] python3 tools/java_parse_guard_116435.py
+Targeted Java parse guard v11.64.35: PASS (Java 17 self-test + 15 Forge parse checks)
+[9/63] python3 tools/tc4_116355_essentia_storage_mirror_runtime_guard.py
+TC4 v11.63.55 essentia runtime guard: PASS (32 GameTests, 360 scenarios)
+[10/63] python3 tools/tc4_116356_essentia_tube_transport_runtime_guard.py
+TC4 v11.63.56 essentia tube runtime guard: PASS (36 GameTests, 364 scenarios)
+[11/63] python3 tools/tc4_116372_essentia_parity_guard.py
+TC4 v11.63.72 essentia parity guard: PASS (baseline 89/417; forward-compatible current release)
+[12/63] python3 tools/tc4_116434_infusion_altar_full_closure_guard.py
+TC4 v11.64.34 infusion altar full-closure guard: PASS
+[13/63] python3 tools/java_parse_guard_116434.py
+Targeted Java parse guard v11.64.34: PASS (Java 17 self-test + 16 Forge parse checks)
+[14/63] python3 tools/tc4_116359_infusion_stability_runtime_guard.py
+TC4 v11.63.59 infusion stability guard: PASS (48 GameTests, 376 scenarios)
+[15/63] python3 tools/tc4_116360_infusion_lifecycle_runtime_guard.py
+TC4 v11.63.60 infusion lifecycle guard: PASS (52 GameTests, 380 scenarios)
+[16/63] python3 tools/tc4_116361_infusion_pause_resume_runtime_guard.py
+TC4 v11.63.61 infusion pause/resume guard: PASS (56 GameTests, 384 scenarios)
+[17/63] python3 tools/tc4_116362_infusion_save_reload_runtime_guard.py
+TC4 v11.63.62 infusion save/reload guard: PASS (61 GameTests, 389 scenarios)
+[18/63] python3 tools/tc4_116363_infusion_instability_event_table_guard.py
+TC4 v11.63.63 infusion instability event table guard: PASS (66 GameTests, 394 scenarios)
+[19/63] python3 tools/tc4_116364_infusion_shortage_instability_guard.py
+TC4 v11.63.64 infusion shortage instability guard: PASS (71 GameTests, 399 scenarios)
+[20/63] python3 tools/tc4_116433_wand_foci_full_closure_guard.py
+TC4 v11.64.33 wand foci full-closure guard: PASS
+[21/63] python3 tools/java_parse_guard_116433.py
+Targeted Java parse guard v11.64.33: PASS (Java 17 self-test + 15 Forge parse checks)
+[22/63] python3 tools/tc4_116432_wand_rods_caps_full_closure_guard.py
+TC4 v11.64.32 Wand rods/caps full-closure guard: PASS
+[23/63] python3 tools/java_parse_guard_116432.py
+Targeted Java parse guard v11.64.32: PASS (Java 17 self-test + 11 Forge parse checks)
+[24/63] python3 tools/tc4_116371_wand_parity_guard.py
+TC4 v11.63.71 wand parity guard: PASS (286 current GameTests; restored baseline 85/413)
+[25/63] python3 tools/tc4_116332_wand_component_families_parity_guard.py
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+tc4_116332_wand_component_families_parity_guard.py: PASS (legacy duplicate expectations superseded by canonical registry purge)
+[26/63] python3 tools/tc4_116431_arcane_workbench_full_closure_guard.py
+TC4 v11.64.31 Arcane Workbench full-closure guard: PASS
+[27/63] python3 tools/java_parse_guard_116431.py

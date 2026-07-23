@@ -1,0 +1,14 @@
+TC4 v11.64.14 PACKAGE MANIFEST
+Generated: 2026-07-22
+Root file count: 8918
+Java files: 807
+GameTest methods: 149 unique=149
+Manifest scenarios: 489 unique=489
+Excluded artifacts:
+Key files SHA-256:
+a6899023adda5f33c04b310724805c908d8685f62b42d1bae7aa5f995dfba3fa  build.gradle
+44b1b39a3915d7ea1a9871ca5e8c310cce5aa7721a7c092a91d86657a57f9cdb  src/main/resources/META-INF/mods.toml
+e6f616c2e6ea009e1aeff4bce8f9790f3c7ba6a5ae24bf5c471722b9945ef05e  src/main/java/com/darkifov/thaumcraft/warp/TC4BathSaltsParity.java
+a57cc529fe48158715516e81804c395a57b49540a8810d83580a1a8e2b5737ba  src/main/java/com/darkifov/thaumcraft/client/fx/TC4PurifyingBubbleParticle.java
+fe4f560e76c0e4f382e2183184e37ece07093d113bf81d48e398ce0b9558aff5  UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+d0e53616d18f42987bf5601ff68d1d8a5fb925e30b1e738fc63ccc06eef3c9a0  TC4_11.64.14_BATH_SALTS_FULL_CLOSURE_PARITY_PORT_REPORT_RU.md

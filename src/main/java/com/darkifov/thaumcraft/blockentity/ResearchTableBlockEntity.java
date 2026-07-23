@@ -10,13 +10,11 @@ import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.OriginalResearchBridge;
 import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.research.ResearchEntry;
-import com.darkifov.thaumcraft.research.ResearchNoteSolver;
 import com.darkifov.thaumcraft.research.ResearchNoteState;
-import com.darkifov.thaumcraft.research.ResearchTableFoundation;
 import com.darkifov.thaumcraft.research.ResearchTableInventoryRuntime;
 import com.darkifov.thaumcraft.research.ResearchTableBonusRuntime;
+import com.darkifov.thaumcraft.research.TC4ResearchTableBehaviorParity;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -69,12 +67,14 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         if (level == null || level.isClientSide || table == null) {
             return;
         }
-        if (table.nextRecalc++ > ResearchTableBonusRuntime.RECALCULATE_INTERVAL_TICKS) {
-            table.nextRecalc = 0;
-            if (ResearchTableBonusRuntime.recalculateInto(level, pos, table.bonusAspects)) {
-                table.setChanged();
-                table.syncToClient();
-            }
+        int counterBeforeTick = table.nextRecalc;
+        table.nextRecalc = TC4ResearchTableBehaviorParity.counterAfterTick(counterBeforeTick);
+        if (TC4ResearchTableBehaviorParity.shouldRecalculate(counterBeforeTick)) {
+            ResearchTableBonusRuntime.recalculateInto(level, pos, table.bonusAspects);
+            // TC4 always marks and updates the tile after a recalc pass, even
+            // when RNG adds no aspect. The reset counter is persistent state.
+            table.setChanged();
+            table.syncToClient();
         }
     }
 
@@ -91,15 +91,37 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     }
 
     public boolean consumeBonusAspect(Aspect aspect) {
-        if (aspect == null) {
+        return consumeBonusAspect(aspect, 1);
+    }
+
+    public boolean consumeBonusAspect(Aspect aspect, int amount) {
+        if (aspect == null || amount < 0) {
             return false;
         }
-        boolean consumed = bonusAspects.remove(aspect, 1);
+        if (amount == 0) {
+            return true;
+        }
+        boolean consumed = bonusAspects.remove(aspect, amount);
         if (consumed) {
             setChanged();
             syncToClient();
         }
         return consumed;
+    }
+
+    public void setBonusAmountForTransaction(Aspect aspect, int amount) {
+        if (aspect == null) {
+            return;
+        }
+        int current = bonusAspects.get(aspect);
+        if (current > 0) {
+            bonusAspects.remove(aspect, current);
+        }
+        if (amount > 0) {
+            bonusAspects.add(aspect, amount);
+        }
+        setChanged();
+        syncToClient();
     }
 
     public void recalculateBonusNow() {
@@ -132,9 +154,6 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     }
 
     public boolean consumeInk(int amount, Player player) {
-        if (player != null && player.getAbilities().instabuild) {
-            return true;
-        }
         ItemStack tools = getItem(SLOT_SCRIBING_TOOLS);
         boolean consumed = ScribingToolsItem.consumeInk(tools, amount);
         if (consumed) {
@@ -148,146 +167,74 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         return stack.getItem() instanceof ResearchNoteItem ? stack : ItemStack.EMPTY;
     }
 
+    /**
+     * Compatibility adapter only. TC4 creates a research note from the selected
+     * Thaumonomicon entry, never from a Research Table button.
+     */
     public boolean createResearchNote(ServerPlayer player) {
-        if (!getItem(SLOT_RESEARCH_NOTE).isEmpty()) {
-            player.displayClientMessage(Component.literal("Research Table slot 1 already contains a note.").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-        if (!hasInkedScribingTools() && !player.getAbilities().instabuild) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
-            return false;
-        }
-        if (!player.getAbilities().instabuild && !hasInventoryItem(player, Items.PAPER)) {
-            player.displayClientMessage(Component.literal("A sheet of paper is required for a research note.").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-        // v11.62.24 transaction: snapshot both resources before mutation so a
-        // packet race or depleted tool can never consume only one half.
-        ItemStack toolsSnapshot = getItem(SLOT_SCRIBING_TOOLS).copy();
-        int paperSlot = findInventoryItemSlot(player, Items.PAPER);
-        ItemStack paperSnapshot = paperSlot < 0 ? ItemStack.EMPTY : player.getInventory().getItem(paperSlot).copy();
-        if (!consumeInk(ResearchTableInventoryRuntime.INK_PER_NOTE_CREATE, player) || !consumePaper(player)) {
-            setItem(SLOT_SCRIBING_TOOLS, toolsSnapshot);
-            if (paperSlot >= 0) {
-                player.getInventory().setItem(paperSlot, paperSnapshot);
-            }
-            player.displayClientMessage(Component.literal("Research note creation failed; paper and ink were restored.").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-
-        ResearchTableFoundation.seed(player);
-        ItemStack note = new ItemStack(ThaumcraftMod.RESEARCH_NOTE.get());
-        ResearchEntry target = OriginalResearchBridge.selectedOrFirstAvailable(player).orElse(null);
-        ResearchNoteState.initialize(note, target == null ? "" : target.key(), player.getRandom().nextLong());
-        setItem(SLOT_RESEARCH_NOTE, note);
-
-        recalculateBonusNow();
-        if (!bonusAspects.isEmpty()) {
-            player.displayClientMessage(Component.literal("Research table bonus aspects: " + ResearchTableBonusRuntime.summary(bonusAspects)).withStyle(ChatFormatting.DARK_AQUA), false);
-        }
-        ThaumcraftNetwork.syncAspectKnowledge(player);
-        player.displayClientMessage(Component.literal("Research note prepared in table slot 1.").withStyle(ChatFormatting.LIGHT_PURPLE), false);
-        playOriginalResearchSound("write", 0.35F, 1.0F);
-        setChanged();
-        return true;
+        return false;
     }
 
-    /**
-     * TC4 renders the note directly inside GuiResearchTable. This method only
-     * synchronizes the note data; it deliberately does not open a second screen.
-     */
+    /** TC4 renders and edits the note directly inside GuiResearchTable. */
     public void syncResearchNote(ServerPlayer player) {
         ThaumcraftNetwork.syncAspectKnowledge(player);
         ThaumcraftNetwork.syncResearchNote(player, researchNote());
     }
 
+    /** Compatibility adapter for old clients: synchronize, but open no second GUI. */
     public boolean openResearchNote(ServerPlayer player) {
-        ItemStack note = researchNote();
-        if (note.isEmpty()) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingNoteMessage(), false);
+        if (researchNote().isEmpty()) {
             return false;
         }
-        if (!hasInkedScribingTools() && !player.getAbilities().instabuild) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
-            return false;
-        }
-        ResearchNoteState.initialize(note, ResearchNoteState.target(note));
-        ThaumcraftNetwork.openResearchNote(player, note);
-        playOriginalResearchSound("page", 0.25F, 1.0F);
+        syncResearchNote(player);
         return true;
     }
 
+    /**
+     * Compatibility adapter only. A solved discovery is learned by taking it
+     * from the table and using the note item, exactly as in ItemResearchNotes.
+     */
     public boolean completeResearchNote(ServerPlayer player) {
-        ItemStack note = researchNote();
-        if (note.isEmpty()) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingNoteMessage(), false);
-            return false;
-        }
-        boolean converted = ResearchNoteSolver.convertSolvedNote(player, note);
-        if (note.isEmpty()) {
-            setItem(SLOT_RESEARCH_NOTE, ItemStack.EMPTY);
-        }
-        if (converted) {
-            playOriginalResearchSound("learn", 0.45F, 1.0F);
-        }
-        setChanged();
-        return converted;
+        return false;
     }
 
     public boolean copyCompletedResearchNote(ServerPlayer player) {
         ItemStack note = researchNote();
         if (note.isEmpty()) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingNoteMessage(), false);
             return false;
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         if (!ResearchNoteState.solved(note)) {
-            player.displayClientMessage(Component.literal("Only a completed research note can be copied.").withStyle(ChatFormatting.RED), false);
             return false;
         }
         if (!com.darkifov.thaumcraft.data.PlayerThaumData.hasResearch(player, "RESEARCHDUPE")) {
-            player.displayClientMessage(Component.literal("Research Duplication is required to copy completed notes.").withStyle(ChatFormatting.RED), false);
             return false;
         }
-        if (note.getCount() >= note.getMaxStackSize()) {
-            player.displayClientMessage(Component.literal("The completed research note stack is already full.").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-
         Optional<ResearchEntry> target = OriginalResearchBridge.byKey(ResearchNoteState.target(note));
         if (target.isEmpty()) {
-            player.displayClientMessage(Component.literal("This note is not bound to an original research key.").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         int previousCopies = ResearchNoteState.copyCount(note);
-        if (!player.getAbilities().instabuild && !hasCopyAspectCost(player, target.get(), previousCopies)) {
-            player.displayClientMessage(Component.literal("You lack the original TC4 aspects required to duplicate this research.").withStyle(ChatFormatting.RED), false);
+        if (!hasCopyAspectCost(player, target.get(), previousCopies)) {
             return false;
         }
-        if (!player.getAbilities().instabuild && !hasInventoryItem(player, Items.PAPER)) {
-            player.displayClientMessage(Component.literal("A sheet of paper is required to copy a research note.").withStyle(ChatFormatting.RED), false);
+        if (!hasInventoryItem(player, Items.PAPER)) {
             return false;
         }
-        if (!player.getAbilities().instabuild && !hasInventoryItem(player, Items.INK_SAC)) {
-            player.displayClientMessage(Component.literal("An ink sac is required to copy a research note.").withStyle(ChatFormatting.RED), false);
+        if (!hasInventoryItem(player, Items.INK_SAC)) {
             return false;
         }
-        if (!player.getAbilities().instabuild) {
-            // Stage603-622: preserve TC4 duplicate-copy semantics. Materials are
-            // validated before removal, then consumed as one transaction; copy
-            // does not use scribing-tool durability.
-            consumeInventoryItem(player, Items.PAPER);
-            consumeInventoryItem(player, Items.INK_SAC);
-            consumeCopyAspectCost(player, target.get(), previousCopies);
-        }
+        // Original duplicate consumes paper, ink sac and exact tags+copies even in creative.
+        consumeInventoryItem(player, Items.PAPER);
+        consumeInventoryItem(player, Items.INK_SAC);
+        consumeCopyAspectCost(player, target.get(), previousCopies);
 
         int nextCopies = ResearchNoteState.incrementCopyCount(note);
         note.grow(1);
         setItem(SLOT_RESEARCH_NOTE, note);
         setChanged();
-        playOriginalResearchSound("write", 0.35F, 1.1F);
-        player.displayClientMessage(Component.literal("Copied completed research note. Copies: " + nextCopies).withStyle(ChatFormatting.GOLD), false);
+        playOriginalResearchSound("learn", 1.0F, 1.0F);
         return true;
     }
 
@@ -325,9 +272,6 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     }
 
     private boolean hasInventoryItem(Player player, net.minecraft.world.item.Item item) {
-        if (player.getAbilities().instabuild) {
-            return true;
-        }
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.is(item)) {
@@ -344,9 +288,6 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     }
 
     private boolean consumeInventoryItem(Player player, net.minecraft.world.item.Item item) {
-        if (player.getAbilities().instabuild) {
-            return true;
-        }
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.is(item)) {
@@ -358,9 +299,6 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     }
 
     private boolean consumePaper(Player player) {
-        if (player.getAbilities().instabuild) {
-            return true;
-        }
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.is(Items.PAPER)) {
@@ -447,8 +385,8 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         ContainerHelper.saveAllItems(tag, items);
-        tag.putInt("nextRecalc", nextRecalc);
-        tag.put("bonusAspects", saveBonusAspects());
+        tag.putInt(TC4ResearchTableBehaviorParity.NEXT_RECALC_TAG, nextRecalc);
+        tag.put(TC4ResearchTableBehaviorParity.BONUS_ASPECTS_TAG, saveBonusAspects());
     }
 
     @Override
@@ -458,16 +396,16 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
             items.set(i, ItemStack.EMPTY);
         }
         ContainerHelper.loadAllItems(tag, items);
-        nextRecalc = tag.getInt("nextRecalc");
-        loadBonusAspects(tag.getList("bonusAspects", 10));
+        nextRecalc = tag.getInt(TC4ResearchTableBehaviorParity.NEXT_RECALC_TAG);
+        loadBonusAspects(tag.getList(TC4ResearchTableBehaviorParity.BONUS_ASPECTS_TAG, 10));
     }
 
     private ListTag saveBonusAspects() {
         ListTag list = new ListTag();
         for (java.util.Map.Entry<Aspect, Integer> entry : bonusAspects.entries().entrySet()) {
-            for (int i = 0; i < entry.getValue(); i++) {
+            if (TC4ResearchTableBehaviorParity.serializedCopiesForAmount(entry.getValue()) > 0) {
                 CompoundTag tag = new CompoundTag();
-                tag.putString("tag", entry.getKey().id());
+                tag.putString(TC4ResearchTableBehaviorParity.BONUS_ASPECT_TAG, entry.getKey().id());
                 list.add(tag);
             }
         }
@@ -478,8 +416,9 @@ public class ResearchTableBlockEntity extends BlockEntity implements Container, 
         bonusAspects.clear();
         for (int i = 0; i < list.size(); i++) {
             CompoundTag tag = list.getCompound(i);
-            Aspect aspect = Aspect.byId(tag.getString("tag"));
-            if (aspect != null) {
+            Aspect aspect = Aspect.byId(tag.getString(TC4ResearchTableBehaviorParity.BONUS_ASPECT_TAG));
+            if (aspect != null
+                    && TC4ResearchTableBehaviorParity.shouldLoadSerializedType(bonusAspects.get(aspect) > 0)) {
                 bonusAspects.add(aspect, 1);
             }
         }

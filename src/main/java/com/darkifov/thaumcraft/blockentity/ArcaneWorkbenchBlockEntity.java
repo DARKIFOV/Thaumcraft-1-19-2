@@ -12,12 +12,19 @@ import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.wand.WandCraftingRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -27,28 +34,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import java.util.Map;
 import java.util.Optional;
 import net.minecraft.resources.ResourceLocation;
 
-public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container, MenuProvider {
-    /**
-     * Stage189: original TC4 TileArcaneWorkbench slot layout.
-     * 0..8 = 3x3 crafting grid, 9 = output, 10 = wand.
-     * Slot 11 is kept as a hidden Forge 1.19.2 migration adapter only for
-     * older Stage135-188 saves that may still contain the temporary catalyst slot.
-     */
+public class ArcaneWorkbenchBlockEntity extends BlockEntity implements WorldlyContainer, MenuProvider {
+    /** Exact TC4 TileMagicWorkbench layout: 0..8 grid, 9 output, 10 wand. */
     public static final int SLOT_INGREDIENT_START = 0;
     public static final int SLOT_INGREDIENT_END = 8;
     public static final int SLOT_OUTPUT = 9;
     public static final int SLOT_WAND = 10;
-    public static final int SLOT_LEGACY_CATALYST = 11;
-    public static final int SIZE = 12;
-    public static final int ORDO_COST = 2;
+    public static final int SIZE = 11;
+    private static final int LEGACY_STAGE_CATALYST_SLOT = 11;
+    private static final int[] AUTOMATION_SLOTS = new int[]{SLOT_WAND};
     private boolean suppressPreviewUpdate = false;
+    private ItemStack pendingLegacyCatalyst = ItemStack.EMPTY;
 
     public static int slotForGrid(int row, int col) {
         return SLOT_INGREDIENT_START + row * 3 + col;
@@ -62,12 +67,39 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Arcane Workbench");
+        return Component.translatable("container.arcaneworkbench");
     }
 
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
         return new ArcaneWorkbenchMenu(containerId, playerInventory, this);
+    }
+
+    /** Exact BlockTable#onWandRightClick transformation contract from TC4 4.2.3.5. */
+    public static InteractionResult transformFromTable(Level level, BlockPos pos, Player player,
+                                                       InteractionHand hand, ItemStack wandStack) {
+        if (!(wandStack.getItem() instanceof WandItem)) {
+            return InteractionResult.PASS;
+        }
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+
+        boolean staff = WandItem.isStaffStack(wandStack);
+        level.setBlock(pos, ThaumcraftMod.ARCANE_WORKBENCH.get().defaultBlockState(), 3);
+        if (level.getBlockEntity(pos) instanceof ArcaneWorkbenchBlockEntity workbench) {
+            if (!staff) {
+                ItemStack installed = wandStack.copy();
+                installed.setCount(1);
+                workbench.setItem(SLOT_WAND, installed);
+                // TC4 removes the selected wand even in creative mode.
+                player.setItemInHand(hand, ItemStack.EMPTY);
+            }
+            workbench.setChanged();
+            workbench.syncToClient();
+        }
+        level.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 0.15F, 0.5F);
+        return InteractionResult.CONSUME;
     }
 
     public boolean tryCraft(ArcaneWorkbenchRecipe recipe, Player player) {
@@ -137,7 +169,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
         if (!player.getAbilities().instabuild) {
             consumeArcaneVisCost(wand, recipe, player);
-            consumeMatchedArcaneGrid(player, catalystSlot);
+            consumeMatchedArcaneGrid(player);
         }
 
         if (output.isEmpty()) {
@@ -248,7 +280,7 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
         if (!player.getAbilities().instabuild) {
             consumeArcaneVisCost(getItem(SLOT_WAND), recipe, player);
-            consumeMatchedArcaneGrid(player, findCatalystSlot(recipe));
+            consumeMatchedArcaneGrid(player);
         }
 
         playOriginalCraftSound(0.45F);
@@ -325,21 +357,12 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         return crafting;
     }
 
-    /**
-     * Consumes one stack unit from every occupied visible crafting cell, exactly
-     * like TC4 SlotCraftingArcaneWorkbench. The hidden Stage135-188 migration
-     * catalyst is consumed separately when it supplied the one missing visible
-     * recipe occurrence; otherwise old worlds could reuse that hidden item
-     * forever.
-     */
-    private void consumeMatchedArcaneGrid(Player player, int catalystSlot) {
+    /** Consumes one item from every occupied 3x3 cell, as TC4's crafting slot does. */
+    private void consumeMatchedArcaneGrid(Player player) {
         for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
             if (!getItem(slot).isEmpty()) {
                 consumeSlotPreservingContainer(player, slot);
             }
-        }
-        if (catalystSlot == SLOT_LEGACY_CATALYST && !getItem(SLOT_LEGACY_CATALYST).isEmpty()) {
-            consumeSlotPreservingContainer(player, SLOT_LEGACY_CATALYST);
         }
         setChanged();
     }
@@ -443,9 +466,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
     public int baseArcaneCost(ArcaneWorkbenchRecipe recipe, Aspect aspect) {
         if (recipe == null || aspect == null) {
             return 0;
-        }
-        if (recipe.aspectCost().isEmpty()) {
-            return aspect == Aspect.ORDO ? ORDO_COST : 0;
         }
         return Math.max(0, recipe.aspectCost().getOrDefault(aspect, 0));
     }
@@ -561,13 +581,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             return true;
         }
         if (recipe.aspectCost().isEmpty()) {
-            int needed = WandItem.modifiedVisCost(wand, player, Aspect.ORDO, ORDO_COST * 100, true);
-            if (WandItem.getVis(wand, Aspect.ORDO) < needed) {
-                if (message && player != null) {
-                    player.displayClientMessage(Component.literal("Not enough Ordo vis in wand. Need Ordo " + WandItem.formatVis(needed) + " after all TC4 modifiers.").withStyle(ChatFormatting.RED), false);
-                }
-                return false;
-            }
             return true;
         }
         for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
@@ -584,7 +597,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
     private void consumeArcaneVisCost(ItemStack wand, ArcaneWorkbenchRecipe recipe, Player player) {
         if (recipe.aspectCost().isEmpty()) {
-            WandItem.consumeVisCost(wand, player, Aspect.ORDO, ORDO_COST * 100, true);
             return;
         }
         for (Map.Entry<Aspect, Integer> entry : recipe.aspectCost().entrySet()) {
@@ -593,19 +605,11 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
     }
 
     private int findCatalystSlot(ArcaneWorkbenchRecipe recipe) {
-        // Stage189: original TC4 has no separate catalyst slot; the catalyst is
-        // one of the nine crafting-grid stacks.  Slot 11 is read only as a
-        // save-migration adapter for Stage135-188 worlds.
         for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END; slot++) {
             if (recipe.catalystMatches(getItem(slot))) {
                 return slot;
             }
         }
-
-        if (recipe.catalystMatches(getItem(SLOT_LEGACY_CATALYST))) {
-            return SLOT_LEGACY_CATALYST;
-        }
-
         return -1;
     }
 
@@ -665,8 +669,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
             int offsetY,
             boolean mirrored
     ) {
-        int legacySubstitutionGridSlot = -1;
-
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 int subX = x - offsetX;
@@ -699,24 +701,14 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
                     continue;
                 }
 
-                // Save-migration only: one old hidden catalyst stack may stand in
-                // for one matching grid occurrence. New gameplay always uses the
-                // visible original 3x3 grid.
-                if (stack.isEmpty()
-                        && catalystSlot == SLOT_LEGACY_CATALYST
-                        && legacySubstitutionGridSlot < 0
-                        && needed.equals(recipe.catalystItemId())) {
-                    legacySubstitutionGridSlot = slot;
-                    continue;
-                }
                 return null;
             }
         }
 
-        return new PatternPlacement(offsetX, offsetY, mirrored, legacySubstitutionGridSlot);
+        return new PatternPlacement(offsetX, offsetY, mirrored);
     }
 
-    private record PatternPlacement(int offsetX, int offsetY, boolean mirrored, int legacySubstitutionGridSlot) {
+    private record PatternPlacement(int offsetX, int offsetY, boolean mirrored) {
     }
 
     private boolean hasRequiredItems(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
@@ -737,10 +729,6 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
      * cannot satisfy two identical shapeless ingredients. Every occupied slot
      * must be consumed by the recipe, so unrelated extra items reject the match.</p>
      *
-     * <p>The compatibility catalyst is reserved as one input occurrence. When a
-     * materialized JSON recipe also contains that same item in its full input
-     * list, {@link ArcaneWorkbenchRecipe#normalizedLooseIngredients()} removes
-     * exactly one duplicate occurrence before the remaining slots are matched.</p>
      */
     private boolean matchesLooseRecipeExactly(ArcaneWorkbenchRecipe recipe, int catalystSlot) {
         if (recipe == null || catalystSlot < 0) {
@@ -748,19 +736,14 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
         }
 
         boolean[] usedSlots = new boolean[SLOT_INGREDIENT_END - SLOT_INGREDIENT_START + 1];
-        if (catalystSlot >= SLOT_INGREDIENT_START && catalystSlot <= SLOT_INGREDIENT_END) {
-            ItemStack catalyst = getItem(catalystSlot);
-            if (!recipe.catalystMatches(catalyst)) {
-                return false;
-            }
-            usedSlots[catalystSlot - SLOT_INGREDIENT_START] = true;
-        } else if (catalystSlot == SLOT_LEGACY_CATALYST) {
-            if (!recipe.catalystMatches(getItem(SLOT_LEGACY_CATALYST))) {
-                return false;
-            }
-        } else {
+        if (catalystSlot < SLOT_INGREDIENT_START || catalystSlot > SLOT_INGREDIENT_END) {
             return false;
         }
+        ItemStack catalyst = getItem(catalystSlot);
+        if (!recipe.catalystMatches(catalyst)) {
+            return false;
+        }
+        usedSlots[catalystSlot - SLOT_INGREDIENT_START] = true;
 
         for (ResourceLocation needed : recipe.normalizedLooseIngredients()) {
             boolean found = false;
@@ -802,27 +785,23 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
     @Override
     public boolean isEmpty() {
         for (ItemStack stack : items) {
-            if (!stack.isEmpty()) {
-                return false;
-            }
+            if (!stack.isEmpty()) return false;
         }
-
         return true;
     }
 
     @Override
     public ItemStack getItem(int slot) {
-        return items.get(slot);
+        return slot >= 0 && slot < items.size() ? items.get(slot) : ItemStack.EMPTY;
     }
 
     @Override
     public ItemStack removeItem(int slot, int count) {
         ItemStack stack = ContainerHelper.removeItem(items, slot, count);
-
         if (!stack.isEmpty()) {
             setChanged();
+            syncToClient();
         }
-
         return stack;
     }
 
@@ -833,87 +812,162 @@ public class ArcaneWorkbenchBlockEntity extends BlockEntity implements Container
 
     @Override
     public void setItem(int slot, ItemStack stack) {
+        if (slot < 0 || slot >= items.size()) return;
         items.set(slot, stack);
-
-        if (stack.getCount() > getMaxStackSize()) {
-            stack.setCount(getMaxStackSize());
-        }
-
+        if (stack.getCount() > getMaxStackSize()) stack.setCount(getMaxStackSize());
         setChanged();
+        syncToClient();
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return !isRemoved()
-                && level != null
-                && level.getBlockEntity(worldPosition) == this
-                && player.distanceToSqr(
-                        worldPosition.getX() + 0.5D,
-                        worldPosition.getY() + 0.5D,
-                        worldPosition.getZ() + 0.5D
-                ) <= 64.0D;
+        return !isRemoved() && level != null && level.getBlockEntity(worldPosition) == this
+                && player.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D,
+                worldPosition.getZ() + 0.5D) <= 64.0D;
     }
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        if (slot == SLOT_OUTPUT) {
-            return false;
-        }
+        if (slot == SLOT_OUTPUT) return false;
+        if (slot == SLOT_WAND) return stack.getItem() instanceof WandItem && !WandItem.isStaffStack(stack);
+        return slot >= SLOT_INGREDIENT_START && slot <= SLOT_INGREDIENT_END;
+    }
 
-        if (slot == SLOT_WAND) {
-            return stack.getItem() instanceof WandItem && !WandItem.isStaffStack(stack);
-        }
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        return AUTOMATION_SLOTS.clone();
+    }
 
-        return true;
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction side) {
+        return slot == SLOT_WAND && canPlaceItem(slot, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
+        return slot == SLOT_WAND;
     }
 
     @Override
     public void clearContent() {
-        for (int i = 0; i < items.size(); i++) {
-            items.set(i, ItemStack.EMPTY);
-        }
-
+        for (int i = 0; i < items.size(); i++) items.set(i, ItemStack.EMPTY);
         setChanged();
+        syncToClient();
     }
 
     public void dropRealContents(Level level, BlockPos pos) {
         for (int slot = 0; slot < items.size(); slot++) {
-            if (slot == SLOT_OUTPUT) {
-                continue;
-            }
+            if (slot == SLOT_OUTPUT) continue;
             ItemStack stack = items.get(slot);
             if (!stack.isEmpty()) {
                 Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack.copy());
                 items.set(slot, ItemStack.EMPTY);
             }
         }
+        if (!pendingLegacyCatalyst.isEmpty()) {
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), pendingLegacyCatalyst.copy());
+            pendingLegacyCatalyst = ItemStack.EMPTY;
+        }
         clearOutputPreview();
         setChanged();
     }
 
+    /** Original TC4 key and all eleven slots, including the current output preview. */
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        // TC4's output slot is a virtual preview produced by the container.
-        // Never serialize it as a real inventory stack, otherwise a stale preview
-        // can survive world reloads and become collectible without crafting.
-        ItemStack preview = items.get(SLOT_OUTPUT);
-        items.set(SLOT_OUTPUT, ItemStack.EMPTY);
-        ContainerHelper.saveAllItems(tag, items);
-        items.set(SLOT_OUTPUT, preview);
+        ListTag inventory = new ListTag();
+        for (int slot = 0; slot < items.size(); slot++) {
+            ItemStack stack = items.get(slot);
+            if (!stack.isEmpty()) {
+                CompoundTag entry = new CompoundTag();
+                entry.putByte("Slot", (byte) slot);
+                stack.save(entry);
+                inventory.add(entry);
+            }
+        }
+        tag.put("Inventory", inventory);
+        tag.remove("Items");
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
+        for (int i = 0; i < items.size(); i++) items.set(i, ItemStack.EMPTY);
+        pendingLegacyCatalyst = ItemStack.EMPTY;
 
-        for (int i = 0; i < items.size(); i++) {
-            items.set(i, ItemStack.EMPTY);
+        if (tag.contains("Inventory", Tag.TAG_LIST)) {
+            readInventory(tag.getList("Inventory", Tag.TAG_COMPOUND));
+        } else if (tag.contains("Items", Tag.TAG_LIST)) {
+            // One-time migration from rebuild versions that used ContainerHelper and slot 11.
+            readInventory(tag.getList("Items", Tag.TAG_COMPOUND));
         }
-
-        ContainerHelper.loadAllItems(tag, items);
-        items.set(SLOT_OUTPUT, ItemStack.EMPTY);
     }
+
+    private void readInventory(ListTag inventory) {
+        for (int index = 0; index < inventory.size(); index++) {
+            CompoundTag entry = inventory.getCompound(index);
+            int slot = entry.getByte("Slot") & 255;
+            ItemStack stack = ItemStack.of(entry);
+            if (slot >= 0 && slot < SIZE) {
+                items.set(slot, stack);
+            } else if (slot == LEGACY_STAGE_CATALYST_SLOT && !stack.isEmpty()) {
+                pendingLegacyCatalyst = stack;
+            }
+        }
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (!pendingLegacyCatalyst.isEmpty() && level != null && !level.isClientSide) {
+            ItemStack remainder = pendingLegacyCatalyst.copy();
+            for (int slot = SLOT_INGREDIENT_START; slot <= SLOT_INGREDIENT_END && !remainder.isEmpty(); slot++) {
+                ItemStack existing = items.get(slot);
+                if (existing.isEmpty()) {
+                    items.set(slot, remainder.copy());
+                    remainder = ItemStack.EMPTY;
+                } else if (ItemStack.isSameItemSameTags(existing, remainder)) {
+                    int move = Math.min(remainder.getCount(), existing.getMaxStackSize() - existing.getCount());
+                    if (move > 0) {
+                        existing.grow(move);
+                        remainder.shrink(move);
+                    }
+                }
+            }
+            if (!remainder.isEmpty()) {
+                Containers.dropItemStack(level, worldPosition.getX() + 0.5D, worldPosition.getY() + 1.0D,
+                        worldPosition.getZ() + 0.5D, remainder);
+            }
+            pendingLegacyCatalyst = ItemStack.EMPTY;
+            setChanged();
+            syncToClient();
+        }
+    }
+
+    public void syncToClient() {
+        if (level != null && !level.isClientSide) {
+            BlockState state = getBlockState();
+            level.sendBlockUpdated(worldPosition, state, state, 3);
+        }
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        CompoundTag tag = packet.getTag();
+        if (tag != null) load(tag);
+    }
+
     /**
      * Forge 1.19.2 adapter for the original ContainerDummy used only to ask
      * RecipeManager/CraftingManager for vanilla 3x3 matches.  It has no slots

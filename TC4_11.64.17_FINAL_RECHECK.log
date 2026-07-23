@@ -1,0 +1,49 @@
+TC4 v11.64.17 FINAL INDEPENDENT RECHECK
+DATE_UTC=2026-07-22T09:48:46Z
+
+=== 1/10 Tallow Candle full-closure guard ===
+TC4 v11.64.17 Tallow Candle full-closure guard: PASS (162 GameTests; 534 scenarios; 16 colours/geometry/UV/resources/recipes/research/aspects/prompt)
+RC=0
+
+=== 2/10 Java 17 targeted parse/self-test ===
+Targeted Java parse guard v11.64.17: PASS (pure Java 17 self-test + 8 Forge source parse checks)
+RC=0
+
+=== 3/10 Global Java syntax guard ===
+Java syntax guard: OK
+RC=0
+
+=== 4/10 JSON validation ===
+JSON resource validation: OK (2052 files)
+RC=0
+
+=== 5/10 Runtime manifest validation ===
+runtime manifest: PASS (534 tests; template=True)
+RC=0
+
+=== 6/10 Recipe denominator guard ===
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+RC=0
+
+=== 7/10 Source inventory guard ===
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 53 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+RC=0
+
+=== 8/10 Consolidation guard ===
+TC4 v11.63.94 parity consolidation guard: PASS (162 GameTests; 534 manifest scenarios; source-linked contracts retained)
+RC=0
+
+=== 9/10 Universal prompt identity and mandatory wording ===
+Universal prompt: PASS (two root copies identical and mandatory wording present)
+RC=0
+
+=== 10/10 Version/count/cleanliness invariant ===
+Version 11.64.17: PASS
+GameTests 162/162 unique: PASS
+Runtime scenarios 534/534 unique: PASS
+Resource JSON 2052: PASS
+Forbidden build/cache artifacts: NONE
+RC=0
+
+FINAL_RECHECK=10/10 PASS

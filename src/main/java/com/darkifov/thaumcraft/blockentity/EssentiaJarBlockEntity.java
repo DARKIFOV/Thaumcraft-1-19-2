@@ -3,20 +3,24 @@ package com.darkifov.thaumcraft.blockentity;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.block.EssentiaJarBlock;
+import com.darkifov.thaumcraft.jar.TC4EssentiaJarParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.Level;
 
 public class EssentiaJarBlockEntity extends BlockEntity {
+    public static final int ORIGINAL_FILL_INTERVAL_TICKS = TC4EssentiaJarParity.FILL_INTERVAL_TICKS;
+
     private final AspectList aspects = new AspectList();
-    private Aspect filterAspect = null;
+    private Aspect retainedAspect;
+    private Aspect filterAspect;
     private Direction labelFacing = Direction.NORTH;
 
     public EssentiaJarBlockEntity(BlockPos pos, BlockState state) {
@@ -48,131 +52,109 @@ public class EssentiaJarBlockEntity extends BlockEntity {
 
     public void setFilterAspect(Aspect aspect) {
         filterAspect = aspect;
+        if (amount() <= 0 && aspect != null) {
+            retainedAspect = aspect;
+        }
         setChangedAndSync();
     }
 
+    /** TC4 removes the label but does not forcibly erase the retained zero-amount aspect hint. */
     public void clearFilter() {
         filterAspect = null;
         setChangedAndSync();
     }
 
-    public boolean canAcceptAspect(Aspect aspect) {
-        return doesContainerAcceptOriginal(aspect) && (storedAspect() == null || storedAspect() == aspect);
+    public void clearContentsLikeTC4() {
+        aspects.clear();
+        if (filterAspect == null) {
+            retainedAspect = null;
+        } else {
+            retainedAspect = filterAspect;
+        }
+        setChangedAndSync();
     }
 
-    /** Stage204: original TileJarFillable.doesContainerAccept parity. */
-    public boolean doesContainerAcceptOriginal(Aspect aspect) {
-        if (aspect == null) {
+    public boolean canAcceptAspect(Aspect aspect) {
+        if (!doesContainerAcceptOriginal(aspect)) {
             return false;
         }
-        return filterAspect == null || filterAspect == aspect;
+        Aspect current = amount() > 0 ? retainedAspect : null;
+        return current == null || current == aspect;
     }
 
-    /** Stage204: original TileJarFillable.addToContainer parity. Returns the remainder. */
-    public int addToContainerOriginal(Aspect aspect, int amount, boolean voidJar) {
-        if (amount <= 0) {
-            return amount;
-        }
-        if (!doesContainerAcceptOriginal(aspect)) {
-            return amount;
-        }
-        Aspect current = storedAspect();
-        if (current != null && current != aspect) {
-            return amount;
-        }
+    public boolean doesContainerAcceptOriginal(Aspect aspect) {
+        return aspect != null && (filterAspect == null || filterAspect == aspect);
+    }
 
-        if (filterAspect == null && getBlockState().is(ThaumcraftMod.FILTERED_ESSENTIA_JAR.get())) {
-            filterAspect = aspect;
-        }
+    /** TileJarFillable / TileJarFillableVoid addToContainer. Returns remainder. */
+    public int addToContainerOriginal(Aspect aspect, int incoming, boolean voidJar) {
+        if (incoming <= 0) return incoming;
+        if (!doesContainerAcceptOriginal(aspect)) return incoming;
 
-        int currentAmount = aspects.totalAmount();
-        int space = Math.max(0, EssentiaJarBlock.CAPACITY - currentAmount);
-        if (!voidJar && space <= 0) {
-            return amount;
-        }
+        boolean sameAspectOrEmpty = amount() == 0 || retainedAspect == aspect;
+        int remainder = TC4EssentiaJarParity.remainderAfterInsert(voidJar, sameAspectOrEmpty, amount(), incoming);
+        if (!sameAspectOrEmpty) return remainder;
 
-        int stored = voidJar ? Math.min(space, amount) : Math.min(space, amount);
-        if (stored > 0) {
-            aspects.add(aspect, stored);
+        retainedAspect = aspect;
+        int acceptedForDisplay = Math.min(Math.max(0, TC4EssentiaJarParity.CAPACITY - amount()), incoming);
+        if (acceptedForDisplay > 0) {
+            aspects.add(aspect, acceptedForDisplay);
         }
-
-        int remainder = voidJar ? 0 : amount - stored;
-        if (stored > 0 || voidJar) {
+        if (acceptedForDisplay > 0 || (voidJar && remainder == 0)) {
             setChangedAndSync();
         }
         return remainder;
     }
 
-    /** Stage204: original TileJarFillable.takeFromContainer parity. */
-    public boolean takeFromContainerOriginal(Aspect aspect, int amount) {
-        if (aspect == null || amount <= 0 || aspects.get(aspect) < amount) {
+    public boolean takeFromContainerOriginal(Aspect aspect, int requested) {
+        if (aspect == null || requested <= 0 || retainedAspect != aspect || amount() < requested) {
             return false;
         }
-        aspects.remove(aspect, amount);
-        if (aspects.totalAmount() <= 0) {
+        aspects.remove(aspect, requested);
+        if (amount() <= 0) {
             aspects.clear();
+            retainedAspect = filterAspect == null ? null : filterAspect;
         }
         setChangedAndSync();
         return true;
     }
 
-    public int acceptFromTube(Aspect aspect, int amount, boolean voidOverflow) {
-        if (!canAcceptAspect(aspect) || amount <= 0) {
-            return 0;
-        }
-        int remainder = addToContainerOriginal(aspect, amount, voidOverflow);
-        return Math.max(0, amount - remainder);
+    public int acceptFromTube(Aspect aspect, int incoming, boolean voidOverflow) {
+        if (incoming <= 0 || !canAcceptAspect(aspect)) return 0;
+        return incoming - addToContainerOriginal(aspect, incoming, voidOverflow);
     }
 
     public int originalMinimumSuction(boolean voidJar) {
-        if (voidJar) {
-            return filterAspect != null ? 48 : 32;
-        }
-        return filterAspect != null ? 64 : 32;
+        return TC4EssentiaJarParity.minimumSuction(voidJar, hasFilter());
     }
 
     public int originalSuctionAmount(boolean voidJar) {
-        // v11.62.8 jar runtime parity: a void jar must keep suction even when
-        // visually capped at 64 essentia. Earlier builds stopped pulling from
-        // tubes once the display amount reached capacity, so a void jar behaved
-        // like a normal full jar instead of consuming overflow like TC4.
-        if (voidJar) {
-            return filterAspect != null ? 48 : 32;
-        }
-        if (amount() < capacity()) {
-            return filterAspect != null ? 64 : 32;
-        }
-        return 0;
+        return TC4EssentiaJarParity.suctionAmount(voidJar, hasFilter(), amount());
     }
 
+    public Aspect suctionType() {
+        return filterAspect != null ? filterAspect : retainedAspect;
+    }
 
-
-    /** v9.22: original TileJarFillable.fillJar lifecycle.
-     * TC4 jars are active every 5 ticks and pull from the connectable transport above
-     * when the jar suction is stronger than the neighbour suction. Earlier builds only
-     * let the tube network push into jars, so isolated buffered-tube-over-jar setups
-     * missed the original self-pull path. */
     public static void serverTick(Level level, BlockPos pos, BlockState state, EssentiaJarBlockEntity jar) {
         boolean voidJar = state.is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
-        if (level.isClientSide || level.getGameTime() % 5L != 0L || (!voidJar && jar.amount() >= jar.capacity())) {
+        if (level.isClientSide || level.getGameTime() % ORIGINAL_FILL_INTERVAL_TICKS != 0L
+                || (!voidJar && jar.amount() >= jar.capacity())) {
             return;
         }
         jar.fillJarFromAboveLikeTC4(voidJar);
     }
 
     private void fillJarFromAboveLikeTC4(boolean voidJar) {
-        if (level == null) {
-            return;
-        }
+        if (level == null) return;
         BlockEntity above = level.getBlockEntity(worldPosition.above());
-        if (!(above instanceof EssentiaTubeBlockEntity tube) || !tube.allowsOutputTo(Direction.DOWN)) {
-            return;
-        }
+        if (!(above instanceof EssentiaTubeBlockEntity tube) || !tube.allowsOutputTo(Direction.DOWN)) return;
+
         Aspect target = null;
         if (filterAspect != null) {
             target = filterAspect;
-        } else if (storedAspect() != null && amount() > 0) {
-            target = storedAspect();
+        } else if (retainedAspect != null && amount() > 0) {
+            target = retainedAspect;
         } else if (tube.getTransportEssentiaAmount(Direction.DOWN) > 0
                 && tube.getSuctionAmount(Direction.DOWN) < originalSuctionAmount(voidJar)
                 && originalSuctionAmount(voidJar) >= tube.getMinimumSuction()) {
@@ -181,14 +163,12 @@ public class EssentiaJarBlockEntity extends BlockEntity {
 
         if (target != null && tube.getSuctionAmount(Direction.DOWN) < originalSuctionAmount(voidJar)) {
             int taken = tube.takeEssentiaOriginal(target, 1, Direction.DOWN);
-            if (taken > 0) {
-                addToContainerOriginal(target, taken, voidJar);
-            }
+            if (taken > 0) addToContainerOriginal(target, taken, voidJar);
         }
     }
 
     public Aspect storedAspect() {
-        return aspects.firstAspect();
+        return retainedAspect;
     }
 
     public int amount() {
@@ -196,16 +176,15 @@ public class EssentiaJarBlockEntity extends BlockEntity {
     }
 
     public int capacity() {
-        return EssentiaJarBlock.CAPACITY;
+        return TC4EssentiaJarParity.CAPACITY;
     }
 
     public float fillRatio() {
-        return Math.max(0.0F, Math.min(1.0F, aspects.totalAmount() / (float) EssentiaJarBlock.CAPACITY));
+        return Math.max(0.0F, Math.min(1.0F, amount() / (float) capacity()));
     }
 
     public void setChangedAndSync() {
         setChanged();
-
         if (level != null && !level.isClientSide) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
         }
@@ -214,58 +193,44 @@ public class EssentiaJarBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.put("Aspects", aspects.save());
-
-        Aspect stored = storedAspect();
-        if (stored != null && amount() > 0) {
-            tag.putString("Aspect", stored.id());
-        }
+        if (retainedAspect != null) tag.putString("Aspect", retainedAspect.id());
+        if (filterAspect != null) tag.putString("AspectFilter", filterAspect.id());
         tag.putShort("Amount", (short) amount());
         tag.putByte("facing", (byte) labelFacing.get3DDataValue());
-
-        if (filterAspect != null) {
-            tag.putString("FilterAspect", filterAspect.name());
-            tag.putString("AspectFilter", filterAspect.id());
-        }
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-
-        if (tag.contains("Aspects")) {
-            aspects.load(tag.getCompound("Aspects"));
-        }
-
-        if (!tag.contains("Aspects") && tag.contains("Aspect")) {
-            Aspect originalAspect = Aspect.byId(tag.getString("Aspect"));
-            int originalAmount = Math.max(0, tag.getShort("Amount"));
-            if (originalAspect != null && originalAmount > 0) {
-                aspects.add(originalAspect, originalAmount);
-            }
-        }
-
+        aspects.clear();
+        retainedAspect = null;
         filterAspect = null;
-        if (tag.contains("facing")) {
-            try {
-                Direction loadedFacing = Direction.from3DDataValue(tag.getByte("facing"));
-                if (loadedFacing.getAxis().isHorizontal()) {
-                    labelFacing = loadedFacing;
-                }
-            } catch (IllegalArgumentException ignored) {
-                labelFacing = Direction.NORTH;
+        labelFacing = Direction.NORTH;
+
+        Aspect canonicalAspect = Aspect.byId(tag.getString("Aspect"));
+        int canonicalAmount = Math.max(0, tag.getShort("Amount"));
+        if (canonicalAspect != null) {
+            retainedAspect = canonicalAspect;
+            if (canonicalAmount > 0) aspects.add(canonicalAspect, Math.min(capacity(), canonicalAmount));
+        } else if (tag.contains("Aspects", Tag.TAG_COMPOUND)) {
+            // One-time migration from pre-11.64.35 port NBT.
+            AspectList migrated = new AspectList();
+            migrated.load(tag.getCompound("Aspects"));
+            Aspect first = migrated.firstAspect();
+            int amount = first == null ? 0 : Math.min(capacity(), migrated.get(first));
+            if (first != null) {
+                retainedAspect = first;
+                if (amount > 0) aspects.add(first, amount);
             }
         }
 
-        if (tag.contains("FilterAspect")) {
-            try {
-                filterAspect = Aspect.valueOf(tag.getString("FilterAspect"));
-            } catch (IllegalArgumentException ignored) {
-                filterAspect = Aspect.byId(tag.getString("FilterAspect"));
-            }
-        }
-        if (filterAspect == null && tag.contains("AspectFilter")) {
-            filterAspect = Aspect.byId(tag.getString("AspectFilter"));
+        filterAspect = Aspect.byId(tag.getString("AspectFilter"));
+        if (filterAspect == null) filterAspect = Aspect.byId(tag.getString("FilterAspect"));
+        if (retainedAspect == null && filterAspect != null) retainedAspect = filterAspect;
+
+        if (tag.contains("facing")) {
+            Direction loaded = Direction.from3DDataValue(tag.getByte("facing"));
+            if (loaded.getAxis().isHorizontal()) labelFacing = loaded;
         }
     }
 
@@ -283,6 +248,7 @@ public class EssentiaJarBlockEntity extends BlockEntity {
 
     @Override
     public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
-        load(packet.getTag());
+        CompoundTag tag = packet.getTag();
+        if (tag != null) load(tag);
     }
 }

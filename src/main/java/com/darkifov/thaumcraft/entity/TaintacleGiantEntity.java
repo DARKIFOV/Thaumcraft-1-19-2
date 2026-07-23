@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.entity;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLootAdapter;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import com.darkifov.thaumcraft.damage.TC4DamageSources;
 import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -38,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 
 /** Stage283-302 direct 1.19.2 boss adapter for TC4 EntityTaintacleGiant. */
-public class TaintacleGiantEntity extends Monster {
+public class TaintacleGiantEntity extends Monster implements TaintedMob {
     public static final String ANGER_TAG = "Anger";
     private final ServerBossEvent bossBar = new ServerBossEvent(Component.translatable("entity.thaumcraft.taintacle_giant"), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS);
     private int anger = 0;
@@ -112,7 +113,7 @@ public class TaintacleGiantEntity extends Monster {
         double reach = getBbHeight() * getBbHeight();
         if (best <= reach && attackCooldown <= 0) {
             attackCooldown = 20;
-            if (target.hurt(DamageSource.mobAttack(this), (float)getAttributeValue(Attributes.ATTACK_DAMAGE))) {
+            if (target.hurt(TC4DamageSources.tentacle(this), (float)getAttributeValue(Attributes.ATTACK_DAMAGE))) {
                 server.playSound(null, blockPosition(), TC4Sounds.event("tentacle"), SoundSource.HOSTILE, getSoundVolume(), getVoicePitch());
             }
         } else if (best > reach && attackCooldown <= 0) {

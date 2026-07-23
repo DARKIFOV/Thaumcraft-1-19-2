@@ -1,0 +1,7 @@
+Prompt pack added to the complete v11.64.03 source archive:
+- 00_START_HERE_RU.txt
+- PROMPT_FOR_FUTURE_CHAT_RU.md
+- README.md: added a pointer to the prompt files
+
+No Java, JSON, Gradle, registry, recipe or runtime-manifest source was changed.
+Base project version remains 11.64.03.

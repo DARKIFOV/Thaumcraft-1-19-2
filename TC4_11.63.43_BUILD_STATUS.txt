@@ -1,0 +1,19 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.43
+
+SOURCE STATUS
+- Deferred legacy world migration implemented.
+- Static CI: 107/107 PASS.
+- JSON validation: 2107/2107 PASS.
+- Runtime manifest template: 307 scenarios, PASS structure.
+- Generic registry fallback: 0.
+
+FORGE BUILD STATUS
+- No confirmed JAR produced.
+- ./gradlew compileJava stopped before project configuration.
+- Reason: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1.
+- Available runtime: OpenJDK 21.0.10.
+- Required development baseline for Forge/Minecraft 1.19.2: Java 17.
+
+RUNTIME STATUS
+- World migration remains NOT_TESTED.
+- No old-world fixture, dedicated server, two-client, save/reload or performance claim is made.

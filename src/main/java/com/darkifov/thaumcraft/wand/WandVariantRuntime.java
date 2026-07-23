@@ -4,42 +4,27 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.WandItem;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Original TC4 wand subtype catalogue adapted to Forge 1.19.2 NBT ItemStacks.
- *
- * One registry item represents all ordinary wand, staff and sceptre component
- * combinations. The rod/cap identity is stored in original root tags, so the
- * capacity, name and BEWLR texture all resolve from the same authoritative data.
+ * Original TC4 ItemWandCasting subtype catalogue adapted to one Forge 1.19.2 NBT item.
+ * The workbench may craft every registered rod/cap pair, but the original creative tab
+ * exposes exactly four filled representative stacks.
  */
 public final class WandVariantRuntime {
     public static final int CRAFTABLE_ROD_COUNT = 18;
     public static final int CRAFTABLE_CAP_COUNT = 6;
-    public static final int WAND_AND_STAFF_VARIANT_COUNT = CRAFTABLE_ROD_COUNT * CRAFTABLE_CAP_COUNT;
-    public static final int CREATIVE_VARIANT_COUNT = WAND_AND_STAFF_VARIANT_COUNT + 1;
+    public static final int ORIGINAL_CREATIVE_VARIANT_COUNT = 4;
 
     private WandVariantRuntime() {}
 
     public static List<ItemStack> creativeVariants() {
-        List<ItemStack> variants = new ArrayList<>(CREATIVE_VARIANT_COUNT);
-        for (WandRodType rod : WandRodType.values()) {
-            if (rod == WandRodType.CREATIVE) {
-                continue;
-            }
-            for (WandCapType cap : WandCapType.values()) {
-                if (cap == WandCapType.INFINITY) {
-                    continue;
-                }
-                variants.add(create(rod, cap, false, true));
-            }
-        }
-
-        // Original ItemWandCasting#getSubItems adds one canonical sceptre after
-        // the rod/cap matrix: silverwood rod, thaumium caps, fully charged.
-        variants.add(create(WandRodType.SILVERWOOD, WandCapType.THAUMIUM, true, true));
-        return List.copyOf(variants);
+        return List.of(
+                create(WandRodType.WOOD, WandCapType.IRON, false, true),
+                create(WandRodType.GREATWOOD, WandCapType.GOLD, false, true),
+                create(WandRodType.SILVERWOOD, WandCapType.THAUMIUM, false, true),
+                create(WandRodType.SILVERWOOD, WandCapType.THAUMIUM, true, true)
+        );
     }
 
     public static ItemStack create(WandRodType rod, WandCapType cap, boolean sceptre, boolean filled) {

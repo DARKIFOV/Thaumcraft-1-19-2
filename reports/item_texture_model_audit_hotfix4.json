@@ -1,8 +1,8 @@
 {
-  "total_models": 721,
+  "total_models": 726,
   "missing_texture_models": 0,
-  "bewlr_models": 12,
-  "flat_generated_models": 203,
+  "bewlr_models": 13,
+  "flat_generated_models": 202,
   "rows": [
     {
       "model": "addon_completion_ledger",
@@ -16,8 +16,12 @@
     },
     {
       "model": "advanced_alchemical_furnace",
-      "parent": "thaumcraft:block/advanced_alchemical_furnace",
-      "textures": [],
+      "parent": "",
+      "textures": [
+        "thaumcraft:models/alch_furnace",
+        "thaumcraft:models/alch_furnace_tank",
+        "thaumcraft:block/alchemyblockadv"
+      ],
       "missing_textures": [],
       "status": "ok"
     },
@@ -57,11 +61,8 @@
     },
     {
       "model": "alchemical_centrifuge",
-      "parent": "minecraft:block/block",
-      "textures": [
-        "thaumcraft:models/centrifuge",
-        "thaumcraft:models/centrifuge"
-      ],
+      "parent": "builtin/entity",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -84,7 +85,7 @@
     },
     {
       "model": "alembic",
-      "parent": "thaumcraft:block/alembic",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
@@ -367,13 +368,10 @@
     },
     {
       "model": "bellows",
-      "parent": "minecraft:item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_bellows"
-      ],
+      "parent": "builtin/entity",
+      "textures": [],
       "missing_textures": [],
-      "status": "ok",
-      "render_class": "flat_item_icon"
+      "status": "ok"
     },
     {
       "model": "bottomless_pouch",
@@ -384,6 +382,13 @@
       "missing_textures": [],
       "status": "ok",
       "render_class": "flat_item_icon"
+    },
+    {
+      "model": "brainy_zombie_spawn_egg",
+      "parent": "minecraft:item/template_spawn_egg",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
     },
     {
       "model": "cinnabar_ore",
@@ -624,10 +629,13 @@
     },
     {
       "model": "eldritch_portal",
-      "parent": "thaumcraft:block/eldritch_portal",
-      "textures": [],
+      "parent": "minecraft:item/generated",
+      "textures": [
+        "thaumcraft:block/eldritch_portal"
+      ],
       "missing_textures": [],
-      "status": "ok"
+      "status": "ok",
+      "render_class": "flat_item_icon"
     },
     {
       "model": "eldritch_relic",
@@ -1333,6 +1341,13 @@
       "status": "ok"
     },
     {
+      "model": "giant_brainy_zombie_spawn_egg",
+      "parent": "minecraft:item/template_spawn_egg",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
       "model": "goggles_of_revealing",
       "parent": "minecraft:item/generated",
       "textures": [
@@ -1780,13 +1795,10 @@
     },
     {
       "model": "infusion_matrix",
-      "parent": "minecraft:item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_infusion_matrix"
-      ],
+      "parent": "builtin/entity",
+      "textures": [],
       "missing_textures": [],
-      "status": "ok",
-      "render_class": "flat_item_icon"
+      "status": "ok"
     },
     {
       "model": "infusion_pillar",
@@ -1798,6 +1810,13 @@
     {
       "model": "infusion_provider",
       "parent": "thaumcraft:block/infusion_provider",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
+      "model": "inhabited_zombie_spawn_egg",
+      "parent": "minecraft:item/template_spawn_egg",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
@@ -1946,13 +1965,13 @@
     },
     {
       "model": "node_transducer",
-      "parent": "",
+      "parent": "minecraft:builtin/entity",
       "textures": [
-        "thaumcraft:block/node_transducer",
         "thaumcraft:block/node_transducer"
       ],
       "missing_textures": [],
-      "status": "ok"
+      "status": "ok",
+      "render_class": "bewlr_or_custom_renderer"
     },
     {
       "model": "obsidian_tile",
@@ -2369,112 +2388,112 @@
     },
     {
       "model": "tallow_candle",
-      "parent": "thaumcraft:block/tallow_candle",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_black",
-      "parent": "thaumcraft:block/tallow_candle_black",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_blue",
-      "parent": "thaumcraft:block/tallow_candle_blue",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_brown",
-      "parent": "thaumcraft:block/tallow_candle_brown",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_cyan",
-      "parent": "thaumcraft:block/tallow_candle_cyan",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_gray",
-      "parent": "thaumcraft:block/tallow_candle_gray",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_green",
-      "parent": "thaumcraft:block/tallow_candle_green",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_light_blue",
-      "parent": "thaumcraft:block/tallow_candle_light_blue",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_light_gray",
-      "parent": "thaumcraft:block/tallow_candle_light_gray",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_lime",
-      "parent": "thaumcraft:block/tallow_candle_lime",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_magenta",
-      "parent": "thaumcraft:block/tallow_candle_magenta",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_orange",
-      "parent": "thaumcraft:block/tallow_candle_orange",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_pink",
-      "parent": "thaumcraft:block/tallow_candle_pink",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_purple",
-      "parent": "thaumcraft:block/tallow_candle_purple",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_red",
-      "parent": "thaumcraft:block/tallow_candle_red",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tallow_candle_yellow",
-      "parent": "thaumcraft:block/tallow_candle_yellow",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
@@ -2553,10 +2572,8 @@
     },
     {
       "model": "tc4_block_advanced_alchemical_furnace",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_advanced_alchemical_furnace"
-      ],
+      "parent": "thaumcraft:item/advanced_alchemical_furnace",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -2598,19 +2615,15 @@
     },
     {
       "model": "tc4_block_arcane_ear",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_arcane_ear"
-      ],
+      "parent": "thaumcraft:block/tc4_block_arcane_ear_off",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
     {
       "model": "tc4_block_arcane_lamp",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_arcane_lamp"
-      ],
+      "parent": "thaumcraft:block/tc4_block_arcane_lamp",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -2625,10 +2638,8 @@
     },
     {
       "model": "tc4_block_arcane_pressure_plate",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_arcane_pressure_plate"
-      ],
+      "parent": "thaumcraft:block/tc4_block_arcane_pressure_plate_0_up",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -2701,10 +2712,8 @@
     },
     {
       "model": "tc4_block_essentia_reservoir",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_essentia_reservoir"
-      ],
+      "parent": "thaumcraft:block/essentia_reservoir",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -2807,10 +2816,8 @@
     },
     {
       "model": "tc4_block_levitator",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/tc4_block_levitator"
-      ],
+      "parent": "thaumcraft:block/tc4_block_levitator",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -4046,10 +4053,8 @@
     },
     {
       "model": "tc4_jar_brain",
-      "parent": "item/generated",
-      "textures": [
-        "thaumcraft:item/tc4/jar_brain"
-      ],
+      "parent": "builtin/entity",
+      "textures": [],
       "missing_textures": [],
       "status": "ok"
     },
@@ -5571,6 +5576,13 @@
       "status": "ok"
     },
     {
+      "model": "thaumic_slime_spawn_egg",
+      "parent": "minecraft:item/template_spawn_egg",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
+    },
+    {
       "model": "thaumium_ingot",
       "parent": "minecraft:item/generated",
       "textures": [
@@ -6238,7 +6250,7 @@
     },
     {
       "model": "vis_relay",
-      "parent": "thaumcraft:block/vis_relay",
+      "parent": "builtin/entity",
       "textures": [],
       "missing_textures": [],
       "status": "ok"
@@ -6309,6 +6321,13 @@
       "missing_textures": [],
       "status": "ok",
       "render_class": "flat_item_icon"
+    },
+    {
+      "model": "wisp_spawn_egg",
+      "parent": "minecraft:item/template_spawn_egg",
+      "textures": [],
+      "missing_textures": [],
+      "status": "ok"
     },
     {
       "model": "wooden_wand_core",

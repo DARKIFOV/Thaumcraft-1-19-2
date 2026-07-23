@@ -1,0 +1,53 @@
+{
+  "round": "11.64.22",
+  "object": "ordinary Arcane Lamp (blockMetalDevice metadata 7) including its invisible blockAiry metadata-3 marker and direct Arcane Bore/Bore Base integrations",
+  "scope_exclusions": [
+    "Lamp of Growth",
+    "Lamp of Fertility"
+  ],
+  "original_sources": [
+    "thaumcraft/common/tiles/TileArcaneLamp.java",
+    "thaumcraft/common/tiles/TileArcaneLampLight.java",
+    "thaumcraft/common/blocks/BlockAiry.java",
+    "thaumcraft/common/blocks/BlockMetalDevice.java",
+    "thaumcraft/common/blocks/BlockMetalDeviceItem.java",
+    "thaumcraft/common/tiles/TileArcaneBore.java",
+    "thaumcraft/client/renderers/tile/TileArcaneLampRenderer.java",
+    "thaumcraft/client/renderers/block/BlockMetalDeviceRenderer.java",
+    "thaumcraft/client/renderers/models/ModelBoreBase.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java"
+  ],
+  "proved_discrepancies": [
+    "The port required a sturdy support face while TC4 only removed the lamp when the support block became air.",
+    "The port bound a ticking BlockEntity to invisible light markers, stored source coordinates and self-removed orphans; TC4 TileArcaneLampLight exists in source but is never registered or bound to blockAiry metadata 3.",
+    "The port clamped candidates to maxBuildHeight-1 and skipped unloaded chunks; TC4 only capped to surface+4 and minimum Y 5, then used direct world access.",
+    "The port omitted orientation NBT.",
+    "The port omitted the Arcane Bore post-mining light-marker integration.",
+    "The block model rotated the fixed body and approximated the Bore nozzle with lamp textures; TC4 keeps the body fixed and renders ModelBoreBase.renderNozzle with Bore.png, including a second connector on Arcane Bore Base.",
+    "The arcane recipe lost spaces and mapped glowstone/nitor/arcane stone incorrectly.",
+    "The item had a non-original uncommon rarity."
+  ],
+  "production_bindings": [
+    "ArcaneLampBlock -> ArcaneLampBlockEntity::serverTick",
+    "ArcaneLampBlockEntity -> TC4ArcaneLampParity",
+    "ArcaneLampBlock::onRemove -> ArcaneLampBlockEntity::removeLights",
+    "ArcaneBoreBlockEntity::mineTarget -> seedTunnelLightFromAdjacentLamp",
+    "ClientModEvents -> ArcaneLampRenderer",
+    "ArcaneLampRenderer -> TC4ArcaneBoreModel::renderNozzle"
+  ],
+  "resource_evidence": {
+    "lamp_side": "byte-identical to original TC4 lamp_side.png and mcmeta",
+    "lamp_top": "byte-identical to original TC4 lamp_top.png and mcmeta",
+    "bore_texture": "byte-identical to original TC4 textures/models/Bore.png",
+    "world_model": "fixed 4,2,4 to 12,14,12 body only",
+    "item_model": "body only, matching original inventory renderer",
+    "recipe_pattern": [" S ", "IAI", " N "]
+  },
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "build_blocker": "Gradle Wrapper cannot download Gradle 7.5.1 because services.gradle.org is unavailable in the execution environment; installed runtime is Java 21 rather than the required Java 17.",
+  "honesty": "No BUILD VERIFIED or RUNTIME VERIFIED claim is made."
+}

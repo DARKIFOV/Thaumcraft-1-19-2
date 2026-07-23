@@ -2,10 +2,14 @@ package com.darkifov.thaumcraft.block;
 
 import java.util.function.Consumer;
 import java.text.DecimalFormat;
+import java.util.UUID;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.darkifov.thaumcraft.client.render.WandItemRenderer;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import com.darkifov.thaumcraft.wand.WandRodType;
+import com.darkifov.thaumcraft.wand.TC4WandComponentMath;
 import com.darkifov.thaumcraft.wand.WandComponentData;
 import com.darkifov.thaumcraft.wand.WandCapType;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
@@ -14,7 +18,11 @@ import com.darkifov.thaumcraft.wand.TC4VisDiscountRuntime;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.entity.SpecialItemEntity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
+import com.darkifov.thaumcraft.aura.TC4NodeJarMultiblock;
+import com.darkifov.thaumcraft.infusion.TC4InfusionAltarMultiblock;
+import com.darkifov.thaumcraft.alchemy.TC4ThaumatoriumMultiblock;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -25,6 +33,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -36,6 +48,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult;
 
 import java.util.ArrayList;
@@ -55,6 +68,8 @@ public class WandItem extends Item {
     private static final double NODE_TAP_REACH_SQR = 64.0D;
     private static final Aspect[] PRIMAL_VIS = new Aspect[]{Aspect.AER, Aspect.TERRA, Aspect.IGNIS, Aspect.AQUA, Aspect.ORDO, Aspect.PERDITIO};
     public static final int INFINITE_VIS_DISPLAY = Integer.MAX_VALUE / 8;
+    public static final double STAFF_ATTACK_DAMAGE = 6.0D;
+    private static final UUID STAFF_ATTACK_DAMAGE_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
 
     private final int visCapacity;
     private final WandRodType defaultRod;
@@ -540,11 +555,7 @@ public class WandItem extends Item {
         }
 
         if (!level.isClientSide) {
-            CompoundTag root = stack.getTag();
-            if (root == null || !root.contains(WandComponentData.ORIGINAL_TAG_ROD) || !root.contains(WandComponentData.ORIGINAL_TAG_CAP)) {
-                WandComponentData data = WandComponentData.from(stack);
-                WandComponentData.write(stack, data.rod(), data.cap());
-            }
+            WandComponentData.normalizeOriginalTags(stack);
             migrateLegacyVisStorage(stack);
             clampVisToCapacity(stack);
         }
@@ -558,9 +569,9 @@ public class WandItem extends Item {
         }
 
         WandRodType rod = WandComponentData.from(stack).rod();
-        int lowThreshold = Math.max(1, stackVisCapacity(stack) / 10);
+        int lowThreshold = TC4WandComponentMath.regenerationThresholdCentivis(stackVisCapacity(stack));
         if (rod.regeneratesAllPrimals()) {
-            if (player.tickCount % 50 != 0) {
+            if (player.tickCount % WandRodType.PRIMAL_STAFF_REGEN_INTERVAL_TICKS != 0) {
                 return;
             }
             java.util.List<Aspect> candidates = new java.util.ArrayList<>();
@@ -570,20 +581,33 @@ public class WandItem extends Item {
                 }
             }
             if (!candidates.isEmpty()) {
-                addVis(stack, candidates.get(level.random.nextInt(candidates.size())), 1);
+                addVis(stack, candidates.get(level.random.nextInt(candidates.size())), WandRodType.REGEN_AMOUNT_VIS);
             }
             return;
         }
 
         Aspect regen = rod.regeneratedAspect();
-        if (regen != null && player.tickCount % 200 == 0 && getVis(stack, regen) < lowThreshold) {
-            addVis(stack, regen, 1);
+        if (regen != null && player.tickCount % WandRodType.ELEMENTAL_REGEN_INTERVAL_TICKS == 0 && getVis(stack, regen) < lowThreshold) {
+            addVis(stack, regen, WandRodType.REGEN_AMOUNT_VIS);
         }
     }
 
     @Override
     public Component getName(ItemStack stack) {
-        return Component.literal(WandComponentData.from(stack).displayName(stack));
+        return WandComponentData.from(stack).displayNameComponent(stack);
+    }
+
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> inherited = super.getAttributeModifiers(slot, stack);
+        if (slot != EquipmentSlot.MAINHAND || !WandComponentData.from(stack).rod().staff()) {
+            return inherited;
+        }
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> attributes = ImmutableMultimap.builder();
+        attributes.putAll(inherited);
+        attributes.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(
+                STAFF_ATTACK_DAMAGE_UUID, "Weapon modifier", STAFF_ATTACK_DAMAGE, AttributeModifier.Operation.ADDITION));
+        return attributes.build();
     }
 
     @Override
@@ -598,41 +622,16 @@ public class WandItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
-        WandComponentData data = WandComponentData.from(stack);
-        tooltip.add(Component.literal("Rod: " + data.rod().id()).withStyle(ChatFormatting.DARK_AQUA));
-        tooltip.add(Component.literal("Caps: " + data.cap().id()).withStyle(ChatFormatting.GOLD));
-        tooltip.add(Component.literal("Capacity: " + formatVis(stackVisCapacity(stack))).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("Cap cost: x" + data.visCostModifier(stack, Aspect.AER) + " base").withStyle(ChatFormatting.GRAY));
-        if (WandComponentData.isSceptre(stack)) {
-            tooltip.add(Component.literal("Sceptre: +50% capacity, -10% vis cost, focus-capable")
-                    .withStyle(ChatFormatting.LIGHT_PURPLE));
-        } else if (data.rod().staff()) {
-            tooltip.add(Component.literal("Staff: focus-capable, cannot occupy the Arcane Workbench wand slot")
-                    .withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("item.capacity.text")
+                .append(Component.literal(" " + (stackVisCapacity(stack) / 100)))
+                .withStyle(ChatFormatting.GOLD));
+        if (stack.hasTag()) {
+            tooltip.add(Component.literal(visText(stack)).withStyle(ChatFormatting.GRAY));
         }
-        if (data.rod().hasRodRegen()) {
-            tooltip.add(Component.literal("TC4 rod recharge: up to 10% capacity").withStyle(ChatFormatting.DARK_GREEN));
-        }
-        if (hasInfiniteVis(stack)) {
-            tooltip.add(Component.literal("Infinite Vis").withStyle(ChatFormatting.LIGHT_PURPLE));
-        }
-        tooltip.add(Component.literal("Vis: " + visText(stack)).withStyle(ChatFormatting.GRAY));
         WandFocusType focus = WandFocusRuntime.getFocus(stack);
         if (focus != null) {
-            tooltip.add(Component.literal("Focus: " + focus.displayName()).withStyle(ChatFormatting.LIGHT_PURPLE));
-            com.darkifov.thaumcraft.AspectList focusCost = WandFocusRuntime.focusVisCost(stack, focus, net.minecraft.util.RandomSource.create());
-            net.minecraft.network.chat.MutableComponent costLine = Component.literal("Vis cost: ");
-            boolean firstCost = true;
-            for (var entry : focusCost.entries().entrySet()) {
-                if (!firstCost) costLine.append(Component.literal(", "));
-                int modified = WandFocusRuntime.modifiedFocusVisCost(stack, entry.getKey(), entry.getValue());
-                costLine.append(Component.literal(entry.getKey().displayName() + " " + formatVis(modified))
-                        .withStyle(style -> style.withColor(entry.getKey().textColor())));
-                firstCost = false;
-            }
-            tooltip.add(costLine.withStyle(ChatFormatting.DARK_GRAY));
-        } else {
-            tooltip.add(Component.literal("Focus: none").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.literal(focus.displayName())
+                    .withStyle(ChatFormatting.BOLD, ChatFormatting.ITALIC, ChatFormatting.GREEN));
         }
     }
 
@@ -710,40 +709,6 @@ public class WandItem extends Item {
             return InteractionResultHolder.success(wandStack);
         }
 
-        ItemStack offhand = player.getOffhandItem();
-
-        if (hand == InteractionHand.MAIN_HAND && offhand.getItem() instanceof FocusPouchItem) {
-            if (FocusPouchItem.equipNextFocusFromPouch(offhand, wandStack, player, player.isShiftKeyDown())) {
-                return InteractionResultHolder.consume(wandStack);
-            }
-            return InteractionResultHolder.consume(wandStack);
-        }
-
-        if (hand == InteractionHand.MAIN_HAND && offhand.getItem() instanceof WandFocusItem focusItem) {
-            ItemStack installedFocus = offhand.copy();
-            installedFocus.setCount(1);
-            WandFocusRuntime.setFocusStack(wandStack, installedFocus);
-            if (!player.getAbilities().instabuild) {
-                offhand.shrink(1);
-            }
-            player.displayClientMessage(Component.literal("Equipped " + focusItem.focusType().displayName() + " on wand.").withStyle(ChatFormatting.GOLD), true);
-            return InteractionResultHolder.consume(wandStack);
-        }
-
-        if (player.isShiftKeyDown() && WandFocusRuntime.hasFocus(wandStack)) {
-            WandFocusType oldFocus = WandFocusRuntime.getFocus(wandStack);
-            ItemStack focusStack = WandFocusRuntime.getFocusStack(wandStack);
-            WandFocusRuntime.setFocus(wandStack, null);
-            if (focusStack.isEmpty()) {
-                focusStack = WandFocusRuntime.focusStack(oldFocus);
-            }
-            if (!player.getInventory().add(focusStack)) {
-                player.drop(focusStack, false);
-            }
-            player.displayClientMessage(Component.literal("Removed " + oldFocus.displayName() + " from wand.").withStyle(ChatFormatting.GRAY), true);
-            return InteractionResultHolder.consume(wandStack);
-        }
-
         if (WandFocusRuntime.shouldUseContinuously(wandStack)) {
             player.startUsingItem(hand);
             WandFocusRuntime.beginContinuousUse(wandStack, level, player);
@@ -770,6 +735,30 @@ public class WandItem extends Item {
         BlockPos pos = context.getClickedPos();
         BlockState state = level.getBlockState(pos);
 
+        if (state.getBlock() instanceof ArcanePressurePlateBlock
+                && !state.getValue(ArcanePressurePlateBlock.POWERED)
+                && ArcanePressurePlateBlock.removeWithOwnerWand(level, pos, player)) {
+            if (level.isClientSide) player.swing(context.getHand());
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (TC4InfusionAltarMultiblock.tryCreate(level, pos, player, context.getHand(), wandStack)) {
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (TC4ThaumatoriumMultiblock.tryCreate(level, pos, player, context.getHand(), wandStack,
+                context.getClickedFace())) {
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (TC4NodeJarMultiblock.tryCreate(level, pos, player, context.getHand(), wandStack)) {
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (InfernalFurnaceMultiblock.tryCreate(level, pos, player, wandStack)) {
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
         if (level.getBlockEntity(pos) instanceof AuraNodeBlockEntity) {
             beginNodeUse(wandStack, level, pos);
             player.startUsingItem(context.getHand());
@@ -793,24 +782,27 @@ public class WandItem extends Item {
         }
 
         if (state.is(Blocks.BOOKSHELF)) {
-            if (!consumeTransformationCost(wandStack, Aspect.ORDO, 1, player)) {
-                return InteractionResult.CONSUME;
+            if (WandFocusRuntime.hasFocus(wandStack)) {
+                return InteractionResult.PASS;
             }
-
             level.removeBlock(pos, false);
-            Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 0.8D, pos.getZ() + 0.5D, new ItemStack(ThaumcraftMod.THAUMONOMICON.get()));
-            player.displayClientMessage(Component.literal("The bookshelf is transformed into a Thaumonomicon.").withStyle(ChatFormatting.GOLD), false);
+            SpecialItemEntity book = new SpecialItemEntity(level, pos.getX() + 0.5D, pos.getY() + 0.3D,
+                    pos.getZ() + 0.5D, new ItemStack(ThaumcraftMod.THAUMONOMICON.get()));
+            book.setDeltaMovement(Vec3.ZERO);
+            level.addFreshEntity(book);
+            if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+                serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.ENCHANT,
+                        pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+                        12, 0.35D, 0.35D, 0.35D, 0.02D);
+            }
+            level.playSound(null, pos, com.darkifov.thaumcraft.porting.TC4Sounds.event("wand"),
+                    net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
             return InteractionResult.CONSUME;
         }
 
         if (state.is(ThaumcraftMod.TABLE.get())) {
-            if (!consumeTransformationCost(wandStack, Aspect.ORDO, 3, player)) {
-                return InteractionResult.CONSUME;
-            }
-
-            level.setBlock(pos, ThaumcraftMod.ARCANE_WORKBENCH.get().defaultBlockState(), 3);
-            player.displayClientMessage(Component.literal("The table becomes an Arcane Workbench.").withStyle(ChatFormatting.LIGHT_PURPLE), false);
-            return InteractionResult.CONSUME;
+            return com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity.transformFromTable(
+                    level, pos, player, context.getHand(), wandStack);
         }
 
         if (state.is(Blocks.CAULDRON)) {

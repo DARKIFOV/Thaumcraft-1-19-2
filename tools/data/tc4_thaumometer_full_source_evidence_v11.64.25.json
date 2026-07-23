@@ -1,0 +1,103 @@
+{
+  "version": "11.64.25",
+  "object": "Thaumometer / ItemThaumometer + ScanManager handheld @ path",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/items/relics/ItemThaumometer.java",
+      "contracts": [
+        "max use 25",
+        "EnumAction.none",
+        "entity first, range 10, expand 0.5",
+        "block ray includes liquids",
+        "NODE+INode.getId",
+        "stable target for count<=5",
+        "10 camera ticks at 0.2 and 0.45+rnd*0.1",
+        "startScan is transient field"
+      ]
+    },
+    {
+      "path": "thaumcraft/api/research/IScanEventHandler.java",
+      "contracts": [
+        "public scanPhenomena extension handler",
+        "handlers queried after ordinary targets",
+        "first non-null result wins"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/research/ScanManager.java",
+      "contracts": [
+        "item hash registry+meta; damageable/non-subtyped -1",
+        "entity CHILD/VILLAGER/FLASHING/POWERED/golem suffixes",
+        "@ rejects either @/# ledger",
+        "validScan parent aspect gate",
+        "discovery +2 before 100 sqrt and 125 hard cap",
+        "phenomena scan ledger"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/research/ResearchManager.java",
+      "contracts": [
+        "createClue filters hidden/lost incomplete research",
+        "chooses exactly one random candidate",
+        "grants @KEY rather than full key"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/item/ItemThaumometerRenderer.java",
+      "contracts": [
+        "original scanner model/screen",
+        "title starts at 0.005 and shrinks after width 90",
+        "known aspects max 15 in 5/4/3/2/1",
+        "node type/modifier at y=-40 color 15642134"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileNodeRenderer.java",
+      "contracts": [
+        "selected main-hand Thaumometer only",
+        "visibility cone 0.44",
+        "view distance 48",
+        "depth ignored while revealed"
+      ]
+    }
+  ],
+  "production_bindings": [
+    "src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java",
+    "src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerParity.java",
+    "src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerScanKeys.java",
+    "src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerTargeting.java",
+    "src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerPhenomenaRegistry.java",
+    "src/main/java/com/darkifov/thaumcraft/data/PlayerThaumData.java",
+    "src/main/java/com/darkifov/thaumcraft/data/NodeScanData.java",
+    "src/main/java/com/darkifov/thaumcraft/network/ScanKnowledgeSyncPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchProgression.java",
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchFlagPolicy.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/ThaumometerItemRenderer.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/AuraNodeRenderer.java"
+  ],
+  "resource_sha256": {
+    "scanner_obj": "65e59c067fcd3fbda4211d6b2c036811d7cbf9ca4cf3cd7c49f41cd0c96aec88",
+    "scanner_png": "e9a8e15d7b1cf347d6239f9d236bfd15b5e41d642000dde3278792055e6a917e",
+    "scanscreen_png": "39284e111595fe93c4df7518f165560ccc70f702469075088b8004c4dea554f4",
+    "original_scanner_obj": "65e59c067fcd3fbda4211d6b2c036811d7cbf9ca4cf3cd7c49f41cd0c96aec88",
+    "original_scanner_png": "e9a8e15d7b1cf347d6239f9d236bfd15b5e41d642000dde3278792055e6a917e",
+    "original_scanscreen_png": "39284e111595fe93c4df7518f165560ccc70f702469075088b8004c4dea554f4"
+  },
+  "resource_matches_original": {
+    "scanner_obj": true,
+    "scanner_png": true,
+    "scanscreen_png": true
+  },
+  "static_proof": {
+    "gametests": 211,
+    "runtime_scenarios": 655,
+    "json_files": 2054,
+    "recipe_denominator": "258/258",
+    "forge_parse_files": 16
+  },
+  "honesty": "Gradle build and runtime remain unverified until the wrapper can obtain Gradle 7.5.1 and execute under JDK 17."
+}

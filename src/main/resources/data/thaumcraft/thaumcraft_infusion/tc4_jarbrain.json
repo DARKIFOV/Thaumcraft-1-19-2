@@ -7,7 +7,7 @@
   "components": [
     "thaumcraft:tc4_brain",
     "minecraft:spider_eye",
-    "minecraft:fermented_spider_eye",
+    "minecraft:water_bucket",
     "minecraft:spider_eye"
   ],
   "aspects": {
@@ -20,5 +20,6 @@
     "item": "thaumcraft:tc4_jar_brain",
     "count": 1
   },
-  "v11_62_71_strict_original": true
+  "v11_62_71_strict_original": true,
+  "v11_63_49_exact_source": true
 }

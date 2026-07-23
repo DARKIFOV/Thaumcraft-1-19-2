@@ -23,8 +23,9 @@ import java.util.Locale;
  * bookshelf/brain-jar style blocks -> random aspect.
  */
 public final class ResearchTableBonusRuntime {
-    public static final int RECALCULATE_INTERVAL_TICKS = 600;
-    public static final int SCAN_RADIUS = 8;
+    public static final int RECALCULATE_INTERVAL_TICKS =
+            TC4ResearchEfficiencyParity.BONUS_RECALCULATE_THRESHOLD_TICKS;
+    public static final int SCAN_RADIUS = TC4ResearchEfficiencyParity.BONUS_SCAN_RADIUS;
 
     private ResearchTableBonusRuntime() {
     }

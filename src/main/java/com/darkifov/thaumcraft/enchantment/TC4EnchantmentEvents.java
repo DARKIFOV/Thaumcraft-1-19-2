@@ -129,7 +129,7 @@ public final class TC4EnchantmentEvents {
      * Original formula: reduce object aspects to primals, then
      * {@code floor(sqrt(amount * 2)) * enchantmentLevel} for each primal.
      */
-    static EnumMap<Aspect, Integer> repairCost(ItemStack stack, int level) {
+    public static EnumMap<Aspect, Integer> repairCost(ItemStack stack, int level) {
         AspectList objectAspects = AspectDatabase.getAspectsForItem(stack);
         EnumMap<Aspect, Integer> primals = new EnumMap<>(Aspect.class);
         for (Map.Entry<Aspect, Integer> entry : objectAspects.entries().entrySet()) {

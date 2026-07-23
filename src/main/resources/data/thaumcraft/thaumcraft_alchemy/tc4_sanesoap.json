@@ -5,7 +5,7 @@
   "kind": "CRUCIBLE",
   "catalyst": "thaumcraft:tc4_block_obsidian_totem_4",
   "result": {
-    "item": "thaumcraft:tc4_soap",
+    "item": "thaumcraft:sanity_soap",
     "count": 1
   },
   "aspects": {

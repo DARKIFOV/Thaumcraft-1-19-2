@@ -39,8 +39,7 @@ public final class HungryChestRenderer implements BlockEntityRenderer<HungryChes
                                    PoseStack poseStack, MultiBufferSource buffer,
                                    int packedLight, int packedOverlay) {
         // Identical easing to TileChestHungryRenderer / ModelChest in TC4 4.2.3.5.
-        float open = 1.0F - lidAngle;
-        open = 1.0F - open * open * open;
+        float open = com.darkifov.thaumcraft.blockentity.TC4HungryChestParity.easedLid(lidAngle);
         model.setLidRotation(-(open * ((float) Math.PI / 2.0F)));
 
         poseStack.pushPose();

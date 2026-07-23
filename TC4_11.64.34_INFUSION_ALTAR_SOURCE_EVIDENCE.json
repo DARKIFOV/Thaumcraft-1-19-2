@@ -1,0 +1,134 @@
+{
+  "version": "11.64.34",
+  "scope": "Infusion Matrix, Arcane Pedestal, converted pillars and complete TC4 infusion lifecycle",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/items/wands/WandManager.java",
+      "evidence": [
+        "performTrigger event 3 requires INFUSION",
+        "createInfusionAltar scans clicked-2..clicked",
+        "six primal costs are 25",
+        "fitInfusionAltar raw 3x3x3 blueprint and orientation 2/3/4/5"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileInfusionMatrix.java",
+      "evidence": [
+        "active/crafting/instability persistence",
+        "validLocation center pedestal and four pillars",
+        "idle 100/crafting 20 validity cadence",
+        "countDelay 10 and XP 20",
+        "craftCycle event/XP/essentia/component/finish order",
+        "pedestal radius 8 and stabilizer radius 12",
+        "raw symmetry + recipe instability without start clamp",
+        "inclusive nextInt(500) <= instability gate",
+        "recipein/rotype/recipeout/recipeinput persistence"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TilePedestal.java",
+      "evidence": [
+        "one-slot inventory",
+        "Items list with Slot byte",
+        "max stack size 1",
+        "optional CustomName persistence"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockStoneDevice.java",
+      "evidence": [
+        "pedestal interaction and pop pitches",
+        "comparator output",
+        "matrix crafting break explosion 2.0",
+        "pillar drop metadata mapping"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileInfusionPillar.java",
+      "evidence": [
+        "orientation byte persistence"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TilePedestalRenderer.java",
+      "evidence": [
+        "y 1.15",
+        "sin ticks/16 bob 0.05",
+        "rotation one degree/tick",
+        "block scale 2",
+        "second flat item render"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileInfusionPillarRenderer.java",
+      "evidence": [
+        "original pillar OBJ/PNG",
+        "orientation rotations"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileRunicMatrixRenderer.java",
+      "evidence": [
+        "matrix cubelet visual path"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/models/ModelCube.java",
+      "evidence": [
+        "eight cubelet model geometry"
+      ]
+    },
+    {
+      "path": "thaumcraft/api/crafting/InfusionRecipe.java",
+      "evidence": [
+        "recipe catalyst/components/aspects/instability/output contract"
+      ]
+    },
+    {
+      "path": "thaumcraft/api/crafting/InfusionEnchantmentRecipe.java",
+      "evidence": [
+        "enchantment XP/aspect/instability scaling"
+      ]
+    },
+    {
+      "path": "assets/thaumcraft/textures/models",
+      "evidence": [
+        "infuser.png",
+        "pillar.png",
+        "pillar.obj"
+      ]
+    },
+    {
+      "path": "assets/thaumcraft/textures/blocks",
+      "evidence": [
+        "pedestal_side.png",
+        "pedestal_top.png"
+      ]
+    }
+  ],
+  "production_contracts": [
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionAltarFullClosureParity.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionAltarMultiblock.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/InfusionAltarStructure.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionRuntime.java",
+    "src/main/java/com/darkifov/thaumcraft/infusion/InfusionInstabilityEvents.java",
+    "src/main/java/com/darkifov/thaumcraft/block/WandItem.java",
+    "src/main/java/com/darkifov/thaumcraft/block/InfusionMatrixBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/block/InfusionPillarBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/block/ArcanePedestalBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/InfusionMatrixBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePedestalBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/InfusionMatrixRenderer.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/ArcanePedestalRenderer.java",
+    "src/main/resources/assets/thaumcraft/blockstates/infusion_pillar.json",
+    "src/main/resources/data/thaumcraft/loot_tables/blocks/infusion_pillar.json",
+    "src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionInstabilityEventTableParity.java"
+  ],
+  "known_unverified": [
+    "Forge build",
+    "client runtime",
+    "dedicated server",
+    "multiplayer",
+    "executed GameTest suite"
+  ]
+}

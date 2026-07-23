@@ -1,0 +1,26 @@
+THAUMCRAFT LEGACY REBUILD - PACKAGE MANIFEST
+Version: 11.64.08 ELDRITCH_MILESTONE_GRANT_RESEARCH_PARITY
+Platform: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+Reference oracle: Thaumcraft 4.2.3.5 (1.7.10)
+
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.08_ELDRITCH_MILESTONE_GRANT_RESEARCH_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Bytes: 
+Entries: 
+SHA-256: 
+
+Round scope:
+- ELDRITCHMINOR (actual warp > 25) and ELDRITCHMAJOR (actual warp > 50) now
+  match TC4 WarpEvents.checkWarpEvent: silent unlock (no chat) + grantResearch
+  (10) / grantResearch(20).
+- Removed fabricated milestone chat literals; ported WarpEvents.grantResearch
+  (1 + rand(times), random primal aspect, +1 pool).
+
+Static evidence:
+- 141 unique GameTest methods.
+- 469 unique runtime manifest scenarios.
+- Focused static CI: 12/12 PASS (tools/run_focused_static_ci_116408.py).
+- 258/258 recipe registrations statically mapped; 2049 JSON resources valid.
+
+NOT VERIFIED (sandbox limits):
+- No javac, Gradle offline: JAR not built, Forge GameTest server not run.
+- Real random aspect distribution and in-game absence-of-chat not observed.

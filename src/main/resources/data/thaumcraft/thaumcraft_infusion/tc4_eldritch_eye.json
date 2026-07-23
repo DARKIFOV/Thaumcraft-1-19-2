@@ -16,7 +16,7 @@
   },
   "instability": 5,
   "result": {
-    "item": "thaumcraft:tc4_eldritch_object",
+    "item": "thaumcraft:eldritch_eye",
     "count": 1
   },
   "stage153_materialized_from": "tc4_stage121_materialized_recipes.json",

@@ -1,0 +1,12 @@
+TC4 v11.63.39 STATIC CI FINAL SUMMARY
+Total checks: 103
+Passed: 103
+Failed: 0
+Missing: 0
+Java syntax guard: PASS
+Forge 1.19.2 API guard: PASS
+JSON resources: PASS (2098 files)
+Runtime manifest: PASS (291 scenarios; template)
+Generic fallback IDs: 0
+Forge compile: ATTEMPTED BUT NOT REACHED (Gradle distribution DNS failure)
+JAR: NOT CLAIMED

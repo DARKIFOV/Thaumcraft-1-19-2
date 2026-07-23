@@ -1,0 +1,121 @@
+{
+  "version": "11.63.10",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "project version",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic uses animated BER path",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic exact OBJ model groups",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic OBJ Z-to-Y transform",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic original texture route",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic fill retained",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic BEWLR item",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Vis Relay is animated block entity",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Vis Relay block entity registered",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Vis Relay renderer registered",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Vis Relay exact OBJ route",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Vis Relay BEWLR item",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Alembic degenerate quad emission",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Vis Relay degenerate quad emission",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "alembic block no cuboid placeholder",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "alembic item builtin entity",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "vis_relay block no cuboid placeholder",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "vis_relay item builtin entity",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "byte-exact original alembic.obj",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "byte-exact original alembic.png",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "byte-exact original vis_relay.obj",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "byte-exact original vis_relay.png",
+      "status": "PASS",
+      "detail": ""
+    }
+  ],
+  "problems": [],
+  "limitations": [
+    "Static source/resource contract only.",
+    "Client lighting, culling, transforms and liquid depth require runtime screenshots."
+  ]
+}

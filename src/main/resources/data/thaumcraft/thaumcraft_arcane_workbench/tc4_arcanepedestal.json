@@ -17,7 +17,7 @@
     "S": "thaumcraft:tc4_block_arcane_stone"
   },
   "result": {
-    "item": "thaumcraft:tc4_block_arcane_pedestal",
+    "item": "thaumcraft:arcane_pedestal",
     "count": 2
   }
 }

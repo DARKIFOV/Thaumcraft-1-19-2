@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.network;
 
 import com.darkifov.thaumcraft.block.WandItem;
+import com.darkifov.thaumcraft.item.ElementalShovelItem;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.wand.FocusArchitectRuntime;
 import net.minecraft.ChatFormatting;
@@ -44,7 +45,23 @@ public class RequestWandArchitectTogglePacket {
                 return;
             }
             ItemStack held = player.getMainHandItem();
+            if (held.getItem() instanceof ElementalShovelItem) {
+                ElementalShovelItem.cycleOrientation(held);
+                player.level.playSound(null, player.blockPosition(), TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.35F, 1.0F);
+                player.displayClientMessage(
+                        Component.translatable("message.thaumcraft.elemental_shovel.mode", ElementalShovelItem.orientationName(held))
+                                .withStyle(ChatFormatting.GRAY), true);
+                return;
+            }
             if (!(held.getItem() instanceof WandItem)) held = player.getOffhandItem();
+            if (held.getItem() instanceof ElementalShovelItem) {
+                ElementalShovelItem.cycleOrientation(held);
+                player.level.playSound(null, player.blockPosition(), TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.35F, 1.0F);
+                player.displayClientMessage(
+                        Component.translatable("message.thaumcraft.elemental_shovel.mode", ElementalShovelItem.orientationName(held))
+                                .withStyle(ChatFormatting.GRAY), true);
+                return;
+            }
             if (!(held.getItem() instanceof WandItem)) return;
             FocusArchitectRuntime.toggleMisc(held, player);
             player.level.playSound(null, player.blockPosition(), TC4Sounds.event("wand"), SoundSource.PLAYERS, 0.35F, 1.0F);

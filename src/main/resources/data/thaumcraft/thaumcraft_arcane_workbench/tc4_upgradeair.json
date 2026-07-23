@@ -20,7 +20,7 @@
     "C": "thaumcraft:aer_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_golem_upgrade_air",
+    "item": "thaumcraft:golem_upgrade_air",
     "count": 1
   },
   "v11_62_22_strict_original": true

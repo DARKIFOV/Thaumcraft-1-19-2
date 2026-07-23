@@ -1,0 +1,18 @@
+{
+  "version": "11.64.03",
+  "original_sources": [
+    "thaumcraft/common/lib/potions/PotionInfectiousVisExhaust.java: propagated effects are plain PotionEffect instances; source event curatives are cleared in WarpEvents",
+    "thaumcraft/common/items/ItemSanitySoap.java: stackSize decremented unconditionally; 0.33 base +0.25 ward +0.25 pure fluid",
+    "thaumcraft/common/blocks/BlockFluidPure.java: min(32000, 200000/max(1,floor(sqrt(permanentWarp))))"
+  ],
+  "claims": {
+    "spread_amplifier_decrements": true,
+    "terminal_spread_becomes_vis_exhaust": true,
+    "propagated_effect_keeps_default_milk_curative": true,
+    "initial_warp_event_effect_clears_curatives": true,
+    "sanity_soap_consumed_in_creative": true,
+    "sanity_soap_chance_formula_exact": true,
+    "pure_fluid_ward_formula_exact": true
+  },
+  "runtime_status": "NOT_VERIFIED"
+}

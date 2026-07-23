@@ -1,6 +1,5 @@
 package com.darkifov.thaumcraft.event;
 
-import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
@@ -9,9 +8,11 @@ import com.darkifov.thaumcraft.entity.EldritchGuardianEntity;
 import com.darkifov.thaumcraft.entity.MindSpiderEntity;
 import com.darkifov.thaumcraft.effect.TC4WarpMobEffect;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
-import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.runic.TC4FortressMaskRuntime;
 import com.darkifov.thaumcraft.runic.TC4WarpingGearAdapter;
+import com.darkifov.thaumcraft.warp.TC4WarpRuntimeParity;
+import com.darkifov.thaumcraft.warp.TC4UnnaturalHungerParity;
+import com.darkifov.thaumcraft.warp.TC4WarpResearchGrant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,8 +28,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -47,9 +52,50 @@ import java.util.Optional;
  */
 @Mod.EventBusSubscriber(modid = ThaumcraftMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class WarpEvents {
-    private static final int CHECK_INTERVAL = 2000;
 
     private WarpEvents() {
+    }
+
+    @SubscribeEvent
+    public static void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+
+        MobEffectInstance hunger = player.getEffect(ThaumcraftMod.UNNATURAL_HUNGER.get());
+        if (hunger == null) {
+            return;
+        }
+
+        // Forge documents Finish#getItem() as the pre-use copy, matching the
+        // original PlayerUseItemEvent.Finish item comparison after consumption.
+        ItemStack consumed = event.getItem();
+        boolean rottenFlesh = consumed.is(Items.ROTTEN_FLESH);
+        boolean zombieBrain = ThaumcraftMod.TC4_RESEARCH_ITEMS.containsKey("tc4_brain")
+                && consumed.is(ThaumcraftMod.TC4_RESEARCH_ITEMS.get("tc4_brain").get());
+
+        if (rottenFlesh || zombieBrain) {
+            TC4UnnaturalHungerParity.Reduction reduced =
+                    TC4UnnaturalHungerParity.afterCurative(
+                            hunger.getDuration(), hunger.getAmplifier());
+
+            player.removeEffect(ThaumcraftMod.UNNATURAL_HUNGER.get());
+            if (reduced.remainsActive()) {
+                MobEffectInstance replacement = new MobEffectInstance(
+                        ThaumcraftMod.UNNATURAL_HUNGER.get(),
+                        reduced.duration(),
+                        reduced.amplifier(),
+                        true, true, true);
+                // The original re-added instance cleared all cures and restored
+                // only rotten flesh. Brain handling still comes from this event.
+                replacement.setCurativeItems(List.of(new ItemStack(Items.ROTTEN_FLESH)));
+                player.addEffect(replacement);
+            }
+            hungerMessage(player, "warp.text.hunger.2", ChatFormatting.DARK_GREEN);
+        } else if (consumed.isEdible()) {
+            // TC4 warned about ordinary food but did not cancel its nutrition.
+            hungerMessage(player, "warp.text.hunger.1", ChatFormatting.DARK_RED);
+        }
     }
 
     @SubscribeEvent
@@ -64,7 +110,7 @@ public final class WarpEvents {
             checkDeathGaze(player);
         }
 
-        if (player.tickCount <= 0 || player.tickCount % CHECK_INTERVAL != 0
+        if (player.tickCount <= 0 || player.tickCount % TC4WarpRuntimeParity.WARP_CHECK_INTERVAL_TICKS != 0
                 || !ThaumcraftConfig.WARP_EVENTS_ENABLED.get()) {
             return;
         }
@@ -162,13 +208,18 @@ public final class WarpEvents {
             addWarpEffect(player, ThaumcraftMod.THAUMARHIA.get(), Math.min(32000, 10 * warp), 0, true);
             message(player, "warp.text.15");
         } else if (effectRoll <= 24) {
-            addWarpEffect(player, ThaumcraftMod.UNNATURAL_HUNGER.get(), 5000, Math.min(3, warp / 15), true);
+            addWarpEffect(player, ThaumcraftMod.UNNATURAL_HUNGER.get(),
+                    TC4UnnaturalHungerParity.FIRST_WARP_DURATION_TICKS,
+                    TC4UnnaturalHungerParity.warpAmplifier(warp), true);
             message(player, "warp.text.2");
         } else if (effectRoll <= 28) {
             message(player, "warp.text.12");
         } else if (effectRoll <= 32) {
             spawnMist(player, 1);
         } else if (effectRoll <= 36) {
+            // TC4 WarpEvents applied Config.potionBlurredID here with NO chat
+            // line. warp.text.8 is the BATHSALTS milestone message (actual
+            // warp > 10), not this event; see TC4EldritchProgression.
             addWarpEffect(player, ThaumcraftMod.BLURRED_VISION.get(), Math.min(32000, 10 * warp), 0, true);
         } else if (effectRoll <= 40) {
             addWarpEffect(player, ThaumcraftMod.SUN_SCORNED.get(), 5000, Math.min(3, warp / 15), true);
@@ -201,7 +252,9 @@ public final class WarpEvents {
             }
             message(player, "warp.text.14");
         } else if (effectRoll <= 80) {
-            addWarpEffect(player, ThaumcraftMod.UNNATURAL_HUNGER.get(), 6000, Math.min(3, warp / 15), true);
+            addWarpEffect(player, ThaumcraftMod.UNNATURAL_HUNGER.get(),
+                    TC4UnnaturalHungerParity.SECOND_WARP_DURATION_TICKS,
+                    TC4UnnaturalHungerParity.warpAmplifier(warp), true);
             message(player, "warp.text.2");
         } else if (effectRoll <= 84) {
             grantResearch(player, warp / 10);
@@ -213,6 +266,32 @@ public final class WarpEvents {
         } else {
             spawnMist(player, warp / 15);
         }
+    }
+
+    /**
+     * Message keys that {@link #applyOriginalEvent} can display, enumerated from
+     * the production event table. warp.text.8 is intentionally absent: in TC4 it
+     * is shown by the BATHSALTS warp milestone (see TC4EldritchProgression),
+     * never by the per-event table.
+     */
+    private static final java.util.Set<String> DISPLAYED_WARP_MESSAGES = java.util.Set.of(
+            "warp.text.1",
+            "warp.text.2",
+            "warp.text.3",
+            "warp.text.4",
+            "warp.text.5",
+            "warp.text.6",
+            "warp.text.7",
+            "warp.text.9",
+            "warp.text.10",
+            "warp.text.11",
+            "warp.text.12",
+            "warp.text.13",
+            "warp.text.14",
+            "warp.text.15");
+
+    public static boolean usesWarpMessage(String key) {
+        return DISPLAYED_WARP_MESSAGES.contains(key);
     }
 
     private static void addWarpEffect(ServerPlayer player, MobEffect effect, int duration, int amplifier, boolean ambient) {
@@ -230,6 +309,10 @@ public final class WarpEvents {
 
     private static void message(ServerPlayer player, String translationKey) {
         player.displayClientMessage(Component.translatable(translationKey).withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC), false);
+    }
+
+    private static void hungerMessage(ServerPlayer player, String translationKey, ChatFormatting color) {
+        player.displayClientMessage(Component.translatable(translationKey).withStyle(color, ChatFormatting.ITALIC), false);
     }
 
     private static void spawnMist(ServerPlayer player, int guardians) {
@@ -309,11 +392,15 @@ public final class WarpEvents {
         List<LivingEntity> targets = player.level.getEntitiesOfClass(
                 LivingEntity.class,
                 player.getBoundingBox().inflate(range),
-                target -> target != player && target.isAlive() && player.distanceToSqr(target) <= (double) range * range
+                target -> target != player && target.isAlive()
         );
 
         for (LivingEntity target : targets) {
-            if (!isInsideDeathGazeCone(player, target, range)
+            // TC4 required Entity.canBeCollidedWith() before the cone and
+            // line-of-sight checks. Modern isPickable() is the corresponding
+            // entity-level admission gate.
+            if (!target.isPickable()
+                    || !isInsideDeathGazeCone(player, target, range)
                     || !player.hasLineOfSight(target)
                     || target.hasEffect(MobEffects.WITHER)) {
                 continue;
@@ -331,24 +418,23 @@ public final class WarpEvents {
     }
 
     private static void grantResearch(ServerPlayer player, int times) {
-        int amount = 1 + player.getRandom().nextInt(Math.max(1, times));
-        Aspect[] primals = {
-                Aspect.AER, Aspect.TERRA, Aspect.IGNIS,
-                Aspect.AQUA, Aspect.ORDO, Aspect.PERDITIO
-        };
-        for (int i = 0; i < amount; i++) {
-            Aspect aspect = primals[player.getRandom().nextInt(primals.length)];
-            PlayerAspectKnowledge.addPool(player, aspect, 1);
-        }
+        TC4WarpResearchGrant.grantAndSync(player, times);
     }
 
     private static boolean isInsideDeathGazeCone(ServerPlayer player, LivingEntity target, int range) {
-        Vec3 toTarget = target.getEyePosition().subtract(player.getEyePosition());
-        double distance = toTarget.length();
-        if (distance <= 0.0001D || distance > range) {
-            return false;
-        }
-        return player.getLookAngle().normalize().dot(toTarget.scale(1.0D / distance)) >= 0.75D;
+        Vec3 origin = player.getEyePosition();
+        // Original EntityUtils.isVisibleTo targeted the entity body midpoint,
+        // not its eye position. This matters for tall/short entities.
+        Vec3 targetCenter = new Vec3(
+                target.getX(),
+                target.getBoundingBox().minY + target.getBbHeight() / 2.0D,
+                target.getZ());
+        Vec3 toTarget = targetCenter.subtract(origin);
+        Vec3 look = player.getLookAngle();
+        return TC4WarpRuntimeParity.deathGazeConeContains(
+                toTarget.x, toTarget.y, toTarget.z,
+                look.x, look.y, look.z,
+                range);
     }
 
     private static Optional<BlockPos> findSpawnAround(ServerPlayer player, LivingEntity entity, int min, int max) {
@@ -364,17 +450,15 @@ public final class WarpEvents {
             if (pos.getY() <= level.getMinBuildHeight() + 1 || pos.getY() >= level.getMaxBuildHeight() - 2) {
                 continue;
             }
-            if (!level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP)
-                    || !level.getBlockState(pos).isAir()
-                    || !level.getBlockState(pos.above()).isAir()
-                    || !level.getFluidState(pos).isEmpty()
-                    || !level.getFluidState(pos.above()).isEmpty()) {
-                continue;
-            }
+            boolean solidTopSurface = level.getBlockState(pos.below())
+                    .isFaceSturdy(level, pos.below(), Direction.UP);
 
             entity.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D,
                     player.getRandom().nextFloat() * 360.0F, 0.0F);
-            if (level.noCollision(entity)) {
+            boolean collisionFree = level.noCollision(entity);
+            boolean containsLiquid = containsLiquid(level, entity.getBoundingBox());
+            if (TC4WarpRuntimeParity.acceptsEntitySpawnCandidate(
+                    solidTopSurface, collisionFree, containsLiquid)) {
                 return Optional.of(pos);
             }
         }
@@ -382,7 +466,29 @@ public final class WarpEvents {
         return Optional.empty();
     }
 
+    private static boolean containsLiquid(ServerLevel level, AABB bounds) {
+        int minX = Mth.floor(bounds.minX);
+        int minY = Mth.floor(bounds.minY);
+        int minZ = Mth.floor(bounds.minZ);
+        int maxX = Mth.floor(bounds.maxX - 1.0E-7D);
+        int maxY = Mth.floor(bounds.maxY - 1.0E-7D);
+        int maxZ = Mth.floor(bounds.maxZ - 1.0E-7D);
+
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    if (!level.getFluidState(new BlockPos(x, y, z)).isEmpty()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     private static int randomTc4AxisOffset(ServerPlayer player, int min, int max) {
-        return Mth.nextInt(player.getRandom(), min, max) * Mth.nextInt(player.getRandom(), -1, 1);
+        int magnitude = Mth.nextInt(player.getRandom(), min, max);
+        int signRoll = Mth.nextInt(player.getRandom(), -1, 1);
+        return TC4WarpRuntimeParity.signedSpawnOffset(magnitude, signRoll);
     }
 }

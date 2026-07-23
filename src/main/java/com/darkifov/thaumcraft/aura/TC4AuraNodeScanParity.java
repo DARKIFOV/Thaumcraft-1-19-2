@@ -24,9 +24,9 @@ import java.util.List;
 public final class TC4AuraNodeScanParity {
     public static final String ORIGINAL_AURA_NODE_SCAN_KEY = "ConfigBlocks.blockAiry, 1, 0";
     public static final String LEGACY_OBJECT_ID = "thaumcraft:aura_node";
-    public static final int THAUMOMETER_USE_DURATION_TICKS = 25;
-    public static final double THAUMOMETER_SCAN_RANGE = 10.0D;
-    public static final double THAUMOMETER_ENTITY_EXPAND = 0.5D;
+    public static final int THAUMOMETER_USE_DURATION_TICKS = TC4ThaumometerParity.USE_DURATION_TICKS;
+    public static final double THAUMOMETER_SCAN_RANGE = TC4ThaumometerParity.ENTITY_SCAN_RANGE;
+    public static final double THAUMOMETER_ENTITY_EXPAND = TC4ThaumometerParity.ENTITY_TARGET_EXPAND;
 
     private TC4AuraNodeScanParity() {
     }

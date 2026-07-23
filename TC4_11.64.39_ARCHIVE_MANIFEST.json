@@ -1,0 +1,41 @@
+{
+  "version": "11.64.39",
+  "scope": "Thaumatorium full-closure parity",
+  "source_archive_type": "full buildable source",
+  "required_root_files": [
+    "UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md",
+    "build.gradle",
+    "settings.gradle",
+    "gradlew",
+    "gradlew.bat",
+    "TC4_11.64.39_THAUMATORIUM_FULL_CLOSURE_PARITY_PORT_REPORT_RU.md",
+    "TC4_11.64.39_THAUMATORIUM_SOURCE_EVIDENCE.json",
+    "TC4_11.64.39_BUILD_STATUS.txt"
+  ],
+  "required_directories": [
+    ".github",
+    "gradle",
+    "reference",
+    "runtime_artifacts",
+    "src",
+    "tools"
+  ],
+  "excluded": [
+    ".gradle",
+    "build",
+    "run-gametest",
+    ".git",
+    ".idea",
+    "*.class",
+    "*.pyc",
+    "__pycache__"
+  ],
+  "verification": {
+    "gradle_build": "PASS",
+    "focused_guard": "PASS",
+    "java17_selftest": "PASS",
+    "runtime_manifest": "PASS",
+    "thaumatorium_gametest": "6/6 PASS",
+    "full_gametest_suite": "250/282 PASS; 32 inherited non-scoped required failures"
+  }
+}

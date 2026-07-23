@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import com.darkifov.thaumcraft.warp.TC4WarpRuntimeParity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,15 +33,13 @@ import net.minecraftforge.registries.ForgeRegistries;
  * is materialized by a later porting stage.</p>
  */
 public class SanitySoapItem extends Item {
-    private static final int USE_DURATION = 200;
-
     public SanitySoapItem(Properties properties) {
         super(properties);
     }
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return USE_DURATION;
+        return TC4WarpRuntimeParity.SANITY_SOAP_USE_TICKS;
     }
 
     @Override
@@ -58,7 +57,7 @@ public class SanitySoapItem extends Item {
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         int usedTicks = getUseDuration(stack) - remainingUseDuration;
-        if (!level.isClientSide && livingEntity instanceof ServerPlayer serverPlayer && usedTicks > 195) {
+        if (!level.isClientSide && livingEntity instanceof ServerPlayer serverPlayer && usedTicks > TC4WarpRuntimeParity.SANITY_SOAP_COMPLETION_THRESHOLD) {
             cleanse(serverPlayer, stack);
             serverPlayer.stopUsingItem();
             return;
@@ -92,13 +91,10 @@ public class SanitySoapItem extends Item {
         int temporaryBefore = PlayerThaumData.getWarpTemporary(player);
         int stickyBefore = PlayerThaumData.getWarpSticky(player);
 
-        float stickyChance = 0.33F;
-        if (player.hasEffect(ThaumcraftMod.WARP_WARD.get())) {
-            stickyChance += 0.25F;
-        }
-        if (isPurifyingFluid(player)) {
-            stickyChance += 0.25F;
-        }
+        float stickyChance = TC4WarpRuntimeParity.sanitySoapStickyChance(
+                player.hasEffect(ThaumcraftMod.WARP_WARD.get()),
+                isPurifyingFluid(player)
+        );
 
         if (stickyBefore > 0 && player.getRandom().nextFloat() < stickyChance) {
             PlayerThaumData.addWarpSticky(player, -1);
@@ -107,9 +103,9 @@ public class SanitySoapItem extends Item {
             PlayerThaumData.addWarpTemporary(player, -temporaryBefore);
         }
 
-        if (!player.getAbilities().instabuild) {
-            stack.shrink(1);
-        }
+        stack.shrink(TC4WarpRuntimeParity.sanitySoapConsumption(
+                player.getAbilities().instabuild
+        ));
 
         ServerLevel level = player.getLevel();
         level.playSound(null, player.blockPosition(), TC4Sounds.event("craftstart"),

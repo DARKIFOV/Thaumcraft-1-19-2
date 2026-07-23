@@ -1,0 +1,71 @@
+===== CHECK 116/129: python3 tools/tc4_116352_duplicate_registry_purge_guard.py =====
+TC4 v11.63.52 duplicate registry purge guard: PASS (63 aliases removed, 19 GameTests, 347 scenarios)
+
+RC=0
+DURATION=1.27s
+===== CHECK 117/129: python3 tools/tc4_116353_p0_runtime_contract_guard.py =====
+TC4 v11.63.53 P0 runtime contract guard: PASS (66 GameTests, 394 scenarios, no direct FancyMenu mixin references)
+
+RC=0
+DURATION=0.09s
+===== CHECK 118/129: python3 tools/tc4_116354_p1_block_entity_runtime_guard.py =====
+TC4 v11.63.54 P1 block-entity runtime guard: PASS (28 GameTests, 356 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 119/129: python3 tools/tc4_116355_essentia_storage_mirror_runtime_guard.py =====
+TC4 v11.63.55 essentia runtime guard: PASS (32 GameTests, 360 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 120/129: python3 tools/tc4_116356_essentia_tube_transport_runtime_guard.py =====
+TC4 v11.63.56 essentia tube runtime guard: PASS (36 GameTests, 364 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 121/129: python3 tools/tc4_116357_alchemical_processing_runtime_guard.py =====
+TC4 alchemical processing runtime guard: PASS (four alembics, local phase, 4 contracts)
+
+RC=0
+DURATION=0.02s
+===== CHECK 122/129: python3 tools/tc4_116358_thaumatorium_runtime_guard.py =====
+TC4 v11.63.58 Thaumatorium runtime guard: PASS (44 GameTests, 372 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 123/129: python3 tools/tc4_116359_infusion_stability_runtime_guard.py =====
+TC4 v11.63.59 infusion stability guard: PASS (48 GameTests, 376 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 124/129: python3 tools/tc4_116360_infusion_lifecycle_runtime_guard.py =====
+TC4 v11.63.60 infusion lifecycle guard: PASS (52 GameTests, 380 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 125/129: python3 tools/tc4_116361_infusion_pause_resume_runtime_guard.py =====
+TC4 v11.63.61 infusion pause/resume guard: PASS (56 GameTests, 384 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 126/129: python3 tools/tc4_116362_infusion_save_reload_runtime_guard.py =====
+TC4 v11.63.62 infusion save/reload guard: PASS (61 GameTests, 389 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 127/129: python3 tools/tc4_116363_infusion_instability_event_table_guard.py =====
+TC4 v11.63.63 infusion instability event table guard: PASS (66 GameTests, 394 scenarios)
+
+RC=0
+DURATION=0.02s
+===== CHECK 128/129: python3 tools/tc4_recipe_registration_denominator_guard.py =====
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+
+RC=0
+DURATION=0.03s
+===== CHECK 129/129: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.63 --template =====
+runtime manifest: PASS (394 tests; template=True)
+
+RC=0
+DURATION=0.04s
+BATCH SUMMARY | 14/14 passed | range 116-129

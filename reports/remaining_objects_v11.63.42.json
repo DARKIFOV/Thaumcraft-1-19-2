@@ -1,0 +1,12 @@
+{
+  "version": "11.63.42",
+  "mirror_entries": 294,
+  "dedicated_create_item_ids": 269,
+  "pre_registered_functional_ids": 21,
+  "intentionally_skipped_duplicate_ids": 4,
+  "generic_fallback_ids": 0,
+  "generic_fallback_item_like_ids": 0,
+  "generic_fallback_block_alias_ids": 0,
+  "generic_fallback": [],
+  "interpretation": "The generic registry fallback remains closed. v11.63.42 restores the previously missing functional Mana Pod cultivation, crossbreeding, Magical Forest generation, aspect-preserving harvest, mature scan exposure and original dynamic visual contracts."
+}

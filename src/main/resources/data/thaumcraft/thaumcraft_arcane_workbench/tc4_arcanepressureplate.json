@@ -20,8 +20,8 @@
   ],
   "key": {
     "B": "thaumcraft:tc4_brain",
-    "T": "thaumcraft:greatwood_planks",
-    "D": "thaumcraft:thaumium_ingot"
+    "T": "thaumcraft:thaumium_ingot",
+    "D": "thaumcraft:greatwood_planks"
   },
   "result": {
     "item": "thaumcraft:tc4_block_arcane_pressure_plate",

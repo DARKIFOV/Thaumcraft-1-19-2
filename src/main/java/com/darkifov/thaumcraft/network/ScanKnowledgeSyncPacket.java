@@ -10,49 +10,15 @@ import java.util.function.Supplier;
 
 /** Server-to-client mirror of TC4's per-player scanned target ledger. */
 public final class ScanKnowledgeSyncPacket {
-    private final Set<String> objects;
-    private final Set<String> entities;
-    private final Set<String> nodes;
+    private final Set<String> objects, entities, nodes, phenomena;
 
-    public ScanKnowledgeSyncPacket(Set<String> objects, Set<String> entities, Set<String> nodes) {
-        this.objects = copy(objects);
-        this.entities = copy(entities);
-        this.nodes = copy(nodes);
+    public ScanKnowledgeSyncPacket(Set<String> objects, Set<String> entities, Set<String> nodes, Set<String> phenomena) {
+        this.objects=copy(objects); this.entities=copy(entities); this.nodes=copy(nodes); this.phenomena=copy(phenomena);
     }
-
-    private static Set<String> copy(Set<String> source) {
-        return source == null ? new LinkedHashSet<>() : new LinkedHashSet<>(source);
-    }
-
-    public static void encode(ScanKnowledgeSyncPacket packet, FriendlyByteBuf buffer) {
-        writeSet(buffer, packet.objects);
-        writeSet(buffer, packet.entities);
-        writeSet(buffer, packet.nodes);
-    }
-
-    public static ScanKnowledgeSyncPacket decode(FriendlyByteBuf buffer) {
-        return new ScanKnowledgeSyncPacket(readSet(buffer), readSet(buffer), readSet(buffer));
-    }
-
-    private static void writeSet(FriendlyByteBuf buffer, Set<String> values) {
-        buffer.writeVarInt(values.size());
-        for (String value : values) {
-            buffer.writeUtf(value);
-        }
-    }
-
-    private static Set<String> readSet(FriendlyByteBuf buffer) {
-        int count = buffer.readVarInt();
-        Set<String> values = new LinkedHashSet<>();
-        for (int i = 0; i < count; i++) {
-            values.add(buffer.readUtf());
-        }
-        return values;
-    }
-
-    public static void handle(ScanKnowledgeSyncPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {
-        NetworkEvent.Context context = contextSupplier.get();
-        context.enqueueWork(() -> ClientScanData.set(packet.objects, packet.entities, packet.nodes));
-        context.setPacketHandled(true);
-    }
+    private static Set<String> copy(Set<String> s){return s==null?new LinkedHashSet<>():new LinkedHashSet<>(s);}
+    public static void encode(ScanKnowledgeSyncPacket p, FriendlyByteBuf b){writeSet(b,p.objects);writeSet(b,p.entities);writeSet(b,p.nodes);writeSet(b,p.phenomena);}
+    public static ScanKnowledgeSyncPacket decode(FriendlyByteBuf b){return new ScanKnowledgeSyncPacket(readSet(b),readSet(b),readSet(b),readSet(b));}
+    private static void writeSet(FriendlyByteBuf b,Set<String> v){b.writeVarInt(v.size());for(String s:v)b.writeUtf(s);}
+    private static Set<String> readSet(FriendlyByteBuf b){int n=b.readVarInt();Set<String> v=new LinkedHashSet<>();for(int i=0;i<n;i++)v.add(b.readUtf());return v;}
+    public static void handle(ScanKnowledgeSyncPacket p,Supplier<NetworkEvent.Context> c){NetworkEvent.Context x=c.get();x.enqueueWork(()->ClientScanData.set(p.objects,p.entities,p.nodes,p.phenomena));x.setPacketHandled(true);}
 }

@@ -1,0 +1,13 @@
+TC4 v11.63.55 STATIC CI FINAL SUMMARY
+=====================================
+Canonical checks: 119/119 PASS
+Non-zero return codes: 0
+JSON resources: 2048/2048 PASS
+Item models: 663
+Missing/unresolved item models: 0/0
+Original recipe ledger: 258/258
+Removed proven item alias IDs: 63
+Required server-only GameTests: 32
+Runtime manifest scenarios: 360
+Generic registry fallback: 0
+Runtime status: NOT_TESTED (no confirmed v11.63.55 JAR)

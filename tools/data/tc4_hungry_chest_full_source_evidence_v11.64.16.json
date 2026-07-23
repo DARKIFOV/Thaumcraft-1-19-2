@@ -1,0 +1,46 @@
+{
+  "round": "11.64.16",
+  "object": "Hungry Chest / BlockChestHungry + TileChestHungry",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_oracle": "reference/Thaumcraft4-1.7.10-4.2.3.5-source.zip",
+  "original_files": [
+    "thaumcraft/common/blocks/BlockChestHungry.java",
+    "thaumcraft/common/tiles/TileChestHungry.java",
+    "thaumcraft/client/renderers/block/BlockChestHungryRenderer.java",
+    "thaumcraft/client/renderers/tile/TileChestHungryRenderer.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java",
+    "assets/thaumcraft/textures/models/chesthungry.png"
+  ],
+  "production_files": [
+    "src/main/java/com/darkifov/thaumcraft/block/HungryChestBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/HungryChestBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/TC4HungryChestParity.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/model/TC4HungryChestModel.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/HungryChestRenderer.java",
+    "src/main/java/com/darkifov/thaumcraft/client/render/HungryChestItemRenderer.java"
+  ],
+  "closed_contracts": [
+    "27 slots",
+    "outline 14/16",
+    "collision 15/16",
+    "strict collision ingestion",
+    "partial remainder",
+    "eat sound/event",
+    "lid lifecycle",
+    "tile-identity menu validity",
+    "unsided automation",
+    "comparator",
+    "Items NBT",
+    "10..30 break chunks",
+    "exact ModelChest geometry/UV",
+    "byte-exact texture",
+    "original item transform",
+    "arcane recipe",
+    "research graph"
+  ],
+  "runtime_blocker": "Gradle 7.5.1 distribution cannot be downloaded when services.gradle.org is unreachable."
+}

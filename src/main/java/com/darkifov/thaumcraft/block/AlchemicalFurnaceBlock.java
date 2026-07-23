@@ -27,14 +27,24 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkHooks;
 
 
 public class AlchemicalFurnaceBlock extends BaseEntityBlock {
+    public static final BooleanProperty LIT = BooleanProperty.create("lit");
+
     public AlchemicalFurnaceBlock(Properties properties) {
         super(properties);
+        registerDefaultState(stateDefinition.any().setValue(LIT, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
+        builder.add(LIT);
     }
 
     @Override
@@ -74,16 +84,13 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextFloat() < 0.35F) {
-            level.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5D, pos.getY() + 1.05D, pos.getZ() + 0.5D, 0.0D, 0.02D, 0.0D);
-        }
-
-        if (random.nextFloat() < 0.18F) {
-            level.addParticle(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 0.75D, pos.getZ() + 0.5D, 0.0D, 0.01D, 0.0D);
-        }
-
-        if (random.nextFloat() < 0.12F) {
-            level.addParticle(ParticleTypes.FLAME, pos.getX() + 0.5D, pos.getY() + 0.3D, pos.getZ() + 0.5D, 0.0D, 0.01D, 0.0D);
+        if (!state.getValue(LIT)) return;
+        for (net.minecraft.core.Direction direction : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+            double x = pos.getX() + 0.5D + direction.getStepX() * 0.52D;
+            double y = pos.getY() + 0.35D + random.nextDouble() * 0.3D;
+            double z = pos.getZ() + 0.5D + direction.getStepZ() * 0.52D;
+            level.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, 0.0D, 0.0D);
+            level.addParticle(ParticleTypes.FLAME, x, y, z, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -110,98 +117,15 @@ public class AlchemicalFurnaceBlock extends BaseEntityBlock {
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide) {
-            return InteractionResult.SUCCESS;
-        }
-
+        if (level.isClientSide) return InteractionResult.SUCCESS;
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (!(blockEntity instanceof AlchemicalFurnaceBlockEntity furnace)) {
-            return InteractionResult.PASS;
-        }
-
-        ItemStack held = player.getItemInHand(hand);
-        if ((held.isEmpty() || player.isShiftKeyDown()) && player instanceof ServerPlayer serverPlayer) {
+        if (!(blockEntity instanceof AlchemicalFurnaceBlockEntity furnace)) return InteractionResult.PASS;
+        // TC4 BlockStoneDevice opens the furnace only for a non-sneaking player.
+        if (!player.isShiftKeyDown() && player instanceof ServerPlayer serverPlayer) {
             NetworkHooks.openScreen(serverPlayer, furnace, buffer -> buffer.writeBlockPos(pos));
             return InteractionResult.CONSUME;
         }
-        if (furnace.isAdvanced()) {
-            if (held.isEmpty()) {
-                player.displayClientMessage(Component.literal("Advanced Alchemical Furnace | Essentia: "
-                        + furnace.aspects().totalAmount() + "/" + furnace.capacity()
-                        + " | Heat: " + furnace.advancedHeat() + "/500"
-                        + " | Perditio: " + furnace.advancedEntropy() + "/500"
-                        + " | Aqua: " + furnace.advancedWater() + "/500"
-                        + " | Cooldown: " + furnace.advancedProcessedCooldown()), false);
-                return InteractionResult.CONSUME;
-            }
-            AspectList advancedAspects = AspectDatabase.getAspectsForItem(held);
-            if (advancedAspects == null || advancedAspects.isEmpty()) {
-                player.displayClientMessage(Component.literal("No essentia can be extracted from this item.")
-                        .withStyle(ChatFormatting.GRAY), false);
-                return InteractionResult.CONSUME;
-            }
-            if (!furnace.processAdvancedItem(held)) {
-                player.displayClientMessage(Component.literal("The advanced furnace is cooling down, full, or lacks Ignis/Perditio/Aqua power.")
-                        .withStyle(ChatFormatting.YELLOW), false);
-                return InteractionResult.CONSUME;
-            }
-            if (!player.getAbilities().instabuild) {
-                held.shrink(1);
-            }
-            return InteractionResult.CONSUME;
-        }
-        if (held.isEmpty()) {
-            if (player.isShiftKeyDown()) {
-                ItemStack extracted = !furnace.inputStack().isEmpty() ? furnace.extractInput() : furnace.extractFuel();
-                if (!extracted.isEmpty()) {
-                    if (!player.getInventory().add(extracted)) {
-                        player.drop(extracted, false);
-                    }
-                    return InteractionResult.CONSUME;
-                }
-            }
-            int pct = furnace.burnDuration() <= 0 ? 0 : Math.min(100, furnace.burnProgress() * 100 / furnace.burnDuration());
-            int alembics = TC4DistillationRuntime.countAlembicsAbove(level, pos);
-            player.displayClientMessage(
-                    Component.literal("Alchemical Furnace | Stored: " + furnace.aspects().totalAmount() + "/" + furnace.capacity())
-                            .append(Component.literal(" | Fuel: " + furnace.fuelTime()))
-                            .append(Component.literal(" | Burn: " + pct + "%"))
-                            .append(Component.literal(" | Bellows: " + furnace.bellows()))
-                            .append(Component.literal(" | Alembics: " + alembics))
-                            .append(Component.literal(" | Input: " + (furnace.inputStack().isEmpty() ? "empty" : furnace.inputStack().getHoverName().getString())))
-                            .append(Component.literal(" | Aspects: "))
-                            .append(furnace.aspects().toComponent()),
-                    false
-            );
-            return InteractionResult.CONSUME;
-        }
-
-        if (furnace.insertFuel(held)) {
-            if (!player.getAbilities().instabuild) {
-                held.shrink(1);
-            }
-            player.displayClientMessage(Component.literal("Fuel placed into the alchemical furnace.").withStyle(ChatFormatting.GOLD), false);
-            return InteractionResult.CONSUME;
-        }
-
-        AspectList aspects = AspectDatabase.getAspectsForItem(held);
-        if (aspects == null || aspects.isEmpty()) {
-            player.displayClientMessage(Component.literal("No essentia can be extracted from this item.").withStyle(ChatFormatting.GRAY), false);
-            return InteractionResult.CONSUME;
-        }
-        if (aspects.totalAmount() > furnace.space()) {
-            player.displayClientMessage(Component.literal("The furnace cannot hold the essentia from this item.").withStyle(ChatFormatting.RED), false);
-            return InteractionResult.CONSUME;
-        }
-        if (!furnace.insertInput(held)) {
-            player.displayClientMessage(Component.literal("The input slot contains another item.").withStyle(ChatFormatting.YELLOW), false);
-            return InteractionResult.CONSUME;
-        }
-        if (!player.getAbilities().instabuild) {
-            held.shrink(1);
-        }
-        player.displayClientMessage(Component.literal("Item placed into the alchemical furnace: ").append(aspects.toComponent()), false);
-        return InteractionResult.CONSUME;
+        return InteractionResult.PASS;
     }
 
 }

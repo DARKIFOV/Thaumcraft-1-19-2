@@ -1,6 +1,9 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "loader": "forge:obj",
+  "model": "thaumcraft:models/block/thaumatorium.obj",
+  "flip_v": true,
   "textures": {
-    "all": "thaumcraft:models/thaumatorium"
+    "particle": "thaumcraft:models/thaumatorium",
+    "wire_214228153": "thaumcraft:models/thaumatorium"
   }
 }

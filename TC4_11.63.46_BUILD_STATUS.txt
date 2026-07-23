@@ -1,0 +1,38 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.46
+BUILD AND VALIDATION STATUS
+Date: 2026-07-19
+
+SOURCE STAGE
+PASS: autonomous Aer-powered Flux Scrubber source implementation
+PASS: radius-16 bounded flux scan and five-centivis cleanup cost
+PASS: four-charge / one-in-four Praecantatio conversion, capacity four
+PASS: sided essentia output and tube integration
+PASS: BlockEntity NBT/update-packet synchronization
+PASS: original Cap/Tip model texture route and client renderer contract
+PASS: required server-only Flux Scrubber GameTest source
+PASS: runtime manifest expanded to 325 scenarios
+PASS: generic registry fallback remains zero
+
+STATIC VALIDATION
+PASS: 110/110 historical and stage checks
+PASS: 2107 JSON resources
+PASS: Java syntax guard
+PASS: Forge 1.19.2 API guard
+PASS: Forge-only guard
+PASS: workflow YAML
+
+FORGE BUILD
+FAIL / NOT OBTAINED: ./gradlew compileJava did not reach project configuration.
+Cause: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1.
+Available Java: OpenJDK 21.0.10.
+Required project development Java: JDK 17.
+
+RUNTIME
+NOT TESTED: Forge client
+NOT TESTED: dedicated server
+NOT TESTED: runGameTestServer
+NOT TESTED: all ten required GameTests
+NOT TESTED: old-world Flux Scrubber BlockEntity upgrade
+NOT TESTED: multiplayer sync, relay contention, tube rollback and GPU renderer
+
+No compiled JAR is claimed or included.

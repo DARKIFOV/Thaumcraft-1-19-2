@@ -1,0 +1,7 @@
+Version: 11.64.12
+Gradle build: NOT OBTAINED
+Exit code: 1
+Blocker: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1
+JAR: NOT CREATED
+Forge GameTest runtime: NOT RUN
+Static focused checks: 18/18 PASS in split execution

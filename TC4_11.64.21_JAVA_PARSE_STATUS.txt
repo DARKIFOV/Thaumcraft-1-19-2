@@ -1,0 +1,7 @@
+Version: 11.64.21
+TC4ArcanePressurePlateParity compiled with javac --release 17: PASS
+TC4ArcanePressurePlateParitySelfTest: PASS
+Targeted parse checks: ArcanePressurePlateBlock, ArcanePressurePlateBlockEntity, ArcaneAccessTarget, ArcaneKeyItem, WandItem, ThaumcraftMod and TC4BlockEntityGameTests: PASS
+Full source Java syntax guard: PASS
+Compiler actually installed in sandbox: javac 21.0.10 using --release 17
+Forge type-resolution/build: NOT VERIFIED because Gradle dependencies were unavailable.

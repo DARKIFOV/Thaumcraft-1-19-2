@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:iron_wand_cap",
+    "thaumcraft:gold_wand_cap",
+    "thaumcraft:thaumium_wand_cap",
+    "thaumcraft:tc4_wand_cap_copper",
+    "thaumcraft:tc4_wand_cap_silver",
+    "thaumcraft:tc4_wand_cap_void",
+    "thaumcraft:tc4_wand_cap_silver_inert",
+    "thaumcraft:thaumium_wand_cap_inert",
+    "thaumcraft:tc4_wand_cap_void_inert",
+    "thaumcraft:greatwood_wand_core",
+    "thaumcraft:tc4_wand_rod_obsidian",
+    "thaumcraft:tc4_wand_rod_blaze",
+    "thaumcraft:tc4_wand_rod_ice",
+    "thaumcraft:tc4_wand_rod_quartz",
+    "thaumcraft:tc4_wand_rod_bone",
+    "thaumcraft:tc4_wand_rod_reed",
+    "thaumcraft:silverwood_wand_core",
+    "thaumcraft:tc4_staff_rod_greatwood",
+    "thaumcraft:tc4_staff_rod_obsidian",
+    "thaumcraft:tc4_staff_rod_blaze",
+    "thaumcraft:tc4_staff_rod_ice",
+    "thaumcraft:tc4_staff_rod_quartz",
+    "thaumcraft:tc4_staff_rod_bone",
+    "thaumcraft:tc4_staff_rod_reed",
+    "thaumcraft:tc4_staff_rod_silverwood",
+    "thaumcraft:tc4_staff_rod_primal"
+  ]
+}

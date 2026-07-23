@@ -1,0 +1,10 @@
+TARGETED JAVA STATUS — v11.64.09
+
+PASS: TC4WarpResearchGrant.java compiled with javac 21 using --release 17 against minimal dependency stubs.
+PASS: The compiled exact production helper passed a deterministic self-test for:
+- six-primal order;
+- grant amount range 1..times for times 1, 10 and 20;
+- every rolled aspect belonging to the production primal set.
+
+LIMITATION:
+This is not a Forge/Minecraft compilation. Modified callers WarpEvents.java and TC4EldritchProgression.java were checked by tools/java_syntax_guard.py, but a full Java 17 Forge build is still NOT OBTAINED because the Gradle 7.5.1 distribution cannot be downloaded in the sandbox.

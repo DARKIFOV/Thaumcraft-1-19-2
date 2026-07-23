@@ -1,0 +1,10 @@
+TC4 v11.64.06 ZIP INTEGRITY
+
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.06_WARP_BLURRED_VISION_MESSAGE_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Size: 44112733 bytes
+unzip -t: No errors detected in compressed data.
+SHA-256: 7e90ebeb924992c69c2dc35d70979fd50e44ce92b348eece05336ba10438e81e
+
+Contents: 8822 files (802 Java, 2519 JSON incl. resources/manifests), no __pycache__, no .pyc, no build/, no .gradle/.
+Versions unified at 11.64.06 (build.gradle, mods.toml, runtime manifest, CONTRACT_VERSION).
+Baseline: 140 GameTests / 468 manifest scenarios.

@@ -63,10 +63,21 @@ public final class MagicalForestWorldgenInstaller {
 
         List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters = new ArrayList<>();
         int replaced = 0;
+        int preservedFlowerForest = 0;
+        int flowerForestPoint = 0;
         for (Pair<Climate.ParameterPoint, Holder<Biome>> pair : source.parameters.values()) {
             if (pair.getSecond().is(Biomes.FLOWER_FOREST)) {
-                parameters.add(Pair.of(pair.getFirst(), magicalForest));
-                replaced++;
+                // TC4 adds Magical Forest to weighted WARM and COOL pools; it
+                // does not delete Flower Forest. MultiNoiseBiomeSource has no
+                // public weighted-pool API in 1.19.2, so split its existing
+                // Flower Forest climate points deterministically.
+                if ((flowerForestPoint++ & 1) == 0) {
+                    parameters.add(Pair.of(pair.getFirst(), magicalForest));
+                    replaced++;
+                } else {
+                    parameters.add(pair);
+                    preservedFlowerForest++;
+                }
             } else {
                 parameters.add(pair);
             }
@@ -80,8 +91,8 @@ public final class MagicalForestWorldgenInstaller {
                 new Climate.ParameterList<>(parameters));
         generator.biomeSource = replacement;
         boolean installed = generator.getBiomeSource().possibleBiomes().contains(magicalForest);
-        LOGGER.info("[TC4 worldgen] Installed serializable Magical Forest multi-noise source: replacedPoints={}, locateVisible={}.",
-                replaced, installed);
+        LOGGER.info("[TC4 worldgen] Installed serializable Magical Forest multi-noise source: magicalPoints={}, preservedFlowerForestPoints={}, locateVisible={}.",
+                replaced, preservedFlowerForest, installed);
         return installed;
     }
 }

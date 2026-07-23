@@ -9,10 +9,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 /** Legacy registry id backed by TC4's real EntityTaintSpider behavior. */
-public class TaintCrawlerEntity extends Spider {
+public class TaintCrawlerEntity extends Spider implements TaintedMob {
     public TaintCrawlerEntity(EntityType<? extends Spider> type, Level level) {
         super(type, level);
         xpReward = 2;
@@ -36,6 +37,11 @@ public class TaintCrawlerEntity extends Spider {
     @Override protected SoundEvent getAmbientSound() { return SoundEvents.SPIDER_AMBIENT; }
 
     @Override protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHit) {
-        if (random.nextInt(6) == 0) spawnAtLocation(ThaumcraftMod.TAINTED_SLIME.get());
+        if (random.nextInt(6) == 0) {
+            ItemStack drop = random.nextBoolean()
+                    ? new ItemStack(ThaumcraftMod.TAINTED_SLIME.get())
+                    : new ItemStack(ThaumcraftMod.TC4_RESEARCH_ITEMS.get("tc4_taint_tendril").get());
+            spawnAtLocation(drop);
+        }
     }
 }

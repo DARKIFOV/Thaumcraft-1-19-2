@@ -1,0 +1,5 @@
+Thaumcraft Legacy Rebuild v11.63.59 archive integrity
+Expected project files in archive: 8648
+Archive creation mode: ZIP_DEFLATED
+Excluded transient files: __pycache__, *.pyc
+CRC verification: performed after archive creation; see final assistant report.

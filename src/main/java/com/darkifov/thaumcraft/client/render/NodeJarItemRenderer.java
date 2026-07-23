@@ -70,7 +70,7 @@ public final class NodeJarItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
     }
 
-    private static void renderJarShell(PoseStack poseStack, MultiBufferSource buffer, int light) {
+    static void renderJarShell(PoseStack poseStack, MultiBufferSource buffer, int light) {
         VertexConsumer glass = buffer.getBuffer(RenderType.entityTranslucent(GLASS));
         renderCuboid(poseStack, glass, -0.36F, -0.43F, -0.36F, 0.36F, 0.38F, 0.36F,
                 light, 1.0F, 1.0F, 1.0F, 0.48F);
@@ -79,7 +79,7 @@ public final class NodeJarItemRenderer extends BlockEntityWithoutLevelRenderer {
                 light, 0.72F, 0.62F, 0.42F, 1.0F);
     }
 
-    private static void renderContainedNode(CompoundTag nodeTag, PoseStack poseStack, MultiBufferSource buffer) {
+    static void renderContainedNode(CompoundTag nodeTag, PoseStack poseStack, MultiBufferSource buffer) {
         AspectList aspects = new AspectList();
         aspects.load(nodeTag.getCompound("Aspects"));
         AuraNodeType type = AuraNodeType.fromName(nodeTag.getString("NodeType"));

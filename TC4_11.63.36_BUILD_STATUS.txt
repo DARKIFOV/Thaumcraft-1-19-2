@@ -1,0 +1,25 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.36
+
+SOURCE STATUS: STATICALLY VALIDATED
+FORGE JAR STATUS: NOT PRODUCED / NOT CLAIMED
+
+Completed:
+- 50 item-like generic fallbacks replaced by concrete or canonical implementations.
+- Remaining fallback upper bound: 50 total = 8 item-like + 42 block migration aliases.
+- Runtime manifest: 273 NOT_TESTED evidence scenarios; manifest structure validation PASS.
+- Retained full static regression: 97/97 commands PASS.
+- Java source-text guard: PASS.
+- Forge 1.19.2 API text guard: PASS.
+- JSON resource validation: PASS (2038 JSON files).
+- v11.63.34, v11.63.35 and v11.63.36 stage guards: PASS.
+- Remaining-object audit: PASS; exact item-like remainder is 8 IDs.
+
+Build limitation:
+- A fresh `./gradlew compileJava --no-daemon --stacktrace` attempt stopped before project configuration because Gradle Wrapper could not resolve services.gradle.org while downloading gradle-7.5.1-bin.zip (`UnknownHostException`).
+- Host runtime is OpenJDK 21.0.10; the Forge 1.19.2 development setup requires Java 17.
+- No compiled JAR, runtime client/server result, or gameplay parity claim is made from this environment.
+
+Evidence:
+- TC4_11.63.36_FULL_STATIC_CI.log
+- TC4_11.63.36_GRADLE_COMPILE_ATTEMPT.log
+- reports/remaining_objects_v11.63.36.json

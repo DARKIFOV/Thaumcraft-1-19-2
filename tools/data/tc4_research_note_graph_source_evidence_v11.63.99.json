@@ -1,0 +1,29 @@
+{
+  "version": "11.63.99",
+  "original": {
+    "gui_file": "Thaumcraft4-1.7.10-master/thaumcraft/client/gui/GuiResearchTable.java",
+    "gui_lines": "216-224",
+    "gui_rule": "drop packet is sent when the target hex exists and HexEntry.type == 0; no neighbour compatibility gate",
+    "server_file": "Thaumcraft4-1.7.10-master/thaumcraft/common/tiles/TileResearchTable.java",
+    "server_lines": "141-200",
+    "server_rule": "placeAspect preflights ink, debits the aspect source, writes the selected hex and consumes one ink; graph completion is checked afterwards"
+  },
+  "port": {
+    "empty_hex_contract": "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchNoteGraphParity.java",
+    "server_state": "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteState.java",
+    "transaction": "src/main/java/com/darkifov/thaumcraft/research/ResearchTableInventoryRuntime.java",
+    "solver": "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteSolver.java",
+    "packet": "src/main/java/com/darkifov/thaumcraft/network/RequestPlaceResearchNoteAspectPacket.java",
+    "client_screens": [
+      "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchNoteScreen.java",
+      "src/main/java/com/darkifov/thaumcraft/client/screen/ResearchTableContainerScreen.java"
+    ]
+  },
+  "claims": {
+    "placement_neighbour_gate_removed": true,
+    "unknown_aspect_rejected_server_side": true,
+    "occupied_hex_rejected_server_side": true,
+    "live_table_context_required": true,
+    "ink_and_aspect_debit_atomic_with_rollback": true
+  }
+}

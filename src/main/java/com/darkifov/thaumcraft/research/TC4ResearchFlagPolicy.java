@@ -66,9 +66,9 @@ public final class TC4ResearchFlagPolicy {
         if (entry == null) {
             return false;
         }
-        if (has(entry, AUTO_UNLOCK) || has(entry, STUB) || has(entry, HIDDEN) || has(entry, LOST)) {
-            return false;
-        }
+        if (has(entry, AUTO_UNLOCK) || has(entry, STUB) || entry.aspects().isEmpty()) return false;
+        if ((has(entry, HIDDEN) || has(entry, LOST))
+                && (player == null || !PlayerThaumData.hasResearch(player, "@" + entry.key()))) return false;
         // Strict v9.02 guard: TC4 ResearchTable may only create a theory/note for
         // a real ConfigResearch entry with actual page/recipe payload. This keeps
         // the port from fabricating progression out of rebuild-only placeholder nodes.
@@ -85,10 +85,15 @@ public final class TC4ResearchFlagPolicy {
      */
     public static boolean visibleInBook(Player player, ResearchEntry entry, boolean parentsAvailable) {
         boolean unlocked = entry != null && player != null && PlayerThaumData.hasResearch(player, entry.key());
-        return visibleInBook(entry, unlocked, parentsAvailable);
+        boolean clue = entry != null && player != null && PlayerThaumData.hasResearch(player, "@" + entry.key());
+        return visibleInBook(entry, unlocked, clue, parentsAvailable);
     }
 
     public static boolean visibleInBook(ResearchEntry entry, boolean alreadyUnlocked, boolean parentsAvailable) {
+        return visibleInBook(entry, alreadyUnlocked, false, parentsAvailable);
+    }
+
+    public static boolean visibleInBook(ResearchEntry entry, boolean alreadyUnlocked, boolean clueRevealed, boolean parentsAvailable) {
         if (entry == null) {
             return false;
         }
@@ -96,7 +101,7 @@ public final class TC4ResearchFlagPolicy {
             return true;
         }
         if (has(entry, HIDDEN) || has(entry, LOST)) {
-            return false;
+            return clueRevealed;
         }
         return parentsAvailable;
     }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static source/network contract guard for v11.62.96 TC4 Warp/Eldritch parity."""
+"""Static source/network contract guard for v11.63.10 TC4 Warp/Eldritch parity."""
 from __future__ import annotations
 
 import json
@@ -23,6 +23,7 @@ build = text("build.gradle")
 mods = text("src/main/resources/META-INF/mods.toml")
 data = text("src/main/java/com/darkifov/thaumcraft/data/PlayerThaumData.java")
 warp = text("src/main/java/com/darkifov/thaumcraft/event/WarpEvents.java")
+warp_parity = text("src/main/java/com/darkifov/thaumcraft/warp/TC4WarpRuntimeParity.java")
 soap = text("src/main/java/com/darkifov/thaumcraft/block/SanitySoapItem.java")
 fluid = text("src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java")
 talisman = text("src/main/java/com/darkifov/thaumcraft/block/WarpWardTalismanItem.java")
@@ -31,9 +32,9 @@ network = text("src/main/java/com/darkifov/thaumcraft/network/ThaumcraftNetwork.
 client = text("src/main/java/com/darkifov/thaumcraft/client/ClientResearchData.java")
 manifest = json.loads(text("runtime_artifacts/runtime_test_manifest.template.json"))
 
-check("build version 11.62.96", "version = '11.62.96'" in build)
-check("mods version 11.62.96", 'version="11.62.96"' in mods)
-check("warp check interval 2000", "CHECK_INTERVAL = 2000" in warp)
+check("build version 11.63.10", "version = '11.63.23'" in build)
+check("mods version 11.63.10", 'version="11.63.23"' in mods)
+check("warp check interval 2000", "TC4WarpRuntimeParity.WARP_CHECK_INTERVAL_TICKS" in warp)
 check("death gaze interval ten", "player.tickCount % 10 == 0" in warp)
 check("event roll sqrt counter", "roll <= Math.sqrt(warpCounter)" in warp)
 check("temporary decay after unwarded check", "PlayerThaumData.decayTemporaryWarp(player, 1)" in warp)
@@ -51,17 +52,21 @@ check("talisman no duplicate persistent timer", "addWarpWard" not in talisman an
 
 check("spawn search returns Optional", "Optional<BlockPos> findSpawnAround" in warp)
 check("spawn search uses fifty attempts", "for (int i = 0; i < 50; i++)" in warp)
-check("tc4 signed offset includes zero", "Mth.nextInt(player.getRandom(), -1, 1)" in warp)
+check("tc4 signed offset preserves inclusive tri-state", "TC4WarpRuntimeParity.signedSpawnOffset" in warp and "Mth.nextInt(player.getRandom(), -1, 1)" in warp)
 check("tc4 three-axis magnitude", warp.count("randomTc4AxisOffset(player, min, max)") == 3)
 check("spawn requires sturdy support", "isFaceSturdy(level, pos.below(), Direction.UP)" in warp)
-check("spawn requires two air blocks", "getBlockState(pos).isAir()" in warp and "getBlockState(pos.above()).isAir()" in warp)
-check("spawn rejects fluids", "getFluidState(pos).isEmpty()" in warp and "getFluidState(pos.above()).isEmpty()" in warp)
+check("spawn avoids fixed two-air-block gate", "getBlockState(pos).isAir()" not in warp[warp.find("private static Optional<BlockPos> findSpawnAround"):warp.find("private static int randomTc4AxisOffset")])
+check("spawn rejects fluids through entity AABB", "containsLiquid(level, entity.getBoundingBox())" in warp and "getFluidState(new BlockPos(x, y, z)).isEmpty()" in warp)
 check("spawn checks entity collision", "level.noCollision(entity)" in warp)
 check("guardian skips invalid spawn", "Optional<BlockPos> spawn = findSpawnAround(player, guardian" in warp and "if (spawn.isEmpty())" in warp)
 check("mind spider skips invalid spawn", "Optional<BlockPos> spawn = findSpawnAround(player, spider" in warp)
 check("no fallback forced spawn", "return Optional.empty();" in warp and "base.offset(2, 0, 2)" not in warp)
 
-check("death gaze 0.75 forward cone", ">= 0.75D" in warp and "getLookAngle" in warp)
+check("death gaze exact 0.75-radian aperture cone",
+      "TC4WarpRuntimeParity.deathGazeConeContains" in warp
+      and "DEATH_GAZE_APERTURE_RADIANS = 0.75D" in warp_parity
+      and "Math.cos(DEATH_GAZE_APERTURE_RADIANS / 2.0D)" in warp_parity
+      and ">= 0.75D" not in warp)
 check("death gaze line of sight", "player.hasLineOfSight(target)" in warp)
 check("death gaze respects pvp", "!player.getServer().isPvpAllowed()" in warp)
 check("death gaze records attacker", "target.setLastHurtByPlayer(player)" in warp)
@@ -84,15 +89,15 @@ required = {
     "warp.death_gaze_forward_cone_pvp_aggro",
 }
 ids = {entry.get("id") for entry in manifest.get("tests", [])}
-check("manifest version 11.62.96", manifest.get("version") == "11.62.96")
+check("manifest version at least 11.63.10", tuple(map(int, manifest.get("version", "0.0.0").split("."))) >= (11, 63, 10))
 check("manifest retains at least the 59 warp-era cases", len(manifest.get("tests", [])) >= 59)
 for test_id in required:
     check(f"runtime case {test_id}", test_id in ids)
 
 failed = [name for name, ok in checks if not ok]
 payload = {
-    "version": "11.62.96",
-    "scope": "TC4 warp buckets/counter, Warp Ward migration, event spawning, Death Gaze cone and network sync source contracts",
+    "version": "11.63.10",
+    "scope": "TC4 warp buckets/counter, Warp Ward migration, event spawning, exact Death Gaze aperture/body-center/round-cap and network sync source contracts",
     "checks_total": len(checks),
     "checks_passed": len(checks) - len(failed),
     "failed": failed,

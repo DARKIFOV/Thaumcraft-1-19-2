@@ -3,10 +3,16 @@
   "tc4_source": "addInfusionCraftingRecipe",
   "research": "HELMGOGGLES",
   "tc4_kind": "INFUSION_NBT_OUTPUT",
-  "catalyst": { "item": "thaumcraft:tc4_thaumiumfortresshelm", "damage_wildcard": true },
+  "catalyst": {
+    "item": "thaumcraft:tc4_thaumiumfortresshelm",
+    "damage_wildcard": true
+  },
   "components": [
     "minecraft:slime_ball",
-    { "item": "thaumcraft:goggles_of_revealing", "damage_wildcard": true }
+    {
+      "item": "thaumcraft:goggles_of_revealing",
+      "damage_wildcard": true
+    }
   ],
   "aspects": {
     "SENSUS": 32,
@@ -21,5 +27,6 @@
     "output_nbt_type": "byte",
     "output_nbt_value": 1
   },
-  "stage212_strict_original": "new Object[] { 'goggles', new NBTTagByte(1) }"
+  "stage212_strict_original": "new Object[] { 'goggles', new NBTTagByte(1) }",
+  "v11_63_49_exact_source": true
 }

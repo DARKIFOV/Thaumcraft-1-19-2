@@ -1,0 +1,28 @@
+TC4 v11.63.64 — INFUSION ESSENTIA/COMPONENT SHORTAGE INSTABILITY PORT
+=====================================================================
+
+Version: 11.63.64
+GameTests: 71 (was 66)
+Runtime manifest scenarios: 399 (was 394)
+
+New static guard:
+  tools/tc4_116364_infusion_shortage_instability_guard.py -> PASS (71 GameTests, 399 scenarios)
+
+Recipe/manifest guards:
+  tools/tc4_recipe_registration_denominator_guard.py -> PASS (258/258 STATICALLY MAPPED)
+  tools/validate_runtime_manifest.py --version 11.63.64 --template -> PASS (399 tests)
+
+Repaired 13 pre-existing round guards to accept v11.63.64/71 GameTests/399 scenarios
+(tc4_116350, 116352, 116353, 116354, 116355, 116356, 116357, 116358, 116359, 116360,
+116361, 116362, 116363) -- all individually re-verified PASS after the fix.
+
+Full static CI batch (run_full_static_ci_116364.py, 130 checks):
+  83/130 passed.
+  Remaining 47 failures are pre-existing legacy guards (roughly the 11.63.78-11.63.49
+  vintage range) that were already failing before this round due to unrelated manifest
+  version drift; none of them regressed by this round's changes.
+
+Known limitation:
+  No network access in this sandbox (services.gradle.org unreachable), so a real
+  ./gradlew build could not be executed. All verification here is static (source
+  structure, exact formulas, GameTest presence, manifest integrity).

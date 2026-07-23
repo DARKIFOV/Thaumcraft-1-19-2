@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 /** Stationary TC4 taint spore grown by a mature age-4 fibre stalk. */
-public class TaintSporeEntity extends Monster {
+public class TaintSporeEntity extends Monster implements TaintedMob {
     private static final EntityDataAccessor<Integer> SIZE = SynchedEntityData.defineId(TaintSporeEntity.class, EntityDataSerializers.INT);
     private int growth;
     public float displaySize;
@@ -60,14 +60,24 @@ public class TaintSporeEntity extends Monster {
 
     @Override public void tick() {
         super.tick();
-        setDeltaMovement(0.0D, 0.0D, 0.0D);
         if (level.isClientSide) {
-            if (displaySize < getSporeSize()) displaySize = Math.min(getSporeSize(), displaySize + 0.02F);
+            clientSporeTick();
             return;
         }
         if (tickCount % 20 == 0 && level instanceof ServerLevel server && !TaintSpreadRuntime.isColumnTainted(server, blockPosition())) {
             hurt(DamageSource.STARVE, 1.0F);
         }
+        serverSporeTick();
+    }
+
+    /** Extension point used by TC4's independent Spore Swarmer subtype. */
+    protected void clientSporeTick() {
+        if (displaySize < getSporeSize()) displaySize = Math.min(getSporeSize(), displaySize + 0.02F);
+    }
+
+    /** Base stationary-spore lifecycle: grow while attached, then burst into spiders. */
+    protected void serverSporeTick() {
+        setDeltaMovement(0.0D, 0.0D, 0.0D);
         if (getSporeSize() < 10 && ++growth >= 1200) {
             setSporeSize(getSporeSize() + 1);
             growth = 0;
@@ -87,8 +97,13 @@ public class TaintSporeEntity extends Monster {
     @Override public boolean hurt(DamageSource source, float amount) {
         boolean lethal = amount >= getHealth();
         boolean result = super.hurt(source, amount);
-        if (result && lethal && !level.isClientSide) spiderBurst(blockPosition().below());
+        if (result && lethal && !level.isClientSide) onLethalDamage();
         return result;
+    }
+
+    /** Allows the Swarmer to release flying swarms instead of spiderlings on death. */
+    protected void onLethalDamage() {
+        spiderBurst(blockPosition().below());
     }
 
     private void spiderBurst(BlockPos stem) {

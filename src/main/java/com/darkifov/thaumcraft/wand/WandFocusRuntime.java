@@ -76,8 +76,8 @@ import java.util.function.Predicate;
  * costs, cooldowns, ray/beam style and server-side effects using modern APIs.
  */
 public final class WandFocusRuntime {
-    public static final String TAG_FOCUS = "Focus";
-    public static final String TAG_ORIGINAL_FOCUS_STACK = "focus"; // original TC4 ItemWandCasting NBT key
+    public static final String TAG_FOCUS_STACK = "focus"; // original TC4 ItemWandCasting NBT key
+    public static final String LEGACY_TAG_FOCUS_ID = "Focus"; // migration-only pre-v11.64.33 adapter key
 
     private static final Map<String, Long> FIRE_SOUND_DELAY = new HashMap<>();
     private static final Map<String, Long> EXCAVATION_SOUND_DELAY = new HashMap<>();
@@ -115,56 +115,65 @@ public final class WandFocusRuntime {
     }
 
     public static WandFocusType getFocus(ItemStack wandStack) {
-        if (!(wandStack.getItem() instanceof WandItem)) {
-            return null;
+        ItemStack focusStack = getFocusStack(wandStack);
+        if (focusStack.getItem() instanceof com.darkifov.thaumcraft.block.WandFocusItem focusItem) {
+            return focusItem.focusType();
         }
-        return WandFocusType.byId(wandStack.getOrCreateTag().getString(TAG_FOCUS));
+        return null;
     }
 
     public static boolean hasFocus(ItemStack wandStack) {
-        return getFocus(wandStack) != null;
+        return !getFocusStack(wandStack).isEmpty();
     }
 
     public static void setFocus(ItemStack wandStack, WandFocusType type) {
-        if (type == null) {
-            wandStack.getOrCreateTag().remove(TAG_FOCUS);
-            wandStack.getOrCreateTag().remove(TAG_ORIGINAL_FOCUS_STACK);
-        } else {
-            wandStack.getOrCreateTag().putString(TAG_FOCUS, type.id());
-            ItemStack focus = focusStack(type);
-            saveFocusStack(wandStack, focus);
-        }
+        setFocusStack(wandStack, type == null ? ItemStack.EMPTY : focusStack(type));
     }
 
     public static void setFocusStack(ItemStack wandStack, ItemStack focusStack) {
-        if (focusStack.isEmpty() || !(focusStack.getItem() instanceof com.darkifov.thaumcraft.block.WandFocusItem focusItem)) {
-            setFocus(wandStack, null);
+        if (!(wandStack.getItem() instanceof WandItem)) {
+            return;
+        }
+        CompoundTag tag = wandStack.getOrCreateTag();
+        tag.remove(LEGACY_TAG_FOCUS_ID);
+        if (focusStack.isEmpty() || !(focusStack.getItem() instanceof com.darkifov.thaumcraft.block.WandFocusItem)) {
+            tag.remove(TAG_FOCUS_STACK);
             return;
         }
         ItemStack copy = focusStack.copy();
         copy.setCount(1);
-        wandStack.getOrCreateTag().putString(TAG_FOCUS, focusItem.focusType().id());
-        saveFocusStack(wandStack, copy);
+        tag.put(TAG_FOCUS_STACK, copy.save(new CompoundTag()));
     }
 
     public static ItemStack getFocusStack(ItemStack wandStack) {
+        if (!(wandStack.getItem() instanceof WandItem)) {
+            return ItemStack.EMPTY;
+        }
         CompoundTag tag = wandStack.getTag();
-        if (tag != null && tag.contains(TAG_ORIGINAL_FOCUS_STACK, 10)) {
-            ItemStack stack = ItemStack.of(tag.getCompound(TAG_ORIGINAL_FOCUS_STACK));
-            if (!stack.isEmpty()) {
+        if (tag == null) {
+            return ItemStack.EMPTY;
+        }
+        if (tag.contains(TAG_FOCUS_STACK, 10)) {
+            ItemStack stack = ItemStack.of(tag.getCompound(TAG_FOCUS_STACK));
+            if (stack.getItem() instanceof com.darkifov.thaumcraft.block.WandFocusItem) {
+                stack.setCount(1);
+                tag.remove(LEGACY_TAG_FOCUS_ID);
                 return stack;
             }
+            tag.remove(TAG_FOCUS_STACK);
         }
-        WandFocusType type = getFocus(wandStack);
-        return type == null ? ItemStack.EMPTY : focusStack(type);
-    }
 
-    private static void saveFocusStack(ItemStack wandStack, ItemStack focusStack) {
-        if (focusStack.isEmpty()) {
-            wandStack.getOrCreateTag().remove(TAG_ORIGINAL_FOCUS_STACK);
-            return;
+        // One-way migration from the temporary pre-v11.64.33 string id.
+        if (tag.contains(LEGACY_TAG_FOCUS_ID, 8)) {
+            WandFocusType legacyType = WandFocusType.byId(tag.getString(LEGACY_TAG_FOCUS_ID));
+            tag.remove(LEGACY_TAG_FOCUS_ID);
+            if (legacyType != null) {
+                ItemStack migrated = focusStack(legacyType);
+                tag.put(TAG_FOCUS_STACK, migrated.save(new CompoundTag()));
+                return migrated;
+            }
         }
-        wandStack.getOrCreateTag().put(TAG_ORIGINAL_FOCUS_STACK, focusStack.save(new CompoundTag()));
+        return ItemStack.EMPTY;
     }
 
     public static boolean consumeFocusVis(ItemStack wandStack, Player player, WandFocusType type) {
@@ -945,7 +954,7 @@ public final class WandFocusRuntime {
         return null;
     }
 
-    private static ItemStack applyDowsing(ItemStack drop, int treasure, RandomSource random) {
+    public static ItemStack applyDowsing(ItemStack drop, int treasure, RandomSource random) {
         if (drop.isEmpty()) {
             return ItemStack.EMPTY;
         }

@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AuraNodeBlockEntity extends BlockEntity {
     private static final Aspect[] PRIMARY = new Aspect[]{
@@ -41,7 +42,12 @@ public class AuraNodeBlockEntity extends BlockEntity {
 
     private final AspectList aspects = new AspectList();
     private final AspectList baseAspects = new AspectList();
+    /** TC4 TileNodeEnergized.visBase: per-tick centivis capacity after primal reduction. */
+    private final AspectList energizedVisBase = new AspectList();
+    /** TC4 TileNodeEnergized.vis: transient pool refilled once per server game tick. */
+    private final AspectList energizedVis = new AspectList();
     private boolean initialized = false;
+    private String nodeId = "";
     private String nodeType = AuraNodeType.NORMAL.name();
     private String nodeModifier = AuraNodeModifier.NORMAL.name();
     private int stability = 100;
@@ -57,6 +63,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
     private boolean catchUpPending;
     /** Per-node scheduler matching TileNode.count instead of world-global time. */
     private long nodeTick;
+    private long energizedVisGameTime = Long.MIN_VALUE;
 
     public AuraNodeBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.AURA_NODE_BLOCK_ENTITY.get(), pos, state);
@@ -68,6 +75,10 @@ public class AuraNodeBlockEntity extends BlockEntity {
 
     public AspectList baseAspects() {
         return baseAspects;
+    }
+
+    public AspectList energizedVisBase() {
+        return energizedVisBase;
     }
 
     public boolean initialized() {
@@ -119,6 +130,11 @@ public class AuraNodeBlockEntity extends BlockEntity {
         return Math.max(22, Math.min(112, Math.round(aspects.totalAmount() * modifierScale * typeScale)));
     }
 
+    public String nodeId() {
+        ensureNodeId();
+        return nodeId;
+    }
+
     public String nodeType() {
         return nodeType;
     }
@@ -148,6 +164,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
     }
 
     public void initializeAs(AuraNodeType type, AuraNodeModifier modifier, AspectList profileAspects) {
+        ensureNodeId();
         nodeType = type == null ? AuraNodeType.NORMAL.name() : type.name();
         nodeModifier = modifier == null ? AuraNodeModifier.NORMAL.name() : modifier.name();
         aspects.clear();
@@ -169,6 +186,9 @@ public class AuraNodeBlockEntity extends BlockEntity {
         energized = false;
         jarred = false;
         energizedTicks = 0;
+        energizedVisBase.clear();
+        energizedVis.clear();
+        energizedVisGameTime = Long.MIN_VALUE;
         lastActiveMillis = System.currentTimeMillis();
         catchUpPending = false;
         nodeTick = 0L;
@@ -181,12 +201,19 @@ public class AuraNodeBlockEntity extends BlockEntity {
             initializeFromPosition();
             return;
         }
+        nodeId = nodeTag.contains("NodeId") ? nodeTag.getString("NodeId") : "";
+        ensureNodeId();
         nodeType = nodeTag.contains("NodeType") ? nodeTag.getString("NodeType") : AuraNodeType.NORMAL.name();
         nodeModifier = nodeTag.contains("NodeModifier") ? nodeTag.getString("NodeModifier") : AuraNodeModifier.PALE.name();
         stability = nodeTag.contains("Stability") ? nodeTag.getInt("Stability") : 45;
         scanned = nodeTag.getBoolean("Scanned");
-        energized = nodeTag.getBoolean("Energized");
-        jarred = true;
+        energized = false;
+        energizedVisBase.clear();
+        energizedVis.clear();
+        energizedVisGameTime = Long.MIN_VALUE;
+        // TileJarNode releases a normal world node. Keeping this true made the
+        // released node invisible to recharge pedestals and other live-node systems.
+        jarred = false;
         energizedTicks = 0;
         aspects.clear();
         aspects.load(nodeTag.getCompound("Aspects"));
@@ -205,6 +232,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
 
     public CompoundTag saveNodeJarTag() {
         CompoundTag tag = new CompoundTag();
+        tag.putString("NodeId", nodeId());
         tag.putString("NodeType", nodeType);
         tag.putString("NodeModifier", nodeModifier);
         tag.putInt("Stability", stability);
@@ -213,7 +241,22 @@ public class AuraNodeBlockEntity extends BlockEntity {
         tag.putBoolean("Jarred", jarred);
         tag.put("Aspects", aspects.save());
         tag.put("BaseAspects", baseAspects.save());
+        tag.put("EnergizedVisBase", energizedVisBase.save());
         return tag;
+    }
+
+    private void ensureNodeId() {
+        if (nodeId == null || nodeId.isBlank()) {
+            nodeId = UUID.randomUUID().toString();
+        }
+    }
+
+    /** Removes any stored aspect for the focused/unfocused TC4 wand recharge pedestal. */
+    public int drainForPedestal(Aspect aspect, int amount) {
+        if (aspect == null || amount <= 0 || jarred) return 0;
+        int removed = aspects.removeUpTo(aspect, amount);
+        if (removed > 0) setChangedAndSync();
+        return removed;
     }
 
     public int drainToWand(Aspect aspect, int amount) {
@@ -228,6 +271,115 @@ public class AuraNodeBlockEntity extends BlockEntity {
             setChangedAndSync();
         }
         return removed;
+    }
+
+    /**
+     * Exact TileNodeEnergized.consumeVis adapter. Values are centivis-sized units,
+     * are replenished from visBase once per server tick, and never mutate the
+     * permanent aura/base-aspect profile of the node.
+     */
+    public int consumeEnergizedVis(Aspect aspect, int requestedCentivis) {
+        if (!energized || aspect == null || !aspect.isPrimal() || requestedCentivis <= 0 || level == null) {
+            return 0;
+        }
+        refreshEnergizedVisForTick();
+        return energizedVis.removeUpTo(aspect, requestedCentivis);
+    }
+
+    private void refreshEnergizedVisForTick() {
+        if (level == null || !energized) return;
+        long gameTime = level.getGameTime();
+        if (energizedVisGameTime == gameTime) return;
+        if (energizedVisBase.isEmpty()) {
+            rebuildEnergizedVisBase(false);
+        }
+        energizedVis.clear();
+        energizedVis.addAll(energizedVisBase);
+        energizedVisGameTime = gameTime;
+    }
+
+    private void rebuildEnergizedVisBase(boolean synchronize) {
+        energizedVisBase.clear();
+        AspectList reduced = new AspectList();
+        for (java.util.Map.Entry<Aspect, Integer> entry : baseAspects.entries().entrySet()) {
+            reduceToPrimals(entry.getKey(), entry.getValue(), reduced);
+        }
+        float scale = switch (typedNodeModifier()) {
+            case BRIGHT -> 1.20F;
+            case PALE -> 0.80F;
+            case FADING -> 0.50F;
+            default -> 1.0F;
+        };
+        for (Aspect aspect : PRIMARY) {
+            int amount = (int)Math.floor(Math.sqrt(Math.max(0, (int)(reduced.get(aspect) * scale))));
+            if (typedNodeType() == AuraNodeType.UNSTABLE && level != null) {
+                amount += level.getRandom().nextInt(5) - 2;
+            }
+            if (amount >= 1) energizedVisBase.add(aspect, amount);
+        }
+        energizedVis.clear();
+        energizedVisGameTime = Long.MIN_VALUE;
+        if (synchronize) setChangedAndSync();
+    }
+
+    private static void reduceToPrimals(Aspect aspect, int amount, AspectList out) {
+        if (aspect == null || amount <= 0) return;
+        if (aspect.isPrimal()) {
+            out.add(aspect, amount);
+            return;
+        }
+        reduceToPrimals(aspect.firstComponent(), amount, out);
+        reduceToPrimals(aspect.secondComponent(), amount, out);
+    }
+
+    /**
+     * Exact server-side aspect/modifier mutation performed by TC4's
+     * ItemEldritchObject metadata 3 (Primordial Pearl).
+     */
+    public void applyPrimordialPearl(boolean researched, net.minecraft.util.RandomSource random) {
+        if (random == null) {
+            return;
+        }
+        for (Aspect aspect : new java.util.ArrayList<>(aspects.entries().keySet())) {
+            int amount = baseAspects.get(aspect);
+            if (!aspect.isPrimal()) {
+                if (random.nextBoolean()) {
+                    setAspectAmount(baseAspects, aspect, amount - 1);
+                }
+            } else {
+                setAspectAmount(baseAspects, aspect,
+                        amount - 2 + random.nextInt(researched ? 9 : 6));
+            }
+        }
+
+        for (Aspect aspect : PRIMARY) {
+            int amount = baseAspects.get(aspect);
+            int rolled = random.nextInt(researched ? 4 : 3);
+            if (rolled > 0 && rolled > amount) {
+                setAspectAmount(baseAspects, aspect, rolled);
+                aspects.add(aspect, 1);
+            }
+        }
+
+        AuraNodeModifier modifier = typedNodeModifier();
+        if (modifier == AuraNodeModifier.FADING && random.nextBoolean()) {
+            nodeModifier = AuraNodeModifier.PALE.name();
+        } else if (modifier == AuraNodeModifier.PALE && random.nextBoolean()) {
+            nodeModifier = AuraNodeModifier.NORMAL.name();
+        } else if (modifier == AuraNodeModifier.NORMAL && random.nextInt(5) == 0) {
+            nodeModifier = AuraNodeModifier.BRIGHT.name();
+        }
+        setChangedAndSync();
+    }
+
+    private static void setAspectAmount(AspectList list, Aspect aspect, int amount) {
+        int current = list.get(aspect);
+        if (current > 0) {
+            list.remove(aspect, current);
+        }
+        if (amount > 0) {
+            list.add(aspect, amount);
+        }
     }
 
     public void markWandDrain(Aspect aspect, Player drainer) {
@@ -433,6 +585,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
         if (nodeTick % 80L == 0L) {
             for (LivingEntity living : level.getEntitiesOfClass(LivingEntity.class, new AABB(worldPosition).inflate(5.5D), LivingEntity::isAlive)) {
                 living.removeEffect(MobEffects.POISON);
+                living.removeEffect(ThaumcraftMod.TAINT_POISON.get());
                 living.removeEffect(MobEffects.WITHER);
                 living.removeEffect(MobEffects.CONFUSION);
             }
@@ -577,6 +730,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
             energizedTicks = Math.min(400, energizedTicks + 4);
             if (energizedTicks >= 80 && !energized) {
                 energized = true;
+                rebuildEnergizedVisBase(false);
                 stability = Math.min(100, stability + (stabilizerStrength() >= 2 ? 10 : 4));
                 setChangedAndSync();
             }
@@ -586,20 +740,16 @@ public class AuraNodeBlockEntity extends BlockEntity {
             }
             if (energized && energizedTicks <= 0) {
                 energized = false;
+                energizedVis.clear();
+                energizedVisGameTime = Long.MIN_VALUE;
                 setChangedAndSync();
             }
         }
 
-        if (energized && nodeTick % 100L == 0L) {
-            for (Aspect aspect : PRIMARY) {
-                int base = Math.max(1, baseAspects.get(aspect));
-                if (aspects.get(aspect) < base + 8) {
-                    aspects.add(aspect, 1);
-                    break;
-                }
-            }
-            stability = Math.min(100, stability + 1);
-            setChangedAndSync();
+        if (energized && typedNodeType() == AuraNodeType.UNSTABLE
+                && !level.isClientSide() && level.getRandom().nextInt(500) == 1) {
+            // TC4 periodically rerolled an unstable energized node's sqrt pool.
+            rebuildEnergizedVisBase(true);
         }
     }
 
@@ -637,6 +787,7 @@ public class AuraNodeBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putBoolean("Initialized", initialized);
+        tag.putString("NodeId", nodeId());
         tag.putString("NodeType", nodeType);
         tag.putString("NodeModifier", nodeModifier);
         tag.putInt("Stability", stability);
@@ -651,12 +802,15 @@ public class AuraNodeBlockEntity extends BlockEntity {
         tag.putLong("LastActiveMillis", lastActiveMillis);
         tag.put("Aspects", aspects.save());
         tag.put("BaseAspects", baseAspects.save());
+        tag.put("EnergizedVisBase", energizedVisBase.save());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         initialized = tag.getBoolean("Initialized");
+        nodeId = tag.contains("NodeId") ? tag.getString("NodeId") : "";
+        ensureNodeId();
         nodeType = tag.contains("NodeType") ? tag.getString("NodeType") : AuraNodeType.NORMAL.name();
         nodeModifier = tag.contains("NodeModifier") ? tag.getString("NodeModifier") : AuraNodeModifier.NORMAL.name();
         stability = tag.contains("Stability") ? tag.getInt("Stability") : 100;
@@ -678,6 +832,12 @@ public class AuraNodeBlockEntity extends BlockEntity {
         } else {
             baseAspects.addAll(aspects);
         }
+        energizedVisBase.clear();
+        if (tag.contains("EnergizedVisBase")) {
+            energizedVisBase.load(tag.getCompound("EnergizedVisBase"));
+        }
+        energizedVis.clear();
+        energizedVisGameTime = Long.MIN_VALUE;
     }
 
     @Override

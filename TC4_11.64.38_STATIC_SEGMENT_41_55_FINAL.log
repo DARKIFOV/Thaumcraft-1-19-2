@@ -1,0 +1,32 @@
+[41/63] python3 tools/tc4_116420_arcane_levitator_full_closure_guard.py
+TC4 v11.64.20 Arcane Levitator full-closure guard: PASS (286 GameTests; 850 scenarios; source/resource/prompt)
+[42/63] python3 tools/tc4_116419_arcane_ear_full_closure_guard.py
+TC4 v11.64.19 Arcane Ear full-closure guard: PASS (286 GameTests; 850 scenarios; source/resource/prompt)
+[43/63] python3 tools/tc4_116418_arcane_bellows_full_closure_guard.py
+TC4 v11.64.18 Arcane Bellows full-closure guard: PASS (286 GameTests; 850 scenarios; source/resource/prompt/external-contract)
+[44/63] python3 tools/tc4_116417_tallow_candle_full_closure_guard.py
+TC4 v11.64.17 Tallow Candle full-closure guard: PASS (286 GameTests; 850 scenarios; 16 colours/geometry/UV/resources/recipes/research/aspects/prompt)
+[45/63] python3 tools/tc4_116416_hungry_chest_full_closure_guard.py
+TC4 v11.64.16 Hungry Chest full-closure guard: PASS (286 GameTests; 850 scenarios; collision/insertion/lid/drops/NBT/model/recipe/research/prompt)
+[46/63] python3 tools/tc4_116415_brain_jar_full_closure_guard.py
+TC4 v11.64.15 Brain Jar full-closure guard: PASS (286 GameTests; 850 scenarios; XP/NBT/model/brine/particle/item-warp/recipe/research/prompt)
+[47/63] python3 tools/tc4_116414_bath_salts_full_closure_guard.py
+TC4 v11.64.14 Bath Salts full-closure guard: PASS (286 GameTests; 850 scenarios; item/fluid/ward/particle/bucket/recipe/research/spa)
+[48/63] python3 tools/tc4_116413_unnatural_hunger_full_closure_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (286 GameTests; 850 scenarios; exact runtime + food + icon + post chain)
+[49/63] python3 tools/tc4_116412_unnatural_hunger_food_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (286 GameTests; 850 scenarios; exact runtime + food + icon + post chain)
+TC4 v11.64.12 Unnatural Hunger food guard: PASS (forward-compatible via v11.64.13 full closure)
+[50/63] python3 tools/tc4_116411_sun_scorned_brightness_guard.py
+TC4 v11.64.11 Sun Scorned brightness guard: PASS (286 GameTests; 850 scenarios; brightness table + exact strict thresholds/rolls)
+[51/63] python3 tools/tc4_116410_death_gaze_cone_guard.py
+TC4 v11.64.10 Death Gaze cone guard: PASS (286 GameTests; 850 scenarios; exact aperture/body midpoint/round cap/pickable gate)
+[52/63] python3 tools/tc4_116409_warp_research_pool_sync_guard.py
+TC4 v11.64.09 warp research pool sync guard: PASS (286 GameTests; 850 scenarios; exact primal roll + aggregate client pool sync)
+[53/63] python3 tools/tc4_116408_eldritch_milestone_grant_guard.py
+TC4 v11.64.08 eldritch milestone guard: PASS (286 GameTests; 850 scenarios; MINOR/MAJOR grant research 10/20 silently, no fabricated chat)
+[54/63] python3 tools/tc4_116407_warp_message_parity_guard.py
+TC4 v11.64.07 warp message guard: PASS (286 GameTests; 850 scenarios; warp.text.8 correctly placed on the BATHSALTS milestone, blurred-vision shows no line)
+[55/63] python3 tools/tc4_116405_warp_spawn_collision_guard.py
+TC4 v11.64.05+ warp spawn collision guard: PASS (286 GameTests; 850 scenarios; entity-aware collision/liquid admission production-linked)
+SEGMENT PASS 41-55

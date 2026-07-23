@@ -1,0 +1,27 @@
+THAUMCRAFT LEGACY REBUILD v11.64.09 — STATIC CI SUMMARY
+
+Focused checks: 13/13 PASS
+GameTest source inventory: 142 unique methods
+Runtime manifest template: 470 unique scenarios
+JSON resources: 2049 valid
+Original recipe runtime registrations: 258/258 statically mapped
+Smelting bonus registrations: 18 tracked separately
+Java source files: 803
+
+New production contract:
+- TC4WarpResearchGrant exact 1 + rand(times) roll
+- six primal aspects in TC4 registration order
+- +1 server pool mutation per rolled aspect
+- aggregate syncAspectKnowledge after the batch
+- both WarpEvents and TC4EldritchProgression delegate to this path
+
+Targeted Java evidence:
+- javac --release 17 exact helper compile: PASS
+- deterministic exact-helper self-test: PASS
+
+NOT VERIFIED:
+- full JDK 17 Forge compilation
+- JAR
+- dedicated GameTest runtime
+- client Research Table/Thaumonomicon pool refresh
+- multiplayer/reconnect network behavior

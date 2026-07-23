@@ -1,0 +1,1711 @@
+===== CHECK 87/104: python3 tools/tc4_116323_arcane_levitator_parity_guard.py =====
+PASS | build_version_116323
+PASS | mods_version_at_least_116323
+PASS | manifest_version_at_least_116323
+PASS | manifest_count_at_least_208
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:new ArcaneLevitatorBlockEntity(pos, state)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:RenderShape.MODEL
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:ARCANE_LEVITATOR_BLOCK_ENTITY.get()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:ArcaneLevitatorBlockEntity::serverTick
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:markStackBelow(level, pos)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:levitator.requestRangeUpdate()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:neighborChanged(
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:ArcaneLevitatorBlockEntity.isPowered(level, pos)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:computeRangeAbove(level, pos) <= 0
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:ParticleTypes.ENCHANT
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:random.nextDouble() * 0.6D
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:0.0D, -0.3D, 0.0D
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:cursor.getY() >= level.getMinBuildHeight()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:cursor.move(0, -1, 0)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java:instanceof ArcaneLevitatorBlock
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:extends BlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:private int counter
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:private int rangeAbove
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:private boolean requiresUpdate = true
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:private boolean lastPowerState
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:levitator.counter++
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:levitator.counter % 100 == 0
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:powered != levitator.lastPowerState
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:levitator.rangeAbove = computeRangeAbove(level, pos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:new AABB(pos.getX(), pos.getY() + 1.0D, pos.getZ()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:pos.getY() + 1.0D + levitator.rangeAbove
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:level.getEntitiesOfClass(Entity.class, column
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:entity instanceof ItemEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:entity.isPushable()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:entity instanceof AbstractHorse
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:!entity.isSpectator()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:entity.isShiftKeyDown()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:y *= 0.9D
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:y < 0.35D
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:y += 0.1D
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:entity.setDeltaMovement(movement.x, y, movement.z)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:entity.fallDistance = 0.0F
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:level.hasNeighborSignal(pos) || level.hasNeighborSignal(pos.above())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:int max = 10
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:max += 10
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:pos.below(count)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:isPowered(level, below)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:aboveState.isSolidRender(level, above)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:level.getMaxBuildHeight()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:tag.putInt("Counter", counter)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:tag.putInt("RangeAbove", rangeAbove)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:tag.putBoolean("RequiresUpdate", requiresUpdate)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java:tag.putBoolean("LastPowerState", lastPowerState)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LEVITATOR = BLOCKS.register("tc4_block_levitator"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:new ArcaneLevitatorBlock(BlockBehaviour.Properties.of(Material.STONE)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:.strength(2.5F, 15.0F)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:requiresCorrectToolForDrops()
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:noOcclusion()
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LEVITATOR_ITEM = ITEMS.register("tc4_block_levitator"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:new BlockItem(ARCANE_LEVITATOR.get()
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:Map.entry("tc4_block_levitator", ARCANE_LEVITATOR_ITEM)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:RegistryObject<BlockEntityType<ArcaneLevitatorBlockEntity>> ARCANE_LEVITATOR_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:BLOCK_ENTITIES.register("tc4_block_levitator"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ArcaneLevitatorBlockEntity::new, ARCANE_LEVITATOR.get()
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:TC4_LEVITATOR_TOP_GLOW = 0x00A000
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:TC4_LEVITATOR_SIDE_GLOW = 0xEEDFFF
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:ThaumcraftMod.ARCANE_LEVITATOR.get()
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:ThaumcraftMod.ARCANE_LEVITATOR_ITEM.get()
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:case 0 -> TC4_LEVITATOR_TOP_GLOW
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:case 1 -> TC4_LEVITATOR_SIDE_GLOW
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:e("tc4_block_levitator", "tc4_block_levitator"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:if (out.containsKey(entry.id())) continue;
+PASS | blockstate_single_model
+PASS | model_no_ao
+PASS | model_three_elements
+PASS | model_original_textures
+PASS | base_full_cube
+PASS | top_glow_bounds
+PASS | side_glow_bounds
+PASS | top_glow_tint_all
+PASS | side_glow_tint_all
+PASS | item_parent_block
+PASS | loot_self
+PASS | pickaxe_tag
+PASS | block_lang:en_us
+PASS | item_lang:en_us
+PASS | block_lang:ru_ru
+PASS | item_lang:ru_ru
+PASS | texture_exists_orig:liftertop
+PASS | texture_exists_live:liftertop
+PASS | texture_byte_exact:liftertop
+PASS | texture_exists_orig:lifterside
+PASS | texture_exists_live:lifterside
+PASS | texture_byte_exact:lifterside
+PASS | texture_exists_orig:arcaneearbottom
+PASS | texture_exists_live:arcaneearbottom
+PASS | texture_byte_exact:arcaneearbottom
+PASS | texture_exists_orig:animatedglow
+PASS | texture_exists_live:animatedglow
+PASS | texture_byte_exact:animatedglow
+PASS | animated_glow_mcmeta
+PASS | manifest:blocks.arcane_levitator_single_range_velocity_and_cap
+PASS | manifest:blocks.arcane_levitator_sneak_descent_and_entity_filter
+PASS | manifest:blocks.arcane_levitator_stack_range_and_powered_segment
+PASS | manifest:blocks.arcane_levitator_obstruction_and_build_height
+PASS | manifest:blocks.arcane_levitator_redstone_block_and_above
+PASS | manifest:blocks.arcane_levitator_visual_save_reload_multiplayer
+PASS | .github/workflows/build.yml:tc4_116323_arcane_levitator_parity_guard.py
+PASS | .github/workflows/build.yml:Validate v11.63.23 Arcane Levitator parity
+PASS | .github/workflows/release.yml:tc4_116323_arcane_levitator_parity_guard.py
+PASS | .github/workflows/release.yml:Validate v11.63.23 Arcane Levitator parity
+PASS | README.md:11.63.23 — Arcane Levitator stack and motion parity
+PASS | KNOWN_DEVIATIONS.md:11.63.23 Arcane Levitator runtime notes
+PASS | TC4_11.63.23_ARCANE_LEVITATOR_PORT_REPORT_RU.md:Arcane Levitator
+SUMMARY | 115/115 passed
+
+RC=0
+
+===== CHECK 88/104: python3 tools/tc4_116324_arcane_spa_parity_guard.py =====
+PASS | build_version_116324
+PASS | mods_version_116324
+PASS | manifest_version_116324
+PASS | manifest_count_at_least_214
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:public static final int CAPACITY = 5000
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:public static final int CHECK_INTERVAL = 40
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:private static final int BUCKET = 1000
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:private boolean mixing = true
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:private int counter
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:spa.counter++ % CHECK_INTERVAL
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:level.hasNeighborSignal(pos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:salts.getStackInSlot(0).isEmpty()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:isVanillaWater(stored.getFluid())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:ThaumcraftMod.PURIFYING_FLUID.get()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:tank.drain(BUCKET
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:salts.extractItem(0, 1, false)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:for (int x = -2; x <= 2; x++)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:for (int z = -2; z <= 2; z++)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:for (Direction direction : Direction.values())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:state.isSource()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:level.getBlockEntity(pos) == null
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:state.isAir() || state.getMaterial().isReplaceable()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:isFaceSturdy(level, below, Direction.UP)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:side != Direction.UP && capability == ForgeCapabilities.FLUID_HANDLER
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:side != Direction.UP && capability == ForgeCapabilities.ITEM_HANDLER
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:tag.putBoolean("Mix", mixing)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:tag.put("Tank"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:tag.put("Salts"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneSpaBlockEntity.java:mixing = !tag.contains("Mix") || tag.getBoolean("Mix")
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneSpaBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneSpaBlock.java:new ArcaneSpaBlockEntity(pos, state)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneSpaBlock.java:ArcaneSpaBlockEntity::serverTick
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneSpaBlock.java:NetworkHooks.openScreen
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneSpaBlock.java:spa.removeAllBathSalts()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneSpaBlock.java:Containers.dropItemStack
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneSpaMenu.java:BUTTON_TOGGLE_MIX = 1
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneSpaMenu.java:SlotItemHandler
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneSpaMenu.java:65, 31
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneSpaMenu.java:stack.is(ThaumcraftMod.BATH_SALTS.get())
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneSpaMenu.java:spa.toggleMixing()
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:TOGGLE_X = 89
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:TOGGLE_Y = 35
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:TANK_X = 107
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:TANK_Y = 15
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:TANK_HEIGHT = 48
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:event("cameraclack")
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneSpaScreen.java:0.4F, 1.0F
+PASS | src/main/java/com/darkifov/thaumcraft/block/BathSaltsItem.java:DISSOLVE_TICKS = 200
+PASS | src/main/java/com/darkifov/thaumcraft/block/BathSaltsItem.java:getEntityLifespan
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:onBathSaltsExpire
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:itemEntity.getItem().is(ThaumcraftMod.BATH_SALTS.get())
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:fluidState.isSource()
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:fluidState.getType() != net.minecraft.world.level.material.Fluids.WATER
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:ThaumcraftMod.PURIFYING_FLUID_BLOCK.get().defaultBlockState()
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:class PurifyingFluidBlock extends LiquidBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:level.getFluidState(pos).isSource()
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:PlayerThaumData.getWarpPerm(player)
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:Math.floor(Math.sqrt(permanentWarp))
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:Math.min(32000, 200000 / divisor)
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:WARP_WARD.get()
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:Blocks.AIR.defaultBlockState()
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:ParticleTypes.BUBBLE
+PASS | src/main/java/com/darkifov/thaumcraft/block/PurifyingFluidBlock.java:SoundEvents.LAVA_POP
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_SPA = BLOCKS.register("tc4_block_arcane_spa"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_SPA_ITEM = ITEMS.register("tc4_block_arcane_spa"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:BATH_SALTS = ITEMS.register("tc4_bath_salts"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:PURIFYING_FLUID_BLOCK
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_SPA_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_SPA_MENU
+PASS | resource:src/main/resources/assets/thaumcraft/blockstates/tc4_block_arcane_spa.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_spa.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/item/tc4_block_arcane_spa.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/item/tc4_bath_salts.json
+PASS | resource:src/main/resources/data/thaumcraft/loot_tables/blocks/tc4_block_arcane_spa.json
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/block/tc4/spa_side.png
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/block/tc4/spa_top.png
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/block/tc4/fluidpure.png
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/item/tc4/bath_salts.png
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/gui/gui_spa.png
+PASS | runtime_id:blocks.arcane_spa_water_salts_mix_output
+PASS | runtime_id:blocks.arcane_spa_raw_fluid_mode_and_5x5_spread
+PASS | runtime_id:blocks.arcane_spa_six_direction_source_adjacency
+PASS | runtime_id:blocks.arcane_spa_redstone_and_independent_40_tick_cadence
+PASS | runtime_id:blocks.arcane_spa_side_capability_and_top_rejection
+PASS | runtime_id:blocks.arcane_spa_bath_salts_expiry_purifying_fluid_warp_ward
+PASS | doc:README.md
+PASS | doc:KNOWN_DEVIATIONS.md
+PASS | doc:TC4_11.63.24_ARCANE_SPA_PORT_REPORT_RU.md
+PASS | doc:TC4_11.63.24_REMAINING_OBJECTS_AUDIT_RU.md
+PASS | .github/workflows/build.yml:tc4_116324_arcane_spa_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116324_arcane_spa_parity_guard.py
+SUMMARY | 91/91 passed
+
+RC=0
+
+===== CHECK 89/104: python3 tools/tc4_116325_arcane_bore_parity_guard.py =====
+PASS | build_marker_116325
+PASS | mods_marker_116325
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:DirectionProperty FACING
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:new ArcaneBoreBlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:ArcaneBoreBlockEntity::serverTick
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:NetworkHooks.openScreen
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:basePos
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:getStateForPlacement
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:hit.getDirection()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:basePos
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:DirectionProperty FACING
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:new ArcaneBoreBaseBlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:getStateForPlacement
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:use(
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:player.getItemInHand(hand).getItem() instanceof WandItem
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBaseBlock.java:hit.getDirection().getAxis().isHorizontal()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:MAX_DEPTH = 64
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:new ItemStackHandler(2)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:slot == 0 ? isExcavationFocus(stack)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:stack.getItem() instanceof PickaxeItem
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:level.hasNeighborSignal(pos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:level.hasNeighborSignal(basePos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:speedyTime < 20
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:base.tryDrawPerditio()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:speedyTime += 20
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:int radius = 2 + area()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:for (int depth = 2; depth <= MAX_DEPTH; depth++)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:FocusUpgradeType.ENLARGE
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:FocusUpgradeType.POTENCY
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:Enchantments.BLOCK_EFFICIENCY
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:FocusUpgradeType.TREASURE
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:Enchantments.BLOCK_FORTUNE
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:FocusUpgradeType.SILK_TOUCH
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:Enchantments.SILK_TOUCH
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:Block.getDrops
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:server.removeBlock(target, false)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:tool.setDamageValue
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:ItemHandlerHelper.insertItemStacked
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:tag.put("Inventory"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:tag.putInt("SpiralIndex"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:tag.putInt("SpeedyTime"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:invalidateCaps
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:reviveCaps
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:ClientboundBlockEntityDataPacket.create(this)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:SUCTION = 128
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:Aspect.PERDITIO
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:canInputFrom
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:for (Direction direction : Direction.values())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:takeEssentiaOriginal(Aspect.PERDITIO, 1
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:new SlotItemHandler(bore.inventory(), 0, 26, 18)
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:new SlotItemHandler(bore.inventory(), 1, 74, 18)
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:WandFocusType.EXCAVATION
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:stack.getItem() instanceof PickaxeItem
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:new SimpleContainerData(6)
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneBoreScreen.java:gui_arcanebore.png
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneBoreScreen.java:176
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneBoreScreen.java:141
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_BORE_BASE = BLOCKS.register("tc4_block_arcane_bore_base"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_BORE = BLOCKS.register("tc4_block_arcane_bore"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_BORE_BASE_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_BORE_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_BORE_MENU
+PASS | resource:src/main/resources/assets/thaumcraft/models/item/tc4_block_arcane_bore.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/item/tc4_block_arcane_bore_base.json
+PASS | resource:src/main/resources/data/thaumcraft/loot_tables/blocks/tc4_block_arcane_bore.json
+PASS | resource:src/main/resources/data/thaumcraft/loot_tables/blocks/tc4_block_arcane_bore_base.json
+PASS | resource:src/main/resources/assets/thaumcraft/textures/models/Bore.png
+PASS | resource:src/main/resources/assets/thaumcraft/textures/gui/gui_arcanebore.png
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/models/Bore.png
+PASS | byte_exact:src/main/resources/assets/thaumcraft/textures/gui/gui_arcanebore.png
+PASS | report_116325
+SUMMARY | 73/73 passed
+
+RC=0
+
+===== CHECK 90/104: python3 tools/tc4_116326_arcane_ear_parity_guard.py =====
+PASS | build_version_at_least_116326
+PASS | mods_version_at_least_116326
+PASS | manifest_version_at_least_116326
+PASS | manifest_count_at_least_220
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:BooleanProperty POWERED = BlockStateProperties.POWERED
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SILENT_NOTE_EVENT = 5
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:registerDefaultState
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:builder.add(POWERED)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:new ArcaneEarBlockEntity(pos, state)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:ARCANE_EAR_BLOCK_ENTITY.get()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:ArcaneEarBlockEntity::serverTick
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:RenderShape.MODEL
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:ear.updateToneFromSupport()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:ear.changePitch()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:ear.emitConfiguredNote(true)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:isSignalSource
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:state.getValue(POWERED) ? 15 : 0
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:getDirectSignal
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:canConnectRedstone
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:eventId < 0 || eventId > SILENT_NOTE_EVENT
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:Math.pow(2.0D, (note - 12) / 12.0D)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SoundEvents.NOTE_BLOCK_HARP
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SoundEvents.NOTE_BLOCK_BASEDRUM
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SoundEvents.NOTE_BLOCK_SNARE
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SoundEvents.NOTE_BLOCK_HAT
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SoundEvents.NOTE_BLOCK_BASS
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:SoundSource.RECORDS, 3.0F
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:ParticleTypes.NOTE
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneEarBlock.java:note / 24.0D
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:extends BlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:WeakHashMap
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:LOADED_EARS
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:private byte note
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:private byte tone
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:private int signalTicks
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:lastTriggerGameTime = Long.MIN_VALUE
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.signalTicks--
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.signalTicks == 0
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.setPowered(false)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:onNotePlayed(ServerLevel level, BlockPos source
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:NoteBlockInstrument instrument
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:toneForInstrument(instrument)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:earPos.distSqr(source) <= 4096.0D
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.lastTriggerGameTime != level.getGameTime()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.emitConfiguredNote(false)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.signalTicks = 10
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:ear.setPowered(true)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:(Byte.toUnsignedInt(note) + 1) % 25
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:toneForMaterial
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:level.isEmptyBlock(worldPosition.above())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:level.blockEvent
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:level.updateNeighborsAt(worldPosition
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:level.updateNeighborsAt(worldPosition.below()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:onLoad()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:computeIfAbsent
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:setRemoved()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:registered.remove(worldPosition)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:tag.putByte("note"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:tag.putByte("tone"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:tag.putInt("SignalTicks"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:Math.max(0, Math.min(24
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:Math.max(0, Math.min(4
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:Math.max(0, Math.min(10
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:material == Material.STONE
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:material == Material.SAND
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:material == Material.GLASS
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:material == Material.WOOD
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:case HARP -> 0
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:case BASEDRUM -> 1
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:case SNARE -> 2
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:case HAT -> 3
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneEarBlockEntity.java:case BASS -> 4
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:onNoteBlockPlay(NoteBlockEvent.Play event)
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:EventPriority.LOWEST
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:event.isCanceled()
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:event.getLevel() instanceof ServerLevel
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:event.getInstrument()
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:event.getVanillaNoteId()
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:ArcaneEarBlockEntity.onNotePlayed
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_EAR = BLOCKS.register("tc4_block_arcane_ear"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:new ArcaneEarBlock(
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_EAR_ITEM = ITEMS.register("tc4_block_arcane_ear"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:Map.entry("tc4_block_arcane_ear", ARCANE_EAR_ITEM)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_EAR_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ArcaneEarBlockEntity::new, ARCANE_EAR.get()
+PASS | resource:src/main/resources/assets/thaumcraft/blockstates/tc4_block_arcane_ear.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_ear_base.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_ear_off.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_ear_on.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/item/tc4_block_arcane_ear.json
+PASS | resource:src/main/resources/data/thaumcraft/loot_tables/blocks/tc4_block_arcane_ear.json
+PASS | blockstate_off
+PASS | blockstate_on
+PASS | model_ten_elements
+PASS | model_cuboid_1
+PASS | model_cuboid_2
+PASS | model_cuboid_3
+PASS | model_cuboid_4
+PASS | model_cuboid_5
+PASS | model_cuboid_6
+PASS | model_cuboid_7
+PASS | model_cuboid_8
+PASS | model_cuboid_9
+PASS | model_cuboid_10
+PASS | on_side_texture
+PASS | on_top_texture
+PASS | item_3d_parent
+PASS | loot_self
+PASS | axe_tag
+PASS | lang_item_en_us.json
+PASS | lang_block_en_us.json
+PASS | lang_item_ru_ru.json
+PASS | lang_block_ru_ru.json
+PASS | byte_exact:arcaneearbellside
+PASS | byte_exact:arcaneearbelltop
+PASS | byte_exact:arcaneearbottom
+PASS | byte_exact:arcaneearsideoff
+PASS | byte_exact:arcaneearsideon
+PASS | byte_exact:arcaneeartopoff
+PASS | byte_exact:arcaneeartopon
+PASS | runtime_id:blocks.arcane_ear_pitch_cycle_and_support_instruments
+PASS | runtime_id:blocks.arcane_ear_radius_note_and_instrument_filter
+PASS | runtime_id:blocks.arcane_ear_ten_tick_redstone_pulse
+PASS | runtime_id:blocks.arcane_ear_obstructed_top_behavior
+PASS | runtime_id:blocks.arcane_ear_visual_state_particle_and_multiplayer
+PASS | runtime_id:blocks.arcane_ear_nbt_chunk_reload_and_event_cleanup
+PASS | audit_version
+PASS | audit_fallback_192
+PASS | audit_item_148
+PASS | audit_block_44
+PASS | ear_not_fallback
+PASS | README.md:11.63.26 — Arcane Ear
+PASS | KNOWN_DEVIATIONS.md:11.63.26 Arcane Ear runtime notes
+PASS | TC4_11.63.26_ARCANE_EAR_PORT_REPORT_RU.md:Arcane Ear / Магическое ухо
+PASS | TC4_11.63.26_REMAINING_OBJECTS_AUDIT_RU.md:**192**
+PASS | .github/workflows/build.yml:tc4_116325_arcane_bore_parity_guard.py
+PASS | .github/workflows/build.yml:tc4_116326_arcane_ear_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116325_arcane_bore_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116326_arcane_ear_parity_guard.py
+SUMMARY | 140/140 passed
+
+RC=0
+
+===== CHECK 91/104: python3 tools/tc4_116327_arcane_pressure_plate_parity_guard.py =====
+PASS | build_version_116327
+PASS | mods_version_116327
+PASS | manifest_version_116327
+PASS | manifest_count_at_least_226
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:BooleanProperty POWERED = BlockStateProperties.POWERED
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:IntegerProperty SETTING = IntegerProperty.create("setting", 0, 2)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.0D, 15.0D)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:Block.box(1.0D, 0.0D, 1.0D, 15.0D, 0.5D, 15.0D)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:new AABB(0.125D, 0.0D, 0.125D, 0.875D, 0.25D, 0.875D)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:CHECK_TICKS = 20
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:registerDefaultState
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:builder.add(POWERED, SETTING)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:new ArcanePressurePlateBlockEntity(pos, state)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:plate.initializeOwner(player)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:plate.cycleSetting(player)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:message.thaumcraft.arcane_pressure_plate.setting_
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:updatePlate(level, pos
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:entity.isIgnoringBlockTriggers()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:level.getEntitiesOfClass(Entity.class, scan, plate::shouldTrigger)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:level.scheduleTick(pos, this, CHECK_TICKS)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:SoundSource.BLOCKS, 0.2F
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:shouldPower ? 0.6F : 0.5F
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:state.getValue(POWERED) ? 15 : 0
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:side == Direction.UP ? 15 : 0
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:Shapes.empty()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:isFaceSturdy
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:PushReaction.BLOCK
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcanePressurePlateBlock.java:canEntityDestroy
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:extends BlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:private UUID owner = NIL_UUID
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:standardAccess = new LinkedHashSet
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:fullAccess = new LinkedHashSet
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:private byte setting
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:initializeOwner(Player player)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:player.getUUID()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:hasAccess(Player player)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:hasFullAccess(Player player)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:mayBindKey(Player player, boolean goldKey)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:isOwner(player) || (!goldKey && hasFullAccess(player))
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:mayConfigure(Player player)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:addAccess(Player player, boolean full)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:(setting() + 1) % 3
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:entity.isIgnoringBlockTriggers()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:mode == 1 ? !hasAccess(player) : hasAccess(player)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:state.setValue(ArcanePressurePlateBlock.SETTING, setting())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:tag.putUUID("Owner"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:tag.putByte("setting"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:tag.put("StandardAccess"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:tag.put("FullAccess"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:NbtUtils.createUUID
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:NbtUtils.loadUUID
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:getUpdateTag()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:getUpdatePacket()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcanePressurePlateBlockEntity.java:onDataPacket
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:private final boolean gold
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:properties.stacksTo(64)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:instanceof ArcaneAccessTarget target
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:target.mayBindKey(player, gold)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:ItemStack bound = new ItemStack(this)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:bind(bound, context.getLevel(), target.keyBindingPos())
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:deliverBoundCopy
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:TC4Sounds.event("key")
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:SoundSource.BLOCKS, 1.0F, 0.9F
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:matches(held, context.getLevel(), target.keyBindingPos())
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:target.hasAccess(player)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:target.addAccess(player, gold)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:held.shrink(1)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:SoundSource.BLOCKS, 1.0F, 1.1F
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:player.setItemInHand(context.getHand(), bound)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:player.addItem(bound)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:player.drop(bound, false)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:tag.putString(TAG_DIMENSION, level.dimension().location().toString())
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:ResourceLocation.tryParse
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:dimension.equals(level.dimension().location())
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:isFoil(ItemStack stack)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:tooltip.thaumcraft.arcane_key.blank
+PASS | src/main/java/com/darkifov/thaumcraft/item/ArcaneKeyItem.java:tooltip.thaumcraft.arcane_key.bound
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_PRESSURE_PLATE = BLOCKS.register("tc4_block_arcane_pressure_plate"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:new ArcanePressurePlateBlock(
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_PRESSURE_PLATE_ITEM = ITEMS.register("tc4_block_arcane_pressure_plate"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:Map.entry("tc4_block_arcane_pressure_plate", ARCANE_PRESSURE_PLATE_ITEM)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_PRESSURE_PLATE_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ArcanePressurePlateBlockEntity::new, ARCANE_PRESSURE_PLATE.get()
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_keyiron" -> new ArcaneKeyItem
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_keygold" -> new ArcaneKeyItem
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:false);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:true);
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:instanceof ArcanePressurePlateBlockEntity plate
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:!plate.isOwner(player)
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:!player.getAbilities().instabuild
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:message.thaumcraft.arcane_pressure_plate.protected
+PASS | src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java:event.setCanceled(true)
+PASS | resource:src/main/resources/assets/thaumcraft/blockstates/tc4_block_arcane_pressure_plate.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/item/tc4_block_arcane_pressure_plate.json
+PASS | resource:src/main/resources/data/thaumcraft/loot_tables/blocks/tc4_block_arcane_pressure_plate.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_pressure_plate_0_up.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_pressure_plate_0_down.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_pressure_plate_1_up.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_pressure_plate_1_down.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_pressure_plate_2_up.json
+PASS | resource:src/main/resources/assets/thaumcraft/models/block/tc4_block_arcane_pressure_plate_2_down.json
+PASS | blockstate:powered=false,setting=0
+PASS | blockstate:powered=true,setting=0
+PASS | blockstate:powered=false,setting=1
+PASS | blockstate:powered=true,setting=1
+PASS | blockstate:powered=false,setting=2
+PASS | blockstate:powered=true,setting=2
+PASS | model_one_element_0_up
+PASS | model_from_0_up
+PASS | model_to_0_up
+PASS | model_texture_0_up
+PASS | model_one_element_0_down
+PASS | model_from_0_down
+PASS | model_to_0_down
+PASS | model_texture_0_down
+PASS | model_one_element_1_up
+PASS | model_from_1_up
+PASS | model_to_1_up
+PASS | model_texture_1_up
+PASS | model_one_element_1_down
+PASS | model_from_1_down
+PASS | model_to_1_down
+PASS | model_texture_1_down
+PASS | model_one_element_2_up
+PASS | model_from_2_up
+PASS | model_to_2_up
+PASS | model_texture_2_up
+PASS | model_one_element_2_down
+PASS | model_from_2_down
+PASS | model_to_2_down
+PASS | model_texture_2_down
+PASS | item_3d_parent
+PASS | loot_self
+PASS | axe_tag
+PASS | lang_item_plate_en_us.json
+PASS | lang_block_plate_en_us.json
+PASS | lang_iron_en_us.json
+PASS | lang_gold_en_us.json
+PASS | lang_plate_message_en_us.json_setting_0
+PASS | lang_plate_message_en_us.json_setting_1
+PASS | lang_plate_message_en_us.json_setting_2
+PASS | lang_plate_message_en_us.json_protected
+PASS | lang_key_message_en_us.json_no_permission
+PASS | lang_key_message_en_us.json_bound_plate
+PASS | lang_key_message_en_us.json_wrong_target
+PASS | lang_key_message_en_us.json_already_authorized
+PASS | lang_key_message_en_us.json_access_granted
+PASS | lang_key_message_en_us.json_full_access_granted
+PASS | lang_item_plate_ru_ru.json
+PASS | lang_block_plate_ru_ru.json
+PASS | lang_iron_ru_ru.json
+PASS | lang_gold_ru_ru.json
+PASS | lang_plate_message_ru_ru.json_setting_0
+PASS | lang_plate_message_ru_ru.json_setting_1
+PASS | lang_plate_message_ru_ru.json_setting_2
+PASS | lang_plate_message_ru_ru.json_protected
+PASS | lang_key_message_ru_ru.json_no_permission
+PASS | lang_key_message_ru_ru.json_bound_plate
+PASS | lang_key_message_ru_ru.json_wrong_target
+PASS | lang_key_message_ru_ru.json_already_authorized
+PASS | lang_key_message_ru_ru.json_access_granted
+PASS | lang_key_message_ru_ru.json_full_access_granted
+PASS | byte_exact:applate1
+PASS | byte_exact:applate2
+PASS | byte_exact:applate3
+PASS | byte_exact:keyiron
+PASS | byte_exact:keygold
+PASS | byte_exact:key_sound
+PASS | runtime_id:blocks.arcane_pressure_plate_three_owner_modes
+PASS | runtime_id:blocks.arcane_pressure_plate_shape_signal_and_tick_release
+PASS | runtime_id:blocks.arcane_pressure_plate_owner_break_and_piston_protection
+PASS | runtime_id:items.arcane_key_owner_binding_stack_handling
+PASS | runtime_id:items.arcane_key_access_levels_and_wrong_target
+PASS | runtime_id:blocks.arcane_pressure_plate_nbt_sync_and_multiplayer
+PASS | audit_version
+PASS | audit_fallback_189
+PASS | audit_item_146
+PASS | audit_block_43
+PASS | not_fallback:tc4_block_arcane_pressure_plate
+PASS | not_fallback:tc4_keyiron
+PASS | not_fallback:tc4_keygold
+PASS | README.md:11.63.27 — Arcane Pressure Plate
+PASS | KNOWN_DEVIATIONS.md:11.63.27 Arcane Pressure Plate
+PASS | TC4_11.63.27_ARCANE_PRESSURE_PLATE_KEYS_PORT_REPORT_RU.md:Arcane Pressure Plate / Магическая нажимная плита
+PASS | TC4_11.63.27_REMAINING_OBJECTS_AUDIT_RU.md:**189**
+PASS | .github/workflows/build.yml:tc4_116326_arcane_ear_parity_guard.py
+PASS | .github/workflows/build.yml:tc4_116327_arcane_pressure_plate_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116326_arcane_ear_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116327_arcane_pressure_plate_parity_guard.py
+SUMMARY | 193/193 passed
+
+RC=0
+
+===== CHECK 92/104: python3 tools/tc4_116328_arcane_lamp_parity_guard.py =====
+PASS | build_version_116328
+PASS | mods_version_116328
+PASS | manifest_version_116328
+PASS | manifest_count_232
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:DirectionProperty FACING = BlockStateProperties.FACING
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:Block.box(4.0D, 2.0D, 4.0D, 12.0D, 14.0D, 12.0D)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:context.getClickedFace().getOpposite()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:state.canSurvive(context.getLevel(), context.getClickedPos())
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:pos.relative(facing)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:isFaceSturdy(level, supportPos, facing.getOpposite())
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:changedSide == state.getValue(FACING)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:Blocks.AIR.defaultBlockState()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:new ArcaneLampBlockEntity(pos, state)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:ARCANE_LAMP_BLOCK_ENTITY.get()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:ArcaneLampBlockEntity::serverTick
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:RenderShape.MODEL
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:lamp.removeLights()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampBlock.java:PushReaction.BLOCK
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:new ArcaneLampLightBlockEntity(pos, state)
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:ARCANE_LAMP_LIGHT_BLOCK_ENTITY.get()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:ArcaneLampLightBlockEntity::serverTick
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:RenderShape.INVISIBLE
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:Shapes.empty()
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:propagatesSkylightDown
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:return 1.0F
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneLampLightBlock.java:PushReaction.DESTROY
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:extends BlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:LIGHT_RADIUS = 15
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:DARKNESS_THRESHOLD = 9
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:random.nextInt(16) - random.nextInt(16)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:Heightmap.Types.WORLD_SURFACE
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:Math.max(5, serverLevel.getMinBuildHeight())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:serverLevel.getMaxBuildHeight() - 1
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:serverLevel.hasChunkAt(target)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:serverLevel.isEmptyBlock(target)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:serverLevel.getMaxLocalRawBrightness(target) >= DARKNESS_THRESHOLD
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:ARCANE_LAMP_LIGHT.get().defaultBlockState()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:light.setSource(pos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:for (int dx = -LIGHT_RADIUS; dx <= LIGHT_RADIUS; dx++)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:for (int dy = -LIGHT_RADIUS; dy <= LIGHT_RADIUS; dy++)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:for (int dz = -LIGHT_RADIUS; dz <= LIGHT_RADIUS; dz++)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:serverLevel.getBlockState(cursor).is(ThaumcraftMod.ARCANE_LAMP_LIGHT.get())
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampBlockEntity.java:serverLevel.removeBlock(cursor, false)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:extends BlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:private BlockPos source = BlockPos.ZERO
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:private boolean hasSource
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:private int counter = -1
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:serverLevel.getRandom().nextInt(100)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:light.counter % 100 != 0
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:serverLevel.getBlockEntity(light.source) instanceof ArcaneLampBlockEntity
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:serverLevel.removeBlock(pos, false)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:sourcePos.immutable()
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:tag.putBoolean("HasSource"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:tag.putInt("sourceX"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:tag.putInt("sourceY"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:tag.putInt("sourceZ"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:tag.putInt("Counter"
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLampLightBlockEntity.java:tag.contains("Counter") ? tag.getInt("Counter") : -1
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LAMP = BLOCKS.register("tc4_block_arcane_lamp"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:new ArcaneLampBlock(
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:.strength(3.0F, 17.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:.noOcclusion().lightLevel(state -> 15)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LAMP_ITEM = ITEMS.register("tc4_block_arcane_lamp"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LAMP_LIGHT = BLOCKS.register("arcane_lamp_light"
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:new ArcaneLampLightBlock(
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:BlockBehaviour.Properties.of(Material.AIR)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:noCollission().noOcclusion().noLootTable().lightLevel(state -> 15)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:Map.entry("tc4_block_arcane_lamp", ARCANE_LAMP_ITEM)
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LAMP_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ArcaneLampBlockEntity::new, ARCANE_LAMP.get()
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ARCANE_LAMP_LIGHT_BLOCK_ENTITY
+PASS | src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java:ArcaneLampLightBlockEntity::new, ARCANE_LAMP_LIGHT.get()
+PASS | blockstate_model_facing=down
+PASS | blockstate_x_facing=down
+PASS | blockstate_y_facing=down
+PASS | blockstate_model_facing=up
+PASS | blockstate_x_facing=up
+PASS | blockstate_y_facing=up
+PASS | blockstate_model_facing=north
+PASS | blockstate_x_facing=north
+PASS | blockstate_y_facing=north
+PASS | blockstate_model_facing=south
+PASS | blockstate_x_facing=south
+PASS | blockstate_y_facing=south
+PASS | blockstate_model_facing=west
+PASS | blockstate_x_facing=west
+PASS | blockstate_y_facing=west
+PASS | blockstate_model_facing=east
+PASS | blockstate_x_facing=east
+PASS | blockstate_y_facing=east
+PASS | model_cutout
+PASS | model_no_ao
+PASS | model_side_texture
+PASS | model_top_texture
+PASS | model_three_elements
+PASS | body_from
+PASS | body_to
+PASS | nozzle_from
+PASS | nozzle_to
+PASS | cap_from
+PASS | cap_to
+PASS | item_3d_parent
+PASS | loot_self
+PASS | pickaxe_tag
+PASS | lang_item_en_us.json
+PASS | lang_block_en_us.json
+PASS | lang_item_ru_ru.json
+PASS | lang_block_ru_ru.json
+PASS | byte_exact_lamp_side
+PASS | mcmeta_present_lamp_side
+PASS | byte_exact_lamp_top
+PASS | mcmeta_present_lamp_top
+PASS | runtime_id_blocks.arcane_lamp_six_face_placement_and_support
+PASS | runtime_id_blocks.arcane_lamp_triangular_light_seeding
+PASS | runtime_id_blocks.arcane_lamp_surface_and_build_height_clamp
+PASS | runtime_id_blocks.arcane_lamp_light_source_nbt_and_self_cleanup
+PASS | runtime_id_blocks.arcane_lamp_removal_cube_cleanup
+PASS | runtime_id_blocks.arcane_lamp_multiplayer_visual_and_resource_reload
+PASS | audit_version
+PASS | audit_fallback_188
+PASS | audit_item_146
+PASS | audit_block_42
+PASS | not_fallback_arcane_lamp
+PASS | README.md:11.63.28 — Arcane Lamp
+PASS | KNOWN_DEVIATIONS.md:11.63.28 Arcane Lamp
+PASS | TC4_11.63.28_ARCANE_LAMP_PORT_REPORT_RU.md:Arcane Lamp / Магический светильник
+PASS | TC4_11.63.28_REMAINING_OBJECTS_AUDIT_RU.md:**188**
+PASS | .github/workflows/build.yml:tc4_116327_arcane_pressure_plate_parity_guard.py
+PASS | .github/workflows/build.yml:tc4_116328_arcane_lamp_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116327_arcane_pressure_plate_parity_guard.py
+PASS | .github/workflows/release.yml:tc4_116328_arcane_lamp_parity_guard.py
+SUMMARY | 133/133 passed
+
+RC=0
+
+===== CHECK 93/104: python3 tools/tc4_116329_simple_resource_families_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+PASS | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:class TC4SimpleResourceItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:enum Kind { MATERIAL, METAL_NUGGET, NEUTRAL_SHARD }
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:String material()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EdibleNuggetItem.java:nutrition(1)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EdibleNuggetItem.java:saturationMod(0.3F)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EdibleNuggetItem.java:getUseDuration
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EdibleNuggetItem.java:return 10
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4OreClusterItem.java:class TC4OreClusterItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4OreClusterItem.java:String material()
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new TC4EdibleNuggetItem(functionalProperties)
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new TC4OreClusterItem(functionalProperties, "iron")
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new ShardItem(functionalProperties, Aspect.AER, false)
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new ShardItem(functionalProperties, Aspect.PRAECANTATIO, true)
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:functionalProperties.fireResistant()
+PASS | dedicated_tc4_nuggetbeef
+PASS | dedicated_tc4_nuggetchicken
+PASS | dedicated_tc4_nuggetfish
+PASS | dedicated_tc4_nuggetpork
+PASS | dedicated_tc4_nuggetiron
+PASS | dedicated_tc4_nuggetcopper
+PASS | dedicated_tc4_nuggettin
+PASS | dedicated_tc4_nuggetsilver
+PASS | dedicated_tc4_nuggetlead
+PASS | dedicated_tc4_nuggetquicksilver
+PASS | dedicated_tc4_nuggetthaumium
+PASS | dedicated_tc4_nuggetvoid
+PASS | dedicated_tc4_shard
+PASS | dedicated_tc4_shard_aer
+PASS | dedicated_tc4_shard_aqua
+PASS | dedicated_tc4_shard_balanced
+PASS | dedicated_tc4_shard_ignis
+PASS | dedicated_tc4_shard_ordo
+PASS | dedicated_tc4_shard_perditio
+PASS | dedicated_tc4_shard_terra
+PASS | dedicated_tc4_clustercinnabar
+PASS | dedicated_tc4_clustercopper
+PASS | dedicated_tc4_clustergold
+PASS | dedicated_tc4_clusteriron
+PASS | dedicated_tc4_clusterlead
+PASS | dedicated_tc4_clustersilver
+PASS | dedicated_tc4_clustertin
+PASS | dedicated_tc4_amber
+PASS | dedicated_tc4_cloth
+PASS | dedicated_tc4_quicksilver
+PASS | dedicated_tc4_tallow
+PASS | dedicated_tc4_thaumiumingot
+PASS | dedicated_tc4_voidingot
+PASS | no_auto_migrate_tc4_amber
+PASS | no_auto_migrate_tc4_quicksilver
+PASS | no_auto_migrate_tc4_thaumiumingot
+PASS | no_auto_migrate_tc4_voidingot
+PASS | no_auto_migrate_tc4_nuggetthaumium
+PASS | no_auto_migrate_tc4_shard_aer
+PASS | no_auto_migrate_tc4_shard_terra
+PASS | no_auto_migrate_tc4_shard_ignis
+PASS | no_auto_migrate_tc4_shard_aqua
+PASS | no_auto_migrate_tc4_shard_ordo
+PASS | no_auto_migrate_tc4_shard_perditio
+PASS | no_auto_migrate_tc4_shard_balanced
+PASS | nugget_tag_iron
+PASS | nugget_tag_copper
+PASS | nugget_tag_tin
+PASS | nugget_tag_silver
+PASS | nugget_tag_lead
+PASS | nugget_tag_quicksilver
+PASS | nugget_tag_thaumium
+PASS | nugget_tag_void_metal
+PASS | cluster_tag_iron
+PASS | cluster_tag_gold
+PASS | cluster_tag_copper
+PASS | cluster_tag_tin
+PASS | cluster_tag_silver
+PASS | cluster_tag_lead
+PASS | cluster_tag_cinnabar
+PASS | tag_thaumcraft:tc4_thaumiumingot
+PASS | tag_thaumcraft:tc4_voidingot
+PASS | tag_thaumcraft:tc4_amber
+PASS | tag_thaumcraft:tc4_quicksilver
+PASS | tag_thaumcraft:tc4_tallow
+PASS | tag_thaumcraft:tc4_cloth
+PASS | primal_shard_tag_tc4_shard_aer
+PASS | primal_shard_tag_tc4_shard_terra
+PASS | primal_shard_tag_tc4_shard_ignis
+PASS | primal_shard_tag_tc4_shard_aqua
+PASS | primal_shard_tag_tc4_shard_ordo
+PASS | primal_shard_tag_tc4_shard_perditio
+PASS | model_tc4_nuggetbeef
+PASS | model_tc4_nuggetchicken
+PASS | model_tc4_nuggetfish
+PASS | model_tc4_nuggetpork
+PASS | model_tc4_nuggetiron
+PASS | model_tc4_nuggetcopper
+PASS | model_tc4_nuggettin
+PASS | model_tc4_nuggetsilver
+PASS | model_tc4_nuggetlead
+PASS | model_tc4_nuggetquicksilver
+PASS | model_tc4_nuggetthaumium
+PASS | model_tc4_nuggetvoid
+PASS | model_tc4_shard
+PASS | model_tc4_shard_aer
+PASS | model_tc4_shard_aqua
+PASS | model_tc4_shard_balanced
+PASS | model_tc4_shard_ignis
+PASS | model_tc4_shard_ordo
+PASS | model_tc4_shard_perditio
+PASS | model_tc4_shard_terra
+PASS | model_tc4_clustercinnabar
+PASS | model_tc4_clustercopper
+PASS | model_tc4_clustergold
+PASS | model_tc4_clusteriron
+PASS | model_tc4_clusterlead
+PASS | model_tc4_clustersilver
+PASS | model_tc4_clustertin
+PASS | model_tc4_amber
+PASS | model_tc4_cloth
+PASS | model_tc4_quicksilver
+PASS | model_tc4_tallow
+PASS | model_tc4_thaumiumingot
+PASS | model_tc4_voidingot
+PASS | lang_en_us.json_tc4_nuggetbeef
+PASS | lang_en_us.json_tc4_nuggetchicken
+PASS | lang_en_us.json_tc4_nuggetfish
+PASS | lang_en_us.json_tc4_nuggetpork
+PASS | lang_en_us.json_tc4_nuggetiron
+PASS | lang_en_us.json_tc4_nuggetcopper
+PASS | lang_en_us.json_tc4_nuggettin
+PASS | lang_en_us.json_tc4_nuggetsilver
+PASS | lang_en_us.json_tc4_nuggetlead
+PASS | lang_en_us.json_tc4_nuggetquicksilver
+PASS | lang_en_us.json_tc4_nuggetthaumium
+PASS | lang_en_us.json_tc4_nuggetvoid
+PASS | lang_en_us.json_tc4_shard
+PASS | lang_en_us.json_tc4_shard_aer
+PASS | lang_en_us.json_tc4_shard_aqua
+PASS | lang_en_us.json_tc4_shard_balanced
+PASS | lang_en_us.json_tc4_shard_ignis
+PASS | lang_en_us.json_tc4_shard_ordo
+PASS | lang_en_us.json_tc4_shard_perditio
+PASS | lang_en_us.json_tc4_shard_terra
+PASS | lang_en_us.json_tc4_clustercinnabar
+PASS | lang_en_us.json_tc4_clustercopper
+PASS | lang_en_us.json_tc4_clustergold
+PASS | lang_en_us.json_tc4_clusteriron
+PASS | lang_en_us.json_tc4_clusterlead
+PASS | lang_en_us.json_tc4_clustersilver
+PASS | lang_en_us.json_tc4_clustertin
+PASS | lang_en_us.json_tc4_amber
+PASS | lang_en_us.json_tc4_cloth
+PASS | lang_en_us.json_tc4_quicksilver
+PASS | lang_en_us.json_tc4_tallow
+PASS | lang_en_us.json_tc4_thaumiumingot
+PASS | lang_en_us.json_tc4_voidingot
+PASS | lang_ru_ru.json_tc4_nuggetbeef
+PASS | lang_ru_ru.json_tc4_nuggetchicken
+PASS | lang_ru_ru.json_tc4_nuggetfish
+PASS | lang_ru_ru.json_tc4_nuggetpork
+PASS | lang_ru_ru.json_tc4_nuggetiron
+PASS | lang_ru_ru.json_tc4_nuggetcopper
+PASS | lang_ru_ru.json_tc4_nuggettin
+PASS | lang_ru_ru.json_tc4_nuggetsilver
+PASS | lang_ru_ru.json_tc4_nuggetlead
+PASS | lang_ru_ru.json_tc4_nuggetquicksilver
+PASS | lang_ru_ru.json_tc4_nuggetthaumium
+PASS | lang_ru_ru.json_tc4_nuggetvoid
+PASS | lang_ru_ru.json_tc4_shard
+PASS | lang_ru_ru.json_tc4_shard_aer
+PASS | lang_ru_ru.json_tc4_shard_aqua
+PASS | lang_ru_ru.json_tc4_shard_balanced
+PASS | lang_ru_ru.json_tc4_shard_ignis
+PASS | lang_ru_ru.json_tc4_shard_ordo
+PASS | lang_ru_ru.json_tc4_shard_perditio
+PASS | lang_ru_ru.json_tc4_shard_terra
+PASS | lang_ru_ru.json_tc4_clustercinnabar
+PASS | lang_ru_ru.json_tc4_clustercopper
+PASS | lang_ru_ru.json_tc4_clustergold
+PASS | lang_ru_ru.json_tc4_clusteriron
+PASS | lang_ru_ru.json_tc4_clusterlead
+PASS | lang_ru_ru.json_tc4_clustersilver
+PASS | lang_ru_ru.json_tc4_clustertin
+PASS | lang_ru_ru.json_tc4_amber
+PASS | lang_ru_ru.json_tc4_cloth
+PASS | lang_ru_ru.json_tc4_quicksilver
+PASS | lang_ru_ru.json_tc4_tallow
+PASS | lang_ru_ru.json_tc4_thaumiumingot
+PASS | lang_ru_ru.json_tc4_voidingot
+PASS | smelt_tc4_clusteriron
+PASS | smelt_tc4_clustercinnabar
+PASS | smelt_tc4_clustergold
+PASS | smelt_tc4_clustercopper
+PASS | runtime_items.simple_resources_meat_nugget_food
+PASS | runtime_items.simple_resources_nugget_tags_and_recipes
+PASS | runtime_items.simple_resources_shard_aspects
+PASS | runtime_items.simple_resources_cluster_smelting
+PASS | runtime_items.simple_resources_ingot_and_material_tags
+PASS | runtime_items.simple_resources_save_reload_multiplayer
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_nuggetbeef
+PASS | not_fallback_tc4_nuggetchicken
+PASS | not_fallback_tc4_nuggetfish
+PASS | not_fallback_tc4_nuggetpork
+PASS | not_fallback_tc4_nuggetiron
+PASS | not_fallback_tc4_nuggetcopper
+PASS | not_fallback_tc4_nuggettin
+PASS | not_fallback_tc4_nuggetsilver
+PASS | not_fallback_tc4_nuggetlead
+PASS | not_fallback_tc4_nuggetquicksilver
+PASS | not_fallback_tc4_nuggetthaumium
+PASS | not_fallback_tc4_nuggetvoid
+PASS | not_fallback_tc4_shard
+PASS | not_fallback_tc4_shard_aer
+PASS | not_fallback_tc4_shard_aqua
+PASS | not_fallback_tc4_shard_balanced
+PASS | not_fallback_tc4_shard_ignis
+PASS | not_fallback_tc4_shard_ordo
+PASS | not_fallback_tc4_shard_perditio
+PASS | not_fallback_tc4_shard_terra
+PASS | not_fallback_tc4_clustercinnabar
+PASS | not_fallback_tc4_clustercopper
+PASS | not_fallback_tc4_clustergold
+PASS | not_fallback_tc4_clusteriron
+PASS | not_fallback_tc4_clusterlead
+PASS | not_fallback_tc4_clustersilver
+PASS | not_fallback_tc4_clustertin
+PASS | not_fallback_tc4_amber
+PASS | not_fallback_tc4_cloth
+PASS | not_fallback_tc4_quicksilver
+PASS | not_fallback_tc4_tallow
+PASS | not_fallback_tc4_thaumiumingot
+PASS | not_fallback_tc4_voidingot
+PASS | README.md:11.63.29 — Simple Resource Families
+PASS | KNOWN_DEVIATIONS.md:11.63.29 Simple Resource Families
+PASS | TC4_11.63.29_SIMPLE_RESOURCE_FAMILIES_PORT_REPORT_RU.md:**154 fallback-ID**
+PASS | TC4_11.63.29_REMAINING_OBJECTS_AUDIT_RU.md:**154**
+SUMMARY | 240/240 passed
+
+RC=0
+
+===== CHECK 94/104: python3 tools/tc4_116330_passive_crafting_components_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+PASS | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:CRAFTING_COMPONENT
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4SimpleResourceItem.java:String material()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:class TC4EmptyGolemUpgradeItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:properties.stacksTo(64)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EmptyGolemUpgradeItem.java:tc4_golem_upgrade_empty.desc
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_coin"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"gold_coin"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_dust"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"salis_mundus"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_filter"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"vis_filter"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_mirrorglass"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"mirrored_glass"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_voidseed"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:"void_seed"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_golem_upgrade_empty"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:Rarity.UNCOMMON
+PASS | dedicated_tc4_coin
+PASS | dedicated_tc4_dust
+PASS | dedicated_tc4_filter
+PASS | dedicated_tc4_mirrorglass
+PASS | dedicated_tc4_voidseed
+PASS | dedicated_tc4_golem_upgrade_empty
+PASS | model_tc4_coin
+PASS | model_tc4_dust
+PASS | model_tc4_filter
+PASS | model_tc4_mirrorglass
+PASS | model_tc4_voidseed
+PASS | model_tc4_golem_upgrade_empty
+PASS | texture_tc4_coin
+PASS | texture_tc4_dust
+PASS | texture_tc4_filter
+PASS | texture_tc4_mirrorglass
+PASS | texture_tc4_voidseed
+PASS | texture_tc4_golem_upgrade_empty
+PASS | lang_en_us.json_tc4_coin
+PASS | lang_en_us.json_tc4_dust
+PASS | lang_en_us.json_tc4_filter
+PASS | lang_en_us.json_tc4_mirrorglass
+PASS | lang_en_us.json_tc4_voidseed
+PASS | lang_en_us.json_tc4_golem_upgrade_empty
+PASS | tooltip_en_us.json
+PASS | lang_ru_ru.json_tc4_coin
+PASS | lang_ru_ru.json_tc4_dust
+PASS | lang_ru_ru.json_tc4_filter
+PASS | lang_ru_ru.json_tc4_mirrorglass
+PASS | lang_ru_ru.json_tc4_voidseed
+PASS | lang_ru_ru.json_tc4_golem_upgrade_empty
+PASS | tooltip_ru_ru.json
+PASS | english_name_tc4_coin
+PASS | english_name_tc4_dust
+PASS | english_name_tc4_filter
+PASS | english_name_tc4_mirrorglass
+PASS | english_name_tc4_voidseed
+PASS | english_name_tc4_golem_upgrade_empty
+PASS | tag_thaumcraft:tc4_coin
+PASS | tag_thaumcraft:tc4_dust
+PASS | tag_thaumcraft:tc4_filter
+PASS | tag_thaumcraft:tc4_mirrorglass
+PASS | tag_thaumcraft:tc4_voidseed
+PASS | tag_thaumcraft:tc4_golem_upgrade_empty
+PASS | family_tag_tc4_coin
+PASS | family_tag_tc4_dust
+PASS | family_tag_tc4_filter
+PASS | family_tag_tc4_mirrorglass
+PASS | family_tag_tc4_voidseed
+PASS | family_tag_tc4_golem_upgrade_empty
+PASS | recipe_reference_tc4_dust
+PASS | recipe_reference_tc4_filter
+PASS | recipe_reference_tc4_mirrorglass
+PASS | recipe_reference_tc4_voidseed
+PASS | recipe_reference_tc4_golem_upgrade_empty
+PASS | runtime_items.passive_components_registry_and_names
+PASS | runtime_items.passive_components_recipe_compatibility
+PASS | runtime_items.passive_components_tags
+PASS | runtime_items.blank_golem_upgrade_properties
+PASS | runtime_items.passive_components_save_reload
+PASS | runtime_items.passive_components_multiplayer_dedicated
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_coin
+PASS | not_fallback_tc4_dust
+PASS | not_fallback_tc4_filter
+PASS | not_fallback_tc4_mirrorglass
+PASS | not_fallback_tc4_voidseed
+PASS | not_fallback_tc4_golem_upgrade_empty
+PASS | .github/workflows/build.yml:python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+PASS | .github/workflows/release.yml:python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+PASS | README.md:11.63.30 — Passive Crafting Components
+PASS | KNOWN_DEVIATIONS.md:11.63.30 Passive Crafting Components
+PASS | TC4_11.63.30_PASSIVE_CRAFTING_COMPONENTS_PORT_REPORT_RU.md:**148 fallback-ID**
+PASS | TC4_11.63.30_REMAINING_OBJECTS_AUDIT_RU.md:**148**
+SUMMARY | 98/98 passed
+
+RC=0
+
+===== CHECK 95/104: python3 tools/tc4_116331_simple_consumables_label_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+PASS | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:class ZombieBrainItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:.nutrition(4)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:.saturationMod(0.2F)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:.meat()
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:MobEffects.HUNGER
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:30 * 20
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:0.8F
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:nextFloat() < 0.1F
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:addWarpSticky(player, 1)
+PASS | src/main/java/com/darkifov/thaumcraft/item/ZombieBrainItem.java:addWarpPermanent(player, 1 + level.random.nextInt(3))
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:class TripleMeatTreatItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:.nutrition(6)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:.saturationMod(0.8F)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:.meat()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:.alwaysEat()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:MobEffects.REGENERATION
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:5 * 20
+PASS | src/main/java/com/darkifov/thaumcraft/item/TripleMeatTreatItem.java:0.66F
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4KnowledgeFragmentItem.java:class TC4KnowledgeFragmentItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4KnowledgeFragmentItem.java:aspect.isPrimal()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4KnowledgeFragmentItem.java:1 + level.random.nextInt(2)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4KnowledgeFragmentItem.java:PlayerAspectKnowledge.addPool
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4KnowledgeFragmentItem.java:stack.shrink(1)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4KnowledgeFragmentItem.java:ThaumcraftNetwork.syncAspectKnowledge
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_brain"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new ZombieBrainItem
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_tripletreat"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new TripleMeatTreatItem
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_knowledgefragment"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new TC4KnowledgeFragmentItem
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_label"
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:new JarLabelItem
+PASS | src/main/java/com/darkifov/thaumcraft/block/AlembicBlock.java:held.getItem() instanceof JarLabelItem
+PASS | src/main/java/com/darkifov/thaumcraft/recipe/JarLabelRecipe.java:stack.getItem() instanceof JarLabelItem
+PASS | dedicated_tc4_brain
+PASS | dedicated_tc4_tripletreat
+PASS | dedicated_tc4_knowledgefragment
+PASS | dedicated_tc4_label
+PASS | model_tc4_brain
+PASS | model_tc4_tripletreat
+PASS | model_tc4_knowledgefragment
+PASS | model_tc4_label
+PASS | texture_tc4_brain
+PASS | texture_tc4_tripletreat
+PASS | texture_tc4_knowledgefragment
+PASS | texture_tc4_label
+PASS | lang_en_us.json_tc4_brain
+PASS | tooltip_en_us.json_tc4_brain
+PASS | lang_en_us.json_tc4_tripletreat
+PASS | tooltip_en_us.json_tc4_tripletreat
+PASS | lang_en_us.json_tc4_knowledgefragment
+PASS | tooltip_en_us.json_tc4_knowledgefragment
+PASS | lang_en_us.json_tc4_label
+PASS | tooltip_en_us.json_tc4_label
+PASS | lang_ru_ru.json_tc4_brain
+PASS | tooltip_ru_ru.json_tc4_brain
+PASS | lang_ru_ru.json_tc4_tripletreat
+PASS | tooltip_ru_ru.json_tc4_tripletreat
+PASS | lang_ru_ru.json_tc4_knowledgefragment
+PASS | tooltip_ru_ru.json_tc4_knowledgefragment
+PASS | lang_ru_ru.json_tc4_label
+PASS | tooltip_ru_ru.json_tc4_label
+PASS | english_name_tc4_brain
+PASS | english_name_tc4_tripletreat
+PASS | english_name_tc4_knowledgefragment
+PASS | english_name_tc4_label
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/zombie_brains.json_thaumcraft:tc4_brain
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/triple_meat_treats.json_thaumcraft:tc4_tripletreat
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/knowledge_fragments.json_thaumcraft:tc4_knowledgefragment
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/jar_labels.json_thaumcraft:jar_label
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/jar_labels.json_thaumcraft:tc4_label
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/simple_consumables_and_labels.json_thaumcraft:tc4_brain
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/simple_consumables_and_labels.json_thaumcraft:tc4_tripletreat
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/simple_consumables_and_labels.json_thaumcraft:tc4_knowledgefragment
+PASS | tag_src/main/resources/data/thaumcraft/tags/items/simple_consumables_and_labels.json_thaumcraft:tc4_label
+PASS | runtime_items.zombie_brain_food_and_hunger
+PASS | runtime_items.zombie_brain_warp_distribution
+PASS | runtime_items.triple_meat_treat_food
+PASS | runtime_items.triple_meat_treat_regeneration
+PASS | runtime_items.knowledge_fragment_primal_pool
+PASS | runtime_items.legacy_jar_label_interactions
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_brain
+PASS | not_fallback_tc4_tripletreat
+PASS | not_fallback_tc4_knowledgefragment
+PASS | not_fallback_tc4_label
+PASS | worldgen_preserved_MagicalForestWorldgenDiagnostics.java
+PASS | worldgen_preserved_MagicalForestWorldgenInstaller.java
+PASS | worldgen_preserved_TC4Biomes.java
+PASS | worldgen_preserved_TC4TreeGenerator.java
+PASS | worldgen_preserved_TC4WorldgenRuntime.java
+PASS | worldgen_preserved_TC4WorldgenSavedData.java
+PASS | .github/workflows/build.yml:python3 tools/tc4_116331_simple_consumables_label_parity_guard.py
+PASS | .github/workflows/release.yml:python3 tools/tc4_116331_simple_consumables_label_parity_guard.py
+PASS | README.md:11.63.31 — Simple Consumables and Legacy Jar Label
+PASS | KNOWN_DEVIATIONS.md:11.63.31 Simple Consumables and Legacy Jar Label
+PASS | TC4_11.63.31_SIMPLE_CONSUMABLES_LABEL_PORT_REPORT_RU.md:**144 fallback-ID**
+PASS | TC4_11.63.31_REMAINING_OBJECTS_AUDIT_RU.md:**144**
+SUMMARY | 105/105 passed
+
+RC=0
+
+===== CHECK 96/104: python3 tools/tc4_116332_wand_component_families_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+PASS | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:class TC4WandComponentItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:enum Family { ACTIVE_CAP, INERT_CAP, WAND_ROD, STAFF_ROD }
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:activeCap(Properties properties, WandCapType cap)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:inertCap(Properties properties, WandCapType cap)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:rod(Properties properties, WandRodType rod)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:rod.staff() ? Family.STAFF_ROD : Family.WAND_ROD
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:Math.round(cap.visCostModifier() * 100.0F)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:rod.baseCapacity()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:rod.regeneratesAllPrimals()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4WandComponentItem.java:rod.regeneratedAspect()
+PASS | active_tc4_wand_cap_iron
+PASS | active_tc4_wand_cap_gold
+PASS | active_tc4_wand_cap_thaumium
+PASS | active_tc4_wand_cap_copper
+PASS | active_tc4_wand_cap_silver
+PASS | active_tc4_wand_cap_void
+PASS | inert_tc4_wand_cap_silver_inert
+PASS | inert_tc4_wand_cap_thaumium_inert
+PASS | inert_tc4_wand_cap_void_inert
+PASS | rod_tc4_wand_rod_greatwood
+PASS | rod_tc4_wand_rod_obsidian
+PASS | rod_tc4_wand_rod_blaze
+PASS | rod_tc4_wand_rod_ice
+PASS | rod_tc4_wand_rod_quartz
+PASS | rod_tc4_wand_rod_bone
+PASS | rod_tc4_wand_rod_reed
+PASS | rod_tc4_wand_rod_silverwood
+PASS | rod_tc4_staff_rod_greatwood
+PASS | rod_tc4_staff_rod_obsidian
+PASS | rod_tc4_staff_rod_blaze
+PASS | rod_tc4_staff_rod_ice
+PASS | rod_tc4_staff_rod_quartz
+PASS | rod_tc4_staff_rod_bone
+PASS | rod_tc4_staff_rod_reed
+PASS | rod_tc4_staff_rod_silverwood
+PASS | rod_tc4_staff_rod_primal
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:IRON("iron", "wand_cap_iron", 1.1F
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:GOLD("gold", "wand_cap_gold", 1.0F
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:THAUMIUM("thaumium", "wand_cap_thaumium", 0.9F
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:COPPER("copper", "wand_cap_copper", 1.1F
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:SILVER("silver", "wand_cap_silver", 1.0F
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:VOID("void", "wand_cap_void", 0.8F
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:this == COPPER && (aspect == Aspect.ORDO || aspect == Aspect.PERDITIO)
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandCapType.java:this == SILVER && (aspect == Aspect.AER || aspect == Aspect.TERRA || aspect == Aspect.IGNIS || aspect == Aspect.AQUA)
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:GREATWOOD("greatwood", "wand_rod_greatwood", 50
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:OBSIDIAN("obsidian", "wand_rod_obsidian", 75
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:SILVERWOOD("silverwood", "wand_rod_silverwood", 100
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:GREATWOOD_STAFF("greatwood_staff", "wand_rod_greatwood", 125
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:OBSIDIAN_STAFF("obsidian_staff", "wand_rod_obsidian", 175
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:SILVERWOOD_STAFF("silverwood_staff", "wand_rod_silverwood", 250
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:PRIMAL_STAFF("primal_staff", "wand_rod_primal", 250
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:case OBSIDIAN, OBSIDIAN_STAFF -> Aspect.TERRA
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:case BLAZE, BLAZE_STAFF -> Aspect.IGNIS
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:case ICE, ICE_STAFF -> Aspect.AQUA
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:case QUARTZ, QUARTZ_STAFF -> Aspect.ORDO
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:case BONE, BONE_STAFF -> Aspect.PERDITIO
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:case REED, REED_STAFF -> Aspect.AER
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandRodType.java:return this == PRIMAL_STAFF;
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_cap_iron
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_cap_gold
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_cap_thaumium
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_cap_copper
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_cap_silver
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_cap_void
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_greatwood
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_obsidian
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_blaze
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_ice
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_quartz
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_bone
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_reed
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_wand_rod_silverwood
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_greatwood
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_obsidian
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_blaze
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_ice
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_quartz
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_bone
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_reed
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_silverwood
+PASS | src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java:tc4_staff_rod_primal
+PASS | inert_not_assembly_tc4_wand_cap_silver_inert
+PASS | inert_not_assembly_tc4_wand_cap_thaumium_inert
+PASS | inert_not_assembly_tc4_wand_cap_void_inert
+PASS | model_tc4_wand_cap_iron
+PASS | texture_tc4_wand_cap_iron
+PASS | model_tc4_wand_cap_gold
+PASS | texture_tc4_wand_cap_gold
+PASS | model_tc4_wand_cap_thaumium
+PASS | texture_tc4_wand_cap_thaumium
+PASS | model_tc4_wand_cap_copper
+PASS | texture_tc4_wand_cap_copper
+PASS | model_tc4_wand_cap_silver
+PASS | texture_tc4_wand_cap_silver
+PASS | model_tc4_wand_cap_void
+PASS | texture_tc4_wand_cap_void
+PASS | model_tc4_wand_cap_silver_inert
+PASS | texture_tc4_wand_cap_silver_inert
+PASS | model_tc4_wand_cap_thaumium_inert
+PASS | texture_tc4_wand_cap_thaumium_inert
+PASS | model_tc4_wand_cap_void_inert
+PASS | texture_tc4_wand_cap_void_inert
+PASS | model_tc4_wand_rod_greatwood
+PASS | texture_tc4_wand_rod_greatwood
+PASS | model_tc4_wand_rod_obsidian
+PASS | texture_tc4_wand_rod_obsidian
+PASS | model_tc4_wand_rod_blaze
+PASS | texture_tc4_wand_rod_blaze
+PASS | model_tc4_wand_rod_ice
+PASS | texture_tc4_wand_rod_ice
+PASS | model_tc4_wand_rod_quartz
+PASS | texture_tc4_wand_rod_quartz
+PASS | model_tc4_wand_rod_bone
+PASS | texture_tc4_wand_rod_bone
+PASS | model_tc4_wand_rod_reed
+PASS | texture_tc4_wand_rod_reed
+PASS | model_tc4_wand_rod_silverwood
+PASS | texture_tc4_wand_rod_silverwood
+PASS | model_tc4_staff_rod_greatwood
+PASS | texture_tc4_staff_rod_greatwood
+PASS | model_tc4_staff_rod_obsidian
+PASS | texture_tc4_staff_rod_obsidian
+PASS | model_tc4_staff_rod_blaze
+PASS | texture_tc4_staff_rod_blaze
+PASS | model_tc4_staff_rod_ice
+PASS | texture_tc4_staff_rod_ice
+PASS | model_tc4_staff_rod_quartz
+PASS | texture_tc4_staff_rod_quartz
+PASS | model_tc4_staff_rod_bone
+PASS | texture_tc4_staff_rod_bone
+PASS | model_tc4_staff_rod_reed
+PASS | texture_tc4_staff_rod_reed
+PASS | model_tc4_staff_rod_silverwood
+PASS | texture_tc4_staff_rod_silverwood
+PASS | model_tc4_staff_rod_primal
+PASS | texture_tc4_staff_rod_primal
+PASS | english_tc4_wand_cap_iron
+PASS | english_tc4_wand_cap_gold
+PASS | english_tc4_wand_cap_thaumium
+PASS | english_tc4_wand_cap_copper
+PASS | english_tc4_wand_cap_silver
+PASS | english_tc4_wand_cap_silver_inert
+PASS | english_tc4_wand_cap_thaumium_inert
+PASS | english_tc4_wand_cap_void
+PASS | english_tc4_wand_cap_void_inert
+PASS | english_tc4_wand_rod_greatwood
+PASS | english_tc4_wand_rod_obsidian
+PASS | english_tc4_wand_rod_silverwood
+PASS | english_tc4_wand_rod_ice
+PASS | english_tc4_wand_rod_quartz
+PASS | english_tc4_wand_rod_reed
+PASS | english_tc4_wand_rod_blaze
+PASS | english_tc4_wand_rod_bone
+PASS | english_tc4_staff_rod_greatwood
+PASS | english_tc4_staff_rod_obsidian
+PASS | english_tc4_staff_rod_silverwood
+PASS | english_tc4_staff_rod_ice
+PASS | english_tc4_staff_rod_quartz
+PASS | english_tc4_staff_rod_reed
+PASS | english_tc4_staff_rod_blaze
+PASS | english_tc4_staff_rod_bone
+PASS | english_tc4_staff_rod_primal
+PASS | russian_tc4_wand_cap_iron
+PASS | russian_tc4_wand_cap_gold
+PASS | russian_tc4_wand_cap_thaumium
+PASS | russian_tc4_wand_cap_copper
+PASS | russian_tc4_wand_cap_silver
+PASS | russian_tc4_wand_cap_void
+PASS | russian_tc4_wand_cap_silver_inert
+PASS | russian_tc4_wand_cap_thaumium_inert
+PASS | russian_tc4_wand_cap_void_inert
+PASS | russian_tc4_wand_rod_greatwood
+PASS | russian_tc4_wand_rod_obsidian
+PASS | russian_tc4_wand_rod_blaze
+PASS | russian_tc4_wand_rod_ice
+PASS | russian_tc4_wand_rod_quartz
+PASS | russian_tc4_wand_rod_bone
+PASS | russian_tc4_wand_rod_reed
+PASS | russian_tc4_wand_rod_silverwood
+PASS | russian_tc4_staff_rod_greatwood
+PASS | russian_tc4_staff_rod_obsidian
+PASS | russian_tc4_staff_rod_blaze
+PASS | russian_tc4_staff_rod_ice
+PASS | russian_tc4_staff_rod_quartz
+PASS | russian_tc4_staff_rod_bone
+PASS | russian_tc4_staff_rod_reed
+PASS | russian_tc4_staff_rod_silverwood
+PASS | russian_tc4_staff_rod_primal
+PASS | tooltip_en_inert
+PASS | tooltip_ru_inert
+PASS | tooltip_en_vis_cost
+PASS | tooltip_ru_vis_cost
+PASS | tooltip_en_copper_special
+PASS | tooltip_ru_copper_special
+PASS | tooltip_en_silver_special
+PASS | tooltip_ru_silver_special
+PASS | tooltip_en_capacity
+PASS | tooltip_ru_capacity
+PASS | tooltip_en_regen_all
+PASS | tooltip_ru_regen_all
+PASS | tooltip_en_regen_one
+PASS | tooltip_ru_regen_one
+PASS | tag_wand_caps_tc4_wand_cap_iron
+PASS | tag_wand_caps_tc4_wand_cap_gold
+PASS | tag_wand_caps_tc4_wand_cap_thaumium
+PASS | tag_wand_caps_tc4_wand_cap_copper
+PASS | tag_wand_caps_tc4_wand_cap_silver
+PASS | tag_wand_caps_tc4_wand_cap_void
+PASS | tag_inert_wand_caps_tc4_wand_cap_silver_inert
+PASS | tag_inert_wand_caps_tc4_wand_cap_thaumium_inert
+PASS | tag_inert_wand_caps_tc4_wand_cap_void_inert
+PASS | tag_wand_rods_tc4_wand_rod_greatwood
+PASS | tag_wand_rods_tc4_wand_rod_obsidian
+PASS | tag_wand_rods_tc4_wand_rod_blaze
+PASS | tag_wand_rods_tc4_wand_rod_ice
+PASS | tag_wand_rods_tc4_wand_rod_quartz
+PASS | tag_wand_rods_tc4_wand_rod_bone
+PASS | tag_wand_rods_tc4_wand_rod_reed
+PASS | tag_wand_rods_tc4_wand_rod_silverwood
+PASS | tag_staff_rods_tc4_staff_rod_greatwood
+PASS | tag_staff_rods_tc4_staff_rod_obsidian
+PASS | tag_staff_rods_tc4_staff_rod_blaze
+PASS | tag_staff_rods_tc4_staff_rod_ice
+PASS | tag_staff_rods_tc4_staff_rod_quartz
+PASS | tag_staff_rods_tc4_staff_rod_bone
+PASS | tag_staff_rods_tc4_staff_rod_reed
+PASS | tag_staff_rods_tc4_staff_rod_silverwood
+PASS | tag_staff_rods_tc4_staff_rod_primal
+PASS | tag_wand_components_tc4_wand_cap_iron
+PASS | tag_wand_components_tc4_wand_cap_gold
+PASS | tag_wand_components_tc4_wand_cap_thaumium
+PASS | tag_wand_components_tc4_wand_cap_copper
+PASS | tag_wand_components_tc4_wand_cap_silver
+PASS | tag_wand_components_tc4_wand_cap_void
+PASS | tag_wand_components_tc4_wand_cap_silver_inert
+PASS | tag_wand_components_tc4_wand_cap_thaumium_inert
+PASS | tag_wand_components_tc4_wand_cap_void_inert
+PASS | tag_wand_components_tc4_wand_rod_greatwood
+PASS | tag_wand_components_tc4_wand_rod_obsidian
+PASS | tag_wand_components_tc4_wand_rod_blaze
+PASS | tag_wand_components_tc4_wand_rod_ice
+PASS | tag_wand_components_tc4_wand_rod_quartz
+PASS | tag_wand_components_tc4_wand_rod_bone
+PASS | tag_wand_components_tc4_wand_rod_reed
+PASS | tag_wand_components_tc4_wand_rod_silverwood
+PASS | tag_wand_components_tc4_staff_rod_greatwood
+PASS | tag_wand_components_tc4_staff_rod_obsidian
+PASS | tag_wand_components_tc4_staff_rod_blaze
+PASS | tag_wand_components_tc4_staff_rod_ice
+PASS | tag_wand_components_tc4_staff_rod_quartz
+PASS | tag_wand_components_tc4_staff_rod_bone
+PASS | tag_wand_components_tc4_staff_rod_reed
+PASS | tag_wand_components_tc4_staff_rod_silverwood
+PASS | tag_wand_components_tc4_staff_rod_primal
+PASS | runtime_items.wand_components_registry_and_names
+PASS | runtime_items.wand_active_caps_assembly
+PASS | runtime_items.wand_inert_caps_rejected
+PASS | runtime_items.wand_rods_capacity_and_regen
+PASS | runtime_items.staff_rods_capacity_and_primal
+PASS | runtime_items.wand_components_save_reload_multiplayer
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_wand_cap_iron
+PASS | not_fallback_tc4_wand_cap_gold
+PASS | not_fallback_tc4_wand_cap_thaumium
+PASS | not_fallback_tc4_wand_cap_copper
+PASS | not_fallback_tc4_wand_cap_silver
+PASS | not_fallback_tc4_wand_cap_void
+PASS | not_fallback_tc4_wand_cap_silver_inert
+PASS | not_fallback_tc4_wand_cap_thaumium_inert
+PASS | not_fallback_tc4_wand_cap_void_inert
+PASS | not_fallback_tc4_wand_rod_greatwood
+PASS | not_fallback_tc4_wand_rod_obsidian
+PASS | not_fallback_tc4_wand_rod_blaze
+PASS | not_fallback_tc4_wand_rod_ice
+PASS | not_fallback_tc4_wand_rod_quartz
+PASS | not_fallback_tc4_wand_rod_bone
+PASS | not_fallback_tc4_wand_rod_reed
+PASS | not_fallback_tc4_wand_rod_silverwood
+PASS | not_fallback_tc4_staff_rod_greatwood
+PASS | not_fallback_tc4_staff_rod_obsidian
+PASS | not_fallback_tc4_staff_rod_blaze
+PASS | not_fallback_tc4_staff_rod_ice
+PASS | not_fallback_tc4_staff_rod_quartz
+PASS | not_fallback_tc4_staff_rod_bone
+PASS | not_fallback_tc4_staff_rod_reed
+PASS | not_fallback_tc4_staff_rod_silverwood
+PASS | not_fallback_tc4_staff_rod_primal
+PASS | worldgen_preserved_MagicalForestWorldgenDiagnostics.java
+PASS | worldgen_preserved_MagicalForestWorldgenInstaller.java
+PASS | worldgen_preserved_TC4Biomes.java
+PASS | worldgen_preserved_TC4TreeGenerator.java
+PASS | worldgen_preserved_TC4WorldgenRuntime.java
+PASS | worldgen_preserved_TC4WorldgenSavedData.java
+PASS | .github/workflows/build.yml:python3 tools/tc4_116332_wand_component_families_parity_guard.py
+PASS | .github/workflows/release.yml:python3 tools/tc4_116332_wand_component_families_parity_guard.py
+PASS | README.md:11.63.32 — Wand Component Families
+PASS | KNOWN_DEVIATIONS.md:11.63.32 Wand Component Families
+PASS | TC4_11.63.32_WAND_COMPONENT_FAMILIES_PORT_REPORT_RU.md:**118 fallback-ID**
+PASS | TC4_11.63.32_REMAINING_OBJECTS_AUDIT_RU.md:**118**
+SUMMARY | 306/306 passed
+
+RC=0
+
+===== CHECK 97/104: python3 tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py =====
+PASS | build_version
+PASS | mods_version
+PASS | manifest_version
+PASS | manifest_count
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:class TC4LootBagItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:properties.stacksTo(16)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:case 1 -> Rarity.UNCOMMON
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:case 2 -> Rarity.RARE
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:TC4OuterLandsLootAdapter.openLootBag(lootRarity
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:TC4Sounds.event("coins")
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:0.75F, 1.0F
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:stack.shrink(1)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4LootBagItem.java:Component.translatable("tc.lootbag")
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:class TC4EssenceItem extends EssentiaPhialItem
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:TRANSFER_AMOUNT = 8
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:properties.stacksTo(64)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:for (Aspect aspect : Aspect.values())
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:setEssentia(filled, aspect, TRANSFER_AMOUNT)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:tintIndex != 1
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EssenceItem.java:aspect.nativeColor()
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4CrimsonRitesItem.java:class TC4CrimsonRitesItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4CrimsonRitesItem.java:properties.stacksTo(1)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4CrimsonRitesItem.java:Rarity.UNCOMMON
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4CrimsonRitesItem.java:TC4EldritchProgression.readCrimsonRites(player)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4CrimsonRitesItem.java:tooltip.thaumcraft.crimson_rites.symbols
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4CrimsonRitesItem.java:tooltip.thaumcraft.crimson_rites.study
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:class TC4EldritchObjectItem extends Item
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:enum Variant { ELDRITCH_EYE, RUNED_TABLET }
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:Variant.RUNED_TABLET ? Rarity.RARE : Rarity.UNCOMMON
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:isVariant(ItemStack stack, Variant expected)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:TC4EldritchProgression.attuneWithEldritchEye(player, false)
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:tooltip.thaumcraft.eldritch_eye.watching
+PASS | src/main/java/com/darkifov/thaumcraft/item/TC4EldritchObjectItem.java:tooltip.thaumcraft.runed_tablet.fragment
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_essence" -> new TC4EssenceItem(functionalProperties);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_lootbag" -> new TC4LootBagItem(functionalProperties, 0);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_lootbagunc" -> new TC4LootBagItem(functionalProperties, 1);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_lootbagrare" -> new TC4LootBagItem(functionalProperties, 2);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_crimson_rites" -> new TC4CrimsonRitesItem(functionalProperties);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_eldritch_object" -> new TC4EldritchObjectItem(functionalProperties, TC4EldritchObjectItem.Variant.ELDRITCH_EYE);
+PASS | src/main/java/com/darkifov/thaumcraft/porting/TC4ResearchItems.java:case "tc4_eldritch_object_2" -> new TC4EldritchObjectItem(functionalProperties, TC4EldritchObjectItem.Variant.RUNED_TABLET);
+PASS | src/main/java/com/darkifov/thaumcraft/block/EldritchAltarBlock.java:TC4EldritchObjectItem.Variant.ELDRITCH_EYE
+PASS | src/main/java/com/darkifov/thaumcraft/block/EldritchLockBlock.java:TC4EldritchObjectItem.Variant.RUNED_TABLET
+PASS | src/main/java/com/darkifov/thaumcraft/recipe/JarLabelRecipe.java:stack.getItem() instanceof EssentiaPhialItem
+PASS | src/main/java/com/darkifov/thaumcraft/recipe/JarLabelRecipe.java:new ItemStack(container.getItem(scan.phialSlot()).getItem())
+PASS | src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java:TC4EssenceItem::tint
+PASS | src/main/java/com/darkifov/thaumcraft/event/EldritchItemEvents.java:behavior directly
+PASS | no_duplicate_event_subscriber
+PASS | loot_adapter_single_slot_declaration
+PASS | essence_model_parent
+PASS | essence_model_phial
+PASS | essence_model_overlay
+PASS | model_tc4_essence
+PASS | texture_tc4_essence
+PASS | model_tc4_lootbag
+PASS | texture_tc4_lootbag
+PASS | model_tc4_lootbagunc
+PASS | texture_tc4_lootbagunc
+PASS | model_tc4_lootbagrare
+PASS | texture_tc4_lootbagrare
+PASS | model_tc4_crimson_rites
+PASS | texture_tc4_crimson_rites
+PASS | model_tc4_eldritch_object
+PASS | texture_tc4_eldritch_object
+PASS | model_tc4_eldritch_object_2
+PASS | texture_tc4_eldritch_object_2
+PASS | texture_phial
+PASS | essence_animation
+PASS | english_tc4_essence
+PASS | russian_tc4_essence
+PASS | english_tc4_lootbag
+PASS | russian_tc4_lootbag
+PASS | english_tc4_lootbagunc
+PASS | russian_tc4_lootbagunc
+PASS | english_tc4_lootbagrare
+PASS | russian_tc4_lootbagrare
+PASS | english_tc4_crimson_rites
+PASS | russian_tc4_crimson_rites
+PASS | english_tc4_eldritch_object
+PASS | russian_tc4_eldritch_object
+PASS | english_tc4_eldritch_object_2
+PASS | russian_tc4_eldritch_object_2
+PASS | tooltip_en_crimson_rites.symbols
+PASS | tooltip_ru_crimson_rites.symbols
+PASS | tooltip_en_crimson_rites.study
+PASS | tooltip_ru_crimson_rites.study
+PASS | tooltip_en_eldritch_eye.watching
+PASS | tooltip_ru_eldritch_eye.watching
+PASS | tooltip_en_runed_tablet.fragment
+PASS | tooltip_ru_runed_tablet.fragment
+PASS | tag_essentia_containers_tc4_essence
+PASS | tag_loot_bags_tc4_lootbag
+PASS | tag_loot_bags_tc4_lootbagunc
+PASS | tag_loot_bags_tc4_lootbagrare
+PASS | tag_eldritch_lore_tc4_crimson_rites
+PASS | tag_eldritch_lore_tc4_eldritch_object
+PASS | tag_eldritch_lore_tc4_eldritch_object_2
+PASS | runtime_items.tc4_essence_fill_and_empty
+PASS | runtime_items.tc4_essence_labels_and_tint
+PASS | runtime_items.tc4_loot_bags_counts_and_rarity
+PASS | runtime_items.tc4_crimson_rites_progression
+PASS | runtime_items.tc4_eldritch_eye_altar
+PASS | runtime_items.tc4_runed_tablet_lock
+PASS | audit_version
+PASS | audit_fallback
+PASS | audit_items
+PASS | audit_blocks
+PASS | not_fallback_tc4_essence
+PASS | not_fallback_tc4_lootbag
+PASS | not_fallback_tc4_lootbagunc
+PASS | not_fallback_tc4_lootbagrare
+PASS | not_fallback_tc4_crimson_rites
+PASS | not_fallback_tc4_eldritch_object
+PASS | not_fallback_tc4_eldritch_object_2
+PASS | pearl_still_deferred
+PASS | worldgen_MagicalForestWorldgenDiagnostics.java
+PASS | worldgen_MagicalForestWorldgenInstaller.java
+PASS | worldgen_TC4Biomes.java
+PASS | worldgen_TC4TreeGenerator.java
+PASS | worldgen_TC4WorldgenRuntime.java
+PASS | worldgen_TC4WorldgenSavedData.java
+PASS | wrapper_jar
+PASS | .github/workflows/build.yml:python3 tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py
+PASS | .github/workflows/release.yml:python3 tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py
+PASS | README.md:11.63.33 — Essentia Phial, Loot Bags and Simple Eldritch Lore
+PASS | KNOWN_DEVIATIONS.md:11.63.33 Essentia/Loot/Eldritch simple-family runtime notes
+PASS | TC4_11.63.33_ESSENTIA_LOOT_ELDRITCH_SIMPLE_PORT_REPORT_RU.md:**111 fallback-ID**
+PASS | TC4_11.63.33_REMAINING_OBJECTS_AUDIT_RU.md:**111**
+SUMMARY | 127/127 passed
+
+RC=0
+
+===== CHECK 98/104: python3 tools/tc4_116334_primordial_pearl_guard.py =====
+TC4 v11.63.34 primordial pearl guard: PASS
+
+RC=0
+
+===== CHECK 99/104: python3 tools/tc4_116335_research_utility_aliases_guard.py =====
+TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+
+RC=0
+
+===== CHECK 100/104: python3 tools/tc4_116336_simple_item_mechanics_guard.py =====
+TC4 v11.63.36 simple item mechanics consolidation guard: PASS
+
+RC=0
+
+===== CHECK 101/104: python3 tools/tc4_116337_unique_item_systems_guard.py =====
+TC4 v11.63.37 unique item systems and item fallback closure guard: PASS
+
+RC=0
+
+===== CHECK 102/104: python3 tools/tc4_116338_block_alias_normalization_guard.py =====
+TC4 v11.63.38 block alias normalization guard: PASS
+
+RC=0
+
+===== CHECK 103/104: python3 tools/tc4_116339_final_block_systems_guard.py =====
+TC4 v11.63.39 final block systems guard: PASS
+
+RC=0
+
+===== CHECK 104/104: python3 tools/tc4_116340_wand_pedestal_visual_guard.py =====
+TC4 v11.63.40 wand pedestal visual parity guard: PASS
+
+RC=0
+

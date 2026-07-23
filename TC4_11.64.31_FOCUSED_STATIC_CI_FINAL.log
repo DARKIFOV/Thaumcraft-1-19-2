@@ -1,0 +1,43 @@
+FOCUSED STATIC CI v11.64.31
+Execution mode: checks were run in bounded groups to avoid a single long-running process timeout.
+
+[1/38] Arcane Workbench full-closure guard: PASS
+[2/38] Java 17 self-test + 10 targeted Forge parse checks: PASS
+[3/38] Fertility Lamp regression guard: PASS
+[4/38] Fertility Lamp parse guard: PASS
+[5/38] Growth Lamp regression guard: PASS
+[6/38] Growth Lamp parse guard: PASS
+[7/38] Infernal Furnace regression guard: PASS
+[8/38] Infernal Furnace parse guard: PASS
+[9/38] Research System regression guard: PASS
+[10/38] Thaumonomicon regression guard: PASS
+[11/38] Thaumometer regression guard: PASS
+[12/38] Arcane Bore regression guard: PASS
+[13/38] Arcane Spa regression guard: PASS
+[14/38] Arcane Lamp regression guard: PASS
+[15/38] Arcane Pressure Plate regression guard: PASS
+[16/38] Arcane Levitator regression guard: PASS
+[17/38] Arcane Ear regression guard: PASS
+[18/38] Arcane Bellows regression guard: PASS
+[19/38] Tallow Candle regression guard: PASS
+[20/38] Hungry Chest regression guard: PASS
+[21/38] Brain Jar regression guard: PASS
+[22/38] Bath Salts regression guard: PASS
+[23/38] Unnatural Hunger full-closure guard: PASS
+[24/38] Unnatural Hunger food forward guard: PASS
+[25/38] Sun Scorned brightness guard: PASS
+[26/38] Death Gaze cone guard: PASS
+[27/38] Warp research pool guard: PASS
+[28/38] Eldritch milestone guard: PASS
+[29/38] Warp message parity guard: PASS
+[30/38] Warp spawn collision guard: PASS
+[31/38] Warp spawn offset guard: PASS
+[32/38] Warp runtime guard: PASS
+[33/38] Java syntax guard: OK
+[34/38] JSON resource validation: OK (2190 files)
+[35/38] Runtime manifest: PASS (748 tests; template=True)
+[36/38] Recipe registration denominator: PASS (258/258 STATICALLY MAPPED)
+[37/38] Source inventory guard: PASS
+[38/38] Parity consolidation guard: PASS (248 GameTests; 748 scenarios)
+
+FOCUSED STATIC CI v11.64.31: PASS (38/38)

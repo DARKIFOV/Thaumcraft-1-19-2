@@ -1,0 +1,11 @@
+Thaumcraft Legacy Rebuild v11.64.35
+SOURCE_CLOSED=YES
+RESOURCE_CLOSED=YES
+BUILD_VERIFIED=NO
+RUNTIME_VERIFIED=NO
+JAR_CREATED=NO
+GRADLE_COMMAND=./gradlew build --no-daemon --console=plain
+GRADLE_EXIT_CODE=1
+JAVA_RUNTIME=OpenJDK 21.0.10
+REQUIRED_JAVA=17
+BLOCKER=Gradle Wrapper could not download Gradle 7.5.1 because services.gradle.org raised java.net.UnknownHostException. See TC4_11.64.35_GRADLE_BUILD_ATTEMPT.log.

@@ -1,0 +1,22 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.44
+FULL STATIC CI FINAL SUMMARY
+
+Checks: 108
+Passed: 108
+Failed: 0
+Skipped: 0
+All recorded return codes: 0
+
+Key validators:
+- Forge-only guard: PASS
+- Java syntax guard: PASS
+- Forge 1.19.2 API guard: PASS
+- JSON resources: 2107/2107 PASS
+- Runtime manifest: 313 scenarios PASS (template)
+- v11.63.43 deferred migration guard: PASS
+- v11.63.44 required GameTest smoke guard: PASS
+- GitHub Actions YAML: PASS
+- Generic registry fallback: 0
+
+Runtime caveat:
+- Six GameTests are present but NOT_TESTED because no Java 17 Forge build/GameTest server run was obtained.

@@ -36,16 +36,16 @@ import java.util.List;
  * event to safe Forge 1.19.2 runtime objects.
  */
 public final class InfusionInstabilityEvents {
-    private static final int EVENT_ROLL_BOUND = 21;
+    private static final int EVENT_ROLL_BOUND = TC4InfusionInstabilityEventTableParity.EVENT_ROLL_BOUND;
     private static final double EVENT_RADIUS = 10.0D;
 
     private InfusionInstabilityEvents() {
     }
 
     public static boolean maybeTrigger(Level level, BlockPos matrixPos, Player player, InfusionRecipe recipe, InfusionStructureReport report, int instability) {
-        int clamped = TC4InfusionRuntime.clampInstability(instability);
-
-        if (clamped <= 0 || level.random.nextInt(TC4InfusionRuntime.VALIDITY_INSTABILITY_ROLL) > clamped) {
+        // Use the raw locked instability. Original craftingStart did not clamp
+        // symmetry + recipeInstability before this <= gate.
+        if (!TC4InfusionInstabilityEventTableParity.gateAllows(level.random.nextInt(TC4InfusionRuntime.VALIDITY_INSTABILITY_ROLL), instability)) {
             return false;
         }
 
@@ -111,6 +111,7 @@ public final class InfusionInstabilityEvents {
 
         BlockPos p = pedestal.getBlockPos();
         ItemStack stack = pedestal.stored();
+        pedestal.sendOriginalBlockEvent(11);
 
         // TC4 type 0/1/2/5 drops the item. Type 3/4 only deletes it and leaves flux.
         if (type < 3 || type == 5) {
@@ -185,7 +186,7 @@ public final class InfusionInstabilityEvents {
 
         for (LivingEntity target : targets) {
             if (level.random.nextBoolean()) {
-                target.addEffect(new MobEffectInstance(MobEffects.POISON, 120, 0, false, true));
+                target.addEffect(new MobEffectInstance(ThaumcraftMod.TAINT_POISON.get(), 120, 0, false, true));
             } else {
                 target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 2400, 0, true, true));
             }

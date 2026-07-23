@@ -1,0 +1,596 @@
+{
+  "version": "11.64.37",
+  "object": "Alchemical Furnace + Alembic distillation lifecycle",
+  "reference": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/tiles/TileAlchemyFurnace.java",
+      "sha256": "81e7d1d60c1e45fea2e8413c9ec22491090d9f6863cd10d43c3f12215ca83b31",
+      "evidence": [
+        {
+          "expression": "while (deep < 5)",
+          "lines": [
+            338,
+            357
+          ]
+        },
+        {
+          "expression": "this.speedBoost ? 20 : 40",
+          "lines": [
+            334
+          ]
+        },
+        {
+          "expression": "vs * 10 * (1.0F - 0.125F * this.bellows)",
+          "lines": [
+            455
+          ]
+        },
+        {
+          "expression": "func_74777_a(\"BurnTime\"",
+          "lines": [
+            176
+          ]
+        },
+        {
+          "expression": "func_74777_a(\"Vis\"",
+          "lines": [
+            177
+          ]
+        },
+        {
+          "expression": "func_74782_a(\"Items\"",
+          "lines": [
+            236
+          ]
+        },
+        {
+          "expression": "Items.field_151133_ar",
+          "lines": [
+            556
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileAlembic.java",
+      "sha256": "2aa39e18df732280a7e3e4144f7bb4d5dac3e0d167338627faf23ce6d28eb4d3",
+      "evidence": [
+        {
+          "expression": "maxAmount = 32",
+          "lines": [
+            36
+          ]
+        },
+        {
+          "expression": "func_74778_a(\"aspect\"",
+          "lines": [
+            62
+          ]
+        },
+        {
+          "expression": "func_74777_a(\"amount\"",
+          "lines": [
+            64
+          ]
+        },
+        {
+          "expression": "func_74778_a(\"AspectFilter\"",
+          "lines": [
+            63
+          ]
+        },
+        {
+          "expression": "func_74774_a(\"facing\"",
+          "lines": [
+            65
+          ]
+        },
+        {
+          "expression": "face != ForgeDirection.DOWN",
+          "lines": [
+            213,
+            223
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockMetalDevice.java",
+      "sha256": "a2afd88072ad43893952f58f90879d81b63d8659cfc4f70cc132514ff6b1d8f3",
+      "evidence": [
+        {
+          "expression": "tile.amount < tile.maxAmount * 0.4D",
+          "lines": [
+            601
+          ]
+        },
+        {
+          "expression": "tile.amount < tile.maxAmount * 0.8D",
+          "lines": [
+            603
+          ]
+        },
+        {
+          "expression": "thaumcraft:alembicknock",
+          "lines": [
+            612,
+            639
+          ]
+        },
+        {
+          "expression": "ConfigItems.itemJarFilled",
+          "lines": [
+            666,
+            674
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/container/ContainerAlchemyFurnace.java",
+      "sha256": "50506c9ce8e714fbbfb088e636c24d799d008e549a8b98625cb3605744fb239b",
+      "evidence": []
+    },
+    {
+      "path": "thaumcraft/client/gui/GuiAlchemyFurnace.java",
+      "sha256": "a7de09652cadaca9ab74cad55dd24aac3ccf97da6bab231fad37a8f82ff90aac",
+      "evidence": []
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileAlembicRenderer.java",
+      "sha256": "4d79a270492dbe331812b2cb26fafe560b2270e51db5777b4677ba01b239a67c",
+      "evidence": []
+    },
+    {
+      "path": "thaumcraft/api/aspects/AspectList.java",
+      "sha256": "dc184a3357e3de6db1a7d46a9418ff01b12c28414c14434b52096fbccb3594ae",
+      "evidence": [
+        {
+          "expression": "writeToNBT",
+          "lines": [
+            266,
+            280
+          ]
+        },
+        {
+          "expression": "readFromNBT",
+          "lines": [
+            235,
+            248
+          ]
+        }
+      ]
+    }
+  ],
+  "production_bindings": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/alchemy/TC4AlchemicalFurnaceParity.java",
+      "sha256": "5c2748dd5b91320c2eacebafbb7e4b000f85dd88bde79fa5c18f1ad1c5ce92c9",
+      "evidence": [
+        {
+          "expression": "FURNACE_CAPACITY = 50",
+          "lines": [
+            6
+          ]
+        },
+        {
+          "expression": "ALEMBIC_CAPACITY = 32",
+          "lines": [
+            7
+          ]
+        },
+        {
+          "expression": "MAX_ALEMBICS = 5",
+          "lines": [
+            8
+          ]
+        },
+        {
+          "expression": "NORMAL_INTERVAL = 40",
+          "lines": [
+            9
+          ]
+        },
+        {
+          "expression": "ALUMENTUM_INTERVAL = 20",
+          "lines": [
+            10
+          ]
+        },
+        {
+          "expression": "BELLOWS_REDUCTION = 0.125D",
+          "lines": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/AlchemicalFurnaceBlockEntity.java",
+      "sha256": "29fae55f447b3f986533002fcabc50a90630990fe1dbfd82908f5d4e72c26722",
+      "evidence": [
+        {
+          "expression": "TC4DistillationRuntime.tickFurnaceToAlembics",
+          "lines": [
+            490
+          ]
+        },
+        {
+          "expression": "new SidedInvWrapper",
+          "lines": [
+            70
+          ]
+        },
+        {
+          "expression": "tag.putShort(\"BurnTime\"",
+          "lines": [
+            697
+          ]
+        },
+        {
+          "expression": "tag.put(\"Items\", items)",
+          "lines": [
+            713
+          ]
+        },
+        {
+          "expression": "counter = 0",
+          "lines": [
+            780
+          ]
+        },
+        {
+          "expression": "bellows = -1",
+          "lines": [
+            85,
+            779
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/essentia/TC4DistillationRuntime.java",
+      "sha256": "e4a12a59ceaf86c376bdb358c511cf7bbb3c27f31c6ea6ade808644e7a0501f0",
+      "evidence": [
+        {
+          "expression": "ORIGINAL_MAX_ALEMBICS_ABOVE_FURNACE",
+          "lines": [
+            24,
+            107
+          ]
+        },
+        {
+          "expression": "tickFurnaceToAlembics",
+          "lines": [
+            32
+          ]
+        },
+        {
+          "expression": "contiguousAlembics",
+          "lines": [
+            41,
+            105,
+            121,
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/AlembicBlockEntity.java",
+      "sha256": "c701a65fcea81cca64ed7497e3f706ced3883167b7d22b98ee235d6195018c83",
+      "evidence": [
+        {
+          "expression": "CAPACITY = TC4AlchemicalFurnaceParity.ALEMBIC_CAPACITY",
+          "lines": [
+            19
+          ]
+        },
+        {
+          "expression": "tag.putString(\"aspect\"",
+          "lines": [
+            115
+          ]
+        },
+        {
+          "expression": "tag.putShort(\"amount\"",
+          "lines": [
+            117
+          ]
+        },
+        {
+          "expression": "tag.putString(\"AspectFilter\"",
+          "lines": [
+            116
+          ]
+        },
+        {
+          "expression": "tag.putByte(\"facing\"",
+          "lines": [
+            118
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/AlchemicalFurnaceBlock.java",
+      "sha256": "ff8ce3c0aa8df030f35846192fc6359d3ccd8b38f1aea7aa9f4684caa91259dc",
+      "evidence": [
+        {
+          "expression": "BooleanProperty.create(\"lit\")",
+          "lines": [
+            38
+          ]
+        },
+        {
+          "expression": "ParticleTypes.SMOKE",
+          "lines": [
+            92
+          ]
+        },
+        {
+          "expression": "NetworkHooks.openScreen",
+          "lines": [
+            125
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/AlembicBlock.java",
+      "sha256": "6de7738d0f5d65d86f723855a41504996032988bf74d7e0d8843b1a8bd92d67b",
+      "evidence": [
+        {
+          "expression": "tile.alembic.msg.",
+          "lines": [
+            78
+          ]
+        },
+        {
+          "expression": "alembicknock",
+          "lines": [
+            71,
+            79
+          ]
+        },
+        {
+          "expression": "JarLabelItem",
+          "lines": [
+            83,
+            84
+          ]
+        },
+        {
+          "expression": "EssentiaJarBlockItem",
+          "lines": [
+            94,
+            96,
+            98,
+            105
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/AlembicRenderer.java",
+      "sha256": "4dd78410d2ca4b3afaa3a61f3a360681b421848550c3f585217d256fcb5eeee1",
+      "evidence": [
+        {
+          "expression": "renderTubeMain",
+          "lines": [
+            50,
+            53
+          ]
+        },
+        {
+          "expression": "renderTubeSmall",
+          "lines": [
+            54
+          ]
+        },
+        {
+          "expression": "renderLegs",
+          "lines": [
+            51,
+            56,
+            69
+          ]
+        },
+        {
+          "expression": "renderPot",
+          "lines": [
+            58,
+            70
+          ]
+        },
+        {
+          "expression": "renderPanel",
+          "lines": [
+            59,
+            71
+          ]
+        },
+        {
+          "expression": "renderLabel",
+          "lines": [
+            38,
+            84
+          ]
+        },
+        {
+          "expression": "renderConnectors",
+          "lines": [
+            39,
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/menu/AlchemicalFurnaceMenu.java",
+      "sha256": "58678da10e98ed37b04c32a948754e9d822ac4788930404e07d8e02d752b6311",
+      "evidence": [
+        {
+          "expression": "burnProgress() { return data.get(0);",
+          "lines": [
+            70
+          ]
+        },
+        {
+          "expression": "fuelTime() { return data.get(1);",
+          "lines": [
+            68
+          ]
+        }
+      ]
+    }
+  ],
+  "exact_resources": [
+    {
+      "path": "gui/gui_alchemyfurnace.png",
+      "original_sha256": "2ee76890acafbed524ac4905e76fe0a6957a5dc2555e2ab55f3c0697019f6dde",
+      "port_sha256": "2ee76890acafbed524ac4905e76fe0a6957a5dc2555e2ab55f3c0697019f6dde",
+      "exact_match": true
+    },
+    {
+      "path": "models/alembic.png",
+      "original_sha256": "089cdb66da194b3e1dc37b6ab042ab3968a564c7371f0dca27d5500ded81ab0b",
+      "port_sha256": "089cdb66da194b3e1dc37b6ab042ab3968a564c7371f0dca27d5500ded81ab0b",
+      "exact_match": true
+    },
+    {
+      "path": "models/alembic.obj",
+      "original_sha256": "21bdc24ae4231221dd5b595e5c655454e007a9f53f6cf5bc5f02b7ded82957db",
+      "port_sha256": "21bdc24ae4231221dd5b595e5c655454e007a9f53f6cf5bc5f02b7ded82957db",
+      "exact_match": true
+    },
+    {
+      "path": "models/label.png",
+      "original_sha256": "81aa78bf12216d2918c5a84b602f53f2ff5703105adc245946b0f5853acbb5ab",
+      "port_sha256": "81aa78bf12216d2918c5a84b602f53f2ff5703105adc245946b0f5853acbb5ab",
+      "exact_match": true
+    },
+    {
+      "path": "blocks/al_furnace_side.png",
+      "original_sha256": "0332c4981bd94567fbb910f42e28a11f984f00215f3609f5531c6f276415a828",
+      "port_sha256": "0332c4981bd94567fbb910f42e28a11f984f00215f3609f5531c6f276415a828",
+      "exact_match": true
+    },
+    {
+      "path": "blocks/al_furnace_top.png",
+      "original_sha256": "ec9e9b94a3e46aab9bca596d5423cb8c7a435844bbaa2953b19014fc35a21888",
+      "port_sha256": "ec9e9b94a3e46aab9bca596d5423cb8c7a435844bbaa2953b19014fc35a21888",
+      "exact_match": true
+    },
+    {
+      "path": "blocks/al_furnace_top_filled.png",
+      "original_sha256": "a772110f9d42fa6fd0538138b8e7ee40f202553e9c59ecda6077c8dfc133f8a8",
+      "port_sha256": "a772110f9d42fa6fd0538138b8e7ee40f202553e9c59ecda6077c8dfc133f8a8",
+      "exact_match": true
+    },
+    {
+      "path": "blocks/al_furnace_front_off.png",
+      "original_sha256": "ab66c11e692756261cb3645bf73e0c03fdc8961ee52eabc6f961730afdd5ce50",
+      "port_sha256": "ab66c11e692756261cb3645bf73e0c03fdc8961ee52eabc6f961730afdd5ce50",
+      "exact_match": true
+    },
+    {
+      "path": "blocks/al_furnace_front_on.png",
+      "original_sha256": "4c7f55fe2824e6efd0884ea4b0b2585e2af5f4a595741e640e65fdcd988b1c8f",
+      "port_sha256": "4c7f55fe2824e6efd0884ea4b0b2585e2af5f4a595741e640e65fdcd988b1c8f",
+      "exact_match": true
+    }
+  ],
+  "contracts": [
+    {
+      "id": "furnace_capacity",
+      "original": 50,
+      "port": 50
+    },
+    {
+      "id": "alembic_capacity",
+      "original": 32,
+      "port": 32
+    },
+    {
+      "id": "max_contiguous_alembics",
+      "original": 5,
+      "port": 5
+    },
+    {
+      "id": "normal_distillation_interval",
+      "original": 40,
+      "port": 40
+    },
+    {
+      "id": "alumentum_distillation_interval",
+      "original": 20,
+      "port": 20
+    },
+    {
+      "id": "distillation_step",
+      "original": 1,
+      "port": 1
+    },
+    {
+      "id": "alumentum_burn_time",
+      "original": 6400,
+      "port": 6400
+    },
+    {
+      "id": "burning_light",
+      "original": 12,
+      "port": 12
+    },
+    {
+      "id": "smelt_time",
+      "original": "vis * 10 * (1 - 0.125 * bellows)",
+      "port": "same, bellows clamped 0..6"
+    },
+    {
+      "id": "furnace_nbt",
+      "original": [
+        "BurnTime",
+        "Vis",
+        "speedBoost",
+        "CookTime",
+        "Items",
+        "Aspects"
+      ],
+      "port": "canonical write; legacy read only"
+    },
+    {
+      "id": "alembic_nbt",
+      "original": [
+        "aspect",
+        "amount",
+        "AspectFilter",
+        "facing"
+      ],
+      "port": "canonical write; legacy read only"
+    },
+    {
+      "id": "automation",
+      "original": "top none, bottom fuel slot/bucket extraction, sides input",
+      "port": "sided Forge IItemHandler bridge"
+    },
+    {
+      "id": "alembic_interaction",
+      "original": "labels, filled/void jars, knock/fill messages",
+      "port": "same; invented phial path removed"
+    },
+    {
+      "id": "runtime_manifest",
+      "original": "gameplay/client/persistence/automation/integration coverage",
+      "port": "835 unique scenarios total"
+    }
+  ],
+  "known_unverified": [
+    "Forge Gradle build",
+    "client runtime",
+    "dedicated server",
+    "multiplayer",
+    "actual GameTest execution"
+  ]
+}

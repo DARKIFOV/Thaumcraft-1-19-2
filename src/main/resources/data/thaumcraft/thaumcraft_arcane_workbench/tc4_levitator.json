@@ -5,9 +5,10 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:greatwood_planks",
   "ingredients": [
+    "thaumcraft:greatwood_planks",
     "thaumcraft:terra_shard",
     "thaumcraft:aer_shard",
-    "thaumcraft:tc4_nitor",
+    "thaumcraft:nitor",
     "minecraft:iron_ingot"
   ],
   "aspects": {
@@ -20,14 +21,15 @@
     "WAW"
   ],
   "key": {
-    "W": "thaumcraft:terra_shard",
-    "E": "thaumcraft:aer_shard",
-    "B": "thaumcraft:tc4_nitor",
-    "N": "thaumcraft:greatwood_planks",
-    "A": "minecraft:iron_ingot"
+    "W": "thaumcraft:greatwood_planks",
+    "E": "thaumcraft:terra_shard",
+    "B": "minecraft:iron_ingot",
+    "N": "thaumcraft:nitor",
+    "A": "thaumcraft:aer_shard"
   },
   "result": {
     "item": "thaumcraft:tc4_block_levitator",
     "count": 1
-  }
+  },
+  "v11_64_20_exact_source": true
 }

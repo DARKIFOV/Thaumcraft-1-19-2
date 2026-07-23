@@ -1,7 +1,0 @@
-PATCH_APPLY=PASS
-SCOPE=source_tree_excluding_generated_reports_and_build
-FILES_EXPECTED= 7103
-FILES_PATCHED= 7103
-MISSING= 0
-EXTRA= 0
-HASH_MISMATCH= 0

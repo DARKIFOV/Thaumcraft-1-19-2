@@ -5,7 +5,8 @@
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "minecraft:glowstone",
   "ingredients": [
-    "thaumcraft:tc4_nitor",
+    "thaumcraft:arcane_stone",
+    "thaumcraft:nitor",
     "minecraft:iron_ingot"
   ],
   "aspects": {
@@ -15,12 +16,14 @@
     "PERDITIO": 4
   },
   "pattern": [
-    "S",
+    " S ",
     "IAI",
-    "N"
+    " N "
   ],
   "key": {
-    "S": "thaumcraft:tc4_nitor",
+    "A": "thaumcraft:arcane_stone",
+    "S": "minecraft:glowstone",
+    "N": "thaumcraft:nitor",
     "I": "minecraft:iron_ingot"
   },
   "result": {

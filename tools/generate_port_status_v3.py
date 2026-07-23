@@ -138,6 +138,8 @@ def generate(version: str, jar: Path | None, output: Path) -> dict[str, Any]:
     p0_source_complete = int(vstats.get("p0_source_contract_complete", 0))
     p0_static_partial = int(vstats.get("p0_static_partial", 0))
     runtime_test_cases = len(manifest_template.get("tests") or [])
+    gametest_source = (ROOT / "src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java").read_text(encoding="utf-8")
+    required_gametests = gametest_source.count("@GameTest(")
     runtime_test_evidenced = sum(
         1 for entry in (manifest.get("tests") or [])
         if isinstance(entry, dict)
@@ -152,23 +154,25 @@ def generate(version: str, jar: Path | None, output: Path) -> dict[str, Any]:
         ("Research Table", "research_table", "PARTIAL", {"W"}, "v11.62.82 source audit: Thaumonomicon-only note creation, table-only unfinished-note editing, completed item learning, fixed inventory and bookshelf/Brain Jar bonus sources; Expertise/Mastery/duplication/save runtime required"),
         ("Arcane Workbench", "arcane_workbench", "PARTIAL", {"W"}, "recipe/cost source guards; vis/research/GUI runtime required"),
         ("Жезлы/фокусы", "wands_foci", "PARTIAL", {"W"}, "renderer and cost source guards; all contexts/network runtime required"),
-        ("Узлы/Node Jar", "aura_nodes_node_jar", "PARTIAL", set(), "node source audit; six types/three modifiers runtime required"),
+        ("Узлы/Node Jar", "aura_nodes_node_jar", "PARTIAL", set(), "v11.63.41 source audit: exact 3x4x3 capture ritual, atomic six-primal cost, exact profile/NodeId transport, filled block/item and unjarred wand release; six types/modifiers, save/reload and multiplayer runtime required"),
         ("Essentia jars", "essentia_jars", "PARTIAL", {"W"}, "NBT-aware BEWLR source contract; 48 labels runtime required"),
-        ("Essentia transport", "essentia_transport", "PARTIAL", {"W"}, "v11.62.79 source audit: reservoir suction 24/six faces/active pull and buffer real-suction arbitration; conflict/rollback/soak runtime required"),
-        ("Furnace/alembics/centrifuge", "processing_devices", "PARTIAL", {"W"}, "v11.62.79 source audit: centrifuge queues input while output is occupied or redstone-paused; complete chain runtime required"),
-        ("Infusion Matrix", "infusion_matrix", "PARTIAL", {"W"}, "recipe and renderer guards; stability/events/save runtime required"),
+        ("Essentia transport", "essentia_transport", "PARTIAL", {"W"}, f"v11.63.59 retains tube/alchemical contracts and corrects the original Infusion Matrix symmetry/stabilizer calculation; {required_gametests} required tests remain runtime NOT TESTED until a Java 17 build"),
+        ("Furnace/alembics/centrifuge", "processing_devices", "PARTIAL", {"W"}, "v11.63.59 retains the original four-alembic limit and local 40/20-tick furnace phase; furnace, alembic and centrifuge contracts are present, while complete automated-chain runtime remains required"),
+        ("Alchemy/Liquid Death", "alchemy", "PARTIAL", {"W"}, "v11.63.10 source audit: registered Liquid Death source/flowing pair and bucket, dissolve damage ladder, named TC4 damage sources and aspect-crystal drops; finite-fluid conservation and runtime/network behavior require verification"),
+        ("Infusion Matrix", "infusion_matrix", "PARTIAL", {"W"}, "v11.63.59 restores the stabilizer/symmetry calculation, v11.63.60 restores catalyst/component lifecycle, and v11.63.61 preserves locked crafting state across structural pause with wand resume; save/reload, weighted events, owner/multiplayer and full end-to-end runtime remain required"),
         ("JEI", "jei", "PARTIAL", {"N", "W"}, "source plugin/recipe registration; JEI and no-JEI runtime required"),
         ("Bone Bow", "bone_bow", "PARTIAL", {"W"}, "charge/item-model source contract; arrows/enchants/visual runtime required"),
         ("Traveling Trunk", "traveling_trunk", "PARTIAL", {"W"}, "entity/inventory/model/capability source contract; runtime required"),
+        ("Special item entities", "special_item_entities", "PARTIAL", {"W"}, "v11.63.10 source audit: 50/50 entity registrations, protected/permanent/following item behavior and four production paths; exact additive renderer and multiplayer runtime required"),
         ("Crimson cultists", "crimson_cultists", "PARTIAL", set(), "humanoid renderer source contract; four-role side-by-side runtime required"),
         ("Fortress Armor", "fortress_armor", "PARTIAL", {"W"}, "dedicated model source contract; slim/default/masks runtime required"),
         ("Големы", "golems", "PARTIAL", {"W"}, "USE marker-side/empty-hand handling, weighted fishing quality and priority creeper avoidance are source-guarded; all materials/cores/upgrades/markers still require runtime"),
         ("Warp/Eldritch", "warp_eldritch", "PARTIAL", set(), "v11.62.81 source audit: effect-only Warp Ward authority with legacy NBT migration, separate sticky-event decay, full bucket/counter sync, TC4 spawn search and 0.75 Death Gaze cone; runtime/network/visual proof required"),
-        ("Taint/Eerie/Forest", "taint_eerie_forest", "PARTIAL", set(), "v11.62.80 source audit: five fibre states, persistent taint columns, original spread thresholds, spore lifecycle and taint-spider renderer; biome colours/weather, cleanse and structures still require runtime"),
-        ("Outer Lands", "outer_lands", "PARTIAL", set(), "aligned portal maze, TC4 portal-room geometry and lock-gated boss cycle in source; traversal/save/return runtime required"),
+        ("Taint/Eerie/Forest", "taint_eerie_forest", "PARTIAL", set(), "v11.63.42 source audit: TC4 Mana Pods now restore ten Magical Forest attempts, age 0-7 growth, aspect breeding/drops and dynamic rendering; Falling Taint ecology remains source-complete, while chunk density, random ticks, save/reload and multiplayer still require runtime verification"),
+        ("Outer Lands", "outer_lands", "PARTIAL", set(), "v11.63.10 one-room synchronous entry generation, bounded landing chunk load and progressive one-room-per-pass maze population; traversal/save/return runtime required"),
         ("Mirrors", "mirrors", "PARTIAL", {"W"}, "source mirror contracts; cross-dimension/save/automation runtime required"),
         ("Brain in a Jar", "brain_jar", "PARTIAL", {"W"}, "source XP/renderer contract; comparator/NBT/visual runtime required"),
-        ("Миграция миров", "world_migration", "PARTIAL", {"V", "C"}, "legacy aliases/source mapping; five-version migration runtime required"),
+        ("Миграция миров", "world_migration", "PARTIAL", {"V", "C"}, "v11.63.43 source audit: serialized-stack ID rewrite, player/Ender/equipment/entity/container/block-entity/nested-handler coverage, deferred two-chunk budget and schema SavedData ledger; old-world fixtures, restart idempotence and five-version runtime still required"),
         ("Dedicated server", "dedicated_server", "PARTIAL", {"V", "C"}, "server-safe source guards; two-client runtime required"),
     ]
     matrix_lines: list[str] = []
@@ -250,6 +254,17 @@ def generate(version: str, jar: Path | None, output: Path) -> dict[str, Any]:
 
 > Source/resource contracts, runtime и визуальная parity — разные уровни доказательств. Runtime/visual/network PASS допустим только при существующем артефакте с проверенным SHA-256, перечисленном в `runtime_artifacts/runtime_test_manifest.json`. Шаблон протокола проверяется `tools/validate_runtime_manifest.py`.
 
+### Текущий этап {version}
+
+- Registry fallback остаётся закрыт: 0 предметных и 0 блочных generic fallback-ID.
+- Оригинальные runtime-регистрации рецептов: **258/258 STATICALLY MAPPED** — 54 crucible, 104 Arcane shaped, 5 Arcane shapeless, 63 infusion, 24 infusion-enchantment и 8 furnace smelting. Отдельно: 18 smelting-bonus registrations. Runtime loading текущей версии: NOT VERIFIED.
+- Удалены 63 доказанных точных registry-дубля предметов и их дублирующие модели/локализации; datapack-ссылки переведены на канонические ID.
+- Для старых сохранений добавлен Forge `MissingMappingsEvent`: удалённые legacy-ID перенаправляются на существующие канонические предметы с сохранением ItemStack NBT/capabilities при глубокой миграции.
+- v11.63.51 имеет подтверждённый Java 17 build и 18/18 server GameTests PASS. Текущая {version} содержит более новые production-изменения, поэтому старый PASS не переносится автоматически.
+- Для v11.64.04+ warp-spawn offset должен сохранять исходный включительный знак `-1/0/+1`; boolean-only sign является регрессией.
+- Для v11.64.05+ spawn admission должен использовать bounding box конкретной сущности, collision и liquid checks без фиксированного двухблочного air-gate.
+- Текущий обязательный пакет содержит {required_gametests} server-only GameTest-методов и {runtime_test_cases} runtime-сценариев; повторный полный прогон {version} остаётся `NOT_TESTED` до успешной Java 17 сборки.
+
 ---
 
 ## 1. Подтверждённые данные
@@ -264,7 +279,7 @@ def generate(version: str, jar: Path | None, output: Path) -> dict[str, Any]:
 | Аспекты | 48 / 48 | Runtime проверено 0 / 48 без manifest |
 | JSON обычных рецептов | {normal_recipes} | Runtime проверено 0 / 86 эталонных нединамических крафтов |
 | Динамические этикетки | serializer присутствует | 48 аспектов + очистка требуют runtime |
-| Arcane recipe JSON | {arcane_recipes} | Эталонный denominator должен быть зафиксирован отдельным source manifest |
+| Arcane recipe JSON | {arcane_recipes} | 104 original JSON (99 shaped + 5 shapeless) + 10 style/compatibility JSON; ещё 5 original shaped wand-cap registrations создаются Java-кодом. Original Arcane denominator: 109 |
 | Alchemy recipe JSON | {alchemy_recipes} | Эталонный denominator должен быть зафиксирован отдельным source manifest |
 | Infusion recipe JSON | {infusion_recipes} | Materialized/JEI запись не является runtime PASS |
 | Mod entity types | {entity_types} / 50 | Полнота TC4 не подтверждена |
@@ -301,8 +316,10 @@ def generate(version: str, jar: Path | None, output: Path) -> dict[str, Any]:
 | Приоритет | Объект | Проблема | Source status | Runtime status |
 |---|---|---|---|---|
 {p0_markdown}
-| P1 | Свечи | Геометрия/частицы/стабилизация | PARTIAL | NOT TESTED |
-| P1 | Hungry Chest | Модель/pickup behavior | PARTIAL | NOT TESTED |
+| P1 | Свечи | Геометрия/частицы/стабилизация | SOURCE CONTRACT COMPLETE | NOT TESTED |
+| P1 | Hungry Chest | Инвентарь/pickup/крышка/рендер | SOURCE CONTRACT COMPLETE | NOT TESTED |
+| P1 | Essentia storage/mirrors | Filtered/void jars, reservoir, mirror range/rollback | SOURCE CONTRACT COMPLETE | NOT TESTED |
+| P1 | Essentia tubes | Normal/filter/restrict/one-way/buffer suction, capacity and rollback | SOURCE CONTRACT COMPLETE | NOT TESTED |
 | P1 | Thaumonomicon GUI | Координаты без полной клиентской проверки | PARTIAL | NOT TESTED |
 | P1 | Infusion/JEI | Статический набор без клиентской полноты | PARTIAL | NOT TESTED |
 
@@ -325,13 +342,13 @@ Source status не закрывает P0. Требуются build PASS и runti
 
 ### 4.2. Блокирующие тесты
 
-- [ ] Build/compileJava Forge 43.5.2 на Java 17 и SHA-256 JAR.
+- [ ] Повторный build {version} на Java 17, SHA-256 JAR и {required_gametests}/{required_gametests} GameTests.
 - [ ] Чистый клиент и dedicated server.
 - [ ] 201 исследований/591 страниц на нескольких GUI Scale.
 - [ ] 86 normal, 49 label/cleaning и все arcane/alchemy/infusion рецепты.
 - [ ] P0 в GUI/ground/fixed/first-person/third-person/world.
 - [ ] 48 аспектов в filled/filtered/labeled jars.
-- [ ] Essentia reservoir 24-suction/six-face active pull, buffer conflict/rollback/soak and centrifuge redstone/output queue.
+- [ ] Essentia network long-soak: 48 аспектов, tube conflict/venting, bellows/chokes, valves, blocked outputs, rollback, chunk reload и centrifuge queue.
 - [ ] Mirrors и Outer Lands с save/reload/return.
 - [ ] Migration 11.62.58/60/62/73/74/75/76/77.
 - [ ] Golem USE-core side/empty-hand, weighted fishing and creeper-swell avoidance scenarios.
@@ -358,7 +375,7 @@ Source status не закрывает P0. Требуются build PASS и runti
 2. Исправить все compiler/runtime ошибки.
 3. Заполнить `screenshots/` и `runtime_artifacts/runtime_test_manifest.json` реальными файлами.
 4. Не закрывать Outer Lands до полного игрового цикла.
-5. Зафиксировать exact source denominators рецептов.
+5. Проверить runtime-декодирование всех 258 оригинальных регистраций через Java 17 build и GameTest server; статический denominator уже зафиксирован.
 6. Выполнить migration matrix.
 7. Повторно сгенерировать этот отчёт; субъективные проценты запрещены.
 """
@@ -370,7 +387,7 @@ Source status не закрывает P0. Требуются build PASS и runti
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.96")
+    parser.add_argument("--version", default="11.63.49")
     parser.add_argument("--jar", type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "TC4_PORT_STATUS_V3.md")
     args = parser.parse_args()

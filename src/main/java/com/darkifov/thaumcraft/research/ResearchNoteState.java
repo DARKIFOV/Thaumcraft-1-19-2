@@ -97,12 +97,9 @@ public final class ResearchNoteState {
     private static void rebuildOriginalGrid(ItemStack stack, CompoundTag root, String target, long seed) {
         int radius = ResearchNoteGrid.radiusForResearch(target);
         List<Aspect> anchors = new ArrayList<>(ResearchNoteRequirements.requiredFor(target));
-        if (anchors.isEmpty()) {
+        if (anchors.isEmpty() && !isOriginalResearch(target)) {
             anchors.add(ResearchNoteGrid.defaultStartAspect());
             anchors.add(ResearchNoteGrid.defaultEndAspect());
-        }
-        if (anchors.size() == 1) {
-            anchors.add(Aspect.PRAECANTATIO);
         }
 
         CompoundTag slots = new CompoundTag();
@@ -134,6 +131,14 @@ public final class ResearchNoteState {
         syncOriginalTopLevel(stack, root);
     }
 
+
+    private static boolean isOriginalResearch(String key) {
+        if (key == null || key.isBlank()) return false;
+        for (ResearchEntry entry : ResearchRegistry.originalEntries()) {
+            if (entry.key().equalsIgnoreCase(key)) return true;
+        }
+        return false;
+    }
 
     private static void putOriginalResearchMetadata(CompoundTag root, String target) {
         Optional<ResearchEntry> entry = target == null || target.isBlank() ? Optional.empty() : ResearchRegistry.byKey(target);
@@ -423,6 +428,20 @@ public final class ResearchNoteState {
         return slotTypes(stack).containsKey(index);
     }
 
+    /**
+     * Original GuiResearchTable accepted any existing empty type-0 hex.
+     * Compatibility with neighbouring aspects belongs to completion/path
+     * evaluation, not placement admission.
+     */
+    public static boolean canPlaceAspect(ItemStack stack, int index, Aspect aspect) {
+        if (aspect == null || index < 0 || index >= ResearchNoteGrid.SLOT_COUNT) {
+            return false;
+        }
+        initialize(stack, target(stack));
+        return TC4ResearchNoteGraphParity.canPlaceIntoHex(
+                index, type(stack, index), slot(stack, index).isEmpty());
+    }
+
     public static boolean touchesCompatibleNeighbor(ItemStack stack, int index, Aspect aspect) {
         if (aspect == null || index < 0 || index >= ResearchNoteGrid.SLOT_COUNT) {
             return false;
@@ -439,22 +458,34 @@ public final class ResearchNoteState {
         return false;
     }
 
-    public static Optional<Aspect> clearSlot(ItemStack stack, int index) {
-        if (index < 0 || index >= ResearchNoteGrid.SLOT_COUNT) {
+    public static Optional<Aspect> clearableAspect(ItemStack stack, int index) {
+        if (stack == null || stack.isEmpty() || index < 0 || index >= ResearchNoteGrid.SLOT_COUNT) {
             return Optional.empty();
         }
         initialize(stack, target(stack));
         CompoundTag root = root(stack);
         CompoundTag types = root.getCompound(TAG_TYPES);
-        String id = String.valueOf(index);
-        if (!types.contains(id) || types.getInt(id) != ResearchNoteGrid.TYPE_PLACED) {
-            return Optional.empty();
-        }
         CompoundTag slots = root.getCompound(TAG_SLOTS);
+        String id = String.valueOf(index);
+        int type = types.contains(id) ? types.getInt(id) : -1;
         Aspect existing = Aspect.byId(slots.getString(id));
-        if (existing == null) {
+        boolean active = types.contains(id);
+        return TC4ResearchNoteClearParity.canClearHex(active, type, existing != null)
+                ? Optional.of(existing)
+                : Optional.empty();
+    }
+
+    public static Optional<Aspect> clearSlot(ItemStack stack, int index) {
+        Optional<Aspect> clearable = clearableAspect(stack, index);
+        if (clearable.isEmpty()) {
             return Optional.empty();
         }
+        initialize(stack, target(stack));
+        CompoundTag root = root(stack);
+        CompoundTag types = root.getCompound(TAG_TYPES);
+        CompoundTag slots = root.getCompound(TAG_SLOTS);
+        String id = String.valueOf(index);
+        Aspect existing = clearable.get();
         slots.remove(id);
         types.putInt(id, ResearchNoteGrid.TYPE_EMPTY);
         root.put(TAG_SLOTS, slots);

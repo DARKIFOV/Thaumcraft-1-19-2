@@ -2,6 +2,8 @@ package com.darkifov.thaumcraft.source;
 
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectList;
+import com.darkifov.thaumcraft.block.TC4TallowCandleParity;
+import com.darkifov.thaumcraft.block.TC4ArcaneEarParity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -227,7 +229,15 @@ public final class TC4ObjectAspectRegistry {
         exact("thaumcraft:void_metal_ingot", aspects(Aspect.ORDO, 1, Aspect.METALLUM, 4, Aspect.TERRA, 1, Aspect.ALIENIS, 2));
         exact("thaumcraft:void_metal_nugget", aspects(Aspect.METALLUM, 1, Aspect.ALIENIS, 1));
         exact("thaumcraft:primordial_pearl", aspects(Aspect.AER, 16, Aspect.TERRA, 16, Aspect.IGNIS, 16, Aspect.AQUA, 16, Aspect.ORDO, 16, Aspect.PERDITIO, 16));
+        exact("thaumcraft:eldritch_eye_3", aspects(Aspect.AER, 16, Aspect.TERRA, 16, Aspect.IGNIS, 16, Aspect.AQUA, 16, Aspect.ORDO, 16, Aspect.PERDITIO, 16));
         exact("thaumcraft:nitor", aspects(Aspect.LUX, 2, Aspect.IGNIS, 1, Aspect.PRAECANTATIO, 1));
+        exact("thaumcraft:tc4_block_arcane_ear", aspects(Aspect.SENSUS, TC4ArcaneEarParity.OBJECT_SENSUS));
+        for (int metadata = 0; metadata < TC4TallowCandleParity.COLOR_COUNT; metadata++) {
+            exact("thaumcraft:" + TC4TallowCandleParity.registryPath(metadata),
+                    aspects(Aspect.LUX, TC4TallowCandleParity.OBJECT_LUX,
+                            Aspect.CORPUS, TC4TallowCandleParity.OBJECT_CORPUS,
+                            Aspect.PRAECANTATIO, TC4TallowCandleParity.OBJECT_PRAECANTATIO));
+        }
         exact("thaumcraft:alchemy_dust", aspects(Aspect.PRAECANTATIO, 2, Aspect.PERMUTATIO, 1));
         exact("thaumcraft:flux_crystal", aspects(Aspect.VITIUM, 3, Aspect.LIMUS, 1));
         exact("thaumcraft:tainted_slime", aspects(Aspect.VITIUM, 3, Aspect.LIMUS, 1));

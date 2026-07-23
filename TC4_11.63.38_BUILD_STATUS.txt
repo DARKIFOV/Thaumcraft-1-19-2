@@ -1,0 +1,20 @@
+Thaumcraft Legacy Rebuild 1.19.2 v11.63.38
+
+SOURCE STATUS: implemented and statically validated
+STATIC CI: 102/102 PASS; 0 failed; 0 skipped
+JAVA SYNTAX GUARD: PASS
+FORGE 1.19.2 API GUARD: PASS
+JSON RESOURCES: 2086/2086 PASS
+RUNTIME MANIFEST: 287 scenarios; structure PASS; runtime statuses remain NOT_TESTED
+GENERIC FALLBACK: 4 block IDs; 0 item IDs
+
+FORGE JAR STATUS: NOT CLAIMED
+The Gradle wrapper stopped before project configuration while downloading Gradle 7.5.1:
+java.net.UnknownHostException: services.gradle.org
+The available runtime is OpenJDK 21.0.10; the project target remains Java 17.
+
+Stage scope:
+- normalized 38 legacy block aliases
+- ported TC4 plants and paving behavior
+- added exact block models, loot tables, tags and translations
+- reduced generic fallback from 42 to four complex block systems

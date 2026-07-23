@@ -1,0 +1,7 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "thaumcraft:block/tc4/lamp_top"
+  },
+  "elements": []
+}

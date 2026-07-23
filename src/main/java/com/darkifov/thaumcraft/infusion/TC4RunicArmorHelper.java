@@ -51,8 +51,9 @@ public final class TC4RunicArmorHelper {
             "thaumcraft:tc4_cultistrobechest",
             "thaumcraft:tc4_cultistrobehelm",
             "thaumcraft:tc4_cultistrobelegs",
-            "thaumcraft:tc4_gogglesrevealing",
+            "thaumcraft:goggles_of_revealing",
             "thaumcraft:tc4_hoverharness",
+            "thaumcraft:tc4_hovergirdle",
             "thaumcraft:tc4_thaumiumboots",
             "thaumcraft:tc4_thaumiumchest",
             "thaumcraft:tc4_thaumiumhelm",
@@ -112,7 +113,7 @@ public final class TC4RunicArmorHelper {
 
     public static boolean isRunicBauble(ItemStack stack) {
         String id = registryId(stack);
-        return id != null && (id.contains("tc4_runic_ring") || id.contains("tc4_runic_amulet") || id.contains("tc4_runic_girdle"));
+        return id != null && (id.contains("tc4_runic_ring") || id.contains("tc4_runic_amulet") || id.contains("tc4_runic_girdle") || id.equals("thaumcraft:tc4_hovergirdle"));
     }
 
     public static boolean isChargedVariant(ItemStack stack) {

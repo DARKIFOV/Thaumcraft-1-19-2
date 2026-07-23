@@ -3,13 +3,13 @@
   "tc4_source": "addInfusionCraftingRecipe",
   "research": "NODESTABILIZERADV",
   "tc4_kind": "INFUSION",
-  "catalyst": "thaumcraft:tc4_block_node_stabilizer",
+  "catalyst": "thaumcraft:node_stabilizer",
   "components": [
-    "thaumcraft:tc4_nitor",
+    "thaumcraft:nitor",
     "minecraft:redstone_block",
     "thaumcraft:tc4_alumentum",
     "minecraft:redstone_block",
-    "thaumcraft:tc4_nitor",
+    "thaumcraft:nitor",
     "minecraft:redstone_block",
     "thaumcraft:tc4_alumentum",
     "minecraft:redstone_block"
@@ -22,7 +22,7 @@
   },
   "instability": 10,
   "result": {
-    "item": "thaumcraft:tc4_block_node_stabilizer_advanced",
+    "item": "thaumcraft:node_stabilizer_advanced",
     "count": 1
   }
 }

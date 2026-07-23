@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_lootbag",
+    "thaumcraft:tc4_lootbagunc",
+    "thaumcraft:tc4_lootbagrare"
+  ]
+}

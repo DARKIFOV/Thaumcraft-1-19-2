@@ -1,0 +1,33 @@
+Thaumcraft Legacy Rebuild 1.19.2 — v11.63.29 build status
+Date: 2026-07-18
+
+RESULT: BUILD NOT OBTAINED
+
+Environment checks:
+- java -version: OpenJDK 21.0.10
+- javac -version: 21.0.10
+- JDK 17: NOT FOUND
+- gradlew / gradlew.bat: PRESENT
+- gradle/wrapper/gradle-wrapper.jar: PRESENT
+- wrapper distribution: Gradle 7.5.1
+
+Wrapper diagnostic:
+- ./gradlew --version --no-daemon --console=plain
+- exit code: 1
+- failure: java.net.UnknownHostException: services.gradle.org
+- Gradle itself did not start.
+
+compileJava:
+- NOT RUN after environment check, because the required JDK 17 is unavailable and the Wrapper distribution cannot be downloaded.
+- BUILD SUCCESSFUL: NO
+
+clean build:
+- NOT RUN after environment check for the same reasons.
+- BUILD SUCCESSFUL: NO
+
+Artifact verification:
+- build/libs contains no new JAR.
+- v11.63.29 JAR SHA-256: N/A
+- runtime ZIP with JAR: NOT CREATED
+
+Only source/resource/static contracts are confirmed. Gameplay, rendering, recipes, tags, save/reload, multiplayer and dedicated-server behavior remain NOT TESTED.

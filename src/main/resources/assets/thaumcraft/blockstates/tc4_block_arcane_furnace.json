@@ -1,0 +1,400 @@
+{
+  "variants": {
+    "facing=north,layer=lower,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_lower_north"
+    },
+    "facing=north,layer=lower,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_lower_north"
+    },
+    "facing=north,layer=lower,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_lower_north"
+    },
+    "facing=north,layer=lower,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_lower_north"
+    },
+    "facing=north,layer=lower,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_lower_north"
+    },
+    "facing=north,layer=lower,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_lower_north"
+    },
+    "facing=north,layer=lower,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_lower_north"
+    },
+    "facing=north,layer=lower,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_lower_north"
+    },
+    "facing=north,layer=lower,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_lower_north"
+    },
+    "facing=north,layer=lower,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_lower_north"
+    },
+    "facing=north,layer=lower,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_lower_north"
+    },
+    "facing=north,layer=middle,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_middle_north"
+    },
+    "facing=north,layer=middle,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_middle_north"
+    },
+    "facing=north,layer=middle,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_middle_north"
+    },
+    "facing=north,layer=middle,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_middle_north"
+    },
+    "facing=north,layer=middle,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_middle_north"
+    },
+    "facing=north,layer=middle,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_middle_north"
+    },
+    "facing=north,layer=middle,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_middle_north"
+    },
+    "facing=north,layer=middle,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_middle_north"
+    },
+    "facing=north,layer=middle,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_middle_north"
+    },
+    "facing=north,layer=middle,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_middle_north"
+    },
+    "facing=north,layer=middle,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_middle_north"
+    },
+    "facing=north,layer=upper,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_upper_north"
+    },
+    "facing=north,layer=upper,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_upper_north"
+    },
+    "facing=north,layer=upper,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_upper_north"
+    },
+    "facing=north,layer=upper,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_upper_north"
+    },
+    "facing=north,layer=upper,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_upper_north"
+    },
+    "facing=north,layer=upper,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_upper_north"
+    },
+    "facing=north,layer=upper,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_upper_north"
+    },
+    "facing=north,layer=upper,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_upper_north"
+    },
+    "facing=north,layer=upper,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_upper_north"
+    },
+    "facing=north,layer=upper,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_upper_north"
+    },
+    "facing=north,layer=upper,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_upper_north"
+    },
+    "facing=south,layer=lower,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_lower_south"
+    },
+    "facing=south,layer=lower,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_lower_south"
+    },
+    "facing=south,layer=lower,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_lower_south"
+    },
+    "facing=south,layer=lower,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_lower_south"
+    },
+    "facing=south,layer=lower,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_lower_south"
+    },
+    "facing=south,layer=lower,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_lower_south"
+    },
+    "facing=south,layer=lower,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_lower_south"
+    },
+    "facing=south,layer=lower,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_lower_south"
+    },
+    "facing=south,layer=lower,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_lower_south"
+    },
+    "facing=south,layer=lower,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_lower_south"
+    },
+    "facing=south,layer=lower,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_lower_south"
+    },
+    "facing=south,layer=middle,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_middle_south"
+    },
+    "facing=south,layer=middle,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_middle_south"
+    },
+    "facing=south,layer=middle,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_middle_south"
+    },
+    "facing=south,layer=middle,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_middle_south"
+    },
+    "facing=south,layer=middle,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_middle_south"
+    },
+    "facing=south,layer=middle,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_middle_south"
+    },
+    "facing=south,layer=middle,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_middle_south"
+    },
+    "facing=south,layer=middle,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_middle_south"
+    },
+    "facing=south,layer=middle,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_middle_south"
+    },
+    "facing=south,layer=middle,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_middle_south"
+    },
+    "facing=south,layer=middle,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_middle_south"
+    },
+    "facing=south,layer=upper,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_upper_south"
+    },
+    "facing=south,layer=upper,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_upper_south"
+    },
+    "facing=south,layer=upper,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_upper_south"
+    },
+    "facing=south,layer=upper,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_upper_south"
+    },
+    "facing=south,layer=upper,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_upper_south"
+    },
+    "facing=south,layer=upper,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_upper_south"
+    },
+    "facing=south,layer=upper,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_upper_south"
+    },
+    "facing=south,layer=upper,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_upper_south"
+    },
+    "facing=south,layer=upper,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_upper_south"
+    },
+    "facing=south,layer=upper,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_upper_south"
+    },
+    "facing=south,layer=upper,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_upper_south"
+    },
+    "facing=west,layer=lower,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_lower_west"
+    },
+    "facing=west,layer=lower,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_lower_west"
+    },
+    "facing=west,layer=lower,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_lower_west"
+    },
+    "facing=west,layer=lower,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_lower_west"
+    },
+    "facing=west,layer=lower,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_lower_west"
+    },
+    "facing=west,layer=lower,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_lower_west"
+    },
+    "facing=west,layer=lower,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_lower_west"
+    },
+    "facing=west,layer=lower,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_lower_west"
+    },
+    "facing=west,layer=lower,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_lower_west"
+    },
+    "facing=west,layer=lower,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_lower_west"
+    },
+    "facing=west,layer=lower,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_lower_west"
+    },
+    "facing=west,layer=middle,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_middle_west"
+    },
+    "facing=west,layer=middle,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_middle_west"
+    },
+    "facing=west,layer=middle,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_middle_west"
+    },
+    "facing=west,layer=middle,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_middle_west"
+    },
+    "facing=west,layer=middle,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_middle_west"
+    },
+    "facing=west,layer=middle,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_middle_west"
+    },
+    "facing=west,layer=middle,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_middle_west"
+    },
+    "facing=west,layer=middle,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_middle_west"
+    },
+    "facing=west,layer=middle,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_middle_west"
+    },
+    "facing=west,layer=middle,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_middle_west"
+    },
+    "facing=west,layer=middle,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_middle_west"
+    },
+    "facing=west,layer=upper,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_upper_west"
+    },
+    "facing=west,layer=upper,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_upper_west"
+    },
+    "facing=west,layer=upper,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_upper_west"
+    },
+    "facing=west,layer=upper,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_upper_west"
+    },
+    "facing=west,layer=upper,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_upper_west"
+    },
+    "facing=west,layer=upper,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_upper_west"
+    },
+    "facing=west,layer=upper,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_upper_west"
+    },
+    "facing=west,layer=upper,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_upper_west"
+    },
+    "facing=west,layer=upper,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_upper_west"
+    },
+    "facing=west,layer=upper,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_upper_west"
+    },
+    "facing=west,layer=upper,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_upper_west"
+    },
+    "facing=east,layer=lower,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_lower_east"
+    },
+    "facing=east,layer=lower,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_lower_east"
+    },
+    "facing=east,layer=lower,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_lower_east"
+    },
+    "facing=east,layer=lower,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_lower_east"
+    },
+    "facing=east,layer=lower,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_lower_east"
+    },
+    "facing=east,layer=lower,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_lower_east"
+    },
+    "facing=east,layer=lower,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_lower_east"
+    },
+    "facing=east,layer=lower,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_lower_east"
+    },
+    "facing=east,layer=lower,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_lower_east"
+    },
+    "facing=east,layer=lower,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_lower_east"
+    },
+    "facing=east,layer=lower,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_lower_east"
+    },
+    "facing=east,layer=middle,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_middle_east"
+    },
+    "facing=east,layer=middle,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_middle_east"
+    },
+    "facing=east,layer=middle,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_middle_east"
+    },
+    "facing=east,layer=middle,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_middle_east"
+    },
+    "facing=east,layer=middle,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_middle_east"
+    },
+    "facing=east,layer=middle,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_middle_east"
+    },
+    "facing=east,layer=middle,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_middle_east"
+    },
+    "facing=east,layer=middle,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_middle_east"
+    },
+    "facing=east,layer=middle,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_middle_east"
+    },
+    "facing=east,layer=middle,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_middle_east"
+    },
+    "facing=east,layer=middle,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_middle_east"
+    },
+    "facing=east,layer=upper,part=0": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p0_upper_east"
+    },
+    "facing=east,layer=upper,part=1": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p1_upper_east"
+    },
+    "facing=east,layer=upper,part=2": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p2_upper_east"
+    },
+    "facing=east,layer=upper,part=3": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p3_upper_east"
+    },
+    "facing=east,layer=upper,part=4": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p4_upper_east"
+    },
+    "facing=east,layer=upper,part=5": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p5_upper_east"
+    },
+    "facing=east,layer=upper,part=6": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p6_upper_east"
+    },
+    "facing=east,layer=upper,part=7": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p7_upper_east"
+    },
+    "facing=east,layer=upper,part=8": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p8_upper_east"
+    },
+    "facing=east,layer=upper,part=9": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p9_upper_east"
+    },
+    "facing=east,layer=upper,part=10": {
+      "model": "thaumcraft:block/tc4_block_arcane_furnace_p10_upper_east"
+    }
+  }
+}

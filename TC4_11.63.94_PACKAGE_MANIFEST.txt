@@ -1,0 +1,33 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.94
+PARITY CONSOLIDATION REPAIR PACKAGE MANIFEST
+
+Base selected:
+- clean source-linked v11.63.72 archive
+
+Archives reviewed:
+- TC4_v11.63.93_WORLDGEN_ESSENTIA_V2.zip
+- Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.63.72_WAND_RESTORED_ESSENTIA_PARITY.zip
+- Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.63.70_ALCHEMY_PARITY.zip
+
+Final counters:
+- 98 unique annotated GameTest methods
+- 426 unique runtime manifest scenarios
+- 2049 valid JSON resources
+- 258/258 original recipe registrations statically mapped
+- 18 smelting bonus registrations tracked separately
+
+Focused static CI:
+- 14/14 PASS
+
+Runtime/build status:
+- Gradle compile: NOT RUN (wrapper distribution unavailable offline; UnknownHostException)
+- Available JDK: Java 21
+- Target development JDK: Java 17
+- Forge GameTest server: NOT RUN
+- Runtime status: NOT VERIFIED
+
+Primary reports:
+- TC4_11.63.93_ARCHIVE_REVIEW_RU.md
+- TC4_11.63.94_PARITY_CONSOLIDATION_REPAIR_REPORT_RU.md
+- TC4_11.63.94_FOCUSED_STATIC_CI_FINAL.log
+- TC4_11.63.94_GRADLE_COMPILE_ATTEMPT.log

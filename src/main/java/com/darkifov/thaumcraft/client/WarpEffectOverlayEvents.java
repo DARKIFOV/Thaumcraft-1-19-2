@@ -13,8 +13,9 @@ import net.minecraftforge.fml.common.Mod;
 /**
  * Lightweight 1.19.2 equivalents of TC4's four warp post-processing shaders.
  * The original GLSL pipeline cannot be copied directly into the modern render
- * graph, but these synced-effect overlays preserve the visible state changes
- * until dedicated post-chain JSONs are fully ported.
+ * graph. Unnatural Hunger now owns its exact dedicated post chain; the
+ * remaining marker effects keep these fallback overlays until their own
+ * full-closure passes.
  */
 @Mod.EventBusSubscriber(modid = ThaumcraftMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class WarpEffectOverlayEvents {
@@ -39,9 +40,6 @@ public final class WarpEffectOverlayEvents {
             GuiComponent.fill(poseStack, drift, 0, width, height, 0x147F6A8F);
         }
 
-        if (player.hasEffect(ThaumcraftMod.UNNATURAL_HUNGER.get())) {
-            GuiComponent.fill(poseStack, 0, 0, width, height, 0x183A4D20);
-        }
 
         if (player.hasEffect(ThaumcraftMod.SUN_SCORNED.get())) {
             GuiComponent.fill(poseStack, 0, 0, width, height, 0x26FFE08A);

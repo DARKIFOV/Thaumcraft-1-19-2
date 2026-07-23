@@ -1,11 +1,12 @@
 {
   "tc4_key": "ArcaneEar",
-  "tc4_source": "addArcaneCraftingRecipe",
+  "tc4_source": "ConfigRecipes.addArcaneCraftingRecipe line 927",
   "research": "ARCANEEAR",
   "tc4_kind": "ARCANE_SHAPED",
   "catalyst": "thaumcraft:greatwood_planks",
   "ingredients": [
-    "minecraft:shears",
+    "thaumcraft:greatwood_planks",
+    "minecraft:redstone",
     "minecraft:iron_ingot",
     "minecraft:gold_ingot",
     "thaumcraft:tc4_brain"
@@ -20,14 +21,15 @@
     "WRW"
   ],
   "key": {
-    "G": "minecraft:shears",
+    "W": "thaumcraft:greatwood_planks",
+    "R": "minecraft:redstone",
     "I": "minecraft:iron_ingot",
-    "B": "thaumcraft:greatwood_planks",
-    "W": "minecraft:gold_ingot",
-    "R": "thaumcraft:tc4_brain"
+    "G": "minecraft:gold_ingot",
+    "B": "thaumcraft:tc4_brain"
   },
   "result": {
     "item": "thaumcraft:tc4_block_arcane_ear",
     "count": 1
-  }
+  },
+  "v11_64_19_exact_source": true
 }

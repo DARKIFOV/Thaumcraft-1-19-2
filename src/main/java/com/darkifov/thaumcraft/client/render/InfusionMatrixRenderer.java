@@ -36,7 +36,7 @@ public class InfusionMatrixRenderer implements BlockEntityRenderer<InfusionMatri
     @Override
     public void render(InfusionMatrixBlockEntity matrix, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         float ticks = Minecraft.getInstance().player == null ? partialTicks : Minecraft.getInstance().player.tickCount + partialTicks;
-        float startUp = matrix.updateAndGetRenderStartUp();
+        float startUp = matrix.renderStartUp();
         int light = matrix.active() ? LightTexture.FULL_BRIGHT : packedLight;
 
         poseStack.pushPose();

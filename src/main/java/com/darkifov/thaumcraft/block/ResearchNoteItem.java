@@ -26,14 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Research note plus TC4 metadata-42 "unknown research" behaviour.
- *
- * <p>A blank note made from nine knowledge fragments does not open an empty
- * puzzle. On first use it deterministically selects an eligible hidden,
- * triggered research entry. When none remains, the note is consumed and
- * returns seven to nine fragments, matching ItemResearchNotes in TC4 4.2.3.5.</p>
- */
+/** Research note/discovery with the original TC4 right-click transaction. */
 public class ResearchNoteItem extends Item {
     public ResearchNoteItem(Properties properties) {
         super(properties);
@@ -43,27 +36,18 @@ public class ResearchNoteItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         String target = ResearchNoteState.target(stack);
-
         if (target.isBlank()) {
             if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
                 resolveUnknownResearchNote(serverPlayer, stack);
             }
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
         }
-
         ResearchNoteState.initialize(stack, target);
-        if (!level.isClientSide && player instanceof ServerPlayer) {
-            if (ResearchNoteState.solved(stack)) {
-                ResearchNoteSolver.convertSolvedNote(player, stack);
-                return InteractionResultHolder.success(stack);
-            }
-            // TC4 ItemResearchNotes only resolves unknown notes or consumes a
-            // completed discovery. The hex puzzle belongs to GuiResearchTable;
-            // an unfinished theory cannot be edited from the player's hand.
-            player.displayClientMessage(Component.literal("Place this research note in a Research Table to continue the theory.")
-                    .withStyle(ChatFormatting.DARK_AQUA), true);
+        if (!level.isClientSide && ResearchNoteState.solved(stack)) {
+            ResearchNoteSolver.convertSolvedNote(player, stack);
+            return InteractionResultHolder.success(stack);
         }
-
+        // Unfinished notes are edited only in GuiResearchTable; hand use is silent.
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
     }
 
@@ -79,8 +63,6 @@ public class ResearchNoteItem extends Item {
             }
             candidates.add(entry);
         }
-
-        // TC4: new Random(world.getWorldTime() / 10L / 5L).
         Random deterministic = new Random(player.level.getGameTime() / 50L);
         if (candidates.isEmpty()) {
             stack.shrink(1);
@@ -91,11 +73,8 @@ public class ResearchNoteItem extends Item {
                     SoundSource.PLAYERS, 0.75F, 1.0F);
             return;
         }
-
         ResearchEntry selected = candidates.get(deterministic.nextInt(candidates.size()));
         ResearchNoteState.initialize(stack, selected.key(), player.getRandom().nextLong());
-        stack.setHoverName(Component.literal("Research Notes - " + selected.title())
-                .withStyle(ChatFormatting.DARK_PURPLE));
         player.level.playSound(null, player.blockPosition(), TC4Sounds.event("write"),
                 SoundSource.PLAYERS, 0.75F, 1.0F);
     }
@@ -110,29 +89,21 @@ public class ResearchNoteItem extends Item {
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag) {
         String target = ResearchNoteState.target(stack);
         if (target.isBlank()) {
-            tooltip.add(Component.literal("Unknown research").withStyle(ChatFormatting.GOLD));
-            tooltip.add(Component.literal("Right-click to reveal eligible hidden research.")
-                    .withStyle(ChatFormatting.BLUE));
-            tooltip.add(Component.literal("If none remains, the note returns 7-9 knowledge fragments.")
-                    .withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable("item.researchnotes.unknown.1").withStyle(ChatFormatting.GOLD));
+            tooltip.add(Component.translatable("item.researchnotes.unknown.2").withStyle(ChatFormatting.BLUE));
             return;
         }
-
         ResearchNoteState.initialize(stack, target);
-        tooltip.add(Component.literal("Target: " + target).withStyle(ChatFormatting.DARK_PURPLE));
-        tooltip.add(Component.literal("Theory progress: " + ResearchNoteState.progress(stack) + " / 100")
-                .withStyle(ChatFormatting.GOLD));
-        tooltip.add(Component.literal("Required: " + ResearchNoteState.requiredAspects(stack).size()
-                + " original TC4 aspects").withStyle(ChatFormatting.GRAY));
-        int copies = ResearchNoteState.copyCount(stack);
-        if (copies > 0) {
-            tooltip.add(Component.literal("Copies made: " + copies).withStyle(ChatFormatting.DARK_AQUA));
-        }
-        tooltip.add(Component.literal("Right-click: open the research note puzzle.")
-                .withStyle(ChatFormatting.DARK_AQUA));
-        if (ResearchNoteState.solved(stack)) {
-            tooltip.add(Component.literal("Solved: right-click to convert into completed research.")
-                    .withStyle(ChatFormatting.GREEN));
-        }
+        tooltip.add(Component.translatable("tc.research_name." + target).withStyle(ChatFormatting.GOLD));
+        tooltip.add(Component.translatable("tc.research_text." + target).withStyle(ChatFormatting.ITALIC));
+        ResearchRegistry.byKey(target).ifPresent(entry -> {
+            int warp = Math.min(5, entry.warp());
+            if (warp > 0) {
+                tooltip.add(Component.translatable("tc.forbidden")
+                        .append(" ")
+                        .append(Component.translatable("tc.forbidden.level." + warp))
+                        .withStyle(ChatFormatting.DARK_PURPLE));
+            }
+        });
     }
 }

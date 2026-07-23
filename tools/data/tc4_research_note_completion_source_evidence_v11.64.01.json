@@ -1,0 +1,19 @@
+{
+  "version": "11.64.01",
+  "original_sources": {
+    "completion": "Thaumcraft4-1.7.10-master/thaumcraft/common/lib/research/ResearchManager.java:255-286",
+    "table_commit": "Thaumcraft4-1.7.10-master/thaumcraft/common/tiles/TileResearchTable.java:191-196",
+    "discovery_conversion": "Thaumcraft4-1.7.10-master/thaumcraft/common/items/ItemResearchNotes.java:72-92"
+  },
+  "claims": {
+    "completion_requires_connected_known_anchor_graph": true,
+    "completion_prunes_disconnected_non_anchor_hexes": true,
+    "completion_consumes_no_additional_ink": true,
+    "completion_rejects_repeated_or_stale_commit": true,
+    "discovery_consumes_one_note_including_creative": true,
+    "eligible_siblings_unlock_after_target": true,
+    "failed_or_stale_conversion_does_not_consume_note": true,
+    "failed_solve_packet_does_not_sync": true
+  },
+  "runtime_status": "NOT_VERIFIED"
+}

@@ -1,0 +1,9 @@
+TC4 v11.64.06 GRADLE BUILD ATTEMPT
+
+Command: ./gradlew --offline compileJava
+Result: FAILED TO START — BUILD NOT ATTEMPTED SUCCESSFULLY.
+Reason: Gradle wrapper must download gradle-*-bin.zip from services.gradle.org, which is unreachable
+        in this sandbox (UnknownHostException / offline). No JDK 17 + Forge toolchain available.
+
+VERDICT: Java 17 JAR NOT BUILT. Runtime PASS NOT CLAIMED.
+A real BUILD SUCCESSFUL with exit code 0 on JDK 17 is still required before any runtime/JAR claim.

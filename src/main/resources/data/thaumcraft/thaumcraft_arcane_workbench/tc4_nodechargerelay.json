@@ -6,7 +6,7 @@
   "catalyst": "thaumcraft:vis_relay",
   "ingredients": [
     "minecraft:iron_ingot",
-    "thaumcraft:tc4_wand_rod_greatwood"
+    "thaumcraft:greatwood_wand_core"
   ],
   "aspects": {
     "IGNIS": 16,
@@ -21,11 +21,12 @@
   "key": {
     "I": "minecraft:iron_ingot",
     "R": "thaumcraft:vis_relay",
-    "W": "thaumcraft:tc4_wand_rod_greatwood"
+    "W": "thaumcraft:greatwood_wand_core"
   },
   "result": {
     "item": "thaumcraft:vis_charge_relay",
     "count": 1
   },
-  "v11_62_64_strict_original": true
+  "v11_62_64_strict_original": true,
+  "v11_63_50_exact_source": true
 }

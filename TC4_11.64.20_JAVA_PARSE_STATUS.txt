@@ -1,0 +1,6 @@
+Version: 11.64.20
+Dependency-free TC4ArcaneLevitatorParity compiled with javac --release 17: PASS
+TC4ArcaneLevitatorParitySelfTest: PASS
+Targeted parse checks: ArcaneLevitatorBlock, ArcaneLevitatorBlockEntity, custom sparkle particle, client density helper, common effects bridge, ClientModEvents, ThaumcraftMod and TC4BlockEntityGameTests: PASS
+Full source Java syntax guard: PASS
+Forge type-resolution/build: NOT VERIFIED because Gradle dependencies were unavailable.

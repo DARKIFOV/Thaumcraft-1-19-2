@@ -2,9 +2,7 @@ package com.darkifov.thaumcraft.network;
 
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.research.ResearchTableFoundation;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -42,8 +40,6 @@ public class RequestCombineAspectsPacket {
             Aspect second = Aspect.byId(packet.secondId);
 
             if (first == null || second == null) {
-                player.displayClientMessage(Component.translatable("thaumcraft.message.research.unknown_aspect").withStyle(ChatFormatting.RED), false);
-                ThaumcraftNetwork.syncAspectKnowledge(player);
                 return;
             }
 

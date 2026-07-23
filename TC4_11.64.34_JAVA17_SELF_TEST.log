@@ -1,0 +1,5 @@
+$ javac --release 17 -proc:none -d <tmp> src/main/java/com/darkifov/thaumcraft/infusion/TC4InfusionAltarFullClosureParity.java tools/java_contracts/TC4InfusionAltarFullClosureSelfTest.java
+JAVAC_EXIT_CODE=0
+$ java -cp <tmp> TC4InfusionAltarFullClosureSelfTest
+TC4InfusionAltarFullClosureSelfTest: PASS
+JAVA_EXIT_CODE=0

@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.client.render.EssentiaJarItemRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -20,13 +21,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- * Filled TC4 jar item. The original ItemJarFilled stored essentia and the label
- * on the stack and used a custom item renderer; a plain BlockItem loses both
- * the visual state and the contents when the block is picked up.
- */
+/** Exact TC4 ItemJarFilled carrier: root Aspects list plus optional AspectFilter. */
 public final class EssentiaJarBlockItem extends BlockItem {
-    public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
+    public static final String BLOCK_ENTITY_TAG = "BlockEntityTag"; // migration-only pre-11.64.35 wrapper
+    public static final String ITEM_ASPECTS = "Aspects";
+    public static final String ITEM_ASPECT_KEY = "key";
+    public static final String ITEM_ASPECT_AMOUNT = "amount";
 
     public EssentiaJarBlockItem(Block block, Properties properties) {
         super(block, properties.stacksTo(1));
@@ -42,73 +42,101 @@ public final class EssentiaJarBlockItem extends BlockItem {
         });
     }
 
-    /** Reads modern BlockEntityTag and the root-level TC4 ItemJarFilled format. */
+    /** Converts exact item NBT (or old port NBT) into TileJarFillable placement NBT. */
     public static CompoundTag readJarData(ItemStack stack) {
         CompoundTag root = stack.getTag();
-        if (root == null) {
-            return new CompoundTag();
-        }
-        if (root.contains(BLOCK_ENTITY_TAG, Tag.TAG_COMPOUND)) {
-            return root.getCompound(BLOCK_ENTITY_TAG).copy();
-        }
-        // Legacy port and TC4 migration stacks used Aspects/AspectFilter at root.
-        return root.copy();
+        if (root == null) return new CompoundTag();
+        CompoundTag source = root.contains(BLOCK_ENTITY_TAG, Tag.TAG_COMPOUND)
+                ? root.getCompound(BLOCK_ENTITY_TAG) : root;
+        return canonicalBlockEntityData(source);
     }
 
     public static void writeJarData(ItemStack stack, EssentiaJarBlockEntity jar) {
-        CompoundTag data = jar.getUpdateTag();
-        if (jar.amount() <= 0 && !jar.hasFilter()) {
-            CompoundTag root = stack.getTag();
-            if (root != null) {
-                root.remove(BLOCK_ENTITY_TAG);
-                if (root.isEmpty()) {
-                    stack.setTag(null);
-                }
-            }
-            return;
+        writeItemData(stack, jar.storedAspect(), jar.amount(), jar.filterAspect());
+    }
+
+    /** Writes the original ItemJarFilled root NBT and strips all world-only/migration keys. */
+    public static void writeItemData(ItemStack stack, @Nullable Aspect aspect, int amount, @Nullable Aspect filter) {
+        CompoundTag root = stack.getOrCreateTag();
+        removeLegacyJarKeys(root);
+        if (aspect != null && amount > 0) {
+            ListTag list = new ListTag();
+            CompoundTag entry = new CompoundTag();
+            entry.putString(ITEM_ASPECT_KEY, aspect.id());
+            entry.putInt(ITEM_ASPECT_AMOUNT, amount);
+            list.add(entry);
+            root.put(ITEM_ASPECTS, list);
         }
-        stack.getOrCreateTag().put(BLOCK_ENTITY_TAG, data);
+        if (filter != null) root.putString("AspectFilter", filter.id());
+        if (root.isEmpty()) stack.setTag(null);
     }
 
     public static AspectList itemAspects(ItemStack stack) {
         CompoundTag data = readJarData(stack);
         AspectList result = new AspectList();
-        if (data.contains("Aspects", Tag.TAG_COMPOUND)) {
-            result.load(data.getCompound("Aspects"));
-        } else if (data.contains("Aspect")) {
-            Aspect aspect = Aspect.byId(data.getString("Aspect"));
-            int amount = Math.max(0, data.getShort("Amount"));
-            if (aspect != null && amount > 0) {
-                result.add(aspect, amount);
-            }
-        }
+        Aspect aspect = Aspect.byId(data.getString("Aspect"));
+        int amount = Math.max(0, data.getShort("Amount"));
+        if (aspect != null && amount > 0) result.add(aspect, amount);
         return result;
     }
 
     @Nullable
     public static Aspect itemFilter(ItemStack stack) {
-        CompoundTag data = readJarData(stack);
-        Aspect filter = null;
-        if (data.contains("FilterAspect")) {
-            filter = Aspect.byId(data.getString("FilterAspect"));
+        return Aspect.byId(readJarData(stack).getString("AspectFilter"));
+    }
+
+    private static CompoundTag canonicalBlockEntityData(CompoundTag source) {
+        CompoundTag result = new CompoundTag();
+        Aspect aspect = Aspect.byId(source.getString("Aspect"));
+        int amount = Math.max(0, source.getShort("Amount"));
+
+        if (source.contains(ITEM_ASPECTS, Tag.TAG_LIST)) {
+            ListTag list = source.getList(ITEM_ASPECTS, Tag.TAG_COMPOUND);
+            if (!list.isEmpty()) {
+                CompoundTag entry = list.getCompound(0);
+                aspect = Aspect.byId(entry.getString(ITEM_ASPECT_KEY));
+                amount = Math.max(0, entry.getInt(ITEM_ASPECT_AMOUNT));
+            }
+        } else if (aspect == null && source.contains(ITEM_ASPECTS, Tag.TAG_COMPOUND)) {
+            // One-time migration from the port's old AspectList compound format.
+            AspectList migrated = new AspectList();
+            migrated.load(source.getCompound(ITEM_ASPECTS));
+            aspect = migrated.firstAspect();
+            amount = aspect == null ? 0 : migrated.get(aspect);
         }
-        if (filter == null && data.contains("AspectFilter")) {
-            filter = Aspect.byId(data.getString("AspectFilter"));
+
+        Aspect filter = Aspect.byId(source.getString("AspectFilter"));
+        if (filter == null) filter = Aspect.byId(source.getString("FilterAspect"));
+        if (aspect != null && amount > 0) {
+            result.putString("Aspect", aspect.id());
+            result.putShort("Amount", (short) amount);
         }
-        return filter;
+        if (filter != null) result.putString("AspectFilter", filter.id());
+        return result;
+    }
+
+    private static void removeLegacyJarKeys(CompoundTag root) {
+        root.remove(BLOCK_ENTITY_TAG);
+        root.remove(ITEM_ASPECTS);
+        root.remove("FilterAspect");
+        root.remove("Aspect");
+        root.remove("Amount");
+        root.remove("AspectFilter");
+        root.remove("facing");
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, level, tooltip, flag);
         AspectList aspects = itemAspects(stack);
-        if (!aspects.isEmpty()) {
-            tooltip.add(Component.literal("Essentia: ").withStyle(ChatFormatting.GRAY).append(aspects.toComponent()));
+        Aspect stored = aspects.firstAspect();
+        if (stored != null) {
+            tooltip.add(Component.literal(stored.displayName() + " x " + aspects.get(stored))
+                    .withStyle(stored.color()));
         }
         Aspect filter = itemFilter(stack);
         if (filter != null) {
-            tooltip.add(Component.literal("Filter: ").withStyle(ChatFormatting.DARK_PURPLE)
-                    .append(Component.literal(filter.displayName()).withStyle(style -> style.withColor(filter.textColor()))));
+            tooltip.add(Component.literal(filter.displayName()).withStyle(ChatFormatting.DARK_PURPLE));
         }
     }
 }

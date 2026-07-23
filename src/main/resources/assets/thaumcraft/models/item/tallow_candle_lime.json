@@ -1,3 +1,4 @@
 {
-  "parent": "thaumcraft:block/tallow_candle_lime"
+  "parent": "builtin/entity",
+  "gui_light": "front"
 }

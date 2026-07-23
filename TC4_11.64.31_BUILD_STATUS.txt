@@ -1,0 +1,11 @@
+TC4 v11.64.31 BUILD STATUS
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+JAR CREATED: NO
+
+Gradle command: ./gradlew build --no-daemon --console=plain
+Result: EXIT_CODE=1 before project compilation.
+Blocker: java.net.UnknownHostException: services.gradle.org while downloading Gradle 7.5.1.
+Environment Java: OpenJDK 21.0.10; required project runtime/toolchain: Java 17.

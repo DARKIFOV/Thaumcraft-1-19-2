@@ -270,6 +270,14 @@ public final class ThaumcraftNetwork {
 
         CHANNEL.registerMessage(
                 packetId++,
+                RequestHoverTogglePacket.class,
+                RequestHoverTogglePacket::encode,
+                RequestHoverTogglePacket::decode,
+                RequestHoverTogglePacket::handle
+        );
+
+        CHANNEL.registerMessage(
+                packetId++,
                 RequestFocusChangePacket.class,
                 RequestFocusChangePacket::encode,
                 RequestFocusChangePacket::decode,
@@ -448,7 +456,8 @@ public final class ThaumcraftNetwork {
                 new ScanKnowledgeSyncPacket(
                         PlayerThaumData.getScannedObjects(player),
                         PlayerThaumData.getScannedEntities(player),
-                        com.darkifov.thaumcraft.data.NodeScanData.getScannedNodeKeys(player)
+                        com.darkifov.thaumcraft.data.NodeScanData.getScannedNodeKeys(player),
+                        PlayerThaumData.getScannedPhenomena(player)
                 )
         );
     }
@@ -583,6 +592,10 @@ public final class ThaumcraftNetwork {
 
     public static void requestWandArchitectToggleFromClient() {
         CHANNEL.sendToServer(new RequestWandArchitectTogglePacket((byte) 1));
+    }
+
+    public static void requestHoverToggleFromClient() {
+        CHANNEL.sendToServer(new RequestHoverTogglePacket());
     }
 
     public static void requestFocusChangeFromClient(String focus) {

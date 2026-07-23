@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "thaumcraft:mnemonic_matrix"
+          "name": "thaumcraft:tc4_block_mnemonic_matrix"
         }
       ],
       "conditions": [

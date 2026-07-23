@@ -1,0 +1,22 @@
+[1/10] python3 tools/tc4_116419_arcane_ear_full_closure_guard.py
+TC4 v11.64.19 Arcane Ear full-closure guard: PASS (172 GameTests; 564 scenarios; source/resource/prompt)
+[2/10] python3 tools/java_parse_guard_116419.py
+Targeted Java parse guard v11.64.19: PASS (pure Java self-test + 6 Forge parse checks)
+[3/10] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2052 files)
+[4/10] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.19 --template
+runtime manifest: PASS (564 tests; template=True)
+[5/10] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[6/10] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 53 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[7/10] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (172 GameTests; 564 manifest scenarios; source-linked contracts retained)
+[8/10] bash -lc grep -q "version = '11.64.19'" build.gradle && grep -q 'version="11.64.19"' src/main/resources/META-INF/mods.toml && echo "version consistency: PASS"
+version consistency: PASS
+[9/10] bash -lc cmp -s UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md PROMPT_FOR_FUTURE_CHAT_RU.md && grep -q "Один релиз — один предмет или одна цельная механика" UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md && echo "mandatory prompt: PASS (two identical copies)"
+mandatory prompt: PASS (two identical copies)
+[10/10] bash -lc ! find . -type d \( -name build -o -name .gradle -o -name __pycache__ \) -print -quit | grep -q . && ! find . -type f \( -name "*.class" -o -name "*.pyc" \) -print -quit | grep -q . && echo "package cleanliness: PASS"
+package cleanliness: PASS
+FINAL RECHECK v11.64.19: PASS (10/10)

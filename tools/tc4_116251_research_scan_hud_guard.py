@@ -113,7 +113,7 @@ for token in (
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116251_research_scan_hud_guard.py", workflow_name)
-    if not re.search(r"reports/\*11\.62\.[0-9]+\*\.json", workflow):
+    if not re.search(r"reports/\*11\.[0-9]+\.[0-9]+\*\.json", workflow):
         ERRORS.append(f"{workflow_name}: missing current-version generated-report glob")
     if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
         ERRORS.append(f"{workflow_name}: historical report must not be required by clean CI")

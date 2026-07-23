@@ -1340,5 +1340,11 @@
     "This is a source/static registration map, not proof of Java compilation or runtime behavior.",
     "The 84 shaped figure is the number of literal call sites; it is not the expanded registration count.",
     "JEI, research gating, vis payment, NBT outputs and networking still require runtime verification."
-  ]
+  ],
+  "implementation_breakdown": {
+    "arcane_shaped_datapack_json": 99,
+    "arcane_shaped_generated_java": 5,
+    "arcane_shapeless_datapack_json": 5,
+    "arcane_shapeless_generated_java": 0
+  }
 }

@@ -1,0 +1,29 @@
+THAUMCRAFT LEGACY REBUILD v11.64.10 — STATIC CI SUMMARY
+
+Focused checks: 16/16 PASS in split execution
+GameTest source inventory: 143 unique methods
+Runtime manifest template: 471 unique scenarios
+JSON resources: 2049 valid
+Original recipe runtime registrations: 258/258 statically mapped
+Smelting bonus registrations: 18 tracked separately
+Java source files: 803
+
+New production contract:
+- Death Gaze full aperture = 0.75 radians
+- cosine threshold = cos(aperture / 2)
+- target body midpoint instead of target eyes
+- strict axial round-cap projection < range
+- isPickable admission matching original canBeCollidedWith
+- no non-original spherical distance prefilter
+
+Targeted Java evidence:
+- javac --release 17 pure parity class: PASS
+- cumulative warp helper self-test: PASS
+- changed Forge files parse guard: PASS
+
+NOT VERIFIED:
+- full JDK 17 Forge compilation
+- JAR
+- dedicated GameTest runtime
+- actual Death Gaze target selection/PVP/LOS/aggro
+- multiplayer and client visuals

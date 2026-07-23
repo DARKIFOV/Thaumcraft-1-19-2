@@ -1,0 +1,17 @@
+Thaumcraft Legacy Rebuild v11.64.20 package manifest
+Object: Arcane Levitator full closure
+Files before this manifest: 9023
+Files packaged including this manifest: 9024
+
+Required root artifacts:
+- UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+- PROMPT_FOR_FUTURE_CHAT_RU.md
+- TC4_11.64.20_ARCANE_LEVITATOR_FULL_CLOSURE_PARITY_PORT_REPORT_RU.md
+- TC4_11.64.20_FOCUSED_STATIC_CI_FINAL.log
+- TC4_11.64.20_FINAL_RECHECK.log
+- TC4_11.64.20_GRADLE_BUILD_ATTEMPT.log
+- TC4_11.64.20_JAVA_PARSE_STATUS.txt
+- TC4_11.64.20_BUILD_STATUS.txt
+- TC4_11.64.20_STATIC_CI_FINAL_SUMMARY.txt
+
+Status: SOURCE CLOSED / RESOURCE CLOSED; BUILD and RUNTIME NOT VERIFIED.

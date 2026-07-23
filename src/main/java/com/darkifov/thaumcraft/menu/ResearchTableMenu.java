@@ -93,7 +93,18 @@ public class ResearchTableMenu extends AbstractContainerMenu {
     }
 
     public boolean consumeBonusAspect(Aspect aspect) {
-        return table instanceof ResearchTableBlockEntity researchTable && researchTable.consumeBonusAspect(aspect);
+        return consumeBonusAspect(aspect, 1);
+    }
+
+    public boolean consumeBonusAspect(Aspect aspect, int amount) {
+        return table instanceof ResearchTableBlockEntity researchTable
+                && researchTable.consumeBonusAspect(aspect, amount);
+    }
+
+    public void setBonusAmountForTransaction(Aspect aspect, int amount) {
+        if (table instanceof ResearchTableBlockEntity researchTable) {
+            researchTable.setBonusAmountForTransaction(aspect, amount);
+        }
     }
 
     public void markTableChanged() {

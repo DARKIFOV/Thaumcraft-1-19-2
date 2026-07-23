@@ -1,48 +1,29 @@
 #!/usr/bin/env python3
 from pathlib import Path
-
-root = Path(__file__).resolve().parents[1]
-item = (root / 'src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java').read_text()
-events = (root / 'src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java').read_text()
-network = (root / 'src/main/java/com/darkifov/thaumcraft/network/ThaumcraftNetwork.java').read_text()
-packet_path = root / 'src/main/java/com/darkifov/thaumcraft/network/RequestThaumometerScanPacket.java'
-parity = (root / 'src/main/java/com/darkifov/thaumcraft/aura/TC4AuraNodeScanParity.java').read_text()
-targeting = (root / 'src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerTargeting.java').read_text()
-
-problems = []
-if not packet_path.exists():
-    problems.append('missing explicit Forge client->server scan packet')
-else:
-    packet = packet_path.read_text()
-    for token in ['beginBlockScan', 'beginEntityScan', 'context.setPacketHandled(true)', 'target validity and server-authoritative aspect availability']:
-        if token not in packet:
-            problems.append(f'scan packet missing {token}')
-    if 'TC4ThaumometerTargeting.find(player, 1.0F)' in packet:
-        problems.append('scan packet reintroduced the one-tick-late exact server ray that broke runtime scans')
-if 'RequestThaumometerScanPacket.class' not in network:
-    problems.append('scan packet is not registered')
-for token in ['RequestThaumometerScanPacket.block', 'RequestThaumometerScanPacket.entity', 'sendToServer']:
-    if token not in events:
-        problems.append(f'interaction bridge missing {token}')
-if 'if (!level.isClientSide && !target.hasAspects())' not in item:
-    problems.append('client aspect table can still reject a scan before packet delivery')
-for token in ['REQUIRED_STABLE_TICKS = 20', 'elapsed >= REQUIRED_STABLE_TICKS',
-              'serverTickPendingScan', 'TAG_PENDING_SCAN_START',
-              'TC4ThaumometerTargeting.find(player, 1.0F)', 'expected.equals(current.blockPos())']:
-    if token not in item:
-        problems.append(f'TC4 twenty-stable-tick completion path missing {token}')
-if 'TickEvent.PlayerTickEvent' not in events:
-    problems.append('cancelled Forge interactions have no authoritative scan tick fallback')
-if 'THAUMOMETER_USE_DURATION_TICKS = 25' not in parity:
-    problems.append('TC4 25 tick duration missing')
-if 'THAUMOMETER_SCAN_RANGE = 10.0D' not in parity:
-    problems.append('TC4 10 block scan range missing')
-if 'nearestBlockDistance' not in targeting:
-    problems.append('entity ray can pass through nearer blocks')
-
+root=Path(__file__).resolve().parents[1]
+def t(p):return (root/p).read_text(encoding='utf-8',errors='replace')
+item=t('src/main/java/com/darkifov/thaumcraft/block/ThaumometerItem.java')
+events=t('src/main/java/com/darkifov/thaumcraft/event/CommonEvents.java')
+network=t('src/main/java/com/darkifov/thaumcraft/network/ThaumcraftNetwork.java')
+packet=t('src/main/java/com/darkifov/thaumcraft/network/RequestThaumometerScanPacket.java')
+parity=t('src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerParity.java')
+target=t('src/main/java/com/darkifov/thaumcraft/aura/TC4ThaumometerTargeting.java')
+problems=[]
+for token in ('RequestThaumometerScanPacket.class','syncScanKnowledge'): 
+ if token not in network:problems.append('network '+token)
+for token in ('beginBlockScan','beginEntityScan','context.setPacketHandled(true)'):
+ if token not in packet:problems.append('packet '+token)
+for token in ('RequestThaumometerScanPacket.block','RequestThaumometerScanPacket.entity','sendToServer','TickEvent.PlayerTickEvent'):
+ if token not in events:problems.append('event '+token)
+for token in ('PENDING_SCANS','ConcurrentHashMap','PendingScan','TC4ThaumometerTargeting.find(player,1.0F)',
+              'TC4ThaumometerParity.shouldCompleteAfterElapsed(elapsed)','TC4ThaumometerParity.shouldPlayCameraTickAfterElapsed(elapsed)',
+              'migrateLegacyItemLedger','TC4ThaumometerParity.cappedAspectReward','PlayerThaumData.markScannedPhenomenon'):
+ if token not in item:problems.append('production '+token)
+for forbidden in ('putLong(TAG_PENDING_SCAN_START','put(TAG_PENDING_BLOCK_SCAN','put(TAG_PENDING_ENTITY_SCAN'):
+ if forbidden in item:problems.append('persistent pending state '+forbidden)
+for token in ('USE_DURATION_TICKS = 25','REQUIRED_STABLE_TICKS = USE_DURATION_TICKS - COMPLETION_REMAINING_TICKS','ENTITY_SCAN_RANGE = 10.0D','ENTITY_TARGET_EXPAND = 0.5D','ASPECT_TOTAL_CAP = 100','ASPECT_HARD_CAP = 125'):
+ if token not in parity:problems.append('parity '+token)
+if 'nearestBlockDistance' not in target:problems.append('wall occlusion')
 if problems:
-    print('Thaumometer scan guard: FAILED')
-    for problem in problems:
-        print(' -', problem)
-    raise SystemExit(1)
-print('Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, 25/20 tick TC4 hold)')
+ print('Thaumometer scan guard: FAILED');[print(' -',x) for x in problems];raise SystemExit(1)
+print('Thaumometer scan guard: OK (transient server scan state, exact 25/20 targeting, stable ledgers and aspect caps)')

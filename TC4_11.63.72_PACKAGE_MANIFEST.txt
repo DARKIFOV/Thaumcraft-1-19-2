@@ -1,0 +1,36 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.72
+Package: WAND_RESTORED_ESSENTIA_PARITY
+
+Base archive:
+- Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.63.70_ALCHEMY_PARITY.zip
+
+Restored v11.63.71:
+- TC4WandParity.java
+- WandRodType production constants: 200 / 50 / 10 / 1
+- WandItem consumes the shared regeneration constants
+- 3 GameTest contracts
+- intermediate inventory: 85 GameTests / 413 scenarios
+
+Added v11.63.72:
+- TC4EssentiaParity.java
+- jar/reservoir pull cadence constants
+- tube 2/5/20 tick cadence constants
+- mirror one-point transfer constant
+- 4 GameTest contracts
+- final inventory: 89 GameTests / 417 scenarios
+
+Static verification:
+- Focused current-round CI: 6/6 PASS
+- Runtime manifest: 417 PASS
+- JSON resources: 2049 PASS
+- Original recipe registrations: 258/258 STATICALLY MAPPED
+- Smelting bonus registrations: 18 separate
+- Java structural balance: PASS for 9 changed Java files
+- GameTest method names: 89/89 unique
+- Manifest IDs: 417/417 unique
+
+Runtime/build:
+- Gradle compile: NOT VERIFIED; wrapper download failed before Gradle execution
+- Available JDK: 21.0.10
+- Required verification target: Java 17 / Forge 1.19.2
+- Forge GameTest server: NOT RUN

@@ -1,0 +1,32 @@
+THAUMCRAFT LEGACY REBUILD - PACKAGE MANIFEST
+Version: 11.64.11 SUN_SCORNED_BRIGHTNESS_TABLE_PARITY
+Platform: Minecraft 1.19.2 / Forge 43.5.2 / Java 17 target
+Reference oracle: Thaumcraft 4.2.3.5 (1.7.10)
+
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.11_SUN_SCORNED_BRIGHTNESS_TABLE_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Java source files: 803
+GameTest methods: 144 unique
+Runtime manifest scenarios: 472 unique
+JSON resources validated: 2049
+Recipe registrations mapped: 258/258
+Smelting bonus registrations: 18 tracked separately
+Focused static CI: 17/17 PASS in split execution
+Targeted parity helper javac --release 17: PASS
+Cumulative pure-Java warp self-test: PASS
+
+Round scope:
+- Replace linear raw-light/15 Sun Scorned brightness sampling.
+- Use modern entity/world brightness-table sampling via getLightLevelDependentMagicValue().
+- Preserve strict >0.5 burn and <0.25 heal boundaries.
+- Preserve exact random inequalities, sky admission, four-second fire and one-point heal.
+- Preserve neutral-band RNG short-circuiting.
+
+Build status:
+- Full Gradle build NOT OBTAINED.
+- Wrapper download blocked by UnknownHostException for services.gradle.org.
+- JAR not created.
+- Forge GameTest runtime NOT VERIFIED.
+
+Archive SHA-256 is provided outside the self-contained ZIP in the companion checksum file.
+
+Source-tree files before archive: 8873

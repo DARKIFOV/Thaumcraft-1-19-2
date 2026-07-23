@@ -1,0 +1,7 @@
+Thaumcraft Legacy Rebuild v11.64.38 build status
+BUILD_VERIFIED=NO
+RUNTIME_VERIFIED=NO
+JAR_CREATED=NO
+GRADLE_EXIT_CODE=1
+Reason: Gradle Wrapper could not retrieve Gradle 7.5.1 from services.gradle.org in this environment; active JVM is not the required project JDK 17.
+Dependency-free Java 17 self-test: PASS

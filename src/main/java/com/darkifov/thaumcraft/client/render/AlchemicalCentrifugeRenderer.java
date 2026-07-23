@@ -28,9 +28,10 @@ public final class AlchemicalCentrifugeRenderer implements BlockEntityRenderer<A
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.5D, 0.5D);
-        poseStack.mulPose(Vector3f.YP.rotationDegrees(tile.rotation(partialTick)));
-        model.renderSpinnyBit(poseStack, buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE)),
-                packedLight, OverlayTexture.NO_OVERLAY);
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
+        model.renderBoxes(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(tile.rotation()));
+        model.renderSpinnyBit(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
         poseStack.popPose();
     }
 

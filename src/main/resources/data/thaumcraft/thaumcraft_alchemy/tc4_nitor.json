@@ -5,7 +5,7 @@
   "kind": "CRUCIBLE",
   "catalyst": "minecraft:glowstone_dust",
   "result": {
-    "item": "thaumcraft:tc4_nitor",
+    "item": "thaumcraft:nitor",
     "count": 1
   },
   "aspects": {

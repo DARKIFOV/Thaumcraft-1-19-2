@@ -18,7 +18,11 @@ import net.minecraft.world.level.ChunkPos;
  * being ported.</p>
  */
 public final class TC4OuterLandsLivePopulateAdapter {
-    private static final int PLAYER_CHUNK_RADIUS = 1;
+    /** Center-first three-by-three order. At most one new room is generated per pass. */
+    private static final int[][] PLAYER_CHUNK_OFFSETS = new int[][] {
+            {0, 0}, {0, -1}, {1, 0}, {0, 1}, {-1, 0},
+            {1, -1}, {1, 1}, {-1, 1}, {-1, -1}
+    };
 
     private TC4OuterLandsLivePopulateAdapter() {
     }
@@ -31,9 +35,12 @@ public final class TC4OuterLandsLivePopulateAdapter {
             return;
         }
         ChunkPos center = player.chunkPosition();
-        for (int dx = -PLAYER_CHUNK_RADIUS; dx <= PLAYER_CHUNK_RADIUS; dx++) {
-            for (int dz = -PLAYER_CHUNK_RADIUS; dz <= PLAYER_CHUNK_RADIUS; dz++) {
-                populateChunkOnce(level, center.x + dx, center.z + dz);
+        for (int[] offset : PLAYER_CHUNK_OFFSETS) {
+            if (populateChunkOnce(level, center.x + offset[0], center.z + offset[1])) {
+                // A TC4 room performs hundreds of block writes. Budgeting one
+                // successful room per 40-tick pass prevents the integrated
+                // server from stalling immediately after dimension transfer.
+                return;
             }
         }
     }

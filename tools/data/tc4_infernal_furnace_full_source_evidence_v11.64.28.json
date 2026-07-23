@@ -1,0 +1,202 @@
+{
+  "release": "11.64.28",
+  "mechanic": "Infernal Furnace",
+  "baseline": "Thaumcraft 4.2.3.5 / Minecraft 1.7.10",
+  "source_files": [
+    {
+      "original_path": "thaumcraft/common/blocks/BlockArcaneFurnace.java",
+      "sha256": "c0f039354b92538776d82519c5e1d716b2b562d27b69ab2ef2b24208db78067d",
+      "bytes": 16294
+    },
+    {
+      "original_path": "thaumcraft/common/tiles/TileArcaneFurnace.java",
+      "sha256": "46b9df63c9b4c7957421f1455e7e94f0b012b26c67d8f249458939314d95d6e5",
+      "bytes": 17383
+    },
+    {
+      "original_path": "thaumcraft/common/tiles/TileArcaneFurnaceNozzle.java",
+      "sha256": "217d8f0623610782cfd2952c478c4f1aabafddfa956d135b1080e24bb7610c96",
+      "bytes": 4772
+    },
+    {
+      "original_path": "thaumcraft/common/config/ConfigRecipes.java",
+      "sha256": "7a525af2ccca83cbe7c38ed7361b9a910c2829247738e8bb6c0bfa8be920cda3",
+      "bytes": 171944
+    },
+    {
+      "original_path": "thaumcraft/common/config/ConfigResearch.java",
+      "sha256": "4dfd57f37f0b11de094e926041cd925ae51918b94fa682f543d35e3a3f242de6",
+      "bytes": 139238
+    }
+  ],
+  "retained_textures": [
+    {
+      "name": "furnace0.png",
+      "original_sha256": "dbfe339819b626302423c57d4af105251cb57f53e274cf58d9fcc8693181c7fb",
+      "port_sha256": "dbfe339819b626302423c57d4af105251cb57f53e274cf58d9fcc8693181c7fb",
+      "identical": true
+    },
+    {
+      "name": "furnace1.png",
+      "original_sha256": "9be315a299e483c2e93fb0a5e38b5e6d3ee8a9a0ce6ba17237b735a3267126ab",
+      "port_sha256": "9be315a299e483c2e93fb0a5e38b5e6d3ee8a9a0ce6ba17237b735a3267126ab",
+      "identical": true
+    },
+    {
+      "name": "furnace10.png",
+      "original_sha256": "a001c047b5995c96a3598479f7a170841ff17f941a0b17f7c74ae1f1b8d1effd",
+      "port_sha256": "a001c047b5995c96a3598479f7a170841ff17f941a0b17f7c74ae1f1b8d1effd",
+      "identical": true
+    },
+    {
+      "name": "furnace11.png",
+      "original_sha256": "fec93d97a7f33967a9145e64cd08ff090ea6678b6ecd654c7135add0fa18b7a7",
+      "port_sha256": "fec93d97a7f33967a9145e64cd08ff090ea6678b6ecd654c7135add0fa18b7a7",
+      "identical": true
+    },
+    {
+      "name": "furnace12.png",
+      "original_sha256": "42e20d06ceb50c5a458c283322d181a56024aba3251d39c44d3aa7bea4e20172",
+      "port_sha256": "42e20d06ceb50c5a458c283322d181a56024aba3251d39c44d3aa7bea4e20172",
+      "identical": true
+    },
+    {
+      "name": "furnace13.png",
+      "original_sha256": "d495949afd867f936c53802118b2d03ea12f7e5e61fcfdafc8087193d2461bf1",
+      "port_sha256": "d495949afd867f936c53802118b2d03ea12f7e5e61fcfdafc8087193d2461bf1",
+      "identical": true
+    },
+    {
+      "name": "furnace14.png",
+      "original_sha256": "138f32719f0b9d1f38ddd6ead5a63e40f41680c7ade3b85b695cb61f5c84a890",
+      "port_sha256": "138f32719f0b9d1f38ddd6ead5a63e40f41680c7ade3b85b695cb61f5c84a890",
+      "identical": true
+    },
+    {
+      "name": "furnace15.png",
+      "original_sha256": "47b08dfb9f5dd105b86f5a5d8e9abadb2f3140fc8432c67b2e320dea1d03bcf9",
+      "port_sha256": "47b08dfb9f5dd105b86f5a5d8e9abadb2f3140fc8432c67b2e320dea1d03bcf9",
+      "identical": true
+    },
+    {
+      "name": "furnace16.png",
+      "original_sha256": "d1cedceffade5b34d8bbf3e5f83f418ecc6da1d41401c7a27fc242b9e2f85550",
+      "port_sha256": "d1cedceffade5b34d8bbf3e5f83f418ecc6da1d41401c7a27fc242b9e2f85550",
+      "identical": true
+    },
+    {
+      "name": "furnace17.png",
+      "original_sha256": "48eeb1e7afef096629770fa60cea101857946c80215e23e525c5d3a4e251e637",
+      "port_sha256": "48eeb1e7afef096629770fa60cea101857946c80215e23e525c5d3a4e251e637",
+      "identical": true
+    },
+    {
+      "name": "furnace18.png",
+      "original_sha256": "b34f7d2cba6d321e692d7a612ee0b38a4a45533a1e43f60b2253d652f578aa73",
+      "port_sha256": "b34f7d2cba6d321e692d7a612ee0b38a4a45533a1e43f60b2253d652f578aa73",
+      "identical": true
+    },
+    {
+      "name": "furnace19.png",
+      "original_sha256": "265398a77b8e7163c294eff826a8c633200078cd83694db3dc92497141948108",
+      "port_sha256": "265398a77b8e7163c294eff826a8c633200078cd83694db3dc92497141948108",
+      "identical": true
+    },
+    {
+      "name": "furnace2.png",
+      "original_sha256": "2bf5c7b8a7df7e66f05f3ab7857e5cda631c7f0704993274caebd235b280a599",
+      "port_sha256": "2bf5c7b8a7df7e66f05f3ab7857e5cda631c7f0704993274caebd235b280a599",
+      "identical": true
+    },
+    {
+      "name": "furnace20.png",
+      "original_sha256": "79c45210fdd09392c508b16fa1ce80fbea0b56037caa0264307ae4c3328ff548",
+      "port_sha256": "79c45210fdd09392c508b16fa1ce80fbea0b56037caa0264307ae4c3328ff548",
+      "identical": true
+    },
+    {
+      "name": "furnace21.png",
+      "original_sha256": "8a1ee9f1923c322fedd6455bf5fc04b4c19f9114158713eed518bf442cb2ead2",
+      "port_sha256": "8a1ee9f1923c322fedd6455bf5fc04b4c19f9114158713eed518bf442cb2ead2",
+      "identical": true
+    },
+    {
+      "name": "furnace22.png",
+      "original_sha256": "ab1c105295f83a669f0602e05aad592cde5e4f6ac31cae8ee68487de8f04f0d4",
+      "port_sha256": "ab1c105295f83a669f0602e05aad592cde5e4f6ac31cae8ee68487de8f04f0d4",
+      "identical": true
+    },
+    {
+      "name": "furnace23.png",
+      "original_sha256": "557392770d21a7e20b65cf8bd0d8369c37e5afaf6daed002505ef2463741f8e9",
+      "port_sha256": "557392770d21a7e20b65cf8bd0d8369c37e5afaf6daed002505ef2463741f8e9",
+      "identical": true
+    },
+    {
+      "name": "furnace25.png",
+      "original_sha256": "83f9fe55dfd7ecb4d2f49ac0b81cbf182e3e5aa3fd4aba483fc1b9f3139cc34e",
+      "port_sha256": "83f9fe55dfd7ecb4d2f49ac0b81cbf182e3e5aa3fd4aba483fc1b9f3139cc34e",
+      "identical": true
+    },
+    {
+      "name": "furnace26.png",
+      "original_sha256": "f249a8c44473caaa017fec732f57e63978117f8b0563db97f43777adda05ec36",
+      "port_sha256": "f249a8c44473caaa017fec732f57e63978117f8b0563db97f43777adda05ec36",
+      "identical": true
+    },
+    {
+      "name": "furnace3.png",
+      "original_sha256": "ad1721eb30d41926608ed91510ce0c9f1e13d476d2de417a0a8c4ebffc3afbbb",
+      "port_sha256": "ad1721eb30d41926608ed91510ce0c9f1e13d476d2de417a0a8c4ebffc3afbbb",
+      "identical": true
+    },
+    {
+      "name": "furnace4.png",
+      "original_sha256": "d680ed395c3817d957a83bced770206d12f1ce5f82cb37fc1c33db981f2639db",
+      "port_sha256": "d680ed395c3817d957a83bced770206d12f1ce5f82cb37fc1c33db981f2639db",
+      "identical": true
+    },
+    {
+      "name": "furnace5.png",
+      "original_sha256": "4d49f78a12ca7b37bc549e8bb2f4dc652c24ac08e410119ab3d055952d792987",
+      "port_sha256": "4d49f78a12ca7b37bc549e8bb2f4dc652c24ac08e410119ab3d055952d792987",
+      "identical": true
+    },
+    {
+      "name": "furnace6.png",
+      "original_sha256": "a4e5f0b2cfdd6164e60fce95aad8e3498b9cfd7a0136e85bcf5e93f7db41c239",
+      "port_sha256": "a4e5f0b2cfdd6164e60fce95aad8e3498b9cfd7a0136e85bcf5e93f7db41c239",
+      "identical": true
+    },
+    {
+      "name": "furnace7.png",
+      "original_sha256": "2dd2555004c25abf2f00a6e2a61d03227b1935b1ec911fe7a5d3a19039ed529b",
+      "port_sha256": "2dd2555004c25abf2f00a6e2a61d03227b1935b1ec911fe7a5d3a19039ed529b",
+      "identical": true
+    },
+    {
+      "name": "furnace9.png",
+      "original_sha256": "cbf38e9789883c469611702c4efc26c32ee880a785aa701608713edadfba764c",
+      "port_sha256": "cbf38e9789883c469611702c4efc26c32ee880a785aa701608713edadfba764c",
+      "identical": true
+    }
+  ],
+  "verified_contracts": [
+    "exact 3x3x3 blueprint and one middle-side fence nozzle",
+    "wand research gate and 50 Ignis + 50 Terra cost",
+    "32-slot inventory and Items/Slot/CookTime/SpeedyTime NBT",
+    "140/80 base cook time and max three bellows at -20 ticks each",
+    "5-centivis Ignis vis acceleration and 600-tick Ignis essentia credit",
+    "18 smelting bonus mappings with 25% or 44% per bellows",
+    "vanilla smelting XP rounding and outward nozzle ejection",
+    "core item intake, invalid-item destruction and living lava hazard",
+    "full multiblock restoration and buffed Blaze punishment",
+    "no invented flux mutation because production TC4 tile has none"
+  ],
+  "static_status": {
+    "source_closed": true,
+    "resource_closed": true,
+    "build_verified": false,
+    "runtime_verified": false
+  }
+}

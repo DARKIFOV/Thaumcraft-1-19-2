@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 
-/** Inventory/hand renderer for the original TC4 Hungry Chest model. */
+/** Exact modern BEWLR equivalent of TC4's BlockChestHungryRenderer inventory path. */
 public final class HungryChestItemRenderer extends BlockEntityWithoutLevelRenderer {
     private static HungryChestItemRenderer instance;
     private TC4HungryChestModel model;
@@ -34,33 +34,11 @@ public final class HungryChestItemRenderer extends BlockEntityWithoutLevelRender
                     Minecraft.getInstance().getEntityModels().bakeLayer(TC4HungryChestModel.LAYER));
         }
         poseStack.pushPose();
-        applyTransform(transformType, poseStack);
+        // BlockChestHungryRenderer: rotate Y 90 degrees, then translate all axes by -0.5.
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+        poseStack.translate(-0.5D, -0.5D, -0.5D);
         HungryChestRenderer.renderModel(model, Direction.SOUTH, 0.0F,
                 poseStack, buffer, packedLight, packedOverlay);
         poseStack.popPose();
-    }
-
-    private static void applyTransform(ItemTransforms.TransformType type, PoseStack poseStack) {
-        if (type == ItemTransforms.TransformType.GUI) {
-            poseStack.translate(0.18D, 0.02D, 0.0D);
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(25.0F));
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(225.0F));
-            poseStack.scale(0.78F, 0.78F, 0.78F);
-        } else if (type.firstPerson()) {
-            poseStack.translate(0.12D, -0.12D, 0.04D);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(35.0F));
-            poseStack.scale(0.66F, 0.66F, 0.66F);
-        } else if (type == ItemTransforms.TransformType.GROUND) {
-            poseStack.translate(0.18D, -0.32D, 0.18D);
-            poseStack.scale(0.52F, 0.52F, 0.52F);
-        } else if (type == ItemTransforms.TransformType.FIXED) {
-            poseStack.translate(0.18D, -0.04D, 0.18D);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
-            poseStack.scale(0.66F, 0.66F, 0.66F);
-        } else {
-            poseStack.translate(0.12D, -0.10D, 0.08D);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(35.0F));
-            poseStack.scale(0.62F, 0.62F, 0.62F);
-        }
     }
 }

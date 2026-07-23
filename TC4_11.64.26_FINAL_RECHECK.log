@@ -1,0 +1,44 @@
+PASS | version agreement
+PASS | mandatory prompt identity
+PASS | prompt token Один релиз — один предмет или одна цельная механика
+PASS | prompt token Упаковка архива без этого файла запрещена
+PASS | prompt token SOURCE CLOSED
+PASS | prompt token RESOURCE CLOSED
+PASS | prompt token BUILD VERIFIED
+PASS | prompt token RUNTIME VERIFIED
+PASS | Thaumonomicon full-closure guard
+PASS | Thaumometer cumulative guard
+PASS | Java 17 self-test and targeted parse
+PASS | Java syntax guard
+PASS | JSON resources
+PASS | runtime manifest
+PASS | recipe denominator
+PASS | GameTest uniqueness
+PASS | manifest uniqueness
+PASS | external acquisition scenario
+PASS | clean source tree
+PASS | report and evidence
+PASS | evidence copies identity
+PASS | honest statuses
+PASS | evidence counts
+PASS | honest Gradle evidence
+PASS | required Java evidence
+PASS | focused CI evidence
+PASS | normal open sync
+PASS | Cheat Sheet exact pool
+PASS | single shared browser state
+PASS | page history/even spread
+PASS | bookshelf no-vis transform
+PASS | exact external loot contract
+PASS | no fabricated book messages
+PASS | source/resource status in report
+PASS | external blocker in report
+PASS | build/runtime status in report
+PASS | README current
+PASS | known deviations current
+PASS | status current
+PASS | resource thaumonomicon.png
+PASS | resource thaumonomiconcheat.png
+PASS | resource gui_research.png
+PASS | resource gui_researchbook.png
+FINAL RECHECK v11.64.26: PASS (43/43)

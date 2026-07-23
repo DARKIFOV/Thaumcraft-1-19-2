@@ -1,0 +1,13 @@
+Thaumcraft Legacy Rebuild v11.63.59 static CI final summary
+Date: 2026-07-20
+Checks completed: 124/124
+Unique commands: 123
+Non-zero return codes: 0
+JSON resources: 2048/2048 PASS
+Item models: 663; missing/unresolved: 0/0
+Original recipe ledger: 258/258
+Removed proven registry aliases: 63
+Mandatory server-only GameTests: 48 (NOT_TESTED for v11.63.59)
+Runtime manifest scenarios: 376
+Gradle build: NOT OBTAINED (GRADLE_RC=1, UnknownHostException services.gradle.org)
+Result: STATIC_CI_PASS

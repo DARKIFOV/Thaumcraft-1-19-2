@@ -1,0 +1,15 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.53
+Canonical static CI: 118/118 PASS
+Non-zero return codes: 0
+JSON resources: 2048/2048 PASS
+Item model audit: 663 models, 0 missing, 0 unresolved
+Semantic item model audit: 663 models, 0 problems, 0 warnings
+Original recipe ledger: 258/258
+Generic registry fallback: 0 item, 0 block
+Removed exact duplicate item aliases retained: 63 aliases absent, canonical remaps present
+Required server-only Forge GameTests: 24
+Runtime manifest scenarios: 352
+Direct FancyMenu mixin references in project Java sources: 0
+Exact v11.63.53 Gradle build: NOT CONFIRMED
+Exact v11.63.53 GameTests: NOT_TESTED
+Previous verified baseline: v11.63.51 Java 17 build, 18/18 GameTests PASS

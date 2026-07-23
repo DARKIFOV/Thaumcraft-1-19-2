@@ -24,5 +24,6 @@
     "item": "thaumcraft:vis_relay",
     "count": 2
   },
-  "v11_62_60_strict_original": true
+  "v11_62_60_strict_original": true,
+  "v11_63_50_exact_source": true
 }

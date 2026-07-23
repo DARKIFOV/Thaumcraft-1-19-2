@@ -10,7 +10,7 @@ def check(name, cond):
 def text(p): return p.read_text(encoding='utf-8')
 def data(p): return json.loads(text(p))
 
-check('version_116296', '11.62.96' in text(ROOT/'build.gradle'))
+check('version_116296', '11.63.23' in text(ROOT/'build.gradle'))
 mod=text(J/'ThaumcraftMod.java')
 for cls in ['BellowsBlockItem','AlchemicalCentrifugeBlockItem','InfusionMatrixBlockItem','BrainJarBlockItem']:
     check('registry_'+cls, ('new '+cls+'(') in mod)

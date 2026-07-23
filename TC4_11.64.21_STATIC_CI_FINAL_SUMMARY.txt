@@ -1,0 +1,18 @@
+Thaumcraft Legacy Rebuild v11.64.21
+Object: Arcane Pressure Plate and integrated iron/gold key access path
+Focused static CI: PASS 31/31
+Final independent recheck: PASS 23/23
+Unique annotated GameTests: 183
+Unique runtime-manifest scenarios: 594
+JSON resources: 2054/2054 PASS
+Original recipe registrations: 258/258 STATICALLY MAPPED
+Dependency-free javac --release 17 self-test: PASS
+Targeted Java parse: PASS
+General Java syntax guard: PASS
+Full source/resource/prompt guard: PASS
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+Gradle failure: UnknownHostException services.gradle.org before project configuration
+Active sandbox JDK: 21.0.10; required build JDK: 17

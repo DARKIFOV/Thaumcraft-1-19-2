@@ -1,0 +1,27 @@
+[1/63] python3 tools/tc4_116438_alchemical_centrifuge_full_closure_guard.py
+TC4 v11.64.38 alchemical centrifuge full-closure guard: PASS (286 GameTests, 850 scenarios, exact source/resource/recipe/research parity)
+[2/63] python3 tools/java_parse_guard_116438.py
+Targeted Java parse guard v11.64.38: PASS (Java 17 self-test + 8 Forge parse checks)
+[3/63] python3 tools/tc4_116437_alchemical_furnace_alembic_full_closure_guard.py
+TC4 v11.64.37 furnace/alembic full-closure guard: PASS (281 GameTests, 835 scenarios, 9 exact assets)
+[4/63] python3 tools/java_parse_guard_116437.py
+Targeted Java parse guard v11.64.37: PASS (Java 17 self-test + 9 Forge parse checks)
+[5/63] python3 tools/tc4_116436_essentia_tube_full_closure_guard.py
+TC4 v11.64.36 essentia tube full-closure guard: PASS (278 GameTests, 821 scenarios, 10 exact assets)
+[6/63] python3 tools/java_parse_guard_116436.py
+Targeted Java parse guard v11.64.36: PASS (Java 17 self-test + 8 Forge parse checks)
+[7/63] python3 tools/tc4_116435_essentia_jar_full_closure_guard.py
+TC4 v11.64.35 essentia jar full-closure guard: PASS (286 GameTests, 850 scenarios, 14 exact assets)
+[8/63] python3 tools/java_parse_guard_116435.py
+Targeted Java parse guard v11.64.35: PASS (Java 17 self-test + 15 Forge parse checks)
+[9/63] python3 tools/tc4_116355_essentia_storage_mirror_runtime_guard.py
+TC4 v11.63.55 essentia runtime guard: PASS (32 GameTests, 360 scenarios)
+[10/63] python3 tools/tc4_116356_essentia_tube_transport_runtime_guard.py
+TC4 v11.63.56 essentia tube runtime guard: PASS (36 GameTests, 364 scenarios)
+[11/63] python3 tools/tc4_116372_essentia_parity_guard.py
+TC4 v11.63.72 essentia parity guard: PASS (baseline 89/417; forward-compatible current release)
+[12/63] python3 tools/tc4_116434_infusion_altar_full_closure_guard.py
+TC4 v11.64.34 infusion altar full-closure guard: PASS
+[13/63] python3 tools/java_parse_guard_116434.py
+Targeted Java parse guard v11.64.34: PASS (Java 17 self-test + 16 Forge parse checks)
+SEGMENT PASS 1-13

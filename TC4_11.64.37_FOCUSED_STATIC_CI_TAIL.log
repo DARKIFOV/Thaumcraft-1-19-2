@@ -1,0 +1,50 @@
+[42/20] python3 tools/tc4_116417_tallow_candle_full_closure_guard.py
+TC4 v11.64.17 Tallow Candle full-closure guard: PASS (281 GameTests; 835 scenarios; 16 colours/geometry/UV/resources/recipes/research/aspects/prompt)
+[43/20] python3 tools/tc4_116416_hungry_chest_full_closure_guard.py
+TC4 v11.64.16 Hungry Chest full-closure guard: PASS (281 GameTests; 835 scenarios; collision/insertion/lid/drops/NBT/model/recipe/research/prompt)
+[44/20] python3 tools/tc4_116415_brain_jar_full_closure_guard.py
+TC4 v11.64.15 Brain Jar full-closure guard: PASS (281 GameTests; 835 scenarios; XP/NBT/model/brine/particle/item-warp/recipe/research/prompt)
+[45/20] python3 tools/tc4_116414_bath_salts_full_closure_guard.py
+TC4 v11.64.14 Bath Salts full-closure guard: PASS (281 GameTests; 835 scenarios; item/fluid/ward/particle/bucket/recipe/research/spa)
+[46/20] python3 tools/tc4_116413_unnatural_hunger_full_closure_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (281 GameTests; 835 scenarios; exact runtime + food + icon + post chain)
+[47/20] python3 tools/tc4_116412_unnatural_hunger_food_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (281 GameTests; 835 scenarios; exact runtime + food + icon + post chain)
+TC4 v11.64.12 Unnatural Hunger food guard: PASS (forward-compatible via v11.64.13 full closure)
+[48/20] python3 tools/tc4_116411_sun_scorned_brightness_guard.py
+TC4 v11.64.11 Sun Scorned brightness guard: PASS (281 GameTests; 835 scenarios; brightness table + exact strict thresholds/rolls)
+[49/20] python3 tools/tc4_116410_death_gaze_cone_guard.py
+TC4 v11.64.10 Death Gaze cone guard: PASS (281 GameTests; 835 scenarios; exact aperture/body midpoint/round cap/pickable gate)
+[50/20] python3 tools/tc4_116409_warp_research_pool_sync_guard.py
+TC4 v11.64.09 warp research pool sync guard: PASS (281 GameTests; 835 scenarios; exact primal roll + aggregate client pool sync)
+[51/20] python3 tools/tc4_116408_eldritch_milestone_grant_guard.py
+TC4 v11.64.08 eldritch milestone guard: PASS (281 GameTests; 835 scenarios; MINOR/MAJOR grant research 10/20 silently, no fabricated chat)
+[52/20] python3 tools/tc4_116407_warp_message_parity_guard.py
+TC4 v11.64.07 warp message guard: PASS (281 GameTests; 835 scenarios; warp.text.8 correctly placed on the BATHSALTS milestone, blurred-vision shows no line)
+[53/20] python3 tools/tc4_116405_warp_spawn_collision_guard.py
+TC4 v11.64.05+ warp spawn collision guard: PASS (281 GameTests; 835 scenarios; entity-aware collision/liquid admission production-linked)
+[54/20] python3 tools/tc4_116404_warp_spawn_offset_guard.py
+TC4 v11.64.04+ warp spawn guard: PASS (281 GameTests; 835 scenarios; original -1/0/+1 offsets production-linked)
+[55/20] python3 tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (cumulative GameTests/scenarios; spread curatives and cleansing source-linked)
+[56/20] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+[57/20] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2189 files)
+[58/20] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.37 --template
+runtime manifest: FAIL (14 problems)
+ - tests[821]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[822]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[823]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[824]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[825]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[826]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[827]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[828]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[829]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[830]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[831]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[832]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[833]: unknown subsystem 'alchemical_furnace_alembic'
+ - tests[834]: unknown subsystem 'alchemical_furnace_alembic'
+FOCUSED STATIC CI v11.64.37: FAIL at 58

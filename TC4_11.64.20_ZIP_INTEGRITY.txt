@@ -1,0 +1,6 @@
+Pre-package integrity contract for v11.64.20:
+- source tree must contain both identical mandatory prompt files;
+- source tree must contain no build, .gradle, __pycache__, .class or .pyc entries;
+- final archive must pass unzip -t;
+- final archive version files must both equal 11.64.20;
+- final SHA-256 is recorded in the external .sha256 file and final integrity report.

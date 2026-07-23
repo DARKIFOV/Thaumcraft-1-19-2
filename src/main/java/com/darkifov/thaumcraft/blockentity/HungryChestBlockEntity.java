@@ -1,7 +1,6 @@
 package com.darkifov.thaumcraft.blockentity;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.block.HungryChestBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -25,16 +24,18 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** 27-slot TileChestHungry port with lid/eating animation and hopper capability. */
+/** Exact 27-slot TC4 Hungry Chest inventory, eating event and lid lifecycle. */
 public class HungryChestBlockEntity extends BlockEntity implements Container, MenuProvider {
-    public static final int SIZE = 27;
+    public static final int SIZE = TC4HungryChestParity.INVENTORY_SIZE;
     private final NonNullList<ItemStack> items = NonNullList.withSize(SIZE, ItemStack.EMPTY);
-    private LazyOptional<IItemHandler> itemHandler = LazyOptional.of(() -> new InvWrapper(this));
+    private final InvWrapper forgeItemHandler = new InvWrapper(this);
+    private LazyOptional<IItemHandler> itemHandler = LazyOptional.of(() -> forgeItemHandler);
 
     private int openCount;
     private float lidAngle;
@@ -45,21 +46,27 @@ public class HungryChestBlockEntity extends BlockEntity implements Container, Me
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, HungryChestBlockEntity chest) {
-        chest.tickAnimation();
+        chest.tickAnimation(true);
     }
 
     public static void clientTick(Level level, BlockPos pos, BlockState state, HungryChestBlockEntity chest) {
-        chest.tickAnimation();
+        chest.tickAnimation(false);
     }
 
-    private void tickAnimation() {
+    private void tickAnimation(boolean playSounds) {
         previousLidAngle = lidAngle;
-        float target = openCount > 0 ? 1.0F : 0.0F;
-        float speed = 0.10F;
-        if (lidAngle < target) {
-            lidAngle = Math.min(target, lidAngle + speed);
-        } else if (lidAngle > target) {
-            lidAngle = Math.max(target, lidAngle - speed);
+        if (TC4HungryChestParity.shouldPlayOpenSound(openCount, lidAngle) && playSounds && level != null) {
+            level.playSound(null, worldPosition, SoundEvents.CHEST_OPEN, SoundSource.BLOCKS,
+                    TC4HungryChestParity.CHEST_SOUND_VOLUME,
+                    TC4HungryChestParity.chestSoundPitch(level.random.nextFloat()));
+        }
+
+        float oldAngle = lidAngle;
+        lidAngle = TC4HungryChestParity.nextLidAngle(lidAngle, openCount);
+        if (TC4HungryChestParity.shouldPlayCloseSound(oldAngle, lidAngle) && playSounds && level != null) {
+            level.playSound(null, worldPosition, SoundEvents.CHEST_CLOSE, SoundSource.BLOCKS,
+                    TC4HungryChestParity.CHEST_SOUND_VOLUME,
+                    TC4HungryChestParity.chestSoundPitch(level.random.nextFloat()));
         }
     }
 
@@ -67,21 +74,25 @@ public class HungryChestBlockEntity extends BlockEntity implements Container, Me
         return previousLidAngle + (lidAngle - previousLidAngle) * partialTick;
     }
 
-    /** Inserts as much of the dropped stack as possible and updates the entity. */
+    public int openCount() {
+        return openCount;
+    }
+
+    /** Inserts as much of the dropped stack as possible and updates the entity exactly once. */
     public void eat(ItemEntity itemEntity) {
         if (level == null || level.isClientSide || itemEntity.getItem().isEmpty()) {
             return;
         }
         ItemStack original = itemEntity.getItem();
-        ItemStack remainder = insert(original.copy());
+        ItemStack remainder = ItemHandlerHelper.insertItemStacked(forgeItemHandler, original.copy(), false);
         int moved = original.getCount() - remainder.getCount();
         if (moved <= 0) {
             return;
         }
 
-        level.playSound(null, itemEntity.blockPosition(), SoundEvents.GENERIC_EAT,
-                SoundSource.BLOCKS, 0.25F,
-                0.9F + level.random.nextFloat() * 0.2F);
+        level.playSound(null, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(),
+                SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, TC4HungryChestParity.EAT_SOUND_VOLUME,
+                TC4HungryChestParity.eatSoundPitch(level.random.nextFloat(), level.random.nextFloat()));
         triggerEatAnimation();
         if (remainder.isEmpty()) {
             itemEntity.discard();
@@ -98,56 +109,25 @@ public class HungryChestBlockEntity extends BlockEntity implements Container, Me
         }
     }
 
-    private ItemStack insert(ItemStack offered) {
-        if (offered.isEmpty()) {
-            return ItemStack.EMPTY;
-        }
-        ItemStack remainder = offered.copy();
-
-        for (int slot = 0; slot < items.size() && !remainder.isEmpty(); slot++) {
-            ItemStack existing = items.get(slot);
-            if (existing.isEmpty() || !ItemStack.isSameItemSameTags(existing, remainder)) {
-                continue;
-            }
-            int room = Math.min(existing.getMaxStackSize(), getMaxStackSize()) - existing.getCount();
-            if (room <= 0) {
-                continue;
-            }
-            int moved = Math.min(room, remainder.getCount());
-            existing.grow(moved);
-            remainder.shrink(moved);
-        }
-
-        for (int slot = 0; slot < items.size() && !remainder.isEmpty(); slot++) {
-            if (!items.get(slot).isEmpty()) {
-                continue;
-            }
-            int moved = Math.min(remainder.getCount(), Math.min(remainder.getMaxStackSize(), getMaxStackSize()));
-            ItemStack inserted = remainder.copy();
-            inserted.setCount(moved);
-            items.set(slot, inserted);
-            remainder.shrink(moved);
-        }
-        return remainder;
-    }
-
     private void triggerEatAnimation() {
-        // TC4 sends block event (2, 2), which nudges the lid to 0.2 and lets
-        // the normal chest tick close it again instead of holding it open.
-        lidAngle = Math.max(lidAngle, 0.2F);
+        lidAngle = Math.max(lidAngle, TC4HungryChestParity.EAT_LID_NUDGE);
         if (level != null) {
-            level.blockEvent(worldPosition, getBlockState().getBlock(), 2, 2);
+            level.blockEvent(worldPosition, getBlockState().getBlock(),
+                    TC4HungryChestParity.EAT_EVENT_ID, TC4HungryChestParity.EAT_EVENT_DATA);
         }
     }
 
     @Override
     public boolean triggerEvent(int id, int data) {
-        if (id == 1) {
-            openCount = Math.max(0, data);
+        if (id == TC4HungryChestParity.OPENERS_EVENT_ID) {
+            openCount = data;
             return true;
         }
-        if (id == 2) {
-            lidAngle = Math.max(lidAngle, Math.max(0, data) / 10.0F);
+        if (id == TC4HungryChestParity.EAT_EVENT_ID) {
+            float eventAngle = data / 10.0F;
+            if (lidAngle < eventAngle) {
+                lidAngle = eventAngle;
+            }
             return true;
         }
         return super.triggerEvent(id, data);
@@ -166,6 +146,11 @@ public class HungryChestBlockEntity extends BlockEntity implements Container, Me
     @Override
     public int getContainerSize() {
         return SIZE;
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return TC4HungryChestParity.MAX_STACK_SIZE;
     }
 
     @Override
@@ -209,38 +194,35 @@ public class HungryChestBlockEntity extends BlockEntity implements Container, Me
         inventoryChanged();
     }
 
+    /** TC4 only checked that the same tile entity still occupied the position. */
     @Override
     public boolean stillValid(Player player) {
-        if (level == null || level.getBlockEntity(worldPosition) != this) {
-            return false;
-        }
-        return player.distanceToSqr(worldPosition.getX() + 0.5D,
-                worldPosition.getY() + 0.5D,
-                worldPosition.getZ() + 0.5D) <= 64.0D;
+        return level != null && level.getBlockEntity(worldPosition) == this;
     }
 
     @Override
     public void startOpen(Player player) {
-        if (player.isSpectator() || level == null) {
+        if (level == null) {
             return;
         }
-        openCount++;
-        level.blockEvent(worldPosition, getBlockState().getBlock(), 1, openCount);
-        if (openCount == 1) {
-            level.playSound(null, worldPosition, SoundEvents.CHEST_OPEN, SoundSource.BLOCKS, 0.5F, 0.95F);
-        }
+        openCount += 1;
+        level.blockEvent(worldPosition, getBlockState().getBlock(),
+                TC4HungryChestParity.OPENERS_EVENT_ID, openCount);
     }
 
     @Override
     public void stopOpen(Player player) {
-        if (player.isSpectator() || level == null) {
+        if (level == null) {
             return;
         }
-        openCount = Math.max(0, openCount - 1);
-        level.blockEvent(worldPosition, getBlockState().getBlock(), 1, openCount);
-        if (openCount == 0) {
-            level.playSound(null, worldPosition, SoundEvents.CHEST_CLOSE, SoundSource.BLOCKS, 0.5F, 0.95F);
-        }
+        openCount -= 1;
+        level.blockEvent(worldPosition, getBlockState().getBlock(),
+                TC4HungryChestParity.OPENERS_EVENT_ID, openCount);
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return true;
     }
 
     @Override
@@ -280,6 +262,6 @@ public class HungryChestBlockEntity extends BlockEntity implements Container, Me
     @Override
     public void reviveCaps() {
         super.reviveCaps();
-        itemHandler = LazyOptional.of(() -> new InvWrapper(this));
+        itemHandler = LazyOptional.of(() -> forgeItemHandler);
     }
 }

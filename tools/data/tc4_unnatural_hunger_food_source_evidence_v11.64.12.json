@@ -1,0 +1,36 @@
+{
+  "round": "11.64.12",
+  "title": "Unnatural Hunger finished-food interaction parity",
+  "original_sources": [
+    "thaumcraft/common/lib/events/EventHandlerEntity.java: finishedUsingItem(PlayerUseItemEvent.Finish)",
+    "thaumcraft/common/lib/potions/PotionUnnaturalHunger.java"
+  ],
+  "original_contract": {
+    "special_foods": ["minecraft:rotten_flesh", "thaumcraft:itemZombieBrain"],
+    "duration_reduction_ticks": 600,
+    "amplifier_reduction": 1,
+    "survival_gate": "duration > 0 && amplifier >= 0",
+    "surviving_explicit_curatives": ["minecraft:rotten_flesh"],
+    "special_food_message": "warp.text.hunger.2 (dark green italic)",
+    "ordinary_food_message": "warp.text.hunger.1 (dark red italic)",
+    "ordinary_food_cancelled": false
+  },
+  "forge_1192_adapter": {
+    "event": "LivingEntityUseItemEvent.Finish",
+    "pre_use_stack": "event.getItem()",
+    "note": "Forge 1.19.x documents Finish#getItem as a copy of the item before use, while the item/result state is already post-use."
+  },
+  "production_files": [
+    "src/main/java/com/darkifov/thaumcraft/event/WarpEvents.java",
+    "src/main/java/com/darkifov/thaumcraft/warp/TC4WarpRuntimeParity.java",
+    "src/main/java/com/darkifov/thaumcraft/effect/TC4WarpMobEffect.java"
+  ],
+  "tests": [
+    "unnaturalHungerCurativeFoodReducesDurationAndAmplifier",
+    "gametest.unnatural_hunger_curative_food_reduction",
+    "tools/warp_runtime_selftest.py",
+    "tools/tc4_116412_unnatural_hunger_food_guard.py"
+  ],
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED"
+}

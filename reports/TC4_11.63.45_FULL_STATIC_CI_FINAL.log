@@ -1,0 +1,313 @@
+TC4 v11.63.45 FULL STATIC CI FINAL
+Canonical post-change run for every check.
+
+===== CHECK 1/109: python3 tools/forge_only_guard.py =====
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+
+RC=0
+DURATION=1.41s
+===== CHECK 2/109: python3 tools/java_syntax_guard.py =====
+Java syntax guard: OK
+
+RC=0
+DURATION=2.17s
+===== CHECK 3/109: python3 tools/forge_1192_compile_api_guard.py =====
+Forge 1.19.2 compile API guard: OK
+
+RC=0
+DURATION=1.28s
+===== CHECK 4/109: python3 tools/validate_json_resources.py =====
+JSON resource validation: OK (2107 files)
+
+RC=0
+DURATION=1.38s
+===== CHECK 5/109: python3 tools/visual_parity_guard.py =====
+TC4 visual parity guard: OK
+
+RC=0
+DURATION=1.19s
+===== CHECK 6/109: python3 tools/research_table_guard.py =====
+Research Table integration guard: OK
+
+RC=0
+DURATION=1.19s
+===== CHECK 7/109: python3 tools/research_table_open_guard.py =====
+Research Table open guard: OK
+
+RC=0
+DURATION=1.14s
+===== CHECK 8/109: python3 tools/worldgen_guard.py =====
+Magical Forest worldgen guard: OK (serializable multi-noise source and locate validation)
+
+RC=0
+DURATION=1.17s
+===== CHECK 9/109: python3 tools/feature_cycle_guard.py =====
+Feature cycle guard: OK
+
+RC=0
+DURATION=1.10s
+===== CHECK 10/109: python3 tools/research_expertise_guard.py =====
+Research connection / expertise guard: OK
+
+RC=0
+DURATION=1.29s
+===== CHECK 11/109: python3 tools/thaumometer_scan_guard.py =====
+Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, 25/20 tick TC4 hold)
+
+RC=0
+DURATION=1.18s
+===== CHECK 12/109: python3 tools/runtime_visual_guard.py =====
+Runtime visual guard: OK (BER-only matrix/transducer/table, two-block item, world tags, transparent armor)
+
+RC=0
+DURATION=1.13s
+===== CHECK 13/109: python3 tools/leaves_wand_table_guard.py =====
+Leaves/Wand/Research Table guard: OK (LeavesBlock states, restored TC4 ModelWand transforms and UVs, original two-block BER)
+
+RC=0
+DURATION=1.14s
+===== CHECK 14/109: python3 tools/tc4_original_asset_guard.py =====
+TC4 original texture bank guard: OK — 940 / 940 exact textures
+
+RC=0
+DURATION=1.41s
+===== CHECK 15/109: python3 tools/tc4_runtime_visual_guard.py =====
+TC4 runtime visual parity guard: OK
+
+RC=0
+DURATION=1.35s
+===== CHECK 16/109: python3 tools/runtime_fix_guard.py =====
+Runtime fix guard: OK (wand, node, Thaumometer, research cheat book, Nitor)
+
+RC=0
+DURATION=1.26s
+===== CHECK 17/109: python3 tools/tc4_item_visual_audit.py --version 11.63.29 --fail-on-missing =====
+Item visual audit: 726 models, 0 missing, 0 unresolved, 383 exact-original refs
+reports/item_visual_audit_v11.63.29.json
+reports/ITEM_VISUAL_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.33s
+===== CHECK 18/109: python3 tools/model_transform_audit.py --version 11.63.29 --fail-on-problems =====
+Semantic model audit: 726 models, 0 problems, 0 warnings
+reports/model_transform_audit_v11.63.29.json
+reports/MODEL_TRANSFORM_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.38s
+===== CHECK 19/109: python3 tools/bewlr_contract_audit.py --version 11.63.29 --fail-on-problems =====
+BEWLR audit: 38/38 complete, 0 problems
+reports/bewlr_contract_audit_v11.63.29.json
+reports/BEWLR_CONTRACT_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.45s
+===== CHECK 20/109: python3 tools/aura_node_parity_audit.py --version 11.63.29 --fail-on-problems =====
+Aura-node parity audit: 16/16 passed
+reports/aura_node_parity_audit_v11.63.29.json
+reports/AURA_NODE_PARITY_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.17s
+===== CHECK 21/109: python3 tools/tc4_116245_parity_guard.py =====
+v11.62.45 parity guard: OK (research transaction, book GUI, scanner, nodes, wand lighting)
+
+RC=0
+DURATION=1.08s
+===== CHECK 22/109: python3 tools/tc4_116246_audit_guard.py =====
+v11.62.46 audit guard: OK (v11.62.46+ metadata, 38 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)
+
+RC=0
+DURATION=1.20s
+===== CHECK 23/109: python3 tools/tc4_116247_arcane_wand_guard.py =====
+v11.62.47 arcane/wand guard: OK (5 shapeless recipes, exact occupied-slot matching, catalyst normalization, player-aware armor/bauble vis discounts, TC4 truncation)
+
+RC=0
+DURATION=1.12s
+===== CHECK 24/109: python3 tools/tc4_116248_node_orb_guard.py =====
+v11.62.48 node/orb guard: OK (local per-node scheduler, TC4 reload phase, unstable-node Aspect Orb emission, hotbar wand pickup, TC4 particle-sheet renderer)
+
+RC=0
+DURATION=1.19s
+===== CHECK 25/109: python3 tools/tc4_116249_aspect_orb_parity_guard.py =====
+v11.62.49 Aspect Orb parity guard: OK (smooth lifetime scale, exact +120 raw lightmap, lava physics, dual TC4 pickup gates and aspect-specific blending)
+
+RC=0
+DURATION=1.42s
+===== CHECK 26/109: python3 tools/tc4_116250_runtime_screenshot_guard.py =====
+v11.62.50 runtime screenshot guard: OK (node HUD/beam, first-person wand, TC4 tables/matrix, starter aspects, Thaumometer and book layout)
+
+RC=0
+DURATION=1.24s
+===== CHECK 27/109: python3 tools/tc4_116251_research_scan_hud_guard.py =====
+===== CHECK 27/109: python3 tools/tc4_116251_research_scan_hud_guard.py =====
+v11.62.51 research/scan/HUD guard: OK (single starter pool, TC4 @-scan rewards, map sampling, warp aura, sibling links and animated node tags)
+
+RC=0
+DURATION=1.19s
+===== CHECK 28/109: python3 tools/tc4_116252_runtime_risk_guard.py =====
+v11.62.52 runtime-risk guard: OK (exact browser coordinates, verified 32x32 node atlas, time-correct tag animation, TC4 amount text and logout reset)
+
+RC=0
+DURATION=1.20s
+===== CHECK 29/109: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py =====
+v11.62.53 wand/beam/Thaumometer guard: OK (exact TC4 floaty line, drain lifecycle, ambient scanner body and original glass lightmap)
+
+RC=0
+DURATION=1.19s
+===== CHECK 30/109: python3 tools/tc4_116254_focus_hud_cycle_guard.py =====
+v11.62.54 focus HUD/cycle guard: OK (original 32x32 dial, focus/trade icon, cooldown, TreeMap cycle and transactional rollback)
+
+RC=0
+DURATION=1.25s
+===== CHECK 31/109: python3 tools/audit_registry.py --version 11.63.29 --fail-on-unexpected =====
+Audited 726 item models
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected problems: 0
+
+RC=0
+DURATION=1.46s
+===== CHECK 32/109: python3 tools/generate_tc4_research_runtime_from_source_map.py --check =====
+TC4 research runtime generation check: PASS
+
+RC=0
+DURATION=1.14s
+===== CHECK 33/109: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.63.29 --fail-on-problems =====
+/mnt/data/work_v116345/reports/tc4_full_research_thaumonomicon_audit_11.63.29.json
+{"research_entries": 201, "categories": {"THAUMATURGY": 42, "ARTIFICE": 50, "ALCHEMY": 35, "GOLEMANCY": 39, "BASICS": 19, "ELDRITCH": 16}, "pages": 591, "concealed_pages": 15, "explicit_recipe_keys": 272, "mapped_icons": 201, "missing_icon_textures": 0, "missing_language_keys": 0, "status": "pass"}
+
+RC=0
+DURATION=2.54s
+===== CHECK 34/109: python3 tools/tc4_116270_visual_runtime_regression_guard.py =====
+TC4 11.62.70 regression guard: PASS (100 checks)
+
+RC=0
+DURATION=1.27s
+===== CHECK 35/109: python3 tools/tc4_116271_original_gui_infusion_guard.py =====
+TC4 11.63.10 original GUI/infusion guard: PASS (106 checks)
+
+RC=0
+DURATION=1.29s
+===== CHECK 36/109: python3 tools/tc4_116272_brain_jar_runtime_guard.py =====
+TC4 11.63.10 Brain Jar runtime guard: PASS (58 checks)
+
+RC=0
+DURATION=1.16s
+===== CHECK 37/109: python3 tools/tc4_116273_mirror_runtime_guard.py =====
+TC4 11.63.10 mirror runtime guard: PASS (176/176 checks)
+
+RC=0
+DURATION=1.15s
+===== CHECK 38/109: python3 tools/audit_visual_parity.py --version 11.63.29 --fail-on-p0 =====
+Visual parity audit: complete=6, partial=1, runtime PASS 0/7
+reports/visual_parity_audit_v11.63.29.json
+
+RC=0
+DURATION=1.23s
+===== CHECK 39/109: python3 tools/tc4_116276_compile_runtime_contract_guard.py =====
+TC4 11.63.10 compile/runtime contract guard: PASS (38 checks)
+
+RC=0
+DURATION=1.20s
+===== CHECK 40/109: python3 tools/tc4_116277_outer_lands_cycle_guard.py =====
+TC4 11.62.77 Outer Lands cycle guard: PASS (37 checks)
+
+RC=0
+DURATION=1.19s
+===== CHECK 41/109: python3 tools/tc4_116278_golem_core_parity_guard.py =====
+PASS: functional golems pre-empt normal tasks for creeper swell avoidance
+PASS: creeper avoidance accepts normal swelling and explicit ignition
+PASS: creeper avoidance keeps original priority diagnostic
+PASS: USE core permits empty-hand action only without a home inventory
+PASS: USE marker free-side check follows marker.side rather than opposite
+PASS: USE empty-space marker clicks the block behind the marked air cell
+PASS: USE navigation still targets the marker location
+PASS: USE click acts on resolved interaction position
+PASS: FakePlayer first by-product becomes the new carried stack
+PASS: fishing core passes the selected water position to the loot roll
+PASS: fishing checks junk before treasure like TC4 AIFish
+PASS: fishing water quality adjusts junk and treasure chances
+PASS: fishing junk table uses explicit TC4-style weights
+PASS: runtime manifest contains golems.use_core_marker_side_empty_hand
+PASS: runtime manifest contains golems.fishing_water_quality_weighted_loot
+PASS: runtime manifest contains golems.creeper_swell_avoidance
+FAIL: runtime manifest version is v11.63.10
+Golem core parity guard: 16/17
+
+RC=1
+DURATION=1.21s
+===== CHECK 42/109: python3 tools/tc4_116279_essentia_transport_parity_guard.py =====
+Essentia transport parity guard: 43/44
+FAIL: runtime manifest version 11.63.10
+
+RC=1
+DURATION=1.48s
+===== CHECK 43/109: python3 tools/tc4_116280_taint_ecology_parity_guard.py =====
+Taint ecology parity guard: 63/64
+FAIL: manifest version
+
+RC=1
+DURATION=1.22s
+===== CHECK 44/109: python3 tools/tc4_116281_warp_eldritch_parity_guard.py =====
+Warp/Eldritch parity guard: 49/50
+FAIL: manifest version 11.63.10
+
+RC=1
+DURATION=1.12s
+===== CHECK 45/109: python3 tools/tc4_116282_research_workflow_parity_guard.py =====
+TC4 11.63.10 research workflow parity guard: FAIL (1 problems; 25 checks)
+ - runtime manifest version 11.63.10
+
+RC=1
+DURATION=1.10s
+===== CHECK 46/109: python3 tools/tc4_116283_forge_compile_hotfix_guard.py =====
+TC4 11.63.10 Forge compile hotfix guard: PASS (12 checks)
+
+RC=0
+DURATION=1.09s
+===== CHECK 47/109: python3 tools/tc4_116284_forge_compile_hotfix_guard.py =====
+TC4 11.63.10 Forge compile hotfix guard: PASS (13 checks)
+
+RC=0
+DURATION=1.20s
+===== CHECK 48/109: python3 tools/tc4_116285_runtime_init_hotfix_guard.py =====
+Traceback (most recent call last):
+  File "/mnt/data/work_v116345/tools/tc4_116285_runtime_init_hotfix_guard.py", line 55, in <module>
+    assert manifest.get("version") in {"11.63.37", "11.63.38", "11.63.39", "11.63.40", "11.63.41", "11.63.42", "11.63.43", "11.63.44"}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+RC=1
+DURATION=1.18s
+===== CHECK 49/109: python3 tools/tc4_116286_infusion_valid_location_guard.py =====
+TC4 11.62.86 infusion valid-location guard: PASS (6/6 checks)
+
+RC=0
+DURATION=1.08s
+===== CHECK 50/109: python3 tools/tc4_116287_wisp_parity_guard.py =====
+TC4 11.62.87 Wisp parity guard: PASS (19/19 checks)
+
+RC=0
+DURATION=1.17s
+===== CHECK 51/109: python3 tools/tc4_116288_thaumic_slime_parity_guard.py =====
+TC4 11.63.10 Thaumic Slime parity guard: PASS (32/32 checks)
+
+RC=0
+DURATION=1.16s
+===== CHECK 52/109: python3 tools/tc4_116289_server_level_accessor_compile_guard.py =====
+TC4 11.63.10 ServerLevelAccessor compile hotfix guard: 7/7 PASS
+
+RC=0
+DURATION=1.25s
+===== CHECK 53/109: python3 tools/tc4_116290_monster_spawn_rules_compile_guard.py =====
+TC4 11.63.10 retained Monster spawn-rules compile hotfix guard: 10/10 PASS
+
+RC=0
+DURATION=1.23s
+===== CHECK 54/109: python3 tools/tc4_116291_wisp_flying_mob_spawn_rules_compile_guard.py =====
+TC4 11.63.10 Wisp FlyingMob spawn-rules compile guard: PASS (10/10)
+
+RC=0
+DURATION=1.11s
+===== CHECK 55/109: python3 tools/tc4_116292_full_texture_uv_audit_guard.py =====

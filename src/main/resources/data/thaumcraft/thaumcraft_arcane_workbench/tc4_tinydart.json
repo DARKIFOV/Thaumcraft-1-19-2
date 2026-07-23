@@ -23,7 +23,7 @@
     "D": "minecraft:dispenser"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecodart",
+    "item": "thaumcraft:golem_deco_dart_launcher",
     "count": 1
   },
   "v11_62_22_strict_original": true

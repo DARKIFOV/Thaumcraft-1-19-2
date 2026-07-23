@@ -1,0 +1,4 @@
+$ javac --release 17 -d <temp> src/main/java/com/darkifov/thaumcraft/alchemy/TC4AlchemicalFurnaceParity.java tools/java_contracts/TC4AlchemicalFurnaceAlembicFullClosureSelfTest.java
+$ java -cp <temp> TC4AlchemicalFurnaceAlembicFullClosureSelfTest
+TC4AlchemicalFurnaceAlembicFullClosureSelfTest: PASS
+JAVA17_SELF_TEST_EXIT_CODE=0

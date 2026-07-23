@@ -1,0 +1,105 @@
+{
+  "release": "11.64.29",
+  "object": "Lamp of Growth",
+  "original": "Thaumcraft 4.2.3.5",
+  "scope": [
+    "growth lamp block",
+    "Herba essentia intake",
+    "charge and reserve lifecycle",
+    "plant target scan",
+    "growth tick",
+    "NBT and synchronization",
+    "active/inactive lighting and textures",
+    "shared Bore nozzle renderer",
+    "infusion recipe",
+    "research entry"
+  ],
+  "excluded_scope": [
+    "Lamp of Fertility full closure"
+  ],
+  "original_source_sha256": {
+    "thaumcraft/common/tiles/TileArcaneLampGrowth.java": "b3d7964a1455d3025bbc027b56a97b2c3df2fba14a1a4b3e20c8907326ac4a2e",
+    "thaumcraft/common/blocks/BlockMetalDevice.java": "a2afd88072ad43893952f58f90879d81b63d8659cfc4f70cc132514ff6b1d8f3",
+    "thaumcraft/client/renderers/tile/TileArcaneLampRenderer.java": "cf21e83145b5cc071da52a00a70bdfd4a663c0fe07d8e4e3342ed55786e26a83",
+    "thaumcraft/common/config/ConfigRecipes.java": "7a525af2ccca83cbe7c38ed7361b9a910c2829247738e8bb6c0bfa8be920cda3",
+    "thaumcraft/common/config/ConfigResearch.java": "4dfd57f37f0b11de094e926041cd925ae51918b94fa682f543d35e3a3f242de6",
+    "thaumcraft/common/config/Config.java": "442b0a9e5fd5b2c835964889958bf1f405185b2e587e664807dbe12a172de2b7",
+    "thaumcraft/common/lib/utils/CropUtils.java": "48af7c03547d6ecf4f025854c9485093f68b004b705c838c976b23a2c6498f8a"
+  },
+  "original_resource_sha256": {
+    "lamp_grow_side.png": "b066805f00493a644d2f90a6370f3d71ba7c3e27552664310c0fe27d94aa9022",
+    "lamp_grow_side.png.mcmeta": "c6b398fa59f5238e96e7325928e990ab6b18df7204325949238609d712d0bf99",
+    "lamp_grow_side_off.png": "12052ab7b64acd72dd5a60bc8de6257db5d4fde35ced00d3fae26cfa20f87f98",
+    "lamp_grow_top.png": "99e4a155ec83a6d5203a4d9aa5ca3d6b6b71f8e610ee7fc8b50cd06dd32f1832",
+    "lamp_grow_top.png.mcmeta": "c6b398fa59f5238e96e7325928e990ab6b18df7204325949238609d712d0bf99",
+    "lamp_grow_top_off.png": "232a0510a041a82e93c7cf370b800b00987545dce8d592cc262e63cb24d64825",
+    "Bore.png": "d1527e8c995e3e576a37200bc334e77f35f628515a678565d811fb618e7ed71f"
+  },
+  "confirmed_contracts": {
+    "charges_per_herba": 100,
+    "draw_interval_ticks": 5,
+    "suction": 128,
+    "radius": 6,
+    "diameter": 13,
+    "column_count": 169,
+    "sphere_boundary": "distanceSquared < 36",
+    "active_light": 15,
+    "inactive_light": 8,
+    "sparkle_color": 4259648,
+    "sparkle_range": 32,
+    "nbt": [
+      "orientation",
+      "reserve",
+      "charges"
+    ],
+    "recipe": {
+      "research": "LAMPGROWTH",
+      "instability": 4,
+      "catalyst": "thaumcraft:tc4_block_arcane_lamp",
+      "aspects": {
+        "HERBA": 16,
+        "LUX": 8,
+        "VICTUS": 16
+      }
+    },
+    "research": {
+      "category": "ARTIFICE",
+      "coordinates": [
+        -4,
+        3
+      ],
+      "complexity": 2,
+      "hidden": true,
+      "parents": [
+        "ARCANELAMP",
+        "INFUSION"
+      ],
+      "aspect_triggers": [
+        "LUX",
+        "MESSIS"
+      ]
+    }
+  },
+  "modern_adaptations": [
+    "The 1.7.10 scheduled block update is represented by one BlockState.randomTick because modern plant growth moved to randomTick; guaranteed bonemeal is forbidden.",
+    "The original runtime IMC lampBlacklist is represented by the extensible Forge block tag thaumcraft:growth_lamp_blacklist.",
+    "Original block-light recalculation is represented by an ACTIVE blockstate with light levels 8 and 15."
+  ],
+  "static_results": {
+    "game_tests": 240,
+    "runtime_manifest_scenarios": 720,
+    "json_files": 2189,
+    "recipes": "258/258 STATICALLY MAPPED",
+    "focused_static_ci": "34/34 PASS",
+    "targeted_parse": "8/8 PASS",
+    "java17_self_test": "PASS"
+  },
+  "build_status": {
+    "source_closed": true,
+    "resource_closed": true,
+    "build_verified": false,
+    "runtime_verified": false,
+    "jar_created": false,
+    "reason": "Gradle Wrapper could not resolve services.gradle.org; active Java is 21.0.10 instead of project JDK 17."
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard retained in v11.62.96 full texture/UV audit and confirmed visual fixes."""
+"""Regression guard retained in v11.63.10 full texture/UV audit and confirmed visual fixes."""
 from pathlib import Path
 import json
 import sys
@@ -22,8 +22,8 @@ menu = text("src/main/java/com/darkifov/thaumcraft/menu/AlchemicalFurnaceMenu.ja
 build_wf = text(".github/workflows/build.yml")
 release_wf = text(".github/workflows/release.yml")
 
-check("build version", "version = '11.62.96'" in build)
-check("mods version", 'version="11.62.96"' in mods)
+check("build version", "version = '11.63.23'" in build)
+check("mods version", 'version="11.63.23"' in mods)
 check("wisp original texture", '"textures/misc/wisp.png"' in wisp)
 check("wisp original particles texture", '"textures/misc/particles.png"' in wisp and 'new ResourceLocation(ThaumcraftMod.MOD_ID' in wisp)
 check("wisp 4x4 frame u", "(frame % 4) / 4.0F" in wisp and "coreU0 + 0.25F" in wisp)
@@ -68,7 +68,7 @@ check("build workflow", "tc4_116292_full_texture_uv_audit_guard.py" in build_wf)
 check("release workflow", "tc4_116292_full_texture_uv_audit_guard.py" in release_wf)
 
 failed = [name for name, ok in checks if not ok]
-print(f"TC4 11.62.96 full texture/UV audit guard: {len(checks)-len(failed)}/{len(checks)} PASS")
+print(f"TC4 11.63.10 full texture/UV audit guard: {len(checks)-len(failed)}/{len(checks)} PASS")
 if failed:
     for name in failed:
         print("FAIL:", name)

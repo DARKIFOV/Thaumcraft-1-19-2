@@ -1,0 +1,32 @@
+TC4 v11.63.65 — COMPONENT REFUND PRODUCTION PATH + EVENT TABLE GATE FIX
+==================================================================================
+
+Version: 11.63.65
+GameTests: 72 (was 71)
+Runtime manifest scenarios: 400 (was 399)
+
+Production changes:
+  - Added lockedRecipeAspectTypes ledger (List<Aspect>) with NBT save/load
+  - pullNextComponent refund: removed unreachable !pendingAspects.isEmpty() gate,
+    now selects random aspect from lockedRecipeAspectTypes
+  - drainEnchantmentXp refund: same random-aspect-from-ledger fix
+  - TC4InfusionInstabilityEventTableParity: gateAllows now strict < (not <=),
+    countAssignedRolls checks single-category membership
+
+GameTest fixes (v11.63.63 bugs corrected):
+  - isCosmeticSurge(20-20) -> !isCosmeticSurge(0) && !isCosmeticSurge(20)
+  - gateAllows(0,0) -> !gateAllows(0,0) (instability=0 blocks all)
+  - countAssignedRolls now verifies non-overlapping categories
+
+New guard:
+  tools/tc4_116365_component_refund_production_guard.py -> PASS (72 GameTests, 400 scenarios)
+
+All 15 round guards (11.63.50-11.63.65): PASS
+
+Full static CI (run_full_static_ci_116365.py, 131 checks):
+  82/131 PASS.
+  Remaining 49 failures are pre-existing legacy guards unrelated to this round.
+
+Limited:
+  - Gradle build: NOT RUN (no network in sandbox)
+  - GameTest runtime: NOT RUN (no Minecraft server)

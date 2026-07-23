@@ -1,0 +1,3 @@
+Java 17 parity self-test: PASS
+Targeted Forge parse: 8/8 PASS
+Full Gradle typecheck/build: NOT VERIFIED

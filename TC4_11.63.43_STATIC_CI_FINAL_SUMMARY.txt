@@ -1,0 +1,15 @@
+TC4 v11.63.43 STATIC CI FINAL SUMMARY
+=====================================
+Checks: 107
+PASS: 107
+FAIL: 0
+SKIPPED: 0
+
+Java syntax guard: PASS
+Forge 1.19.2 compile API guard: PASS
+JSON resources: PASS (2107 files)
+Runtime manifest: PASS (307 tests, template)
+World migration guard: PASS
+Generic registry fallback: 0
+
+This is static/source evidence only. It is not a successful Forge build or runtime proof.

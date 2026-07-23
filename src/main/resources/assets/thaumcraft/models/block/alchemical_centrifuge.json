@@ -1,27 +1,6 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "all": "thaumcraft:block/alchemical_furnace",
-    "particle": "thaumcraft:block/alchemical_furnace"
-  },
-  "elements": [
-    {
-      "from": [4, 0, 4],
-      "to": [12, 4, 12],
-      "faces": {
-        "north": {"texture": "#all"}, "south": {"texture": "#all"},
-        "east": {"texture": "#all"}, "west": {"texture": "#all"},
-        "up": {"texture": "#all"}, "down": {"texture": "#all"}
-      }
-    },
-    {
-      "from": [4, 12, 4],
-      "to": [12, 16, 12],
-      "faces": {
-        "north": {"texture": "#all"}, "south": {"texture": "#all"},
-        "east": {"texture": "#all"}, "west": {"texture": "#all"},
-        "up": {"texture": "#all"}, "down": {"texture": "#all"}
-      }
-    }
-  ]
+    "particle": "thaumcraft:models/centrifuge"
+  }
 }

@@ -1,6 +1,8 @@
 package com.darkifov.thaumcraft.effect;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.warp.TC4WarpRuntimeParity;
+import com.darkifov.thaumcraft.warp.TC4UnnaturalHungerParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -82,7 +84,7 @@ public final class TC4WarpMobEffect extends MobEffect {
             case INFECTIOUS_VIS_EXHAUST -> spreadVisExhaustion(target, amplifier);
             case UNNATURAL_HUNGER -> {
                 if (target instanceof Player player) {
-                    player.causeFoodExhaustion(0.025F * (amplifier + 1));
+                    player.causeFoodExhaustion(TC4UnnaturalHungerParity.exhaustionPerTick(amplifier));
                 }
             }
             case SUN_SCORNED -> tickSunScorned(target);
@@ -98,7 +100,8 @@ public final class TC4WarpMobEffect extends MobEffect {
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return switch (mode) {
             case UNNATURAL_HUNGER -> true;
-            case INFECTIOUS_VIS_EXHAUST, SUN_SCORNED -> duration % 40 == 0;
+            case INFECTIOUS_VIS_EXHAUST, SUN_SCORNED ->
+                    duration % TC4WarpRuntimeParity.INFECTIOUS_SPREAD_INTERVAL_TICKS == 0;
             case THAUMARHIA -> duration % 20 == 0;
             default -> false;
         };
@@ -107,7 +110,7 @@ public final class TC4WarpMobEffect extends MobEffect {
     private static void spreadVisExhaustion(LivingEntity source, int amplifier) {
         List<LivingEntity> targets = source.level.getEntitiesOfClass(
                 LivingEntity.class,
-                source.getBoundingBox().inflate(4.0D),
+                source.getBoundingBox().inflate(TC4WarpRuntimeParity.INFECTIOUS_SPREAD_RADIUS),
                 entity -> entity.isAlive() && entity != source
         );
 
@@ -116,39 +119,41 @@ public final class TC4WarpMobEffect extends MobEffect {
                 continue;
             }
 
-            if (amplifier > 0) {
-                target.addEffect(configureCuratives(new MobEffectInstance(
-                        ThaumcraftMod.INFECTIOUS_VIS_EXHAUST.get(),
-                        6000,
-                        amplifier - 1,
-                        false,
-                        true,
-                        true
-                )));
-            } else {
-                target.addEffect(configureCuratives(new MobEffectInstance(
-                        ThaumcraftMod.VIS_EXHAUST.get(),
-                        6000,
-                        0,
-                        false,
-                        true,
-                        true
-                )));
-            }
+            TC4WarpRuntimeParity.SpreadResult spread =
+                    TC4WarpRuntimeParity.infectiousSpread(amplifier);
+            MobEffect propagatedEffect = spread.infectious()
+                    ? ThaumcraftMod.INFECTIOUS_VIS_EXHAUST.get()
+                    : ThaumcraftMod.VIS_EXHAUST.get();
+
+            // TC4 only cleared curatives on the initial warp-event instance.
+            // Propagated PotionEffect instances retained the default milk cure.
+            target.addEffect(new MobEffectInstance(
+                    propagatedEffect,
+                    TC4WarpRuntimeParity.INFECTIOUS_SPREAD_DURATION_TICKS,
+                    spread.amplifier(),
+                    false,
+                    true,
+                    true
+            ));
         }
     }
 
     private static void tickSunScorned(LivingEntity target) {
         BlockPos pos = target.blockPosition();
-        float brightness = target.level.getMaxLocalRawBrightness(pos) / 15.0F;
+        // TC4 called EntityLivingBase#getBrightness(1.0F), which samples the
+        // world's brightness table. Dividing a raw light integer by 15 is not
+        // equivalent around the 0.5/0.25 behavior thresholds.
+        float brightness = target.getLightLevelDependentMagicValue();
 
-        // Direct adaptation of PotionSunScorned: the burn chance grows above
-        // 0.5 brightness while healing becomes likely below 0.25 brightness.
-        if (brightness > 0.5F
-                && target.getRandom().nextFloat() * 30.0F < (brightness - 0.4F) * 2.0F
-                && target.level.canSeeSky(pos)) {
-            target.setSecondsOnFire(4);
-        } else if (brightness < 0.25F && target.getRandom().nextFloat() > brightness * 2.0F) {
+        // Preserve legacy short-circuit RNG consumption: no random number is
+        // drawn in the neutral brightness band.
+        if (brightness > TC4WarpRuntimeParity.SUN_SCORNED_BURN_BRIGHTNESS) {
+            if (TC4WarpRuntimeParity.sunScornedBurns(
+                    brightness, target.getRandom().nextFloat(), target.level.canSeeSky(pos))) {
+                target.setSecondsOnFire(4);
+            }
+        } else if (brightness < TC4WarpRuntimeParity.SUN_SCORNED_HEAL_BRIGHTNESS
+                && TC4WarpRuntimeParity.sunScornedHeals(brightness, target.getRandom().nextFloat())) {
             target.heal(1.0F);
         }
     }

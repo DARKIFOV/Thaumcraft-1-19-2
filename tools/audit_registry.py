@@ -161,6 +161,11 @@ def run(root: Path, fail_on_unexpected: bool, version: str) -> int:
         "hungry_chest", "tc4_block_banner", "vis_charge_relay", "vis_relay", "alembic",
         "alchemical_centrifuge", "bellows", "infusion_matrix", "tc4_jar_brain",
         "essentia_jar", "filtered_essentia_jar", "void_essentia_jar", "tc4_travel_trunk",
+        "tallow_candle", "tallow_candle_orange", "tallow_candle_magenta",
+        "tallow_candle_light_blue", "tallow_candle_yellow", "tallow_candle_lime",
+        "tallow_candle_pink", "tallow_candle_gray", "tallow_candle_light_gray",
+        "tallow_candle_cyan", "tallow_candle_purple", "tallow_candle_blue",
+        "tallow_candle_brown", "tallow_candle_green", "tallow_candle_red", "tallow_candle_black",
     }
 
     problems: list[Problem] = []

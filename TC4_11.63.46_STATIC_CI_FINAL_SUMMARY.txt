@@ -1,0 +1,27 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.46
+FINAL STATIC CI SUMMARY
+Date: 2026-07-19
+
+Historical/static checks: 110/110 PASS
+Failed checks: 0
+Skipped checks: 0
+Java syntax guard: PASS
+Forge 1.19.2 API guard: PASS
+Forge-only guard: PASS
+JSON resources: 2107/2107 PASS
+Runtime manifest: PASS, 325 scenarios
+Required server-only Forge GameTests present: 10
+Flux Scrubber v11.63.46 guard: PASS
+Workflow YAML: PASS (build.yml, release.yml)
+Generic registry fallback: 0
+
+Runtime evidence status:
+- gradlew compileJava: NOT OBTAINED
+- runGameTestServer: NOT RUN
+- ten GameTests: NOT_TESTED
+- confirmed JAR: NONE
+
+Blocking environment result:
+- Gradle wrapper download failed with UnknownHostException: services.gradle.org
+- Available runtime is OpenJDK 21.0.10
+- The Forge 1.19.2 development target is Java 17

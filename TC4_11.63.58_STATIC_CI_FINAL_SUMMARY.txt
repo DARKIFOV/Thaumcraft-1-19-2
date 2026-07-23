@@ -1,0 +1,14 @@
+TC4 v11.63.58 STATIC CI FINAL SUMMARY
+
+Canonical checks: 123/123 PASS
+Executed check records: 123
+Non-zero return codes: 0
+JSON resources: 2048/2048 PASS
+Item models: 663; missing/unresolved: 0/0
+Original recipe ledger: 258/258
+Removed proven registry aliases: 63
+Required server-only Forge GameTests: 44 (NOT_TESTED for v11.63.58)
+Runtime manifest scenarios: 372
+Confirmed previous Java 17 baseline: v11.63.51, 18/18 PASS
+Current JAR: NOT CREATED
+Gradle result: java.net.UnknownHostException: services.gradle.org; GRADLE_RC=1

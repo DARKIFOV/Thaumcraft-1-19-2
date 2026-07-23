@@ -1,0 +1,26 @@
+TC4 v11.64.16 FINAL RECHECK
+UTC: 2026-07-22T09:03:31Z
+
+[1/10] Version consistency
+PASS: build.gradle, mods.toml, runtime manifest = 11.64.16
+[2/10] Mandatory universal prompt
+PASS: prompt present at project root and copies identical
+[3/10] Hungry Chest full-closure guard
+TC4 v11.64.16 Hungry Chest full-closure guard: PASS (157 GameTests; 518 scenarios; collision/insertion/lid/drops/NBT/model/recipe/research/prompt)
+[4/10] Java 17 focused parse/self-test
+Targeted Java parse guard v11.64.16: PASS (pure Java 17 self-test + 6 Forge source parse checks)
+[5/10] GameTest uniqueness/count
+PASS: 157 unique GameTest methods
+[6/10] JSON resources
+JSON resource validation: OK (2052 files)
+[7/10] Runtime manifest uniqueness/count
+runtime manifest: PASS (518 tests; template=True)
+[8/10] Recipe denominator
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[9/10] Source inventory
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 53 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[10/10] Parity consolidation
+TC4 v11.63.94 parity consolidation guard: PASS (157 GameTests; 518 manifest scenarios; source-linked contracts retained)
+
+FINAL RECHECK: PASS (10/10)

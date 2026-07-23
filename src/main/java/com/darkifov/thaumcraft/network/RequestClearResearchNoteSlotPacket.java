@@ -3,9 +3,7 @@ package com.darkifov.thaumcraft.network;
 import com.darkifov.thaumcraft.block.ResearchNoteItem;
 import com.darkifov.thaumcraft.research.ResearchNoteSolver;
 import com.darkifov.thaumcraft.research.ResearchTableInventoryRuntime;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
@@ -40,14 +38,14 @@ public class RequestClearResearchNoteSlotPacket {
             ItemStack note = findNote(player);
 
             if (note.isEmpty()) {
-                player.displayClientMessage(Component.literal("Open the Research Table and place a Research Note in slot 1.").withStyle(ChatFormatting.RED), false);
                 return;
             }
 
-            ResearchNoteSolver.clearSlot(player, note, packet.slot);
-            ResearchTableInventoryRuntime.markOpenTableChanged(player);
-            ThaumcraftNetwork.syncAspectKnowledge(player);
-            ThaumcraftNetwork.syncResearchNote(player, note);
+            if (ResearchNoteSolver.clearSlot(player, note, packet.slot)) {
+                ResearchTableInventoryRuntime.markOpenTableChanged(player);
+                ThaumcraftNetwork.syncAspectKnowledge(player);
+                ThaumcraftNetwork.syncResearchNote(player, note);
+            }
         });
 
         context.setPacketHandled(true);

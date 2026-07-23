@@ -5,7 +5,7 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_golem_clay",
   "components": [
-    "minecraft:redstone",
+    "minecraft:shears",
     "minecraft:glowstone_dust",
     "minecraft:gunpowder",
     "thaumcraft:essentia_jar",
@@ -24,5 +24,7 @@
     "output_nbt_type": "byte",
     "output_nbt_value": 1
   },
-  "v11_62_22_strict_original": true
+  "v11_62_22_strict_original": true,
+  "v11_63_50_exact_source": true,
+  "v11_63_50_legacy_wildcard_metadata": 32767
 }

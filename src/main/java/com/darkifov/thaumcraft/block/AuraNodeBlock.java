@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
+import com.darkifov.thaumcraft.aura.TC4NodeJarMultiblock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -89,7 +90,13 @@ public class AuraNodeBlock extends BaseEntityBlock {
         ItemStack stack = player.getItemInHand(hand);
 
         if (stack.getItem() instanceof WandItem wandItem) {
-            // TC4 TileNode starts an indefinite wand-use action here.  The actual random
+            // The live node is the centre of the Node in a Jar multiblock. Block#use
+            // runs before Item#useOn, so the ritual must be checked here as well as
+            // in WandItem for clicks on the surrounding glass or slab shell.
+            if (TC4NodeJarMultiblock.tryCreate(level, pos, player, hand, stack)) {
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+            // TC4 TileNode starts an indefinite wand-use action here. The actual random
             // primal transfer happens every five ticks while the player keeps looking at the node.
             wandItem.beginNodeUse(stack, level, pos);
             player.startUsingItem(hand);

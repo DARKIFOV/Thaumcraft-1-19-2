@@ -1,5 +1,7 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.entity.InhabitedZombieEntity;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -35,6 +37,14 @@ public class TC4CrimsonPlateArmorItem extends ArmorItem {
 
     public boolean isLeaderVariant() {
         return leader;
+    }
+
+    @Override
+    public String getArmorTexture(ItemStack stack, net.minecraft.world.entity.Entity entity,
+                                  EquipmentSlot slot, String type) {
+        return entity instanceof InhabitedZombieEntity
+                ? "thaumcraft:textures/original/thaumcraft4/models/zombie_plate_armor.png"
+                : "thaumcraft:textures/original/thaumcraft4/models/cultist_plate_armor.png";
     }
 
     @Override

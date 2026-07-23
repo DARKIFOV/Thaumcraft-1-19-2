@@ -1,0 +1,24 @@
+TC4 v11.64.13 FINAL RECHECK
+============================
+[1/10] Version consistency
+PASS: 11.64.13 11.64.13 11.64.13 11.64.13
+[2/10] Full closure source/resource guard
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (146 GameTests; 478 scenarios; exact runtime + food + icon + post chain)
+[3/10] Targeted Java 17 parse/self-test
+Targeted Java parse guard v11.64.13: PASS (pure Java 17 self-test + 7 Forge source parse checks)
+[4/10] Full Java syntax guard
+Java syntax guard: OK
+[5/10] JSON resources
+JSON resource validation: OK (2050 files)
+[6/10] Runtime manifest uniqueness/version
+runtime manifest: PASS (478 tests; template=True)
+[7/10] Recipe denominator
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[8/10] GameTest/manifest exact inventory
+[8/10] GameTest/manifest exact inventory (split continuation)
+PASS: 146/146 unique GameTests; 478/478 unique manifest IDs
+[9/10] Source counts and report presence
+PASS: 805 Java files in src; 2050 JSON resources; reports present
+[10/10] Forbidden artifact scan
+PASS: no build/.gradle/.git/__pycache__/.class/.pyc artifacts
+FINAL RECHECK: PASS (10/10 split execution); Forge build/runtime remains NOT VERIFIED

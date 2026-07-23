@@ -1,8 +1,6 @@
 package com.darkifov.thaumcraft.infusion;
 
-import com.darkifov.thaumcraft.ThaumcraftMod;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -79,17 +77,15 @@ public final class TC4InfusionStabilityParity {
 
     public static boolean isOriginalStyleStabilizer(BlockState state) {
         Block block = state.getBlock();
+        // Original TileInfusionMatrix#getSurroundings only accepts Blocks.skull
+        // or blocks implementing IInfusionStabiliser. Do not grant hidden stability
+        // to altar pillars, arcane stone, node stabilizers or modern auxiliaries.
         return block instanceof InfusionStabilizer
                 || block == Blocks.WITHER_SKELETON_SKULL
                 || block == Blocks.SKELETON_SKULL
                 || block == Blocks.ZOMBIE_HEAD
-                || block == Blocks.CREEPER_HEAD
-                || block == Blocks.DRAGON_HEAD
-                || state.is(BlockTags.CANDLES)
-                || state.is(ThaumcraftMod.MATRIX_STABILIZER.get())
-                || state.is(ThaumcraftMod.NODE_STABILIZER.get())
-                || state.is(ThaumcraftMod.ARCANE_STONE_BRICKS.get())
-                || state.is(ThaumcraftMod.INFUSION_PILLAR.get());
+                || block == Blocks.PLAYER_HEAD
+                || block == Blocks.CREEPER_HEAD;
     }
 
     public record StabilitySnapshot(List<BlockPos> positions, int mirroredPairs, int unpaired, int effectivePairs) {

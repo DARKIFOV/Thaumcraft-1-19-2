@@ -1,0 +1,7 @@
+{
+  "parent": "thaumcraft:block/tc4_block_arcane_ear_base",
+  "textures": {
+    "top": "thaumcraft:block/tc4/arcaneeartopon",
+    "side": "thaumcraft:block/tc4/arcaneearsideon"
+  }
+}

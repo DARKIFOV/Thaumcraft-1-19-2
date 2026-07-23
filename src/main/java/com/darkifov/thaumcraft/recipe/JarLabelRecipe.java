@@ -46,7 +46,7 @@ public final class JarLabelRecipe extends CustomRecipe {
         NonNullList<ItemStack> remaining = NonNullList.withSize(container.getContainerSize(), ItemStack.EMPTY);
         Scan scan = scan(container);
         if (scan.validAssignment() && scan.phialSlot() >= 0) {
-            remaining.set(scan.phialSlot(), new ItemStack(ThaumcraftMod.ESSENTIA_PHIAL.get()));
+            remaining.set(scan.phialSlot(), new ItemStack(container.getItem(scan.phialSlot()).getItem()));
         }
         return remaining;
     }
@@ -72,9 +72,9 @@ public final class JarLabelRecipe extends CustomRecipe {
             ItemStack stack = container.getItem(slot);
             if (stack.isEmpty()) continue;
             occupied++;
-            if (stack.is(ThaumcraftMod.JAR_LABEL.get()) && label.isEmpty()) {
+            if (stack.getItem() instanceof JarLabelItem && label.isEmpty()) {
                 label = stack;
-            } else if (stack.is(ThaumcraftMod.ESSENTIA_PHIAL.get()) && phial.isEmpty()) {
+            } else if (stack.getItem() instanceof EssentiaPhialItem && phial.isEmpty()) {
                 phial = stack;
                 phialSlot = slot;
             } else {

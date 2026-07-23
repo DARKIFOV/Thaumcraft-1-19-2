@@ -55,15 +55,13 @@ public enum EssentiaTubeSubtype {
         return valve;
     }
 
+    /** TC4 TileTube and TileTubeBuffer both advertise minimum suction 0. */
     public int minimumSuction() {
-        return buffer ? 0 : 1;
+        return TC4EssentiaTubeParity.MINIMUM_SUCTION;
     }
 
     public int transformNeighbourSuction(int neighbourSuction) {
-        if (restrict) {
-            return Math.max(0, neighbourSuction / 2);
-        }
-        return Math.max(0, neighbourSuction - 1);
+        return TC4EssentiaTubeParity.propagatedSuction(neighbourSuction, restrict);
     }
 
     public boolean allowsAspect(Aspect filter, Aspect aspect) {

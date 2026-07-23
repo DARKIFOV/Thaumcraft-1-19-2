@@ -1,0 +1,17 @@
+{
+  "round": "11.64.09",
+  "subsystem": "warp_eldritch",
+  "original_source": "reference/Thaumcraft4-1.7.10-4.2.3.5-source.zip!/thaumcraft/common/lib/WarpEvents.java",
+  "original_contract": {
+    "grant_amount": "1 + rand.nextInt(times)",
+    "primal_selection": "Aspect.getPrimalAspects().get(rand.nextInt(6))",
+    "pool_mutation": "addAspectPool(player, aspect, +1)",
+    "client_sync": "PacketAspectPool sent after every awarded point",
+    "persistence": "ResearchManager.scheduleSave(player)"
+  },
+  "port_before": "Warp and Eldritch grantResearch paths changed server persistent aspect-pool NBT but only synchronized research/warp state, leaving the client aspect pool stale.",
+  "port_after": "Both production paths delegate to TC4WarpResearchGrant.grantAndSync, which applies the exact primal award roll and sends one aggregate AspectKnowledgeSyncPacket after the batch.",
+  "network_adaptation": "One aggregate 1.19.2 pool packet replaces TC4's one PacketAspectPool per point while preserving the final client-visible pool.",
+  "runtime_status": "NOT_VERIFIED",
+  "build_status": "NOT_OBTAINED"
+}

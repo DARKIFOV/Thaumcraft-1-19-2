@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_wand_cap_silver_inert",
+    "thaumcraft:thaumium_wand_cap_inert",
+    "thaumcraft:tc4_wand_cap_void_inert"
+  ]
+}

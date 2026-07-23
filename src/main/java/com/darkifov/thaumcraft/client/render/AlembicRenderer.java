@@ -1,10 +1,12 @@
 package com.darkifov.thaumcraft.client.render;
 
 import com.darkifov.thaumcraft.Aspect;
-import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.AlembicBlockEntity;
+import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
 import com.darkifov.thaumcraft.client.render.model.TC4AlembicModel;
+import com.darkifov.thaumcraft.client.render.model.TC4ArcaneBoreModel;
+import com.darkifov.thaumcraft.essentia.EssentiaTubeConnections;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
@@ -14,92 +16,121 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-/** Exact TC4 alembic OBJ/UV renderer plus the modern essentia fill layer. */
+/** TC4 TileAlembicRenderer: conditional OBJ parts, facing label and non-tube transport nozzles. */
 public class AlembicRenderer implements BlockEntityRenderer<AlembicBlockEntity> {
-    private static final ResourceLocation MODEL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/alembic.png");
-    private static final ResourceLocation FILL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/block/essentia_fill.png");
+    private static final ResourceLocation MODEL_TEXTURE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/alembic.png");
+    private static final ResourceLocation LABEL_TEXTURE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/label.png");
+    private static final ResourceLocation BORE_TEXTURE = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/models/Bore.png");
+    private final TC4ArcaneBoreModel boreModel;
 
     public AlembicRenderer(BlockEntityRendererProvider.Context context) {
+        boreModel = new TC4ArcaneBoreModel(context.bakeLayer(TC4ArcaneBoreModel.BASE_LAYER));
     }
 
     @Override
-    public void render(AlembicBlockEntity alembic, float partialTick, PoseStack poseStack,
-                       MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        renderStandalone(poseStack, buffer, packedLight, packedOverlay);
-
-        Aspect aspect = alembic.aspects().firstAspect();
-        if (aspect == null || alembic.aspects().totalAmount() <= 0) {
-            return;
-        }
-
-        float fill = Math.max(0.0F, Math.min(1.0F,
-                alembic.aspects().totalAmount() / (float) AlembicBlockEntity.CAPACITY));
-        int color = AspectColor.argb(aspect, 155);
-        float maxY = 0.55F + 0.26F * fill;
-
-        poseStack.pushPose();
-        poseStack.translate(0.5D, 0.0D, 0.5D);
-        renderLiquidBox(poseStack, buffer.getBuffer(RenderType.entityTranslucent(FILL_TEXTURE)),
-                -0.24F, 0.48F, -0.24F,
-                0.24F, maxY, 0.24F,
-                color, packedLight);
-        poseStack.popPose();
+    public void render(AlembicBlockEntity alembic, float partialTick, PoseStack pose,
+                       MultiBufferSource buffer, int light, int overlay) {
+        renderBody(alembic, pose, buffer, light, overlay);
+        renderLabel(alembic.aspectFilter(), alembic.facing(), pose, buffer, light);
+        renderConnectors(alembic, pose, buffer, light, overlay);
     }
 
-    public static void renderStandalone(PoseStack poseStack, MultiBufferSource buffer,
-                                        int packedLight, int packedOverlay) {
-        poseStack.pushPose();
-        poseStack.translate(0.5D, 0.0D, 0.5D);
-        // The original OBJ stores Z as vertical. Rotate it into Minecraft Y.
-        poseStack.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
+    private static void renderBody(AlembicBlockEntity alembic, PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
+        pose.pushPose();
+        pose.translate(.5D, 0D, .5D);
+        pose.mulPose(Vector3f.XP.rotationDegrees(-90F));
+        rotateForFacing(pose, alembic.facing());
         VertexConsumer model = buffer.getBuffer(RenderType.entityCutoutNoCull(MODEL_TEXTURE));
-        TC4AlembicModel.renderAll(poseStack.last(), model, packedLight,
-                packedOverlay == 0 ? OverlayTexture.NO_OVERLAY : packedOverlay);
-        poseStack.popPose();
+        int ov = overlay == 0 ? OverlayTexture.NO_OVERLAY : overlay;
+        if (alembic.aboveFurnace()) {
+            TC4AlembicModel.renderTubeMain(pose.last(), model, light, ov);
+            TC4AlembicModel.renderLegs(pose.last(), model, light, ov);
+        } else if (alembic.aboveAlembic()) {
+            TC4AlembicModel.renderTubeMain(pose.last(), model, light, ov);
+            TC4AlembicModel.renderTubeSmall(pose.last(), model, light, ov);
+        } else {
+            TC4AlembicModel.renderLegs(pose.last(), model, light, ov);
+        }
+        TC4AlembicModel.renderPot(pose.last(), model, light, ov);
+        TC4AlembicModel.renderPanel(pose.last(), model, light, ov);
+        pose.popPose();
     }
 
-    private static void renderLiquidBox(PoseStack poseStack, VertexConsumer consumer,
-                                        float minX, float minY, float minZ,
-                                        float maxX, float maxY, float maxZ,
-                                        int color, int light) {
-        Matrix4f matrix = poseStack.last().pose();
-        int a = (color >> 24) & 255;
-        int r = (color >> 16) & 255;
-        int g = (color >> 8) & 255;
-        int b = color & 255;
-
-        quad(matrix, consumer, minX, maxY, minZ, maxX, maxY, minZ, maxX, maxY, maxZ, minX, maxY, maxZ, r, g, b, a, light);
-        quad(matrix, consumer, minX, minY, minZ, minX, maxY, minZ, minX, maxY, maxZ, minX, minY, maxZ, r, g, b, a, light);
-        quad(matrix, consumer, maxX, minY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ, maxX, minY, minZ, r, g, b, a, light);
-        quad(matrix, consumer, minX, minY, maxZ, minX, maxY, maxZ, maxX, maxY, maxZ, maxX, minY, maxZ, r, g, b, a, light);
-        quad(matrix, consumer, maxX, minY, minZ, maxX, maxY, minZ, minX, maxY, minZ, minX, minY, minZ, r, g, b, a, light);
+    public static void renderStandalone(PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
+        pose.pushPose();
+        pose.translate(.5D, 0D, .5D);
+        pose.mulPose(Vector3f.XP.rotationDegrees(-90F));
+        VertexConsumer model = buffer.getBuffer(RenderType.entityCutoutNoCull(MODEL_TEXTURE));
+        int ov = overlay == 0 ? OverlayTexture.NO_OVERLAY : overlay;
+        TC4AlembicModel.renderLegs(pose.last(), model, light, ov);
+        TC4AlembicModel.renderPot(pose.last(), model, light, ov);
+        TC4AlembicModel.renderPanel(pose.last(), model, light, ov);
+        pose.popPose();
     }
 
-    private static void quad(Matrix4f matrix, VertexConsumer consumer,
-                             float x1, float y1, float z1,
-                             float x2, float y2, float z2,
-                             float x3, float y3, float z3,
-                             float x4, float y4, float z4,
-                             int r, int g, int b, int a, int light) {
-        vertex(matrix, consumer, x1, y1, z1, 0.0F, 1.0F, r, g, b, a, light);
-        vertex(matrix, consumer, x2, y2, z2, 1.0F, 1.0F, r, g, b, a, light);
-        vertex(matrix, consumer, x3, y3, z3, 1.0F, 0.0F, r, g, b, a, light);
-        vertex(matrix, consumer, x4, y4, z4, 0.0F, 0.0F, r, g, b, a, light);
+    private static void rotateForFacing(PoseStack pose, Direction facing) {
+        switch (facing) {
+            case EAST -> pose.mulPose(Vector3f.ZP.rotationDegrees(180F));
+            case SOUTH -> pose.mulPose(Vector3f.ZP.rotationDegrees(90F));
+            case NORTH -> pose.mulPose(Vector3f.ZP.rotationDegrees(270F));
+            default -> { }
+        }
     }
 
-    private static void vertex(Matrix4f matrix, VertexConsumer consumer,
-                               float x, float y, float z, float u, float v,
-                               int r, int g, int b, int a, int light) {
-        consumer.vertex(matrix, x, y, z)
-                .color(r, g, b, a)
-                .uv(u, v)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(light)
-                .normal(0.0F, 1.0F, 0.0F)
-                .endVertex();
+    private void renderLabel(Aspect filter, Direction facing, PoseStack pose, MultiBufferSource buffer, int light) {
+        if (filter == null) return;
+        pose.pushPose();
+        pose.translate(.5D, .468D, .5D);
+        switch (facing) {
+            case EAST -> { pose.translate(.409D, 0, 0); pose.mulPose(Vector3f.YP.rotationDegrees(-90F)); }
+            case WEST -> { pose.translate(-.409D, 0, 0); pose.mulPose(Vector3f.YP.rotationDegrees(90F)); }
+            case SOUTH -> { pose.translate(0, 0, .409D); pose.mulPose(Vector3f.YP.rotationDegrees(180F)); }
+            default -> pose.translate(0, 0, -.409D);
+        }
+        Matrix4f matrix = pose.last().pose();
+        quad(matrix, buffer.getBuffer(RenderType.entityTranslucent(LABEL_TEXTURE)), .135F, 255, 255, 255, light, 0F);
+        ResourceLocation icon = new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/aspects/" + filter.id() + ".png");
+        quad(matrix, buffer.getBuffer(RenderType.entityTranslucent(icon)), .104F, 255, 255, 255, light, .003F);
+        pose.popPose();
     }
+
+    private void renderConnectors(AlembicBlockEntity alembic, PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
+        if (alembic.getLevel() == null) return;
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(BORE_TEXTURE));
+        for (Direction direction : Direction.values()) {
+            if (!alembic.canOutputTo(direction)) continue;
+            BlockEntity neighbor = alembic.getLevel().getBlockEntity(alembic.getBlockPos().relative(direction));
+            if (neighbor == null || neighbor instanceof EssentiaTubeBlockEntity || !EssentiaTubeConnections.isTransportEndpoint(neighbor)) continue;
+            pose.pushPose();
+            pose.translate(.5D, 0D, .5D);
+            orientNozzle(pose, direction);
+            boreModel.renderNozzle(pose, consumer, light, overlay == 0 ? OverlayTexture.NO_OVERLAY : overlay);
+            pose.popPose();
+        }
+    }
+
+    private static void orientNozzle(PoseStack pose, Direction direction) {
+        switch (direction) {
+            case DOWN -> { pose.translate(-.5D, .5D, 0); pose.mulPose(Vector3f.ZP.rotationDegrees(-90)); }
+            case UP -> { pose.translate(.5D, .5D, 0); pose.mulPose(Vector3f.ZP.rotationDegrees(90)); }
+            case NORTH -> pose.mulPose(Vector3f.YP.rotationDegrees(90));
+            case SOUTH -> pose.mulPose(Vector3f.YP.rotationDegrees(-90));
+            case WEST -> pose.mulPose(Vector3f.YP.rotationDegrees(180));
+            case EAST -> { }
+        }
+    }
+
+    private static void quad(Matrix4f m, VertexConsumer c, float half, int r, int g, int b, int light, float z) {
+        vertex(m,c,-half,-half,z,0,1,r,g,b,light); vertex(m,c,half,-half,z,1,1,r,g,b,light);
+        vertex(m,c,half,half,z,1,0,r,g,b,light); vertex(m,c,-half,half,z,0,0,r,g,b,light);
+    }
+    private static void vertex(Matrix4f m, VertexConsumer c, float x,float y,float z,float u,float v,int r,int g,int b,int light) {
+        c.vertex(m,x,y,z).color(r,g,b,255).uv(u,v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(light).normal(0,0,1).endVertex();
+    }
+
+    @Override public boolean shouldRenderOffScreen(AlembicBlockEntity alembic) { return true; }
 }

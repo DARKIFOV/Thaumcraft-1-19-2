@@ -1,0 +1,37 @@
+Thaumcraft Legacy Rebuild v11.64.21 package manifest
+Object: Arcane Pressure Plate and integrated iron/gold key access path
+Files before this manifest: 9041
+Files packaged including this manifest: 9042
+
+Required root artifacts:
+- UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+- PROMPT_FOR_FUTURE_CHAT_RU.md
+- TC4_11.64.21_ARCANE_PRESSURE_PLATE_FULL_CLOSURE_PARITY_PORT_REPORT_RU.md
+- TC4_11.64.21_ARCANE_PRESSURE_PLATE_SOURCE_EVIDENCE.json
+- TC4_11.64.21_FOCUSED_STATIC_CI_FINAL.log
+- TC4_11.64.21_FINAL_RECHECK.log
+- TC4_11.64.21_GRADLE_BUILD_ATTEMPT.log
+- TC4_11.64.21_GRADLE_BUILD_EXITCODE.txt
+- TC4_11.64.21_JAVA_PARSE_STATUS.txt
+- TC4_11.64.21_BUILD_STATUS.txt
+- TC4_11.64.21_STATIC_CI_FINAL_SUMMARY.txt
+- TC4_11.64.21_ZIP_INTEGRITY.txt
+
+Required proof/tooling:
+- tools/tc4_116421_arcane_pressure_plate_full_closure_guard.py
+- tools/java_parse_guard_116421.py
+- tools/java_contracts/TC4ArcanePressurePlateParitySelfTest.java
+- tools/final_recheck_116421.py
+- tools/data/tc4_arcane_pressure_plate_full_source_evidence_v11.64.21.json
+- runtime_artifacts/runtime_test_manifest.template.json
+
+Validation summary:
+- Focused static CI: 31/31 PASS
+- Independent final recheck: 23/23 PASS
+- GameTests: 183 unique source methods
+- Runtime manifest: 594 unique scenarios
+- JSON: 2054/2054 PASS
+- Recipes: 258/258 STATICALLY MAPPED
+
+Status: SOURCE CLOSED / RESOURCE CLOSED; BUILD and RUNTIME NOT VERIFIED.
+Build blocker: UnknownHostException services.gradle.org before project configuration; active sandbox JDK is 21.0.10 instead of required JDK 17.

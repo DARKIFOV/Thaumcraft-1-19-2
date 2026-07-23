@@ -1,0 +1,24 @@
+АКТУАЛЬНАЯ ВЕРСИЯ: 11.64.35
+
+Текущий полный исходный архив закрывает одну цельную механику:
+- обычная Essentia Jar;
+- Void Jar;
+- Jar Labels и фильтрация;
+- suction и забор essentia сверху;
+- перенос фиалами по 8 essentia;
+- исходные tile/item/label NBT;
+- placement, drops, migration и rendering;
+- скрытый migration-only alias старой Filtered Jar.
+
+ЧЕСТНЫЙ СТАТУС:
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+JAR CREATED: NO
+
+Полный отчёт:
+TC4_11.64.35_ESSENTIA_JAR_FULL_CLOSURE_PARITY_PORT_REPORT_RU.md
+
+Следующий отдельный объект:
+Essentia tubes, valves и buffers — connection rules, suction propagation, redstone и transport lifecycle.

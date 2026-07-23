@@ -1,0 +1,10 @@
+Thaumcraft Legacy Rebuild 11.63.09 — build status
+
+Static/source validation: PASS (72/72 groups)
+Target golem-fishing-bobber guard: PASS (105/105 checks)
+Runtime manifest template: PASS (118 scenarios)
+Gradle compileJava: NOT REACHED
+Reason: Gradle Wrapper could not resolve services.gradle.org (UnknownHostException) while downloading gradle-7.5.1-bin.zip.
+Environment Java: OpenJDK 21.0.10
+Required project/Forge toolchain: JDK 17
+Client and dedicated-server runtime: NOT TESTED

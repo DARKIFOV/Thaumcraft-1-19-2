@@ -1,0 +1,33 @@
+THAUMCRAFT LEGACY REBUILD - PACKAGE MANIFEST
+Version: 11.64.10 DEATH_GAZE_CONE_GEOMETRY_PARITY
+Platform: Minecraft 1.19.2 / Forge 43.5.2 / Java 17 target
+Reference oracle: Thaumcraft 4.2.3.5 (1.7.10)
+
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.10_DEATH_GAZE_CONE_GEOMETRY_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Java source files: 803
+GameTest methods: 143 unique
+Runtime manifest scenarios: 471 unique
+JSON resources validated: 2049
+Recipe registrations mapped: 258/258
+Smelting bonus registrations: 18 tracked separately
+Focused static CI: 16/16 PASS in split execution
+Targeted parity helper javac --release 17: PASS
+Cumulative pure-Java warp self-test: PASS
+
+Round scope:
+- Restore original Death Gaze full-aperture interpretation: 0.75 radians.
+- Use strict normalized dot > cos(0.75 / 2).
+- Aim at the target body midpoint rather than target eyes.
+- Restore the original axial round-cap range boundary (< range).
+- Restore collision admission through isPickable().
+- Remove the non-original spherical distance prefilter.
+
+Build status:
+- Full Gradle build NOT OBTAINED.
+- Wrapper download blocked by UnknownHostException for services.gradle.org.
+- JAR not created.
+- Forge GameTest runtime NOT VERIFIED.
+
+Archive SHA-256 is provided outside the self-contained ZIP in the companion checksum file.
+
+Source-tree files before archive: 8861

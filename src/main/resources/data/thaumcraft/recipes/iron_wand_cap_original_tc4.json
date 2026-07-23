@@ -10,7 +10,7 @@
     }
   },
   "result": {
-    "item": "thaumcraft:tc4_wand_cap_iron",
+    "item": "thaumcraft:iron_wand_cap",
     "count": 1
   },
   "tc4_source": "ConfigRecipes.initializeNormalRecipes:3320 WandCapIron"

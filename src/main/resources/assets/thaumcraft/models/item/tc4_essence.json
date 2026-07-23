@@ -1,6 +1,7 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "thaumcraft:item/tc4/essence"
+    "layer0": "thaumcraft:item/tc4/phial",
+    "layer1": "thaumcraft:item/tc4/essence"
   }
 }

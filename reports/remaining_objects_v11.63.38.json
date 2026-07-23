@@ -1,0 +1,17 @@
+{
+  "version": "11.63.38",
+  "mirror_entries": 294,
+  "dedicated_create_item_ids": 269,
+  "pre_registered_functional_ids": 17,
+  "intentionally_skipped_duplicate_ids": 4,
+  "generic_fallback_ids": 4,
+  "generic_fallback_item_like_ids": 0,
+  "generic_fallback_block_alias_ids": 4,
+  "generic_fallback": [
+    "tc4_block_lamp_fertility",
+    "tc4_block_lamp_growth",
+    "tc4_block_wand_pedestal",
+    "tc4_block_wand_pedestal_focus"
+  ],
+  "interpretation": "Upper technical bound only. Item-like generic fallback is closed; only four complex block systems remain: Growth/Fertility Lamps and normal/focused Wand Pedestals."
+}

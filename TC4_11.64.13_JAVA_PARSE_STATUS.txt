@@ -1,0 +1,7 @@
+Targeted Java parse guard v11.64.13: PASS
+- TC4UnnaturalHungerParity.java and self-test compiled with javac --release 17.
+- TC4UnnaturalHungerParitySelfTest executed successfully.
+- 7 changed Forge Java sources passed javac parser checks.
+- Full project Java syntax guard: OK.
+
+This is not a Forge build result. Gradle dependency resolution was blocked before project configuration.

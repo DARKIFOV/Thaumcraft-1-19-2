@@ -51,7 +51,24 @@ expected_dynamic = {
     "iron_capped_wooden_wand",
     "node_jar",
     "node_stabilizer",
+    "node_transducer",
     "silverwood_wand",
+    "tallow_candle",
+    "tallow_candle_orange",
+    "tallow_candle_magenta",
+    "tallow_candle_light_blue",
+    "tallow_candle_yellow",
+    "tallow_candle_lime",
+    "tallow_candle_pink",
+    "tallow_candle_gray",
+    "tallow_candle_light_gray",
+    "tallow_candle_cyan",
+    "tallow_candle_purple",
+    "tallow_candle_blue",
+    "tallow_candle_brown",
+    "tallow_candle_green",
+    "tallow_candle_red",
+    "tallow_candle_black",
     "tc4_block_banner",
     "tc4_jar_brain",
     "tc4_travel_trunk",
@@ -81,4 +98,4 @@ if errors:
     for error in errors:
         print(" -", error)
     raise SystemExit(1)
-print("v11.62.46 audit guard: OK (v11.62.46+ metadata, 21 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)")
+print("v11.62.46 audit guard: OK (v11.62.46+ metadata, 38 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)")

@@ -1,0 +1,12 @@
+TC4 v11.64.34 BUILD STATUS
+
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+JAR CREATED: NO
+
+Command: ./gradlew build --no-daemon --console=plain
+Result: UnknownHostException: services.gradle.org
+EXIT_CODE=1
+Environment: OpenJDK 21.0.10; project requires Java 17.

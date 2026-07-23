@@ -404,7 +404,7 @@ for i,r in enumerate(issues):
 canvas.save(OUT/'block_visual_risk_contact_sheet.png')
 
 manifest={
- 'version':'11.62.96','scope':'all shipped Thaumcraft blockstates','status':'STATIC_AUDIT_COMPLETE_RUNTIME_NOT_TESTED',
+ 'version':'11.63.10','scope':'all shipped Thaumcraft blockstates','status':'STATIC_AUDIT_COMPLETE_RUNTIME_NOT_TESTED',
  'counts':{'blockstates':len(block_rows),'core_or_legacy':scope_counts['CORE_OR_LEGACY'],'addon_or_compat':scope_counts['ADDON_OR_COMPAT'],'model_variants':len(variant_rows),'block_entity_bindings':len(renderer_rows),'clone_groups':len(clone_rows),
            'static_valid':len(valid),'dynamic_contract_present':len(dynamic),'review_required':len(review),'confirmed_static_mismatch':len(confirmed)},
  'issue_counts':dict(issue_counts),
@@ -412,7 +412,7 @@ manifest={
 }
 (OUT/'audit_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
-summary=['# Полный статический аудит всех блоков — Thaumcraft Legacy Rebuild 11.62.96','',
+summary=['# Полный статический аудит всех блоков — Thaumcraft Legacy Rebuild 11.63.10','',
 '## Область','',f'- Все поставляемые blockstate-файлы: **{len(block_rows)}**.','- Проверены модели/варианты, texture chains, SHA-идентичность оригинальным PNG, UV, реально используемая альфа, RenderType, BlockEntityRenderer, item-модель и восемь display-контекстов.','- Runtime side-by-side не выполнялся: итоговая визуальная parity остаётся `NOT TESTED`.','',
 '## Результат','',f'- `STATIC_VALID`: **{len(valid)}**.',f'- `STATIC_DYNAMIC_CONTRACT_PRESENT`: **{len(dynamic)}**.',f'- `REVIEW_REQUIRED`: **{len(review)}**.',f'- `CONFIRMED_STATIC_MISMATCH`: **{len(confirmed)}**.','',
 '## Подтверждённые статические расхождения','']
@@ -427,7 +427,7 @@ summary += ['','## Правила интерпретации','',
 '- `block_texture_uv_audit.csv` — одна строка на каждый block ID.','- `block_model_variant_audit.csv` — одна строка на каждую модель, достижимую из blockstate.','- `block_render_type_audit.csv`, `block_custom_renderer_audit.csv`, `block_item_context_audit.csv`.','- `block_clone_groups.csv`.','- `all_blocks_static_contact_sheet.png` и `block_visual_risk_contact_sheet.png`.']
 (OUT/'summary.md').write_text('\n'.join(summary)+'\n',encoding='utf-8')
 
-known=['# KNOWN_DEVIATIONS — блоки 11.62.96','',
+known=['# KNOWN_DEVIATIONS — блоки 11.63.10','',
 '## Подтверждённые','']
 if confirmed:
     for r in confirmed: known.append(f"- `{r['block_id']}` — {r['confirmed_issues']}; runtime: NOT TESTED.")

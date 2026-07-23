@@ -1,0 +1,16 @@
+Thaumcraft Legacy Rebuild 11.63.04
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+
+SOURCE/RESOURCE STATIC STATUS: PASS
+- full regression set: 68/68 after marker correction
+- Brainy Zombie family guard: 90/90
+- JSON resources: 1970
+- runtime manifest template: 94 cases
+- original textures: 940/940
+
+GRADLE STATUS: NOT COMPILED
+The wrapper failed before compileJava while resolving services.gradle.org:
+java.net.UnknownHostException: services.gradle.org
+Available local JVM: Java 21; required target JVM: Java 17.
+
+No JAR or runtime PASS is claimed.

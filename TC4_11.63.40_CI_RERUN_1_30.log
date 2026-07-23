@@ -1,0 +1,165 @@
+===== CHECK 1/104: python3 tools/forge_only_guard.py =====
+Forge-only guard: OK (Forge 1.19.2 / 43.5.2; no NeoForge or TerraBlender)
+
+RC=0
+DURATION=1.36s
+
+===== CHECK 2/104: python3 tools/java_syntax_guard.py =====
+Java syntax guard: OK
+
+RC=0
+DURATION=2.26s
+
+===== CHECK 3/104: python3 tools/forge_1192_compile_api_guard.py =====
+Forge 1.19.2 compile API guard: OK
+
+RC=0
+DURATION=1.41s
+
+===== CHECK 4/104: python3 tools/validate_json_resources.py =====
+JSON resource validation: OK (2098 files)
+
+RC=0
+DURATION=1.31s
+
+===== CHECK 5/104: python3 tools/visual_parity_guard.py =====
+TC4 visual parity guard: OK
+
+RC=0
+DURATION=1.10s
+
+===== CHECK 6/104: python3 tools/research_table_guard.py =====
+Research Table integration guard: OK
+
+RC=0
+DURATION=1.19s
+
+===== CHECK 7/104: python3 tools/research_table_open_guard.py =====
+Research Table open guard: OK
+
+RC=0
+DURATION=1.13s
+
+===== CHECK 8/104: python3 tools/worldgen_guard.py =====
+Magical Forest worldgen guard: OK (serializable multi-noise source and locate validation)
+
+RC=0
+DURATION=1.15s
+
+===== CHECK 9/104: python3 tools/feature_cycle_guard.py =====
+Feature cycle guard: OK
+
+RC=0
+DURATION=1.16s
+
+===== CHECK 10/104: python3 tools/research_expertise_guard.py =====
+Research connection / expertise guard: OK
+
+RC=0
+DURATION=1.16s
+
+===== CHECK 11/104: python3 tools/thaumometer_scan_guard.py =====
+Thaumometer scan guard: OK (explicit Forge packet, exact per-tick target validation, 25/20 tick TC4 hold)
+
+RC=0
+DURATION=1.18s
+
+===== CHECK 12/104: python3 tools/runtime_visual_guard.py =====
+Runtime visual guard: OK (BER-only matrix/transducer/table, two-block item, world tags, transparent armor)
+
+RC=0
+DURATION=1.19s
+
+===== CHECK 13/104: python3 tools/leaves_wand_table_guard.py =====
+Leaves/Wand/Research Table guard: OK (LeavesBlock states, restored TC4 ModelWand transforms and UVs, original two-block BER)
+
+RC=0
+DURATION=1.21s
+
+===== CHECK 14/104: python3 tools/tc4_original_asset_guard.py =====
+TC4 original texture bank guard: OK — 940 / 940 exact textures
+
+RC=0
+DURATION=1.27s
+
+===== CHECK 15/104: python3 tools/tc4_runtime_visual_guard.py =====
+TC4 runtime visual parity guard: OK
+
+RC=0
+DURATION=1.13s
+
+===== CHECK 16/104: python3 tools/runtime_fix_guard.py =====
+Runtime fix guard: OK (wand, node, Thaumometer, research cheat book, Nitor)
+
+RC=0
+DURATION=1.16s
+
+===== CHECK 17/104: python3 tools/tc4_item_visual_audit.py --version 11.63.29 --fail-on-missing =====
+Item visual audit: 726 models, 0 missing, 0 unresolved, 383 exact-original refs
+reports/item_visual_audit_v11.63.29.json
+reports/ITEM_VISUAL_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.23s
+
+===== CHECK 18/104: python3 tools/model_transform_audit.py --version 11.63.29 --fail-on-problems =====
+Semantic model audit: 726 models, 0 problems, 0 warnings
+reports/model_transform_audit_v11.63.29.json
+reports/MODEL_TRANSFORM_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.29s
+
+===== CHECK 19/104: python3 tools/bewlr_contract_audit.py --version 11.63.29 --fail-on-problems =====
+BEWLR audit: 38/38 complete, 0 problems
+reports/bewlr_contract_audit_v11.63.29.json
+reports/BEWLR_CONTRACT_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.49s
+
+===== CHECK 20/104: python3 tools/aura_node_parity_audit.py --version 11.63.29 --fail-on-problems =====
+Aura-node parity audit: 16/16 passed
+reports/aura_node_parity_audit_v11.63.29.json
+reports/AURA_NODE_PARITY_AUDIT_V11_63_29.md
+
+RC=0
+DURATION=1.18s
+
+===== CHECK 21/104: python3 tools/tc4_116245_parity_guard.py =====
+v11.62.45 parity guard: OK (research transaction, book GUI, scanner, nodes, wand lighting)
+
+RC=0
+DURATION=1.30s
+
+===== CHECK 22/104: python3 tools/tc4_116246_audit_guard.py =====
+v11.62.46 audit guard: OK (v11.62.46+ metadata, 38 registered BEWLR models, node jar/stabilizer parity, no duplicate creative-wand display)
+
+RC=0
+DURATION=1.45s
+
+===== CHECK 23/104: python3 tools/tc4_116247_arcane_wand_guard.py =====
+v11.62.47 arcane/wand guard: OK (5 shapeless recipes, exact occupied-slot matching, catalyst normalization, player-aware armor/bauble vis discounts, TC4 truncation)
+
+RC=0
+DURATION=1.49s
+
+===== CHECK 24/104: python3 tools/tc4_116248_node_orb_guard.py =====
+v11.62.48 node/orb guard: OK (local per-node scheduler, TC4 reload phase, unstable-node Aspect Orb emission, hotbar wand pickup, TC4 particle-sheet renderer)
+
+RC=0
+DURATION=1.33s
+
+===== CHECK 25/104: python3 tools/tc4_116249_aspect_orb_parity_guard.py =====
+v11.62.49 Aspect Orb parity guard: OK (smooth lifetime scale, exact +120 raw lightmap, lava physics, dual TC4 pickup gates and aspect-specific blending)
+
+RC=0
+DURATION=1.45s
+
+===== CHECK 26/104: python3 tools/tc4_116250_runtime_screenshot_guard.py =====
+v11.62.50 runtime screenshot guard: OK (node HUD/beam, first-person wand, TC4 tables/matrix, starter aspects, Thaumometer and book layout)
+
+RC=0
+DURATION=1.25s
+
+===== CHECK 27/104: python3 tools/tc4_116251_research_scan_hud_guard.py =====

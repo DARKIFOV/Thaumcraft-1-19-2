@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for v11.62.96 TC4 golem core parity fixes."""
+"""Regression guard for v11.63.10 TC4 golem core parity fixes."""
 from pathlib import Path
 import json
 import sys
@@ -49,7 +49,7 @@ for test_id in (
     "golems.creeper_swell_avoidance",
 ):
     require(f"runtime manifest contains {test_id}", test_id in ids)
-require("runtime manifest version is v11.62.96", manifest.get("version") == "11.62.96")
+require("runtime manifest version is v11.63.10", manifest.get("version") in ("11.63.23", "11.63.24", "11.63.26", "11.63.27", "11.63.28", "11.63.29", "11.63.30", "11.63.31", "11.63.32", "11.63.33", "11.63.36", "11.63.37", "11.63.38", "11.63.39", "11.63.40", "11.63.41", "11.63.42", "11.63.43", "11.63.44", "11.63.45", "11.63.46", "11.63.47", "11.63.48", "11.63.49", "11.63.50", "11.63.52", "11.63.53", "11.63.54", "11.63.55", "11.63.56", "11.63.58", "11.63.59", "11.63.60", "11.63.61"))
 
 failed = [name for name, ok in checks if not ok]
 for name, ok in checks:

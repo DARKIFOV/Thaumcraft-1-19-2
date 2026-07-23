@@ -22,7 +22,7 @@ public final class TC4InfusionRuntime {
     public static final int ESSENTIA_DRAIN_RANGE = 12;
     /** TC4 TileInfusionMatrix.countDelay default: craftCycle is evaluated every ten ticks. */
     public static final int CRAFT_CYCLE_DELAY = 10;
-    /** TC4 itemCount delay before a pedestal component is consumed after source FX begins. */
+    /** TC4 itemCount value: five later craftCycle passes before consumption. */
     public static final int ITEM_PULL_DELAY = 5;
     public static final int MIN_INSTABILITY_ROLL = 1;
     public static final int MAX_INSTABILITY = 25;
@@ -55,7 +55,8 @@ public final class TC4InfusionRuntime {
     public static int estimateDuration(InfusionRecipe recipe, InfusionStructureReport report, Map<Aspect, Integer> aspectCost, List<ResourceLocation> components, int recipeInstability) {
         int essentia = totalEssentia(aspectCost);
         int componentCount = components == null ? 0 : components.size();
-        int base = 20 + essentia * CRAFT_CYCLE_DELAY + componentCount * (ITEM_PULL_DELAY + CRAFT_CYCLE_DELAY) + recipeInstability * 20;
+        int componentTicks = componentCount * (ITEM_PULL_DELAY + 1) * CRAFT_CYCLE_DELAY;
+        int base = 20 + essentia * CRAFT_CYCLE_DELAY + componentTicks + recipeInstability * 20;
         return InfusionProcessHelper.acceleratedDuration(Math.max(80, base), report);
     }
 
@@ -71,8 +72,36 @@ public final class TC4InfusionRuntime {
         return Math.max(MIN_INSTABILITY_ROLL, COMPONENT_FAILURE_BASE_ROLL - recipeInstability * 2);
     }
 
+    /**
+     * TC4 TileInfusionMatrix.craftCycle rolls the essentia-refund gate once per
+     * unmatched ingredient index inside the recipeIngredients loop ("a"), using
+     * nextInt(1 + a). The first unmatched ingredient in a cycle (a == 0) always
+     * refunds one essentia point back onto the pending bill, and the odds shrink
+     * for each later unmatched index reached within that same cycle.
+     */
+    public static int componentShortageEssentiaRefundRollBound(int ingredientIndex) {
+        return Math.max(1, 1 + ingredientIndex);
+    }
+
+    /**
+     * Original shortage paths only cap values above 25. They never floor a
+     * stabilised negative starting value to zero.
+     */
     public static int clampInstability(int value) {
-        return Math.max(0, Math.min(MAX_INSTABILITY, value));
+        return Math.min(MAX_INSTABILITY, value);
+    }
+
+    /** Exact TileInfusionMatrix craftingStart rule: instability = symmetry + recipe instability. */
+    public static int initialInstability(int symmetry, int recipeInstability) {
+        return symmetry + recipeInstability;
+    }
+
+    /**
+     * Surrounding rescans update symmetry for future diagnostics but do not
+     * rewrite instability already locked by craftingStart.
+     */
+    public static int runningInstability(int current, int symmetry, int recipeInstability) {
+        return current;
     }
 
     /**

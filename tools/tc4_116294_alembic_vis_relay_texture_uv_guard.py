@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static guard for v11.62.96 original Alembic and Vis Relay OBJ/UV rendering."""
+"""Static guard for v11.63.10 original Alembic and Vis Relay OBJ/UV rendering."""
 from __future__ import annotations
 
 import hashlib
@@ -22,7 +22,7 @@ def same(a: Path, b: Path) -> bool:
     return a.exists() and b.exists() and hashlib.sha256(a.read_bytes()).digest() == hashlib.sha256(b.read_bytes()).digest()
 
 build = text(ROOT / "build.gradle")
-add("project version", "version = '11.62.96'" in build)
+add("project version", "version = '11.63.23'" in build)
 
 alembic_block = text(JAVA / "block/AlembicBlock.java")
 alembic_renderer = text(JAVA / "client/render/AlembicRenderer.java")
@@ -68,7 +68,7 @@ for asset in ["alembic.obj", "alembic.png", "vis_relay.obj", "vis_relay.png"]:
 
 problems = [{"name": n, "detail": d} for n, ok, d in checks if not ok]
 report = {
-    "version": "11.62.96",
+    "version": "11.63.10",
     "status": "PASS" if not problems else "FAIL",
     "checks": [{"name": n, "status": "PASS" if ok else "FAIL", "detail": d} for n, ok, d in checks],
     "problems": problems,
@@ -81,7 +81,7 @@ reports = ROOT / "reports"
 reports.mkdir(exist_ok=True)
 out = reports / "tc4_116294_alembic_vis_relay_texture_uv_guard.json"
 out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-print(f"v11.62.96 Alembic/Vis Relay guard: {len(checks)-len(problems)}/{len(checks)} PASS")
+print(f"v11.63.10 Alembic/Vis Relay guard: {len(checks)-len(problems)}/{len(checks)} PASS")
 print(out.relative_to(ROOT))
 if problems:
     for p in problems:

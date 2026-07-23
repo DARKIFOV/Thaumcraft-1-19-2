@@ -4,14 +4,17 @@ import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
+import com.darkifov.thaumcraft.essentia.TC4EssentiaTubeParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -24,6 +27,8 @@ public class EssentiaTubeRenderer implements BlockEntityRenderer<EssentiaTubeBlo
             new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/block/essentia_fill.png");
     private static final ResourceLocation ORIGINAL_LABEL_TEXTURE =
             new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/label.png");
+    private static final ResourceLocation ORIGINAL_VALVE_TEXTURE =
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/valve.png");
 
     public EssentiaTubeRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -37,8 +42,14 @@ public class EssentiaTubeRenderer implements BlockEntityRenderer<EssentiaTubeBlo
         if (tube.subtype().usesAspectFilter() && tube.aspectFilter() != null) {
             renderFilterLabel(tube.aspectFilter(), poseStack, buffer, packedLight);
         }
-        if (tube.subtype().redstoneValve() || tube.subtype().restrictsSuction() || tube.isVenting()) {
-            renderValveOrChoke(tube, poseStack, buffer, packedLight);
+        if (tube.subtype().storesBufferEssentia()) {
+            renderBufferChokes(tube, poseStack, buffer, packedLight);
+        }
+        if (tube.subtype().redstoneValve()) {
+            renderValve(tube, partialTick, poseStack, buffer, packedLight);
+        }
+        if (tube.isVenting()) {
+            renderVentingCore(tube, poseStack, buffer, packedLight);
         }
     }
 
@@ -75,16 +86,58 @@ public class EssentiaTubeRenderer implements BlockEntityRenderer<EssentiaTubeBlo
         poseStack.popPose();
     }
 
-    private void renderValveOrChoke(EssentiaTubeBlockEntity tube, PoseStack poseStack, MultiBufferSource buffer, int light) {
-        int alpha = tube.isFlowAllowed() ? 135 : 210;
-        int rgb = tube.isVenting() ? tube.ventingColor() : tube.isFlowAllowed() ? 0x3366FF : 0xAA2222;
-        int color = (alpha << 24) | rgb;
+    private void renderValve(EssentiaTubeBlockEntity tube, float partialTick, PoseStack poseStack,
+                             MultiBufferSource buffer, int light) {
+        float rotation = tube.valveRotation(partialTick);
         poseStack.pushPose();
         poseStack.translate(0.5D, 0.5D, 0.5D);
-        float size = tube.subtype().redstoneValve() ? 0.245F : 0.205F;
-        renderBox(poseStack, buffer.getBuffer(RenderType.entityTranslucent(ESSENTIA_TEXTURE)),
-                -size, -0.025F, -size, size, 0.025F, size, color, light);
+        orientLikeOriginalValve(poseStack, tube.facing());
+        poseStack.mulPose(Vector3f.YP.rotationDegrees(-rotation * TC4EssentiaTubeParity.VALVE_RENDER_ROTATION_MULTIPLIER));
+        poseStack.translate(0.0D, -(rotation / TC4EssentiaTubeParity.VALVE_ROTATION_MAX)
+                * TC4EssentiaTubeParity.VALVE_RENDER_TRAVEL, 0.0D);
+        VertexConsumer valve = buffer.getBuffer(RenderType.entityCutoutNoCull(ORIGINAL_VALVE_TEXTURE));
+        renderBox(poseStack, valve, -0.0625F, 0.125F, -0.0625F,
+                0.0625F, 0.25F, 0.0625F, 0xFFFFFFFF, light);
         poseStack.popPose();
+    }
+
+    private void renderBufferChokes(EssentiaTubeBlockEntity tube, PoseStack poseStack,
+                                    MultiBufferSource buffer, int light) {
+        VertexConsumer valve = buffer.getBuffer(RenderType.entityCutoutNoCull(ORIGINAL_VALVE_TEXTURE));
+        for (Direction direction : Direction.values()) {
+            int choke = tube.chokeState(direction);
+            if (choke == 0 || !tube.isSideOpen(direction) || !tube.canConnectSideLikeTC4(direction)) {
+                continue;
+            }
+            poseStack.pushPose();
+            poseStack.translate(0.5D, 0.5D, 0.5D);
+            orientLikeOriginalValve(poseStack, direction.getOpposite());
+            int color = choke == 2 ? 0xFFFF4D4D : 0xFF4D4DFF;
+            renderBox(poseStack, valve, -0.075F, -0.5F, -0.075F,
+                    0.075F, -0.375F, 0.075F, color, light);
+            poseStack.popPose();
+        }
+    }
+
+    private void renderVentingCore(EssentiaTubeBlockEntity tube, PoseStack poseStack,
+                                   MultiBufferSource buffer, int light) {
+        int color = (160 << 24) | (tube.ventingColor() & 0xFFFFFF);
+        poseStack.pushPose();
+        poseStack.translate(0.5D, 0.5D, 0.5D);
+        renderBox(poseStack, buffer.getBuffer(RenderType.entityTranslucent(ESSENTIA_TEXTURE)),
+                -0.18F, -0.18F, -0.18F, 0.18F, 0.18F, 0.18F, color, light);
+        poseStack.popPose();
+    }
+
+    private void orientLikeOriginalValve(PoseStack poseStack, Direction facing) {
+        if (facing.getStepY() == 0) {
+            poseStack.mulPose(Vector3f.YP.rotationDegrees(90.0F));
+        } else {
+            poseStack.mulPose(Vector3f.XN.rotationDegrees(90.0F));
+            poseStack.mulPose((facing.getStepY() > 0 ? Vector3f.XP : Vector3f.XN).rotationDegrees(90.0F));
+        }
+        Vector3f axis = new Vector3f(facing.getStepX(), facing.getStepY(), facing.getStepZ());
+        poseStack.mulPose(axis.rotationDegrees(90.0F));
     }
 
     private void renderBox(PoseStack poseStack, VertexConsumer consumer,

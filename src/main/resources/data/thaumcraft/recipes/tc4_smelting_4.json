@@ -1,7 +1,12 @@
 {
   "type": "thaumcraft:counted_smelting",
-  "ingredient": {"item": "thaumcraft:tc4_clusteriron"},
-  "result": {"item": "minecraft:iron_ingot", "count": 2},
-  "experience": 0.1,
+  "ingredient": {
+    "item": "thaumcraft:tc4_clusteriron"
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 2
+  },
+  "experience": 1.0,
   "cookingtime": 200
 }

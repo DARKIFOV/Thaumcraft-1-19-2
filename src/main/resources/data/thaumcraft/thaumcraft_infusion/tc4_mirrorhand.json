@@ -5,9 +5,9 @@
   "tc4_kind": "INFUSION",
   "catalyst": "thaumcraft:tc4_mirrorframe",
   "components": [
-    "minecraft:iron_ingot",
-    "minecraft:leather",
-    "minecraft:glass_bottle"
+    "minecraft:stick",
+    "minecraft:compass",
+    "minecraft:map"
   ],
   "aspects": {
     "INSTRUMENTUM": 16,
@@ -18,5 +18,6 @@
     "item": "thaumcraft:tc4_mirrorhand",
     "count": 1
   },
-  "v11_62_71_strict_original": true
+  "v11_62_71_strict_original": true,
+  "v11_63_49_exact_source": true
 }

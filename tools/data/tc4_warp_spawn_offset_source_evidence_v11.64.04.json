@@ -1,0 +1,9 @@
+{
+  "version": "11.64.04",
+  "original_source_path": "thaumcraft/common/lib/WarpEvents.java",
+  "original_source_lines": "356-358 and 388-390 (decompiled source comments)",
+  "confirmed_contract": "TC4 multiplies each 7..24 magnitude by an inclusive random integer in [-1,1]. Each axis may therefore be negative, zero or positive.",
+  "production_fix": "WarpEvents.randomTc4AxisOffset routes the inclusive [-1,1] sign roll through TC4WarpRuntimeParity.signedSpawnOffset without removing the original zero outcome.",
+  "corrected_regression": "The rejected boolean-sign adaptation removed zero axes and was reverted.",
+  "runtime_status": "NOT_VERIFIED"
+}

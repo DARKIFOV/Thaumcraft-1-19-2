@@ -3,6 +3,7 @@ package com.darkifov.thaumcraft.wand;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.block.WandItem;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -19,47 +20,48 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
 
     public static WandComponentData from(ItemStack stack) {
         if (stack.getItem() instanceof WandItem wandItem) {
-            CompoundTag tag = stack.getTagElement(TAG_WAND);
+            CompoundTag legacy = stack.getTagElement(TAG_WAND);
             WandRodType rod = wandItem.defaultRod();
             WandCapType cap = wandItem.defaultCap();
-
             CompoundTag root = stack.getTag();
-            // Stage187: original ItemWandCasting stores rod/cap as root NBT strings
-            // named exactly "rod" and "cap".  Keep the Stage144-186 nested
-            // "Wand" adapter as a read-only compatibility fallback.
+
             if (root != null && root.contains(ORIGINAL_TAG_ROD)) {
                 rod = WandRodType.fromOriginalTag(root.getString(ORIGINAL_TAG_ROD));
-            } else if (tag != null) {
-                rod = WandRodType.fromId(tag.getString(TAG_ROD));
+            } else if (legacy != null) {
+                rod = WandRodType.fromId(legacy.getString(TAG_ROD));
             }
             if (root != null && root.contains(ORIGINAL_TAG_CAP)) {
                 cap = WandCapType.fromOriginalTag(root.getString(ORIGINAL_TAG_CAP));
-            } else if (tag != null) {
-                cap = WandCapType.fromId(tag.getString(TAG_CAP));
+            } else if (legacy != null) {
+                cap = WandCapType.fromId(legacy.getString(TAG_CAP));
             }
-
             return new WandComponentData(rod, cap);
         }
-
         return new WandComponentData(WandRodType.WOOD, WandCapType.IRON);
     }
 
+    /** Writes only the original TC4 root keys. The old nested adapter is read once and removed. */
     public static void write(ItemStack stack, WandRodType rod, WandCapType cap) {
-        // Stage187: write original root NBT first, then preserve the old nested
-        // adapter tags so existing Stage174-186 saves keep working.
         CompoundTag root = stack.getOrCreateTag();
         root.putString(ORIGINAL_TAG_ROD, rod.originalTag());
         root.putString(ORIGINAL_TAG_CAP, cap.originalTag());
-        CompoundTag tag = stack.getOrCreateTagElement(TAG_WAND);
-        tag.putString(TAG_ROD, rod.id());
-        tag.putString(TAG_CAP, cap.id());
+        root.remove(TAG_WAND);
     }
 
-    public int capacity() {
-        return rod.baseCapacity();
+    /** Migrates Stage144-186 nested Wand/Rod/Cap data without changing valid original root tags. */
+    public static boolean normalizeOriginalTags(ItemStack stack) {
+        if (!(stack.getItem() instanceof WandItem)) return false;
+        CompoundTag root = stack.getTag();
+        boolean needsRoot = root == null || !root.contains(ORIGINAL_TAG_ROD) || !root.contains(ORIGINAL_TAG_CAP);
+        boolean hasLegacy = root != null && root.contains(TAG_WAND);
+        if (!needsRoot && !hasLegacy) return false;
+        WandComponentData data = from(stack);
+        write(stack, data.rod(), data.cap());
+        return true;
     }
 
-    /** Stage185: original ItemWandCasting root NBT adapter for the "sceptre" byte tag. Historical audit token: root.contains("sceptre"). */
+    public int capacity() { return rod.baseCapacity(); }
+
     public static boolean isSceptre(ItemStack stack) {
         CompoundTag root = stack.getTag();
         return root != null && root.contains(ORIGINAL_TAG_SCEPTRE);
@@ -67,45 +69,24 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
 
     public static void setSceptre(ItemStack stack, boolean sceptre) {
         CompoundTag root = stack.getOrCreateTag();
-        if (sceptre) {
-            root.putByte(ORIGINAL_TAG_SCEPTRE, (byte)1);
-        } else {
-            root.remove(ORIGINAL_TAG_SCEPTRE);
-        }
+        if (sceptre) root.putByte(ORIGINAL_TAG_SCEPTRE, (byte)1);
+        else root.remove(ORIGINAL_TAG_SCEPTRE);
     }
 
-    /** Stage185: original StaffRod.hasRunes parity; only primal staff sets runes in ConfigItems. */
-    public boolean hasRunes() {
-        return rod == WandRodType.PRIMAL_STAFF;
-    }
+    public boolean hasRunes() { return rod == WandRodType.PRIMAL_STAFF; }
 
-    /**
-     * Original ItemWandCasting#getMaxVis returns centivis, not displayed whole vis.
-     * A normal wand therefore stores rod capacity * 100 and a sceptre * 150.
-     */
+    /** Original ItemWandCasting#getMaxVis returns centivis. */
     public int capacity(ItemStack stack) {
-        // v11.62.13 compatibility marker: capacity = (int)Math.floor(capacity * 1.5F)
         if (rod == WandRodType.CREATIVE) return Integer.MAX_VALUE / 8;
-        int multiplier = isSceptre(stack) ? 150 : 100;
-        return rod.baseCapacity() * multiplier;
+        return TC4WandComponentMath.capacityCentivis(rod.baseCapacity(), isSceptre(stack));
     }
 
-    /** Original ItemWandCasting sceptre discount: 0.1 is subtracted from the cap modifier. */
     public float visCostModifier(ItemStack stack, Aspect aspect) {
-        float modifier = visCostModifier(aspect);
-        if (isSceptre(stack)) {
-            modifier -= 0.1F;
-        }
-        return Math.max(modifier, 0.1F);
+        return TC4WandComponentMath.consumptionModifier(visCostModifier(aspect), isSceptre(stack));
     }
 
-    public float visCostModifier() {
-        return cap.visCostModifier();
-    }
-
-    public float visCostModifier(Aspect aspect) {
-        return cap.visCostModifier(aspect);
-    }
+    public float visCostModifier() { return cap.visCostModifier(); }
+    public float visCostModifier(Aspect aspect) { return cap.visCostModifier(aspect); }
 
     public static void writeRod(ItemStack stack, WandRodType rod) {
         WandComponentData current = from(stack);
@@ -155,14 +136,13 @@ public record WandComponentData(WandRodType rod, WandCapType cap) {
         return Optional.empty();
     }
 
-    public String displayName(ItemStack stack) {
-        String object = isSceptre(stack) ? "Sceptre" : (rod.staff() ? "Staff" : "Wand");
-        return title(cap.id()) + "-capped " + title(rod.id().replace("_staff", "")) + " " + object;
-    }
-
-    private static String title(String value) {
-        if (value == null || value.isBlank()) return "Unknown";
-        String normalized = value.replace('_', ' ');
-        return Character.toUpperCase(normalized.charAt(0)) + normalized.substring(1);
+    public Component displayNameComponent(ItemStack stack) {
+        String rodTag = rod.originalTag().replace("_staff", "");
+        String objectKey = isSceptre(stack) ? "item.Wand.sceptre.obj"
+                : rod.staff() ? "item.Wand.staff.obj" : "item.Wand.wand.obj";
+        return Component.translatable("item.thaumcraft.wand_name_format",
+                Component.translatable("item.Wand." + cap.originalTag() + ".cap"),
+                Component.translatable("item.Wand." + rodTag + ".rod"),
+                Component.translatable(objectKey));
     }
 }

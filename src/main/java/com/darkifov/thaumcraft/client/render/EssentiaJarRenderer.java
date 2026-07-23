@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
+import com.darkifov.thaumcraft.jar.TC4EssentiaJarParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
@@ -18,7 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlockEntity> {
     private static final ResourceLocation FILL_TEXTURE =
-            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/block/essentia_fill.png");
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/blocks/animatedglow.png");
     private static final ResourceLocation ORIGINAL_LABEL_TEXTURE =
             new ResourceLocation(ThaumcraftMod.MOD_ID, "textures/original/thaumcraft4/models/label.png");
 
@@ -60,12 +61,11 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
                     LIQUID_MIN_XZ, LIQUID_MIN_Y, LIQUID_MIN_XZ,
                     LIQUID_MAX_XZ, maxY, LIQUID_MAX_XZ,
                     color, packedLight);
-            renderStoredAspectGhost(aspect, poseStack, buffer, packedLight);
             poseStack.popPose();
         }
 
         if (jar.hasFilter()) {
-            renderJarLabel(jar.filterAspect(), jar.labelFacing(), poseStack, buffer, packedLight);
+            renderJarLabel(jar.filterAspect(), jar.labelFacing(), jar.getBlockPos().getX(), poseStack, buffer, packedLight);
         }
 
         // Original TC4 goggles draw a small world-space aspect tag on the
@@ -77,7 +77,7 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
     }
 
 
-    private void renderJarLabel(Aspect filter, Direction facing, PoseStack poseStack, MultiBufferSource buffer, int light) {
+    private void renderJarLabel(Aspect filter, Direction facing, int blockX, PoseStack poseStack, MultiBufferSource buffer, int light) {
         if (filter == null) {
             return;
         }
@@ -98,59 +98,33 @@ public class EssentiaJarRenderer implements BlockEntityRenderer<EssentiaJarBlock
             }
             default -> poseStack.translate(0.5D, 0.405D, 0.188D);
         }
-        float crooked = crookedLabelRotation(filter, safeFacing, poseStack);
+        float crooked = crookedLabelRotation(filter, safeFacing, blockX);
         poseStack.mulPose(Vector3f.ZP.rotationDegrees(crooked));
         Matrix4f matrix = poseStack.last().pose();
         VertexConsumer label = buffer.getBuffer(RenderType.entityTranslucent(ORIGINAL_LABEL_TEXTURE));
         // TC4 label card: parchment paper label on the face of the jar.
         // Original TileJarRenderer rotates labels by a tiny hash-based amount when Config.crooked is enabled.
         quad(matrix, label,
-                -0.225F, -0.160F, 0.0F,
-                 0.225F, -0.160F, 0.0F,
-                 0.225F,  0.160F, 0.0F,
-                -0.225F,  0.160F, 0.0F,
+                -0.250F, -0.250F, 0.0F,
+                 0.250F, -0.250F, 0.0F,
+                 0.250F,  0.250F, 0.0F,
+                -0.250F,  0.250F, 0.0F,
                 255, 255, 255, 242, light);
 
         VertexConsumer icon = buffer.getBuffer(RenderType.entityTranslucent(aspectTexture(filter)));
         quad(matrix, icon,
-                -0.085F, -0.085F, 0.003F,
-                 0.085F, -0.085F, 0.003F,
-                 0.085F,  0.085F, 0.003F,
-                -0.085F,  0.085F, 0.003F,
+                -0.168F, -0.168F, 0.003F,
+                 0.168F, -0.168F, 0.003F,
+                 0.168F,  0.168F, 0.003F,
+                -0.168F,  0.168F, 0.003F,
                 255, 255, 255, 245, light);
         poseStack.popPose();
     }
 
-    private float crookedLabelRotation(Aspect filter, Direction facing, PoseStack ignored) {
+    private float crookedLabelRotation(Aspect filter, Direction facing, int blockX) {
         String id = filter == null ? "" : filter.id();
         int face = facing == null ? Direction.NORTH.get3DDataValue() : facing.get3DDataValue();
-        return Math.floorMod(id.hashCode() + face, 4) - 2.0F;
-    }
-
-    private void renderStoredAspectGhost(Aspect aspect, PoseStack poseStack, MultiBufferSource buffer, int light) {
-        VertexConsumer icon = buffer.getBuffer(RenderType.entityTranslucent(aspectTexture(aspect)));
-        // v11.62.8: subtle original-style aspect mark suspended inside the glass,
-        // visible through the jar, instead of the old flat coloured square overlay.
-        renderAspectGhostOnFace(Direction.NORTH, icon, poseStack, light);
-        renderAspectGhostOnFace(Direction.SOUTH, icon, poseStack, light);
-    }
-
-    private void renderAspectGhostOnFace(Direction facing, VertexConsumer icon, PoseStack poseStack, int light) {
-        poseStack.pushPose();
-        if (facing == Direction.SOUTH) {
-            poseStack.translate(0.0D, 0.48D, 0.265D);
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
-        } else {
-            poseStack.translate(0.0D, 0.48D, -0.265D);
-        }
-        Matrix4f matrix = poseStack.last().pose();
-        quad(matrix, icon,
-                -0.115F, -0.115F, 0.0F,
-                 0.115F, -0.115F, 0.0F,
-                 0.115F,  0.115F, 0.0F,
-                -0.115F,  0.115F, 0.0F,
-                255, 255, 255, 138, light);
-        poseStack.popPose();
+        return TC4EssentiaJarParity.crookedLabelRotation(id, blockX, face);
     }
 
     private ResourceLocation aspectTexture(Aspect aspect) {

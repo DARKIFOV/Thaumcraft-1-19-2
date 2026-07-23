@@ -1,0 +1,8 @@
+TC4 v11.64.15 Java status
+
+PASS: javac --release 17 compiled TC4BrainJarParity.java and TC4BrainJarParitySelfTest.java.
+PASS: TC4BrainJarParitySelfTest executed and printed PASS.
+PASS: targeted javac parse checks for 8 changed Forge source files found no Java syntax markers.
+PASS: project-wide tools/java_syntax_guard.py.
+
+This is not a Forge compile result. Gradle Wrapper failed before project configuration because services.gradle.org could not be resolved.

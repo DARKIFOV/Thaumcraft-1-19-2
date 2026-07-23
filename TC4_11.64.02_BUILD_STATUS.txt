@@ -1,0 +1,11 @@
+VERSION: 11.64.02
+ROUND: Research completion permanent/sticky warp parity
+STATIC_CI: PASS 22/22 (split execution)
+GAMETEST_METHODS: 131 unique
+RUNTIME_MANIFEST: 459 unique scenarios
+JSON: 2049/2049 PASS
+RECIPES: 258/258 STATICALLY MAPPED
+SMELTING_BONUSES: 18 separate
+GRADLE_BUILD: FAIL / NOT OBTAINED (UnknownHostException downloading Gradle 7.5.1)
+JAVA_ENVIRONMENT: Java 21 present; target Java 17 unavailable
+FORGE_GAMETEST_RUNTIME: NOT VERIFIED

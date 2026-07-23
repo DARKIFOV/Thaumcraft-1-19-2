@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,14 +25,12 @@ public class TableBlock extends Block {
                                  InteractionHand hand, BlockHitResult hit) {
         ItemStack held = player.getItemInHand(hand);
 
-        if (level.isClientSide) {
-            return InteractionResult.SUCCESS;
+        if (held.getItem() instanceof WandItem) {
+            return ArcaneWorkbenchBlockEntity.transformFromTable(level, pos, player, hand, held);
         }
 
-        if (held.getItem() instanceof WandItem) {
-            level.setBlock(pos, ThaumcraftMod.ARCANE_WORKBENCH.get().defaultBlockState(), 3);
-            player.displayClientMessage(Component.literal("The table becomes an Arcane Workbench.").withStyle(ChatFormatting.LIGHT_PURPLE), false);
-            return InteractionResult.CONSUME;
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
         }
 
         if (held.is(ThaumcraftMod.SCRIBING_TOOLS.get())) {

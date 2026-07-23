@@ -1,0 +1,8 @@
+{
+  "version": "11.64.05",
+  "subsystem": "warp_eldritch",
+  "original_source": "thaumcraft/common/lib/WarpEvents.java lines 360-369 and 392-412",
+  "confirmed_contract": "Each candidate is positioned first, then accepted from the concrete entity bounding box when the block below has a solid top, the bounding box has no collisions, and it intersects no liquid. TC4 does not require a hard-coded two-block air column.",
+  "production_fix": "WarpEvents.findSpawnAround removes fixed pos/pos.above air checks, evaluates level.noCollision(entity), scans fluids intersecting the entity AABB, and routes the decision through TC4WarpRuntimeParity.acceptsEntitySpawnCandidate.",
+  "runtime_status": "NOT_VERIFIED"
+}

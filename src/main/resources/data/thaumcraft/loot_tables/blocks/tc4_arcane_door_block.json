@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "thaumcraft:tc4_arcanedoor"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "thaumcraft:tc4_arcane_door_block",
+          "properties": {
+            "upper": "false"
+          }
+        }
+      ]
+    }
+  ]
+}

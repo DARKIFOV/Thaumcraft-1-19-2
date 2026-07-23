@@ -1,0 +1,12 @@
+THAUMCRAFT LEGACY REBUILD v11.64.10 — TARGETED JAVA STATUS
+
+Warp runtime pure-Java self-test: PASS (spread downgrade, curative contract, soap chance/consumption, ward duration, original tri-state (-1/0/+1) offsets, entity-aware collision/liquid admission, BATHSALTS milestone message key, and exact Death Gaze aperture/round-cap geometry)
+Targeted Java parse guard v11.64.10: PASS (3 changed Java files; pure contract compiled with --release 17)
+
+Environment:
+openjdk version "21.0.10" 2026-01-20
+OpenJDK Runtime Environment (build 21.0.10+7-Debian-1deb13u1)
+OpenJDK 64-Bit Server VM (build 21.0.10+7-Debian-1deb13u1, mixed mode, sharing)
+javac 21.0.10
+
+LIMITATION: This is not a Forge/Minecraft compilation. Full Gradle build was not obtained.

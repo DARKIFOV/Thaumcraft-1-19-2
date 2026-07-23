@@ -1,0 +1,27 @@
+THAUMCRAFT LEGACY REBUILD - PACKAGE MANIFEST v11.64.07
+Milestone: WARP_TEXT8_BATHSALTS_MILESTONE_PARITY (correction of v11.64.06)
+Platform: Minecraft 1.19.2 / Forge 43.5.2 (43.x) / Java 17
+Reference oracle: Thaumcraft 4.2.3.5 (1.7.10) full source under reference/
+
+Artifact: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.07_WARP_TEXT8_BATHSALTS_MILESTONE_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Size (bytes): 55899756
+Entries: 9015
+SHA-256: 553170552175ccf256aad2f5544f3c0c86c2a139486ba90fcfb90af47a8db7e1
+
+Confirmed static metrics:
+- 140 unique GameTest methods
+- 468/468 unique manifest scenarios (version 11.64.07)
+- 2049 JSON resources validated
+- 258/258 recipe registrations statically mapped
+- 802 Java files in src/main/java
+- 2049 JSON files in src/main/resources
+- Focused static CI v11.64.07: 11/11 PASS
+
+This round:
+- Fixed v11.64.06 misattribution: warp.text.8 is the BATHSALTS milestone line
+  (actual warp > 10), NOT the blurred-vision event (which shows no chat line).
+- Added full original TC4 source as reference oracle (reference/).
+
+NOT VERIFIED (no javac / Gradle offline):
+- No compiled JAR, no Forge GameTest server run, no in-game chat verification.
+- RNG distribution of warp events / milestone probability not measured in-game.

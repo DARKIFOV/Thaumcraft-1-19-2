@@ -15,6 +15,7 @@ import com.darkifov.thaumcraft.research.ResearchAspectGraph;
 import com.darkifov.thaumcraft.research.ResearchNoteGrid;
 import com.darkifov.thaumcraft.research.ResearchNoteState;
 import com.darkifov.thaumcraft.research.TC4ResearchTableParity;
+import com.darkifov.thaumcraft.research.TC4ResearchNoteGraphParity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -668,19 +669,12 @@ public class ResearchTableContainerScreen extends AbstractContainerScreen<Resear
                 && !ClientResearchNoteData.solved()
                 && aspect != null
                 && availableAspect(aspect) > 0
-                && ClientResearchNoteData.emptyAt(slot)
-                && ClientResearchNoteData.aspectAt(slot) == null
-                && touchesCompatibleClientNeighbor(slot, aspect);
-    }
-
-    private boolean touchesCompatibleClientNeighbor(int slot, Aspect aspect) {
-        for (int neighbor : ResearchNoteGrid.neighbors(slot)) {
-            Aspect other = ClientResearchNoteData.aspectAt(neighbor);
-            if (other != null && ResearchAspectGraph.canConnect(aspect, other)) {
-                return true;
-            }
-        }
-        return false;
+                && TC4ResearchNoteGraphParity.canPlaceIntoHex(
+                        slot,
+                        ClientResearchNoteData.emptyAt(slot)
+                                ? ResearchNoteGrid.TYPE_EMPTY
+                                : ResearchNoteGrid.TYPE_PLACED,
+                        ClientResearchNoteData.aspectAt(slot) == null);
     }
 
     private boolean hasResearchExpertise() {

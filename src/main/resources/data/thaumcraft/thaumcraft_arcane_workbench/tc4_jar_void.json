@@ -26,5 +26,6 @@
     "item": "thaumcraft:void_essentia_jar",
     "count": 1
   },
-  "v11_62_60_strict_original": true
+  "v11_62_60_strict_original": true,
+  "v11_63_50_exact_source": true
 }

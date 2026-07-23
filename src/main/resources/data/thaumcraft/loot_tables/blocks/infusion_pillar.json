@@ -3,11 +3,28 @@
   "pools": [
     {
       "rolls": 1,
-      "entries": [
+      "conditions": [
         {
-          "type": "minecraft:item",
-          "name": "thaumcraft:infusion_pillar"
+          "condition": "minecraft:block_state_property",
+          "block": "thaumcraft:infusion_pillar",
+          "properties": { "half": "lower" }
         }
+      ],
+      "entries": [
+        { "type": "minecraft:item", "name": "thaumcraft:arcane_stone_bricks" }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "thaumcraft:infusion_pillar",
+          "properties": { "half": "upper" }
+        }
+      ],
+      "entries": [
+        { "type": "minecraft:item", "name": "thaumcraft:arcane_stone" }
       ]
     }
   ]

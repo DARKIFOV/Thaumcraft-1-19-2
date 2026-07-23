@@ -25,6 +25,7 @@ public final class PlayerThaumData {
     private static final String PECH_FAVOR = "PechFavor";
     private static final String SCANNED_OBJECTS = "ScannedObjects";
     private static final String SCANNED_ENTITIES = "ScannedEntities";
+    private static final String SCANNED_PHENOMENA = "ScannedPhenomena";
     private static final String SCANNED_ASPECTS = "ScannedAspects";
     private static final String OUTER_RETURN_POS = "OuterReturnPos";
 
@@ -312,6 +313,18 @@ public final class PlayerThaumData {
         return addString(root(player), SCANNED_ENTITIES, normalize(entityId));
     }
 
+    public static boolean markScannedPhenomenon(Player player, String phenomenonId) {
+        return addString(root(player), SCANNED_PHENOMENA, normalize(phenomenonId));
+    }
+
+    public static int importScannedObjects(Player player, Iterable<String> values) {
+        return importStrings(root(player), SCANNED_OBJECTS, values);
+    }
+
+    public static int importScannedEntities(Player player, Iterable<String> values) {
+        return importStrings(root(player), SCANNED_ENTITIES, values);
+    }
+
     public static int recordScannedAspects(Player player, AspectList aspects) {
         if (aspects == null || aspects.isEmpty()) {
             return 0;
@@ -337,6 +350,10 @@ public final class PlayerThaumData {
         return containsString(root(player), SCANNED_ENTITIES, normalize(entityId));
     }
 
+    public static boolean hasScannedPhenomenon(Player player, String phenomenonId) {
+        return containsString(root(player), SCANNED_PHENOMENA, normalize(phenomenonId));
+    }
+
     public static Set<String> getScannedObjects(Player player) {
         return stringSet(root(player), SCANNED_OBJECTS);
     }
@@ -345,12 +362,16 @@ public final class PlayerThaumData {
         return stringSet(root(player), SCANNED_ENTITIES);
     }
 
+    public static Set<String> getScannedPhenomena(Player player) {
+        return stringSet(root(player), SCANNED_PHENOMENA);
+    }
+
     public static Set<String> getScannedAspectIds(Player player) {
         return stringSet(root(player), SCANNED_ASPECTS);
     }
 
     public static int getScanKnowledgeCount(Player player) {
-        return getScannedObjects(player).size() + getScannedEntities(player).size();
+        return getScannedObjects(player).size() + getScannedEntities(player).size() + getScannedPhenomena(player).size();
     }
 
     private static String normalize(String value) {
@@ -374,6 +395,13 @@ public final class PlayerThaumData {
         list.add(StringTag.valueOf(value));
         root.put(key, list);
         return true;
+    }
+
+    private static int importStrings(CompoundTag root, String key, Iterable<String> values) {
+        if (values == null) return 0;
+        int added = 0;
+        for (String value : values) if (addString(root, key, normalize(value))) added++;
+        return added;
     }
 
     private static boolean containsString(CompoundTag root, String key, String value) {

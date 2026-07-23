@@ -1,6 +1,22 @@
 {
   "replace": false,
   "values": [
-    "thaumcraft:tc4_block_arcane_spa"
+    "thaumcraft:tc4_block_arcane_spa",
+    "thaumcraft:tc4_block_levitator",
+    "thaumcraft:tc4_block_arcane_lamp",
+    "thaumcraft:tc4_block_metal_base",
+    "thaumcraft:tc4_block_obsidian_totem_base",
+    "thaumcraft:tc4_block_obsidian_totem_1",
+    "thaumcraft:tc4_block_obsidian_totem_2",
+    "thaumcraft:tc4_block_obsidian_totem_3",
+    "thaumcraft:tc4_block_obsidian_totem_4",
+    "thaumcraft:tc4_block_obsidian_totem_shaded",
+    "thaumcraft:tc4_block_paving_travel",
+    "thaumcraft:tc4_block_paving_warding",
+    "thaumcraft:tc4_block_arcane_stone_slab",
+    "thaumcraft:tc4_block_lamp_growth",
+    "thaumcraft:tc4_block_lamp_fertility",
+    "thaumcraft:tc4_block_wand_pedestal",
+    "thaumcraft:tc4_block_wand_pedestal_focus"
   ]
 }

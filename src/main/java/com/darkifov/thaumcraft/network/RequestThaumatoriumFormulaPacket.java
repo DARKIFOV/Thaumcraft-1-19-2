@@ -52,7 +52,7 @@ public class RequestThaumatoriumFormulaPacket {
             }
             BlockEntity blockEntity = player.level.getBlockEntity(packet.pos);
             if (blockEntity instanceof ThaumatoriumBlockEntity thaumatorium) {
-                if (thaumatorium.selectFormulaIndex(packet.formulaIndex)) {
+                if (thaumatorium.toggleFormulaIndex(packet.formulaIndex, player)) {
                     player.level.playSound(null, packet.pos, TC4Sounds.event("brain"), SoundSource.BLOCKS, 0.35F, 1.05F);
                 } else {
                     player.displayClientMessage(Component.literal("Thaumatorium formula slot is empty.").withStyle(ChatFormatting.RED), false);

@@ -3,7 +3,7 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "COREGATHER",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:tc4_nitor",
+  "catalyst": "thaumcraft:nitor",
   "ingredients": [
     "minecraft:brick"
   ],
@@ -18,7 +18,7 @@
   ],
   "key": {
     "C": "minecraft:brick",
-    "N": "thaumcraft:tc4_nitor"
+    "N": "thaumcraft:nitor"
   },
   "result": {
     "item": "thaumcraft:tc4_golem_core_blank",

@@ -1,0 +1,379 @@
+{
+  "version": "11.64.31",
+  "object": "Arcane Workbench / Mystical Workbench",
+  "baseline": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/tiles/TileMagicWorkbench.java",
+      "sha256": "1fdb2d7378e79ed2a3cc76595cd616c6cbdb84163d0b6cb06b1f97c841accca6",
+      "evidence": [
+        {
+          "token": "new ItemStack[11]",
+          "line": 17,
+          "text": "/*  17 */   public ItemStack[] stackList = new ItemStack[11];"
+        },
+        {
+          "token": "\"Inventory\"",
+          "line": 163,
+          "text": "/* 163 */     NBTTagList var2 = par1NBTTagCompound.func_150295_c(\"Inventory\", 10);"
+        },
+        {
+          "token": "return new int[] { 10 }",
+          "line": 237,
+          "text": "/* 237 */     return new int[] { 10 };"
+        },
+        {
+          "token": "return i == 10",
+          "line": 249,
+          "text": "/* 249 */     return i == 10;"
+        },
+        {
+          "token": "!wand.isStaff(itemstack)",
+          "line": 230,
+          "text": "/* 230 */       return !wand.isStaff(itemstack);"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileArcaneWorkbench.java",
+      "sha256": "03a57fb9aaf0e0e48b10c61e7802dffd3de11db410b6fca76f8c435899f63c5a",
+      "evidence": [
+        {
+          "token": "container.arcaneworkbench",
+          "line": 20,
+          "text": "/* 20 */     return \"container.arcaneworkbench\";"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/container/ContainerArcaneWorkbench.java",
+      "sha256": "ea2393bb39eb0c8ac3539ae1cb3c1aab7b60a0ad8925af24df721e9272abc180",
+      "evidence": [
+        {
+          "token": "this.tileEntity, this.tileEntity, 9, 160, 64",
+          "line": 26,
+          "text": "/*  26 */     func_75146_a(new SlotCraftingArcaneWorkbench(par1InventoryPlayer.field_70458_d, this.tileEntity, this.tileEntity, 9, 160, 64));"
+        },
+        {
+          "token": "this.tileEntity, 10, 160, 24",
+          "line": 27,
+          "text": "/*  27 */     func_75146_a(new SlotLimitedByWand(this.tileEntity, 10, 160, 24));"
+        },
+        {
+          "token": "CraftingManager",
+          "line": 10,
+          "text": "/*     */ import net.minecraft.item.crafting.CraftingManager;"
+        },
+        {
+          "token": "consumeAllVisCrafting",
+          "line": 73,
+          "text": "/*  73 */       if (wand.consumeAllVisCrafting(this.tileEntity.func_70301_a(10), this.ip.field_70458_d, ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(this.tileEntity, this.ip.field_70458_d), false))"
+        },
+        {
+          "token": "findMatchingArcaneRecipe",
+          "line": 73,
+          "text": "/*  73 */       if (wand.consumeAllVisCrafting(this.tileEntity.func_70301_a(10), this.ip.field_70458_d, ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(this.tileEntity, this.ip.field_70458_d), false))"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/container/SlotCraftingArcaneWorkbench.java",
+      "sha256": "cafd7ee84e0af0b53f4494fcfebf614f2ad555206df8bc69ea563ee26f0f3983",
+      "evidence": [
+        {
+          "token": "aspects.size() > 0",
+          "line": 45,
+          "text": "/* 45 */     if ((aspects.size() > 0) && (this.craftMatrix.func_70301_a(10) != null)) {"
+        },
+        {
+          "token": "consumeAllVisCrafting",
+          "line": 47,
+          "text": "/* 47 */       wand.consumeAllVisCrafting(this.craftMatrix.func_70301_a(10), par1EntityPlayer, aspects, true);"
+        },
+        {
+          "token": "for (int var2 = 0; var2 < 9; var2++)",
+          "line": 50,
+          "text": "/* 50 */     for (int var2 = 0; var2 < 9; var2++)"
+        },
+        {
+          "token": "getContainerItem",
+          "line": 60,
+          "text": "/* 60 */           ItemStack var4 = var3.func_77973_b().getContainerItem(var3);"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockTable.java",
+      "sha256": "1fd10c6562ebda89c7ab582ce0970d4f8212128f06469a23a00a3cb9e1d51097",
+      "evidence": [
+        {
+          "token": "func_149711_c(2.5F)",
+          "line": 39,
+          "text": "/*  39 */     func_149711_c(2.5F);"
+        },
+        {
+          "token": "new TileArcaneWorkbench()",
+          "line": 81,
+          "text": "/*  81 */       return new TileArcaneWorkbench();"
+        },
+        {
+          "token": "func_70299_a(10, wandstack.func_77946_l())",
+          "line": 246,
+          "text": "/* 246 */         tawb.func_70299_a(10, wandstack.func_77946_l());"
+        },
+        {
+          "token": "field_70461_c, null",
+          "line": 247,
+          "text": "/* 247 */         player.field_71071_by.func_70299_a(player.field_71071_by.field_70461_c, null);"
+        },
+        {
+          "token": "random.click",
+          "line": 252,
+          "text": "/* 252 */       world.func_72908_a(x + 0.5D, y + 0.1D, z + 0.5D, \"random.click\", 0.15F, 0.5F);"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileArcaneWorkbenchRenderer.java",
+      "sha256": "c79b670e62ca533cbbec4fdf75d3046eba2245c6fc8676b344b86a309a953bff",
+      "evidence": [
+        {
+          "token": "0.65F",
+          "line": 44,
+          "text": "/* 44 */       GL11.glTranslatef((float)par2 + 0.65F, (float)par4 + 1.0625F, (float)par6 + 0.25F);"
+        },
+        {
+          "token": "1.0625F",
+          "line": 44,
+          "text": "/* 44 */       GL11.glTranslatef((float)par2 + 0.65F, (float)par4 + 1.0625F, (float)par6 + 0.25F);"
+        },
+        {
+          "token": "0.25F",
+          "line": 44,
+          "text": "/* 44 */       GL11.glTranslatef((float)par2 + 0.65F, (float)par4 + 1.0625F, (float)par6 + 0.25F);"
+        },
+        {
+          "token": "90.0F",
+          "line": 45,
+          "text": "/* 45 */       GL11.glRotatef(90.0F, 1.0F, 0.0F, 0.0F);"
+        },
+        {
+          "token": "20.0F",
+          "line": 46,
+          "text": "/* 46 */       GL11.glRotatef(20.0F, 0.0F, 0.0F, 1.0F);"
+        },
+        {
+          "token": "field_77994_a = 1",
+          "line": 49,
+          "text": "/* 49 */       is.field_77994_a = 1;"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigRecipes.java",
+      "sha256": "7a525af2ccca83cbe7c38ed7361b9a910c2829247738e8bb6c0bfa8be920cda3",
+      "evidence": [
+        {
+          "token": "WandRodGreatwood",
+          "line": 1144,
+          "text": "/* 1144 */     ConfigResearch.recipes.put(\"WandRodGreatwood\", ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_greatwood\", new ItemStack(ConfigItems.itemWandRod, 1, 0), new AspectList().add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"greatwood\")).getCraftCost()), new Object[] { \" G\", \"G \", Character.valueOf('G'), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) }));"
+        },
+        {
+          "token": "Aspect.ENTROPY",
+          "line": 125,
+          "text": "/*  125 */     ConfigResearch.recipes.put(\"InfusionAltar\", Arrays.asList(new Object[] { new AspectList().add(Aspect.FIRE, 25).add(Aspect.EARTH, 25).add(Aspect.ORDER, 25).add(Aspect.AIR, 25).add(Aspect.ENTROPY, 25).add(Aspect.WATER, 25), Integer.valueOf(3), Integer.valueOf(3), Integer.valueOf(3), Arrays.asList(new ItemStack[] { empty, null, empty, null, new ItemStack(ConfigBlocks.blockStoneDevice, 1, 2), null, empty, null, empty, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), null, null, null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), null, new ItemStack(ConfigBlocks.blockStoneDevice, 1, 1), null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), null, new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7) }) }));"
+        },
+        {
+          "token": "WandRod.rods.get(\"greatwood\")",
+          "line": 1144,
+          "text": "/* 1144 */     ConfigResearch.recipes.put(\"WandRodGreatwood\", ThaumcraftApi.addArcaneCraftingRecipe(\"ROD_greatwood\", new ItemStack(ConfigItems.itemWandRod, 1, 0), new AspectList().add(Aspect.ENTROPY, ((WandRod)WandRod.rods.get(\"greatwood\")).getCraftCost()), new Object[] { \" G\", \"G \", Character.valueOf('G'), new ItemStack(ConfigBlocks.blockMagicalLog, 1, 0) }));"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigResearch.java",
+      "sha256": "4dfd57f37f0b11de094e926041cd925ae51918b94fa682f543d35e3a3f242de6",
+      "evidence": [
+        {
+          "token": "new ResearchItem(\"ARCTABLE\"",
+          "line": 640,
+          "text": "/*  640 */     new ResearchItem(\"ARCTABLE\", \"ARTIFICE\", new AspectList(), -1, -3, 0, new ItemStack(ConfigBlocks.blockTable, 1, 15)).setPages(new ResearchPage[] { new ResearchPage(\"tc.research_page.ARCTABLE.1\"), new ResearchPage((List)recipes.get(\"ArcTable\")) }).setStub().setAutoUnlock().setRound().setParents(new String[] { \"TABLE\" }).registerResearchItem();"
+        },
+        {
+          "token": "ConfigResearch.recipes.get(\"ArcaneWorkbench\")",
+          "line": null,
+          "text": null
+        }
+      ]
+    }
+  ],
+  "port_sources": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneWorkbenchBlockEntity.java",
+      "sha256": "43ad6fe8e79c103ae6460a10b8d642b6640ea723ca7db33da17908b9004cd5df",
+      "evidence": [
+        {
+          "token": "SIZE = 11",
+          "line": 52,
+          "text": "public static final int SIZE = 11;"
+        },
+        {
+          "token": "transformFromTable",
+          "line": 79,
+          "text": "public static InteractionResult transformFromTable(Level level, BlockPos pos, Player player,"
+        },
+        {
+          "token": "player.setItemInHand(hand, ItemStack.EMPTY)",
+          "line": 96,
+          "text": "player.setItemInHand(hand, ItemStack.EMPTY);"
+        },
+        {
+          "token": "recipe.aspectCost().isEmpty()",
+          "line": 583,
+          "text": "if (recipe.aspectCost().isEmpty()) {"
+        },
+        {
+          "token": "return true;",
+          "line": 183,
+          "text": "return true;"
+        },
+        {
+          "token": "getSlotsForFace",
+          "line": 837,
+          "text": "public int[] getSlotsForFace(Direction side) {"
+        },
+        {
+          "token": "tag.put(\"Inventory\", inventory)",
+          "line": 889,
+          "text": "tag.put(\"Inventory\", inventory);"
+        },
+        {
+          "token": "getUpdatePacket",
+          "line": 961,
+          "text": "public ClientboundBlockEntityDataPacket getUpdatePacket() {"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/ArcaneWorkbenchBlock.java",
+      "sha256": "f3f5033058b82f03b1428313202782e0abad19dadf3acb3ff88e6f4186d5a81f",
+      "evidence": [
+        {
+          "token": "player.isShiftKeyDown()",
+          "line": 45,
+          "text": "if (player.isShiftKeyDown()) {"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/TableBlock.java",
+      "sha256": "c31a02e0e1ad807bdf323166f42837d1987c0dae92c385e489c659ae611ce649",
+      "evidence": [
+        {
+          "token": "ArcaneWorkbenchBlockEntity.transformFromTable",
+          "line": 29,
+          "text": "return ArcaneWorkbenchBlockEntity.transformFromTable(level, pos, player, hand, held);"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/WandItem.java",
+      "sha256": "20ead79791ac02b5b9a9d9301b3eafa661dce39254c7041b0773895fbe265b3e",
+      "evidence": [
+        {
+          "token": "ArcaneWorkbenchBlockEntity.transformFromTable",
+          "line": 833,
+          "text": "return com.darkifov.thaumcraft.blockentity.ArcaneWorkbenchBlockEntity.transformFromTable("
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/ArcaneWorkbenchRenderer.java",
+      "sha256": "df693f55c5f210b76271f30eee5d763b0d7e945206f6e471d4774e8ac71ee4e6",
+      "evidence": [
+        {
+          "token": "WAND_RENDER_X",
+          "line": 33,
+          "text": "poseStack.translate(TC4ArcaneWorkbenchParity.WAND_RENDER_X,"
+        },
+        {
+          "token": "WAND_RENDER_X_ROTATION",
+          "line": 36,
+          "text": "poseStack.mulPose(Vector3f.XP.rotationDegrees(TC4ArcaneWorkbenchParity.WAND_RENDER_X_ROTATION));"
+        },
+        {
+          "token": "rendered.setCount(1)",
+          "line": 31,
+          "text": "rendered.setCount(1);"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/arcane/TC4ArcaneWorkbenchVisCostParity.java",
+      "sha256": "23f73db09bafe79e179e4e44efe3ddca88cce8f786a3305aa07909eeca7e6da2",
+      "evidence": [
+        {
+          "token": "EMPTY_ASPECT_LIST_COST = 0",
+          "line": 13,
+          "text": "public static final int EMPTY_ASPECT_LIST_COST = 0;"
+        },
+        {
+          "token": "CENTIVIS_MULTIPLIER = 100",
+          "line": 14,
+          "text": "public static final int CENTIVIS_MULTIPLIER = 100;"
+        }
+      ]
+    },
+    {
+      "path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wandrodgreatwood.json",
+      "sha256": "5c98c65b791ed03e544a3cd2605ddfd7b04e99dc5dde9e188d454c59e4120f13",
+      "evidence": [
+        {
+          "token": "\"perditio\": 3",
+          "line": 9,
+          "text": "\"perditio\": 3"
+        }
+      ]
+    }
+  ],
+  "resource_hashes": [
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/gui/gui_arcaneworkbench.png",
+      "original": "assets/thaumcraft/textures/gui/gui_arcaneworkbench.png",
+      "sha256": "e354cc24f893d7c6c4de0599c8f24d94d8781f50d66498a66ea2befc1004bec9",
+      "match": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/models/worktable.png",
+      "original": "assets/thaumcraft/textures/models/worktable.png",
+      "sha256": "725e698531295c4e7135bfc14c4347a1443a30c4f3b43c00df4c43c6d040fa6b",
+      "match": true
+    }
+  ],
+  "corrections": [
+    {
+      "before": "12-slot inventory with hidden catalyst slot 11",
+      "after": "exact 11-slot inventory; old slot 11 is one-time migration only"
+    },
+    {
+      "before": "empty aspect recipes charged synthetic Ordo 2",
+      "after": "empty AspectList costs zero vis"
+    },
+    {
+      "before": "table transformation charged Ordo 3 and left wand in hand",
+      "after": "zero-cost transform; normal wand copied to slot 10 and removed from selected hand; staff remains"
+    },
+    {
+      "before": "all slots accessible to automation",
+      "after": "every face exposes only wand slot 10"
+    },
+    {
+      "before": "no installed-wand world renderer",
+      "after": "exact TC4 transform and count-one render"
+    },
+    {
+      "before": "Greatwood wand rod recipe had empty aspect map",
+      "after": "3 Perditio, matching original Entropy craft cost"
+    }
+  ]
+}

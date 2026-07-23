@@ -1,0 +1,24 @@
+Thaumcraft Legacy Rebuild 11.63.02 / Forge 1.19.2
+
+Gradle command: gradlew.bat build copyGithubOutputJar --no-daemon --console=plain
+Java: Eclipse Temurin 17.0.19
+Result: BUILD SUCCESSFUL
+Tasks: compileJava, processResources, jar, reobfJar, verifyGithubOutputJarResources,
+copyGithubOutputJar, verifyJarResources, build
+
+Release JAR audit: PASS
+Resources: 6461
+Primary classes: 635
+SHA-256 prefix: ab55d397b760f729
+
+Static checks:
+- Magical Forest worldgen guard: PASS
+- JSON resources: PASS (1967 files)
+- Feature cycle guard: PASS
+- Forge 1.19.2 compile API guard: PASS
+- Thaumometer scan guard: PASS
+- Thaumonomicon: PASS (201 entries, 591 pages)
+- Wand variants/vis/JEI/texture guard: PASS (18/18)
+- Visual source contracts: 6 COMPLETE, 1 STATIC_PARTIAL; runtime screenshots NOT TESTED
+
+No Minecraft client or dedicated server was launched for this revision.

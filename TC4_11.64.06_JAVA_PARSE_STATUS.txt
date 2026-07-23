@@ -1,0 +1,13 @@
+TC4 v11.64.06 JAVA PARSE STATUS
+
+Attempted: javac -proc:none (pure contract) and -XDshould-stop.at=PARSE for changed files:
+  - src/main/java/com/darkifov/thaumcraft/warp/TC4WarpRuntimeParity.java
+  - src/main/java/com/darkifov/thaumcraft/event/WarpEvents.java
+  - src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java
+
+Result: NOT VERIFIED.
+Reason: `javac` is not installed in this sandbox (`javac: command not found`).
+Runtime present: openjdk version "25.0.3" 2026-04-21 LTS (Corretto). No compiler, and 25 != target 17.
+
+Edits are minimal and localized (one constant, one message() call, one displayed-message set,
+one accessor, one GameTest method, one import). Java compilation must be confirmed on a Java 17 toolchain.

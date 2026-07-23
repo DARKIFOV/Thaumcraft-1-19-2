@@ -42,6 +42,8 @@ public final class AlchemyRecipes {
                 .require(Aspect.PERDITIO, 1));
     }
 
+    public static List<AlchemyRecipe> fallbackOnly() { return Collections.unmodifiableList(FALLBACK_RECIPES); }
+
     private AlchemyRecipes() {
     }
 

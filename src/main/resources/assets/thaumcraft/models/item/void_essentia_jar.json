@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:builtin/entity",
   "textures": {
-    "particle": "thaumcraft:block/tc4/jar_side"
+    "particle": "thaumcraft:block/tc4/jar_side_void"
   }
 }

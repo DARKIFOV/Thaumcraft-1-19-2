@@ -5,6 +5,9 @@ import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.client.ClientResearchData;
 import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.research.ResearchEntry;
+import com.darkifov.thaumcraft.research.ResearchRegistry;
+import com.darkifov.thaumcraft.research.TC4ThaumonomiconParity;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.research.TC4OriginalResearchPageIndex;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRuntimeBridge;
 import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
@@ -49,15 +52,21 @@ public class TC4ResearchPageScreen extends Screen {
 
     private final ThaumonomiconScreen parent;
     private final ResearchEntry entry;
+    private final int initialPage;
     private int leftPos;
     private int topPos;
     private int pageIndex;
     private final List<BookHoverRegion> bookHoverRegions = new ArrayList<>();
 
     public TC4ResearchPageScreen(ThaumonomiconScreen parent, ResearchEntry entry) {
+        this(parent, entry, 0);
+    }
+
+    public TC4ResearchPageScreen(ThaumonomiconScreen parent, ResearchEntry entry, int initialPage) {
         super(researchNameComponent(entry));
         this.parent = parent;
         this.entry = entry;
+        this.initialPage = TC4ThaumonomiconParity.spreadStart(initialPage);
     }
 
     private static Component researchNameComponent(ResearchEntry entry) {
@@ -72,6 +81,7 @@ public class TC4ResearchPageScreen extends Screen {
         this.leftPos = (width - BOOK_SOURCE_WIDTH) / 2;
         this.topPos = (height - BOOK_SOURCE_HEIGHT) / 2;
         clearWidgets();
+        pageIndex = Math.min(maxFirstPage(), initialPage);
         // Stage343-362: no modern Button widgets inside the book.
         // Click regions are handled manually below, matching the original TC4
         // page/back hotzones on top of the copied book texture.
@@ -82,8 +92,7 @@ public class TC4ResearchPageScreen extends Screen {
     }
 
     private int maxFirstPage() {
-        int pages = totalPages();
-        return Math.max(0, pages - 1 - (pages % 2 == 0 ? 1 : 0));
+        return TC4ThaumonomiconParity.maxFirstPage(totalPages());
     }
 
     @Override
@@ -791,6 +800,48 @@ public class TC4ResearchPageScreen extends Screen {
         bookHoverRegions.add(BookHoverRegion.item(x, y, 16, 16, stack));
     }
 
+    private ReferenceTarget findResearchReference(ItemStack clicked) {
+        if (clicked == null || clicked.isEmpty()) return null;
+        for (ResearchEntry candidate : ResearchRegistry.originalEntries()) {
+            if (!ClientResearchData.hasResearch(candidate.key())) continue;
+            int visibleIndex = 0;
+            for (TC4OriginalResearchPageIndex.PageSpec page : TC4OriginalResearchPageIndex.pages(candidate.key())) {
+                if (!page.unlockResearch().isBlank() && !ClientResearchData.hasResearch(page.unlockResearch())) continue;
+                for (String recipeKey : page.recipeKeys()) {
+                    TC4RecipeRuntimeBridge.OriginalRecipe recipe = TC4RecipeRuntimeBridge.byKey(recipeKey);
+                    if (recipe == null || recipe.resultExpression().isBlank()) continue;
+                    ItemStack result = TC4ResearchItems.resolveLegacyStack(recipe.resultExpression()).orElse(ItemStack.EMPTY);
+                    if (!result.isEmpty() && ItemStack.isSameItemSameTags(result, clicked)) {
+                        return new ReferenceTarget(candidate, TC4ThaumonomiconParity.spreadStart(visibleIndex));
+                    }
+                }
+                if (page.rawExpression().contains("ItemStack")) {
+                    ItemStack direct = TC4ResearchItems.resolveLegacyStack(page.rawExpression()).orElse(ItemStack.EMPTY);
+                    if (!direct.isEmpty() && ItemStack.isSameItemSameTags(direct, clicked)) {
+                        return new ReferenceTarget(candidate, TC4ThaumonomiconParity.spreadStart(visibleIndex));
+                    }
+                }
+                visibleIndex++;
+            }
+        }
+        return null;
+    }
+
+    private void openReference(ReferenceTarget target) {
+        if (target == null) return;
+        if (target.entry().key().equals(entry.key()) && target.page() == pageIndex) return;
+        TC4ThaumonomiconPageHistory.push(entry.key(), pageIndex);
+        playPageSound();
+        minecraft.setScreen(new TC4ResearchPageScreen(parent, target.entry(), target.page()));
+    }
+
+    private void playPageSound() {
+        if (minecraft != null && minecraft.player != null) {
+            minecraft.player.playSound(TC4Sounds.event("page"),
+                    TC4ThaumonomiconParity.PAGE_TURN_VOLUME, TC4ThaumonomiconParity.GUI_SOUND_PITCH);
+        }
+    }
+
     private void registerAspectHover(int x, int y, Aspect aspect, String amount) {
         if (aspect == null) {
             return;
@@ -929,12 +980,14 @@ public class TC4ResearchPageScreen extends Screen {
         int prevX = leftPos - 17;
         int nextX = leftPos + 261;
         int color = 0x5A3515;
-        drawString(poseStack, font, Component.translatable("thaumcraft.gui.back"), backX + 2, navY + 3, color);
+        if (!TC4ThaumonomiconPageHistory.isEmpty()) {
+            drawString(poseStack, font, Component.translatable("thaumcraft.gui.back"), backX + 2, navY + 3, color);
+        }
         drawCenteredString(poseStack, font, Component.literal("‹"), prevX + 6, navY + 3,
                 pageIndex <= 0 ? 0xAA6D4A22 : color);
         drawCenteredString(poseStack, font, Component.literal("›"), nextX + 6, navY + 3,
                 pageIndex >= maxFirstPage() ? 0xAA6D4A22 : color);
-        if (inside(mouseX, mouseY, backX, navY, 38, 14)
+        if ((!TC4ThaumonomiconPageHistory.isEmpty() && inside(mouseX, mouseY, backX, navY, 38, 14))
                 || inside(mouseX, mouseY, prevX, navY, 14, 14)
                 || inside(mouseX, mouseY, nextX, navY, 14, 14)) {
             fill(poseStack, mouseX - 3, mouseY - 3, mouseX + 3, mouseY + 3, 0x55F0DDAA);
@@ -947,17 +1000,39 @@ public class TC4ResearchPageScreen extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0) {
+            for (int i = bookHoverRegions.size() - 1; i >= 0; i--) {
+                BookHoverRegion region = bookHoverRegions.get(i);
+                if (!region.stack().isEmpty() && inside(mouseX, mouseY, region.x(), region.y(), region.w(), region.h())) {
+                    ReferenceTarget target = findResearchReference(region.stack());
+                    if (target != null) {
+                        openReference(target);
+                        return true;
+                    }
+                    break;
+                }
+            }
+        }
         int navY = topPos + 190;
-        if (inside(mouseX, mouseY, leftPos + 118, navY, 38, 14)) {
-            minecraft.setScreen(parent);
+        if (!TC4ThaumonomiconPageHistory.isEmpty()
+                && inside(mouseX, mouseY, leftPos + 118, navY, 38, 14)) {
+            TC4ThaumonomiconPageHistory.Entry prior = TC4ThaumonomiconPageHistory.pop();
+            if (prior != null) {
+                ResearchRegistry.byKey(prior.researchKey()).ifPresent(previous -> {
+                    playPageSound();
+                    minecraft.setScreen(new TC4ResearchPageScreen(parent, previous, prior.page()));
+                });
+            }
             return true;
         }
-        if (inside(mouseX, mouseY, leftPos - 17, navY, 14, 14)) {
-            pageIndex = Math.max(0, pageIndex - 2);
+        if (inside(mouseX, mouseY, leftPos - 17, navY, 14, 14) && pageIndex > 0) {
+            pageIndex = TC4ThaumonomiconParity.previousSpread(pageIndex);
+            playPageSound();
             return true;
         }
-        if (inside(mouseX, mouseY, leftPos + 261, navY, 14, 14)) {
-            pageIndex = Math.min(maxFirstPage(), pageIndex + 2);
+        if (inside(mouseX, mouseY, leftPos + 261, navY, 14, 14) && pageIndex < maxFirstPage()) {
+            pageIndex = TC4ThaumonomiconParity.nextSpread(pageIndex, totalPages());
+            playPageSound();
             return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
@@ -965,13 +1040,17 @@ public class TC4ResearchPageScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-        if (delta < 0) {
-            pageIndex = Math.min(maxFirstPage(), pageIndex + 2);
-        } else if (delta > 0) {
-            pageIndex = Math.max(0, pageIndex - 2);
-        }
+        return super.mouseScrolled(mouseX, mouseY, delta);
+    }
 
-        return true;
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == 256 || (minecraft != null && minecraft.options.keyInventory.matches(keyCode, scanCode))) {
+            TC4ThaumonomiconPageHistory.clear();
+            minecraft.setScreen(parent);
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     private record OriginalImageSpec(ResourceLocation texture, int u, int v, int sourceWidth, int sourceHeight, float scale, int sheetWidth, int sheetHeight, boolean oldItemTexture) {
@@ -1041,6 +1120,8 @@ public class TC4ResearchPageScreen extends Screen {
             }
         }
     }
+
+    private record ReferenceTarget(ResearchEntry entry, int page) {}
 
     private record BookHoverRegion(int x, int y, int w, int h, ItemStack stack, List<Component> lines) {
         static BookHoverRegion item(int x, int y, int w, int h, ItemStack stack) {

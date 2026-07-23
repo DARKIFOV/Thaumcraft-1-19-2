@@ -3,7 +3,7 @@
   "tc4_source": "addInfusionCraftingRecipe",
   "research": "PRIMALCRUSHER",
   "tc4_kind": "INFUSION",
-  "catalyst": "thaumcraft:tc4_eldritch_object_3",
+  "catalyst": "thaumcraft:eldritch_eye_3",
   "components": [
     "thaumcraft:tc4_charm",
     "thaumcraft:tc4_voidpick",

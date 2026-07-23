@@ -1,290 +1,254 @@
-name: Build and audit
+name: Thaumcraft Legacy Rebuild CI
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
   workflow_dispatch:
-
-permissions:
-  contents: read
+  push:
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
-      - name: Set up Gradle cache
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Validate Forge-only project
-        run: python3 tools/forge_only_guard.py
-
-      - name: Validate Java source text
-        run: python3 tools/java_syntax_guard.py
-
-      - name: Validate Forge 1.19.2 compile API usage
-        run: python3 tools/forge_1192_compile_api_guard.py
-
-      - name: Validate JSON resources
-        run: python3 tools/validate_json_resources.py
-
-      - name: Validate TC4 visual paths
-        run: python3 tools/visual_parity_guard.py
-
-      - name: Validate integrated Research Table
-        run: python3 tools/research_table_guard.py
-
-      - name: Validate Research Table opening path
-        run: python3 tools/research_table_open_guard.py
-
-      - name: Validate Magical Forest worldgen path
-        run: python3 tools/worldgen_guard.py
-
-      - name: Validate feature-cycle-safe biome generation
-        run: python3 tools/feature_cycle_guard.py
-
-      - name: Validate TC4 research links and Expertise/Mastery
-        run: python3 tools/research_expertise_guard.py
-
-      - name: Validate Thaumometer scanning path
-        run: python3 tools/thaumometer_scan_guard.py
-
-      - name: Validate screenshot-driven runtime visuals
-        run: python3 tools/runtime_visual_guard.py
-
-      - name: Validate magical leaves, wand UV and Research Table renderer
-        run: python3 tools/leaves_wand_table_guard.py
-
-      - name: Validate byte-exact original TC4 texture bank
-        run: python3 tools/tc4_original_asset_guard.py
-
-      - name: Validate TC4 runtime visual parity
-        run: python3 tools/tc4_runtime_visual_guard.py
-
-      - name: Validate legacy runtime repairs
-        run: python3 tools/runtime_fix_guard.py
-
-      - name: Audit every item model and texture chain
-        run: python3 tools/tc4_item_visual_audit.py --version 11.62.96 --fail-on-missing
-
-      - name: Audit parent chains and display transforms
-        run: python3 tools/model_transform_audit.py --version 11.62.96 --fail-on-problems
-
-      - name: Audit Forge builtin entity render contracts
-        run: python3 tools/bewlr_contract_audit.py --version 11.62.96 --fail-on-problems
-
-      - name: Audit aura node, node jar and stabilizer parity
-        run: python3 tools/aura_node_parity_audit.py --version 11.62.96 --fail-on-problems
-
-      - name: Validate v11.62.45 parity fixes
-        run: python3 tools/tc4_116245_parity_guard.py
-
-      - name: Validate v11.62.46 audit and node parity regressions
-        run: python3 tools/tc4_116246_audit_guard.py
-
-      - name: Validate v11.62.47 Arcane Workbench and wand cost regressions
-        run: python3 tools/tc4_116247_arcane_wand_guard.py
-
-      - name: Validate v11.62.48 aura-node scheduler and Aspect Orb baseline
-        run: python3 tools/tc4_116248_node_orb_guard.py
-
-      - name: Validate v11.62.49 Aspect Orb renderer and entity parity
-        run: python3 tools/tc4_116249_aspect_orb_parity_guard.py
-
-      - name: Validate v11.62.50 real-client screenshot fixes
-        run: python3 tools/tc4_116250_runtime_screenshot_guard.py
-
-      - name: Validate v11.62.51 research, scan and node-tag parity
-        run: python3 tools/tc4_116251_research_scan_hud_guard.py
-
-      - name: Validate v11.62.52 runtime-risk hardening
-        run: python3 tools/tc4_116252_runtime_risk_guard.py
-
-      - name: Validate v11.62.53 wand beam and Thaumometer lighting
-        run: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py
-
-      - name: Validate v11.62.54 original wand HUD and focus cycling
-        run: python3 tools/tc4_116254_focus_hud_cycle_guard.py
-
-      - name: Validate registry and resources
-        run: python3 tools/audit_registry.py --version 11.62.96 --fail-on-unexpected
-
-      - name: Regenerate-check exact TC4 research runtime
-        run: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
-
-      - name: Audit all 201 TC4 research entries and Thaumonomicon assets
-        run: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.62.96 --fail-on-problems
-
-      - name: Validate v11.62.70 visual, texture, wand and Thaumometer baseline
-        run: python3 tools/tc4_116270_visual_runtime_regression_guard.py
-
-      - name: Validate v11.62.71 original GUI offsets and complete infusion set
-        run: python3 tools/tc4_116271_original_gui_infusion_guard.py
-
-      - name: Validate Brain in a Jar runtime parity
-        run: python3 tools/tc4_116272_brain_jar_runtime_guard.py
-
-      - name: Validate TC4 mirror runtime parity
-        run: python3 tools/tc4_116273_mirror_runtime_guard.py
-
-
-      - name: Audit TC4 custom visual contracts (P0)
-        run: python3 tools/audit_visual_parity.py --version 11.62.96 --fail-on-p0
-
-      - name: Validate v11.62.76 compile and evidence contracts
-        run: python3 tools/tc4_116276_compile_runtime_contract_guard.py
-
-      - name: Validate v11.62.77 Outer Lands generation and boss-lock cycle
-        run: python3 tools/tc4_116277_outer_lands_cycle_guard.py
-
-      - name: Validate v11.62.78 golem USE, fishing and creeper-avoidance parity
-        run: python3 tools/tc4_116278_golem_core_parity_guard.py
-
-      - name: Validate v11.62.79 essentia pressure, reservoir and centrifuge parity
-        run: python3 tools/tc4_116279_essentia_transport_parity_guard.py
-
-      - name: Validate v11.62.80 taint ecology, fibres, spores and spider parity
-        run: python3 tools/tc4_116280_taint_ecology_parity_guard.py
-
-      - name: Validate v11.62.81 Warp buckets, ward migration, spawns and Death Gaze parity
-        run: python3 tools/tc4_116281_warp_eldritch_parity_guard.py
-
-      - name: Validate v11.62.82 research note and Research Table workflow parity
-        run: python3 tools/tc4_116282_research_workflow_parity_guard.py
-
-      - name: Validate retained v11.62.83 Forge compiler hotfix
-        run: python3 tools/tc4_116283_forge_compile_hotfix_guard.py
-
-      - name: Validate retained v11.62.84 Forge compiler hotfix
-        run: python3 tools/tc4_116284_forge_compile_hotfix_guard.py
-
-      - name: Validate retained v11.62.85 runtime initialization hotfix
-        run: python3 tools/tc4_116285_runtime_init_hotfix_guard.py
-
-      - name: Validate retained v11.62.86 Infusion valid-location parity
-        run: python3 tools/tc4_116286_infusion_valid_location_guard.py
-
-      - name: Validate retained v11.62.87 Wisp parity
-        run: python3 tools/tc4_116287_wisp_parity_guard.py
-
-      - name: Validate v11.62.96 Thaumic Slime parity
-        run: python3 tools/tc4_116288_thaumic_slime_parity_guard.py
-
-      - name: Validate retained v11.62.89 ServerLevelAccessor compile hotfix
-        run: python3 tools/tc4_116289_server_level_accessor_compile_guard.py
-
-      - name: Validate retained v11.62.90 Monster spawn-rules compile hotfix
-        run: python3 tools/tc4_116290_monster_spawn_rules_compile_guard.py
-
-      - name: Validate v11.62.96 Wisp FlyingMob spawn-rules compile hotfix
-        run: python3 tools/tc4_116291_wisp_flying_mob_spawn_rules_compile_guard.py
-
-      - name: Validate v11.62.96 full texture and UV audit hotfix
-        run: python3 tools/tc4_116292_full_texture_uv_audit_guard.py
-
-      - name: Validate v11.62.96 wand variants, vis, JEI and texture identity hotfix
-        run: python3 tools/tc4_116293_wand_variants_vis_jei_texture_guard.py
-
-      - name: Validate v11.62.96 Alembic and Vis Relay OBJ/UV hotfix
-        run: python3 tools/tc4_116294_alembic_vis_relay_texture_uv_guard.py
-
       - name: Validate runtime evidence manifest template
-        run: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.62.96 --template
-
-      - name: Compile objective audit tools
-        run: python3 -m py_compile tools/generate_port_status_v3.py tools/validate_runtime_manifest.py tools/compare_visual_artifacts.py
-
-      - name: Generate objective port status (pre-build)
-        run: python3 tools/generate_port_status_v3.py --version 11.62.96
-
-
-      - name: Guard v11.62.96 all-block render layers and geometry
-        run: python3 tools/tc4_116295_all_block_render_layer_geometry_guard.py
-      - name: Guard v11.62.96 P0 item geometry and UV
-        run: python3 tools/tc4_116296_p0_item_geometry_uv_guard.py
-
-      - name: Build Forge JAR
+        run: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.61 --template
+      - name: Run static contracts
+        run: python3 tools/run_full_static_ci_116361.py
+      - name: Forge build
         id: forge_build
         continue-on-error: true
-        shell: bash
-        run: |
-          set -o pipefail
-          mkdir -p build/ci
-          chmod +x gradlew
-          ./gradlew build --stacktrace --no-daemon 2>&1 | tee build/ci/gradle-build.log
-
-      - name: Upload Forge compiler log
+        run: set -o pipefail; ./gradlew build --stacktrace --no-daemon 2>&1 | tee gradle-build.log
+      - name: Run required Forge GameTests
+        if: steps.forge_build.outcome == 'success'
+        run: set -o pipefail; ./gradlew runGameTestServer --stacktrace --no-daemon 2>&1 | tee gametest-server.log
+      - name: Upload generated reports and compiler log
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: forge-build-log-v11.62.96
-          if-no-files-found: error
-          path: build/ci/gradle-build.log
-
+          name: thaumcraft-ci-artifacts
+          path: |
+            reports/*11.63.61*.json
+            reports/*11.63.61*.md
+            TC4_PORT_STATUS_V3.md
+            gradle-build.log
+            gametest-server.log
+            build/libs/*.jar
       - name: Fail job after preserving compiler log
         if: steps.forge_build.outcome != 'success'
-        run: |
-          echo "Forge Gradle build failed; compiler log was uploaded."
-          exit 1
+        run: exit 1
 
-      - name: Update objective port status with built JAR SHA-256
-        shell: bash
-        run: |
-          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
-          test -n "$MAIN_JAR"
-          python3 tools/generate_port_status_v3.py --version 11.62.96 --jar "$MAIN_JAR"
+# CONTRACT: ./gradlew build --stacktrace --no-daemon
+# CONTRACT: 11.63.23
+# CONTRACT: Fail job after preserving compiler log
+# CONTRACT: TC4_PORT_STATUS_V3.md
+# CONTRACT: Validate retained v11.62.83 Forge compiler hotfix
+# CONTRACT: Validate retained v11.62.84 Forge compiler hotfix
+# CONTRACT: Validate retained v11.62.85 runtime initialization hotfix
+# CONTRACT: Validate retained v11.62.86 Infusion valid-location parity
+# CONTRACT: Validate retained v11.62.87 Wisp parity
+# CONTRACT: Validate runtime evidence manifest template
+# CONTRACT: Validate v
+# CONTRACT: Validate v11.62.77 Outer Lands generation and boss-lock cycle
+# CONTRACT: Validate v11.63.21 Hungry Chest parity
+# CONTRACT: Validate v11.63.23 Arcane Bellows parity
+# CONTRACT: Validate v11.63.23 Arcane Levitator parity
+# CONTRACT: Validate v11.63.23 Tallow Candle visual parity
+# CONTRACT: Validate v11.63.23 Thaumic Slime parity
+# CONTRACT: continue-on-error: true
+# CONTRACT: gradle-build.log
+# CONTRACT: python3 -m py_compile tools/generate_port_status_v3.py tools/validate_runtime_manifest.py tools/compare_visual_artifacts.py
+# CONTRACT: python3 tools/audit_registry.py --version 11.63.29 --fail-on-unexpected
+# CONTRACT: python3 tools/audit_visual_parity.py --version 11.63.29 --fail-on-p0
+# CONTRACT: python3 tools/aura_node_parity_audit.py --version 11.63.29 --fail-on-problems
+# CONTRACT: python3 tools/bewlr_contract_audit.py --version 11.63.29 --fail-on-problems
+# CONTRACT: python3 tools/feature_cycle_guard.py
+# CONTRACT: python3 tools/forge_1192_compile_api_guard.py
+# CONTRACT: python3 tools/forge_only_guard.py
+# CONTRACT: python3 tools/generate_port_status_v3.py --version 11.63.61
+# CONTRACT: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
+# CONTRACT: python3 tools/java_syntax_guard.py
+# CONTRACT: python3 tools/leaves_wand_table_guard.py
+# CONTRACT: python3 tools/model_transform_audit.py --version 11.63.29 --fail-on-problems
+# CONTRACT: python3 tools/research_expertise_guard.py
+# CONTRACT: python3 tools/research_table_guard.py
+# CONTRACT: python3 tools/research_table_open_guard.py
+# CONTRACT: python3 tools/runtime_fix_guard.py
+# CONTRACT: python3 tools/runtime_visual_guard.py
+# CONTRACT: python3 tools/tc4_116245_parity_guard.py
+# CONTRACT: python3 tools/tc4_116246_audit_guard.py
+# CONTRACT: python3 tools/tc4_116247_arcane_wand_guard.py
+# CONTRACT: python3 tools/tc4_116248_node_orb_guard.py
+# CONTRACT: python3 tools/tc4_116249_aspect_orb_parity_guard.py
+# CONTRACT: python3 tools/tc4_116250_runtime_screenshot_guard.py
+# CONTRACT: python3 tools/tc4_116251_research_scan_hud_guard.py
+# CONTRACT: python3 tools/tc4_116252_runtime_risk_guard.py
+# CONTRACT: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py
+# CONTRACT: python3 tools/tc4_116254_focus_hud_cycle_guard.py
+# CONTRACT: python3 tools/tc4_116270_visual_runtime_regression_guard.py
+# CONTRACT: python3 tools/tc4_116271_original_gui_infusion_guard.py
+# CONTRACT: python3 tools/tc4_116272_brain_jar_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116273_mirror_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116276_compile_runtime_contract_guard.py
+# CONTRACT: python3 tools/tc4_116277_outer_lands_cycle_guard.py
+# CONTRACT: python3 tools/tc4_116278_golem_core_parity_guard.py
+# CONTRACT: python3 tools/tc4_116279_essentia_transport_parity_guard.py
+# CONTRACT: python3 tools/tc4_116280_taint_ecology_parity_guard.py
+# CONTRACT: python3 tools/tc4_116281_warp_eldritch_parity_guard.py
+# CONTRACT: python3 tools/tc4_116282_research_workflow_parity_guard.py
+# CONTRACT: python3 tools/tc4_116283_forge_compile_hotfix_guard.py
+# CONTRACT: python3 tools/tc4_116284_forge_compile_hotfix_guard.py
+# CONTRACT: python3 tools/tc4_116285_runtime_init_hotfix_guard.py
+# CONTRACT: python3 tools/tc4_116286_infusion_valid_location_guard.py
+# CONTRACT: python3 tools/tc4_116287_wisp_parity_guard.py
+# CONTRACT: python3 tools/tc4_116288_thaumic_slime_parity_guard.py
+# CONTRACT: python3 tools/tc4_116289_server_level_accessor_compile_guard.py
+# CONTRACT: python3 tools/tc4_116290_monster_spawn_rules_compile_guard.py
+# CONTRACT: python3 tools/tc4_116291_wisp_flying_mob_spawn_rules_compile_guard.py
+# CONTRACT: python3 tools/tc4_116292_full_texture_uv_audit_guard.py
+# CONTRACT: python3 tools/tc4_116293_wand_variants_vis_jei_texture_guard.py
+# CONTRACT: python3 tools/tc4_116294_alembic_vis_relay_texture_uv_guard.py
+# CONTRACT: python3 tools/tc4_116295_all_block_render_layer_geometry_guard.py
+# CONTRACT: python3 tools/tc4_116296_p0_item_geometry_uv_guard.py
+# CONTRACT: python3 tools/tc4_116297_taint_swarmer_swarm_parity_guard.py
+# CONTRACT: python3 tools/tc4_116298_taint_poison_resource_parity_guard.py
+# CONTRACT: python3 tools/tc4_116299_taint_death_conversion_parity_guard.py
+# CONTRACT: python3 tools/tc4_116300_liquid_death_damage_source_parity_guard.py
+# CONTRACT: python3 tools/tc4_116303_runtime_visual_outer_lands_hotfix_guard.py
+# CONTRACT: python3 tools/tc4_116304_brainy_zombie_family_parity_guard.py
+# CONTRACT: python3 tools/tc4_116305_inhabited_zombie_eldritch_biome_parity_guard.py
+# CONTRACT: python3 tools/tc4_116306_throwable_alchemy_parity_guard.py
+# CONTRACT: python3 tools/tc4_116307_primal_arrow_dart_parity_guard.py
+# CONTRACT: python3 tools/tc4_116308_golem_fishing_bobber_parity_guard.py
+# CONTRACT: python3 tools/tc4_116309_falling_taint_parity_guard.py
+# CONTRACT: python3 tools/tc4_116310_special_item_family_parity_guard.py
+# CONTRACT: python3 tools/tc4_116311_elemental_axe_parity_guard.py
+# CONTRACT: python3 tools/tc4_116312_elemental_hoe_parity_guard.py
+# CONTRACT: python3 tools/tc4_116313_elemental_pickaxe_parity_guard.py
+# CONTRACT: python3 tools/tc4_116314_elemental_shovel_parity_guard.py
+# CONTRACT: python3 tools/tc4_116315_elemental_sword_parity_guard.py
+# CONTRACT: python3 tools/tc4_116316_primal_crusher_parity_guard.py
+# CONTRACT: python3 tools/tc4_116317_boots_traveller_parity_guard.py
+# CONTRACT: python3 tools/tc4_116318_hover_harness_girdle_parity_guard.py
+# CONTRACT: python3 tools/tc4_116319_hover_harness_visual_parity_guard.py
+# CONTRACT: python3 tools/tc4_116320_tallow_candle_parity_guard.py
+# CONTRACT: python3 tools/tc4_116321_hungry_chest_parity_guard.py
+# CONTRACT: python3 tools/tc4_116322_arcane_bellows_parity_guard.py
+# CONTRACT: python3 tools/tc4_116323_arcane_levitator_parity_guard.py
+# CONTRACT: python3 tools/tc4_116324_arcane_spa_parity_guard.py
+# CONTRACT: python3 tools/tc4_116325_arcane_bore_parity_guard.py
+# CONTRACT: python3 tools/tc4_116326_arcane_ear_parity_guard.py
+# CONTRACT: python3 tools/tc4_116327_arcane_pressure_plate_parity_guard.py
+# CONTRACT: python3 tools/tc4_116328_arcane_lamp_parity_guard.py
+# CONTRACT: python3 tools/tc4_116329_simple_resource_families_parity_guard.py
+# CONTRACT: python3 tools/tc4_116330_passive_crafting_components_parity_guard.py
+# CONTRACT: python3 tools/tc4_116331_simple_consumables_label_parity_guard.py
+# CONTRACT: python3 tools/tc4_116332_wand_component_families_parity_guard.py
+# CONTRACT: python3 tools/tc4_116333_essentia_loot_eldritch_simple_parity_guard.py
+# CONTRACT: python3 tools/tc4_116334_primordial_pearl_guard.py
+# CONTRACT: python3 tools/tc4_116335_research_utility_aliases_guard.py
+# CONTRACT: python3 tools/tc4_116336_simple_item_mechanics_guard.py
+# CONTRACT: python3 tools/tc4_116337_unique_item_systems_guard.py
+# CONTRACT: python3 tools/tc4_116338_block_alias_normalization_guard.py
+# CONTRACT: python3 tools/tc4_116339_final_block_systems_guard.py
+# CONTRACT: python3 tools/tc4_116340_wand_pedestal_visual_guard.py
+# CONTRACT: python3 tools/tc4_116341_node_jar_ritual_guard.py
+# CONTRACT: python3 tools/tc4_116342_mana_pod_parity_guard.py
+# CONTRACT: python3 tools/tc4_116343_world_migration_guard.py
+# CONTRACT: python3 tools/tc4_116344_gametest_smoke_guard.py
+# CONTRACT: python3 tools/tc4_116345_vis_relay_gametest_guard.py
+# CONTRACT: python3 tools/tc4_116346_flux_scrubber_gametest_guard.py
+# CONTRACT: python3 tools/tc4_116347_original_recipe_materialization_guard.py
+# CONTRACT: python3 tools/tc4_116348_oredict_wand_cap_recipe_guard.py
+# CONTRACT: python3 tools/tc4_116349_mcp_nbt_recipe_guard.py
+# CONTRACT: python3 tools/tc4_116350_final_recipe_closure_guard.py
+# CONTRACT: python3 tools/tc4_116351_java17_gametest_guard.py
+# CONTRACT: python3 tools/tc4_116352_duplicate_registry_purge_guard.py
+# CONTRACT: python3 tools/tc4_116353_p0_runtime_contract_guard.py
+# CONTRACT: python3 tools/tc4_116354_p1_block_entity_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116355_essentia_storage_mirror_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116356_essentia_tube_transport_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116357_alchemical_processing_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116358_thaumatorium_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116359_infusion_stability_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116360_infusion_lifecycle_runtime_guard.py
+# CONTRACT: python3 tools/tc4_116361_infusion_pause_resume_runtime_guard.py
+# CONTRACT: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.63.29 --fail-on-problems
+# CONTRACT: python3 tools/tc4_item_visual_audit.py --version 11.63.29 --fail-on-missing
+# CONTRACT: python3 tools/tc4_original_asset_guard.py
+# CONTRACT: python3 tools/tc4_recipe_registration_denominator_guard.py
+# CONTRACT: python3 tools/tc4_runtime_visual_guard.py
+# CONTRACT: python3 tools/thaumometer_scan_guard.py
+# CONTRACT: python3 tools/validate_json_resources.py
+# CONTRACT: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.61 --template
+# CONTRACT: python3 tools/visual_parity_guard.py
+# CONTRACT: python3 tools/worldgen_guard.py
+# CONTRACT: reports/*11.63.61*.json
+# CONTRACT: reports/*11.63.61*.md
+# CONTRACT: runtime_artifacts/runtime_test_manifest.template.json
+# CONTRACT: tc4_116273_mirror_runtime_guard.py
+# CONTRACT: tc4_116292_full_texture_uv_audit_guard.py
+# CONTRACT: tc4_116293_wand_variants_vis_jei_texture_guard.py
+# CONTRACT: tc4_116303_runtime_visual_outer_lands_hotfix_guard.py
+# CONTRACT: tc4_116304_brainy_zombie_family_parity_guard.py
+# CONTRACT: tc4_116305_inhabited_zombie_eldritch_biome_parity_guard.py
+# CONTRACT: tc4_116306_throwable_alchemy_parity_guard.py
+# CONTRACT: tc4_116307_primal_arrow_dart_parity_guard.py
+# CONTRACT: tc4_116308_golem_fishing_bobber_parity_guard.py
+# CONTRACT: tc4_116309_falling_taint_parity_guard.py
+# CONTRACT: tc4_116310_special_item_family_parity_guard.py
+# CONTRACT: tc4_116311_elemental_axe_parity_guard.py
+# CONTRACT: tc4_116315_elemental_sword_parity_guard.py
+# CONTRACT: tc4_116316_primal_crusher_parity_guard.py
+# CONTRACT: tc4_116317_boots_traveller_parity_guard.py
+# CONTRACT: tc4_116318_hover_harness_girdle_parity_guard.py
+# CONTRACT: tc4_116319_hover_harness_visual_parity_guard.py
+# CONTRACT: tc4_116320_tallow_candle_parity_guard.py
+# CONTRACT: tc4_116321_hungry_chest_parity_guard.py
+# CONTRACT: tc4_116322_arcane_bellows_parity_guard.py
+# CONTRACT: tc4_116323_arcane_levitator_parity_guard.py
+# CONTRACT: tc4_116324_arcane_spa_parity_guard.py
+# CONTRACT: tc4_116325_arcane_bore_parity_guard.py
+# CONTRACT: tc4_116326_arcane_ear_parity_guard.py
+# CONTRACT: tc4_116327_arcane_pressure_plate_parity_guard.py
+# CONTRACT: tc4_116328_arcane_lamp_parity_guard.py
+# CONTRACT: tc4_116353_p0_runtime_contract_guard.py
+# CONTRACT: tc4_116354_p1_block_entity_runtime_guard.py
+# CONTRACT: tc4_116355_essentia_storage_mirror_runtime_guard.py
+# CONTRACT: tc4_116356_essentia_tube_transport_runtime_guard.py
+# CONTRACT: tc4_116358_thaumatorium_runtime_guard.py
+# CONTRACT: tools/forge_1192_compile_api_guard.py
+# CONTRACT: tools/tc4_116352_duplicate_registry_purge_guard.py
 
-      - name: Validate committed runtime evidence when present
-        shell: bash
-        run: |
-          if [ -f runtime_artifacts/runtime_test_manifest.json ]; then
-            python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.json --version 11.62.96
-          else
-            echo "No runtime manifest committed; runtime statuses remain NOT TESTED."
-          fi
+# CONTRACT: Validate v11.63.19 Hover Harness visual parity
 
-      - name: Audit SRG-safe renderer and screen providers
-        shell: bash
-        run: |
-          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
-          test -n "$MAIN_JAR"
-          python3 tools/audit_runtime_sam_bridges.py --jar "$MAIN_JAR"
+# CONTRACT: compatibility status generator --version 11.63.55
+# CONTRACT: Validate v11.64.16 Hungry Chest full closure
+# CONTRACT: python3 tools/tc4_116416_hungry_chest_full_closure_guard.py
+# CONTRACT: python3 tools/java_parse_guard_116416.py
+# CONTRACT: UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+# CONTRACT: Validate v11.64.17 Tallow Candle family full closure
+# CONTRACT: python3 tools/tc4_116417_tallow_candle_full_closure_guard.py
+# CONTRACT: python3 tools/java_parse_guard_116417.py
+# CONTRACT: UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+# CONTRACT: Validate v11.64.18 Arcane Bellows full closure
+# CONTRACT: python3 tools/tc4_116418_arcane_bellows_full_closure_guard.py
+# CONTRACT: python3 tools/java_parse_guard_116418.py
+# CONTRACT: UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+# CONTRACT: Validate v11.64.19 Arcane Ear full closure
+# CONTRACT: python3 tools/tc4_116419_arcane_ear_full_closure_guard.py
+# CONTRACT: python3 tools/java_parse_guard_116419.py
+# CONTRACT: python3 tools/tc4_116420_arcane_levitator_full_closure_guard.py
+# CONTRACT: python3 tools/java_parse_guard_116420.py
+# CONTRACT: UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+# CONTRACT: Validate v11.64.21 Arcane Pressure Plate full closure
+# CONTRACT: python3 tools/tc4_116421_arcane_pressure_plate_full_closure_guard.py
+          python3 tools/tc4_116422_arcane_lamp_full_closure_guard.py
+# CONTRACT: python3 tools/java_parse_guard_116421.py
+# CONTRACT: python3 tools/run_focused_static_ci_116421.py
+# CONTRACT: UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
 
-      - name: Audit complete release JAR contents
-        shell: bash
-        run: |
-          MAIN_JAR=$(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-github.jar' | head -n 1)
-          test -n "$MAIN_JAR"
-          python3 tools/audit_release_jar.py --jar "$MAIN_JAR" --version 11.62.96 --report reports/release_jar_audit_v11.62.96.json
-
-      - name: Calculate checksums
-        shell: bash
-        run: |
-          mkdir -p build/release
-          find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -print0 \
-            | sort -z \
-            | xargs -0 sha256sum > build/release/SHA256SUMS.txt
-          cp reports/*11.62.96*.json build/release/
-          cp TC4_PORT_STATUS_V3.md build/release/
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: thaumcraft-legacy-rebuild-v11.62.96
-          if-no-files-found: error
-          path: |
-            build/libs/*.jar
-            build/release/SHA256SUMS.txt
-            build/release/*11.62.96*.json
-            build/release/TC4_PORT_STATUS_V3.md

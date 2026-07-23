@@ -4,6 +4,9 @@ import com.darkifov.thaumcraft.AspectStack;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.aura.TC4AuraNodeScanParity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
+import com.darkifov.thaumcraft.block.GogglesOfRevealingItem;
+import com.darkifov.thaumcraft.block.HelmetOfRevealingItem;
+import com.darkifov.thaumcraft.item.simple.TC4VoidRobeItem;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -83,9 +86,14 @@ public final class TC4RevealerHudAdapter {
     }
 
     public static boolean isHeadRevealerStack(ItemStack stack) {
-        return stack != null && !stack.isEmpty()
-                && (stack.is(ThaumcraftMod.GOGGLES_OF_REVEALING.get())
-                || stack.is(ThaumcraftMod.HELMET_OF_REVEALING.get()));
+        if (stack == null || stack.isEmpty()) {
+            return false;
+        }
+        if (stack.getItem() instanceof GogglesOfRevealingItem
+                || stack.getItem() instanceof HelmetOfRevealingItem) {
+            return true;
+        }
+        return stack.getItem() instanceof TC4VoidRobeItem robe && robe.isRevealingHelmet();
     }
 
     public static boolean isHandRevealerStack(ItemStack stack) {

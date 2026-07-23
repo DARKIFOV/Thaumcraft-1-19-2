@@ -1,0 +1,10 @@
+TC4 v11.63.24 static CI final summary
+PASS_88_OF_88
+Arcane Spa parity guard: 91/91 PASS
+Runtime manifest: 214 template scenarios PASS
+JSON: 1976 PASS
+Item models: 726, missing 0
+BEWLR: 38/38
+Original textures: 940/940 byte-exact
+Research: 201 entries / 591 pages
+Generic fallback IDs remaining: 195 (148 item-like, 47 block aliases; upper technical bound)

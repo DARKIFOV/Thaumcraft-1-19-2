@@ -1,0 +1,18 @@
+TC4 v11.63.54 STATIC CI FINAL SUMMARY
+=====================================
+Canonical checks: 118/118 PASS
+Non-zero return codes: 0
+JSON resources: 2048/2048 PASS
+Item models: 663
+Missing item models: 0
+Unresolved item models: 0
+Original recipe-ledger: 258/258
+Generic registry fallback: 0
+Purged proven item aliases: 63
+Required server-only GameTests: 28
+Runtime manifest scenarios: 356
+Runtime status: NOT_TESTED
+Build status: FAILED/BLOCKED before project configuration
+Build error: java.net.UnknownHostException: services.gradle.org
+Installed Java: OpenJDK 21.0.10
+Target development Java: 17

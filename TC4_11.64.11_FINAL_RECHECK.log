@@ -1,0 +1,12 @@
+TC4 v11.64.11 FINAL RECHECK
+1. build.gradle/mods.toml versions: PASS (11.64.11 / 11.64.11)
+2. Sun Scorned source guard: PASS
+3. Targeted Java 17 parse/compile: PASS
+4. GameTest inventory: PASS (144 unique)
+5. Runtime manifest: PASS (472 unique)
+6. JSON resources: PASS (2049)
+7. Recipe denominator: PASS (258/258; 18 smelting bonuses separate)
+8. Source inventory/parity consolidation: PASS
+
+Gradle build: FAIL / NOT OBTAINED — services.gradle.org UnknownHostException.
+Forge runtime: NOT VERIFIED.

@@ -1,0 +1,15 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.17
+
+Static CI: PASS — 81/81 commands
+Boots of the Traveller parity guard: PASS — 56/56
+Runtime manifest template: PASS — 172 scenarios
+Original textures: PASS — 940/940 byte-exact
+Item models: PASS — 726 models, 0 missing
+
+Gradle compileJava: NOT RUN TO COMPILER / FAILED BEFORE COMPILATION
+Command: ./gradlew compileJava --stacktrace --no-daemon
+Reason: Gradle Wrapper could not resolve services.gradle.org while downloading Gradle 7.5.1 (UnknownHostException).
+Available runtime: OpenJDK 21.0.10
+Project target: Java 17
+JAR: NOT CREATED
+Runtime/client/dedicated-server tests: NOT TESTED

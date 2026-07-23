@@ -1,0 +1,15 @@
+Thaumcraft Legacy Rebuild v11.63.60
+
+Validated in this reconstruction:
+- tc4_116360_infusion_lifecycle_runtime_guard.py: PASS
+- tc4_116359_infusion_stability_runtime_guard.py: PASS
+- runtime manifest: PASS (380 scenarios)
+- Java syntax guard: PASS
+- Forge 1.19.2 compile API guard: PASS
+- JSON resources: PASS (2048 files)
+- Required server-only GameTests declared: 52
+
+Runtime status:
+- JAR: not built
+- v11.63.60 GameTests: NOT_TESTED
+- Required build JDK: Java 17

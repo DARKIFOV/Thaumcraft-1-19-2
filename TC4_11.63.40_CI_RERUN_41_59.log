@@ -1,0 +1,136 @@
+===== CHECK 41/104: python3 tools/tc4_116278_golem_core_parity_guard.py =====
+PASS: functional golems pre-empt normal tasks for creeper swell avoidance
+PASS: creeper avoidance accepts normal swelling and explicit ignition
+PASS: creeper avoidance keeps original priority diagnostic
+PASS: USE core permits empty-hand action only without a home inventory
+PASS: USE marker free-side check follows marker.side rather than opposite
+PASS: USE empty-space marker clicks the block behind the marked air cell
+PASS: USE navigation still targets the marker location
+PASS: USE click acts on resolved interaction position
+PASS: FakePlayer first by-product becomes the new carried stack
+PASS: fishing core passes the selected water position to the loot roll
+PASS: fishing checks junk before treasure like TC4 AIFish
+PASS: fishing water quality adjusts junk and treasure chances
+PASS: fishing junk table uses explicit TC4-style weights
+PASS: runtime manifest contains golems.use_core_marker_side_empty_hand
+PASS: runtime manifest contains golems.fishing_water_quality_weighted_loot
+PASS: runtime manifest contains golems.creeper_swell_avoidance
+PASS: runtime manifest version is v11.63.10
+Golem core parity guard: 17/17
+
+RC=0
+DURATION=1.24s
+
+===== CHECK 42/104: python3 tools/tc4_116279_essentia_transport_parity_guard.py =====
+Essentia transport parity guard: 44/44
+STATIC SOURCE CONTRACT PASS; runtime remains NOT TESTED
+
+RC=0
+DURATION=1.23s
+
+===== CHECK 43/104: python3 tools/tc4_116280_taint_ecology_parity_guard.py =====
+Taint ecology parity guard: 64/64
+STATIC SOURCE CONTRACT PASS; runtime remains NOT TESTED
+
+RC=0
+DURATION=1.24s
+
+===== CHECK 44/104: python3 tools/tc4_116281_warp_eldritch_parity_guard.py =====
+Warp/Eldritch parity guard: 50/50
+STATIC SOURCE/NETWORK CONTRACT PASS; runtime remains NOT TESTED
+
+RC=0
+DURATION=1.27s
+
+===== CHECK 45/104: python3 tools/tc4_116282_research_workflow_parity_guard.py =====
+TC4 11.63.10 research workflow parity guard: PASS (25/25 checks)
+
+RC=0
+DURATION=1.20s
+
+===== CHECK 46/104: python3 tools/tc4_116283_forge_compile_hotfix_guard.py =====
+TC4 11.63.10 Forge compile hotfix guard: PASS (12 checks)
+
+RC=0
+DURATION=1.18s
+
+===== CHECK 47/104: python3 tools/tc4_116284_forge_compile_hotfix_guard.py =====
+TC4 11.63.10 Forge compile hotfix guard: PASS (13 checks)
+
+RC=0
+DURATION=1.23s
+
+===== CHECK 48/104: python3 tools/tc4_116285_runtime_init_hotfix_guard.py =====
+TC4 11.63.10 runtime init hotfix guard: PASS (9/9 checks)
+
+RC=0
+DURATION=1.21s
+
+===== CHECK 49/104: python3 tools/tc4_116286_infusion_valid_location_guard.py =====
+TC4 11.62.86 infusion valid-location guard: PASS (6/6 checks)
+
+RC=0
+DURATION=1.17s
+
+===== CHECK 50/104: python3 tools/tc4_116287_wisp_parity_guard.py =====
+TC4 11.62.87 Wisp parity guard: PASS (19/19 checks)
+
+RC=0
+DURATION=1.13s
+
+===== CHECK 51/104: python3 tools/tc4_116288_thaumic_slime_parity_guard.py =====
+TC4 11.63.10 Thaumic Slime parity guard: PASS (32/32 checks)
+
+RC=0
+DURATION=1.09s
+
+===== CHECK 52/104: python3 tools/tc4_116289_server_level_accessor_compile_guard.py =====
+TC4 11.63.10 ServerLevelAccessor compile hotfix guard: 7/7 PASS
+
+RC=0
+DURATION=1.27s
+
+===== CHECK 53/104: python3 tools/tc4_116290_monster_spawn_rules_compile_guard.py =====
+TC4 11.63.10 retained Monster spawn-rules compile hotfix guard: 10/10 PASS
+
+RC=0
+DURATION=1.27s
+
+===== CHECK 54/104: python3 tools/tc4_116291_wisp_flying_mob_spawn_rules_compile_guard.py =====
+TC4 11.63.10 Wisp FlyingMob spawn-rules compile guard: PASS (10/10)
+
+RC=0
+DURATION=1.42s
+
+===== CHECK 55/104: python3 tools/tc4_116292_full_texture_uv_audit_guard.py =====
+TC4 11.63.10 full texture/UV audit guard: 28/28 PASS
+STATIC SOURCE/RESOURCE CONTRACT PASS; runtime visual parity remains NOT TESTED
+
+RC=0
+DURATION=1.46s
+
+===== CHECK 56/104: python3 tools/tc4_116293_wand_variants_vis_jei_texture_guard.py =====
+TC4 11.63.10 wand variants/vis/JEI/texture guard: 18/18 PASS
+STATIC SOURCE/RESOURCE CONTRACT PASS; creative and JEI runtime rendering still require client verification
+
+RC=0
+DURATION=1.44s
+
+===== CHECK 57/104: python3 tools/tc4_116294_alembic_vis_relay_texture_uv_guard.py =====
+v11.63.10 Alembic/Vis Relay guard: 22/22 PASS
+reports/tc4_116294_alembic_vis_relay_texture_uv_guard.json
+
+RC=0
+DURATION=1.52s
+
+===== CHECK 58/104: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.40 --template =====
+runtime manifest: PASS (292 tests; template=True)
+
+RC=0
+DURATION=1.38s
+
+===== CHECK 59/104: python3 -m py_compile tools/generate_port_status_v3.py tools/validate_runtime_manifest.py tools/compare_visual_artifacts.py =====
+
+RC=0
+DURATION=1.14s
+

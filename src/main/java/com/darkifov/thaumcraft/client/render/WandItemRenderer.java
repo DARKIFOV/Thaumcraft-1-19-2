@@ -7,6 +7,7 @@ import com.darkifov.thaumcraft.wand.WandFocusType;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Matrix3f;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -196,18 +197,24 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
             } else {
                 poseStack.translate(0.0D, 1.00D, 0.0D);
             }
-        } else if (transformType.firstPerson()
-                || transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
+        } else if (transformType.firstPerson()) {
+            // The 1.7.10 EQUIPPED_FIRST_PERSON matrix ran inside the legacy
+            // IItemRenderer camera pipeline. Reusing its +1.5Y origin and 1.1Y
+            // scale inside a 1.19.2 BEWLR applies a second hand-space offset and
+            // produces the giant clipped sceptre seen in the supplied capture.
+            // Keep the original ModelWand geometry, but fit it into modern item
+            // local space before the vanilla hand transform is composed.
+            poseStack.translate(0.50D, 0.78D, 0.50D);
+            float heldScale = staff ? 0.34F : 0.52F;
+            poseStack.scale(heldScale, heldScale * 1.05F, heldScale);
+        } else if (transformType == ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND
                 || transformType == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
-            // Exact TC4 EQUIPPED/EQUIPPED_FIRST_PERSON origin. The old port used
-            // Y=1.0 plus an invented 0.5 scale, which is the first-person breakage
-            // visible in the supplied screenshot.
-            poseStack.translate(0.50D, 1.50D, 0.50D);
-            if (transformType.firstPerson()) {
-                poseStack.scale(1.00F, 1.10F, 1.00F);
-            }
+            poseStack.translate(0.50D, 0.95D, 0.50D);
+            float heldScale = staff ? 0.42F : 0.58F;
+            poseStack.scale(heldScale, heldScale, heldScale);
         } else {
-            poseStack.translate(0.50D, 1.50D, 0.50D);
+            poseStack.translate(0.50D, 0.85D, 0.50D);
+            poseStack.scale(0.62F, 0.62F, 0.62F);
         }
         poseStack.mulPose(Vector3f.XP.rotationDegrees(180.0F));
 
@@ -450,32 +457,73 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
         float h = heightPx;
         float d = depthPx;
         Matrix4f matrix = poseStack.last().pose();
+        Matrix3f normal = poseStack.last().normal();
 
-        // Standard ModelBox atlas net (mirror=true in original ModelWand).
-        modelQuad(matrix, consumer,
-                maxX, minY, minZ, maxX, minY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ,
-                (u + d + w + d) / tw, (v + d) / th, (u + d + w) / tw, (v + d + h) / th,
-                light, alpha, red, green, blue);
-        modelQuad(matrix, consumer,
-                minX, minY, maxZ, minX, minY, minZ, minX, maxY, minZ, minX, maxY, maxZ,
-                (u + d) / tw, (v + d) / th, u / tw, (v + d + h) / th,
-                light, alpha, red, green, blue);
-        modelQuad(matrix, consumer,
-                minX, minY, minZ, maxX, minY, minZ, maxX, minY, maxZ, minX, minY, maxZ,
-                (u + d + w) / tw, v / th, (u + d) / tw, (v + d) / th,
-                light, alpha, red, green, blue);
-        modelQuad(matrix, consumer,
-                minX, maxY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ, minX, maxY, minZ,
-                (u + d + w + w) / tw, v / th, (u + d + w) / tw, (v + d) / th,
-                light, alpha, red, green, blue);
-        modelQuad(matrix, consumer,
-                minX, minY, minZ, minX, maxY, minZ, maxX, maxY, minZ, maxX, minY, minZ,
-                (u + d + w) / tw, (v + d) / th, (u + d) / tw, (v + d + h) / th,
-                light, alpha, red, green, blue);
-        modelQuad(matrix, consumer,
-                maxX, minY, maxZ, maxX, maxY, maxZ, minX, maxY, maxZ, minX, minY, maxZ,
-                (u + d + w + d + w) / tw, (v + d) / th, (u + d + w + d) / tw, (v + d + h) / th,
-                light, alpha, red, green, blue);
+        // Exact 1.7.10 ModelBox vertex order and atlas rectangles. ModelWand
+        // sets mirror=true on all four cubes, so the completed textured quad
+        // (including its UVs) is reversed after construction.
+        float[][] p = new float[][]{
+                {minX, minY, minZ}, {maxX, minY, minZ},
+                {maxX, maxY, minZ}, {minX, maxY, minZ},
+                {minX, minY, maxZ}, {maxX, minY, maxZ},
+                {maxX, maxY, maxZ}, {minX, maxY, maxZ}
+        };
+        legacyModelQuad(matrix, normal, consumer, p[5], p[1], p[2], p[6],
+                u + d + w, v + d, u + d + w + d, v + d + h, tw, th, light, alpha, red, green, blue);
+        legacyModelQuad(matrix, normal, consumer, p[0], p[4], p[7], p[3],
+                u, v + d, u + d, v + d + h, tw, th, light, alpha, red, green, blue);
+        legacyModelQuad(matrix, normal, consumer, p[5], p[4], p[0], p[1],
+                u + d, v, u + d + w, v + d, tw, th, light, alpha, red, green, blue);
+        legacyModelQuad(matrix, normal, consumer, p[2], p[3], p[7], p[6],
+                u + d + w, v + d, u + d + w + w, v, tw, th, light, alpha, red, green, blue);
+        legacyModelQuad(matrix, normal, consumer, p[1], p[0], p[3], p[2],
+                u + d, v + d, u + d + w, v + d + h, tw, th, light, alpha, red, green, blue);
+        legacyModelQuad(matrix, normal, consumer, p[4], p[5], p[6], p[7],
+                u + d + w + d, v + d, u + d + w + d + w, v + d + h, tw, th, light, alpha, red, green, blue);
+    }
+
+    private void legacyModelQuad(Matrix4f matrix, Matrix3f normalMatrix, VertexConsumer consumer,
+                                 float[] a, float[] b, float[] c, float[] d,
+                                 float atlasU1, float atlasV1, float atlasU2, float atlasV2,
+                                 float textureWidth, float textureHeight,
+                                 int light, int alpha, int red, int green, int blue) {
+        float[][] positions = new float[][]{a, b, c, d};
+        float[][] uv = new float[][]{
+                {atlasU2 / textureWidth, atlasV1 / textureHeight},
+                {atlasU1 / textureWidth, atlasV1 / textureHeight},
+                {atlasU1 / textureWidth, atlasV2 / textureHeight},
+                {atlasU2 / textureWidth, atlasV2 / textureHeight}
+        };
+        // ModelWand.Cap/Rod/Focus all have ModelRenderer.mirror=true.
+        for (int left = 0, right = 3; left < right; left++, right--) {
+            float[] position = positions[left];
+            positions[left] = positions[right];
+            positions[right] = position;
+            float[] tex = uv[left];
+            uv[left] = uv[right];
+            uv[right] = tex;
+        }
+
+        float ex1 = positions[1][0] - positions[0][0];
+        float ey1 = positions[1][1] - positions[0][1];
+        float ez1 = positions[1][2] - positions[0][2];
+        float ex2 = positions[2][0] - positions[0][0];
+        float ey2 = positions[2][1] - positions[0][1];
+        float ez2 = positions[2][2] - positions[0][2];
+        float nx = ey1 * ez2 - ez1 * ey2;
+        float ny = ez1 * ex2 - ex1 * ez2;
+        float nz = ex1 * ey2 - ey1 * ex2;
+        float length = Mth.sqrt(nx * nx + ny * ny + nz * nz);
+        if (length > 0.0F) {
+            nx /= length;
+            ny /= length;
+            nz /= length;
+        }
+        for (int i = 0; i < 4; i++) {
+            vertexColor(matrix, normalMatrix, consumer,
+                    positions[i][0], positions[i][1], positions[i][2],
+                    uv[i][0], uv[i][1], light, alpha, red, green, blue, nx, ny, nz);
+        }
     }
 
     private void modelQuad(Matrix4f matrix, VertexConsumer consumer,
@@ -533,6 +581,19 @@ public class WandItemRenderer extends BlockEntityWithoutLevelRenderer {
                 .overlayCoords(OverlayTexture.NO_OVERLAY)
                 .uv2(light)
                 .normal(0.0F, 0.0F, 1.0F)
+                .endVertex();
+    }
+
+    private void vertexColor(Matrix4f matrix, Matrix3f normalMatrix, VertexConsumer consumer,
+                             float x, float y, float z, float u, float v,
+                             int light, int alpha, int red, int green, int blue,
+                             float normalX, float normalY, float normalZ) {
+        consumer.vertex(matrix, x, y, z)
+                .color(red, green, blue, alpha)
+                .uv(u, v)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(light)
+                .normal(normalMatrix, normalX, normalY, normalZ)
                 .endVertex();
     }
 }

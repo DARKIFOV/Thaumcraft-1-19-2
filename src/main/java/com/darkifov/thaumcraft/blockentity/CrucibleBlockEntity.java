@@ -5,9 +5,11 @@ import com.darkifov.thaumcraft.AspectColor;
 import com.darkifov.thaumcraft.AspectDatabase;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.entity.SpecialItemEntity;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipe;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipes;
 import com.darkifov.thaumcraft.block.BellowsBlock;
+import com.darkifov.thaumcraft.block.TC4ArcaneBellowsParity;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -173,6 +175,11 @@ public class CrucibleBlockEntity extends BlockEntity {
         if (level == null || level.isClientSide || itemEntity == null || !itemEntity.isAlive()) {
             return false;
         }
+        // TC4 explicitly excluded EntitySpecialItem so freshly crafted output
+        // cannot be consumed by the crucible again before the player collects it.
+        if (itemEntity instanceof SpecialItemEntity) {
+            return false;
+        }
         if (!hasWater() || !isBoiling()) {
             return false;
         }
@@ -190,7 +197,21 @@ public class CrucibleBlockEntity extends BlockEntity {
             stack.shrink(1);
             consumeWater(WATER_PER_CRAFT);
             updateThrownStack(itemEntity, stack);
-            Containers.dropItemStack(level, worldPosition.getX() + 0.5D, worldPosition.getY() + 1.0D, worldPosition.getZ() + 0.5D, result);
+            boolean firstOutput = true;
+            while (!result.isEmpty()) {
+                int amount = Math.min(result.getCount(), result.getMaxStackSize());
+                ItemStack spitout = result.copy();
+                spitout.setCount(amount);
+                result.shrink(amount);
+                SpecialItemEntity output = new SpecialItemEntity(level,
+                        worldPosition.getX() + 0.5D, worldPosition.getY() + 0.71D, worldPosition.getZ() + 0.5D, spitout);
+                output.setDeltaMovement(firstOutput ? 0.0D : (level.random.nextFloat() - level.random.nextFloat()) * 0.01D,
+                        0.1D,
+                        firstOutput ? 0.0D : (level.random.nextFloat() - level.random.nextFloat()) * 0.01D);
+                output.setPickUpDelay(10);
+                level.addFreshEntity(output);
+                firstOutput = false;
+            }
             playCrucibleCraftFx();
             maybeSpillFlux(false);
             setChangedAndSync();
@@ -287,7 +308,7 @@ public class CrucibleBlockEntity extends BlockEntity {
         }
         lastHeated = isHeatSource(level, worldPosition.below());
         if (lastHeated && hasWater()) {
-            temperature = Math.min(MAX_TEMPERATURE, temperature + 2 + bellowsCount * 2);
+            temperature = Math.min(MAX_TEMPERATURE, temperature + TC4ArcaneBellowsParity.crucibleHeatGain(bellowsCount));
         } else {
             temperature = Math.max(0, temperature - 1);
         }
@@ -367,8 +388,8 @@ public class CrucibleBlockEntity extends BlockEntity {
 
 
     /**
-     * TC4-style bellows scan: count horizontal bellows whose mouth/facing points at the crucible.
-     * This mirrors TileCrucible#getBellows() but uses 1.19.2 blockstates instead of metadata.
+     * TileCrucible#getBellows deliberately counted every horizontal metadata-0
+     * bellows block, without checking its orientation or redstone state.
      */
     public int countBellows() {
         if (level == null) {
@@ -376,9 +397,7 @@ public class CrucibleBlockEntity extends BlockEntity {
         }
         int count = 0;
         for (Direction direction : Direction.Plane.HORIZONTAL) {
-            BlockPos bellowsPos = worldPosition.relative(direction);
-            BlockState state = level.getBlockState(bellowsPos);
-            if (BellowsBlock.facesTarget(state, direction.getOpposite())) {
+            if (level.getBlockState(worldPosition.relative(direction)).getBlock() instanceof BellowsBlock) {
                 count++;
             }
         }

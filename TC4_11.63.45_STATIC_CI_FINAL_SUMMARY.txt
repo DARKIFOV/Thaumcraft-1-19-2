@@ -1,0 +1,26 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.45
+FULL STATIC CI FINAL SUMMARY
+
+Checks: 109
+Passed: 109
+Failed: 0
+Skipped: 0
+All recorded return codes: 0
+
+Key validators:
+- Forge-only guard: PASS
+- Java syntax guard: PASS
+- Forge 1.19.2 API guard: PASS
+- JSON resources: 2107/2107 PASS
+- Runtime manifest: 322 scenarios PASS (template)
+- v11.63.43 deferred migration guard: PASS
+- v11.63.44 baseline GameTest smoke guard: PASS
+- v11.63.45 Vis relay plus required GameTest guard: PASS
+- Required server-only GameTests in source: 9
+- GitHub Actions YAML: PASS
+- Generic registry fallback: 0
+- Gradle wrapper JAR packaging contract: PASS
+
+Runtime caveat:
+- The nine required GameTests are present but NOT_TESTED because no Java 17 Forge build/GameTest server run was obtained.
+- compileJava stopped before project configuration on UnknownHostException: services.gradle.org.

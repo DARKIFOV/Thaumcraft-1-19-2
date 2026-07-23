@@ -1,0 +1,6 @@
+TC4 v11.63.54 ZIP INTEGRITY
+===========================
+Archive creation: PASS
+Final `unzip -t` verification: PASS
+Compressed entries: no CRC or structural errors detected.
+The external `.zip.sha256` file is the authoritative checksum for the delivered archive.

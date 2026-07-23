@@ -46,7 +46,7 @@ public final class TC4RecipeRuntimeBridge {
 
     private static List<OriginalRecipe> build() {
         List<OriginalRecipe> recipes = new ArrayList<>();
-        recipes.add(r("Thaumonomicon", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
+        recipes.add(r("Thaumonomicon", Kind.COMPOUND, "", "", "", "", new String[0], new String[] {"new ItemStack(ConfigItems.itemWandCasting)", "new ItemStack(Blocks.field_150342_X)"}, new String[] {"1", "2", "1"}, "ConfigResearch.recipes.put"));
         recipes.add(r("ArcTable", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
         recipes.add(r("ResTable", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));
         recipes.add(r("Crucible", Kind.COMPOUND, "", "", "", "", new String[0], new String[0], new String[0], "ConfigResearch.recipes.put"));

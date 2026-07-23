@@ -1,0 +1,47 @@
+TC4 v11.64.15 FOCUSED STATIC CI — FINAL SPLIT EXECUTION
+
+Reason for split execution:
+- The cumulative runner exceeded the single-command wall-clock limit while entering check 13.
+- Checks were resumed individually without skipping any check.
+- Source inventory check initially reported the expected count change 51 -> 52 after adding TC4BrainJarParity; the packaging inventory guard was updated and rerun successfully.
+
+Checks 1-12 (captured in TC4_11.64.15_FOCUSED_STATIC_CI_RUN.log): PASS
+  1. tc4_116415_brain_jar_full_closure_guard.py — PASS
+  2. tc4_116414_bath_salts_full_closure_guard.py — PASS
+  3. tc4_116413_unnatural_hunger_full_closure_guard.py — PASS
+  4. tc4_116412_unnatural_hunger_food_guard.py — PASS
+  5. tc4_116411_sun_scorned_brightness_guard.py — PASS
+  6. tc4_116410_death_gaze_cone_guard.py — PASS
+  7. tc4_116409_warp_research_pool_sync_guard.py — PASS
+  8. tc4_116408_eldritch_milestone_grant_guard.py — PASS
+  9. tc4_116407_warp_message_parity_guard.py — PASS
+ 10. tc4_116405_warp_spawn_collision_guard.py — PASS
+ 11. tc4_116404_warp_spawn_offset_guard.py — PASS
+ 12. tc4_116403_warp_runtime_guard.py — PASS
+
+Checks 13-15 (captured in TC4_11.64.15_FOCUSED_STATIC_CI_PART2.log): PASS
+ 13. tc4_116281_warp_eldritch_parity_guard.py — PASS (50/50)
+ 14. warp_runtime_selftest.py — PASS
+ 15. java_parse_guard_116415.py — PASS
+
+Checks 16-21:
+ 16. java_syntax_guard.py — PASS
+ 17. validate_json_resources.py — PASS (2052)
+ 18. validate_runtime_manifest.py — PASS (503 unique tests)
+ 19. tc4_recipe_registration_denominator_guard.py — PASS (258/258)
+ 20. tc4_116394_source_inventory_guard.py — PASS after expected inventory update to blockentity=52
+ 21. tc4_116394_parity_consolidation_guard.py — PASS (152 GameTests; 503 scenarios)
+
+Current-state final recheck:
+- Brain Jar full-closure guard — PASS
+- Targeted Java 17 contract/self-test and 8 changed Forge source parse checks — PASS
+- Global Java string/syntax guard — PASS
+- JSON resources — PASS (2052)
+- Runtime manifest — PASS (503)
+- Recipe denominator — PASS (258/258)
+- Source inventory — PASS
+- Parity consolidation — PASS
+
+FINAL: FOCUSED STATIC CI v11.64.15 PASS (21/21, split execution)
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO

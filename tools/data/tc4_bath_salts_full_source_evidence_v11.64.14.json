@@ -1,0 +1,41 @@
+{
+  "round": "11.64.14",
+  "object": "Purifying Bath Salts / Purifying Fluid / Warp Ward grant cycle",
+  "original": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "source_closure": "CLOSED_WITH_EXTERNAL_WIZARD_DEPENDENCY",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "external_dependency": {
+    "system": "custom wizard villager and village tower world generation",
+    "contract_preserved": "5 + random.nextInt(3) emeralds -> 1 Bath Salts",
+    "production_activation": "PENDING_SEPARATE_WIZARD_SYSTEM_CLOSURE",
+    "substitution_policy": "Do not inject the offer into a vanilla profession or wandering trader."
+  },
+  "original_sources": [
+    "thaumcraft/common/items/ItemBathSalts.java",
+    "thaumcraft/common/lib/events/EventHandlerEntity.java",
+    "thaumcraft/common/blocks/BlockFluidPure.java",
+    "thaumcraft/common/items/ItemBucketPure.java",
+    "thaumcraft/common/lib/events/EventHandlerWorld.java",
+    "thaumcraft/common/lib/potions/PotionWarpWard.java",
+    "thaumcraft/common/config/Config.java",
+    "thaumcraft/common/config/ConfigBlocks.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java",
+    "thaumcraft/common/tiles/TileSpa.java",
+    "thaumcraft/common/lib/world/VillageWizardManager.java",
+    "thaumcraft/client/fx/particles/FXBubble.java"
+  ],
+  "production_paths": [
+    "BathSaltsItem#getEntityLifespan",
+    "CommonEvents#onBathSaltsExpire / dissolveBathSalts",
+    "PurifyingFluidBlock#entityInside / animateTick",
+    "TC4PurifyingBubbleParticle",
+    "ForgeFlowingFluid + BucketItem registrations",
+    "ArcaneSpaBlockEntity mixing path",
+    "TC4RecipeRuntimeBridge / tc4_bathsalts.json",
+    "TC4ResearchRuntimeBridge BATHSALTS entry",
+    "TC4EldritchProgression BATHSALTS milestone"
+  ]
+}

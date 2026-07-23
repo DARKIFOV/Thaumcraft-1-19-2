@@ -6,7 +6,7 @@
   "catalyst": "thaumcraft:tc4_block_alchemical_construct",
   "ingredients": [
     "thaumcraft:void_metal_ingot",
-    "thaumcraft:tc4_eldritch_object_3"
+    "thaumcraft:eldritch_eye_3"
   ],
   "aspects": {
     "AQUA": 10,
@@ -20,7 +20,7 @@
   ],
   "key": {
     "V": "thaumcraft:void_metal_ingot",
-    "A": "thaumcraft:tc4_eldritch_object_3",
+    "A": "thaumcraft:eldritch_eye_3",
     "P": "thaumcraft:tc4_block_alchemical_construct"
   },
   "result": {

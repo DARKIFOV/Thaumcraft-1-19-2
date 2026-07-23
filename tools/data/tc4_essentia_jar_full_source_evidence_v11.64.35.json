@@ -1,0 +1,158 @@
+{
+  "version": "11.64.35",
+  "mechanic": "Essentia Jar family: Warded Jar, Void Jar, labels, suction, NBT, phials and rendering",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/tiles/TileJarFillable.java",
+      "evidence": [
+        "maxAmount = 64",
+        "facing = 2",
+        "Aspect/AspectFilter/Amount/facing NBT",
+        "UP-only transport",
+        "minimum suction 64/32",
+        "full normal suction 0",
+        "tick % 5",
+        "one-point pull"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileJarFillableVoid.java",
+      "evidence": [
+        "compatible overflow is discarded",
+        "minimum suction 48/32",
+        "full labelled suction falls back to 32",
+        "tick % 5 even at capacity"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockJar.java",
+      "evidence": [
+        "filled/filter-preserving drops",
+        "yaw-to-facing 2/5/3/4",
+        "label removal on matching face",
+        "sneak empty-hand clear",
+        "blank/aspect label application",
+        "selection 0.1875..0.8125 x y0..0.75",
+        "full collision"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/ItemJarFilled.java",
+      "evidence": [
+        "stack limit 1",
+        "root AspectList NBT",
+        "root AspectFilter",
+        "placement restores data"
+      ]
+    },
+    {
+      "path": "thaumcraft/api/aspects/AspectList.java",
+      "evidence": [
+        "root Aspects list",
+        "entries key/amount"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/ItemEssence.java",
+      "evidence": [
+        "atomic 8-point jar/phial transfer",
+        "filled phial requires jar <=56"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigRecipes.java",
+      "evidence": [
+        "WardedJar Aqua 1",
+        "Void Jar Aqua 5 + Perditio 15",
+        "JarLabel output 4",
+        "aspect label uses amount 0",
+        "JarLabelNull"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileJarRenderer.java",
+      "evidence": [
+        "liquid 0.25..0.75 and 0.0625 + fill*0.625",
+        "label facing",
+        "crooked rotation formula",
+        "label texture and aspect tag"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/models/ModelJar.java",
+      "evidence": [
+        "10x12x10 core",
+        "6x2x6 lid"
+      ]
+    },
+    {
+      "path": "assets/thaumcraft",
+      "evidence": [
+        "original jar sounds and jar/void/label/animatedglow textures"
+      ]
+    }
+  ],
+  "production_contracts": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/jar/TC4EssentiaJarParity.java",
+      "contract": "dependency-free capacity, suction, overflow, facing, crooked label and phial boundaries"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/EssentiaJarBlockEntity.java",
+      "contract": "server storage, 5-tick pull, UP-only semantics, tile NBT and synchronization"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/EssentiaJarBlock.java",
+      "contract": "placement, drops, label interaction, emptying and phials"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/EssentiaJarBlockItem.java",
+      "contract": "exact ItemJarFilled root Aspects list and AspectFilter with migration"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/JarLabelItem.java",
+      "contract": "zero-amount AspectList label NBT"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/recipe/JarLabelRecipe.java",
+      "contract": "JarLabel0..47 and JarLabelNull dynamic recipes"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/jar/JarTubeInteractionRuntime.java",
+      "contract": "label apply/remove and blank label return"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/EssentiaJarRenderer.java",
+      "contract": "liquid and label rendering"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/EssentiaJarItemRenderer.java",
+      "contract": "filled jar BEWLR"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/item/gear/HoverHarnessItem.java",
+      "contract": "dependent Potentia jar preserves exact item NBT"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/essentia/EssentiaSuctionResolver.java",
+      "contract": "jar suction exposed only through top and supports untyped scans"
+    },
+    {
+      "path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_wardedjar.json",
+      "contract": "original Warded Jar arcane recipe"
+    },
+    {
+      "path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_jar_void.json",
+      "contract": "original Void Jar arcane recipe"
+    },
+    {
+      "path": "src/main/resources/data/thaumcraft/recipes/jar_label.json",
+      "contract": "four blank labels"
+    },
+    {
+      "path": "src/main/resources/data/c/tags/items/hidden_from_recipe_viewers.json",
+      "contract": "migration-only filtered jar hidden from recipe viewers"
+    }
+  ],
+  "known_runtime_boundary": "Client, dedicated server, multiplayer and GameTest execution are not verified until a real Forge build/runtime succeeds."
+}

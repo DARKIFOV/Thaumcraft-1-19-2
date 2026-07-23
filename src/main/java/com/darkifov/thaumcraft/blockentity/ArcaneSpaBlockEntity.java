@@ -2,10 +2,13 @@ package com.darkifov.thaumcraft.blockentity;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.menu.ArcaneSpaMenu;
+import com.darkifov.thaumcraft.block.TC4ArcaneSpaParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -37,16 +40,19 @@ import javax.annotation.Nullable;
  * TC4 TileSpa port: 5000 mB tank, one Bath Salts slot, 40-tick output cadence,
  * redstone disable and source expansion over the 5x5 layer above the block.
  *
- * <p>v11.62.69 also exposes the original ContainerSpa/GuiSpa contract. The
- * menu synchronises the mode, tank amount and fluid registry id while the
- * actual salt stack is handled by the ordinary menu-slot protocol.</p>
+ * <p>v11.64.23 closes the original filled-container interaction, root-level
+ * TC4 NBT layout, migration from the earlier port keys, side automation and
+ * exact source-expansion contract. The menu synchronises mode, tank amount
+ * and fluid registry id while the salt stack uses the normal slot protocol.</p>
  */
 public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
-    public static final int CAPACITY = 5000;
-    public static final int CHECK_INTERVAL = 40;
-    private static final int BUCKET = 1000;
+    public static final int CAPACITY = TC4ArcaneSpaParity.CAPACITY_MB;
+    public static final int CHECK_INTERVAL = TC4ArcaneSpaParity.CHECK_INTERVAL_TICKS;
+    private static final int BUCKET = TC4ArcaneSpaParity.BUCKET_MB;
 
     private boolean mixing = true;
+    /** TC4 used an independent, non-persistent cadence for every spa. */
+    private int counter;
     private final FluidTank tank = new FluidTank(CAPACITY) {
         @Override
         protected void onContentsChanged() {
@@ -98,7 +104,7 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ArcaneSpaBlockEntity spa) {
-        if (level.hasNeighborSignal(pos) || level.getGameTime() % CHECK_INTERVAL != 0L) {
+        if (!TC4ArcaneSpaParity.shouldRunCycle(spa.counter++) || level.hasNeighborSignal(pos)) {
             return;
         }
         spa.tryDispense(level, pos);
@@ -134,22 +140,22 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
         }
 
         BlockState outputState = targetFluid.defaultFluidState().createLegacyBlock();
-        if (!level.setBlock(output, outputState, 3)) {
-            return;
-        }
 
+        // TileSpa consumed first and ignored the boolean result of setBlock.
+        // This intentionally preserves the rare event-cancel/failed-placement loss contract.
         tank.drain(BUCKET, IFluidHandler.FluidAction.EXECUTE);
         if (mixing) {
             salts.extractItem(0, 1, false);
         }
         markAndSync();
+        level.setBlock(output, outputState, 3);
     }
 
     @Nullable
     private static BlockPos findOutput(Level level, BlockPos center, Fluid targetFluid) {
         if (isTargetSource(level.getFluidState(center), targetFluid)) {
-            for (int x = -2; x <= 2; x++) {
-                for (int z = -2; z <= 2; z++) {
+            for (int x = -TC4ArcaneSpaParity.OUTPUT_RADIUS; x <= TC4ArcaneSpaParity.OUTPUT_RADIUS; x++) {
+                for (int z = -TC4ArcaneSpaParity.OUTPUT_RADIUS; z <= TC4ArcaneSpaParity.OUTPUT_RADIUS; z++) {
                     BlockPos candidate = center.offset(x, 0, z);
                     if (canPlaceAt(level, candidate)
                             && !isTargetSource(level.getFluidState(candidate), targetFluid)
@@ -166,12 +172,13 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
     private static boolean canPlaceAt(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         BlockPos below = pos.below();
-        return (state.isAir() || state.getMaterial().isReplaceable())
-                && level.getBlockState(below).isFaceSturdy(level, below, Direction.UP);
+        boolean replaceable = state.isAir() || state.getMaterial().isReplaceable();
+        boolean support = level.getBlockState(below).isFaceSturdy(level, below, Direction.UP);
+        return TC4ArcaneSpaParity.canPlaceOutput(support, replaceable, false);
     }
 
     private static boolean touchesTargetSource(Level level, BlockPos pos, Fluid targetFluid) {
-        for (Direction direction : Direction.Plane.HORIZONTAL) {
+        for (Direction direction : Direction.values()) {
             if (isTargetSource(level.getFluidState(pos.relative(direction)), targetFluid)) {
                 return true;
             }
@@ -229,6 +236,29 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
         return salts.extractItem(0, salts.getSlotLimit(0), false);
     }
 
+    public boolean canAcceptFilledContainer(FluidStack resource) {
+        if (resource == null || resource.isEmpty()) {
+            return false;
+        }
+        FluidStack stored = tank.getFluid();
+        boolean emptyOrSame = stored.isEmpty() || stored.isFluidEqual(resource);
+        return TC4ArcaneSpaParity.canAcceptFilledContainer(tank.getFluidAmount(), emptyOrSame);
+    }
+
+    /**
+     * TC4's direct block-use path filled as much as possible, but consumed the
+     * complete filled container even on a partial final fill. Container
+     * consumption itself is handled by ArcaneSpaBlock after this succeeds.
+     */
+    public int fillFromHeldContainer(FluidStack resource) {
+        if (!canAcceptFilledContainer(resource)) {
+            return 0;
+        }
+        int expected = TC4ArcaneSpaParity.acceptedFluidAmount(tank.getFluidAmount(), resource.getAmount());
+        int filled = tank.fill(resource, IFluidHandler.FluidAction.EXECUTE);
+        return Math.min(expected, filled);
+    }
+
     public int getFluidAmount() {
         return tank.getFluidAmount();
     }
@@ -241,7 +271,7 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
         return level != null
                 && level.getBlockEntity(worldPosition) == this
                 && player.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D,
-                worldPosition.getZ() + 0.5D) <= 64.0D;
+                worldPosition.getZ() + 0.5D) <= TC4ArcaneSpaParity.BLOCK_USE_DISTANCE_SQUARED;
     }
 
     @Override
@@ -265,21 +295,67 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.putBoolean("Mix", mixing);
-        tag.put("Tank", tank.writeToNBT(new CompoundTag()));
-        tag.put("Salts", salts.serializeNBT());
+
+        // Exact TC4 TileSpa keys: lowercase mix, FluidStack at root and Items list at root.
+        tag.putBoolean(TC4ArcaneSpaParity.NBT_MIX, mixing);
+        FluidStack fluid = tank.getFluid();
+        if (!fluid.isEmpty()) {
+            fluid.writeToNBT(tag);
+        }
+
+        ListTag items = new ListTag();
+        ItemStack saltStack = salts.getStackInSlot(0);
+        if (!saltStack.isEmpty()) {
+            CompoundTag itemTag = new CompoundTag();
+            itemTag.putByte("Slot", (byte) 0);
+            saltStack.save(itemTag);
+            items.add(itemTag);
+        }
+        tag.put(TC4ArcaneSpaParity.NBT_ITEMS, items);
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        mixing = !tag.contains("Mix") || tag.getBoolean("Mix");
-        if (tag.contains("Tank")) {
-            tank.readFromNBT(tag.getCompound("Tank"));
+
+        if (tag.contains(TC4ArcaneSpaParity.NBT_MIX, Tag.TAG_BYTE)) {
+            mixing = tag.getBoolean(TC4ArcaneSpaParity.NBT_MIX);
+        } else if (tag.contains(TC4ArcaneSpaParity.LEGACY_PORT_NBT_MIX, Tag.TAG_BYTE)) {
+            // Migration from v11.63.24-v11.64.22 saves.
+            mixing = tag.getBoolean(TC4ArcaneSpaParity.LEGACY_PORT_NBT_MIX);
+        } else {
+            // NBTTagCompound#getBoolean returned false for a missing TC4 key.
+            mixing = false;
         }
-        if (tag.contains("Salts")) {
-            salts.deserializeNBT(tag.getCompound("Salts"));
+
+        FluidStack loadedFluid = FluidStack.loadFluidStackFromNBT(tag);
+        if (!loadedFluid.isEmpty()) {
+            tank.setFluid(loadedFluid);
+        } else if (tag.contains(TC4ArcaneSpaParity.LEGACY_PORT_NBT_TANK, Tag.TAG_COMPOUND)) {
+            tank.readFromNBT(tag.getCompound(TC4ArcaneSpaParity.LEGACY_PORT_NBT_TANK));
+        } else {
+            tank.setFluid(FluidStack.EMPTY);
         }
+
+        ItemStack loadedSalt = ItemStack.EMPTY;
+        if (tag.contains(TC4ArcaneSpaParity.NBT_ITEMS, Tag.TAG_LIST)) {
+            ListTag items = tag.getList(TC4ArcaneSpaParity.NBT_ITEMS, Tag.TAG_COMPOUND);
+            for (int i = 0; i < items.size(); i++) {
+                CompoundTag itemTag = items.getCompound(i);
+                int slot = itemTag.getByte("Slot") & 255;
+                if (slot == 0) {
+                    loadedSalt = ItemStack.of(itemTag);
+                    break;
+                }
+            }
+        } else if (tag.contains(TC4ArcaneSpaParity.LEGACY_PORT_NBT_SALTS, Tag.TAG_COMPOUND)) {
+            CompoundTag legacy = tag.getCompound(TC4ArcaneSpaParity.LEGACY_PORT_NBT_SALTS);
+            ListTag items = legacy.getList("Items", Tag.TAG_COMPOUND);
+            if (!items.isEmpty()) {
+                loadedSalt = ItemStack.of(items.getCompound(0));
+            }
+        }
+        salts.setStackInSlot(0, loadedSalt);
     }
 
     @Override
@@ -303,10 +379,13 @@ public class ArcaneSpaBlockEntity extends BlockEntity implements MenuProvider {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-        if (side != Direction.UP && capability == ForgeCapabilities.FLUID_HANDLER) {
+        int sideOrdinal = side == null ? -1 : side.get3DDataValue();
+        if (TC4ArcaneSpaParity.exposesAutomationSide(sideOrdinal)
+                && capability == ForgeCapabilities.FLUID_HANDLER) {
             return fluidCapability.cast();
         }
-        if (side != Direction.UP && capability == ForgeCapabilities.ITEM_HANDLER) {
+        if (TC4ArcaneSpaParity.exposesAutomationSide(sideOrdinal)
+                && capability == ForgeCapabilities.ITEM_HANDLER) {
             return itemCapability.cast();
         }
         return super.getCapability(capability, side);

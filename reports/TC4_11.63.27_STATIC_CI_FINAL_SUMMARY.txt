@@ -1,0 +1,100 @@
+Thaumcraft Legacy Rebuild v11.63.27 — final static CI summary
+Policy: last complete return code per numbered command; reruns supersede earlier cumulative-version failures.
+Commands expected: 91
+Commands with complete result: 91
+PASS: 91
+FAIL: 0
+
+[01] RC=0 DURATION=2.06s :: python3 tools/forge_only_guard.py
+[02] RC=0 DURATION=3.44s :: python3 tools/java_syntax_guard.py
+[03] RC=0 DURATION=2.01s :: python3 tools/forge_1192_compile_api_guard.py
+[04] RC=0 DURATION=1.96s :: python3 tools/validate_json_resources.py
+[05] RC=0 DURATION=1.83s :: python3 tools/visual_parity_guard.py
+[06] RC=0 DURATION=1.77s :: python3 tools/research_table_guard.py
+[07] RC=0 DURATION=1.75s :: python3 tools/research_table_open_guard.py
+[08] RC=0 DURATION=1.68s :: python3 tools/worldgen_guard.py
+[09] RC=0 DURATION=1.75s :: python3 tools/feature_cycle_guard.py
+[10] RC=0 DURATION=1.79s :: python3 tools/research_expertise_guard.py
+[11] RC=0 DURATION=1.77s :: python3 tools/thaumometer_scan_guard.py
+[12] RC=0 DURATION=1.81s :: python3 tools/runtime_visual_guard.py
+[13] RC=0 DURATION=1.85s :: python3 tools/leaves_wand_table_guard.py
+[14] RC=0 DURATION=2.12s :: python3 tools/tc4_original_asset_guard.py
+[15] RC=0 DURATION=1.79s :: python3 tools/tc4_runtime_visual_guard.py
+[16] RC=0 DURATION=1.90s :: python3 tools/runtime_fix_guard.py
+[17] RC=0 DURATION=2.01s :: python3 tools/tc4_item_visual_audit.py --version 11.63.27 --fail-on-missing
+[18] RC=0 DURATION=2.03s :: python3 tools/model_transform_audit.py --version 11.63.27 --fail-on-problems
+[19] RC=0 DURATION=2.16s :: python3 tools/bewlr_contract_audit.py --version 11.63.27 --fail-on-problems
+[20] RC=0 DURATION=1.81s :: python3 tools/aura_node_parity_audit.py --version 11.63.27 --fail-on-problems
+[21] RC=0 DURATION=1.93s :: python3 tools/tc4_116245_parity_guard.py
+[22] RC=0 DURATION=1.89s :: python3 tools/tc4_116246_audit_guard.py
+[23] RC=0 DURATION=1.75s :: python3 tools/tc4_116247_arcane_wand_guard.py
+[24] RC=0 DURATION=1.78s :: python3 tools/tc4_116248_node_orb_guard.py
+[25] RC=0 DURATION=1.86s :: python3 tools/tc4_116249_aspect_orb_parity_guard.py
+[26] RC=0 DURATION=1.77s :: python3 tools/tc4_116250_runtime_screenshot_guard.py
+[27] RC=0 DURATION=1.67s :: python3 tools/tc4_116251_research_scan_hud_guard.py
+[28] RC=0 DURATION=1.74s :: python3 tools/tc4_116252_runtime_risk_guard.py
+[29] RC=0 DURATION=1.75s :: python3 tools/tc4_116253_wand_beam_thaumometer_guard.py
+[30] RC=0 DURATION=1.78s :: python3 tools/tc4_116254_focus_hud_cycle_guard.py
+[31] RC=0 DURATION=2.56s :: python3 tools/audit_registry.py --version 11.63.27 --fail-on-unexpected
+[32] RC=0 DURATION=1.85s :: python3 tools/generate_tc4_research_runtime_from_source_map.py --check
+[33] RC=0 DURATION=3.79s :: python3 tools/tc4_full_research_thaumonomicon_audit.py --version 11.63.27 --fail-on-problems
+[34] RC=0 DURATION=1.86s :: python3 tools/tc4_116270_visual_runtime_regression_guard.py
+[35] RC=0 DURATION=1.81s :: python3 tools/tc4_116271_original_gui_infusion_guard.py
+[36] RC=0 DURATION=1.73s :: python3 tools/tc4_116272_brain_jar_runtime_guard.py
+[37] RC=0 DURATION=1.84s :: python3 tools/tc4_116273_mirror_runtime_guard.py
+[38] RC=0 DURATION=2.06s :: python3 tools/audit_visual_parity.py --version 11.63.27 --fail-on-p0
+[39] RC=0 DURATION=1.73s :: python3 tools/tc4_116276_compile_runtime_contract_guard.py
+[40] RC=0 DURATION=1.80s :: python3 tools/tc4_116277_outer_lands_cycle_guard.py
+[41] RC=0 DURATION=1.76s :: python3 tools/tc4_116278_golem_core_parity_guard.py
+[42] RC=0 DURATION=1.78s :: python3 tools/tc4_116279_essentia_transport_parity_guard.py
+[43] RC=0 DURATION=1.79s :: python3 tools/tc4_116280_taint_ecology_parity_guard.py
+[44] RC=0 DURATION=1.83s :: python3 tools/tc4_116281_warp_eldritch_parity_guard.py
+[45] RC=0 DURATION=1.79s :: python3 tools/tc4_116282_research_workflow_parity_guard.py
+[46] RC=0 DURATION=1.82s :: python3 tools/tc4_116283_forge_compile_hotfix_guard.py
+[47] RC=0 DURATION=1.76s :: python3 tools/tc4_116284_forge_compile_hotfix_guard.py
+[48] RC=0 DURATION=1.89s :: python3 tools/tc4_116285_runtime_init_hotfix_guard.py
+[49] RC=0 DURATION=1.76s :: python3 tools/tc4_116286_infusion_valid_location_guard.py
+[50] RC=0 DURATION=1.82s :: python3 tools/tc4_116287_wisp_parity_guard.py
+[51] RC=0 DURATION=1.69s :: python3 tools/tc4_116288_thaumic_slime_parity_guard.py
+[52] RC=0 DURATION=1.88s :: python3 tools/tc4_116289_server_level_accessor_compile_guard.py
+[53] RC=0 DURATION=1.74s :: python3 tools/tc4_116290_monster_spawn_rules_compile_guard.py
+[54] RC=0 DURATION=1.80s :: python3 tools/tc4_116291_wisp_flying_mob_spawn_rules_compile_guard.py
+[55] RC=0 DURATION=1.75s :: python3 tools/tc4_116292_full_texture_uv_audit_guard.py
+[56] RC=0 DURATION=1.82s :: python3 tools/tc4_116293_wand_variants_vis_jei_texture_guard.py
+[57] RC=0 DURATION=1.71s :: python3 tools/tc4_116294_alembic_vis_relay_texture_uv_guard.py
+[58] RC=0 DURATION=1.86s :: python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.27 --template
+[59] RC=0 DURATION=1.70s :: python3 -m py_compile tools/generate_port_status_v3.py tools/validate_runtime_manifest.py tools/compare_visual_artifacts.py
+[60] RC=0 DURATION=1.78s :: python3 tools/generate_port_status_v3.py --version 11.63.27
+[61] RC=0 DURATION=1.74s :: python3 tools/tc4_116295_all_block_render_layer_geometry_guard.py
+[62] RC=0 DURATION=1.77s :: python3 tools/tc4_116296_p0_item_geometry_uv_guard.py
+[63] RC=0 DURATION=1.78s :: python3 tools/tc4_116297_taint_swarmer_swarm_parity_guard.py
+[64] RC=0 DURATION=1.97s :: python3 tools/tc4_116298_taint_poison_resource_parity_guard.py
+[65] RC=0 DURATION=1.76s :: python3 tools/tc4_116299_taint_death_conversion_parity_guard.py
+[66] RC=0 DURATION=1.82s :: python3 tools/tc4_116300_liquid_death_damage_source_parity_guard.py
+[67] RC=0 DURATION=1.89s :: python3 tools/tc4_116303_runtime_visual_outer_lands_hotfix_guard.py
+[68] RC=0 DURATION=1.76s :: python3 tools/tc4_116304_brainy_zombie_family_parity_guard.py
+[69] RC=0 DURATION=1.78s :: python3 tools/tc4_116305_inhabited_zombie_eldritch_biome_parity_guard.py
+[70] RC=0 DURATION=1.81s :: python3 tools/tc4_116306_throwable_alchemy_parity_guard.py
+[71] RC=0 DURATION=1.95s :: python3 tools/tc4_116307_primal_arrow_dart_parity_guard.py
+[72] RC=0 DURATION=1.72s :: python3 tools/tc4_116308_golem_fishing_bobber_parity_guard.py
+[73] RC=0 DURATION=1.67s :: python3 tools/tc4_116309_falling_taint_parity_guard.py
+[74] RC=0 DURATION=1.73s :: python3 tools/tc4_116310_special_item_family_parity_guard.py
+[75] RC=0 DURATION=1.84s :: python3 tools/tc4_116311_elemental_axe_parity_guard.py
+[76] RC=0 DURATION=1.74s :: python3 tools/tc4_116312_elemental_hoe_parity_guard.py
+[77] RC=0 DURATION=1.79s :: python3 tools/tc4_116313_elemental_pickaxe_parity_guard.py
+[78] RC=0 DURATION=1.79s :: python3 tools/tc4_116314_elemental_shovel_parity_guard.py
+[79] RC=0 DURATION=1.77s :: python3 tools/tc4_116315_elemental_sword_parity_guard.py
+[80] RC=0 DURATION=1.74s :: python3 tools/tc4_116316_primal_crusher_parity_guard.py
+[81] RC=0 DURATION=1.79s :: python3 tools/tc4_116317_boots_traveller_parity_guard.py
+[82] RC=0 DURATION=2.01s :: python3 tools/tc4_116318_hover_harness_girdle_parity_guard.py
+[83] RC=0 DURATION=1.86s :: python3 tools/tc4_116319_hover_harness_visual_parity_guard.py
+[84] RC=0 DURATION=1.82s :: python3 tools/tc4_116320_tallow_candle_parity_guard.py
+[85] RC=0 DURATION=1.76s :: python3 tools/tc4_116321_hungry_chest_parity_guard.py
+[86] RC=0 DURATION=1.75s :: python3 tools/tc4_116322_arcane_bellows_parity_guard.py
+[87] RC=0 DURATION=1.82s :: python3 tools/tc4_116323_arcane_levitator_parity_guard.py
+[88] RC=0 DURATION=1.75s :: python3 tools/tc4_116324_arcane_spa_parity_guard.py
+[89] RC=0 DURATION=1.78s :: python3 tools/tc4_116325_arcane_bore_parity_guard.py
+[90] RC=0 DURATION=1.78s :: python3 tools/tc4_116326_arcane_ear_parity_guard.py
+[91] RC=0 DURATION=1.69s :: python3 tools/tc4_116327_arcane_pressure_plate_parity_guard.py
+
+FINAL=PASS_91_OF_91

@@ -1,0 +1,111 @@
+[1/40] python3 tools/tc4_116426_thaumonomicon_full_closure_guard.py
+TC4 v11.64.26 Thaumonomicon full-closure guard: PASS (218 GameTests; 672 scenarios; core source/resource/prompt; external acquisition boundaries explicit)
+[2/40] python3 tools/tc4_116425_thaumometer_full_closure_guard.py
+TC4 v11.64.25 Thaumometer full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[3/40] python3 tools/tc4_116395_thaumometer_parity_guard.py
+TC4 v11.63.95 Thaumometer parity guard: PASS (218 GameTests; 672 manifest scenarios; production-linked timing/target contracts)
+[4/40] python3 tools/thaumometer_scan_guard.py
+Thaumometer scan guard: OK (transient server scan state, exact 25/20 targeting, stable ledgers and aspect caps)
+[5/40] python3 tools/tc4_116424_arcane_bore_full_closure_guard.py
+TC4 v11.64.24 Arcane Bore full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[6/40] python3 tools/tc4_116325_arcane_bore_parity_guard.py
+PASS | historical report
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:extends BaseEntityBlock
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:DirectionProperty FACING
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:ARCANE_BORE_BASE
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:NetworkHooks.openScreen
+PASS | src/main/java/com/darkifov/thaumcraft/block/ArcaneBoreBlock.java:Shapes.box
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:new ItemStackHandler(2)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:level.hasNeighborSignal(pos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:level.hasNeighborSignal(basePos)
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:TC4ArcaneBoreParity.nextLane
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:Block.getDrops
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:ItemHandlerHelper.insertItemStacked
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:invalidateCaps
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBlockEntity.java:reviveCaps
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:SUCTION = 128
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:Aspect.PERDITIO
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:canInputFrom
+PASS | src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneBoreBaseBlockEntity.java:takeEssentiaOriginal(Aspect.PERDITIO, 1
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:0, 26, 18
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:1, 74, 18
+PASS | src/main/java/com/darkifov/thaumcraft/menu/ArcaneBoreMenu.java:new SimpleContainerData(8)
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneBoreScreen.java:gui_arcanebore.png
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneBoreScreen.java:176
+PASS | src/main/java/com/darkifov/thaumcraft/client/screen/ArcaneBoreScreen.java:141
+PASS | byte exact src/main/resources/assets/thaumcraft/textures/models/Bore.png
+PASS | byte exact src/main/resources/assets/thaumcraft/textures/gui/gui_arcanebore.png
+SUMMARY | 26/26 passed
+[7/40] python3 tools/tc4_116423_arcane_spa_full_closure_guard.py
+TC4 v11.64.23 Arcane Spa full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[8/40] python3 tools/tc4_116422_arcane_lamp_full_closure_guard.py
+TC4 v11.64.22 Arcane Lamp full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[9/40] python3 tools/tc4_116421_arcane_pressure_plate_full_closure_guard.py
+TC4 v11.64.21 Arcane Pressure Plate full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[10/40] python3 tools/tc4_116327_arcane_pressure_plate_parity_guard.py
+TC4 v11.64.21 Arcane Pressure Plate full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+TC4 v11.63.27 Arcane Pressure Plate guard: PASS via superseding v11.64.21 full-closure guard
+[11/40] python3 tools/tc4_116420_arcane_levitator_full_closure_guard.py
+TC4 v11.64.20 Arcane Levitator full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[12/40] python3 tools/tc4_116323_arcane_levitator_parity_guard.py
+TC4 retained Arcane Levitator parity guard: PASS (v11.63.23 milestone preserved by v11.64.20 full closure)
+[13/40] python3 tools/tc4_116419_arcane_ear_full_closure_guard.py
+TC4 v11.64.19 Arcane Ear full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[14/40] python3 tools/tc4_116326_arcane_ear_parity_guard.py
+TC4 v11.64.19 Arcane Ear full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt)
+[15/40] python3 tools/tc4_116418_arcane_bellows_full_closure_guard.py
+TC4 v11.64.18 Arcane Bellows full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt/external-contract)
+[16/40] python3 tools/tc4_116322_arcane_bellows_parity_guard.py
+TC4 v11.64.18 Arcane Bellows full-closure guard: PASS (218 GameTests; 672 scenarios; source/resource/prompt/external-contract)
+[17/40] python3 tools/tc4_116417_tallow_candle_full_closure_guard.py
+TC4 v11.64.17 Tallow Candle full-closure guard: PASS (218 GameTests; 672 scenarios; 16 colours/geometry/UV/resources/recipes/research/aspects/prompt)
+[18/40] python3 tools/tc4_116416_hungry_chest_full_closure_guard.py
+TC4 v11.64.16 Hungry Chest full-closure guard: PASS (218 GameTests; 672 scenarios; collision/insertion/lid/drops/NBT/model/recipe/research/prompt)
+[19/40] python3 tools/tc4_116415_brain_jar_full_closure_guard.py
+TC4 v11.64.15 Brain Jar full-closure guard: PASS (218 GameTests; 672 scenarios; XP/NBT/model/brine/particle/item-warp/recipe/research/prompt)
+[20/40] python3 tools/tc4_116414_bath_salts_full_closure_guard.py
+TC4 v11.64.14 Bath Salts full-closure guard: PASS (218 GameTests; 672 scenarios; item/fluid/ward/particle/bucket/recipe/research/spa)
+[21/40] python3 tools/tc4_116413_unnatural_hunger_full_closure_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (218 GameTests; 672 scenarios; exact runtime + food + icon + post chain)
+[22/40] python3 tools/tc4_116412_unnatural_hunger_food_guard.py
+TC4 v11.64.13 Unnatural Hunger full-closure guard: PASS (218 GameTests; 672 scenarios; exact runtime + food + icon + post chain)
+TC4 v11.64.12 Unnatural Hunger food guard: PASS (forward-compatible via v11.64.13 full closure)
+[23/40] python3 tools/tc4_116411_sun_scorned_brightness_guard.py
+TC4 v11.64.11 Sun Scorned brightness guard: PASS (218 GameTests; 672 scenarios; brightness table + exact strict thresholds/rolls)
+[24/40] python3 tools/tc4_116410_death_gaze_cone_guard.py
+TC4 v11.64.10 Death Gaze cone guard: PASS (218 GameTests; 672 scenarios; exact aperture/body midpoint/round cap/pickable gate)
+[25/40] python3 tools/tc4_116409_warp_research_pool_sync_guard.py
+TC4 v11.64.09 warp research pool sync guard: PASS (218 GameTests; 672 scenarios; exact primal roll + aggregate client pool sync)
+[26/40] python3 tools/tc4_116408_eldritch_milestone_grant_guard.py
+TC4 v11.64.08 eldritch milestone guard: PASS (218 GameTests; 672 scenarios; MINOR/MAJOR grant research 10/20 silently, no fabricated chat)
+[27/40] python3 tools/tc4_116407_warp_message_parity_guard.py
+TC4 v11.64.07 warp message guard: PASS (218 GameTests; 672 scenarios; warp.text.8 correctly placed on the BATHSALTS milestone, blurred-vision shows no line)
+[28/40] python3 tools/tc4_116405_warp_spawn_collision_guard.py
+TC4 v11.64.05+ warp spawn collision guard: PASS (218 GameTests; 672 scenarios; entity-aware collision/liquid admission production-linked)
+[29/40] python3 tools/tc4_116404_warp_spawn_offset_guard.py
+TC4 v11.64.04+ warp spawn guard: PASS (218 GameTests; 672 scenarios; original -1/0/+1 offsets production-linked)
+[30/40] python3 tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (cumulative GameTests/scenarios; spread curatives and cleansing source-linked)
+[31/40] python3 tools/tc4_116281_warp_eldritch_parity_guard.py
+Warp/Eldritch parity guard: 50/50
+STATIC SOURCE/NETWORK CONTRACT PASS; runtime remains NOT TESTED
+[32/40] python3 tools/warp_runtime_selftest.py
+Warp runtime pure-Java self-test: PASS (spread downgrade, curative contract, soap chance/consumption, ward duration, original tri-state (-1/0/+1) offsets, entity-aware collision/liquid admission, BATHSALTS milestone message key, Unnatural Hunger 600-tick/one-amplifier food reduction, Sun Scorned brightness-table thresholds/rolls, and exact Death Gaze aperture/round-cap geometry)
+[33/40] python3 tools/java_parse_guard_116426.py
+Targeted Java parse guard v11.64.26: PASS (Java 17 self-test + 16 Forge parse checks)
+[34/40] python3 tools/java_parse_guard_116425.py
+Targeted Java parse guard v11.64.25: PASS (Java 17 self-test + 16 Forge parse checks)
+[35/40] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+[36/40] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2054 files)
+[37/40] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.26 --template
+runtime manifest: PASS (672 tests; template=True)
+[38/40] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[39/40] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 54 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[40/40] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (218 GameTests; 672 manifest scenarios; source-linked contracts retained)
+FOCUSED STATIC CI v11.64.26: PASS (40/40)

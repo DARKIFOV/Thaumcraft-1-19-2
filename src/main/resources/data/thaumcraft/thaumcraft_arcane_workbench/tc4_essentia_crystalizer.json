@@ -8,8 +8,8 @@
     "thaumcraft:essentia_tube",
     "minecraft:dispenser",
     "thaumcraft:balanced_shard",
-    "minecraft:iron_ingot",
-    "minecraft:oak_planks",
+    "#forge:ingots/iron",
+    "#minecraft:planks",
     "thaumcraft:tc4_block_alchemical_construct"
   ],
   "aspects": {
@@ -23,16 +23,17 @@
     "WTW"
   ],
   "key": {
-    "I": "minecraft:iron_ingot",
+    "I": "#forge:ingots/iron",
     "D": "minecraft:dispenser",
     "Q": "thaumcraft:balanced_shard",
     "C": "thaumcraft:tc4_block_alchemical_construct",
-    "W": "minecraft:oak_planks",
+    "W": "#minecraft:planks",
     "T": "thaumcraft:essentia_tube"
   },
   "result": {
     "item": "thaumcraft:essentia_crystalizer",
     "count": 1
   },
-  "v11_62_60_strict_original": true
+  "v11_62_60_strict_original": true,
+  "v11_63_49_exact_source": true
 }

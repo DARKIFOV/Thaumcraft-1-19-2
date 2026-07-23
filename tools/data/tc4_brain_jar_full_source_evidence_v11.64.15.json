@@ -1,0 +1,38 @@
+{
+  "round": "11.64.15",
+  "object": "Brain in a Jar / Мозг в банке",
+  "original": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_sources": [
+    "thaumcraft/common/tiles/TileJarBrain.java",
+    "thaumcraft/common/blocks/BlockJar.java",
+    "thaumcraft/client/renderers/tile/TileJarRenderer.java",
+    "thaumcraft/client/renderers/models/ModelBrain.java",
+    "thaumcraft/client/renderers/models/ModelJar.java",
+    "thaumcraft/common/config/ConfigBlocks.java",
+    "thaumcraft/common/config/ConfigItems.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java"
+  ],
+  "production_paths": [
+    "TC4BrainJarParity",
+    "BrainJarBlockEntity server/client tick, NBT, release and comparator",
+    "BrainJarBlock interaction, collision, particle, sound and enchant bonus",
+    "BrainJarBlockItem item renderer and item-warp tooltip",
+    "TC4WarpingGearAdapter item warp",
+    "BrainJarRenderer / BrainJarItemRenderer",
+    "TC4BrainJarModel / TC4BrainJarBrineModel",
+    "TC4BrainJarFullParticle",
+    "ThaumcraftMod block/item/particle registrations",
+    "TC4RecipeRuntimeBridge / tc4_jarbrain.json",
+    "TC4ResearchRuntimeBridge / research metadata"
+  ],
+  "closure_notes": [
+    "XP may exceed 2000 during the absorption tick and is clamped only at the next tick start, matching TileJarBrain.",
+    "EatDelay is transient and is no longer serialized; legacy port EatDelay tags are ignored on load.",
+    "The universal full-closure prompt is mandatory in the root of this and every future full source archive."
+  ]
+}

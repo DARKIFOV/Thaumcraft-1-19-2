@@ -1,0 +1,13 @@
+TC4 v11.63.56 BUILD STATUS
+STATUS=FAIL_NOT_OBTAINED
+JAR_CREATED=NO
+GAMETESTS_REQUIRED=36
+GAMETESTS_EXECUTED=0
+GAMETESTS_STATUS=NOT_TESTED
+JAVA_DETECTED=OpenJDK 21.0.10
+JAVA_TARGET=17
+GRADLE_COMMAND=./gradlew clean build --no-daemon
+GRADLE_RC=1
+FAILURE_STAGE=Gradle Wrapper distribution download, before project configuration
+FAILURE=java.net.UnknownHostException: services.gradle.org
+STATIC_CI=121/121 PASS

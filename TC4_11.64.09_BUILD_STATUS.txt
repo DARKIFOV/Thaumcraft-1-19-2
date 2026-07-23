@@ -1,0 +1,24 @@
+THAUMCRAFT LEGACY REBUILD v11.64.09 — BUILD STATUS
+
+Target: Minecraft 1.19.2 / Forge 43.5.2 / JDK 17
+Result: FAIL / NOT OBTAINED
+JAR: NOT CREATED
+JAR SHA-256: N/A
+
+Attempted command:
+  ./gradlew build --no-daemon --stacktrace
+
+Observed environment:
+  java 21.0.10
+  javac 21.0.10
+
+Blocking error:
+  Gradle Wrapper attempted to download gradle-7.5.1-bin.zip and failed with
+  java.net.UnknownHostException: services.gradle.org
+
+Additional evidence:
+  - Focused static CI v11.64.09: 13/13 PASS.
+  - Exact TC4WarpResearchGrant.java: javac --release 17 targeted compile PASS.
+  - Deterministic helper self-test: PASS.
+
+These checks do not replace a full Forge Gradle build or runtime GameTest server.

@@ -9,6 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -28,7 +30,7 @@ import java.util.TreeMap;
  * for REMOVE and 1.0 for focus changes.
  */
 public final class WandManagerRuntime {
-    public static final String REMOVE = "REMOVE";
+    public static final String REMOVE = TC4WandFocusContract.REMOVE_SENTINEL;
 
     private WandManagerRuntime() {}
 
@@ -39,6 +41,31 @@ public final class WandManagerRuntime {
         }
         WandFocusType type = WandFocusRuntime.getFocus(wandStack);
         return type == null ? "" : FocusPouchItem.sortingHelper(WandFocusRuntime.focusStack(type));
+    }
+
+    /**
+     * Client-safe snapshot used by the original-style radial HUD. Ordering and
+     * duplicate-key replacement are taken from the same TreeMap as changeFocus.
+     */
+    public static List<AvailableFocus> availableFoci(Player player) {
+        TreeMap<String, FocusLocation> locations = collectAvailableFoci(player);
+        List<AvailableFocus> result = new ArrayList<>(locations.size());
+        for (Map.Entry<String, FocusLocation> entry : locations.entrySet()) {
+            ItemStack stack = entry.getValue().peek(player);
+            if (!stack.isEmpty() && stack.getItem() instanceof WandFocusItem) {
+                stack = stack.copy();
+                stack.setCount(1);
+                result.add(new AvailableFocus(entry.getKey(), stack));
+            }
+        }
+        return List.copyOf(result);
+    }
+
+    public record AvailableFocus(String sortKey, ItemStack stack) {
+        public AvailableFocus {
+            stack = stack.copy();
+            stack.setCount(1);
+        }
     }
 
     public static boolean changeFocus(ItemStack wandStack, Level level, Player player, String requestedFocus) {
@@ -182,6 +209,19 @@ public final class WandManagerRuntime {
             return new FocusLocation(offhand, inventorySlot, pouchSlot, false);
         }
 
+        ItemStack peek(Player player) {
+            if (directInventory) {
+                ItemStack source = player.getInventory().getItem(inventorySlot);
+                return source.isEmpty() ? ItemStack.EMPTY : source.copy();
+            }
+            ItemStack pouch = offhandPouch ? player.getOffhandItem() : player.getInventory().getItem(inventorySlot);
+            ItemStack[] inventory = FocusPouchItem.getInventory(pouch);
+            if (pouchSlot < 0 || pouchSlot >= inventory.length || inventory[pouchSlot] == null) {
+                return ItemStack.EMPTY;
+            }
+            return inventory[pouchSlot].copy();
+        }
+
         ItemStack take(Player player) {
             if (directInventory) {
                 ItemStack source = player.getInventory().getItem(inventorySlot);
@@ -217,7 +257,7 @@ public final class WandManagerRuntime {
     }
 
     private static void playCameraTicks(Level level, Player player, float pitch) {
-        level.playSound(null, player.blockPosition(), TC4Sounds.event("cameraticks"), SoundSource.PLAYERS, 0.3F, pitch);
+        level.playSound(null, player.blockPosition(), TC4Sounds.event("cameraticks"), SoundSource.PLAYERS, TC4WandFocusContract.CAMERA_TICKS_VOLUME, pitch);
     }
 
 }

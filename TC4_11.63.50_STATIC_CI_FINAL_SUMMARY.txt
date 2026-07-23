@@ -1,0 +1,9 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.50
+Canonical static CI: 114/114 PASS
+Non-zero return codes: 0
+JSON resource validation: 2111/2111 PASS
+Original TC4 recipe ledger: 258/258 exact runtime paths
+Runtime manifest: 346 scenarios
+Required server-only Forge GameTests: 18
+Generic registry fallback: 0
+Runtime/GameTests: NOT_TESTED

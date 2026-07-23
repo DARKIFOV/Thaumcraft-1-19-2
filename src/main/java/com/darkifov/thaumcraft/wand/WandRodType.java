@@ -28,6 +28,13 @@ public enum WandRodType {
     PRIMAL_STAFF("primal_staff", "wand_rod_primal", 250, 32, "ROD_primal_staff", true, true),
     CREATIVE("creative", "rod_creative_infinity", Integer.MAX_VALUE / 8, 0, "CREATIVE_ONLY", true, false);
 
+    /** Original WandRodPrimalOnUpdate cadence and threshold constants. */
+    public static final int ELEMENTAL_REGEN_INTERVAL_TICKS = 200;
+    public static final int PRIMAL_STAFF_REGEN_INTERVAL_TICKS = 50;
+    public static final int REGEN_THRESHOLD_DIVISOR = 10;
+    /** Original WandRodPrimalOnUpdate passes 1 to ItemWandCasting#addVis: one displayed vis = 100 centivis. */
+    public static final int REGEN_AMOUNT_VIS = 1;
+
     private final String id;
     private final String rendererTexture;
     private final int baseCapacity;

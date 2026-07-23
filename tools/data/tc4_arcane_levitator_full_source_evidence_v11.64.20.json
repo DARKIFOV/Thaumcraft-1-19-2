@@ -1,0 +1,52 @@
+{
+  "round": "11.64.20",
+  "object": "Arcane Levitator / BlockLifter / TileLifter",
+  "baseline": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_sources": [
+    "thaumcraft/common/tiles/TileLifter.java",
+    "thaumcraft/common/blocks/BlockLifter.java",
+    "thaumcraft/client/renderers/block/BlockLifterRenderer.java",
+    "thaumcraft/client/fx/particles/FXSparkle.java",
+    "thaumcraft/client/ClientProxy.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java",
+    "thaumcraft/common/blocks/BlockCustomOreItem.java"
+  ],
+  "exact_contracts": {
+    "range": "10 + 10 per contiguous lower lifter whose own position is not indirectly powered; stop at first opaque cube",
+    "refresh": "requiresUpdate or counter % 100 == 0",
+    "power": "indirect power at the lifter or the block immediately above",
+    "entity_filter": "EntityItem OR canBePushed OR EntityHorse",
+    "motion": "sneak negative Y *= 0.8999999761581421; otherwise Y < 0.3499999940395355 adds 0.10000000149011612",
+    "nbt": "counter, rangeAbove, requiresUpdate and lastPowerState are transient",
+    "support": "horizontal faces only",
+    "redstone_connections": "legacy sides 2..5 only",
+    "world_glow": "top 0x00A000, sides 0xDD11FF; active legacy brightness 180",
+    "inventory_glow": "top volume 0.01..0.99 at Y 0.9..0.99 color 0x00A000; side volume Y 0.1..0.9 color 0xEECCFF",
+    "particle": "FXSparkle size 1, type 3, multiplier 6, gravity -0.3, lifetime 18, alpha 0.75, fullbright, slowdown 0.908",
+    "recipe": "WEW / BNB / WAW; Greatwood, Terra shard, iron, Nitor, Aer shard; Aer 10 Terra 5",
+    "research": "LEVITATOR, ARTIFICE -3,-3, complexity 1, Motus 3 Volatus 3 Aer 3, parent NITOR, concealed",
+    "particle_density": "ClientProxy gate nextInt(6) < particleCount(2): ALL 4/6, DECREASED 2/6, MINIMAL 0/6; green RNG is consumed after the gate"
+  },
+  "modern_adaptations": [
+    "The original global client Shift query is represented by synchronized per-entity isShiftKeyDown so dedicated-server movement remains authoritative.",
+    "Legacy lightmap brightness 180 is represented as Forge model block_light 11 (180 >> 4) on active glow elements.",
+    "Legacy isOpaqueCube is represented by BlockState.isSolidRender.",
+    "A POWERED blockstate property exists only to synchronize the original live-powered glow brightness to modern baked models."
+  ],
+  "production_files": [
+    "src/main/java/com/darkifov/thaumcraft/block/TC4ArcaneLevitatorParity.java",
+    "src/main/java/com/darkifov/thaumcraft/block/ArcaneLevitatorBlock.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/ArcaneLevitatorBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/client/fx/TC4ArcaneLevitatorSparkleParticle.java",
+    "src/main/java/com/darkifov/thaumcraft/client/ClientModEvents.java",
+    "src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
+    "src/main/java/com/darkifov/thaumcraft/block/TC4ArcaneLevitatorEffectsBridge.java",
+    "src/main/java/com/darkifov/thaumcraft/client/fx/TC4ArcaneLevitatorClientEffects.java"
+  ],
+  "proof_boundary": "Source/resource/static closure is not a substitute for a successful Gradle build and actual client/dedicated-server/GameTest runtime evidence."
+}

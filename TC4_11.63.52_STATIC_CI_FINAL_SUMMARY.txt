@@ -1,0 +1,17 @@
+TC4 v11.63.52 STATIC CI FINAL SUMMARY
+=====================================
+Canonical checks: 117/117 PASS
+Non-zero return codes: 0
+JSON resources: 2048/2048 PASS
+Item models: 663
+Visible clone leaks: 0
+Resource problems: 0
+Unexpected registry problems: 0
+Exact duplicate item aliases removed: 63
+Original recipe ledger: 258/258
+Runtime manifest scenarios: 347
+Required server-only GameTests: 19
+Previous verified baseline: v11.63.51 Java 17, 18/18 PASS
+Current v11.63.52 GameTests: NOT_TESTED
+Current v11.63.52 JAR: NOT BUILT
+Gradle result: DNS failure before project configuration (services.gradle.org)

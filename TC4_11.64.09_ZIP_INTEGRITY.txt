@@ -1,0 +1,15 @@
+THAUMCRAFT LEGACY REBUILD v11.64.09 — PREPACKAGE INTEGRITY
+
+PASS: build.gradle version = 11.64.09
+PASS: mods.toml version = 11.64.09
+PASS: 142 unique GameTest methods
+PASS: 470 unique runtime-manifest IDs
+PASS: 2049 JSON resources validated
+PASS: 258/258 recipe registration denominator
+PASS: 803 Java source files
+PASS: no build/, .gradle/, __pycache__/, *.pyc or *.class artifacts
+PASS: focused static CI 13/13
+PASS: exact production helper javac --release 17 self-test
+
+Full Gradle/JAR/runtime status remains NOT VERIFIED.
+Post-package archive verification and SHA-256 are stored next to the ZIP.

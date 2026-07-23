@@ -20,7 +20,7 @@
     "C": "thaumcraft:terra_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_golem_upgrade_earth",
+    "item": "thaumcraft:golem_upgrade_earth",
     "count": 1
   },
   "v11_62_22_strict_original": true

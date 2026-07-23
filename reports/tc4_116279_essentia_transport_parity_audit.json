@@ -1,8 +1,11 @@
 {
-  "version": "11.62.96",
+  "version": "11.63.10",
   "scope": "TC4 essentia reservoir, buffer suction arbitration and centrifuge input queue source contracts",
   "checks_total": 44,
-  "checks_passed": 44,
-  "failed": [],
+  "checks_passed": 42,
+  "failed": [
+    "reservoir five-tick active pull",
+    "runtime manifest version 11.63.10"
+  ],
   "runtime_verified": false
 }

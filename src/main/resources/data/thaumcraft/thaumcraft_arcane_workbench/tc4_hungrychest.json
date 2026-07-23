@@ -25,5 +25,6 @@
     "item": "thaumcraft:hungry_chest",
     "count": 1
   },
-  "v11_62_64_strict_original": true
+  "v11_62_64_strict_original": true,
+  "v11_63_50_exact_source": true
 }

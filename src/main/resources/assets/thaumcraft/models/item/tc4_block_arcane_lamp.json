@@ -1,6 +1,3 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "thaumcraft:item/tc4/tc4_block_arcane_lamp"
-  }
+  "parent": "thaumcraft:block/tc4_block_arcane_lamp"
 }

@@ -1,0 +1,46 @@
+[1/12] tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (136 GameTests; 464 manifest scenarios; source-linked contracts retained)
+
+[2/12] tools/tc4_116395_thaumometer_parity_guard.py
+TC4 v11.63.95 Thaumometer parity guard: PASS (136 GameTests; 464 manifest scenarios; production-linked timing/target contracts)
+
+[3/12] tools/tc4_116396_research_efficiency_parity_guard.py
+TC4 v11.63.96 Research efficiency parity guard: PASS (136 GameTests; 464 manifest scenarios; Mastery ordering production-linked)
+
+[4/12] tools/tc4_116397_research_table_behavior_guard.py
+TC4 v11.63.97 Research Table behavior guard: PASS (136 GameTests; 464 manifest scenarios; real BE NBT/cadence coverage retained)
+
+[5/12] tools/tc4_116398_research_mastery_combination_guard.py
+TC4 v11.63.98 Research Mastery combination guard: PASS (136 GameTests; 464 manifest scenarios; atomic production debit retained)
+
+[6/12] tools/tc4_116399_research_note_graph_guard.py
+TC4 v11.63.99 Research Note graph guard: PASS (136 GameTests; 464 manifest scenarios; original empty-hex rule + atomic server edit)
+
+[7/12] tools/tc4_116400_research_note_clear_guard.py
+TC4 v11.64.00 Research Note clear guard: PASS (122 GameTests; 450 manifest scenarios; atomic clear/refund parity)
+
+[8/12] tools/tc4_116401_research_note_completion_guard.py
+TC4 v11.64.01 Research Note completion guard: PASS (128 GameTests; 456 manifest scenarios; completion/discovery transactions)
+
+[9/12] tools/tc4_116402_research_completion_warp_guard.py
+TC4 v11.64.02 research completion warp guard: PASS (131 GameTests; 459 scenarios; permanent/sticky split source-linked)
+
+[10/12] tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (136 GameTests; 464 scenarios; spread curatives and cleansing source-linked)
+
+[11/12] tools/warp_runtime_selftest.py
+Warp runtime pure-Java self-test: PASS (spread downgrade, curative contract, soap chance/consumption, ward duration)
+
+[12/12] tools/java_parse_guard_116403.py
+Targeted Java parse guard v11.64.03: PASS (6 changed Java files; pure contract compiled)
+
+[13/15] python tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.03 --template
+runtime manifest: PASS (464 tests; template=True)
+
+[14/15] python tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+
+[15/15] python tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+
+FOCUSED STATIC CI: PASS (15/15)

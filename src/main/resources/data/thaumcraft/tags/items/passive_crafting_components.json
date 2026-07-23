@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_coin",
+    "thaumcraft:tc4_dust",
+    "thaumcraft:tc4_filter",
+    "thaumcraft:tc4_mirrorglass",
+    "thaumcraft:tc4_voidseed",
+    "thaumcraft:tc4_golem_upgrade_empty"
+  ]
+}

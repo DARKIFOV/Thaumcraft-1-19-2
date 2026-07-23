@@ -6,12 +6,12 @@
   "catalyst": "thaumcraft:tc4_bauble_amulet",
   "components": [
     "thaumcraft:tc4_charm",
-    "thaumcraft:tc4_amber",
+    "thaumcraft:amber",
     "thaumcraft:tc4_cloth",
-    "thaumcraft:tc4_nitor",
-    "thaumcraft:tc4_nitor",
-    "thaumcraft:tc4_nitor",
-    "thaumcraft:tc4_inkwell"
+    "thaumcraft:nitor",
+    "thaumcraft:nitor",
+    "thaumcraft:nitor",
+    "thaumcraft:scribing_tools"
   ],
   "aspects": {
     "TUTAMEN": 30,

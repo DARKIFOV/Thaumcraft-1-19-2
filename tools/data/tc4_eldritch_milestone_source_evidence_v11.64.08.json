@@ -1,0 +1,17 @@
+{
+  "round": "11.64.08",
+  "subject": "eldritch_milestone_grant_research",
+  "confirmed_contract": [
+    "ELDRITCHMINOR:grantResearch(10)",
+    "ELDRITCHMAJOR:grantResearch(20)"
+  ],
+  "runtime_status": "NOT_VERIFIED",
+  "original_source": "thaumcraft/common/lib/WarpEvents.java checkWarpEvent (lines 295-310) + grantResearch (lines 334-345)",
+  "original_behavior": {
+    "ELDRITCHMINOR": "if actualwarp>25 and not complete: grantResearch(player,10); complete ELDRITCHMINOR. No chat line.",
+    "ELDRITCHMAJOR": "if actualwarp>50 and not complete: grantResearch(player,20); complete ELDRITCHMAJOR. No chat line.",
+    "grantResearch": "amt = 1 + rand.nextInt(times); for a in amt: pick random primal of 6; addAspectPool(+1)."
+  },
+  "port_change": "Removed fabricated milestone chat literals ('Something alien becomes visible...', 'The Eldritch tab opens fully.'); MINOR/MAJOR now unlock with null message and call grantResearch(ELDRITCH_MINOR_RESEARCH_GRANTS=10 / ELDRITCH_MAJOR_RESEARCH_GRANTS=20) on first unlock, mirroring WarpEvents.grantResearch (PlayerAspectKnowledge.addPool).",
+  "note": "Static parity only; no javac, no Gradle, no GameTest server run in sandbox."
+}

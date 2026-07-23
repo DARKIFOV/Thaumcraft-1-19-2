@@ -1,0 +1,11 @@
+[41/61] python3 tools/tc4_116418_arcane_bellows_full_closure_guard.py
+TC4 v11.64.18 Arcane Bellows full-closure guard: PASS (281 GameTests; 835 scenarios; source/resource/prompt/external-contract)
+[58/61] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.37 --template
+runtime manifest: PASS (835 tests; template=True)
+[59/61] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[60/61] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 54+ top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[61/61] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (281 GameTests; 835 manifest scenarios; source-linked contracts retained)

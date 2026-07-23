@@ -1,0 +1,1 @@
+Targeted Java parse guard v11.64.18: PASS (pure Java self-test + 9 Forge parse checks)

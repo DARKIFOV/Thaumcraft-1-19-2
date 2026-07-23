@@ -1,0 +1,23 @@
+TC4 v11.63.52 BUILD STATUS
+===========================
+Current source version: 11.63.52
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+
+Previous verified baseline:
+- v11.63.51 built successfully with Java 17.
+- runGameTestServer: 18/18 required GameTests PASS.
+
+Current environment:
+- OpenJDK 21.0.10.
+- Gradle Wrapper attempted to download Gradle 7.5.1.
+- Failure: java.net.UnknownHostException: services.gradle.org
+- Failure occurred before project configuration/compile.
+
+Current version verdict:
+- compileJava/build: NOT OBTAINED
+- required GameTests: 19
+- v11.63.52 GameTests: NOT_TESTED
+- release JAR: NOT CREATED
+- static CI: 117/117 PASS
+
+Do not treat the v11.63.51 18/18 result as v11.63.52 runtime evidence because registry mappings changed and a new migration GameTest was added.

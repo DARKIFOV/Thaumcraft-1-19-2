@@ -1,0 +1,14 @@
+THAUMCRAFT LEGACY REBUILD v11.64.11 — STATIC CI SUMMARY
+
+Result: PASS (17/17 checks, split execution)
+GameTest methods: 144 unique
+Runtime manifest scenarios: 472 unique
+JSON resources: 2049 valid
+Original recipe registrations: 258/258 statically mapped
+Smelting bonuses: 18 separate
+Java source files: 803
+Targeted pure helper compile: javac --release 17 PASS
+Cumulative warp pure-Java self-test: PASS
+Full Java syntax guard: PASS
+
+Important: this is static/source evidence only. Full Forge Gradle build, JAR and GameTest runtime remain NOT VERIFIED.

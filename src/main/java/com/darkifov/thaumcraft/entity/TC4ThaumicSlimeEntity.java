@@ -36,7 +36,7 @@ import java.util.Comparator;
  * merge cap 100, ranged size-1 spit, sqrt(size) death split, NBT Size,
  * and the 1-in-3 small-slime Tainted Goo drop.
  */
-public class TC4ThaumicSlimeEntity extends Slime {
+public class TC4ThaumicSlimeEntity extends Slime implements TaintedMob {
     private static final int MAX_TC4_SIZE = 100;
     private int spitCounter = 100;
     private int launchedTicks = 10;

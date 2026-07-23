@@ -1,0 +1,5 @@
+TC4 v11.64.30 JAVA STATUS
+
+Java 17 dependency-free parity self-test: PASS
+Targeted syntax parse: 8/8 Forge source files PASS
+Full Forge compile: NOT VERIFIED (Gradle distribution unavailable)

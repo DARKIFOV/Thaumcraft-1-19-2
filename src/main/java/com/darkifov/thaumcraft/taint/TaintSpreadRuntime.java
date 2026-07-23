@@ -4,22 +4,33 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.TaintBlock;
 import com.darkifov.thaumcraft.block.TaintFibresBlock;
 import com.darkifov.thaumcraft.config.ThaumcraftConfig;
+import com.darkifov.thaumcraft.entity.FallingTaintEntity;
 import com.darkifov.thaumcraft.entity.TaintSporeEntity;
+import com.darkifov.thaumcraft.entity.TaintSporeSwarmerEntity;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 /** Forge 1.19.2 port of TC4 BlockTaint/BlockTaintFibres ecology. */
 public final class TaintSpreadRuntime {
+    /** Original BlockTaint random X/Z offset bound: nextInt(3) - 1. */
+    public static final int ORIGINAL_HORIZONTAL_OFFSET_BOUND = 3;
+    /** Original BlockTaint random Y offset bound/shift: nextInt(5) - 3. */
+    public static final int ORIGINAL_VERTICAL_OFFSET_BOUND = 5;
+    public static final int ORIGINAL_VERTICAL_OFFSET_SHIFT = 3;
+    /** Original Config.spawnTaintSpore gate: random.nextInt(ORIGINAL_SPORE_ROLL_BOUND) == 0. */
+    public static final int ORIGINAL_SPORE_ROLL_BOUND = 200;
     private TaintSpreadRuntime() {}
 
     public static void randomTick(ServerLevel level, BlockPos pos, RandomSource random) {
@@ -32,7 +43,9 @@ public final class TaintSpreadRuntime {
 
         if (variant == TaintBlock.Variant.CRUST && tryToFall(level, pos, random)) return;
 
-        BlockPos target = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+        BlockPos target = pos.offset(random.nextInt(ORIGINAL_HORIZONTAL_OFFSET_BOUND) - 1,
+                random.nextInt(ORIGINAL_VERTICAL_OFFSET_BOUND) - ORIGINAL_VERTICAL_OFFSET_SHIFT,
+                random.nextInt(ORIGINAL_HORIZONTAL_OFFSET_BOUND) - 1);
         if (isTaintedColumn(level, target)) {
             boolean fibresPlaced = spreadFibres(level, target, random, true);
             if (!fibresPlaced || variant == TaintBlock.Variant.CRUST) {
@@ -44,8 +57,19 @@ public final class TaintSpreadRuntime {
                     setTaint(level, target, ThaumcraftMod.TAINT_SOIL.get().defaultBlockState(), true);
                 } else if (variant == TaintBlock.Variant.CRUST) {
                     if (ThaumcraftConfig.SPAWN_TAINT_SPORES.get() && level.isEmptyBlock(pos.above())
-                            && random.nextInt(200) == 0) {
-                        // TC4 spawned a flying Spore Swarmer here. Keep the crust until that entity is ported.
+                            && random.nextInt(ORIGINAL_SPORE_ROLL_BOUND) == 0) {
+                        AABB search = new AABB(pos).inflate(16.0D);
+                        if (level.getEntitiesOfClass(TaintSporeSwarmerEntity.class, search).isEmpty()) {
+                            TaintSporeSwarmerEntity swarmer = ThaumcraftMod.TAINT_SWARMER.get().create(level);
+                            if (swarmer != null) {
+                                level.removeBlock(pos, false);
+                                swarmer.moveTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D,
+                                        random.nextFloat() * 360.0F, 0.0F);
+                                level.addFreshEntity(swarmer);
+                                level.playSound(null, pos, TC4Sounds.event("roots"), SoundSource.HOSTILE,
+                                        0.1F, 0.9F + random.nextFloat() * 0.2F);
+                            }
+                        }
                     } else if (isDenseCrust(level, pos)) {
                         level.setBlock(pos, ThaumcraftMod.FLUX_GOO.get().defaultBlockState(), 3);
                     }
@@ -66,7 +90,9 @@ public final class TaintSpreadRuntime {
             return;
         }
 
-        BlockPos target = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+        BlockPos target = pos.offset(random.nextInt(ORIGINAL_HORIZONTAL_OFFSET_BOUND) - 1,
+                random.nextInt(ORIGINAL_VERTICAL_OFFSET_BOUND) - ORIGINAL_VERTICAL_OFFSET_SHIFT,
+                random.nextInt(ORIGINAL_HORIZONTAL_OFFSET_BOUND) - 1);
         if (!isTaintedColumn(level, target) || spreadFibres(level, target, random, true)) return;
 
         int adjacent = getAdjacentTaint(level, target);
@@ -182,9 +208,9 @@ public final class TaintSpreadRuntime {
     }
 
     private static boolean tryToFall(ServerLevel level, BlockPos pos, RandomSource random) {
-        if (canFallBelow(level, pos.below())) {
-            FallingBlockEntity falling = FallingBlockEntity.fall(level, pos, level.getBlockState(pos));
-            falling.setHurtsEntities(2.0F, 40);
+        BlockState state = level.getBlockState(pos);
+        if (canTaintFallBelow(level, pos.below())) {
+            level.addFreshEntity(new FallingTaintEntity(level, pos, state, pos));
             return true;
         }
         if (!level.isEmptyBlock(pos.above())) return false;
@@ -194,24 +220,23 @@ public final class TaintSpreadRuntime {
                     || !level.getBlockState(pos.below(depth)).is(ThaumcraftMod.TAINT_CRUST.get())) return false;
         }
         BlockPos lateral = pos.relative(side);
-        if (canFallBelow(level, lateral.below())) {
-            BlockState state = level.getBlockState(pos);
-            level.removeBlock(pos, false);
-            level.setBlock(lateral, state, 3);
-            FallingBlockEntity falling = FallingBlockEntity.fall(level, lateral, state);
-            falling.setHurtsEntities(2.0F, 40);
+        if (canTaintFallBelow(level, lateral.below())) {
+            // TC4 starts the visual entity in the neighbouring column but leaves
+            // the source crust in place until EntityFallingTaint's first tick.
+            level.addFreshEntity(new FallingTaintEntity(level, lateral, state, pos));
             return true;
         }
         return false;
     }
 
-    private static boolean canFallBelow(LevelReader level, BlockPos pos) {
+    /** Shared source-level falling contract used by the custom falling-taint entity. */
+    public static boolean canTaintFallBelow(LevelReader level, BlockPos pos) {
         for (BlockPos check : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
             if (level.getBlockState(check).is(BlockTags.LOGS)) return false;
         }
         BlockState state = level.getBlockState(pos);
         return state.isAir() || state.getMaterial().isReplaceable() || state.is(ThaumcraftMod.TAINT_FIBRES.get())
-                || !state.getFluidState().isEmpty();
+                || state.getFluidState().is(FluidTags.WATER);
     }
 
     private static boolean isDenseCrust(LevelReader level, BlockPos pos) {

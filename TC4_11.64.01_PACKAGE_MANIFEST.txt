@@ -1,0 +1,46 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2
+Release: v11.64.01 — Research Note Completion Transaction Parity
+
+Changed production files:
+- build.gradle
+- src/main/resources/META-INF/mods.toml
+- src/main/java/com/darkifov/thaumcraft/research/TC4ResearchNoteCompletionParity.java (new)
+- src/main/java/com/darkifov/thaumcraft/research/ResearchTableInventoryRuntime.java
+- src/main/java/com/darkifov/thaumcraft/research/ResearchNoteSolver.java
+- src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java
+- src/main/java/com/darkifov/thaumcraft/network/RequestSolveResearchNotePacket.java
+- src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java
+- runtime_artifacts/runtime_test_manifest.template.json
+
+New/updated validation files:
+- tools/data/tc4_research_note_completion_source_evidence_v11.64.01.json
+- tools/tc4_116401_research_note_completion_guard.py
+- tools/research_note_completion_selftest.py
+- tools/java_parse_guard_116401.py
+- tools/run_focused_static_ci_116401.py
+- tools/tc4_116400_research_note_clear_guard.py (forward-compatible baseline counts)
+
+Documentation/evidence:
+- README.md
+- TC4_PORT_STATUS_V3.md
+- KNOWN_DEVIATIONS.md
+- TC4_11.64.01_RESEARCH_NOTE_COMPLETION_TRANSACTION_PARITY_PORT_REPORT_RU.md
+- TC4_11.64.01_FOCUSED_STATIC_CI_FINAL.log
+- TC4_11.64.01_RESEARCH_NOTE_COMPLETION_SELFTEST.log
+- TC4_11.64.01_TARGETED_JAVA_PARSE.log
+- TC4_11.64.01_GRADLE_COMPILE_ATTEMPT.log
+- TC4_11.64.01_GRADLE_COMPILE_EXIT_CODE.txt
+- TC4_11.64.01_PACKAGE_MANIFEST.txt
+
+Static evidence:
+- 128 unique GameTest methods
+- 456 unique runtime-manifest tests
+- 20/20 focused static checks PASS in split execution
+- 2049 JSON resources valid
+- 258/258 original recipe registrations statically mapped
+- 18 smelting-bonus registrations tracked separately
+
+Runtime boundary:
+- Java 17 build NOT OBTAINED
+- Forge GameTest runtime NOT VERIFIED
+- No release JAR produced

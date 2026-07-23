@@ -1,0 +1,12 @@
+ИСПРАВЛЕНИЕ v11.64.04
+
+Первая версия архива v11.64.04 ошибочно заменила включительный знак -1/0/+1 на nextBoolean(), из-за чего нулевые оси исчезли.
+
+В этом архиве ошибка устранена:
+- production снова использует Mth.nextInt(random, -1, 1);
+- helper сохраняет отрицательный, нулевой и положительный исходы;
+- неправильный GameTest и manifest ID заменены;
+- guards, self-test, отчёты, START_HERE и future-chat prompt синхронизированы;
+- build.gradle находится в корне архива, лишней папки port/ нет.
+
+Runtime-граница не изменилась: Java 17 Gradle build, JAR и dedicated Forge GameTest run не подтверждены.

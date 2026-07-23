@@ -1,21 +1,26 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
-import net.minecraft.ChatFormatting;
+import com.darkifov.thaumcraft.infusion.TC4InfusionAltarFullClosureParity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.Containers;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import javax.annotation.Nullable;
 
+/** Original TC4 one-slot arcane pedestal interaction and comparator behaviour. */
 public class ArcanePedestalBlock extends BaseEntityBlock {
     public ArcanePedestalBlock(Properties properties) {
         super(properties);
@@ -32,63 +37,74 @@ public class ArcanePedestalBlock extends BaseEntityBlock {
     }
 
     @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (stack.hasCustomHoverName() && level.getBlockEntity(pos) instanceof ArcanePedestalBlockEntity pedestal) {
+            pedestal.setCustomName(stack.getHoverName().getString());
+        }
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
-        ItemStack held = player.getItemInHand(hand);
-
+        if (hand != InteractionHand.MAIN_HAND) {
+            return InteractionResult.PASS;
+        }
+        if (!(level.getBlockEntity(pos) instanceof ArcanePedestalBlockEntity pedestal)) {
+            return InteractionResult.PASS;
+        }
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
 
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-
-        if (!(blockEntity instanceof ArcanePedestalBlockEntity pedestal)) {
-            return InteractionResult.PASS;
-        }
-
-        if (held.isEmpty()) {
-            if (pedestal.isEmpty()) {
-                player.displayClientMessage(Component.literal("Arcane Pedestal is empty.").withStyle(ChatFormatting.GRAY), false);
-                return InteractionResult.CONSUME;
-            }
-
-            ItemStack taken = pedestal.takeStored();
-
-            if (!player.getInventory().add(taken)) {
-                Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 1.1D, pos.getZ() + 0.5D, taken);
-            }
-
-            player.displayClientMessage(Component.literal("Removed ").append(taken.getHoverName()).append(Component.literal(" from pedestal.")), false);
-            return InteractionResult.CONSUME;
-        }
-
         if (!pedestal.isEmpty()) {
-            player.displayClientMessage(Component.literal("Arcane Pedestal already contains ").append(pedestal.stored().getHoverName()), false);
+            ItemStack removed = pedestal.takeStored();
+            ItemEntity item = new ItemEntity(level, player.getX(), player.getY() + player.getEyeHeight() * 0.5D,
+                    player.getZ(), removed);
+            level.addFreshEntity(item);
+            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.2F,
+                    ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 1.5F);
+            level.updateNeighbourForOutputSignal(pos, this);
             return InteractionResult.CONSUME;
+        }
+
+        ItemStack held = player.getMainHandItem();
+        if (held.isEmpty()) {
+            return InteractionResult.PASS;
         }
 
         ItemStack one = held.copy();
         one.setCount(1);
         pedestal.setStored(one);
-
-        if (!player.getAbilities().instabuild) {
-            held.shrink(1);
-        }
-
-        player.displayClientMessage(Component.literal("Placed ").append(one.getHoverName()).append(Component.literal(" on pedestal.")), false);
+        // TC4 decrements the held stack unconditionally; creative mode is not a special path here.
+        held.shrink(1);
+        level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.2F,
+                ((level.random.nextFloat() - level.random.nextFloat()) * 0.7F + 1.0F) * 1.6F);
+        level.updateNeighbourForOutputSignal(pos, this);
         return InteractionResult.CONSUME;
     }
 
     @Override
     public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean moving) {
-        if (oldState.getBlock() != newState.getBlock()) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-
-            if (blockEntity instanceof ArcanePedestalBlockEntity pedestal && !pedestal.stored().isEmpty()) {
-                Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 1.1D, pos.getZ() + 0.5D, pedestal.stored().copy());
-            }
+        if (oldState.getBlock() != newState.getBlock()
+                && level.getBlockEntity(pos) instanceof ArcanePedestalBlockEntity pedestal
+                && !pedestal.stored().isEmpty()) {
+            ItemStack dropped = pedestal.takeStored();
+            Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 1.1D, pos.getZ() + 0.5D, dropped);
+            level.updateNeighbourForOutputSignal(pos, this);
         }
-
         super.onRemove(oldState, level, pos, newState, moving);
+    }
+
+    @Override
+    public boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof ArcanePedestalBlockEntity pedestal
+                ? TC4InfusionAltarFullClosureParity.pedestalComparator(!pedestal.isEmpty())
+                : TC4InfusionAltarFullClosureParity.PEDESTAL_COMPARATOR_EMPTY;
     }
 }

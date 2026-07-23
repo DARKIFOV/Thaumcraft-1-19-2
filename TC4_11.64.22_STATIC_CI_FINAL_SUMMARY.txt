@@ -1,0 +1,12 @@
+TC4 v11.64.22 Arcane Lamp
+Focused static CI: PASS 32/32 (split execution after grouped command execution-window timeout)
+GameTest inventory: 190 unique methods (source only; not run in Forge)
+Runtime manifest: 606 unique NOT_TESTED scenarios
+JSON: 2054/2054 PASS
+Original recipe denominator: 258/258 STATICALLY MAPPED
+Java 17 dependency-free self-test: PASS
+Targeted Forge parse: PASS
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO

@@ -1,0 +1,15 @@
+{
+  "version": "11.64.02",
+  "original_sources": {
+    "research_manager": "thaumcraft/common/lib/research/ResearchManager.java:611-627"
+  },
+  "claims": {
+    "zero_warp_noop": true,
+    "one_warp_all_permanent": true,
+    "warp_above_one_split_floor_half_sticky": true,
+    "remaining_half_permanent": true,
+    "temporary_warp_not_used": true,
+    "duplicate_completion_does_not_regrant": true
+  },
+  "runtime_status": "NOT_VERIFIED"
+}

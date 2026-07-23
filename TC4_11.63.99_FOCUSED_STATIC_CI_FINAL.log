@@ -1,0 +1,34 @@
+[1/16] python tools/tc4_116399_research_note_graph_guard.py
+TC4 v11.63.99 Research Note graph guard: PASS (116 GameTests; 444 manifest scenarios; original empty-hex rule + atomic server edit)
+[2/16] python tools/research_note_graph_selftest.py
+TC4 v11.63.99 Research Note graph self-test: PASS
+[3/16] python tools/tc4_116398_research_mastery_combination_guard.py
+TC4 v11.63.98 Research Mastery combination guard: PASS (116 GameTests; 444 manifest scenarios; atomic production debit retained)
+[4/16] python tools/research_mastery_combination_selftest.py
+TC4 v11.63.98 combination parity self-test: PASS
+[5/16] python tools/tc4_116397_research_table_behavior_guard.py
+TC4 v11.63.97 Research Table behavior guard: PASS (116 GameTests; 444 manifest scenarios; real BE NBT/cadence coverage retained)
+[6/16] python tools/tc4_116396_research_efficiency_parity_guard.py
+TC4 v11.63.96 Research efficiency parity guard: PASS (116 GameTests; 444 manifest scenarios; Mastery ordering production-linked)
+[7/16] python tools/tc4_116395_thaumometer_parity_guard.py
+TC4 v11.63.95 Thaumometer parity guard: PASS (116 GameTests; 444 manifest scenarios; production-linked timing/target contracts)
+[8/16] python tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (116 GameTests; 444 manifest scenarios; source-linked contracts retained)
+[9/16] python tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[10/16] python tools/tc4_116282_research_workflow_parity_guard.py
+TC4 11.63.10 research workflow parity guard: PASS (25/25 checks)
+[11/16] python tools/tc4_116335_research_utility_aliases_guard.py
+TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+[12/16] python tools/java_syntax_guard.py
+Java syntax guard: OK
+[13/16] python tools/java_parse_guard_116399.py
+Targeted Java parse guard: PASS (8 changed Java files; pure contract compiled)
+[14/16] python tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+[15/16] python tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.99 --template
+runtime manifest: PASS (444 tests; template=True)
+[16/16] python tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+FOCUSED STATIC CI v11.63.99: PASS (16/16)

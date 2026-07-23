@@ -1,0 +1,20 @@
+TC4 v11.64.32 BUILD STATUS
+
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+JAR CREATED: NO
+
+Actual command:
+./gradlew build --no-daemon --console=plain
+
+Result:
+- Gradle Wrapper attempted to download Gradle 7.5.1.
+- Download failed with java.net.UnknownHostException: services.gradle.org.
+- Process exit code: 1.
+- Active environment: OpenJDK 21.0.10.
+- Required project runtime/toolchain: JDK 17.
+
+Therefore Forge compilation, JAR creation, client, dedicated server, multiplayer and runtime GameTests are NOT VERIFIED.
+See TC4_11.64.32_GRADLE_BUILD_ATTEMPT.log for the exact output.

@@ -1,12 +1,12 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.taint.TaintSpreadRuntime;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -83,7 +83,7 @@ public class TaintFibresBlock extends Block {
         if (!level.isClientSide && entity instanceof LivingEntity living && !living.isInvertedHealAndHarm()) {
             int chance = living instanceof Player ? 1000 : 500;
             int duration = living instanceof Player ? 80 : 160;
-            if (level.random.nextInt(chance) == 0) living.addEffect(new MobEffectInstance(MobEffects.POISON, duration, 0, false, false));
+            if (level.random.nextInt(chance) == 0) living.addEffect(new MobEffectInstance(ThaumcraftMod.TAINT_POISON.get(), duration, 0, false, false));
         }
     }
 

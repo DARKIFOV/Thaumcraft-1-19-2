@@ -1,14 +1,22 @@
 package com.darkifov.thaumcraft.event;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.taint.TaintDeathConversionRuntime;
+import com.darkifov.thaumcraft.alchemy.LiquidDeathDropRuntime;
 import com.darkifov.thaumcraft.blockentity.CrucibleBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneEarBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcanePressurePlateBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneDoorBlockEntity;
 import com.darkifov.thaumcraft.block.ThaumometerItem;
-import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsLivePopulateAdapter;
 import com.darkifov.thaumcraft.network.RequestThaumometerScanPacket;
+import com.darkifov.thaumcraft.item.ElementalPickaxeItem;
+import com.darkifov.thaumcraft.item.ElementalPickaxeRuntime;
+import com.darkifov.thaumcraft.item.simple.TC4VisAmuletRuntime;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
+import com.darkifov.thaumcraft.porting.TC4LegacyWorldMigrationRuntime;
 import com.darkifov.thaumcraft.research.OriginalResearchProgression;
 import com.darkifov.thaumcraft.research.PlayerAspectKnowledge;
 import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
@@ -19,6 +27,7 @@ import com.darkifov.thaumcraft.ward.WardedBlockRuntime;
 import com.darkifov.thaumcraft.world.TC4WorldgenRuntime;
 import com.darkifov.thaumcraft.wand.EqualTradeSwapRuntime;
 import com.darkifov.thaumcraft.wand.WandFocusRuntime;
+import com.darkifov.thaumcraft.warp.TC4BathSaltsParity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,13 +40,17 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.ChunkEvent;
+import net.minecraftforge.event.level.NoteBlockEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -48,18 +61,40 @@ public final class CommonEvents {
 
 
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onNoteBlockPlay(NoteBlockEvent.Play event) {
+        if (event.isCanceled()) {
+            return;
+        }
+        if (event.getLevel() instanceof ServerLevel level) {
+            ArcaneEarBlockEntity.onNotePlayed(level, event.getPos(),
+                    event.getInstrument(), event.getVanillaNoteId());
+        }
+    }
+
     @SubscribeEvent
     public static void onBathSaltsExpire(ItemExpireEvent event) {
-        ItemEntity itemEntity = event.getEntity();
+        dissolveBathSalts(event.getEntity());
+    }
+
+    /**
+     * Production path shared with GameTest: TC4 only converted an exact vanilla
+     * water source at the expired item's floored coordinates. The item expiry
+     * itself remains uncancelled.
+     */
+    public static boolean dissolveBathSalts(ItemEntity itemEntity) {
         if (!itemEntity.getItem().is(ThaumcraftMod.BATH_SALTS.get()) || itemEntity.level.isClientSide) {
-            return;
+            return false;
         }
         BlockPos pos = itemEntity.blockPosition();
         var fluidState = itemEntity.level.getFluidState(pos);
-        if (!fluidState.isSource() || fluidState.getType() != net.minecraft.world.level.material.Fluids.WATER) {
-            return;
+        boolean exactVanillaWaterBlock = fluidState.getType() == net.minecraft.world.level.material.Fluids.WATER;
+        int legacyMetadata = fluidState.isSource() ? 0 : 1;
+        if (!TC4BathSaltsParity.convertsExpiredItem(exactVanillaWaterBlock, legacyMetadata)) {
+            return false;
         }
-        itemEntity.level.setBlockAndUpdate(pos, ThaumcraftMod.PURIFYING_FLUID_BLOCK.get().defaultBlockState());
+        return itemEntity.level.setBlockAndUpdate(pos,
+                ThaumcraftMod.PURIFYING_FLUID_BLOCK.get().defaultBlockState());
     }
 
     @SubscribeEvent
@@ -74,6 +109,7 @@ public final class CommonEvents {
             return;
         }
         TC4WorldgenRuntime.queueLoadedChunk(level, chunk);
+        TC4LegacyWorldMigrationRuntime.queueLoadedChunk(level, chunk);
     }
 
     @SubscribeEvent
@@ -81,11 +117,15 @@ public final class CommonEvents {
         if (event.phase != TickEvent.Phase.END || event.level.isClientSide || !(event.level instanceof ServerLevel level)) {
             return;
         }
+        ArcaneEarBlockEntity.clearNoteEvents(level);
         TC4WorldgenRuntime.drainDeferredChunkQueue(level);
+        TC4LegacyWorldMigrationRuntime.drainDeferredChunkQueue(level);
         EqualTradeSwapRuntime.tick(level);
+        ElementalPickaxeRuntime.tick(level);
 
         for (ServerPlayer player : level.players()) {
             TC4RunicShieldRuntime.tick(player);
+            TC4VisAmuletRuntime.tick(player);
             TC4OuterLandsLivePopulateAdapter.tickPlayerArea(level, player);
         }
 
@@ -94,7 +134,6 @@ public final class CommonEvents {
         }
 
         for (ServerPlayer player : level.players()) {
-            AuraVisRelayNetwork.tickPlayerRecharge(level, player);
             AABB scan = player.getBoundingBox().inflate(24.0D);
             for (ItemEntity itemEntity : level.getEntitiesOfClass(ItemEntity.class, scan, ItemEntity::isAlive)) {
                 tryFeedCrucible(level, itemEntity);
@@ -132,6 +171,17 @@ public final class CommonEvents {
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         TC4LegacyDuplicateItemMigrator.migrateJoinedEntity(event.getEntity());
         TC4ChampionModifierRuntime.maybeMakeSpawnChampion(event.getEntity());
+    }
+
+
+    @SubscribeEvent
+    public static void onTaintPoisonDeath(LivingDeathEvent event) {
+        TaintDeathConversionRuntime.handle(event);
+    }
+
+    @SubscribeEvent
+    public static void onLiquidDeathDrops(LivingDropsEvent event) {
+        LiquidDeathDropRuntime.handle(event);
     }
 
     @SubscribeEvent
@@ -211,6 +261,14 @@ public final class CommonEvents {
     }
 
     @SubscribeEvent
+    public static void onElementalPickRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        net.minecraft.world.item.ItemStack held = event.getEntity().getItemInHand(event.getHand());
+        if (held.getItem() instanceof ElementalPickaxeItem && !event.getEntity().isShiftKeyDown()) {
+            event.setUseBlock(Event.Result.DENY);
+        }
+    }
+
+    @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         if (!(event.getPlayer() instanceof ServerPlayer player) || !(event.getLevel() instanceof Level level)) {
             return;
@@ -218,7 +276,25 @@ public final class CommonEvents {
         if (!WardedBlockRuntime.isInternalWardMutation()
                 && WardedBlockRuntime.cancelIfProtected(level, event.getPos(), player)) {
             event.setCanceled(true);
+            return;
         }
+        if (level.getBlockEntity(event.getPos()) instanceof ArcaneDoorBlockEntity door
+                && !door.isOwner(player) && !player.getAbilities().instabuild) {
+            player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                    "message.thaumcraft.arcane_door.protected")
+                    .withStyle(net.minecraft.ChatFormatting.BLUE), true);
+            event.setCanceled(true);
+            return;
+        }
+        if (level.getBlockEntity(event.getPos()) instanceof ArcanePressurePlateBlockEntity plate
+                && !plate.isOwner(player) && !player.getAbilities().instabuild) {
+            player.displayClientMessage(net.minecraft.network.chat.Component.translatable(
+                    "message.thaumcraft.arcane_pressure_plate.protected")
+                    .withStyle(net.minecraft.ChatFormatting.BLUE), true);
+            event.setCanceled(true);
+            return;
+        }
+        ElementalPickaxeRuntime.onBlockBreak(event);
     }
 
     @SubscribeEvent
@@ -253,6 +329,7 @@ public final class CommonEvents {
             ThaumcraftNetwork.syncScanKnowledge(player);
         }
 
+        TC4LegacyDuplicateItemMigrator.migratePlayerInventory(event.getEntity());
         event.getOriginal().invalidateCaps();
     }
 

@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 /** Runtime port of TC4 TileMirrorEssentia's source-only remote drain. */
 public final class EssentiaMirrorBlockEntity extends AbstractMirrorBlockEntity {
     public static final int RANGE = 8;
+    public static final int TRANSFER_UNIT = 1;
     @Nullable
     private RemoteSource lastDrainSource;
 
@@ -45,14 +46,14 @@ public final class EssentiaMirrorBlockEntity extends AbstractMirrorBlockEntity {
 
     /** TC4 only accepted a one-point request from an essentia mirror. */
     public int takeRemoteEssentia(Aspect aspect, int amount) {
-        if (aspect == null || amount != 1) {
+        if (aspect == null || amount != TRANSFER_UNIT) {
             return 0;
         }
         RemoteSource source = findRemoteSource(aspect);
         if (source == null) {
             return 0;
         }
-        int removed = source.remove(1);
+        int removed = source.remove(TRANSFER_UNIT);
         if (removed > 0) {
             lastDrainSource = source;
         }

@@ -19,7 +19,7 @@
     "A": "minecraft:iron_chestplate"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecoarmor",
+    "item": "thaumcraft:golem_deco_armor",
     "count": 1
   },
   "v11_62_22_strict_original": true

@@ -4,6 +4,7 @@ import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import com.darkifov.thaumcraft.eldritch.TC4EldritchProgression;
 import com.darkifov.thaumcraft.entity.CrimsonCultistEntity;
+import com.darkifov.thaumcraft.item.TC4EldritchObjectItem;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -44,6 +45,7 @@ public class EldritchAltarBlock extends Block {
         }
 
         boolean validItem = held.is(ThaumcraftMod.ELDRITCH_EYE.get())
+                || TC4EldritchObjectItem.isVariant(held, TC4EldritchObjectItem.Variant.ELDRITCH_EYE)
                 || held.is(ThaumcraftMod.CRIMSON_KEY.get())
                 || held.is(ThaumcraftMod.AWAKENED_CRIMSON_KEY.get());
 

@@ -1,0 +1,19 @@
+Thaumcraft Legacy Rebuild v11.63.96
+Base: v11.63.95 Thaumometer parity
+Round: Research Expertise / Mastery production parity
+
+Production changes:
+- TC4ResearchEfficiencyParity.java added
+- ResearchNoteSolver free-placement ordering fixed
+- 10% / 25% / 50% thresholds source-linked
+- ResearchTable bonus threshold 600 and radius 8 source-linked
+
+Verification:
+- 104 unique @GameTest methods
+- 432 unique runtime manifest scenarios
+- focused static CI 10/10 PASS
+- pure-Java parity self-test PASS
+- 2049 JSON resources valid
+- recipe denominator 258/258 STATICALLY MAPPED
+- 18 smelting bonuses separate
+- Gradle compile NOT VERIFIED: no network; Java 21 instead of target Java 17

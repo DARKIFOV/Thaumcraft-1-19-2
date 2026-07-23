@@ -3,14 +3,17 @@
   "tc4_source": "addInfusionCraftingRecipe",
   "research": "MASKSIPPINGFIEND",
   "tc4_kind": "INFUSION_NBT_OUTPUT",
-  "catalyst": { "item": "thaumcraft:tc4_thaumiumfortresshelm", "damage_wildcard": true },
+  "catalyst": {
+    "item": "thaumcraft:tc4_thaumiumfortresshelm",
+    "damage_wildcard": true
+  },
   "components": [
     "minecraft:red_dye",
-    "minecraft:gold_ingot",
+    "minecraft:iron_ingot",
     "minecraft:leather",
     "minecraft:ghast_tear",
-    "minecraft:melon_slice",
-    "minecraft:gold_ingot"
+    "minecraft:milk_bucket",
+    "minecraft:iron_ingot"
   ],
   "aspects": {
     "EXANIMIS": 64,
@@ -25,5 +28,6 @@
     "output_nbt_type": "int",
     "output_nbt_value": 2
   },
-  "stage212_strict_original": "new Object[] { 'mask', new NBTTagInt(2) }"
+  "stage212_strict_original": "new Object[] { 'mask', new NBTTagInt(2) }",
+  "v11_63_49_exact_source": true
 }

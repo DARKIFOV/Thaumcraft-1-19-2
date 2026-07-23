@@ -1,0 +1,392 @@
+{
+  "version": "11.64.27",
+  "closure_target": "TC4 research system: Research Table, player aspect knowledge/pool, research notes, exact original research registry, creation/edit/solve/copy/learn/purchase and synchronization",
+  "original_baseline": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "build_blocker": "Gradle Wrapper cannot resolve services.gradle.org; active Java is 21.0.10 while project requires JDK 17",
+  "original_contracts": {
+    "research_entries": 201,
+    "primal_aspects_known_pool": 0,
+    "aspect_storage": "single discovery/pool AspectList equivalent",
+    "research_table_slots": {
+      "scribing_tools": 0,
+      "research_note": 1
+    },
+    "note_creation": "Thaumonomicon entry; existing note short-circuits; paper 1 + ink 1 even creative",
+    "note_grid": "exact ResearchItem tags; radius 1 + min(3, complexity)",
+    "table_edit": "ink and aspect/bonus debit even creative; server authoritative and silent",
+    "completion": "use solved discovery item; eligible siblings; tc.researcherror only on unmet prerequisites",
+    "duplicate": "RESEARCHDUPE; paper 1 + ink sac 1 + exact tags + copies; count may exceed item max stack",
+    "bonus_scan": {
+      "recalculate_after_counter_gt": 600,
+      "radius": 8
+    }
+  },
+  "migration": [
+    "ThaumcraftOriginalAspectWallet merges into ThaumcraftAspectKnowledge using max per primal to prevent duplication",
+    "legacy wallet root removed after one-time migration",
+    "existing research-note NBT remains readable through original hexgrid and rebuild mirror adapters"
+  ],
+  "production_files": [
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchSystemFullClosureParity.java",
+    "src/main/java/com/darkifov/thaumcraft/research/PlayerAspectKnowledge.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalAspectWallet.java",
+    "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteRequirements.java",
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchNoteCreator.java",
+    "src/main/java/com/darkifov/thaumcraft/research/OriginalResearchBridge.java",
+    "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchFlagPolicy.java",
+    "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteState.java",
+    "src/main/java/com/darkifov/thaumcraft/research/ResearchTableInventoryRuntime.java",
+    "src/main/java/com/darkifov/thaumcraft/research/ResearchNoteSolver.java",
+    "src/main/java/com/darkifov/thaumcraft/research/ResearchTableFoundation.java",
+    "src/main/java/com/darkifov/thaumcraft/block/ResearchNoteItem.java",
+    "src/main/java/com/darkifov/thaumcraft/blockentity/ResearchTableBlockEntity.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestSelectResearchPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestResearchTableActionPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestSolveResearchNotePacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestPlaceResearchNoteAspectPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestClearResearchNoteSlotPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/network/RequestCombineAspectsPacket.java",
+    "src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java",
+    "runtime_artifacts/runtime_test_manifest.template.json"
+  ],
+  "resources": [
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/_back.png",
+      "original": "assets/thaumcraft/textures/aspects/_back.png",
+      "sha256": "12db92cb8423cdb091a2325477271f8d3ebd3d53320d0af86b8fba7d0a140aba",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/_unknown.png",
+      "original": "assets/thaumcraft/textures/aspects/_unknown.png",
+      "sha256": "d2e2c5284f3eb607dc9734943f54785a150f9ff01566302a5f151338ccb2d155",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/aer.png",
+      "original": "assets/thaumcraft/textures/aspects/aer.png",
+      "sha256": "572e4b1bdc3ef4c525a7bc6f8cdedaa0ac0786841cfbbd7ba914dfc8945cb750",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/alienis.png",
+      "original": "assets/thaumcraft/textures/aspects/alienis.png",
+      "sha256": "7c10b65637a0d19cf16174006029a65b96265fe6655723a1fb55208cfdf6dd2c",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/aqua.png",
+      "original": "assets/thaumcraft/textures/aspects/aqua.png",
+      "sha256": "541b2fabbf7e259a4310c34af98dc216483fb9532fc090efc65d7a89259ab60e",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/arbor.png",
+      "original": "assets/thaumcraft/textures/aspects/arbor.png",
+      "sha256": "69cd10d403c41bf9946d3882ebcd2822a9cd0a912fd4c806729589f2ff674a43",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/auram.png",
+      "original": "assets/thaumcraft/textures/aspects/auram.png",
+      "sha256": "86bddcbf7b5ef9fb26cb73d1a0d989c914f18d60912144c3ff78e5dbd7b33930",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/bestia.png",
+      "original": "assets/thaumcraft/textures/aspects/bestia.png",
+      "sha256": "d23a6ffe75659bdcb8f514d63be3797050b63bf646a37f433f44f6b30aa4495c",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/cognitio.png",
+      "original": "assets/thaumcraft/textures/aspects/cognitio.png",
+      "sha256": "098ffccf1f9c7a9d587b37209879e8ee33b52299690aadfc220177e91dc6d3f4",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/corpus.png",
+      "original": "assets/thaumcraft/textures/aspects/corpus.png",
+      "sha256": "363f4fbba7d88cd360ce668e720a9a3d479952235c290d555780057695a5a9d5",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/exanimis.png",
+      "original": "assets/thaumcraft/textures/aspects/exanimis.png",
+      "sha256": "07b87ff10fca2dd083896cd06030439709d6816fae21cb2f1a162c9a7da95974",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/fabrico.png",
+      "original": "assets/thaumcraft/textures/aspects/fabrico.png",
+      "sha256": "6ab7bcc19e766a4c6924967effcdf86b39787cbf0b29fdf720ff27097cc39d03",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/fames.png",
+      "original": "assets/thaumcraft/textures/aspects/fames.png",
+      "sha256": "df9cf0beb0f4506c67c4bd5efd2aa73a886e76319fc1988094c6cf468acae54f",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/gelum.png",
+      "original": "assets/thaumcraft/textures/aspects/gelum.png",
+      "sha256": "3b25e7d5c0c940bf5854f30c5e5ab9da4993370d3b10ed46d21606c23f2af958",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/herba.png",
+      "original": "assets/thaumcraft/textures/aspects/herba.png",
+      "sha256": "ff431f768d780e2599015325c21081dc65fd4565ea68778b51a7553f0d5f69fd",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/humanus.png",
+      "original": "assets/thaumcraft/textures/aspects/humanus.png",
+      "sha256": "bf5669ee82b776d43e543aada91cc9106d4d07c55d508647cc670a4ad03ea6d1",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/ignis.png",
+      "original": "assets/thaumcraft/textures/aspects/ignis.png",
+      "sha256": "3fa6065d3dcf2ce112fcd5bfebf183db6fa93f17588d437f95258417aea7ae0c",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/instrumentum.png",
+      "original": "assets/thaumcraft/textures/aspects/instrumentum.png",
+      "sha256": "f3c591927bf9821e40f06a4f1bd7e746ae423273bc25532ad769e233913d5c91",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/iter.png",
+      "original": "assets/thaumcraft/textures/aspects/iter.png",
+      "sha256": "094d0c7bb3a096f37a795ff6f14e044f18dcbedf2daae3cb05dbc288a26b9ce9",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/limus.png",
+      "original": "assets/thaumcraft/textures/aspects/limus.png",
+      "sha256": "8330438c84d7d40d796fcdcd94e695b2be46956a88052df7c33e2b64be987468",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/lucrum.png",
+      "original": "assets/thaumcraft/textures/aspects/lucrum.png",
+      "sha256": "67b4c20bcace1102c6355cecbf4e68399b1e27f535c99fe5af455c8b71b107c1",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/lux.png",
+      "original": "assets/thaumcraft/textures/aspects/lux.png",
+      "sha256": "ef6d5a8e5515e211bcfd064edba0e457b9900871c4e6252c24cac541f85b9a45",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/machina.png",
+      "original": "assets/thaumcraft/textures/aspects/machina.png",
+      "sha256": "3409397b36185559bd107e974d81f67700d6ed73aaf20bc278693ab74fac2725",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/messis.png",
+      "original": "assets/thaumcraft/textures/aspects/messis.png",
+      "sha256": "57ac8e9765539d37f48540ec2561f3412e08ac34830310509032a0c3b1a1e39f",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/metallum.png",
+      "original": "assets/thaumcraft/textures/aspects/metallum.png",
+      "sha256": "c6a10dfa60af0810f3d24c57c78d412fc26f0c1bcf8598384ce01ea6a081a843",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/meto.png",
+      "original": "assets/thaumcraft/textures/aspects/meto.png",
+      "sha256": "6788bb14810d909006c99c6aa7ad9154f1ee1105f2c5303e103327caf16f1c16",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/mortuus.png",
+      "original": "assets/thaumcraft/textures/aspects/mortuus.png",
+      "sha256": "886cee2a8d9c7b1e02d4a583439f520c859290ac52b61c29f2fab7675bb96df2",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/motus.png",
+      "original": "assets/thaumcraft/textures/aspects/motus.png",
+      "sha256": "add6a0cc3a006885872a3242b3c1d835cb800a2fc8b0150859649938bc27d4a4",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/ordo.png",
+      "original": "assets/thaumcraft/textures/aspects/ordo.png",
+      "sha256": "5da1027cdcea8d1d4d922601d953bb4310bed5543b36d74bb07a9f6588bd22d5",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/pannus.png",
+      "original": "assets/thaumcraft/textures/aspects/pannus.png",
+      "sha256": "dffd125eae2bcb295fe39eb5ac7fd3ce15272bf46530c37adf64dd5b5b38ac39",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/perditio.png",
+      "original": "assets/thaumcraft/textures/aspects/perditio.png",
+      "sha256": "dc539741d87f377b704a738b9cb6ad09acbf7735fce829fe4e100a16f2830a21",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/perfodio.png",
+      "original": "assets/thaumcraft/textures/aspects/perfodio.png",
+      "sha256": "62d2d4069a13ea488d1592c9babfef16688a14c23eb32c4f03d2ca2f7a749f21",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/permutatio.png",
+      "original": "assets/thaumcraft/textures/aspects/permutatio.png",
+      "sha256": "d05161c9f804efaf3826e9c878604c84bc9eb04cbbf63710e2ef693bd4f9ad6b",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/potentia.png",
+      "original": "assets/thaumcraft/textures/aspects/potentia.png",
+      "sha256": "4fcaeacc7674d71717d7f578ce7bd2b5568e26f9a3ddd550585b2ab6b3eb4b48",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/praecantatio.png",
+      "original": "assets/thaumcraft/textures/aspects/praecantatio.png",
+      "sha256": "bf3f176b7926c4b5c9d9f1d51ae9e96b2df4be7b084f70f902018476a8cae990",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/sano.png",
+      "original": "assets/thaumcraft/textures/aspects/sano.png",
+      "sha256": "8151762b36609198d46bc2ec6c5713cea5be07cb5cb73443d060cda4d3427df2",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/sensus.png",
+      "original": "assets/thaumcraft/textures/aspects/sensus.png",
+      "sha256": "468b8745598dda27dd60591cdd413c21c497b118d07235125ce7e4d05daf203b",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/spiritus.png",
+      "original": "assets/thaumcraft/textures/aspects/spiritus.png",
+      "sha256": "a3f833849381dc3664c16148ad22ef722b751357767b9b30ff2da64437024f48",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/telum.png",
+      "original": "assets/thaumcraft/textures/aspects/telum.png",
+      "sha256": "06cbb8fc42b586f33ee1e351e4d6a859e31541656e4e1ed17da01cf2ae2acb2b",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/tempestas.png",
+      "original": "assets/thaumcraft/textures/aspects/tempestas.png",
+      "sha256": "c5f2ad22c8ab994b94dfe308a938adc36aad430d2648f22cd20898230c5138b0",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/tenebrae.png",
+      "original": "assets/thaumcraft/textures/aspects/tenebrae.png",
+      "sha256": "259965ec310550326983fc7a1f12d9d68ce42fb30ec4fd7c40a36bf80287b49a",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/terra.png",
+      "original": "assets/thaumcraft/textures/aspects/terra.png",
+      "sha256": "d02320de3ac736ec2c6c5d8e511b6052c5dc8dd0867b3309597d0e2b6d18e0f9",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/tutamen.png",
+      "original": "assets/thaumcraft/textures/aspects/tutamen.png",
+      "sha256": "fd641ea252249aaa9cddac87a12a6983d37a209734bed11390b9e6388ac9c2b5",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/vacuos.png",
+      "original": "assets/thaumcraft/textures/aspects/vacuos.png",
+      "sha256": "9408f51b66886d2d81a68b1a5c6d24e21d0921c190d1fc518b9a95a9ab907ae6",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/venenum.png",
+      "original": "assets/thaumcraft/textures/aspects/venenum.png",
+      "sha256": "ae39c7bfa11c9a2666940d73a298e7b83124a785bed1dd8ed60c31bc3ccbc86e",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/victus.png",
+      "original": "assets/thaumcraft/textures/aspects/victus.png",
+      "sha256": "265fcf71d1769900601462c0ac8aeb13f85c8d6ac068bf54ea9a4498166ea5bc",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/vinculum.png",
+      "original": "assets/thaumcraft/textures/aspects/vinculum.png",
+      "sha256": "4c48f3f067806c9dbc736980a87805d5e4779589680021762e67e90478eaaa19",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/vitium.png",
+      "original": "assets/thaumcraft/textures/aspects/vitium.png",
+      "sha256": "2809e4b7ccbf6ef15823e4bc7bf090df2c18c347d430dbc2c96b068a99410d61",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/vitreus.png",
+      "original": "assets/thaumcraft/textures/aspects/vitreus.png",
+      "sha256": "e7f3a702beb7229ae7388b588fa280234ecf78bd81d97fc98dbd737dabc93637",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/aspects/volatus.png",
+      "original": "assets/thaumcraft/textures/aspects/volatus.png",
+      "sha256": "59a09f9fb3ed6faa17037ad69e0715e320769d961867e7a24f476fa278816055",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/original/thaumcraft4/gui/guiresearchtable2.png",
+      "original": "assets/thaumcraft/textures/gui/guiresearchtable2.png",
+      "sha256": "e783af1bd575b806fb119b140567786157ff43036e8d9a661780230a0aab3619",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/item/tc4/researchnotes.png",
+      "original": "assets/thaumcraft/textures/items/researchnotes.png",
+      "sha256": "86d344034dec66090c6bfb6249cc8811f6ccf1676d6c2af3415adaf80f6580aa",
+      "byte_identical": true
+    },
+    {
+      "port": "src/main/resources/assets/thaumcraft/textures/item/tc4/researchnotesoverlay.png",
+      "original": "assets/thaumcraft/textures/items/researchnotesoverlay.png",
+      "sha256": "07674ef2cd4a529acaeecbc279198b297fb06cea773265531a077878d976023f",
+      "byte_identical": true
+    }
+  ],
+  "static_proof": {
+    "focused_static_ci": "42/42 PASS",
+    "gametests": 226,
+    "runtime_scenarios": 688,
+    "json_files": 2054,
+    "recipe_denominator": "258/258 STATICALLY MAPPED",
+    "forge_parse_files": 19,
+    "java_release": 17,
+    "full_closure_guard": "PASS"
+  },
+  "honest_limits": [
+    "No BUILD SUCCESSFUL and no JAR",
+    "No Forge client or dedicated-server launch",
+    "No GameTest runtime execution",
+    "No multiplayer/reconnect runtime evidence"
+  ]
+}

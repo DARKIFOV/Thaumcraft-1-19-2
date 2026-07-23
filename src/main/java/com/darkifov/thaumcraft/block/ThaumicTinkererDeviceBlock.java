@@ -1,5 +1,7 @@
 
 package com.darkifov.thaumcraft.block;
+
+import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.menu.OsmoticEnchanterMenu;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -31,7 +33,7 @@ public class ThaumicTinkererDeviceBlock extends Block {
             return InteractionResult.CONSUME;
         }
         if (mode == Mode.FUME_DISSIPATOR) {
-            player.clearFire(); player.removeEffect(MobEffects.POISON); player.removeEffect(MobEffects.WITHER); player.removeEffect(MobEffects.BLINDNESS); player.removeEffect(MobEffects.CONFUSION);
+            player.clearFire(); player.removeEffect(MobEffects.POISON); player.removeEffect(ThaumcraftMod.TAINT_POISON.get()); player.removeEffect(MobEffects.WITHER); player.removeEffect(MobEffects.BLINDNESS); player.removeEffect(MobEffects.CONFUSION);
             player.displayClientMessage(Component.literal("Fume Dissipator очищает вредные испарения и эффекты.").withStyle(ChatFormatting.AQUA), false);
             level.playSound(null, pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 0.8F, 1.2F);
             return InteractionResult.CONSUME;

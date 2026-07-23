@@ -1,0 +1,17 @@
+TC4 v11.64.36 BUILD STATUS
+
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+JAR CREATED: NO
+
+Attempted command:
+./gradlew build --no-daemon --console=plain
+
+Gradle exit code: 1
+Reason: Gradle Wrapper could not resolve/download Gradle 7.5.1 from services.gradle.org (UnknownHostException).
+Active Java runtime: openjdk version "21.0.10" 2026-01-20
+Required Java runtime: Java 17.
+
+The dependency-free parity contract was compiled with javac --release 17 and its self-test passed. This is not a Forge build and does not verify client, dedicated server, multiplayer or executed GameTests.

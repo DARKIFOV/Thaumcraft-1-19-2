@@ -11,6 +11,8 @@ import com.darkifov.thaumcraft.blockentity.EssentiaJarBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaCrystalizerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
+import com.darkifov.thaumcraft.blockentity.ArcaneBoreBaseBlockEntity;
+import com.darkifov.thaumcraft.blockentity.TC4EssentiaLampBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -22,10 +24,6 @@ public final class EssentiaSuctionResolver {
 
     public static boolean sideAllows(Level level, BlockPos tubePos, Direction direction) {
         if (level == null || tubePos == null || direction == null) {
-            return false;
-        }
-
-        if (level.getBlockState(tubePos).is(ThaumcraftMod.ESSENTIA_VALVE.get()) && !EssentiaValveBlock.isOpen(level, tubePos)) {
             return false;
         }
 
@@ -79,6 +77,17 @@ public final class EssentiaSuctionResolver {
             }
         }
         BlockEntity entity = level.getBlockEntity(destinationPos);
+        if (entity instanceof TC4EssentiaLampBlockEntity lamp) {
+            Aspect wanted = lamp.suctionType(destinationFace);
+            if (wanted != null && (aspect == null || wanted == aspect)) {
+                return lamp.suctionAmount(destinationFace);
+            }
+        }
+        if (entity instanceof ArcaneBoreBaseBlockEntity boreBase
+                && boreBase.canInputFrom(destinationFace)
+                && (aspect == null || aspect == Aspect.PERDITIO)) {
+            return boreBase.suctionAmount(destinationFace);
+        }
         if (entity instanceof AlchemicalCentrifugeBlockEntity centrifuge
                 && (aspect == null || !aspect.isPrimal())
                 && centrifuge.canInputFrom(destinationFace)) {
@@ -91,7 +100,7 @@ public final class EssentiaSuctionResolver {
 
         if (entity instanceof EssentiaJarBlockEntity jar
                 && EssentiaTubeConnections.isOriginalJarTopFace(direction.getOpposite())
-                && jar.canAcceptAspect(aspect)) {
+                && (aspect == null || jar.canAcceptAspect(aspect))) {
             boolean voidJar = level.getBlockState(destinationPos).is(ThaumcraftMod.VOID_ESSENTIA_JAR.get());
 
             // Stage204 exact TileJarFillable/TileJarFillableVoid suction edge cases.
@@ -114,7 +123,7 @@ public final class EssentiaSuctionResolver {
         }
 
         if (level.getBlockState(pos).is(ThaumcraftMod.ESSENTIA_VALVE.get())) {
-            return EssentiaValveBlock.isOpen(level, pos) && level.getBlockEntity(pos) instanceof EssentiaTubeBlockEntity;
+            return level.getBlockEntity(pos) instanceof EssentiaTubeBlockEntity;
         }
 
         // Stage503-522: all original Tube subtypes (filter/restrict/oneway/buffer) are BE-backed

@@ -3,7 +3,7 @@
   "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
   "research": "CAP_thaumium",
   "tc4_kind": "INFUSION",
-  "catalyst": "thaumcraft:tc4_wand_cap_thaumium_inert",
+  "catalyst": "thaumcraft:thaumium_wand_cap_inert",
   "components": [
     "thaumcraft:tc4_dust",
     "thaumcraft:tc4_dust",
@@ -15,7 +15,7 @@
   },
   "instability": 5,
   "result": {
-    "item": "thaumcraft:tc4_wand_cap_thaumium",
+    "item": "thaumcraft:thaumium_wand_cap",
     "count": 1
   }
 }

@@ -1,0 +1,90 @@
+{
+  "round": "11.64.17",
+  "object": "Tallow Candle family",
+  "oracle": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "source_closure": "CLOSED_WITH_EXTERNAL_PECH_ACTIVATION_BLOCKER",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/blocks/BlockCandle.java",
+      "contracts": [
+        "hardness 0.1",
+        "cloth sound",
+        "light level 0.95",
+        "16 metadata colours via Utils.colors",
+        "solid-top lower support only",
+        "selection bounds 0.375..0.625 x 0..0.5",
+        "no collision",
+        "smoke and flame at +0.5,+0.7,+0.5",
+        "infusion stabilizer"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockCandleItem.java",
+      "contracts": ["metadata preserved", "all 16 variants in creative"]
+    },
+    {
+      "path": "thaumcraft/client/renderers/block/BlockCandleRenderer.java",
+      "contracts": [
+        "single candle.png with runtime Utils.colors tint",
+        "white candlestub.png wick",
+        "body 6..10 pixels wide and 8 pixels high",
+        "wick 0.475..0.525 and 8..10 pixels high",
+        "1..5 coordinate-seeded wax drips",
+        "inventory render omits world drips"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigRecipes.java",
+      "contracts": [
+        "three white candles from string over two tallow",
+        "15 dye plus white-candle recolours",
+        "white dye plus wildcard candle whitewash"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigResearch.java",
+      "contracts": [
+        "TALLOW category ALCHEMY",
+        "Corpus 3 and Praecantatio 1",
+        "coordinates -2,0 and complexity 1",
+        "parent CRUCIBLE",
+        "text, Tallow crucible and TallowCandle crafting pages"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigAspects.java",
+      "contracts": ["Lux 2, Corpus 1, Praecantatio 1 object aspects"]
+    },
+    {
+      "path": "thaumcraft/common/entities/monster/EntityPech.java",
+      "contracts": ["Arcane reward list includes candle metadata 0..14 at tier/weight 1 and excludes metadata 15"]
+    }
+  ],
+  "resources": {
+    "candle_png_sha256": "62f717e298f57345a2d277d04ba72128cb3685494907671e4e5e338d9be86d5d",
+    "candlestub_png_sha256": "c767a0627638f4dd371b059c1d20ebb345fa5bc55095a34405da362c6ea15c11",
+    "runtime_paths": [
+      "assets/thaumcraft/textures/block/tc4/candle.png",
+      "assets/thaumcraft/textures/block/tc4/candle.png.mcmeta",
+      "assets/thaumcraft/textures/block/tc4/candlestub.png"
+    ]
+  },
+  "modern_production": [
+    "com.darkifov.thaumcraft.block.TC4TallowCandleParity",
+    "com.darkifov.thaumcraft.block.TallowCandleBlock",
+    "com.darkifov.thaumcraft.block.TallowCandleBlockItem",
+    "com.darkifov.thaumcraft.blockentity.TallowCandleBlockEntity",
+    "com.darkifov.thaumcraft.client.render.TallowCandleRenderer",
+    "com.darkifov.thaumcraft.client.render.TallowCandleItemRenderer",
+    "com.darkifov.thaumcraft.client.ClientModEvents",
+    "com.darkifov.thaumcraft.source.TC4ObjectAspectRegistry"
+  ],
+  "external_blocker": {
+    "system": "original Pech trade reward tables",
+    "reason": "The current port has a non-original token/tier Pech reward system. The exact candle offer set is preserved as a production parity contract but is not injected into that approximate reward system, because doing so would falsely present it as original Pech parity.",
+    "required_future_closure": "Fully port EntityPech valuation, variant-specific reward lists, weighting and trade transaction before activating the candle offer entries."
+  }
+}

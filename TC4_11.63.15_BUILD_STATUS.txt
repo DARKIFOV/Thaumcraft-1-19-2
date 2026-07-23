@@ -1,0 +1,8 @@
+Thaumcraft Legacy Rebuild v11.63.15
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+Static CI: PASS 79/79
+Runtime manifest: 160 NOT_TESTED scenarios, template valid
+Local compileJava: NOT REACHED
+Reason: Gradle Wrapper could not resolve services.gradle.org (UnknownHostException)
+Environment Java: OpenJDK 21.0.10; project target remains Java 17
+JAR: NOT CREATED

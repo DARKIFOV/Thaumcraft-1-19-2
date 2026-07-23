@@ -1,0 +1,33 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.27 build status
+Date (UTC): 2026-07-18
+Environment: Linux container; project includes gradlew and gradlew.bat, but only ./gradlew can be executed here.
+Required toolchain: JDK 17 + Gradle Wrapper 7.5.1
+Detected toolchain: OpenJDK 21.0.10; no JDK 17 found under /usr/lib/jvm
+
+Commands executed from /mnt/data/tc4_116327:
+1. java -version
+   RC=0
+   Result: OpenJDK 21.0.10 (not the required JDK 17)
+
+2. ./gradlew --version
+   RC=1
+   Result: Wrapper attempted to download Gradle 7.5.1 and stopped with
+   java.net.UnknownHostException: services.gradle.org
+
+3. ./gradlew compileJava --no-daemon --console=plain
+   RC=1
+   Result: stopped in the Wrapper downloader before Gradle and javac started.
+   No compiler diagnostics were produced.
+
+4. ./gradlew clean build --no-daemon --console=plain
+   RC=1
+   Result: stopped in the Wrapper downloader before Gradle tasks started.
+
+Success criteria:
+- BUILD SUCCESSFUL present: NO
+- build command exit code 0: NO
+- fresh v11.63.27 JAR in build/libs: NO
+- JAR contents verified: NOT APPLICABLE
+- JAR SHA-256: N/A
+
+Conclusion: BUILD NOT CONFIRMED. No v11.63.27 JAR or runtime ZIP is published. Static guards do not replace a real Java 17 Gradle build.

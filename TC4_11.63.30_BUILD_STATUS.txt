@@ -1,0 +1,25 @@
+Thaumcraft Legacy Rebuild v11.63.30 — build status
+Date: 2026-07-18
+Target: Minecraft 1.19.2 / Forge 43.5.2 / JDK 17
+
+RESULT: BUILD NOT CONFIRMED
+BUILD SUCCESSFUL: NO
+Fresh mod JAR: NO
+JAR SHA-256: N/A
+
+Environment:
+- Available JVM: OpenJDK 21.0.10
+- Required JVM: JDK 17
+- JDK 17 found: NO
+- Gradle Wrapper JAR: PRESENT
+- Gradle Wrapper JAR SHA-256: 91a239400bb638f36a1795d8fdf7939d532cdc7d794d1119b7261aac158b1e60
+- Cached Gradle 7.5.1 distribution: NOT FOUND
+
+Commands:
+- java -version: RC=0, but reports Java 21.0.10
+- ./gradlew --version --no-daemon --console=plain: RC=1
+  Failure: UnknownHostException: services.gradle.org while downloading Gradle 7.5.1
+- compileJava: NOT RUN because JDK 17 is unavailable
+- clean build: NOT RUN because compileJava could not be run under JDK 17
+
+No existing or older JAR was renamed or presented as v11.63.30.

@@ -794,7 +794,7 @@ public final class ThaumonomiconRecipeRegistry {
                 "ESSENTIA_CONTROL",
                 "Essentia",
                 "Essentia Valve + Jar Label",
-                new String[]{"Essentia Valve behaves like a tube but closes when powered by redstone.", "Jar Label cycles the filter aspect on Filtered Jars.", "Shift-use Jar Label cycles backwards."},
+                new String[]{"Essentia Valve behaves like a tube but closes when powered by redstone.", "A label locks a normal or void jar to one essentia aspect.", "Sneak-use the labelled face to remove the label."},
                 new String[]{"Redstone can stop flow.", "Filtered jars can be configured before filling.", "Overlay now shows jar type and suction."},
                 "Controlled Essentia Network",
                 "This stage makes tube networks easier to control and debug."
@@ -804,8 +804,8 @@ public final class ThaumonomiconRecipeRegistry {
                 "Essentia Suction",
                 "ESSENTIA_SUCTION",
                 "Essentia",
-                "Filtered Jar / Void Jar",
-                new String[]{"Normal Jar suction: 32.", "Filtered Jar suction: 48.", "Void Jar suction: 64.", "Tube networks choose the strongest compatible destination."},
+                "Labelled Jar / Void Jar",
+                new String[]{"Normal jar suction is 32, or 64 while labelled.", "A labelled void jar uses suction 48 until full, then 32 while voiding overflow.", "Tube networks choose the strongest compatible destination."},
                 new String[]{"Filtered jars lock to one aspect.", "Void jars destroy overflow.", "Furnace now uses fuel and burn progress."},
                 "Controlled Essentia Flow",
                 "This is the first real suction-priority pass for essentia transport."

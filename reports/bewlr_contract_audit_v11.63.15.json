@@ -1,0 +1,322 @@
+{
+  "stats": {
+    "version": "11.63.15",
+    "dynamic_models": 22,
+    "expected_contracts": 22,
+    "complete_contracts": 22,
+    "problem_count": 0
+  },
+  "dynamic_models": {
+    "advanced_node_stabilizer": "builtin/entity",
+    "alchemical_centrifuge": "builtin/entity",
+    "alembic": "builtin/entity",
+    "avaritia_creative_wand": "minecraft:builtin/entity",
+    "bellows": "builtin/entity",
+    "essentia_jar": "minecraft:builtin/entity",
+    "filtered_essentia_jar": "minecraft:builtin/entity",
+    "greatwood_wand": "minecraft:builtin/entity",
+    "hungry_chest": "builtin/entity",
+    "infusion_matrix": "builtin/entity",
+    "iron_capped_wooden_wand": "minecraft:builtin/entity",
+    "node_jar": "minecraft:builtin/entity",
+    "node_stabilizer": "builtin/entity",
+    "node_transducer": "minecraft:builtin/entity",
+    "silverwood_wand": "minecraft:builtin/entity",
+    "tc4_block_banner": "minecraft:builtin/entity",
+    "tc4_jar_brain": "builtin/entity",
+    "tc4_travel_trunk": "minecraft:builtin/entity",
+    "thaumometer": "minecraft:builtin/entity",
+    "vis_charge_relay": "minecraft:builtin/entity",
+    "vis_relay": "builtin/entity",
+    "void_essentia_jar": "minecraft:builtin/entity"
+  },
+  "contracts": [
+    {
+      "item": "node_stabilizer",
+      "item_class": "NodeStabilizerItem.java",
+      "renderer": "NodeStabilizerItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "advanced_node_stabilizer",
+      "item_class": "NodeStabilizerItem.java",
+      "renderer": "NodeStabilizerItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "node_transducer",
+      "item_class": "NodeTransducerItem.java",
+      "renderer": "NodeTransducerItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "iron_capped_wooden_wand",
+      "item_class": "WandItem.java",
+      "renderer": "WandItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "greatwood_wand",
+      "item_class": "WandItem.java",
+      "renderer": "WandItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "silverwood_wand",
+      "item_class": "WandItem.java",
+      "renderer": "WandItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "avaritia_creative_wand",
+      "item_class": "WandItem.java",
+      "renderer": "WandItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "thaumometer",
+      "item_class": "ThaumometerItem.java",
+      "renderer": "ThaumometerItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "node_jar",
+      "item_class": "NodeJarItem.java",
+      "renderer": "NodeJarItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "hungry_chest",
+      "item_class": "HungryChestBlockItem.java",
+      "renderer": "HungryChestItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "tc4_block_banner",
+      "item_class": "TC4BannerBlockItem.java",
+      "renderer": "TC4BannerItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "vis_charge_relay",
+      "item_class": "VisChargeRelayBlockItem.java",
+      "renderer": "VisChargeRelayItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "vis_relay",
+      "item_class": "VisRelayBlockItem.java",
+      "renderer": "VisChargeRelayItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "alembic",
+      "item_class": "AlembicBlockItem.java",
+      "renderer": "AlembicItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "alchemical_centrifuge",
+      "item_class": "AlchemicalCentrifugeBlockItem.java",
+      "renderer": "AlchemicalCentrifugeItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "bellows",
+      "item_class": "BellowsBlockItem.java",
+      "renderer": "BellowsItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "infusion_matrix",
+      "item_class": "InfusionMatrixBlockItem.java",
+      "renderer": "InfusionMatrixItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "tc4_jar_brain",
+      "item_class": "BrainJarBlockItem.java",
+      "renderer": "BrainJarItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "essentia_jar",
+      "item_class": "EssentiaJarBlockItem.java",
+      "renderer": "EssentiaJarItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "filtered_essentia_jar",
+      "item_class": "EssentiaJarBlockItem.java",
+      "renderer": "EssentiaJarItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "void_essentia_jar",
+      "item_class": "EssentiaJarBlockItem.java",
+      "renderer": "EssentiaJarItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    },
+    {
+      "item": "tc4_travel_trunk",
+      "item_class": "TravelingTrunkItem.java",
+      "renderer": "TravelingTrunkItemRenderer",
+      "checks": {
+        "model_builtin_entity": true,
+        "item_class_found": true,
+        "renderer_class_found": true,
+        "initialize_client": true,
+        "custom_renderer_return": true,
+        "registered_id": true
+      }
+    }
+  ],
+  "problems": []
+}

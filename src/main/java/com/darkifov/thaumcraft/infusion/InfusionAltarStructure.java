@@ -1,6 +1,7 @@
 package com.darkifov.thaumcraft.infusion;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.block.InfusionPillarBlock;
 import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -13,182 +14,171 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Stage123: closer TC4 1.7.10 infusion altar validation and symmetry model.
- *
- * TC4 validLocation requires a center pedestal exactly two blocks below the runic
- * matrix and four infusion pillars at the diagonal corners. For 1.19.2 we support
- * the newly registered tc4 infusion_pillar and keep arcane stone bricks as a
- * temporary compatibility pillar while the exact tile renderer is still being
- * ported.
- */
+/** Exact TC4 altar location, cached pedestal scan and symmetry adapter. */
 public final class InfusionAltarStructure {
-    public static final int PEDESTAL_RADIUS = 8;
-    public static final int STABILIZER_RADIUS = 12;
-    public static final int VERTICAL_SCAN_DOWN = 8;
-    public static final int VERTICAL_SCAN_UP = 1;
+    public static final int PEDESTAL_RADIUS = TC4InfusionAltarFullClosureParity.PEDESTAL_HORIZONTAL_RADIUS;
+    public static final int STABILIZER_RADIUS = TC4InfusionAltarFullClosureParity.STABILIZER_HORIZONTAL_RADIUS;
 
-    private InfusionAltarStructure() {
+    private InfusionAltarStructure() {}
+
+    /** TileInfusionMatrix#getSurroundings: rebuilds the ordered pedestal cache and symmetry. */
+    public static InfusionStructureReport analyze(Level level, BlockPos matrixPos,
+                                                   ArcanePedestalBlockEntity catalystPedestal) {
+        List<BlockPos> pedestalPositions = scanPedestalPositions(level, matrixPos);
+        int symmetry = calculateOriginalSymmetry(level, matrixPos, pedestalPositions);
+        return reportFor(level, matrixPos, catalystPedestal, pedestalPositions, symmetry);
     }
 
-    public static InfusionStructureReport analyze(Level level, BlockPos matrixPos, ArcanePedestalBlockEntity catalystPedestal) {
-        List<ArcanePedestalBlockEntity> allPedestals = new ArrayList<>();
-        List<ArcanePedestalBlockEntity> componentPedestals = new ArrayList<>();
-        Set<BlockPos> pedestalPositions = new HashSet<>();
-        Set<BlockPos> filledPedestalPositions = new HashSet<>();
-        List<BlockPos> stabilizerPositions = new ArrayList<>();
+    /**
+     * Runtime view between getSurroundings calls. New pedestals are deliberately
+     * invisible until a rescan; removed cached positions remain in the list but
+     * simply fail their current block-entity lookup, matching TC4.
+     */
+    public static InfusionStructureReport snapshot(Level level, BlockPos matrixPos,
+                                                    ArcanePedestalBlockEntity catalystPedestal,
+                                                    List<BlockPos> cachedPedestalPositions,
+                                                    int cachedSymmetry) {
+        return reportFor(level, matrixPos, catalystPedestal,
+                cachedPedestalPositions == null ? List.of() : List.copyOf(cachedPedestalPositions),
+                cachedSymmetry);
+    }
 
+    private static List<BlockPos> scanPedestalPositions(Level level, BlockPos matrixPos) {
+        List<BlockPos> positions = new ArrayList<>();
+        for (int dx = -PEDESTAL_RADIUS; dx <= PEDESTAL_RADIUS; dx++) {
+            for (int dz = -PEDESTAL_RADIUS; dz <= PEDESTAL_RADIUS; dz++) {
+                if (dx == 0 && dz == 0) continue;
+                for (int dy = TC4InfusionAltarFullClosureParity.PEDESTAL_TOP_OFFSET_FROM_MATRIX;
+                     dy >= TC4InfusionAltarFullClosureParity.PEDESTAL_BOTTOM_OFFSET_FROM_MATRIX; dy--) {
+                    BlockPos scan = matrixPos.offset(dx, dy, dz);
+                    if (level.getBlockEntity(scan) instanceof ArcanePedestalBlockEntity) {
+                        positions.add(scan.immutable());
+                        break; // TC4 skip=true: only first pedestal in an x/z column.
+                    }
+                }
+            }
+        }
+        return List.copyOf(positions);
+    }
+
+    private static int calculateOriginalSymmetry(Level level, BlockPos matrixPos, List<BlockPos> positions) {
+        Set<BlockPos> set = new HashSet<>(positions);
+        int symmetry = 0;
+        for (BlockPos pos : positions) {
+            boolean hasItem = level.getBlockEntity(pos) instanceof ArcanePedestalBlockEntity pedestal
+                    && !pedestal.stored().isEmpty();
+            symmetry += hasItem ? 3 : 2;
+            BlockPos mirror = new BlockPos(matrixPos.getX() * 2 - pos.getX(), pos.getY(),
+                    matrixPos.getZ() * 2 - pos.getZ());
+            if (set.contains(mirror)
+                    && level.getBlockEntity(mirror) instanceof ArcanePedestalBlockEntity mirrorPedestal) {
+                symmetry -= 2;
+                if (hasItem && !mirrorPedestal.stored().isEmpty()) symmetry -= 1;
+            }
+        }
+
+        TC4InfusionStabilityParity.StabilitySnapshot stabilizers =
+                TC4InfusionStabilityParity.scan(level, matrixPos);
+        float stabilizerSymmetry = stabilizers.unpaired() * 0.1F
+                - stabilizers.mirroredPairs() * 0.2F;
+        return (int) (symmetry + stabilizerSymmetry);
+    }
+
+    private static InfusionStructureReport reportFor(Level level, BlockPos matrixPos,
+                                                      ArcanePedestalBlockEntity catalystPedestal,
+                                                      List<BlockPos> pedestalPositions,
+                                                      int originalSymmetryPenalty) {
         BlockPos center = matrixPos.below(2);
-        boolean strictCenterPedestal = catalystPedestal != null && catalystPedestal.getBlockPos().equals(center);
-        int tc4PillarCount = countTc4Pillars(level, matrixPos);
-        boolean strictTc4Location = strictCenterPedestal && tc4PillarCount == 4;
+        boolean strictCenter = catalystPedestal != null && catalystPedestal.getBlockPos().equals(center);
+        int pillarCount = countTc4Pillars(level, matrixPos);
+        boolean strictLocation = strictCenter && pillarCount == 4;
 
-        for (BlockPos scan : BlockPos.betweenClosed(center.offset(-PEDESTAL_RADIUS, -VERTICAL_SCAN_DOWN, -PEDESTAL_RADIUS), center.offset(PEDESTAL_RADIUS, VERTICAL_SCAN_UP, PEDESTAL_RADIUS))) {
-            if (level.getBlockEntity(scan) instanceof ArcanePedestalBlockEntity pedestal) {
+        List<ArcanePedestalBlockEntity> allPedestals = new ArrayList<>();
+        List<ArcanePedestalBlockEntity> components = new ArrayList<>();
+        Set<BlockPos> currentPositions = new HashSet<>();
+        Set<BlockPos> filled = new HashSet<>();
+        for (BlockPos pos : pedestalPositions) {
+            if (level.getBlockEntity(pos) instanceof ArcanePedestalBlockEntity pedestal) {
                 allPedestals.add(pedestal);
-                pedestalPositions.add(pedestal.getBlockPos().immutable());
-
+                currentPositions.add(pos);
                 if (!pedestal.stored().isEmpty()) {
-                    filledPedestalPositions.add(pedestal.getBlockPos().immutable());
-                }
-
-                if (pedestal != catalystPedestal && !pedestal.stored().isEmpty()) {
-                    componentPedestals.add(pedestal);
+                    components.add(pedestal);
+                    filled.add(pos);
                 }
             }
         }
 
-        int symmetricalPairs = 0;
-        int missingSymmetry = 0;
-        int tc4SymmetryPenalty = 0;
-
-        for (ArcanePedestalBlockEntity pedestal : allPedestals) {
-            BlockPos p = pedestal.getBlockPos();
-
-            if (p.equals(center)) {
-                continue;
-            }
-
-            int dx = center.getX() - p.getX();
-            int dz = center.getZ() - p.getZ();
-
-            if (dx == 0 && dz == 0) {
-                continue;
-            }
-
-            boolean hasItem = filledPedestalPositions.contains(p);
-            tc4SymmetryPenalty += hasItem ? 3 : 2;
-            BlockPos mirror = new BlockPos(center.getX() + dx, p.getY(), center.getZ() + dz);
-
-            if (pedestalPositions.contains(mirror)) {
-                symmetricalPairs++;
-                tc4SymmetryPenalty -= 2;
-
-                if (hasItem && filledPedestalPositions.contains(mirror)) {
-                    tc4SymmetryPenalty -= 1;
-                }
-            } else {
-                missingSymmetry++;
-            }
+        int pairs = 0;
+        int missing = 0;
+        for (BlockPos pos : currentPositions) {
+            BlockPos mirror = new BlockPos(matrixPos.getX() * 2 - pos.getX(), pos.getY(),
+                    matrixPos.getZ() * 2 - pos.getZ());
+            if (currentPositions.contains(mirror)) pairs++; else missing++;
         }
+        pairs /= 2;
+        missing /= 2;
 
-        symmetricalPairs = symmetricalPairs / 2;
-        missingSymmetry = missingSymmetry / 2;
-
+        TC4InfusionStabilityParity.StabilitySnapshot stabilizerSnapshot =
+                TC4InfusionStabilityParity.scan(level, matrixPos);
+        int stabilizingBlocks = stabilizerSnapshot.positions().size();
         int matrixAccelerators = 0;
         int matrixStabilizers = 0;
-
-        // v7.82: keep structure summary on the same TC4 getSurroundings adapter
-        // used by matrix runtime.  TC4 scans x/z +-12 and y matrix-10..matrix+5,
-        // then mirrors stabilizers around the runic matrix block itself.
-        TC4InfusionStabilityParity.StabilitySnapshot stabilizerSnapshot = TC4InfusionStabilityParity.scan(level, matrixPos);
-        stabilizerPositions.addAll(stabilizerSnapshot.positions());
-        int stabilizingBlocks = stabilizerSnapshot.positions().size();
-        double stabilizerSymmetry = stabilizerSnapshot.unpaired() * 0.1D - stabilizerSnapshot.mirroredPairs() * 0.2D;
-
-        for (BlockPos scan : BlockPos.betweenClosed(matrixPos.offset(-STABILIZER_RADIUS, -10, -STABILIZER_RADIUS), matrixPos.offset(STABILIZER_RADIUS, 5, STABILIZER_RADIUS))) {
-            if (scan.getX() == matrixPos.getX() && scan.getZ() == matrixPos.getZ()) {
-                continue;
-            }
-
+        for (BlockPos scan : BlockPos.betweenClosed(
+                matrixPos.offset(-STABILIZER_RADIUS,
+                        TC4InfusionAltarFullClosureParity.STABILIZER_BOTTOM_OFFSET_FROM_MATRIX,
+                        -STABILIZER_RADIUS),
+                matrixPos.offset(STABILIZER_RADIUS,
+                        TC4InfusionAltarFullClosureParity.STABILIZER_TOP_OFFSET_FROM_MATRIX,
+                        STABILIZER_RADIUS))) {
+            if (scan.getX() == matrixPos.getX() && scan.getZ() == matrixPos.getZ()) continue;
             BlockState state = level.getBlockState(scan);
-
-            if (state.is(ThaumcraftMod.MATRIX_ACCELERATOR.get())) {
-                matrixAccelerators++;
-            }
-
-            if (state.is(ThaumcraftMod.MATRIX_STABILIZER.get())) {
-                matrixStabilizers++;
-            }
+            if (state.is(ThaumcraftMod.MATRIX_ACCELERATOR.get())) matrixAccelerators++;
+            if (state.is(ThaumcraftMod.MATRIX_STABILIZER.get())) matrixStabilizers++;
         }
-
         int cappedAccelerators = Math.min(4, matrixAccelerators);
         int cappedStabilizers = Math.min(4, matrixStabilizers);
         int speedMultiplier = 1 + cappedAccelerators;
         int durationModifierPercent = Math.max(20, 100 / speedMultiplier);
         int matrixStabilizationPercent = cappedStabilizers * 25;
-
-        int tc4Penalty = Math.max(0, (int) Math.floor(tc4SymmetryPenalty + stabilizerSymmetry));
-        int stabilityScore = Math.max(0, stabilizingBlocks + symmetricalPairs * 2 - tc4Penalty * 2);
+        int tc4Penalty = Math.max(0, originalSymmetryPenalty);
+        int stabilityScore = Math.max(0, stabilizingBlocks + pairs * 2 - tc4Penalty * 2);
         int instabilityPenalty = Math.max(0, tc4Penalty - cappedStabilizers * 2);
 
-        boolean valid = strictTc4Location;
-
-        Component validity = Component.translatable(valid ? "thaumcraft.infusion.valid" : "thaumcraft.infusion.invalid")
-                .withStyle(valid ? ChatFormatting.GREEN : ChatFormatting.RED);
-        Component centerState = Component.translatable(strictCenterPedestal
+        Component validity = Component.translatable(strictLocation
+                        ? "thaumcraft.infusion.valid" : "thaumcraft.infusion.invalid")
+                .withStyle(strictLocation ? ChatFormatting.GREEN : ChatFormatting.RED);
+        Component centerState = Component.translatable(strictCenter
                 ? "thaumcraft.infusion.center.ok" : "thaumcraft.infusion.center.missing");
         Component summary = Component.translatable("thaumcraft.infusion.summary.primary",
-                        validity, centerState, tc4PillarCount, allPedestals.size(), componentPedestals.size())
+                        validity, centerState, pillarCount, allPedestals.size(), components.size())
                 .append(Component.literal("\n"))
                 .append(Component.translatable("thaumcraft.infusion.summary.stability",
-                        symmetricalPairs, missingSymmetry, tc4Penalty, stabilizingBlocks,
+                        pairs, missing, tc4Penalty, stabilizingBlocks,
                         speedMultiplier, matrixStabilizationPercent));
 
         return new InfusionStructureReport(
-                valid,
-                strictTc4Location,
-                allPedestals.size(),
-                componentPedestals.size(),
-                symmetricalPairs,
-                missingSymmetry,
-                tc4PillarCount,
-                stabilizingBlocks,
-                matrixAccelerators,
-                matrixStabilizers,
-                speedMultiplier,
-                durationModifierPercent,
-                matrixStabilizationPercent,
-                stabilityScore,
-                instabilityPenalty,
-                tc4Penalty,
-                componentPedestals,
-                summary
-        );
+                strictLocation, strictLocation,
+                allPedestals.size(), components.size(), pairs, missing, pillarCount,
+                stabilizingBlocks, matrixAccelerators, matrixStabilizers,
+                speedMultiplier, durationModifierPercent, matrixStabilizationPercent,
+                stabilityScore, instabilityPenalty, originalSymmetryPenalty,
+                List.copyOf(pedestalPositions), List.copyOf(allPedestals), summary);
     }
 
     private static int countTc4Pillars(Level level, BlockPos matrixPos) {
         int count = 0;
-        int y = matrixPos.getY() - 2;
-        int[][] offsets = new int[][]{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
-
+        int[][] offsets = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
         for (int[] offset : offsets) {
-            BlockPos pos = new BlockPos(matrixPos.getX() + offset[0], y, matrixPos.getZ() + offset[1]);
-            if (isInfusionPillar(level.getBlockState(pos))) {
+            BlockPos lower = matrixPos.offset(offset[0], -2, offset[1]);
+            BlockState state = level.getBlockState(lower);
+            BlockState upper = level.getBlockState(lower.above());
+            if (InfusionPillarBlock.isLowerPillar(state)
+                    && upper.is(ThaumcraftMod.INFUSION_PILLAR.get())
+                    && upper.getValue(InfusionPillarBlock.HALF) == net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER
+                    && upper.getValue(InfusionPillarBlock.FACING) == state.getValue(InfusionPillarBlock.FACING)) {
                 count++;
             }
         }
-
         return count;
-    }
-
-    private static boolean isInfusionPillar(BlockState state) {
-        return state.is(ThaumcraftMod.INFUSION_PILLAR.get());
-    }
-
-    private static boolean isStabilizer(BlockState state) {
-        // Stage723-742: keep structure summary and matrix runtime on the same
-        // original TC4 stabilizer whitelist/symmetry adapter.
-        return TC4InfusionStabilityParity.isOriginalStyleStabilizer(state);
     }
 }

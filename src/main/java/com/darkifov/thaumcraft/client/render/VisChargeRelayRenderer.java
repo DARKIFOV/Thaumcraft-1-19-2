@@ -32,6 +32,7 @@ public final class VisChargeRelayRenderer implements BlockEntityRenderer<VisChar
                        MultiBufferSource buffer, int packedLight, int packedOverlay) {
         renderStandalone(relay.pulseAspect(), relay.pulseStrength(partialTick),
                 poseStack, buffer, packedLight);
+        TC4VisRelayBeamRenderer.render(relay, partialTick, poseStack, buffer);
     }
 
     public static void renderStandalone(Aspect pulseAspect, float pulseStrength,

@@ -1,0 +1,65 @@
+{
+  "version": "11.63.61-denominator-correction",
+  "status": "STATIC_MAPPING_COMPLETE_RUNTIME_LOADING_NOT_VERIFIED",
+  "counting_rule": "Count registrations actually created at runtime after expanding loops; do not count API call-site lines or raw JSON files.",
+  "original_runtime_registrations": {
+    "crucible": 54,
+    "arcane_shaped": 104,
+    "arcane_shapeless": 5,
+    "arcane_total": 109,
+    "infusion": 63,
+    "infusion_enchantment": 24,
+    "furnace_smelting": 8,
+    "total": 258,
+    "mapped": 258,
+    "missing": 0
+  },
+  "arcane_evidence": {
+    "mapping_file": "tools/data/tc4_arcane_recipe_full_mapping_v11.62.66.json",
+    "literal_shaped_call_sites": 84,
+    "expanded_shaped_registrations": 104,
+    "literal_shapeless_call_sites": 5,
+    "expanded_shapeless_registrations": 5,
+    "expanded_arcane_workbench_registrations_total": 109,
+    "mapped": 109,
+    "missing": 0,
+    "extra_style_compatibility_json": [
+      "golem_core_arcane",
+      "golem_core_original_style",
+      "greatwood_wand",
+      "greatwood_wand_original_style",
+      "greatwood_wand_original_tc4_style",
+      "research_note",
+      "silverwood_wand",
+      "silverwood_wand_original_style",
+      "silverwood_wand_original_tc4_style",
+      "thaumium_plate_original_style"
+    ],
+    "raw_arcane_json_count": 114,
+    "raw_json_count_is_not_original_registration_count": true,
+    "datapack_json_original_total": 104,
+    "datapack_json_original_shaped": 99,
+    "datapack_json_original_shapeless": 5,
+    "generated_java_original_total": 5,
+    "generated_java_original_shaped": 5,
+    "generated_java_original_shapeless": 0
+  },
+  "smelting_evidence": {
+    "original_jar_bytecode_calls": {
+      "GameRegistry.addSmelting": 1,
+      "FurnaceRecipes.func_151394_a": 7,
+      "ThaumcraftApi.addSmeltingBonus": 18
+    },
+    "furnace_recipe_total": 8,
+    "separate_smelting_bonus_registrations": 18,
+    "smelting_bonus_included_in_recipe_denominator": false
+  },
+  "runtime_verification": {
+    "exact_source_version": "11.63.61",
+    "jar_created": false,
+    "recipe_manager_load_verified": false,
+    "game_test_server_verified": false,
+    "required_jdk": 17,
+    "status": "NOT_VERIFIED"
+  }
+}

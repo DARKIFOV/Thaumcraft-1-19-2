@@ -1,0 +1,15 @@
+TC4 v11.63.28 BUILD STATUS
+required_java=JDK_17
+available_java=OpenJDK_21.0.10
+jdk17_found=NO
+gradle_wrapper_jar_restored=YES
+wrapper_jar_sha256=91a239400bb638f36a1795d8fdf7939d532cdc7d794d1119b7261aac158b1e60
+gradlew_version_after_restore_rc=1
+gradlew_version_failure=UnknownHostException_services.gradle.org
+compileJava=NOT_RUN_WITH_VALID_JDK17
+clean_build=NOT_RUN_WITH_VALID_JDK17
+build_successful_exact_markers=0
+new_jar=NONE
+jar_sha256=N/A
+runtime_verification=NOT_TESTED
+full_build=FAILED_NOT_EXECUTABLE_IN_CURRENT_ENVIRONMENT

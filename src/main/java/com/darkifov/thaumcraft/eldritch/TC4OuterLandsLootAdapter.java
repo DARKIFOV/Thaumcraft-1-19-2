@@ -1,6 +1,8 @@
 package com.darkifov.thaumcraft.eldritch;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.entity.PermanentItemEntity;
+import com.darkifov.thaumcraft.entity.SpecialItemEntity;
 import com.darkifov.thaumcraft.entity.TC4ThaumcraftBossEntity;
 import com.darkifov.thaumcraft.porting.TC4RegistryGarbageGuard;
 import com.darkifov.thaumcraft.runic.TC4ChampionModifierRuntime;
@@ -94,7 +96,7 @@ public final class TC4OuterLandsLootAdapter {
     }
 
     public static ItemStack eldritchObjectMeta3() {
-        return research("tc4_eldritch_object_3", ThaumcraftMod.PRIMORDIAL_PEARL.get(), 1);
+        return research("primordial_pearl", ThaumcraftMod.PRIMORDIAL_PEARL.get(), 1);
     }
 
     public static ItemStack rareLootbag() {
@@ -199,7 +201,7 @@ public final class TC4OuterLandsLootAdapter {
     }
 
     public static void dropBossDeathLoot(TC4ThaumcraftBossEntity boss, DamageSource source, int looting) {
-        boss.spawnAtLocation(eldritchObjectMeta3());
+        spawnSpecialBossDrop(boss, eldritchObjectMeta3());
         boss.spawnAtLocation(rareLootbag());
         if (boss.getRandom().nextFloat() < 0.20F + looting * 0.05F) {
             boss.spawnAtLocation(new ItemStack(ThaumcraftMod.ELDRITCH_GUARDIAN_CORE.get(), 1));
@@ -208,7 +210,7 @@ public final class TC4OuterLandsLootAdapter {
 
     /** Stage283-302 overload for TC4 boss entities that were not subclasses of EntityThaumcraftBoss. */
     public static void dropBossDeathLoot(LivingEntity boss, DamageSource source, int looting) {
-        boss.spawnAtLocation(eldritchObjectMeta3());
+        spawnSpecialBossDrop(boss, eldritchObjectMeta3());
         boss.spawnAtLocation(rareLootbag());
         if (boss.getRandom().nextFloat() < 0.20F + looting * 0.05F) {
             boss.spawnAtLocation(new ItemStack(ThaumcraftMod.ELDRITCH_GUARDIAN_CORE.get(), 1));
@@ -227,14 +229,24 @@ public final class TC4OuterLandsLootAdapter {
     }
 
     public static void spawnPermanentKeyItem(ServerLevel level, BlockPos center) {
-        ItemEntity entity = new ItemEntity(level, center.getX() + 0.5D, center.getY() + 1.5D, center.getZ() + 0.5D, eldritchObjectMeta2());
+        PermanentItemEntity entity = new PermanentItemEntity(level, center.getX() + 0.5D,
+                center.getY() + 1.5D, center.getZ() + 0.5D, eldritchObjectMeta2());
         entity.setDeltaMovement(0.0D, 0.0D, 0.0D);
         entity.setNoPickUpDelay();
-        entity.setUnlimitedLifetime();
-        entity.setNoGravity(true);
         entity.getPersistentData().putBoolean(PERMANENT_ITEM_TAG, true);
         entity.getPersistentData().putString("TC4Original", ORIGINAL_ELDRITCH_OBJECT_META_2);
         level.addFreshEntity(entity);
+    }
+
+    private static void spawnSpecialBossDrop(LivingEntity boss, ItemStack stack) {
+        if (boss.level.isClientSide || stack.isEmpty()) {
+            return;
+        }
+        SpecialItemEntity entity = new SpecialItemEntity(boss.level, boss.getX(),
+                boss.getY() + boss.getBbHeight() / 2.0D, boss.getZ(), stack);
+        entity.setPickUpDelay(10);
+        entity.setDeltaMovement(0.0D, 0.1D, 0.0D);
+        boss.level.addFreshEntity(entity);
     }
 
     public static int keyRoomGuardianCount(ServerLevel level) {

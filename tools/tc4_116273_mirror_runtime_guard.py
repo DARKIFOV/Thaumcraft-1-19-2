@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression guard for v11.62.96 TC4 stationary/essentia/hand mirror runtime."""
+"""Regression guard for v11.63.10 TC4 stationary/essentia/hand mirror runtime."""
 from pathlib import Path
 import json
 import sys
@@ -46,8 +46,8 @@ for rel in [
 
 # 12 release/registration contracts.
 for rel, token in [
-    ("build.gradle", "version = '11.62.96'"),
-    ("src/main/resources/META-INF/mods.toml", 'version="11.62.96"'),
+    ("build.gradle", "version = '11.63.23'"),
+    ("src/main/resources/META-INF/mods.toml", 'version="11.63.23"'),
     ("README.md", "v11.62.73 Magic Mirror"),
     (".github/workflows/build.yml", "tc4_116273_mirror_runtime_guard.py"),
     (".github/workflows/release.yml", "tc4_116273_mirror_runtime_guard.py"),
@@ -156,7 +156,7 @@ if len(models) != 24:
     errors.append(f"expected 24 mirror block models, got {len(models)}")
 checks += 1
 for lang in ("en_us.json", "ru_ru.json"):
-    data = json.loads((ROOT / "src/main/resources/assets/thaumcraft/lang" / lang).read_text())
+    data = json.loads((ROOT / "src/main/resources/assets/thaumcraft/lang" / lang).read_text(encoding="utf-8"))
     if "container.thaumcraft.hand_mirror" not in data or "block.thaumcraft.tc4_mirrorframe2" not in data:
         errors.append(f"{lang}: missing mirror translations")
 checks += 1
@@ -170,8 +170,8 @@ if checks != 176:
     errors.append(f"guard definition drift: expected 176 checks, got {checks}")
 
 if errors:
-    print(f"TC4 11.62.96 mirror runtime guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.63.10 mirror runtime guard: FAIL ({len(errors)} problems; {checks} checks)")
     for error in errors:
         print(" -", error)
     sys.exit(1)
-print(f"TC4 11.62.96 mirror runtime guard: PASS ({checks}/176 checks)")
+print(f"TC4 11.63.10 mirror runtime guard: PASS ({checks}/176 checks)")

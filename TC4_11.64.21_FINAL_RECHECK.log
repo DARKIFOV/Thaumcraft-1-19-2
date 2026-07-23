@@ -1,0 +1,24 @@
+PASS | version agreement
+PASS | mandatory prompt identity
+PASS | mandatory prompt token Один релиз — один предмет или одна цельная механика
+PASS | mandatory prompt token Упаковка архива без этого файла запрещена
+PASS | mandatory prompt token SOURCE CLOSED
+PASS | mandatory prompt token RESOURCE CLOSED
+PASS | mandatory prompt token BUILD VERIFIED
+PASS | mandatory prompt token RUNTIME VERIFIED
+PASS | Arcane Pressure Plate full-closure guard
+PASS | Java 17 target self-test and targeted parse
+PASS | GameTest uniqueness
+PASS | manifest uniqueness
+PASS | JSON resources
+PASS | recipe denominator
+PASS | clean source tree
+PASS | report and evidence
+PASS | honest evidence statuses
+PASS | honest Gradle failure evidence
+PASS | root artifact TC4_11.64.21_BUILD_STATUS.txt
+PASS | root artifact TC4_11.64.21_JAVA_PARSE_STATUS.txt
+PASS | root artifact TC4_11.64.21_STATIC_CI_FINAL_SUMMARY.txt
+PASS | root artifact TC4_11.64.21_FOCUSED_STATIC_CI_FINAL.log
+PASS | root artifact TC4_11.64.21_ZIP_INTEGRITY.txt
+FINAL RECHECK v11.64.21: PASS (23/23)

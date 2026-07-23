@@ -1,0 +1,26 @@
+Thaumcraft Legacy Rebuild v11.63.26 — build status
+Date: 2026-07-18
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+
+Environment found:
+- OS of execution environment: Linux container
+- Java available: OpenJDK 21.0.10
+- JDK 17: NOT FOUND
+- Gradle 7.5.1 Wrapper distribution/cache: NOT FOUND
+- System Gradle: not used
+
+Wrapper attempts after chmod +x gradlew:
+- ./gradlew --version --no-daemon --console=plain: RC=1
+- ./gradlew compileJava --no-daemon --console=plain --stacktrace: RC=1
+- ./gradlew build --no-daemon --console=plain --stacktrace: RC=1
+
+First blocking error for every command:
+java.net.UnknownHostException: services.gradle.org
+while downloading https://services.gradle.org/distributions/gradle-7.5.1-bin.zip
+
+The Gradle runtime and javac were never started. There is no BUILD SUCCESSFUL line.
+No v11.63.26 JAR was created and no JAR SHA-256 exists.
+The uploaded v11.63.25 JAR was not renamed or reused as v11.63.26.
+
+Static CI result: PASS_90_OF_90.
+Runtime/client/dedicated-server status: NOT_TESTED.

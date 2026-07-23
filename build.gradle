@@ -1,11 +1,39 @@
 plugins {
-// v11.62 compatibility markers: version = '11.42.1', version = '11.42.0'
+// v11.62 compatibility markers: version = '11.64.05' // Warp spawn offset parity: preserve TC4 tri-state sign (-1, 0, +1).
+// v11.64.05 compatibility marker: version = '11.64.05'
+// v11.64.06 compatibility marker: version = '11.64.06'
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.76'
 }
 
-version = '11.62.96' // P0 item geometry and UV parity hotfix.
+version = '11.64.39' // Thaumatorium full closure: multiblock, formula memory, suction, crafting, NBT, GUI and original OBJ.
+// v11.64.08 compatibility marker: version = '11.64.08'
+// v11.64.07 compatibility marker: version = '11.64.07'
+// v11.63.64 compatibility marker: version = '11.63.64'
+// v11.63.63 compatibility marker: version = '11.63.63'
+// v11.63.62 compatibility marker: version = '11.63.62'
+// v11.63.61 compatibility marker: version = '11.63.61'
+// v11.63.60 compatibility marker: version = '11.63.60'
+// v11.63.59 compatibility marker: version = '11.63.59'
+// v11.63.55 compatibility marker: version = '11.63.55'
+// v11.63.51 compatibility marker: version = '11.63.51'
+// v11.63.50 compatibility marker: version = '11.63.50'
+// v11.63.43 compatibility marker: version = '11.63.43'
+// v11.63.49 compatibility marker: version = '11.63.49'
+// v11.63.42 compatibility marker: version = '11.63.42'
+// v11.63.41 compatibility marker: version = '11.63.41'
+// v11.63.39 compatibility marker: version = '11.63.39'
+// v11.63.37 compatibility marker: version = '11.63.37'
+// v11.63.36 compatibility marker: version = '11.63.36'
+// v11.63.35 compatibility marker: version = '11.63.35'
+// v11.63.34 compatibility marker: version = '11.63.34'
+// v11.63.33 compatibility marker: version = '11.63.33'
+// v11.63.29 compatibility marker: version = '11.63.29'
+// v11.63.27 compatibility marker: version = '11.63.27'
+// v11.63.25 compatibility marker: version = '11.63.25'
+// v11.63.24 compatibility marker: version = '11.63.24'
+// v11.63.23 compatibility marker: version = '11.63.23'
 // v11.62.54 gameplay baseline marker: version = '11.62.54'
 // v11.62.43 compatibility marker: version = '11.62.43'
 // v11.62.36 compatibility marker: version = '11.62.36'
@@ -150,6 +178,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'thaumcraft'
+            forceExit false
 
             mods {
                 thaumcraft {
@@ -191,6 +220,7 @@ jar {
 
 
 def requiredJarResourceEntries = [
+        'data/thaumcraft/structures/empty_9x5x9.nbt',
         'assets/thaumcraft/textures/block/taint_crust.png',
         'assets/thaumcraft/textures/block/taint_soil.png',
         'assets/thaumcraft/textures/block/flesh_block.png',

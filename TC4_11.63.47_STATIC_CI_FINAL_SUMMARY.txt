@@ -1,0 +1,21 @@
+Thaumcraft Legacy Rebuild 11.63.47 — final static CI summary
+Date: 2026-07-19
+
+Historical and current checks: 111/111 PASS
+Failed checks: 0
+Skipped checks: 0
+Unique check indices in canonical log: 111/111
+Return codes: 111 x RC=0
+
+Java source files: 776
+JSON resources validated: 2108/2108
+Runtime manifest: 330 scenarios, structure PASS
+Required Forge GameTests in source: 12
+Generic registry fallback IDs: 0
+Exactly resolved TC4 recipes with runtime paths: 189
+Still unresolved stage121 source recipes: 54 (not invented)
+
+Forge compile/runtime status: NOT CONFIRMED
+Reason: Gradle 7.5.1 download failed with UnknownHostException for services.gradle.org.
+Available JVM: OpenJDK 21.0.10; project target: Java 17.
+No JAR or GameTest PASS is claimed.

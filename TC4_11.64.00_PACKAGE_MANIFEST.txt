@@ -1,0 +1,45 @@
+Thaumcraft Legacy Rebuild v11.64.00 package manifest
+
+Base:
+- v11.63.99 Research Note graph transaction parity
+
+Production changes:
+- src/main/java/com/darkifov/thaumcraft/research/TC4ResearchNoteClearParity.java
+- src/main/java/com/darkifov/thaumcraft/research/ResearchNoteState.java
+- src/main/java/com/darkifov/thaumcraft/research/ResearchTableInventoryRuntime.java
+- src/main/java/com/darkifov/thaumcraft/research/ResearchNoteSolver.java
+- src/main/java/com/darkifov/thaumcraft/network/RequestClearResearchNoteSlotPacket.java
+- src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java
+
+Metadata / evidence / guards:
+- build.gradle
+- src/main/resources/META-INF/mods.toml
+- runtime_artifacts/runtime_test_manifest.template.json
+- tools/data/tc4_research_note_clear_source_evidence_v11.64.00.json
+- tools/tc4_116400_research_note_clear_guard.py
+- tools/research_note_clear_selftest.py
+- tools/java_parse_guard_116400.py
+- tools/run_focused_static_ci_116400.py
+- forward-compatible fixes in older research/version guards
+
+Documentation:
+- README.md
+- KNOWN_DEVIATIONS.md
+- TC4_PORT_STATUS_V3.md
+- TC4_11.64.00_RESEARCH_NOTE_CLEAR_TRANSACTION_PARITY_PORT_REPORT_RU.md
+
+Static results:
+- 122 unique GameTest methods
+- 450 unique manifest scenarios
+- focused static check set 18/18 PASS
+- targeted Java parse PASS
+- 2049 JSON resources PASS
+- 258/258 original recipe registrations statically mapped
+- 18 smelting bonuses separate
+
+Runtime status:
+- Gradle build NOT OBTAINED
+- Java 17 unavailable in execution environment
+- Gradle 7.5.1 download blocked by UnknownHostException
+- Forge GameTests NOT RUN
+- Runtime NOT VERIFIED

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Regression guard for the 11.62.84 client initialization crash fixed in v11.62.96."""
+"""Regression guard for the 11.62.84 client initialization crash fixed in v11.63.10."""
 from pathlib import Path
+import json
 import re
 import sys
 
@@ -27,9 +28,9 @@ def forbid(rel: str, token: str) -> None:
     if token in read(rel):
         errors.append(f"{rel}: forbidden {token!r}")
 
-need("build.gradle", "version = '11.62.96'")
+need("build.gradle", "version = '11.63.23'")
 need("build.gradle", "net.minecraftforge:forge:1.19.2-43.5.2")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.96"')
+need("src/main/resources/META-INF/mods.toml", 'version="11.63.23"')
 
 bone_bow = "src/main/java/com/darkifov/thaumcraft/item/BoneBowItem.java"
 need(bone_bow, "super(properties.durability(512));")
@@ -50,13 +51,14 @@ if bad_chains:
 
 need(".github/workflows/build.yml", "Validate retained v11.62.85 runtime initialization hotfix")
 need(".github/workflows/release.yml", "Validate retained v11.62.85 runtime initialization hotfix")
-need("runtime_artifacts/runtime_test_manifest.template.json", '"version": "11.62.96"')
-need("tools/validate_runtime_manifest.py", 'default="11.62.96"')
+manifest = json.loads(read("runtime_artifacts/runtime_test_manifest.template.json"))
+assert manifest.get("version") in {"11.63.37", "11.63.38", "11.63.39", "11.63.40", "11.63.41", "11.63.42", "11.63.43", "11.63.44", "11.63.45", "11.63.46", "11.63.47", "11.63.48", "11.63.49", "11.63.50", "11.63.52", "11.63.53", "11.63.54", "11.63.55", "11.63.56", "11.63.58", "11.63.59", "11.63.60", "11.63.61"}
+need("tools/validate_runtime_manifest.py", 'default="11.63.30"')
 
 if errors:
-    print(f"TC4 11.62.96 runtime init hotfix guard: FAIL ({len(errors)} problems; {checks} checks)")
+    print(f"TC4 11.63.10 runtime init hotfix guard: FAIL ({len(errors)} problems; {checks} checks)")
     for error in errors:
         print(" -", error)
     sys.exit(1)
 
-print(f"TC4 11.62.96 runtime init hotfix guard: PASS ({checks}/{checks} checks)")
+print(f"TC4 11.63.10 runtime init hotfix guard: PASS ({checks}/{checks} checks)")

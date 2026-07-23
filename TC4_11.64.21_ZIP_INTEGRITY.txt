@@ -1,0 +1,9 @@
+Pre-package integrity contract for v11.64.21:
+- source tree must contain both identical mandatory prompt files;
+- mandatory prompt must contain the explicit packaging prohibition and four honest status levels;
+- source tree must contain no build, .gradle, __pycache__, .class or .pyc entries;
+- final archive must pass unzip -t;
+- final archive version files must both equal 11.64.21;
+- final archive must contain the report, evidence, focused CI, final recheck and Gradle failure log;
+- final archive must contain no forbidden generated/cache entries;
+- final SHA-256 is recorded in the external .sha256 file and final integrity report.

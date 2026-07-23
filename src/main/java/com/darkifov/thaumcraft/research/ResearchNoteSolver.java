@@ -2,10 +2,12 @@ package com.darkifov.thaumcraft.research;
 
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.darkifov.thaumcraft.data.PlayerThaumData;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,183 +25,212 @@ public final class ResearchNoteSolver {
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
 
         if (ResearchNoteState.solved(note)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.already_complete").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
         if (!ResearchTableInventoryRuntime.checkInkForEdit(player)) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
             return false;
         }
 
         if (!PlayerAspectKnowledge.knows(player, aspect)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_discovered").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
-        // TC4 only permits a new hex when it touches an already occupied
-        // compatible hex. This prevents disconnected islands and, together
-        // with the strict direct-link rule, forbids Ordo -> Ordo chains.
-        if (!ResearchNoteState.touchesCompatibleNeighbor(note, slot, aspect)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_connected").withStyle(ChatFormatting.RED), false);
+        // Original GuiResearchTable accepted every existing empty type-0 hex.
+        // Aspect compatibility is evaluated by the completion graph, not by
+        // placement admission. The server still rejects inactive, occupied or
+        // anchor slots so forged packets cannot overwrite note state.
+        if (!ResearchNoteState.canPlaceAspect(note, slot, aspect)) {
             return false;
         }
 
-        if (!ResearchTableInventoryRuntime.hasPoolOrTableBonus(player, aspect)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_pool").withStyle(ChatFormatting.RED), false);
+        // TC4 evaluates the RESEARCHER2 10% free-placement roll before it
+        // asks whether the player/table currently owns the aspect.  The old
+        // port checked the pool first, making Mastery unable to rescue a zero-
+        // stock placement even when the original roll succeeded.
+        boolean freePlacement = shouldPreservePlacedAspect(player);
+        if (TC4ResearchEfficiencyParity.placementNeedsAspectSource(freePlacement)
+                && !ResearchTableInventoryRuntime.hasPoolOrTableBonus(player, aspect)) {
+            return false;
+        }
+
+        boolean debitAspect = TC4ResearchEfficiencyParity.placementNeedsAspectSource(freePlacement);
+        Optional<ResearchTableInventoryRuntime.ResearchNotePlacementDebit> debit =
+                ResearchTableInventoryRuntime.debitResearchNotePlacementAtomically(
+                        player, aspect, debitAspect);
+        if (debit.isEmpty()) {
             return false;
         }
 
         boolean placed = ResearchNoteState.place(note, slot, aspect);
-
         if (!placed) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.hex_invalid").withStyle(ChatFormatting.RED), false);
+            ResearchTableInventoryRuntime.rollbackResearchNotePlacementDebit(player, debit.get());
             return false;
-        }
-
-        if (!ResearchTableInventoryRuntime.consumeInkForEdit(player)) {
-            ResearchNoteState.clearSlot(note, slot);
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.ink_empty").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-
-        // Research Mastery (RESEARCHER2) in TC4 has a 10% chance to place
-        // an aspect without consuming a research point. Ink is still consumed.
-        boolean freePlacement = shouldPreservePlacedAspect(player);
-        if (!freePlacement && !ResearchTableInventoryRuntime.consumePoolOrTableBonus(player, aspect)) {
-            ResearchNoteState.clearSlot(note, slot);
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.aspect_unavailable").withStyle(ChatFormatting.RED), false);
-            return false;
-        }
-
-        if (freePlacement) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.expertise_saved")
-                    .withStyle(ChatFormatting.AQUA), false);
         }
 
         if (ResearchNoteState.isSolvedForPlayer(note, player)) {
             ResearchNoteState.markSolved(note);
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.note_complete").withStyle(ChatFormatting.GOLD), false);
-        } else {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.aspect_placed",
-                    Component.translatable("aspect.thaumcraft." + aspect.id()).withStyle(style -> style.withColor(aspect.textColor())))
-                    .withStyle(ChatFormatting.GRAY), false);
         }
 
         return true;
     }
 
     public static boolean clearSlot(Player player, ItemStack note, int slot) {
-        if (player == null || note.isEmpty()) {
+        if (player == null) {
+            return false;
+        }
+        return clearSlotWithRoll(player, note, slot, player.getRandom().nextFloat());
+    }
+
+    /** Deterministic seam used by GameTests; production delegates with the real player RNG. */
+    public static boolean clearSlotWithRoll(
+            Player player, ItemStack note, int slot, float refundRoll) {
+        if (player == null || note == null || note.isEmpty()) {
+            return false;
+        }
+        if (!ResearchTableInventoryRuntime.hasOpenResearchTable(player)
+                || ResearchTableInventoryRuntime.findOpenTableResearchNote(player)
+                        .filter(open -> open == note).isEmpty()) {
             return false;
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         if (ResearchNoteState.solved(note)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.already_complete").withStyle(ChatFormatting.RED), false);
+            return false;
+        }
+        Optional<Aspect> clearable = ResearchNoteState.clearableAspect(note, slot);
+        if (clearable.isEmpty()) {
             return false;
         }
         if (!ResearchTableInventoryRuntime.checkInkForEdit(player)) {
-            player.displayClientMessage(ResearchTableInventoryRuntime.missingToolsMessage(), false);
-            return false;
-        }
-        Optional<Aspect> removed = ResearchNoteState.clearSlot(note, slot);
-
-        if (removed.isEmpty()) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.hex_cannot_clear").withStyle(ChatFormatting.RED), false);
             return false;
         }
 
-        if (!ResearchTableInventoryRuntime.consumeInkForEdit(player)) {
-            ResearchNoteState.place(note, slot, removed.get());
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.ink_empty").withStyle(ChatFormatting.RED), false);
+        boolean refund = shouldRefundClearedAspect(player, refundRoll);
+        Optional<ResearchTableInventoryRuntime.ResearchNoteClearDebit> debit =
+                ResearchTableInventoryRuntime.debitResearchNoteClearAtomically(
+                        player, note, slot);
+        if (debit.isEmpty()) {
             return false;
         }
 
-        boolean refund = shouldRefundClearedAspect(player);
+        Aspect removed = debit.get().aspect();
         if (refund) {
-            PlayerAspectKnowledge.addPool(player, removed.get(), 1);
+            PlayerAspectKnowledge.addPool(player, removed, 1);
         }
-
-        player.displayClientMessage(Component.translatable(refund
-                        ? "thaumcraft.message.research.aspect_returned" : "thaumcraft.message.research.aspect_cleared",
-                        Component.translatable("aspect.thaumcraft." + removed.get().id())
-                                .withStyle(style -> style.withColor(removed.get().textColor())))
-                .withStyle(ChatFormatting.GRAY), false);
         return true;
     }
 
     public static boolean solve(Player player, ItemStack note) {
-        if (player == null || note.isEmpty()) {
+        if (player == null || note == null || note.isEmpty()) {
             return false;
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
+        if (ResearchNoteState.solved(note)) {
+            return false;
+        }
 
+        Optional<ResearchTableInventoryRuntime.ResearchNoteCompletionSnapshot> snapshot =
+                ResearchTableInventoryRuntime.beginResearchNoteCompletion(player, note);
+        if (snapshot.isEmpty()) {
+            return false;
+        }
         if (!ResearchNoteState.hasAllRequired(note)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.anchors_missing").withStyle(ChatFormatting.RED), false);
             return false;
         }
-
-        boolean solved = ResearchNoteState.isSolvedForPlayer(note, player);
-
-        if (!solved) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.not_connected").withStyle(ChatFormatting.RED), false);
+        if (!ResearchNoteState.isSolvedForPlayer(note, player)) {
             return false;
         }
-
-        ResearchNoteState.markSolved(note);
-        player.displayClientMessage(Component.translatable("thaumcraft.message.research.theory_complete").withStyle(ChatFormatting.GOLD), false);
+        if (!ResearchTableInventoryRuntime.commitResearchNoteCompletion(player, snapshot.get())) {
+            return false;
+        }
         return true;
     }
 
-    public static boolean convertSolvedNote(Player player, ItemStack note) {
-        if (player == null || note.isEmpty()) {
-            return false;
+    public record SolvedNoteConversionSnapshot(
+            ItemStack note, CompoundTag noteTagBefore, int countBefore, String targetBefore) {
+    }
+
+    public static Optional<SolvedNoteConversionSnapshot> beginSolvedNoteConversion(
+            Player player, ItemStack note) {
+        if (player == null || note == null || note.isEmpty()) {
+            return Optional.empty();
         }
         ResearchNoteState.initialize(note, ResearchNoteState.target(note));
         if (!ResearchNoteState.solved(note)) {
+            return Optional.empty();
+        }
+        String targetKey = ResearchNoteState.target(note);
+        Optional<ResearchEntry> target = OriginalResearchBridge.byKey(targetKey);
+        if (target.isEmpty() || !OriginalResearchBridge.canUnlock(player, target.get())) {
+            return Optional.empty();
+        }
+        return Optional.of(new SolvedNoteConversionSnapshot(
+                note, note.getTag() == null ? null : note.getTag().copy(),
+                note.getCount(), targetKey));
+    }
+
+    public static boolean commitSolvedNoteConversion(
+            Player player, SolvedNoteConversionSnapshot snapshot) {
+        if (player == null || snapshot == null || snapshot.note() == null
+                || snapshot.note().isEmpty() || snapshot.note().getCount() != snapshot.countBefore()) {
             return false;
         }
-        Optional<ResearchEntry> target = OriginalResearchBridge.byKey(ResearchNoteState.target(note));
-        if (target.isEmpty()) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.no_target").withStyle(ChatFormatting.RED), true);
+        CompoundTag current = snapshot.note().getTag();
+        boolean exactSnapshot = snapshot.noteTagBefore() == null
+                ? current == null
+                : snapshot.noteTagBefore().equals(current);
+        if (!exactSnapshot || !snapshot.targetBefore().equals(ResearchNoteState.target(snapshot.note()))
+                || !ResearchNoteState.solved(snapshot.note())) {
             return false;
         }
-        if (!OriginalResearchBridge.canUnlock(player, target.get())) {
-            player.displayClientMessage(Component.translatable("thaumcraft.message.research.prerequisites").withStyle(ChatFormatting.RED), true);
+        Optional<ResearchEntry> target = OriginalResearchBridge.byKey(snapshot.targetBefore());
+        if (target.isEmpty() || !OriginalResearchBridge.canUnlock(player, target.get())) {
             return false;
         }
-        OriginalResearchBridge.unlock(player, target.get());
-        if (!player.getAbilities().instabuild) {
-            note.shrink(1);
+        if (!OriginalResearchBridge.unlock(player, target.get())) {
+            return false;
         }
+        OriginalResearchBridge.unlockEligibleSiblings(player, target.get());
+
+        // Original ItemResearchNotes decremented stackSize unconditionally,
+        // including creative mode. Do not retain a port-only instabuild bypass.
+        snapshot.note().shrink(TC4ResearchNoteCompletionParity.completedDiscoveryConsumeCount());
+        player.level.playSound(null, player.blockPosition(), TC4Sounds.event("learn"),
+                SoundSource.PLAYERS, 0.75F, 1.0F);
         if (player instanceof ServerPlayer serverPlayer) {
             ThaumcraftNetwork.syncResearch(serverPlayer);
             ThaumcraftNetwork.syncAspectKnowledge(serverPlayer);
         }
-        player.displayClientMessage(Component.translatable("thaumcraft.message.research.completed",
-                Component.translatable("tc.research_name." + target.get().key())).withStyle(ChatFormatting.GOLD), true);
         return true;
+    }
+
+    public static boolean convertSolvedNote(Player player, ItemStack note) {
+        Optional<SolvedNoteConversionSnapshot> snapshot = beginSolvedNoteConversion(player, note);
+        if (snapshot.isEmpty()) {
+            if (player != null && note != null && !note.isEmpty() && ResearchNoteState.solved(note)) {
+                player.displayClientMessage(Component.translatable("tc.researcherror"), false);
+            }
+            return false;
+        }
+        return commitSolvedNoteConversion(player, snapshot.get());
     }
 
     private static boolean shouldPreservePlacedAspect(Player player) {
         return player != null
-                && !player.getAbilities().instabuild
-                && PlayerThaumData.hasResearch(player, "RESEARCHER2")
-                && player.getRandom().nextFloat() < 0.10F;
+                && TC4ResearchEfficiencyParity.masteryFreePlacement(
+                        PlayerThaumData.hasResearch(player, "RESEARCHER2"),
+                        player.getRandom().nextFloat());
     }
 
-    private static boolean shouldRefundClearedAspect(Player player) {
-        if (player == null || player.getAbilities().instabuild) {
-            return true;
+    private static boolean shouldRefundClearedAspect(Player player, float roll) {
+        if (player == null) {
+            return false;
         }
-        float roll = player.getRandom().nextFloat();
-        if (PlayerThaumData.hasResearch(player, "RESEARCHER2")) {
-            return roll < 0.50F;
-        }
-        if (PlayerThaumData.hasResearch(player, "RESEARCHER1")) {
-            return roll < 0.25F;
-        }
-        return false;
+        return TC4ResearchNoteClearParity.shouldRefundClearedAspect(
+                PlayerThaumData.hasResearch(player, "RESEARCHER1"),
+                PlayerThaumData.hasResearch(player, "RESEARCHER2"),
+                player.getAbilities().instabuild,
+                roll);
     }
 
     public static Component debugSummary(ItemStack note) {

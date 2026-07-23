@@ -1,0 +1,15 @@
+archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.28_INFERNAL_FURNACE_FULL_CLOSURE_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+sha256: ea6e99bd081623667d94d298feb481f4a2ec6b93c7e7448999cd4c36caa76037
+size_bytes: 59164930
+entries: 9286
+unique_entries: 9286
+duplicate_entries: 0
+crc_test: PASS
+manifest_files_verified: 9285
+manifest_files_total: 9285
+manifest_mismatches: []
+forbidden_entries: []
+version_build_ok: True
+version_mods_ok: True
+prompt_copies_identical: True
+honest_build_status: True

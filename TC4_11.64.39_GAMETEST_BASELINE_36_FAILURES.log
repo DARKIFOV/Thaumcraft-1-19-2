@@ -1,0 +1,253 @@
+[23июл.2026 21:12:41.760] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgegametestserveruserdev, --gameDir, ., --fml.forgeVersion, 43.5.2, --fml.mcVersion, 1.19.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220805.130853]
+[23июл.2026 21:12:41.772] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.19 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[23июл.2026 21:12:42.149] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/DARKIFOV/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23127!/ Service=ModLauncher Env=SERVER
+[23июл.2026 21:12:42.314] [main/WARN] [net.minecraftforge.fml.loading.FMLConfig/CORE]: Configuration file C:\tc4_build_116439\run-gametest\config\fml.toml is not correct. Correcting
+[23июл.2026 21:12:42.329] [main/WARN][23июл.2026 21:12:42.525] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/DARKIFOV/[23июл.2026 21:12:43.328] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\DARKIFOV\.gradle\caches\modules-2\[23июл.2026 21:12:43.593] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\DARKIFOV\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.19.2-43.5.2\3fd97fdd09e578a419fe65fddeb2c15deb2988ac\javafmllanguage-1.19.2-43.5.2.jar is missing mods.toml file
+[23июл.2026 21:12:43.604] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\DARKIFOV\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.19.2-43.5.2\3736390db349cb464d10ce49ed5b74ab2b48226a\lowcodelanguage-1.19.2-43.5.2.jar is missing mods.toml file
+[23июл.2026 21:12:43.620] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\DARKIFOV\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.19.2-43.5.2\5bcfe74f4b74d4f7d01a937801d29c5558543b84\mclanguage-1.19.2-43.5.2.jar is missing mods.toml file
+[23июл.2026 21:12:43.630] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\DARKIFOV\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.19.2-43.5.2\3ff8f910032d88f3ca788b82fd9ce54ac3f7bc25\fmlcore-1.19.2-43.5.2.jar is missing mods.toml f[23июл.2026 21:12:50.844] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgegametestserveruserdev' with arguments [--[23июл.202[23июл.2026 21:13:00.982] [main/INFO] [net.minecraft.util.datafix.DataFixers/]: Building unoptimized datafixer
+[23июл.2026 21:13:05.923] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 43.5.2, for MC 1.19.2 with MCP 20220805.130853
+[23июл.2026 21:13:05.927] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v43.5.2 Initialized
+[23июл.2026 21:13:08.224] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file C:\tc4_build_116439\run-gametest\config\forge-common[23июл.2026 21:13:09.963] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[23июл.2026 21:13:11.179] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: AHEAD Current: 43.5.2 Target: null
+[23июл.2026 21:13:11.866] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[23июл.2026 21:13:11.927] [main/ERROR] [net.minecraft.server.Main/FATAL]: Failed to start the minecraft server
+java.io.IOException: Процесс не может получить доступ к файлу, так как часть этого файла заблокирована другим процессом
+	at sun.nio.ch.FileDispatcherImpl.write0(Native Method) ~[?:?]
+	at sun.nio.ch.FileDispatcherImpl.write(FileDispatcherImpl.java:68) ~[?:?]
+	at sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:132) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:76) ~[?:?]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:67) ~[?:?]
+	at sun.nio.ch.FileChannelImpl.write(FileChannelImpl.java:288) ~[?:?]
+	at net.minecraft.util.DirectoryLock.create(DirectoryLock.java:40) ~[forge-1.19.2-43.5.2_mapped_official_1.19.2.jar:?]
+	at net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess.<init>(LevelStorageSource.java:344) ~[forge-1.19.2-43.5.2_mapped_official_1.19.2.jar:?]
+	at net.minecraft.world.level.storage.LevelStorageSource.createAccess(LevelStorageSource.java:292) ~[forge-1.19.2-43.5.2_mapped_official_1.19.2.jar:?]
+	at net.minecraft.server.Main.main(Main.java:130) ~[forge-1.19.2-43.5.2_mapped_official_1.19.2.jar:?]
+	at net.minecraftforge.gametest.GameTestMain.main(GameTestMain.java:16) ~[forge-1.19.2-43.5.2_mapped_official_1.19.2.jar:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:569) ~[?:?]
+	at net.minecraftforge.fml.loading.targets.ForgeGametestUserdevLaunchHandler.lambda$launchService$0(ForgeGametestUserdevLaunchHandler.java:22) ~[fmlloader-1.19.2-43.5.2.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandlerDecorator.launch(LaunchServiceHandlerDecorator.java:30) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:53) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.LaunchServiceHandler.launch(LaunchServiceHandler.java:71) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.run(Launcher.java:108) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.Launcher.main(Launcher.java:78) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:26) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.modlauncher.BootstrapLaunchConsumer.accept(BootstrapLaunchConsumer.java:23) ~[modlauncher-10.0.9.jar:?]
+	at cpw.mods.bootstraplauncher.BootstrapLauncher.main(BootstrapLauncher.java:141) ~[bootstraplauncher-1.1.2.jar:?]
+its default, 20. 
+[23июл.2026 21:13:08.249] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key infusion.symmetryPenaltyDurationTicks was corrected from null to its default, 15. 
+[23июл.2026 21:13:08.251] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:08.251] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.portalBaseStability was corrected from null to its default, 90. 
+[23июл.2026 21:13:08.251] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.portalAwakenedStability was corrected from null to its default, 120. 
+[23июл.2026 21:13:08.254] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.portalStabilityDrain was corrected from null to its default, 8. 
+[23июл.2026 21:13:08.254] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.portalCooldownSeconds was corrected from null to its default, 300. 
+[23июл.2026 21:13:08.255] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.portalFailCooldownSeconds was corrected from null to its default, 240. 
+[23июл.2026 21:13:08.255] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.encounterDurationTicks was corrected from null to its default, 520. 
+[23июл.2026 21:13:08.255] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.requiredWarp was corrected from null to its default, 18. 
+[23июл.2026 21:13:08.256] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key eldritch.requiredAttunement was corrected from null to its default, 30. 
+[23июл.2026 21:13:08.258] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key essentia was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:08.259] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key essentia.tubeTransferIntervalTicks was corrected from null to its default, 20. 
+[23июл.2026 21:13:08.259] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key essentia.tubeMaxNetwork was corrected from null to its default, 48. 
+[23июл.2026 21:13:08.261] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key taint was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:08.262] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key taint.spreadRate was corrected from null to its default, 200. 
+[23июл.2026 21:13:08.262] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key taint.spawnSpores was corrected from null to its default, true. 
+[23июл.2026 21:13:08.264] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key champions was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:08.264] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key champions.championMobs was corrected from null to its default, true. 
+[23июл.2026 21:13:08.267] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key client_parity was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:08.267] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key client_parity.wandDialBottom was corrected from null to its default, false. 
+[23июл.2026 21:13:08.269] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key runic_shielding was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:08.270] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key runic_shielding.runicRechargeMs was corrected from null to its default, 2000. 
+[23июл.2026 21:13:08.270] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key runic_shielding.runicRechargeDelayTicks was corrected from null to its default, 80. 
+[23июл.2026 21:13:08.270] [main/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key runic_shielding.runicCost was corrected from null to its default, 50. 
+[23июл.2026 21:13:09.209] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[23июл.2026 21:13:10.981] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: AHEAD Current: 43.5.2 Target: null
+[23июл.2026 21:13:11.013] [main/ERROR] [net.minecraft.server.dedicated.Settings/]: Failed to load properties from file: server.properties
+[23июл.2026 21:13:11.162] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[23июл.2026 21:13:11.242] [main/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/tc4_build_116439/build/fg_cache/net/minecraftforge/forge/1.19.2-43.5.2_mapped_official_1.19.2/forge-1.19.2-43.5.2_mapped_official_1.19.2.jar%23189!/assets/.mcassetsroot' uses unexpected schema
+[23июл.2026 21:13:11.245] [main/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/tc4_build_116439/build/fg_cache/net/minecraftforge/forge/1.19.2-43.5.2_mapped_official_1.19.2/forge-1.19.2-43.5.2_mapped_official_1.19.2.jar%23189!/data/.mcassetsroot' uses unexpected schema
+[23июл.2026 21:13:14.201] [Worker-Main-3/ERROR] [net.minecraft.tags.TagLoader/]: Couldn't load tag [thaumcraft:thaumium_wand_cap_inert (from main)] as it is missing following references: thaumcraft:thaumium_wand_cap_inert (from main)
+[23июл.2026 21:13:14.202] [Worker-Main-3/ERROR] [net.minecraft.tags.TagLoader/]: Couldn't load tag [thaumcraft:thaumium_wand_cap_inert (from main)] as it is missing following references: thaumcraft:thaumium_wand_cap_inert (from main)
+[23июл.2026 21:13:14.204] [Worker-Main-3/ERROR] [net.minecraft.tags.TagLoader/]: Couldn't load tag [thaumcraft:eldritch_eye_2 (from main)] as it is missing following references: thaumcraft:eldritch_eye_2 (from main)
+[23июл.2026 21:13:14.207] [Worker-Main-3/ERROR] [net.minecraft.tags.TagLoader/]: Couldn't load tag [thaumcraft:focus_pouchbauble (from main)] as it is missing following references: thaumcraft:focus_pouchbauble (from main)
+[23июл.2026 21:13:15.063] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[23июл.2026 21:13:16.252] [main/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1179 advancements
+[23июл.2026 21:13:16.262] [main/INFO] [com.darkifov.thaumcraft.alchemy.AlchemyRecipeManager/]: Loaded 70 Thaumcraft alchemy recipes
+[23июл.2026 21:13:16.269] [main/INFO] [com.darkifov.thaumcraft.arcane.ArcaneWorkbenchRecipeManager/]: Loaded 114 Thaumcraft arcane workbench recipes
+[23июл.2026 21:13:16.277] [main/INFO] [com.darkifov.thaumcraft.infusion.InfusionRecipeManager/]: Loaded 78 Thaumcraft infusion recipes
+[23июл.2026 21:13:17.000] [main/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [thaumcraft]
+[23июл.2026 21:13:17.099] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Configuration file .\world\serverconfig\forge-server.toml is not correct. Correcting
+[23июл.2026 21:13:17.100] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server was corrected from null to its default, SimpleCommentedConfig:{}. 
+[23июл.2026 21:13:17.100] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringBlockEntities was corrected from null to its default, false. 
+[23июл.2026 21:13:17.100] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.removeErroringEntities was corrected from null to its default, false. 
+[23июл.2026 21:13:17.101] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.fullBoundingBoxLadders was corrected from null to its default, false. 
+[23июл.2026 21:13:17.101] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.zombieBaseSummonChance was corrected from null to its default, 0.1. 
+[23июл.2026 21:13:17.101] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.zombieBabyChance was corrected from null to its default, 0.05. 
+[23июл.2026 21:13:17.101] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.fixAdvancementLoading was corrected from null to its default, true. 
+[23июл.2026 21:13:17.102] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.permissionHandler was corrected from null to its default, forge:default_handler. 
+[23июл.2026 21:13:17.102] [Server thread/WARN] [net.minecraftforge.common.ForgeConfigSpec/CORE]: Incorrect key server.useItemWithDurationZero was corrected from null to its default, false. 
+[23июл.2026 21:13:36.217] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[23июл.2026 21:13:37.787] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:37.789] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:37.798] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:37.798] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:38.287] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:38.742] [Worker-Main-9/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:39.220] [Worker-Main-9/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:39.735] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23июл.2026 21:13:40.219] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 1%
+[23июл.2026 21:13:40.721] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 2%
+[23июл.2026 21:13:41.220] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 3%
+[23июл.2026 21:13:41.721] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 4%
+[23июл.2026 21:13:42.222] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 5%
+[23июл.2026 21:13:42.726] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 6%
+[23июл.2026 21:13:43.237] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 8%
+[23июл.2026 21:13:43.738] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 9%
+[23июл.2026 21:13:44.223] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 10%
+[23июл.2026 21:13:44.720] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 12%
+[23июл.2026 21:13:45.230] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 14%
+[23июл.2026 21:13:45.719] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 15%
+[23июл.2026 21:13:46.222] [Worker-Main-10/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 16%
+[23июл.2026 21:13:46.719] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 17%
+[23июл.2026 21:13:47.226] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 19%
+[23июл.2026 21:13:47.758] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 20%
+[23июл.2026 21:13:48.223] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 23%
+[23июл.2026 21:13:48.734] [Worker-Main-8/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 24%
+[23июл.2026 21:13:49.219] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 25%
+[23июл.2026 21:13:49.722] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 28%
+[23июл.2026 21:13:50.238] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 31%
+[23июл.2026 21:13:50.723] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 32%
+[23июл.2026 21:13:51.219] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 33%
+[23июл.2026 21:13:51.718] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 36%
+[23июл.2026 21:13:52.220] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 38%
+[23июл.2026 21:13:52.722] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 41%
+[23июл.2026 21:13:53.228] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 43%
+[23июл.2026 21:13:53.719] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 44%
+[23июл.2026 21:13:54.222] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 46%
+[23июл.2026 21:13:54.737] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 49%
+[23июл.2026 21:13:55.223] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 51%
+[23июл.2026 21:13:55.726] [Worker-Main-9/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 54%
+[23июл.2026 21:13:56.236] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 55%
+[23июл.2026 21:13:56.760] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 56%
+[23июл.2026 21:13:57.236] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 58%
+[23июл.2026 21:13:57.720] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 61%
+[23июл.2026 21:13:58.237] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 63%
+[23июл.2026 21:13:58.728] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 66%
+[23июл.2026 21:13:59.220] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[23июл.2026 21:13:59.726] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 70%
+[23июл.2026 21:14:00.230] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 71%
+[23июл.2026 21:14:00.719] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 74%
+[23июл.2026 21:14:01.224] [Worker-Main-8/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 76%
+[23июл.2026 21:14:01.736] [Worker-Main-4/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 79%
+[23июл.2026 21:14:02.225] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 81%
+[23июл.2026 21:14:02.720] [Worker-Main-10/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 83%
+[23июл.2026 21:14:03.220] [Worker-Main-2/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 84%
+[23июл.2026 21:14:03.721] [Worker-Main-3/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 85%
+[23июл.2026 21:14:04.226] [Worker-Main-11/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 87%
+[23июл.2026 21:14:04.718] [Worker-Main-1/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 89%
+[23июл.2026 21:14:05.220] [Worker-Main-10/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 91%
+[23июл.2026 21:14:05.727] [Worker-Main-6/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 93%
+[23июл.2026 21:14:06.231] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 95%
+[23июл.2026 21:14:06.736] [Worker-Main-7/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 96%
+[23июл.2026 21:14:07.197] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 30979 ms
+[23июл.2026 21:14:07.199] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Started game test server
+[23июл.2026 21:14:07.265] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[23июл.2026 21:14:07.457] [Server thread/INFO] [com.darkifov.thaumcraft.world.MagicalForestWorldgenInstaller/]: [TC4 worldgen] Installed serializable Magical Forest multi-noise source: magicalPoints=40, preservedFlowerForestPoints=40, locateVisible=true.
+[23июл.2026 21:14:07.465] [Server thread/INFO] [com.darkifov.thaumcraft.world.MagicalForestWorldgenDiagnostics/]: [TC4 worldgen] Magical Forest diagnostic: registry=true, forgeAdditional=true, forgeWarm=true, installer=true, sourcePossible=true, sourceClass=net.minecraft.world.level.biome.MultiNoiseBiomeSource, possibleBiomeCount=53.
+[23июл.2026 21:14:07.466] [Server thread/INFO] [com.darkifov.thaumcraft.world.MagicalForestWorldgenDiagnostics/]: [TC4 worldgen] PASS: thaumcraft:magical_forest is installed in the active Overworld BiomeSource. /locate biome can search for it in newly generated terrain.
+[23июл.2026 21:14:46.109] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestBatchRunner/]: Running test batch 'thaumcraft_block_entity_smoke:1' (100 tests)...
+[23июл.2026 21:14:47.077] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: 282 tests are now running!
+[23июл.2026 21:14:47.118] [Server thread/WARN] [net.minecraft.server.MinecraftServer/]: Can't keep up! Is the server overloaded? Running 39602ms or 792 ticks behind
+[23июл.2026 21:14:47.590] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnoteexpertiseclearrefundboundary failed! Expertise clear failed below the 25 percent boundary
+[23июл.2026 21:14:47.619] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: buffertubecapspersistsandsynchronizesrollbackstate failed! Buffer tube closed-choke state did not disable side suction
+[23июл.2026 21:14:47.624] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnotecreativehasnoimplicitclearrefund failed! Creative player could not clear a valid placed hex
+[23июл.2026 21:14:47.659] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcaneearresearchaspectsrarityandblockpropertiesmatchoriginal failed! ARCANEEAR research aspects or recipe page drifted
+[23июл.2026 21:14:47.692] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: blockedthaumatoriumoutputpreservescatalystandessentia failed! Blocked output consumed Thaumatorium catalyst or essentia
+[23июл.2026 21:14:47.739] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnoteplacementrollbackrestoresinkandaspect failed! Unable to create real Research Note placement debit
+[23июл.2026 21:14:47.793] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: thaumonomiconresearchentrymatchesoriginal failed! THAUMONOMICON category/position/complexity drifted
+[23июл.2026 21:14:47.807] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcanespafillmodereciperesearchandblockpropertiesmatchoriginal failed! ARCANESPA research aspects drifted
+[23июл.2026 21:14:47.813] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchsystemonetagnoteskeeponeanchor failed! No one-tag original research entry found
+[23июл.2026 21:14:47.881] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnoteclearconsumesinkwithoutimplicitrefund failed! Valid placed Research Note hex did not clear
+[23июл.2026 21:14:47.883] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: tallowresearchentrymatchesoriginalcontract failed! TALLOW research aspects differ from TC4
+[23июл.2026 21:14:47.892] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnoteconnectedgraphcompletesandprunes failed! Connected Research Note graph did not complete
+[23июл.2026 21:14:59.423] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestBatchRunner/]: Running test batch 'thaumcraft_block_entity_smoke:2' (100 tests)...
+[23июл.2026 21:15:00.715] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcanespaemptycontaineropensguiwithoutdraining failed! A non-filled container must open the original Arcane Spa GUI path
+[23июл.2026 21:15:00.741] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: essentiatubesubtypesandpropagationmatchtc4 failed! Six tube subtypes, suction transforms and 2/5/20 tick cadences must match TC4
+[23июл.2026 21:15:00.766] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: thaumatoriumcraftclearsentirelegacyessentiabuffer failed! Thaumatorium rejected required essentia
+[23июл.2026 21:15:00.794] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: mcpcorrectedarcaneandwandrodrecipesmatchtc4 failed! Missing infusion recipe silverwood_wand_core
+[23июл.2026 21:15:00.818] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: finaloriginalarcaneandgolemfleshrecipesmatchtc4 failed! thaumcraft:tc4_centrifuge key C mismatch: thaumcraft:tc4_block_alchemical_construct
+[23июл.2026 21:15:00.819] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: fertilitylampdirectjarvictusinputmatchesoriginal failed! Fertility Lamp failed direct top-side Victus draw from jar
+[23июл.2026 21:15:00.822] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnoteclearrollbackrestoresnbtinkandpool failed! Unable to create a real Research Note clear debit
+[23июл.2026 21:15:00.832] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: infernalfurnacecoreandnozzleblockentitiesexist failed! Infernal Furnace nozzle BlockEntity missing
+[23июл.2026 21:15:00.913] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: essentiamirrordrainsonepointandrollsbackremotejar failed! Essentia Mirror did not discover the remote jar
+[23июл.2026 21:15:00.919] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcanelevitatorresearchandrecipeindexmatchoriginal failed! LEVITATOR research aspects or recipe page drifted
+[23июл.2026 21:15:00.951] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcanelampresearchrecipeandraritymatchoriginal failed! Arcane Lamp original recipe pattern drifted
+[23июл.2026 21:15:00.976] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnoterepeatedcompletionisrejected failed! Initial Research Note completion failed
+[23июл.2026 21:15:00.984] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: wandcaprecipefamilymatchestc4 failed! thaumium cap result mismatch
+[23июл.2026 21:15:11.228] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestBatchRunner/]: Running test batch 'thaumcraft_block_entity_smoke:3' (82 tests)...
+[23июл.2026 21:15:12.351] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcanepressureplatekeysresearchandrecipeindexmatchoriginal failed! WARDEDARCANA research aspects drifted
+[23июл.2026 21:15:12.353] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnotemasteryclearrefundboundary failed! Mastery clear failed below the 50 percent boundary
+[23июл.2026 21:15:12.369] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: repeatedresearchunlockdoesnotduplicatewarp failed! Initial synthetic research unlock failed
+[23июл.2026 21:15:12.379] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnotedisconnectedemptyhexplacementmatchestc4 failed! TC4 type-0 hex placement was incorrectly blocked for lacking a compatible neighbour
+[23июл.2026 21:15:12.391] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcanebellowsresearchrecipeandinfernalcontractmatchoriginal failed! BELLOWS research aspects drifted
+[23июл.2026 21:15:12.396] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: thaumatoriumrequiresrememberedformulaandupperpartproxieslower failed! Expected ThaumatoriumBlockEntity at BlockPos{x=4, y=-58, z=438}, got null
+[23июл.2026 21:15:12.398] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchnotestalecompletionsnapshotisrejected failed! Unable to create Research Note completion preflight
+[23июл.2026 21:15:12.400] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: researchsystemcostsandradiususeexactresearchtags failed! Secondary research cost added inferred aspects or changed exact tag amounts
+[23июл.2026 21:15:12.415] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: alchemicalfurnaceprocessespersistsandrespectscapacity failed! Iron ingot did not distill to three Metallum
+[23июл.2026 21:15:12.437] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: thaumatoriumrequiresheatandredstonestopssuction failed! Heated Thaumatorium did not request its first missing aspect
+[23июл.2026 21:15:12.439] [Server thread/ERROR] [net.minecraft.gametest.framework.LogTestReporter/]: arcaneboreadjacentlampseedsoriginaltunnelmarker failed! Arcane Bore production integration did not seed the original lamp tunnel marker
+[23июл.2026 21:15:12.440] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: [++++++++X++++++++X+++X+++X++++X+++++++++++X+++++++++++++++++++XX++X+++++++++++++++++++++++++X+++X+X+++++X+++++++++++++++++++X+X++++X++++XXX+X++++++++++++++++++++++++++++++++++X+++++X+++X++++++X+++X+++++++++++++++++X++X+++++++++++++++X++++++++X++++++++++++XXX+++X+++++++++X++++++++XX]
+[23июл.2026 21:15:12.440] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ========= 282 GAME TESTS COMPLETE ======================
+[23июл.2026 21:15:12.441] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: 36 required tests failed :(
+[23июл.2026 21:15:12.442] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnoteexpertiseclearrefundboundary
+[23июл.2026 21:15:12.442] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - buffertubecapspersistsandsynchronizesrollbackstate
+[23июл.2026 21:15:12.442] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnotecreativehasnoimplicitclearrefund
+[23июл.2026 21:15:12.442] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcaneearresearchaspectsrarityandblockpropertiesmatchoriginal
+[23июл.2026 21:15:12.442] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - blockedthaumatoriumoutputpreservescatalystandessentia
+[23июл.2026 21:15:12.443] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnoteplacementrollbackrestoresinkandaspect
+[23июл.2026 21:15:12.443] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - thaumonomiconresearchentrymatchesoriginal
+[23июл.2026 21:15:12.443] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcanespafillmodereciperesearchandblockpropertiesmatchoriginal
+[23июл.2026 21:15:12.443] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchsystemonetagnoteskeeponeanchor
+[23июл.2026 21:15:12.443] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnoteclearconsumesinkwithoutimplicitrefund
+[23июл.2026 21:15:12.444] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - tallowresearchentrymatchesoriginalcontract
+[23июл.2026 21:15:12.444] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnoteconnectedgraphcompletesandprunes
+[23июл.2026 21:15:12.444] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcanespaemptycontaineropensguiwithoutdraining
+[23июл.2026 21:15:12.444] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - essentiatubesubtypesandpropagationmatchtc4
+[23июл.2026 21:15:12.444] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - thaumatoriumcraftclearsentirelegacyessentiabuffer
+[23июл.2026 21:15:12.444] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - mcpcorrectedarcaneandwandrodrecipesmatchtc4
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - finaloriginalarcaneandgolemfleshrecipesmatchtc4
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - fertilitylampdirectjarvictusinputmatchesoriginal
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnoteclearrollbackrestoresnbtinkandpool
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - infernalfurnacecoreandnozzleblockentitiesexist
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - essentiamirrordrainsonepointandrollsbackremotejar
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcanelevitatorresearchandrecipeindexmatchoriginal
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcanelampresearchrecipeandraritymatchoriginal
+[23июл.2026 21:15:12.445] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnoterepeatedcompletionisrejected
+[23июл.2026 21:15:12.446] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - wandcaprecipefamilymatchestc4
+[23июл.2026 21:15:12.446] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcanepressureplatekeysresearchandrecipeindexmatchoriginal
+[23июл.2026 21:15:12.446] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnotemasteryclearrefundboundary
+[23июл.2026 21:15:12.446] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - repeatedresearchunlockdoesnotduplicatewarp
+[23июл.2026 21:15:12.446] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnotedisconnectedemptyhexplacementmatchestc4
+[23июл.2026 21:15:12.446] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcanebellowsresearchrecipeandinfernalcontractmatchoriginal
+[23июл.2026 21:15:12.447] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - thaumatoriumrequiresrememberedformulaandupperpartproxieslower
+[23июл.2026 21:15:12.447] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchnotestalecompletionsnapshotisrejected
+[23июл.2026 21:15:12.447] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - researchsystemcostsandradiususeexactresearchtags
+[23июл.2026 21:15:12.447] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - alchemicalfurnaceprocessespersistsandrespectscapacity
+[23июл.2026 21:15:12.447] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - thaumatoriumrequiresheatandredstonestopssuction
+[23июл.2026 21:15:12.447] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]:    - arcaneboreadjacentlampseedsoriginaltunnelmarker
+[23июл.2026 21:15:12.448] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ====================================================
+[23июл.2026 21:15:12.512] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[23июл.2026 21:15:12.513] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[23июл.2026 21:15:12.513] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[23июл.2026 21:15:19.983] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[23июл.2026 21:15:24.251] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[23июл.2026 21:15:24.254] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/thaumcraft:outer_lands
+[23июл.2026 21:15:24.257] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[23июл.2026 21:15:24.546] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[23июл.2026 21:15:24.547] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[23июл.2026 21:15:24.547] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (outer_lands): All chunks are saved
+[23июл.2026 21:15:24.547] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[23июл.2026 21:15:24.547] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[23июл.2026 21:15:25.233] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: Game test server shutting down

@@ -1,6 +1,6 @@
 {
-  "version": "11.62.96",
-  "scope": "TC4 warp buckets/counter, Warp Ward migration, event spawning, Death Gaze cone and network sync source contracts",
+  "version": "11.63.10",
+  "scope": "TC4 warp buckets/counter, Warp Ward migration, event spawning, exact Death Gaze aperture/body-center/round-cap and network sync source contracts",
   "checks_total": 50,
   "checks_passed": 50,
   "failed": [],

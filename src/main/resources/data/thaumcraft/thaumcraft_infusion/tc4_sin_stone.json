@@ -5,7 +5,7 @@
   "tc4_kind": "INFUSION",
   "catalyst": "minecraft:flint",
   "components": [
-    "thaumcraft:tc4_nitor",
+    "thaumcraft:nitor",
     "thaumcraft:ordo_shard",
     "thaumcraft:tc4_knowledgefragment",
     "thaumcraft:perditio_shard"

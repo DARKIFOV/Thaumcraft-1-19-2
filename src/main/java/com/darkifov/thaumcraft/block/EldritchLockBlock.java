@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.blockentity.EldritchLockBlockEntity;
+import com.darkifov.thaumcraft.item.TC4EldritchObjectItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -65,8 +66,9 @@ public class EldritchLockBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack held = player.getItemInHand(hand);
         // TC4 BlockEldritch metadata 8 accepts only ItemEldritchObject meta 2,
-        // represented by ELDRITCH_EYE in the flattened registry.
-        boolean key = held.is(ThaumcraftMod.ELDRITCH_EYE.get());
+        // represented by the exact legacy runed-tablet ID, while the canonical eye remains accepted for old rebuilt saves.
+        boolean key = held.is(ThaumcraftMod.ELDRITCH_EYE.get())
+                || TC4EldritchObjectItem.isVariant(held, TC4EldritchObjectItem.Variant.RUNED_TABLET);
         if (!key) {
             return InteractionResult.PASS;
         }

@@ -1,0 +1,11 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 v11.63.52
+Package type: source + reports
+Exact duplicate item aliases removed: 63
+Canonical static CI: 117/117 PASS
+JSON resources: 2048/2048 PASS
+Item models: 663
+Original recipe ledger: 258/258
+Runtime scenarios: 347
+Required GameTests: 19
+Current runtime status: NOT_TESTED (v11.63.51 previous baseline 18/18 PASS)
+Release JAR: not included / not built for v11.63.52

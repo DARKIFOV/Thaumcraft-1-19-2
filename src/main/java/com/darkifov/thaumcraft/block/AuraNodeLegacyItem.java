@@ -40,14 +40,34 @@ public final class AuraNodeLegacyItem extends Item {
             return InteractionResultHolder.fail(legacy);
         }
 
-        ItemStack converted = new ItemStack(ThaumcraftMod.NODE_JAR.get());
-        converted.getOrCreateTag().put(TC4NodeJarRuntime.TAG_NODE_JAR, node.copy());
+        ItemStack converted = convertLegacyStack(legacy);
+        if (converted.isEmpty()) {
+            return InteractionResultHolder.fail(legacy);
+        }
         if (!level.isClientSide) {
             player.setItemInHand(hand, converted);
             player.displayClientMessage(Component.literal("Legacy aura node converted to Node in a Jar.")
                     .withStyle(ChatFormatting.AQUA), true);
         }
         return InteractionResultHolder.sidedSuccess(converted, level.isClientSide);
+    }
+
+    /**
+     * Deterministic migration path used by world migration and dedicated-server
+     * GameTests. Returns {@link ItemStack#EMPTY} when the legacy stack contains
+     * no recognizable TC4 node payload.
+     */
+    public static ItemStack convertLegacyStack(ItemStack legacy) {
+        CompoundTag node = findNodeData(legacy);
+        if (node == null) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack converted = new ItemStack(ThaumcraftMod.NODE_JAR.get());
+        converted.getOrCreateTag().put(TC4NodeJarRuntime.TAG_NODE_JAR, node.copy());
+        if (legacy.hasCustomHoverName()) {
+            converted.setHoverName(legacy.getHoverName());
+        }
+        return converted;
     }
 
     @Nullable

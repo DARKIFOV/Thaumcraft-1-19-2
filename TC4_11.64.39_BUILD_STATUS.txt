@@ -1,0 +1,28 @@
+Thaumcraft Legacy Rebuild 1.19.2 v11.64.39
+Scope: Thaumatorium full-closure parity
+
+Java: Eclipse Adoptium 17.0.19
+Forge: 43.5.2
+Minecraft: 1.19.2
+
+Focused guard: PASS
+Runtime manifest: PASS (854 scenarios)
+Java 17 self-test: PASS
+Gradle wrapper build: BUILD SUCCESSFUL, exit code 0
+JAR resource verification: PASS
+
+Dedicated GameTest server:
+- 282 tests executed
+- 250 passed
+- 32 required inherited non-Thaumatorium tests failed
+- Thaumatorium scoped tests: 6/6 PASS
+- process exit code: 32 (expected consequence of the inherited failures)
+
+Client visual runtime: NOT TESTED
+Real multiplayer runtime: NOT TESTED
+
+Status:
+SOURCE CLOSED
+RESOURCE CLOSED (static)
+BUILD VERIFIED
+RUNTIME PARTIALLY VERIFIED (dedicated GameTest only)

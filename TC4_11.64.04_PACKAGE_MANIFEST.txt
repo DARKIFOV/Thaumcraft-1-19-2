@@ -1,0 +1,41 @@
+Thaumcraft Legacy Rebuild 11.64.04 corrected package manifest
+Version: 11.64.04
+Files in source tree: 8804
+Java files: 802
+GameTests: 137 (137 unique)
+Runtime manifest scenarios: 465 (465 unique)
+JSON resources: 2049/2049 PASS
+Recipe registrations: 258/258 STATICALLY MAPPED
+Smelting bonuses: 18 separate
+Focused static CI: 11/11 PASS
+Targeted Java parse: PASS
+Pure-Java self-test: PASS on available Java 21
+Gradle/JAR/Forge runtime: NOT VERIFIED
+Archive layout: flat project root; build.gradle is a top-level entry; no port/ wrapper directory
+
+Corrected/added v11.64.04 artifacts:
+build.gradle
+src/main/resources/META-INF/mods.toml
+src/main/java/com/darkifov/thaumcraft/event/WarpEvents.java
+src/main/java/com/darkifov/thaumcraft/warp/TC4WarpRuntimeParity.java
+src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java
+runtime_artifacts/runtime_test_manifest.template.json
+tools/data/tc4_warp_spawn_offset_source_evidence_v11.64.04.json
+tools/tc4_116404_warp_spawn_offset_guard.py
+tools/tc4_116281_warp_eldritch_parity_guard.py
+tools/warp_runtime_selftest.py
+tools/java_parse_guard_116404.py
+tools/run_focused_static_ci_116404.py
+tools/generate_port_status_v3.py
+README.md
+KNOWN_DEVIATIONS.md
+TC4_PORT_STATUS_V3.md
+PROMPT_FOR_FUTURE_CHAT_RU.md
+00_START_HERE_RU.txt
+00_V11.64.04_CORRECTION_NOTICE_RU.txt
+TC4_11.64.04_WARP_SPAWN_OFFSET_PARITY_PORT_REPORT_RU.md
+TC4_11.64.04_FOCUSED_STATIC_CI_FINAL.log
+TC4_11.64.04_TARGETED_JAVA_PARSE.log
+TC4_11.64.04_WARP_RUNTIME_SELFTEST.log
+TC4_11.64.04_GRADLE_COMPILE_ATTEMPT.log
+TC4_11.64.04_ZIP_INTEGRITY.txt

@@ -15,8 +15,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-/** Registers TC4's Magical Forest and its Forge compatibility metadata. */
+/** Registers TC4's Magical Forest, Eldritch biome and Forge compatibility metadata. */
 public final class TC4Biomes {
+    /** Config.biomeMagicalForestWeight default in TC4 4.2.3.5. */
+    public static final int ORIGINAL_MAGICAL_FOREST_WEIGHT = 5;
     public static final DeferredRegister<Biome> BIOMES =
             DeferredRegister.create(ForgeRegistries.BIOMES, ThaumcraftMod.MOD_ID);
     public static final ResourceKey<Biome> MAGICAL_FOREST_KEY = ResourceKey.create(
@@ -24,6 +26,11 @@ public final class TC4Biomes {
             new ResourceLocation(ThaumcraftMod.MOD_ID, "magical_forest"));
     public static final RegistryObject<Biome> MAGICAL_FOREST =
             BIOMES.register("magical_forest", TC4Biomes::createMagicalForest);
+    public static final ResourceKey<Biome> ELDRITCH_KEY = ResourceKey.create(
+            net.minecraft.core.Registry.BIOME_REGISTRY,
+            new ResourceLocation(ThaumcraftMod.MOD_ID, "eldritch"));
+    public static final RegistryObject<Biome> ELDRITCH =
+            BIOMES.register("eldritch", TC4Biomes::createEldritch);
 
     private TC4Biomes() {
     }
@@ -41,7 +48,11 @@ public final class TC4Biomes {
             // alone are deliberately not treated as proof of generation.
             BiomeManager.addAdditionalOverworldBiomes(MAGICAL_FOREST_KEY);
             BiomeManager.addBiome(BiomeManager.BiomeType.WARM,
-                    new BiomeManager.BiomeEntry(MAGICAL_FOREST_KEY, 8));
+                    new BiomeManager.BiomeEntry(MAGICAL_FOREST_KEY, ORIGINAL_MAGICAL_FOREST_WEIGHT));
+            // ThaumcraftWorldGenerator.initialize registers the biome in both
+            // WARM and COOL lists with the same configured weight.
+            BiomeManager.addBiome(BiomeManager.BiomeType.COOL,
+                    new BiomeManager.BiomeEntry(MAGICAL_FOREST_KEY, ORIGINAL_MAGICAL_FOREST_WEIGHT));
         });
     }
 
@@ -68,22 +79,48 @@ public final class TC4Biomes {
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder();
 
         BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
-                .fogColor(0xB7A7D9)
-                .waterColor(0x3F76E4)
+                // BiomeGenMagicalForest does not override fog. Keep the
+                // vanilla Overworld fog used by the original client.
+                .fogColor(0xC0D8FF)
+                // getWaterColorMultiplier() == 30702 in TC4 4.2.3.5.
+                .waterColor(0x0077EE)
                 .waterFogColor(0x050533)
-                .skyColor(0x7AA7FF)
-                .grassColorOverride(0x59C93C)
-                .foliageColorOverride(0x34B94B)
+                .skyColor(0x78A7FF)
+                // BiomeGenMagicalForest#getBiomeGrassColor and
+                // #getBiomeFoliageColor (blue_magical_forest=false).
+                .grassColorOverride(0x55FF81)
+                .foliageColorOverride(0x66FFC5)
                 .ambientMoodSound(net.minecraft.world.level.biome.AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                 .build();
 
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .temperature(0.7F)
-                .downfall(0.8F)
+                .downfall(0.6F)
                 .specialEffects(effects)
                 .mobSpawnSettings(spawns.build())
                 .generationSettings(generation.build())
                 .build();
     }
+    private static Biome createEldritch() {
+        MobSpawnSettings.Builder spawns = new MobSpawnSettings.Builder();
+        BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder();
+        BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder()
+                // BiomeGenEldritch only overrides the sky colour to black.
+                .fogColor(0xC0D8FF)
+                .waterColor(0x3F76E4)
+                .waterFogColor(0x050533)
+                .skyColor(0x000000)
+                .ambientMoodSound(net.minecraft.world.level.biome.AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                .build();
+        return new Biome.BiomeBuilder()
+                .precipitation(Biome.Precipitation.NONE)
+                .temperature(0.5F)
+                .downfall(0.0F)
+                .specialEffects(effects)
+                .mobSpawnSettings(spawns.build())
+                .generationSettings(generation.build())
+                .build();
+    }
+
 }

@@ -20,7 +20,7 @@
     "S": "minecraft:string"
   },
   "result": {
-    "item": "thaumcraft:tc4_golemdecobowtie",
+    "item": "thaumcraft:golem_deco_bowtie",
     "count": 1
   },
   "v11_62_22_strict_original": true

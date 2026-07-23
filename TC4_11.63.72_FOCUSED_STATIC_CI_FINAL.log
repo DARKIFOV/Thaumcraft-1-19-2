@@ -1,0 +1,23 @@
+TC4 v11.63.72 focused static CI
+Scope: restored Wand parity + new Essentia parity + stable global validators
+Historical exact-version guards: NOT RUN (archival version drift)
+
+[1/6] PASS: /opt/pyvenv/bin/python -m py_compile tools/tc4_116371_wand_parity_guard.py tools/tc4_116372_essentia_parity_guard.py
+
+[2/6] PASS: /opt/pyvenv/bin/python tools/tc4_116371_wand_parity_guard.py
+TC4 v11.63.71 wand parity guard: PASS (89 current GameTests; restored baseline 85/413)
+
+[3/6] PASS: /opt/pyvenv/bin/python tools/tc4_116372_essentia_parity_guard.py
+TC4 v11.63.72 essentia parity guard: PASS (89 GameTests, 417 scenarios)
+
+[4/6] PASS: /opt/pyvenv/bin/python tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.63.72 --template
+runtime manifest: PASS (417 tests; template=True)
+
+[5/6] PASS: /opt/pyvenv/bin/python tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+
+[6/6] PASS: /opt/pyvenv/bin/python tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+
+RESULT: 6/6 PASS
+Gradle compile/GameTest runtime: NOT VERIFIED (wrapper download unavailable in sandbox)

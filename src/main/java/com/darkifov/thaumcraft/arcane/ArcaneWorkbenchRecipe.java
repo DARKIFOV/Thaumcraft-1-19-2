@@ -277,8 +277,7 @@ public class ArcaneWorkbenchRecipe {
     }
 
     public boolean catalystMatches(ItemStack stack) {
-        ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return id != null && id.equals(catalystId);
+        return ingredientMatches(catalystId, stack);
     }
 
     public ItemStack result() {
@@ -327,10 +326,22 @@ public class ArcaneWorkbenchRecipe {
 
     private static ResourceLocation parseIngredient(String value) {
         if (value != null && value.startsWith("#")) {
-            ResourceLocation tagId = new ResourceLocation(value.substring(1));
-            return new ResourceLocation(TAG_SENTINEL_NAMESPACE, tagId.getNamespace() + "/" + tagId.getPath());
+            return tagIngredient(new ResourceLocation(value.substring(1)));
         }
         return new ResourceLocation(value);
+    }
+
+    /**
+     * Encodes an item tag as the private ResourceLocation sentinel used by the
+     * arcane recipe runtime, JEI and recipe synchronization. Generated recipes
+     * use this for TC4 OreDictionary inputs such as nuggetCopper.
+     */
+    public static ResourceLocation tagIngredient(ResourceLocation tagId) {
+        if (tagId == null) {
+            throw new IllegalArgumentException("tagId");
+        }
+        return new ResourceLocation(TAG_SENTINEL_NAMESPACE,
+                tagId.getNamespace() + "/" + tagId.getPath());
     }
 
     private static ResourceLocation tagIngredientId(ResourceLocation ingredient) {
@@ -362,7 +373,7 @@ public class ArcaneWorkbenchRecipe {
     }
 
     public static ArcaneWorkbenchRecipe fromJson(ResourceLocation id, JsonObject json) {
-        ResourceLocation catalyst = new ResourceLocation(json.get("catalyst").getAsString());
+        ResourceLocation catalyst = parseIngredient(json.get("catalyst").getAsString());
 
         JsonObject resultObject = json.getAsJsonObject("result");
         ResourceLocation resultItem = new ResourceLocation(resultObject.get("item").getAsString());

@@ -7,7 +7,7 @@ import com.darkifov.thaumcraft.aura.AuraNodeModifier;
 import com.darkifov.thaumcraft.aura.AuraNodeType;
 import com.darkifov.thaumcraft.aura.TC4AuraNodeScanParity;
 import com.darkifov.thaumcraft.aura.TC4ThaumometerTargeting;
-import com.darkifov.thaumcraft.block.ThaumometerItem;
+import com.darkifov.thaumcraft.aura.TC4ThaumometerParity;
 import com.darkifov.thaumcraft.blockentity.AuraNodeBlockEntity;
 import com.darkifov.thaumcraft.client.ClientScanData;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -216,10 +216,7 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
 
         TC4ThaumometerTargeting.ScanTarget target = TC4ThaumometerTargeting.find(
                 minecraft.player, minecraft.getFrameTime());
-        if (target == null || !target.isPresent()) {
-            renderQuestionMark(poseStack, buffer, light);
-            return;
-        }
+        if (target == null || !target.isPresent()) return;
 
         boolean scanned = isScanned(scannerStack, target);
         List<AspectStack> aspects = scanned ? sortedAspects(target.aspects()) : List.of();
@@ -241,24 +238,17 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
                             .append(Component.translatable(nodeModifier.translationKey()));
                 }
                 int typeWidth = minecraft.font.width(typeLine);
-                minecraft.font.drawInBatch(typeLine, -typeWidth / 2.0F, -40.0F, 0xFFD7B8FF, false,
+                minecraft.font.drawInBatch(typeLine, -typeWidth / 2.0F, -40.0F, TC4ThaumometerParity.NODE_TYPE_TEXT_COLOR, false,
                         poseStack.last().pose(), buffer, false, 0, light);
             }
         }
 
-        if (!scanned) {
-            Component question = Component.literal("?");
-            int width = minecraft.font.width(question);
-            minecraft.font.drawInBatch(question, -width / 2.0F, -4.0F, 0xFFE7E7E7, false,
-                    poseStack.last().pose(), buffer, false, 0, light);
-            poseStack.popPose();
-            return;
-        }
+        if (!scanned) { poseStack.popPose(); return; }
 
         // Exact ItemThaumometerRenderer 5/4/3/2/1 layout. The original
         // re-centres every incomplete row from the number of aspects remaining,
         // rather than from the row's maximum capacity.
-        int shown = Math.min(15, aspects.size());
+        int shown = Math.min(TC4ThaumometerParity.MAX_RENDERED_ASPECTS, aspects.size());
         int posX = 0;
         int posY = 0;
         int remaining = shown;
@@ -287,10 +277,7 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
     private void drawScannerTitle(PoseStack poseStack, MultiBufferSource buffer, Component title, int light) {
         Minecraft minecraft = Minecraft.getInstance();
         int width = minecraft.font.width(title);
-        float originalScale = 0.005F;
-        if (width > 90) {
-            originalScale = Math.max(0.0024F, originalScale - 0.000025F * (width - 90));
-        }
+        float originalScale = TC4ThaumometerParity.titleScale(width);
         float relativeScale = originalScale / SCANNER_READOUT_SCALE;
         poseStack.pushPose();
         poseStack.translate(0.0D, -51.0D, 0.0D);
@@ -302,13 +289,10 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
 
     private boolean isScanned(ItemStack scannerStack, TC4ThaumometerTargeting.ScanTarget target) {
         return switch (target.kind()) {
-            case NODE -> target.blockPos() != null
-                    && (ClientScanData.hasNode(target.stableKey())
-                    || ThaumometerItem.hasScannedNode(scannerStack, target.blockPos()));
-            case ENTITY -> ClientScanData.hasEntity(target.stableKey())
-                    || ThaumometerItem.hasScannedEntity(scannerStack, target.stableKey());
-            case ITEM, BLOCK -> ClientScanData.hasObject(target.stableKey())
-                    || ThaumometerItem.hasScannedBlock(scannerStack, target.stableKey());
+            case NODE -> ClientScanData.hasNode(target.stableKey()) || ClientScanData.hasPhenomenon(target.stableKey());
+            case ENTITY -> ClientScanData.hasEntity(target.stableKey());
+            case ITEM, BLOCK -> ClientScanData.hasObject(target.stableKey());
+            case PHENOMENON -> ClientScanData.hasPhenomenon(target.stableKey());
             default -> false;
         };
     }
@@ -322,18 +306,6 @@ public final class ThaumometerItemRenderer extends BlockEntityWithoutLevelRender
         // not reorder the scanner readout by amount.
         sorted.sort(Comparator.comparing(stack -> stack.aspect().id()));
         return sorted;
-    }
-
-    private void renderQuestionMark(PoseStack poseStack, MultiBufferSource buffer, int light) {
-        Minecraft minecraft = Minecraft.getInstance();
-        poseStack.pushPose();
-        poseStack.translate(0.0D, 0.0D, 0.041D);
-        poseStack.scale(0.0060F, -0.0060F, 0.0060F);
-        Component question = Component.literal("?");
-        int width = minecraft.font.width(question);
-        minecraft.font.drawInBatch(question, -width / 2.0F, -4.0F, 0xFFE7E7E7, false,
-                poseStack.last().pose(), buffer, false, 0, light);
-        poseStack.popPose();
     }
 
     private void drawAspectOnScanner(PoseStack poseStack, MultiBufferSource buffer, AspectStack stack,

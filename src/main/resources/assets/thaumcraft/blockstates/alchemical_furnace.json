@@ -1,7 +1,6 @@
 {
   "variants": {
-    "": {
-      "model": "thaumcraft:block/alchemical_furnace"
-    }
+    "lit=false": { "model": "thaumcraft:block/alchemical_furnace" },
+    "lit=true": { "model": "thaumcraft:block/alchemical_furnace" }
   }
 }

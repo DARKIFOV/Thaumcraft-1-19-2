@@ -37,11 +37,9 @@ public final class AlchemicalCentrifugeItemRenderer extends BlockEntityWithoutLe
         applyTransform(transformType, poseStack);
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.scale(0.92F, 0.92F, 0.92F);
-        float rotation = Minecraft.getInstance().level == null
-                ? (System.nanoTime() / 25_000_000L) % 360L
-                : (Minecraft.getInstance().level.getGameTime() * 6.0F) % 360.0F;
+        // Original BlockTubeRenderer renders a fresh TileCentrifuge in inventory, so the item is static.
         AlchemicalCentrifugeRenderer.renderStandalone(model, poseStack, buffer,
-                packedLight, packedOverlay, rotation);
+                packedLight, packedOverlay, 0.0F);
         poseStack.popPose();
     }
 

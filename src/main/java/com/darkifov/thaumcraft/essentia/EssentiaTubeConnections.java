@@ -8,6 +8,7 @@ import com.darkifov.thaumcraft.blockentity.EssentiaReservoirBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaCrystalizerBlockEntity;
 import com.darkifov.thaumcraft.blockentity.ThaumatoriumBlockEntity;
 import com.darkifov.thaumcraft.blockentity.EssentiaTubeBlockEntity;
+import com.darkifov.thaumcraft.blockentity.FumeDissipatorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -59,6 +60,9 @@ public final class EssentiaTubeConnections {
         if (neighbor instanceof AlembicBlockEntity alembic) {
             return alembic.canOutputTo(direction.getOpposite());
         }
+        if (neighbor instanceof FumeDissipatorBlockEntity scrubber) {
+            return scrubber.canOutputTo(direction.getOpposite());
+        }
         return isTransportEndpoint(neighbor);
     }
 
@@ -74,7 +78,8 @@ public final class EssentiaTubeConnections {
                 || entity instanceof AlchemicalCentrifugeBlockEntity
                 || (entity instanceof AlchemicalFurnaceBlockEntity furnace && furnace.isAdvanced())
                 || entity instanceof EssentiaCrystalizerBlockEntity
-                || entity instanceof AlembicBlockEntity;
+                || entity instanceof AlembicBlockEntity
+                || entity instanceof FumeDissipatorBlockEntity;
     }
 
     public static Map<Direction, Boolean> scan(Level level, BlockPos pos) {

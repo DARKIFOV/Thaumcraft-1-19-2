@@ -21,8 +21,8 @@ def valid_json(path):
     try: json.loads((ROOT/path).read_text(encoding="utf-8"))
     except Exception as exc: errors.append(f"{path}: {exc}")
 
-need("build.gradle", "version = '11.62.96'")
-need("src/main/resources/META-INF/mods.toml", 'version="11.62.96"')
+need("build.gradle", "version = '11.63.23'")
+need("src/main/resources/META-INF/mods.toml", 'version="11.63.23"')
 need("src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
      'BRAIN_JAR = BLOCKS.register("tc4_jar_brain"',
      'BRAIN_JAR_ITEM = ITEMS.register("tc4_jar_brain"',
@@ -63,12 +63,12 @@ for path in [
  "src/main/resources/assets/thaumcraft/models/item/tc4_jar_brain.json",
  "src/main/resources/data/thaumcraft/loot_tables/blocks/tc4_jar_brain.json"]: valid_json(path)
 for lang in ["en_us","ru_ru"]:
-    data=json.loads((ROOT/f"src/main/resources/assets/thaumcraft/lang/{lang}.json").read_text())
+    data=json.loads((ROOT/f"src/main/resources/assets/thaumcraft/lang/{lang}.json").read_text(encoding="utf-8"))
     checks += 2
     if "block.thaumcraft.tc4_jar_brain" not in data: errors.append(f"{lang}: block lang missing")
     if "item.thaumcraft.tc4_jar_brain" not in data: errors.append(f"{lang}: item lang missing")
 if errors:
-    print(f"TC4 11.62.96 Brain Jar runtime guard: FAIL ({len(errors)} problems)")
+    print(f"TC4 11.63.10 Brain Jar runtime guard: FAIL ({len(errors)} problems)")
     for e in errors: print(" -",e)
     sys.exit(1)
-print(f"TC4 11.62.96 Brain Jar runtime guard: PASS ({checks} checks)")
+print(f"TC4 11.63.10 Brain Jar runtime guard: PASS ({checks} checks)")

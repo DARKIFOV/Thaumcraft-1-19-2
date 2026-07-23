@@ -1,0 +1,35 @@
+TC4 v11.64.12 PACKAGE MANIFEST
+Archive: Thaumcraft_Legacy_Rebuild_Forge_1.19.2_v11.64.12_UNNATURAL_HUNGER_FOOD_FINISH_PARITY_FULL_SOURCE_WITH_PROMPT.zip
+Minecraft: 1.19.2
+Forge: 43.5.2
+Target Java: 17
+Original oracle: Thaumcraft 4.2.3.5 source ZIP included
+
+Confirmed static inventory before packaging:
+- Java source files: 803
+- Project files before ZIP: 8882
+- GameTest methods: 145 total / 145 unique
+- Runtime manifest: 473 total / 473 unique
+- JSON resources: 2049 PASS
+- Original recipe registrations: 258/258 STATICALLY MAPPED
+- Smelting bonuses: 18 separate
+- Focused static checks: 18/18 PASS in split execution
+- Targeted parse and pure javac --release 17 self-test: PASS
+- Gradle build: NOT OBTAINED (UnknownHostException: services.gradle.org)
+- JAR: NOT CREATED
+- Forge runtime: NOT RUN
+
+Primary production changes:
+- WarpEvents.onItemUseFinish(LivingEntityUseItemEvent.Finish)
+- TC4WarpRuntimeParity.unnaturalHungerAfterCurative
+- Rotten flesh / tc4_brain: -600 ticks and -1 amplifier
+- Strict re-add gate: duration > 0 && amplifier >= 0
+- Exact hunger messages without canceling ordinary food nutrition
+
+New/updated evidence:
+- TC4_11.64.12_UNNATURAL_HUNGER_FOOD_FINISH_PARITY_PORT_REPORT_RU.md
+- tools/tc4_116412_unnatural_hunger_food_guard.py
+- tools/java_parse_guard_116412.py
+- tools/run_focused_static_ci_116412.py
+- tools/data/tc4_unnatural_hunger_food_source_evidence_v11.64.12.json
+- runtime_artifacts/runtime_test_manifest.template.json

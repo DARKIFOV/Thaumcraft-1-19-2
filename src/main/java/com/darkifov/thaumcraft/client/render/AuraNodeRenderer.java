@@ -1,5 +1,6 @@
 package com.darkifov.thaumcraft.client.render;
 
+import com.darkifov.thaumcraft.client.TC4RevealerHudAdapter;
 import com.darkifov.thaumcraft.AspectStack;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.client.TC4AuraNodeHudParity;
@@ -56,16 +57,15 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         }
 
         boolean jarred = node.isJarredNode();
-        boolean revealer = viewer.getItemBySlot(EquipmentSlot.HEAD).is(ThaumcraftMod.GOGGLES_OF_REVEALING.get())
-                || viewer.getItemBySlot(EquipmentSlot.HEAD).is(ThaumcraftMod.HELMET_OF_REVEALING.get());
-        boolean thaumometerHeld = viewer.getMainHandItem().is(ThaumcraftMod.THAUMOMETER.get())
-                || viewer.getOffhandItem().is(ThaumcraftMod.THAUMOMETER.get());
+        boolean revealer = TC4RevealerHudAdapter.isHeadRevealerStack(
+                viewer.getItemBySlot(EquipmentSlot.HEAD));
+        boolean thaumometerHeld = viewer.getMainHandItem().is(ThaumcraftMod.THAUMOMETER.get());
         // Original UtilsFX.isVisibleTo(0.44F, ...): a Thaumometer reveals only
         // nodes inside its forward scan cone. Goggles and jarred nodes stay visible.
         boolean thaumometerVisible = thaumometerHeld && isWithinThaumometerViewCone(viewer, node, partialTick);
         boolean visible = jarred || revealer || thaumometerVisible;
         boolean depthIgnore = !jarred && (revealer || thaumometerVisible);
-        double viewDistance = thaumometerVisible && !revealer ? 48.0D : 64.0D;
+        double viewDistance = thaumometerVisible && !revealer ? com.darkifov.thaumcraft.aura.TC4ThaumometerParity.NODE_VIEW_DISTANCE : 64.0D;
         double distance = Math.sqrt(viewer.distanceToSqr(Vec3.atCenterOf(node.getBlockPos())));
         if (distance > viewDistance) {
             return;
@@ -164,7 +164,7 @@ public class AuraNodeRenderer implements BlockEntityRenderer<AuraNodeBlockEntity
         if (toNode.lengthSqr() < 1.0E-6D) {
             return true;
         }
-        return viewer.getViewVector(partialTick).normalize().dot(toNode.normalize()) >= 0.44D;
+        return viewer.getViewVector(partialTick).normalize().dot(toNode.normalize()) >= com.darkifov.thaumcraft.aura.TC4ThaumometerParity.NODE_VIEW_CONE_DOT;
     }
 
     private void renderWandDrainBeam(AuraNodeBlockEntity node, float partialTick, PoseStack poseStack,

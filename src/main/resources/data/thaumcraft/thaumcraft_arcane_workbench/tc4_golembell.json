@@ -20,7 +20,7 @@
     "S": "minecraft:stick"
   },
   "result": {
-    "item": "thaumcraft:tc4_ironbell",
+    "item": "thaumcraft:golem_bell",
     "count": 1
   },
   "v11_62_22_strict_original": true

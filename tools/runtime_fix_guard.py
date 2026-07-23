@@ -8,8 +8,8 @@ problems = []
 
 wand = (java / "client/render/WandItemRenderer.java").read_text()
 for token in [
-    "translate(0.50D, 1.50D, 0.50D)",
-    "scale(1.00F, 1.10F, 1.00F)",
+    "translate(0.50D, 0.78D, 0.50D)",
+    "staff ? 0.34F : 0.52F",
     "Vector3f.XP.rotationDegrees(180.0F)",
 ]:
     if token not in wand:

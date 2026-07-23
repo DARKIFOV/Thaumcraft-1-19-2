@@ -27,6 +27,10 @@ public final class TC4FortressArmorRuntime {
     public static final double ORIGINAL_SET_BASE = 0.875D;
     public static final double ORIGINAL_SET_PIECE_BONUS = 0.125D;
     public static final double ORIGINAL_MASK_BONUS = 0.05D;
+    public static final int ORIGINAL_FORTRESS_PIECE_COUNT = 3;
+    public static final double ORIGINAL_ORDINARY_DIVISOR = 25.0D;
+    public static final double ORIGINAL_UNBLOCKABLE_DIVISOR = 35.0D;
+    public static final double ORIGINAL_FIRE_EXPLOSION_MAGIC_DIVISOR = 20.0D;
 
     private static final Set<String> FORTRESS_IDS = Set.of(
             "thaumcraft:tc4_thaumiumfortresshelm",
@@ -107,15 +111,15 @@ public final class TC4FortressArmorRuntime {
 
     private static double divisor(DamageSource source) {
         if (source == null) {
-            return 25.0D;
+            return ORIGINAL_ORDINARY_DIVISOR;
         }
         if (source.isBypassArmor()) {
-            return 35.0D;
+            return ORIGINAL_UNBLOCKABLE_DIVISOR;
         }
         if (source.isFire() || source.isExplosion() || source.isMagic()) {
-            return 20.0D;
+            return ORIGINAL_FIRE_EXPLOSION_MAGIC_DIVISOR;
         }
-        return 25.0D;
+        return ORIGINAL_ORDINARY_DIVISOR;
     }
 
     private static String registryId(ItemStack stack) {

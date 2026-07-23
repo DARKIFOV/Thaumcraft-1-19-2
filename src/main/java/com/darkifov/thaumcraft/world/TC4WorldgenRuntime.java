@@ -1,6 +1,8 @@
 package com.darkifov.thaumcraft.world;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
+import com.darkifov.thaumcraft.block.ManaPodBlock;
+import com.darkifov.thaumcraft.blockentity.ManaPodBlockEntity;
 import com.darkifov.thaumcraft.aura.AuraNodeWorldRuntime;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsDimensionAdapter;
 import com.darkifov.thaumcraft.eldritch.TC4OuterLandsMazeHandler;
@@ -30,6 +32,8 @@ import java.util.Set;
  * never be placed merely because a player walked near a chunk.
  */
 public final class TC4WorldgenRuntime {
+    /** TC4 Magical Forest decorator: ten mana-pod placement attempts per pass. */
+    public static final int ORIGINAL_MANA_POD_ATTEMPTS = 10;
     private static final Set<String> PROCESSED_CHUNKS = new HashSet<>();
     private static final Set<String> PENDING_CHUNKS = new HashSet<>();
     private static final Deque<QueuedChunk> DEFERRED_CHUNKS = new ArrayDeque<>();
@@ -233,6 +237,54 @@ public final class TC4WorldgenRuntime {
             if (chance > 0.0F && random.nextFloat() < chance) {
                 int y = getSurfaceY(level, x, z);
                 TC4TreeGenerator.growGreatwood(level, new BlockPos(x, y, z), random, true);
+            }
+        }
+
+        if (magicalForest) {
+            generateManaPods(level, random, chunk);
+        }
+    }
+
+    /**
+     * TC4 Magical Forest decorator parity: ten attempts begin at Y=64 and walk
+     * upward while lightly wandering in X/Z until two air blocks are found
+     * beneath a supported log. Natural pods start at metadata 2..6 and receive
+     * one immediate growth pass, producing the original visible ages 3..7.
+     *
+     * <p>The legacy decorator was allowed to spill eight blocks into adjacent
+     * chunks. This adapter keeps candidates inside already loaded terrain so a
+     * chunk population pass cannot synchronously force-load its neighbours.</p>
+     */
+    private static void generateManaPods(ServerLevel level, RandomSource random, ChunkPos chunk) {
+        for (int attempt = 0; attempt < ORIGINAL_MANA_POD_ATTEMPTS; attempt++) {
+            int originX = chunk.getMinBlockX() + random.nextInt(16);
+            int originZ = chunk.getMinBlockZ() + random.nextInt(16);
+            int x = originX;
+            int z = originZ;
+            int ceiling = Math.min(128, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z));
+
+            for (int y = Math.max(64, level.getMinBuildHeight() + 1); y < ceiling; y++) {
+                BlockPos pos = new BlockPos(x, y, z);
+                if (!level.hasChunkAt(pos)) {
+                    break;
+                }
+                if (level.isEmptyBlock(pos) && level.isEmptyBlock(pos.below())) {
+                    BlockState podState = ThaumcraftMod.TC4_MANA_POD.get().defaultBlockState();
+                    if (podState.canSurvive(level, pos)) {
+                        int initialAge = 2 + random.nextInt(5);
+                        level.setBlock(pos, podState.setValue(ManaPodBlock.AGE, initialAge), 2);
+                        if (level.getBlockEntity(pos) instanceof ManaPodBlockEntity pod) {
+                            pod.checkGrowth(random);
+                        }
+                        break;
+                    }
+                } else {
+                    x = Math.max(chunk.getMinBlockX(), Math.min(chunk.getMaxBlockX(),
+                            originX + random.nextInt(4) - random.nextInt(4)));
+                    z = Math.max(chunk.getMinBlockZ(), Math.min(chunk.getMaxBlockZ(),
+                            originZ + random.nextInt(4) - random.nextInt(4)));
+                    ceiling = Math.min(128, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z));
+                }
             }
         }
     }

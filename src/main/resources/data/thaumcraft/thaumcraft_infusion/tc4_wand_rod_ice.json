@@ -3,7 +3,7 @@
   "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
   "research": "ROD_ice",
   "tc4_kind": "INFUSION",
-  "catalyst": "minecraft:packed_ice",
+  "catalyst": "minecraft:ice",
   "components": [
     "thaumcraft:balanced_shard",
     "thaumcraft:aqua_shard"
@@ -17,5 +17,6 @@
   "result": {
     "item": "thaumcraft:tc4_wand_rod_ice",
     "count": 1
-  }
+  },
+  "v11_63_49_exact_source": true
 }

@@ -5,15 +5,23 @@ import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipe;
 import com.darkifov.thaumcraft.alchemy.AlchemyRecipes;
+import com.darkifov.thaumcraft.alchemy.TC4ThaumatoriumParity;
+import com.darkifov.thaumcraft.block.MnemonicMatrixBlock;
 import com.darkifov.thaumcraft.block.ThaumatoriumBlock;
 import com.darkifov.thaumcraft.essentia.TC4EssentiaNetworkRuntime;
 import com.darkifov.thaumcraft.essentia.TC4ItemTransferRuntime;
 import com.darkifov.thaumcraft.menu.ThaumatoriumMenu;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import com.darkifov.thaumcraft.porting.TC4LegacyDuplicateItemMigrator;
+import com.darkifov.thaumcraft.porting.TC4LegacyStackMigrationTarget;
+import com.darkifov.thaumcraft.recipe.TC4RecipeRequirementIndex;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -22,8 +30,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.Containers;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -33,6 +44,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
@@ -49,16 +61,19 @@ import java.util.Map;
  * stores recipe essentia internally, obeys heat/redstone, and only completes when
  * the output can be inserted (or safely ejected when no inventory is present).
  */
-public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider {
-    public static final int ORIGINAL_CRAFT_INTERVAL_TICKS = 5;
-    public static final int ORIGINAL_SUCTION = 128;
-    public static final int ORIGINAL_HEAT_REFRESH_TICKS = 40;
+public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider, WorldlyContainer, TC4LegacyStackMigrationTarget {
+    public static final int ORIGINAL_CRAFT_INTERVAL_TICKS = TC4ThaumatoriumParity.CRAFT_INTERVAL_TICKS;
+    public static final int ORIGINAL_SUCTION = TC4ThaumatoriumParity.SUCTION;
+    public static final int ORIGINAL_HEAT_REFRESH_TICKS = TC4ThaumatoriumParity.HEAT_REFRESH_TICKS;
 
     public static final String NBT_CATALYST = "Catalyst";
     public static final String NBT_PROGRESS = "progress";
     public static final String NBT_LAST_RECIPE = "recipe";
     public static final String NBT_SELECTED_FORMULA = "formula";
     public static final String NBT_MNEMONIC_MATRIX = "brain";
+    public static final String NBT_FORMULAS = "recipes";
+    public static final String NBT_FORMULA_PLAYERS = "OutputPlayer";
+    private static final int[] CATALYST_SLOT = {0};
 
     private final AspectList essentia = new AspectList();
     private ItemStack catalyst = ItemStack.EMPTY;
@@ -66,10 +81,13 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
     private int counter;
     private String lastRecipe = "";
     private String lastMissing = "";
-    private String selectedFormula = "";
+    private final List<String> rememberedFormulas = new ArrayList<>();
+    private final List<String> formulaPlayers = new ArrayList<>();
+    private int currentCraft = -1;
     private boolean cachedMnemonicMatrix;
     private boolean heated;
     private Aspect currentSuction;
+    private int venting;
 
     public ThaumatoriumBlockEntity(BlockPos pos, BlockState state) {
         super(ThaumcraftMod.THAUMATORIUM_BLOCK_ENTITY.get(), pos, state);
@@ -81,7 +99,7 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         }
         if (tile.counter == 0 || tile.counter % ORIGINAL_HEAT_REFRESH_TICKS == 0) {
             tile.heated = tile.checkHeat();
-            tile.hasMnemonicMatrix();
+            tile.refreshRecipeCapacity();
         }
         tile.counter++;
         tile.progress = tile.counter % ORIGINAL_CRAFT_INTERVAL_TICKS;
@@ -135,6 +153,23 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
                     + "/" + recipe.cost().getOrDefault(tile.currentSuction, 0);
             tile.setChangedAndSync();
         }
+    }
+
+    public static void clientTick(Level level, BlockPos pos, BlockState state, ThaumatoriumBlockEntity tile) {
+        if (level == null || !level.isClientSide || tile.venting <= 0) {
+            return;
+        }
+        tile.venting--;
+        Direction facing = tile.facing();
+        double x = pos.getX() + 0.5D + facing.getStepX() * 0.5D
+                + (level.random.nextDouble() - 0.5D) * 0.2D;
+        double y = pos.getY() + 0.5D + (level.random.nextDouble() - 0.5D) * 0.2D;
+        double z = pos.getZ() + 0.5D + facing.getStepZ() * 0.5D
+                + (level.random.nextDouble() - 0.5D) * 0.2D;
+        level.addParticle(ParticleTypes.POOF, x, y, z,
+                facing.getStepX() * 0.25D + (level.random.nextDouble() - 0.5D) * 0.2D,
+                (level.random.nextDouble() - 0.5D) * 0.2D,
+                facing.getStepZ() * 0.25D + (level.random.nextDouble() - 0.5D) * 0.2D);
     }
 
     public ItemStack catalyst() {
@@ -227,7 +262,10 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
                 if (direction == Direction.DOWN || direction == facing()) {
                     continue;
                 }
-                if (level.getBlockState(layer.relative(direction)).is(ThaumcraftMod.MNEMONIC_MATRIX.get())) {
+                BlockState matrix = level.getBlockState(layer.relative(direction));
+                if (matrix.is(ThaumcraftMod.MNEMONIC_MATRIX.get())
+                        && matrix.hasProperty(MnemonicMatrixBlock.FACING)
+                        && matrix.getValue(MnemonicMatrixBlock.FACING) == direction.getOpposite()) {
                     cachedMnemonicMatrix = true;
                     break;
                 }
@@ -245,69 +283,130 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
                     if (direction == Direction.DOWN || direction == facing()) {
                         continue;
                     }
-                    if (level.getBlockState(layer.relative(direction)).is(ThaumcraftMod.MNEMONIC_MATRIX.get())) {
+                    BlockState matrix = level.getBlockState(layer.relative(direction));
+                    if (matrix.is(ThaumcraftMod.MNEMONIC_MATRIX.get())
+                            && matrix.hasProperty(MnemonicMatrixBlock.FACING)
+                            && matrix.getValue(MnemonicMatrixBlock.FACING) == direction.getOpposite()) {
                         matrices++;
                     }
                 }
             }
         }
-        return 1 + matrices * 2;
+        return TC4ThaumatoriumParity.recipeCapacity(matrices);
+    }
+
+    private void refreshRecipeCapacity() {
+        int capacity = maxRecipes();
+        while (rememberedFormulas.size() > capacity) {
+            rememberedFormulas.remove(rememberedFormulas.size() - 1);
+            if (formulaPlayers.size() > rememberedFormulas.size()) {
+                formulaPlayers.remove(formulaPlayers.size() - 1);
+            }
+        }
+        if (currentCraft >= rememberedFormulas.size()) {
+            currentCraft = -1;
+        }
+    }
+
+    public List<String> rememberedFormulaIds() {
+        return Collections.unmodifiableList(rememberedFormulas);
+    }
+
+    public boolean isRemembered(AlchemyRecipe recipe) {
+        return recipe != null && rememberedFormulas.contains(recipe.id().toString());
     }
 
     public List<AlchemyRecipe> visibleFormulaCandidates() {
-        if (catalyst.isEmpty()) {
-            return Collections.emptyList();
-        }
+        return visibleFormulaCandidates(null);
+    }
+
+    public List<AlchemyRecipe> visibleFormulaCandidates(Player player) {
         List<AlchemyRecipe> recipes = new ArrayList<>();
         for (AlchemyRecipe recipe : AlchemyRecipes.recipes()) {
-            if (recipe.catalystMatches(catalyst)) {
+            boolean remembered = isRemembered(recipe);
+            boolean matches = !catalyst.isEmpty() && recipe.catalystMatches(catalyst);
+            boolean unlocked = player == null || TC4RecipeRequirementIndex.isRuntimeRecipeUnlocked(
+                    player, recipe.tc4Key(), recipe.research());
+            if (remembered || (matches && unlocked)) {
                 recipes.add(recipe);
             }
         }
         recipes.sort(Comparator.comparing(recipe -> recipe.id().toString()));
-        int limit = Math.min(maxRecipes(), recipes.size());
-        return Collections.unmodifiableList(new ArrayList<>(recipes.subList(0, limit)));
+        return Collections.unmodifiableList(recipes);
     }
 
     public AlchemyRecipe activeRecipe() {
-        List<AlchemyRecipe> candidates = visibleFormulaCandidates();
-        if (candidates.isEmpty()) {
+        if (catalyst.isEmpty() || rememberedFormulas.isEmpty()) {
+            currentCraft = -1;
             return null;
         }
-        if (!selectedFormula.isBlank()) {
-            for (AlchemyRecipe recipe : candidates) {
-                if (recipe.id().toString().equals(selectedFormula) || recipe.tc4Key().equals(selectedFormula)) {
-                    return recipe;
-                }
+        if (currentCraft >= 0 && currentCraft < rememberedFormulas.size()) {
+            AlchemyRecipe current = recipeById(rememberedFormulas.get(currentCraft));
+            if (current != null && current.catalystMatches(catalyst)) {
+                return current;
             }
         }
-        return candidates.get(0);
+        currentCraft = -1;
+        for (int i = 0; i < rememberedFormulas.size(); i++) {
+            AlchemyRecipe recipe = recipeById(rememberedFormulas.get(i));
+            if (recipe != null && recipe.catalystMatches(catalyst)) {
+                currentCraft = i;
+                return recipe;
+            }
+        }
+        return null;
+    }
+
+    private AlchemyRecipe recipeById(String id) {
+        if (id == null || id.isBlank()) {
+            return null;
+        }
+        for (AlchemyRecipe recipe : AlchemyRecipes.recipes()) {
+            if (recipe.id().toString().equals(id) || recipe.tc4Key().equals(id)) {
+                return recipe;
+            }
+        }
+        return null;
+    }
+
+    public ItemStack displayedFormulaOutput(long gameTime) {
+        if (rememberedFormulas.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        int index = (int) Math.floorMod(gameTime / 40L, rememberedFormulas.size());
+        AlchemyRecipe recipe = recipeById(rememberedFormulas.get(index));
+        if (recipe == null || recipe.resultItemId() == null) {
+            return ItemStack.EMPTY;
+        }
+        net.minecraft.world.item.Item item = ForgeRegistries.ITEMS.getValue(recipe.resultItemId());
+        return item == null ? ItemStack.EMPTY : new ItemStack(item);
     }
 
     public boolean isSelectedFormula(AlchemyRecipe recipe) {
-        AlchemyRecipe active = activeRecipe();
-        return active != null && recipe != null && active.id().equals(recipe.id());
+        return isRemembered(recipe);
     }
 
-    public void cycleFormula() {
-        List<AlchemyRecipe> candidates = visibleFormulaCandidates();
-        if (candidates.isEmpty()) {
-            selectedFormula = "";
-            currentSuction = null;
-            return;
-        }
-        int index = selectedFormulaIndex();
-        selectedFormula = candidates.get((Math.max(0, index) + 1) % candidates.size()).id().toString();
-        currentSuction = null;
-        setChangedAndSync();
-    }
-
-    public boolean selectFormulaIndex(int requestedIndex) {
-        List<AlchemyRecipe> candidates = visibleFormulaCandidates();
+    public boolean toggleFormulaIndex(int requestedIndex, Player player) {
+        List<AlchemyRecipe> candidates = visibleFormulaCandidates(player);
         if (requestedIndex < 0 || requestedIndex >= candidates.size()) {
             return false;
         }
-        selectedFormula = candidates.get(requestedIndex).id().toString();
+        AlchemyRecipe recipe = candidates.get(requestedIndex);
+        String id = recipe.id().toString();
+        int existing = rememberedFormulas.indexOf(id);
+        if (existing >= 0) {
+            rememberedFormulas.remove(existing);
+            if (existing < formulaPlayers.size()) {
+                formulaPlayers.remove(existing);
+            }
+            currentCraft = -1;
+        } else {
+            if (rememberedFormulas.size() >= maxRecipes()) {
+                return false;
+            }
+            rememberedFormulas.add(id);
+            formulaPlayers.add(player == null ? "" : player.getGameProfile().getName());
+        }
         currentSuction = null;
         progress = 0;
         lastMissing = "";
@@ -315,12 +414,17 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         return true;
     }
 
+    /** Compatibility entry point retained for older packets and tests. */
+    public boolean selectFormulaIndex(int requestedIndex) {
+        return toggleFormulaIndex(requestedIndex, null);
+    }
+
     public int selectedFormulaIndex() {
-        List<AlchemyRecipe> candidates = visibleFormulaCandidates();
         AlchemyRecipe active = activeRecipe();
         if (active == null) {
             return -1;
         }
+        List<AlchemyRecipe> candidates = visibleFormulaCandidates();
         for (int i = 0; i < candidates.size(); i++) {
             if (active.id().equals(candidates.get(i).id())) {
                 return i;
@@ -329,19 +433,32 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         return -1;
     }
 
+    public void cycleFormula() {
+        if (rememberedFormulas.isEmpty()) {
+            currentCraft = -1;
+            return;
+        }
+        int start = currentCraft;
+        for (int offset = 1; offset <= rememberedFormulas.size(); offset++) {
+            int candidate = Math.floorMod(start + offset, rememberedFormulas.size());
+            AlchemyRecipe recipe = recipeById(rememberedFormulas.get(candidate));
+            if (recipe != null && recipe.catalystMatches(catalyst)) {
+                currentCraft = candidate;
+                currentSuction = null;
+                setChangedAndSync();
+                return;
+            }
+        }
+    }
+
     public boolean insertCatalyst(ItemStack stack) {
         if (stack == null || stack.isEmpty() || !catalyst.isEmpty()) {
             return false;
         }
-        List<AlchemyRecipe> recipes = AlchemyRecipes.recipes().stream().filter(r -> r.catalystMatches(stack)).toList();
-        if (recipes.isEmpty()) {
-            return false;
-        }
         catalyst = stack.copy();
-        catalyst.setCount(1);
-        selectedFormula = recipes.get(0).id().toString();
-        lastRecipe = selectedFormula;
+        catalyst.setCount(Math.min(catalyst.getCount(), getMaxStackSize()));
         lastMissing = "";
+        currentCraft = -1;
         currentSuction = null;
         setChangedAndSync();
         return true;
@@ -354,7 +471,7 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         ItemStack out = catalyst.copy();
         catalyst = ItemStack.EMPTY;
         progress = 0;
-        selectedFormula = "";
+        currentCraft = -1;
         currentSuction = null;
         setChangedAndSync();
         return out;
@@ -477,13 +594,15 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         if (!essentia.containsAll(cost) || catalyst.isEmpty() || !outputCanAccept(result)) {
             return false;
         }
-        if (!essentia.removeAll(cost)) {
-            return false;
-        }
+        // TileThaumatorium.completeRecipe() replaces its AspectList after a successful match.
+        // Normal intake is recipe-bounded, but clearing the entire buffer is important for
+        // legacy/migrated NBT that may contain unrelated residual aspects.
+        essentia.clear();
+        ItemStack consumedCatalyst = catalyst.copy();
+        consumedCatalyst.setCount(1);
         catalyst.shrink(1);
         if (catalyst.isEmpty()) {
             catalyst = ItemStack.EMPTY;
-            selectedFormula = "";
         }
 
         Direction output = facing();
@@ -493,12 +612,25 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
                 ? TC4ItemTransferRuntime.insert(level, target, targetSide, result, false)
                 : result.copy();
         if (!remainder.isEmpty()) {
-            Containers.dropItemStack(level,
+            ItemEntity entity = new ItemEntity(level,
                     worldPosition.getX() + 0.5D + output.getStepX() * 0.66D,
-                    worldPosition.getY() + 0.33D,
+                    worldPosition.getY() + 0.33D + output.getOpposite().getStepY(),
                     worldPosition.getZ() + 0.5D + output.getStepZ() * 0.66D,
                     remainder);
+            entity.setDeltaMovement(0.075D * output.getStepX(), 0.025D, 0.075D * output.getStepZ());
+            level.addFreshEntity(entity);
+            level.blockEvent(worldPosition, getBlockState().getBlock(), 0, 0);
         }
+
+        if (level instanceof ServerLevel serverLevel && currentCraft >= 0 && currentCraft < formulaPlayers.size()) {
+            String playerName = formulaPlayers.get(currentCraft);
+            Player recipePlayer = playerName.isBlank() ? null : serverLevel.getServer().getPlayerList().getPlayerByName(playerName);
+            if (recipePlayer != null) {
+                ForgeEventFactory.firePlayerCraftingEvent(recipePlayer, result.copy(),
+                        new SimpleContainer(consumedCatalyst));
+            }
+        }
+        currentCraft = -1;
 
         ResourceLocation resultId = ForgeRegistries.ITEMS.getKey(result.getItem());
         lastRecipe = recipe.id() + " -> " + (resultId == null ? "unknown" : resultId);
@@ -513,22 +645,15 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
-        serverLevel.playSound(null, worldPosition, TC4Sounds.event("craftstart"), SoundSource.BLOCKS, 0.55F, 1.15F);
         serverLevel.playSound(null, worldPosition, net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.25F,
                 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-        serverLevel.sendParticles(ParticleTypes.WITCH,
-                worldPosition.getX() + 0.5D,
-                worldPosition.getY() + 1.02D,
-                worldPosition.getZ() + 0.5D,
-                10, 0.22D, 0.10D, 0.22D, 0.015D);
     }
 
     public MutableComponent statusComponent() {
         MutableComponent component = Component.literal("Thaumatorium | catalyst="
                 + (catalyst.isEmpty() ? "empty" : catalyst.getHoverName().getString())
-                + " | formula=" + (selectedFormula.isBlank() ? "auto" : selectedFormula)
+                + " | formulas=" + rememberedFormulas.size() + "/" + maxRecipes()
                 + " | formulaIndex=" + selectedFormulaIndex()
-                + " | slots=" + maxRecipes()
                 + " | heat=" + heated
                 + " | powered=" + isPowered()
                 + " | suction=" + (currentSuction == null ? "none" : currentSuction.id() + "@" + ORIGINAL_SUCTION)
@@ -550,6 +675,18 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @Override
+    public int migrateLegacyStacks() {
+        TC4LegacyDuplicateItemMigrator.MigrationResult result =
+                TC4LegacyDuplicateItemMigrator.migrateStackDeepWithStatus(catalyst);
+        if (!result.changed()) {
+            return 0;
+        }
+        catalyst = result.stack();
+        setChangedAndSync();
+        return result.changedStacks();
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         if (!catalyst.isEmpty()) {
@@ -559,7 +696,18 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         tag.putInt(NBT_PROGRESS, progress);
         tag.putInt("counter", counter);
         tag.putString(NBT_LAST_RECIPE, lastRecipe);
-        tag.putString(NBT_SELECTED_FORMULA, selectedFormula);
+        ListTag formulas = new ListTag();
+        for (String id : rememberedFormulas) {
+            formulas.add(StringTag.valueOf(id));
+        }
+        tag.put(NBT_FORMULAS, formulas);
+        ListTag players = new ListTag();
+        for (String player : formulaPlayers) {
+            players.add(StringTag.valueOf(player == null ? "" : player));
+        }
+        tag.put(NBT_FORMULA_PLAYERS, players);
+        tag.putInt("currentCraft", currentCraft);
+        tag.putInt("maxrec", maxRecipes());
         tag.putBoolean(NBT_MNEMONIC_MATRIX, cachedMnemonicMatrix);
         tag.putBoolean("heated", heated);
         if (currentSuction != null) {
@@ -579,7 +727,28 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
         progress = Math.max(0, tag.getInt(NBT_PROGRESS));
         counter = Math.max(0, tag.getInt("counter"));
         lastRecipe = tag.getString(NBT_LAST_RECIPE);
-        selectedFormula = tag.getString(NBT_SELECTED_FORMULA);
+        rememberedFormulas.clear();
+        formulaPlayers.clear();
+        ListTag formulas = tag.getList(NBT_FORMULAS, Tag.TAG_STRING);
+        for (int i = 0; i < formulas.size(); i++) {
+            String id = formulas.getString(i);
+            if (recipeById(id) != null && !rememberedFormulas.contains(id)) {
+                rememberedFormulas.add(id);
+            }
+        }
+        // Migration from the pre-11.64.39 single-formula field.
+        if (rememberedFormulas.isEmpty() && tag.contains(NBT_SELECTED_FORMULA, Tag.TAG_STRING)) {
+            String migrated = tag.getString(NBT_SELECTED_FORMULA);
+            AlchemyRecipe recipe = recipeById(migrated);
+            if (recipe != null) {
+                rememberedFormulas.add(recipe.id().toString());
+            }
+        }
+        ListTag players = tag.getList(NBT_FORMULA_PLAYERS, Tag.TAG_STRING);
+        for (int i = 0; i < rememberedFormulas.size(); i++) {
+            formulaPlayers.add(i < players.size() ? players.getString(i) : "");
+        }
+        currentCraft = tag.contains("currentCraft", Tag.TAG_INT) ? tag.getInt("currentCraft") : -1;
         cachedMnemonicMatrix = tag.getBoolean(NBT_MNEMONIC_MATRIX);
         heated = tag.getBoolean("heated");
         currentSuction = Aspect.byId(tag.getString("suction"));
@@ -611,5 +780,103 @@ public class ThaumatoriumBlockEntity extends BlockEntity implements MenuProvider
     @Override
     public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
         load(packet.getTag());
+    }
+
+    @Override
+    public boolean triggerEvent(int id, int type) {
+        if (id >= 0 && level != null && level.isClientSide) {
+            venting = TC4ThaumatoriumParity.CLIENT_VENT_TICKS;
+            return true;
+        }
+        return super.triggerEvent(id, type);
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return catalyst.isEmpty();
+    }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        return slot == 0 ? catalyst : ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        if (slot != 0 || catalyst.isEmpty() || amount <= 0) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack removed = catalyst.split(amount);
+        if (catalyst.isEmpty()) {
+            catalyst = ItemStack.EMPTY;
+        }
+        currentCraft = -1;
+        currentSuction = null;
+        setChangedAndSync();
+        return removed;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        if (slot != 0) {
+            return ItemStack.EMPTY;
+        }
+        ItemStack removed = catalyst;
+        catalyst = ItemStack.EMPTY;
+        currentCraft = -1;
+        currentSuction = null;
+        return removed;
+    }
+
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+        if (slot != 0) {
+            return;
+        }
+        catalyst = stack == null ? ItemStack.EMPTY : stack.copy();
+        if (!catalyst.isEmpty() && catalyst.getCount() > getMaxStackSize()) {
+            catalyst.setCount(getMaxStackSize());
+        }
+        currentCraft = -1;
+        currentSuction = null;
+        setChangedAndSync();
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return level != null && level.getBlockEntity(worldPosition) == this;
+    }
+
+    @Override
+    public void clearContent() {
+        catalyst = ItemStack.EMPTY;
+        currentCraft = -1;
+        currentSuction = null;
+        setChangedAndSync();
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return slot == 0;
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        return CATALYST_SLOT;
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, Direction direction) {
+        return slot == 0;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
+        return slot == 0;
     }
 }

@@ -1,0 +1,67 @@
+{
+  "version": "11.63.48",
+  "date": "2026-07-19",
+  "platform": {
+    "minecraft": "1.19.2",
+    "forge": "43.5.2",
+    "java": "17"
+  },
+  "overall_status": "FAIL",
+  "build": {
+    "gradlew_build": "FAIL_NO_CONFIRMED_BUILD",
+    "compileJava": "NOT_CONFIRMED",
+    "jar": null,
+    "jar_sha256": null
+  },
+  "java_files": 776,
+  "research_entries": 201,
+  "research_pages": 591,
+  "aspects": 48,
+  "recipe_files": {
+    "normal": 136,
+    "arcane": 114,
+    "alchemy": 70,
+    "infusion": 78
+  },
+  "registries": {
+    "entity_types": 50,
+    "entity_reference": 50,
+    "block_entity_types": 53,
+    "tile_entity_reference": 73,
+    "entity_renderer_registration_calls": 84,
+    "block_entity_renderer_registration_calls": 34
+  },
+  "item_model_json": 726,
+  "runtime_tests": {
+    "template_cases": 336,
+    "evidenced_cases": 0
+  },
+  "object_scope": {
+    "core_candidate_ids": 255,
+    "legacy_alias_ids": 283,
+    "addon_ids": 170,
+    "total_unique_object_ids": 708
+  },
+  "p0": {
+    "source_contract_complete": 0,
+    "static_partial": 0,
+    "runtime_pass": 0,
+    "runtime": {
+      "essentia_jars": false,
+      "aura_node_item": false,
+      "bone_bow": false,
+      "traveling_trunk": false,
+      "crimson_cultists": false,
+      "fortress_armor": false,
+      "outer_lands": false
+    }
+  },
+  "release_criteria": {
+    "successful_build": false,
+    "all_p0_runtime_fixed": false,
+    "runtime_protocol_complete": false,
+    "world_migration_verified": false,
+    "jei_verified": false
+  },
+  "criteria_done": 0
+}

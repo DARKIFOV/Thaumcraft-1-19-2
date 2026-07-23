@@ -3,9 +3,14 @@ package com.darkifov.thaumcraft.client.screen;
 import com.darkifov.thaumcraft.Aspect;
 import com.darkifov.thaumcraft.client.ClientAspectData;
 import com.darkifov.thaumcraft.client.ClientResearchData;
+import com.darkifov.thaumcraft.block.ResearchNoteItem;
+import com.darkifov.thaumcraft.block.ScribingToolsItem;
+import com.darkifov.thaumcraft.research.ResearchNoteState;
 import com.darkifov.thaumcraft.network.ThaumcraftNetwork;
 import com.darkifov.thaumcraft.research.ResearchEntry;
 import com.darkifov.thaumcraft.research.TC4ResearchFlagPolicy;
+import com.darkifov.thaumcraft.research.TC4ThaumonomiconParity;
+import com.darkifov.thaumcraft.porting.TC4Sounds;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
@@ -15,12 +20,13 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -53,11 +59,11 @@ public class ThaumonomiconScreen extends Screen {
 
     private int leftPos;
     private int topPos;
-    private OriginalResearchCategory category = OriginalResearchCategory.BASICS;
+    private OriginalResearchCategory category = TC4ThaumonomiconClientState.category();
     private ResearchEntry selected;
     private ResearchEntry highlighted;
-    private int panX = -5 * OriginalResearchLayout.CELL - 141 / 2 - 12;
-    private int panY = -6 * OriginalResearchLayout.CELL - 141 / 2;
+    private int panX = TC4ThaumonomiconClientState.panX();
+    private int panY = TC4ThaumonomiconClientState.panY();
     private boolean dragging;
     private boolean draggedBeyondClick;
     private ResearchEntry pressedEntry;
@@ -65,8 +71,6 @@ public class ThaumonomiconScreen extends Screen {
     private double pressMouseY;
     private double lastMouseX;
     private double lastMouseY;
-    private final Map<OriginalResearchCategory, Integer> categoryPanX = new EnumMap<>(OriginalResearchCategory.class);
-    private final Map<OriginalResearchCategory, Integer> categoryPanY = new EnumMap<>(OriginalResearchCategory.class);
     private long popupUntil;
     private String popupText = "";
 
@@ -79,12 +83,11 @@ public class ThaumonomiconScreen extends Screen {
         this.leftPos = (this.width - PANE_WIDTH) / 2;
         this.topPos = (this.height - PANE_HEIGHT) / 2;
         this.clearWidgets();
-        for (OriginalResearchCategory value : OriginalResearchCategory.values()) {
-            categoryPanX.putIfAbsent(value, panX);
-            categoryPanY.putIfAbsent(value, panY);
-        }
-        restoreCategoryPan();
+        category = TC4ThaumonomiconClientState.category();
+        panX = TC4ThaumonomiconClientState.panX();
+        panY = TC4ThaumonomiconClientState.panY();
         clampPan();
+        saveBookState();
     }
 
     private Set<String> unlockedResearch() {
@@ -499,11 +502,14 @@ public class ThaumonomiconScreen extends Screen {
             int x = leftPos - 24;
             int y = topPos + i * 24;
             if (mouseX >= x && mouseX < x + 24 && mouseY >= y && mouseY < y + 24) {
-                saveCategoryPan();
-                category = categories.get(i);
-                selected = null;
-                restoreCategoryPan();
-                clampPan();
+                OriginalResearchCategory next = categories.get(i);
+                if (category != next) {
+                    category = next;
+                    selected = null;
+                    clampPan();
+                    saveBookState();
+                    playGuiSound("cameraclack", TC4ThaumonomiconParity.CATEGORY_CLICK_VOLUME);
+                }
                 return true;
             }
         }
@@ -532,15 +538,45 @@ public class ThaumonomiconScreen extends Screen {
         Set<String> unlocked = unlockedResearch();
         OriginalClientResearchSelection.set(selected.key());
         if (OriginalResearchLayout.unlocked(unlocked, selected) && TC4ResearchFlagPolicy.hasOriginalPagePayload(selected)) {
+            TC4ThaumonomiconPageHistory.clear();
             Minecraft.getInstance().setScreen(new TC4ResearchPageScreen(this, selected));
         } else if (!OriginalResearchLayout.unlocked(unlocked, selected) && OriginalResearchLayout.available(unlocked, selected)) {
-            ThaumcraftNetwork.requestCompleteSelectedResearchFromClient(selected.key());
-            popupUntil = 0L;
-            popupText = "";
+            if (TC4ResearchFlagPolicy.isSecondary(selected)) {
+                if (hasEnoughResearchAspects(selected)) {
+                    ThaumcraftNetwork.requestCompleteSelectedResearchFromClient(selected.key());
+                }
+            } else if (hasResearchSupplies(selected.key())) {
+                ThaumcraftNetwork.requestCompleteSelectedResearchFromClient(selected.key());
+                popupUntil = System.currentTimeMillis() + 3000L;
+                popupText = Component.translatable("tc.research.popup", researchName(selected)).getString();
+            }
         } else {
             popupUntil = 0L;
             popupText = "";
         }
+    }
+
+    private boolean hasEnoughResearchAspects(ResearchEntry entry) {
+        for (var cost : entry.aspects().entrySet()) {
+            Aspect aspect = Aspect.byId(cost.getKey().toLowerCase());
+            if (aspect == null || ClientAspectData.pool(aspect) < cost.getValue()) return false;
+        }
+        return true;
+    }
+
+    private boolean hasResearchSupplies(String researchKey) {
+        if (minecraft == null || minecraft.player == null) return false;
+        if (minecraft.player.getAbilities().instabuild) return true;
+        boolean paper = false;
+        boolean tools = false;
+        for (int i = 0; i < minecraft.player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = minecraft.player.getInventory().getItem(i);
+            if (stack.is(Items.PAPER)) paper = true;
+            if (stack.getItem() instanceof ScribingToolsItem && ScribingToolsItem.hasInk(stack)) tools = true;
+            if (stack.getItem() instanceof ResearchNoteItem
+                    && researchKey.equals(ResearchNoteState.target(stack)) && !ResearchNoteState.solved(stack)) return false;
+        }
+        return paper && tools;
     }
 
     @Override
@@ -555,7 +591,7 @@ public class ThaumonomiconScreen extends Screen {
                 panX -= (int)(mouseX - lastMouseX);
                 panY -= (int)(mouseY - lastMouseY);
                 clampPan();
-                saveCategoryPan();
+                saveBookState();
             }
             lastMouseX = mouseX;
             lastMouseY = mouseY;
@@ -583,10 +619,7 @@ public class ThaumonomiconScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-        panY -= (int)(delta * 18);
-        clampPan();
-        saveCategoryPan();
-        return true;
+        return super.mouseScrolled(mouseX, mouseY, delta);
     }
 
     private List<OriginalResearchCategory> visibleCategories(Set<String> unlocked) {
@@ -601,22 +634,37 @@ public class ThaumonomiconScreen extends Screen {
 
     private void ensureVisibleCategory(Set<String> unlocked) {
         if (category == OriginalResearchCategory.ELDRITCH && !unlocked.contains("ELDRITCHMINOR")) {
-            saveCategoryPan();
             category = OriginalResearchCategory.BASICS;
             selected = null;
-            restoreCategoryPan();
             clampPan();
+            saveBookState();
         }
     }
 
-    private void saveCategoryPan() {
-        categoryPanX.put(category, panX);
-        categoryPanY.put(category, panY);
+    private void saveBookState() {
+        TC4ThaumonomiconClientState.save(category, panX, panY);
     }
 
-    private void restoreCategoryPan() {
-        panX = categoryPanX.getOrDefault(category, panX);
-        panY = categoryPanY.getOrDefault(category, panY);
+    private void playGuiSound(String key, float volume) {
+        if (minecraft != null && minecraft.player != null) {
+            minecraft.player.playSound(TC4Sounds.event(key), volume, TC4ThaumonomiconParity.GUI_SOUND_PITCH);
+        }
+    }
+
+    @Override
+    public void removed() {
+        saveBookState();
+        super.removed();
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == 256 || (minecraft != null && minecraft.options.keyInventory.matches(keyCode, scanCode))) {
+            saveBookState();
+            onClose();
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     private void clampPan() {

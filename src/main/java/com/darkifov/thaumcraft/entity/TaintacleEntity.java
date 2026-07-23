@@ -2,6 +2,7 @@ package com.darkifov.thaumcraft.entity;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.porting.TC4Sounds;
+import com.darkifov.thaumcraft.damage.TC4DamageSources;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +31,7 @@ import net.minecraft.world.phys.Vec3;
  * taint fibre conversion around spawned tentacles. Old ITaintedMob/biome ids are
  * represented by existing 1.19.2 taint blocks and persistent breadcrumbs.</p>
  */
-public class TaintacleEntity extends Monster {
+public class TaintacleEntity extends Monster implements TaintedMob {
     public static final String FLAIL_TAG = "flailIntensity";
     protected LivingEntity tendrilTarget;
     protected int attackCooldown;
@@ -104,7 +105,8 @@ public class TaintacleEntity extends Monster {
         if (attackCooldown > 0) return;
         if (distance <= getBbHeight() && entity.getBoundingBox().maxY > getBoundingBox().minY && entity.getBoundingBox().minY < getBoundingBox().maxY) {
             attackCooldown = 20;
-            if (doHurtTarget(entity) && level instanceof ServerLevel server) {
+            if (entity.hurt(TC4DamageSources.tentacle(this), (float) getAttributeValue(Attributes.ATTACK_DAMAGE))
+                    && level instanceof ServerLevel server) {
                 server.playSound(null, blockPosition(), TC4Sounds.event("tentacle"), SoundSource.HOSTILE, getSoundVolume(), getVoicePitch());
             }
         } else if (distance > getBbHeight() && isEntityOnGround1192Adapter(entity) && !(this instanceof TaintacleSmallEntity)) {

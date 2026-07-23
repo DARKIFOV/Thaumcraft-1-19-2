@@ -40,7 +40,7 @@ public enum TC4FortressArmorMaterial implements ArmorMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.of(ThaumcraftMod.TC4_RESEARCH_ITEMS.get("tc4_thaumiumingot").get());
+        return Ingredient.of(ThaumcraftMod.THAUMIUM_INGOT.get());
     }
 
     @Override

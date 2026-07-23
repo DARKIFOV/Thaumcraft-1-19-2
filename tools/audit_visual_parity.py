@@ -44,7 +44,7 @@ def source_contains(name: str, *tokens: str) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="11.62.96")
+    parser.add_argument("--version", default="11.63.23")
     parser.add_argument("--fail-on-p0", action="store_true")
     args = parser.parse_args()
 
@@ -78,7 +78,7 @@ def main() -> int:
     jar_models = [model(x).get("parent") == "minecraft:builtin/entity" for x in ("essentia_jar", "filtered_essentia_jar", "void_essentia_jar")]
     record("essentia_jars", "Essentia jars in item contexts", {
         "three_builtin_entity_models": all(jar_models),
-        "nbt_aware_block_item": source_contains("EssentiaJarBlockItem.java", "BlockEntityTag", "initializeClient", "EssentiaJarItemRenderer"),
+        "nbt_aware_block_item": source_contains("EssentiaJarBlockItem.java", "AspectFilter", "initializeClient", "EssentiaJarItemRenderer"),
         "bewlr_renders_world_contents": source_contains("EssentiaJarItemRenderer.java", "renderItemContents", "renderSingleBlock"),
         "pickup_and_placement_preserve_nbt": source_contains("EssentiaJarBlock.java", "getCloneItemStack", "setPlacedBy", "getDrops"),
     }, "ItemJarFilledRenderer: temporary TileJar, liquid/aspect/filter/label and jar shell")

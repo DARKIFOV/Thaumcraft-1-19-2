@@ -1,5 +1,7 @@
 package com.darkifov.thaumcraft.block;
 
+import com.darkifov.thaumcraft.ThaumcraftMod;
+
 import com.darkifov.thaumcraft.data.PlayerThaumData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -112,6 +114,7 @@ public class ThaumicTinkererParityItem extends Item {
                 case CLEANSING_TALISMAN -> {
                     player.clearFire();
                     player.removeEffect(MobEffects.POISON);
+                    player.removeEffect(ThaumcraftMod.TAINT_POISON.get());
                     player.removeEffect(MobEffects.WITHER);
                     player.removeEffect(MobEffects.BLINDNESS);
                     player.removeEffect(MobEffects.CONFUSION);

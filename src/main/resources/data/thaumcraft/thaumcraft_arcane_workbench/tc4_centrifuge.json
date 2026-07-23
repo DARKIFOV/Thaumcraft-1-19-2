@@ -3,11 +3,11 @@
   "tc4_source": "addArcaneCraftingRecipe",
   "research": "CENTRIFUGE",
   "tc4_kind": "ARCANE_SHAPED",
-  "catalyst": "thaumcraft:alembic",
+  "catalyst": "thaumcraft:tc4_block_alchemical_construct",
   "ingredients": [
     "thaumcraft:essentia_tube",
     "thaumcraft:alembic",
-    "thaumcraft:thaumatorium",
+    "thaumcraft:tc4_block_alchemical_construct",
     "minecraft:piston"
   ],
   "aspects": {
@@ -23,12 +23,13 @@
   "key": {
     "T": "thaumcraft:essentia_tube",
     "A": "thaumcraft:alembic",
-    "C": "thaumcraft:thaumatorium",
+    "C": "thaumcraft:tc4_block_alchemical_construct",
     "P": "minecraft:piston"
   },
   "result": {
     "item": "thaumcraft:alchemical_centrifuge",
     "count": 1
   },
-  "v11_62_23_strict_original": true
+  "v11_62_23_strict_original": true,
+  "v11_63_50_exact_source": true
 }

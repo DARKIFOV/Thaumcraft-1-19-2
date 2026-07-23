@@ -1,0 +1,5 @@
+BUILD VERIFIED: NO
+Command: ./gradlew build --no-daemon --console=plain
+Exit code: 1
+Blocker: Gradle Wrapper could not resolve services.gradle.org; required Gradle 7.5.1 was not downloaded.
+JAR produced: NO

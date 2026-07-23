@@ -1,0 +1,8 @@
+Thaumcraft Legacy Rebuild v11.63.38 static CI
+Total checks: 102
+Passed: 102
+Failed: 0
+Skipped: 0
+JSON resources: 2086
+Runtime manifest scenarios: 287
+Generic fallback IDs: 4 (all blocks)

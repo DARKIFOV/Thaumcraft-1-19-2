@@ -1,0 +1,18 @@
+Thaumcraft Legacy Rebuild v11.63.06
+
+Static CI: PASS 70/70
+Target parity guard: PASS 107/107
+Runtime manifest: 106 scenarios, NOT TESTED
+JSON validation: PASS, 1972 files
+Original texture bank: PASS, 940/940
+
+Gradle command attempted:
+./gradlew compileJava --stacktrace --no-daemon
+
+Result:
+FAILED BEFORE compileJava because Gradle Wrapper could not resolve services.gradle.org.
+Exception: java.net.UnknownHostException: services.gradle.org
+Environment Java: OpenJDK 21.0.10
+Target Forge 1.19.x Java prerequisite: JDK 17
+
+No JAR is claimed for this stage.

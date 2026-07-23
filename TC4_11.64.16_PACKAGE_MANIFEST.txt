@@ -1,0 +1,19 @@
+Thaumcraft Legacy Rebuild full source package
+Version: 11.64.16
+Closure target: Hungry Chest / Голодный сундук
+Project files at package time: 8949
+GameTest methods: 157 unique
+Runtime manifest scenarios: 518 unique
+Validated JSON resources: 2052
+Original recipe denominator: 258/258 statically mapped
+Focused static CI: 23/23 PASS
+Final recheck: 10/10 PASS
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+Universal prompt at archive root: UNIVERSAL_PROMPT_TC4_FULL_CLOSURE_RU.md
+Universal prompt duplicate: PROMPT_FOR_FUTURE_CHAT_RU.md
+Mandatory prompt guard: tools/tc4_116416_hungry_chest_full_closure_guard.py
+Forbidden generated artifacts found before packaging: 0
+Gradle blocker: UnknownHostException for services.gradle.org

@@ -1,0 +1,10 @@
+TC4 v11.64.27 FULL SOURCE PACKAGE
+
+Target: Research System full closure
+Expected unique ZIP entries: 9131
+Universal prompt: INCLUDED TWICE AND IDENTICAL
+Forbidden build/cache/class entries: 0
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO

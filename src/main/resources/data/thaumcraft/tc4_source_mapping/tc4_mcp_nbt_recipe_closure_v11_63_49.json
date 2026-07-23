@@ -1,0 +1,187 @@
+{
+  "version": "11.63.49",
+  "source_of_truth": "Thaumcraft 4.2.3.5 ConfigRecipes.java expressions + MCP 1.7.10 field mappings + Forge 1.19.2 tag migration rules",
+  "strict_rule": "Promote only when the original result metadata/NBT, catalyst, ordered components or shaped keys, aspects, instability and legacy field/OreDictionary mappings are all explicit.",
+  "original_recipe_record_count": 243,
+  "previous_exact_runtime_source_record_count": 213,
+  "v11_63_49_promoted_count": 20,
+  "exact_runtime_source_record_count": 233,
+  "remaining_unresolved_count": 10,
+  "exact_counts_by_kind": {
+    "CRUCIBLE": 53,
+    "ARCANE_SHAPED_OR_SHAPELESS": 86,
+    "INFUSION": 62,
+    "INFUSION_ENCHANTMENT": 24,
+    "SMELTING": 8
+  },
+  "remaining_counts_by_kind": {
+    "CRUCIBLE": 1,
+    "ARCANE_SHAPED": 7,
+    "ARCANE_SHAPELESS": 1,
+    "INFUSION": 1,
+    "SMELTING": 0
+  },
+  "promoted": [
+    {
+      "key": "TubeRestrict",
+      "kind": "ARCANE",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_tuberestrict.json",
+      "evidence": "OreDictionary stone -> #forge:stone"
+    },
+    {
+      "key": "TubeOneway",
+      "kind": "ARCANE",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_tubeoneway.json",
+      "evidence": "OreDictionary dyeBlue -> #forge:dyes/blue"
+    },
+    {
+      "key": "EssentiaCrystalizer",
+      "kind": "ARCANE",
+      "runtime_path": "data/thaumcraft/thaumcraft_arcane_workbench/tc4_essentia_crystalizer.json",
+      "evidence": "ingotIron/plankWood -> #forge:ingots/iron and #minecraft:planks; Blocks.field_150367_z -> dispenser"
+    },
+    {
+      "key": "WandRodObsidian",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_obsidian.json",
+      "evidence": "Blocks.field_150343_Z -> obsidian; craftCost=6"
+    },
+    {
+      "key": "WandRodIce",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_ice.json",
+      "evidence": "Blocks.field_150432_aD -> ice (not packed ice); craftCost=6"
+    },
+    {
+      "key": "WandRodQuartz",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_quartz.json",
+      "evidence": "Blocks.field_150371_ca -> quartz_block; craftCost=6"
+    },
+    {
+      "key": "WandRodReed",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_reed.json",
+      "evidence": "Items.field_151120_aE -> reeds/sugar_cane; craftCost=6"
+    },
+    {
+      "key": "WandRodBlaze",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_blaze.json",
+      "evidence": "Items.field_151072_bj -> blaze_rod; craftCost=6"
+    },
+    {
+      "key": "WandRodBone",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_bone.json",
+      "evidence": "Items.field_151103_aS -> bone; craftCost=6"
+    },
+    {
+      "key": "WandRodSilverwood",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_silverwood.json",
+      "evidence": "silverwood craftCost=9 and seven-shard component ring"
+    },
+    {
+      "key": "WandRodPrimalStaff",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_wand_rod_primal_staff.json",
+      "evidence": "primal_staff craftCost=32 and six elemental rods/two charms"
+    },
+    {
+      "key": "JarBrain",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_jarbrain.json",
+      "evidence": "field_151131_as -> water_bucket between two spider eyes"
+    },
+    {
+      "key": "Mirror",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_mirror.json",
+      "evidence": "field_151043_k -> gold_ingot; field_151079_bi -> ender_pearl"
+    },
+    {
+      "key": "MirrorHand",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_mirrorhand.json",
+      "evidence": "field_151055_y/151111_aL/151148_bJ -> stick/compass/map"
+    },
+    {
+      "key": "MirrorEssentia",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_mirroressentia.json",
+      "evidence": "field_151042_j -> iron_ingot; field_151079_bi -> ender_pearl"
+    },
+    {
+      "key": "TravelTrunk",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_traveltrunk.json",
+      "evidence": "field_151042_j -> iron_ingot plus Greatwood/device/golem metadata aliases"
+    },
+    {
+      "key": "HelmGoggles",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_helm_goggles.json",
+      "evidence": "wildcard fortress helm; slime_ball + wildcard goggles; byte goggles=1"
+    },
+    {
+      "key": "MaskGrinningDevil",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_mask_grinning_devil.json",
+      "evidence": "dye meta0, two iron ingots, leather, shimmerleaf, brain; int mask=0"
+    },
+    {
+      "key": "MaskAngryGhost",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_mask_angry_ghost.json",
+      "evidence": "dye meta15=bone meal, two iron ingots, leather, poisonous potato, skull meta1=wither skull; int mask=1"
+    },
+    {
+      "key": "MaskSippingFiend",
+      "kind": "INFUSION",
+      "runtime_path": "data/thaumcraft/thaumcraft_infusion/tc4_mask_sipping_fiend.json",
+      "evidence": "dye meta1=red, two iron ingots, leather, ghast tear, milk bucket; int mask=2"
+    }
+  ],
+  "corrected_runtime_records": [
+    "EssentiaCrystalizer",
+    "TubeRestrict",
+    "TubeOneway",
+    "WandRodIce",
+    "JarBrain",
+    "MirrorHand",
+    "MirrorEssentia",
+    "TravelTrunk",
+    "MaskGrinningDevil",
+    "MaskAngryGhost",
+    "MaskSippingFiend"
+  ],
+  "confirmed_unchanged_runtime_records": [
+    "WandRodObsidian",
+    "WandRodQuartz",
+    "WandRodReed",
+    "WandRodBlaze",
+    "WandRodBone",
+    "WandRodSilverwood",
+    "WandRodPrimalStaff",
+    "Mirror",
+    "HelmGoggles"
+  ],
+  "remaining_unresolved_keys": [
+    "GolemFlesh",
+    "WardedGlass",
+    "NodeRelay",
+    "NodeChargeRelay",
+    "JarVoid",
+    "HungryChest",
+    "AlchemyFurnace",
+    "TubeFilter",
+    "Centrifuge",
+    "AdvancedGolem"
+  ],
+  "notes": [
+    "JarVoid remains blaze_powder and HungryChest remains oak_trapdoor; both were rechecked and were not changed.",
+    "AdvancedGolem remains unresolved as one wildcard legacy record is currently materialized as eight per-material recipes.",
+    "All newly promoted records are server data/runtime recipes; no client-only evidence is counted."
+  ]
+}

@@ -1,0 +1,6 @@
+TC4 v11.64.37 FINAL RECHECK: PASS (141/141)
+GameTests: 281 unique
+Runtime manifest: 835 unique scenarios
+JSON: 2189/2189 PASS
+Recipes: 258/258 STATICALLY MAPPED
+Build/runtime: NOT VERIFIED

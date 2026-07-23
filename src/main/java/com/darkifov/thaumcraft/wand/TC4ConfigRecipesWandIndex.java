@@ -28,16 +28,16 @@ public final class TC4ConfigRecipesWandIndex {
     public static List<ArcaneWorkbenchRecipe> generatedArcaneComponentRecipes() {
         List<ArcaneWorkbenchRecipe> recipes = new ArrayList<>();
 
-        addCapRecipe(recipes, "gold", "WandCapGold", WandCapType.GOLD, item("minecraft", "gold_nugget"), item("thaumcraft", "tc4_wand_cap_gold"));
-        addCapRecipe(recipes, "copper", "WandCapCopper", WandCapType.COPPER, item("thaumcraft", "tc4_nuggetcopper"), item("thaumcraft", "tc4_wand_cap_copper"));
-        addCapRecipe(recipes, "silver", "WandCapSilverInert", WandCapType.SILVER, item("thaumcraft", "tc4_nuggetsilver"), item("thaumcraft", "tc4_wand_cap_silver_inert"));
-        addCapRecipe(recipes, "thaumium", "WandCapThaumiumInert", WandCapType.THAUMIUM, item("thaumcraft", "tc4_nuggetthaumium"), item("thaumcraft", "tc4_wand_cap_thaumium_inert"));
+        addCapRecipe(recipes, "gold", "WandCapGold", WandCapType.GOLD, item("minecraft", "gold_nugget"), item("thaumcraft", "gold_wand_cap"));
+        addCapRecipe(recipes, "copper", "WandCapCopper", WandCapType.COPPER, tag("forge", "nuggets/copper"), item("thaumcraft", "tc4_wand_cap_copper"));
+        addCapRecipe(recipes, "silver", "WandCapSilverInert", WandCapType.SILVER, tag("forge", "nuggets/silver"), item("thaumcraft", "tc4_wand_cap_silver_inert"));
+        addCapRecipe(recipes, "thaumium", "WandCapThaumiumInert", WandCapType.THAUMIUM, tag("forge", "nuggets/thaumium"), item("thaumcraft", "tc4_wand_cap_thaumium_inert"));
         addVoidCapRecipe(recipes);
 
         addGreatwoodRodRecipe(recipes);
-        addStaffRodRecipe(recipes, "greatwood", "WandRodGreatwoodStaff", WandRodType.GREATWOOD_STAFF, item("thaumcraft", "tc4_wand_rod_greatwood"));
+        addStaffRodRecipe(recipes, "greatwood", "WandRodGreatwoodStaff", WandRodType.GREATWOOD_STAFF, item("thaumcraft", "greatwood_wand_core"));
         addStaffRodRecipe(recipes, "obsidian", "WandRodObsidianStaff", WandRodType.OBSIDIAN_STAFF, item("thaumcraft", "tc4_wand_rod_obsidian"));
-        addStaffRodRecipe(recipes, "silverwood", "WandRodSilverwoodStaff", WandRodType.SILVERWOOD_STAFF, item("thaumcraft", "tc4_wand_rod_silverwood"));
+        addStaffRodRecipe(recipes, "silverwood", "WandRodSilverwoodStaff", WandRodType.SILVERWOOD_STAFF, item("thaumcraft", "silverwood_wand_core"));
         addStaffRodRecipe(recipes, "ice", "WandRodIceStaff", WandRodType.ICE_STAFF, item("thaumcraft", "tc4_wand_rod_ice"));
         addStaffRodRecipe(recipes, "quartz", "WandRodQuartzStaff", WandRodType.QUARTZ_STAFF, item("thaumcraft", "tc4_wand_rod_quartz"));
         addStaffRodRecipe(recipes, "reed", "WandRodReedStaff", WandRodType.REED_STAFF, item("thaumcraft", "tc4_wand_rod_reed"));
@@ -57,7 +57,7 @@ public final class TC4ConfigRecipesWandIndex {
     }
 
     private static void addVoidCapRecipe(List<ArcaneWorkbenchRecipe> recipes) {
-        ResourceLocation nugget = item("thaumcraft", "tc4_nuggetvoid");
+        ResourceLocation nugget = tag("forge", "nuggets/void_metal");
         int cost = WandCapType.VOID.craftCost();
         ArcaneWorkbenchRecipe recipe = recipe("tc4_configrecipes_cap_void", nugget, item("thaumcraft", "tc4_wand_cap_void_inert"), "CAP_void", "ConfigRecipes.WandCapVoidInert")
                 .patternRow("NNN").patternRow("N N").patternKey('N', nugget)
@@ -72,7 +72,7 @@ public final class TC4ConfigRecipesWandIndex {
         // Original ConfigRecipes.WandRodGreatwood uses two real magical-log
         // block stacks (meta 0), not the old research-icon compatibility item.
         ResourceLocation log = item("thaumcraft", "greatwood_log");
-        ArcaneWorkbenchRecipe recipe = recipe("tc4_configrecipes_rod_greatwood", log, item("thaumcraft", "tc4_wand_rod_greatwood"), "ROD_greatwood", "ConfigRecipes.WandRodGreatwood")
+        ArcaneWorkbenchRecipe recipe = recipe("tc4_configrecipes_rod_greatwood", log, item("thaumcraft", "greatwood_wand_core"), "ROD_greatwood", "ConfigRecipes.WandRodGreatwood")
                 .patternRow(" G").patternRow("G ").patternKey('G', log)
                 .require(Aspect.PERDITIO, WandRodType.GREATWOOD.craftCost());
         recipes.add(recipe);
@@ -94,5 +94,9 @@ public final class TC4ConfigRecipesWandIndex {
 
     private static ResourceLocation item(String namespace, String path) {
         return new ResourceLocation(namespace, path);
+    }
+
+    private static ResourceLocation tag(String namespace, String path) {
+        return ArcaneWorkbenchRecipe.tagIngredient(new ResourceLocation(namespace, path));
     }
 }

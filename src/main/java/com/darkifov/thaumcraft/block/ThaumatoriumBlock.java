@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -24,11 +24,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 
 /** Stage503-522 TileThaumatorium / TileThaumatoriumTop runtime bridge. */
 public class ThaumatoriumBlock extends BaseEntityBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final DirectionProperty FACING = DirectionalBlock.FACING;
+    private static final VoxelShape SHAPE = net.minecraft.world.level.block.Block.box(
+            0.0D, 0.0D, 0.0D, 16.0D, 32.0D, 16.0D);
 
     public ThaumatoriumBlock(Properties properties) {
         super(properties);
@@ -42,7 +47,12 @@ public class ThaumatoriumBlock extends BaseEntityBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     @Override
@@ -58,7 +68,8 @@ public class ThaumatoriumBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         if (level.isClientSide) {
-            return null;
+            return createTickerHelper(type, ThaumcraftMod.THAUMATORIUM_BLOCK_ENTITY.get(),
+                    ThaumatoriumBlockEntity::clientTick);
         }
         return createTickerHelper(type, ThaumcraftMod.THAUMATORIUM_BLOCK_ENTITY.get(), ThaumatoriumBlockEntity::serverTick);
     }
@@ -97,11 +108,6 @@ public class ThaumatoriumBlock extends BaseEntityBlock {
                 return InteractionResult.CONSUME;
             }
         }
-        if (player.isShiftKeyDown() && held.isEmpty()) {
-            thaumatorium.cycleFormula();
-            player.displayClientMessage(Component.literal("Thaumatorium | formula cycled").withStyle(ChatFormatting.GOLD), false);
-            return InteractionResult.CONSUME;
-        }
         if (!held.isEmpty() && thaumatorium.catalyst().isEmpty()) {
             if (thaumatorium.insertCatalyst(held)) {
                 if (!player.getAbilities().instabuild) {
@@ -119,5 +125,20 @@ public class ThaumatoriumBlock extends BaseEntityBlock {
             player.displayClientMessage(thaumatorium.statusComponent(), false);
         }
         return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, net.minecraft.world.level.block.Block block,
+                                BlockPos fromPos, boolean moving) {
+        if (!level.isClientSide && (!level.getBlockState(pos.above()).is(ThaumcraftMod.THAUMATORIUM_UPPER.get())
+                || !level.getBlockState(pos.below()).is(ThaumcraftMod.CRUCIBLE.get()))) {
+            if (level.getBlockEntity(pos) instanceof ThaumatoriumBlockEntity tile && !tile.catalyst().isEmpty()) {
+                Containers.dropItemStack(level, pos.getX() + 0.5D, pos.getY() + 0.75D,
+                        pos.getZ() + 0.5D, tile.catalyst().copy());
+            }
+            level.setBlock(pos, ThaumcraftMod.TC4_ALCHEMICAL_CONSTRUCT.get().defaultBlockState(),
+                    net.minecraft.world.level.block.Block.UPDATE_ALL);
+        }
+        super.neighborChanged(state, level, pos, block, fromPos, moving);
     }
 }

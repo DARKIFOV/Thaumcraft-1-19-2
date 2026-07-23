@@ -83,7 +83,7 @@ if ("event.getCamera().rotation()" not in node_overlay
 forbid(node_overlay, 'textures/original/thaumcraft4/gui/hud.png', "node goggles overlay")
 
 wand_renderer = read("src/main/java/com/darkifov/thaumcraft/client/render/WandItemRenderer.java")
-for token in ("transformType.firstPerson()", "translate(0.50D, 1.50D, 0.50D)", "scale(1.00F, 1.10F, 1.00F)", "Vector3f.XP.rotationDegrees(180.0F)"):
+for token in ("transformType.firstPerson()", "translate(0.50D, 0.78D, 0.50D)", "staff ? 0.34F : 0.52F", "Vector3f.XP.rotationDegrees(180.0F)"):
     require(wand_renderer, token, "WandItemRenderer")
 for token in ("MODEL_CENTER_Y", "left ? -0.11D : 0.11D"):
     forbid(wand_renderer, token, "WandItemRenderer")
@@ -121,7 +121,7 @@ if resolver.find("resolveFunctionalBlockStack(compact)") > resolver.find("resolv
 for workflow_name in (".github/workflows/build.yml", ".github/workflows/release.yml"):
     workflow = read(workflow_name)
     require(workflow, "python3 tools/tc4_116250_runtime_screenshot_guard.py", workflow_name)
-    if not re.search(r"reports/\*11\.62\.[0-9]+\*\.json", workflow):
+    if not re.search(r"reports/\*11\.[0-9]+\.[0-9]+\*\.json", workflow):
         ERRORS.append(f"{workflow_name}: missing current-version generated-report glob")
     if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
         ERRORS.append(f"{workflow_name}: historical report must not be required by clean CI")

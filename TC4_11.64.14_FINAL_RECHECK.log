@@ -1,0 +1,17 @@
+TC4 v11.64.14 FINAL RECHECK
+--- versions ---
+10:version = '11.64.14' // Purifying Bath Salts full closure: item, fluid, ward, FXBubble, bucket, recipe and research.
+12:version="11.64.14"
+--- bath salts guard ---
+TC4 v11.64.14 Bath Salts full-closure guard: PASS (149 GameTests; 489 scenarios; item/fluid/ward/particle/bucket/recipe/research/spa)
+--- java parse ---
+Targeted Java parse guard v11.64.14: PASS (pure Java 17 self-test + 8 Forge source parse checks)
+--- json ---
+JSON resource validation: OK (2051 files)
+--- manifest ---
+runtime manifest: PASS (489 tests; template=True)
+--- recipes ---
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+--- prompt ---
+universal prompt: PRESENT
+FINAL RECHECK: PASS

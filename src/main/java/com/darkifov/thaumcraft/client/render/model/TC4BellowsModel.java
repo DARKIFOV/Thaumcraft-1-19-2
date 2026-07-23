@@ -67,7 +67,7 @@ public final class TC4BellowsModel {
 
     /** Original TileBellowsRenderer transforms at a neutral preview inflation. */
     public void render(PoseStack poseStack, VertexConsumer consumer, int light, int overlay, float inflation) {
-        float bounded = Math.max(0.0F, Math.min(1.0F, inflation));
+        float bounded = inflation;
         float separation = 0.125F + bounded * 0.875F;
 
         poseStack.pushPose();

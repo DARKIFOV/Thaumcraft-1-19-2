@@ -1,0 +1,3 @@
+COMMAND: javac --release 17 ... && java TC4ArcaneWorkbenchParitySelfTest
+TC4ArcaneWorkbenchParitySelfTest: PASS
+EXIT_CODE=0

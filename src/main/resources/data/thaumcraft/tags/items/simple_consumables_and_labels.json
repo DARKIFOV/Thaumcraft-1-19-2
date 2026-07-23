@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_brain",
+    "thaumcraft:tc4_tripletreat",
+    "thaumcraft:tc4_knowledgefragment",
+    "thaumcraft:jar_label"
+  ]
+}

@@ -1,0 +1,15 @@
+Thaumcraft Legacy Rebuild v11.64.20
+Object: Arcane Levitator full closure
+Focused static CI: PASS 29/29
+Final independent recheck: PASS 10/10
+Unique annotated GameTests: 177
+Unique runtime-manifest scenarios: 579
+JSON resources: 2055/2055 PASS
+Original recipe registrations: 258/258 STATICALLY MAPPED
+Java 17 dependency-free self-test: PASS
+General Java syntax guard: PASS
+SOURCE CLOSED: YES
+RESOURCE CLOSED: YES
+BUILD VERIFIED: NO
+RUNTIME VERIFIED: NO
+Gradle failure: UnknownHostException services.gradle.org before project configuration

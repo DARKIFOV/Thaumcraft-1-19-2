@@ -91,7 +91,15 @@ public final class TC4OuterLandsTeleporter {
 
         level.getChunkAt(mazeOrigin);
         TC4OuterLandsMazeHandler.ensurePortalMaze(level, mazeOrigin);
-        TC4OuterLandsMazeHandler.generateAround(level, mazeOrigin, 2);
+
+        // Only the entry cell is allowed to generate synchronously. The old
+        // bridge generated a five-by-five room square before teleportTo(),
+        // which can monopolize the integrated-server tick while the client is
+        // already waiting on the "Loading terrain" screen. Neighbouring maze
+        // cells are populated progressively by TC4OuterLandsLivePopulateAdapter.
+        int originCellX = Math.floorDiv(mazeOrigin.getX(), TC4OuterLandsDimensionAdapter.ORIGINAL_CELL_SIZE);
+        int originCellZ = Math.floorDiv(mazeOrigin.getZ(), TC4OuterLandsDimensionAdapter.ORIGINAL_CELL_SIZE);
+        TC4OuterLandsMazeHandler.generateEldritch(level, mazeOrigin, originCellX, originCellZ);
 
         BlockPos generatedPortal = mazeOrigin.offset(8, 3, 8);
         if (!level.getBlockState(generatedPortal).is(ThaumcraftMod.ELDRITCH_PORTAL.get())) {
@@ -104,6 +112,9 @@ public final class TC4OuterLandsTeleporter {
 
         // Keep the same safe one-block offset used by TeleporterThaumcraft while
         // preserving the portal and obelisk at the exact TC4 room coordinates.
+        // Loading only this final landing chunk is bounded and does not trigger
+        // the old five-by-five synchronous room generation.
+        level.getChunkAt(generatedPortal);
         level.removeBlock(generatedPortal.east(), false);
         level.removeBlock(generatedPortal.east().above(), false);
         return generatedPortal;

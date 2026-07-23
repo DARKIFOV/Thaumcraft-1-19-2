@@ -1,0 +1,22 @@
+[1/10] Arcane Bellows full-closure guard
+TC4 v11.64.18 Arcane Bellows full-closure guard: PASS (167 GameTests; 549 scenarios; source/resource/prompt/external-contract)
+[2/10] Java 17 targeted parse/self-test
+Targeted Java parse guard v11.64.18: PASS (pure Java self-test + 9 Forge parse checks)
+[3/10] Java syntax guard
+Java syntax guard: OK
+[4/10] JSON resources
+JSON resource validation: OK (2052 files)
+[5/10] Runtime manifest
+runtime manifest: PASS (549 tests; template=True)
+[6/10] Recipe denominator
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[7/10] Source inventory
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 53 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[8/10] Parity consolidation
+TC4 v11.63.94 parity consolidation guard: PASS (167 GameTests; 549 manifest scenarios; source-linked contracts retained)
+[9/10] Prompt identity
+Prompt identity: PASS
+[10/10] Clean source tree
+Clean source tree: PASS
+FINAL RECHECK v11.64.18: PASS (10/10)

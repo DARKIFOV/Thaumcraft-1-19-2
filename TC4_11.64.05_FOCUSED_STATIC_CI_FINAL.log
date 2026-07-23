@@ -1,0 +1,27 @@
+[1/12] python3 tools/tc4_116405_warp_spawn_collision_guard.py
+TC4 v11.64.05 warp spawn collision guard: PASS (139 GameTests; 467 scenarios; entity-aware collision/liquid admission production-linked)
+[2/12] python3 tools/tc4_116404_warp_spawn_offset_guard.py
+TC4 v11.64.04+ warp spawn guard: PASS (139 GameTests; 467 scenarios; original -1/0/+1 offsets production-linked)
+[3/12] python3 tools/tc4_116403_warp_runtime_guard.py
+TC4 v11.64.03 warp runtime guard: PASS (cumulative GameTests/scenarios; spread curatives and cleansing source-linked)
+[4/12] python3 tools/tc4_116281_warp_eldritch_parity_guard.py
+Warp/Eldritch parity guard: 50/50
+STATIC SOURCE/NETWORK CONTRACT PASS; runtime remains NOT TESTED
+[5/12] python3 tools/warp_runtime_selftest.py
+Warp runtime pure-Java self-test: PASS (spread downgrade, curative contract, soap chance/consumption, ward duration, original tri-state (-1/0/+1) offsets and entity-aware collision/liquid admission)
+[6/12] python3 tools/java_parse_guard_116405.py
+Targeted Java parse guard v11.64.05: PASS (3 changed Java files; pure contract compiled)
+[7/12] python3 tools/java_syntax_guard.py
+Java syntax guard: OK
+[8/12] python3 tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+[9/12] python3 tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.05 --template
+runtime manifest: PASS (467 tests; template=True)
+[10/12] python3 tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+[11/12] python3 tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[12/12] python3 tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (139 GameTests; 467 manifest scenarios; source-linked contracts retained)
+FOCUSED STATIC CI v11.64.05: PASS (12/12)

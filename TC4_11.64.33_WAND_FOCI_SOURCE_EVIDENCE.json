@@ -1,0 +1,216 @@
+{
+  "version": "11.64.33",
+  "mechanic": "TC4 wand foci, focus pouch, upgrade NBT and radial switching",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/items/wands/ItemWandCasting.java",
+      "evidence_tokens": [
+        "func_74775_l(\"focus\")",
+        "func_77955_b(focus)",
+        "func_82580_o(\"focus\")"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/WandManager.java",
+      "evidence_tokens": [
+        "changeFocus",
+        "TreeMap",
+        "higherKey",
+        "cameraticks"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/ItemFocusPouch.java",
+      "evidence_tokens": [
+        "new ItemStack[18]",
+        "\"Inventory\"",
+        "\"Slot\""
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/ItemFocusPouchBauble.java",
+      "evidence_tokens": [
+        "BaubleType.BELT",
+        "canEquip",
+        "canUnequip"
+      ]
+    },
+    {
+      "path": "thaumcraft/api/wands/ItemFocusBasic.java",
+      "evidence_tokens": [
+        "\"upgrade\"",
+        "new short[] { -1, -1, -1, -1, -1 }",
+        "getSortingHelper"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/events/KeyHandler.java",
+      "evidence_tokens": [
+        "radialActive",
+        "\"REMOVE\"",
+        "keyF"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/lib/network/misc/PacketFocusChangeToServer.java",
+      "evidence_tokens": [
+        "WandManager.changeFocus",
+        "getCurrentEquippedItem"
+      ]
+    },
+    {
+      "path": "thaumcraft/client/lib/REHWandHandler.java",
+      "evidence_tokens": [
+        "textures/misc/radial.png",
+        "textures/misc/radial2.png",
+        "16.0F + this.fociItem.size() * 2.5F",
+        "360.0F / this.fociItem.size()"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusFire.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusFrost.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusShock.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusExcavation.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusPortableHole.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusTrade.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusWarding.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusHellbat.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusPech.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/foci/ItemFocusPrimal.java",
+      "evidence_tokens": [
+        "getSortingHelper",
+        "getVisCost",
+        "getPossibleUpgradesByRank"
+      ]
+    }
+  ],
+  "production_contracts": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/WandFocusRuntime.java",
+      "role": "canonical focus ItemStack NBT, cost and ten gameplay dispatch paths"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/WandManagerRuntime.java",
+      "role": "TreeMap selection, transactional inventory/pouch swap and exact sounds"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/FocusPouchItem.java",
+      "role": "18-slot Inventory/Slot storage and GUI opening"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/menu/FocusPouchContainer.java",
+      "role": "original pouch inventory serialization"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/menu/FocusPouchMenu.java",
+      "role": "original 6x3 layout and held-slot protection"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/screen/FocusPouchScreen.java",
+      "role": "original GUI texture and geometry"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/ClientFocusRadialEvents.java",
+      "role": "hold-F radial, Shift+F REMOVE and original textures"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/network/RequestFocusChangePacket.java",
+      "role": "main-hand non-sceptre server authority"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/FocusUpgradeRuntime.java",
+      "role": "five compound upgrade ranks with short id"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/WandFocusItem.java",
+      "role": "cost/upgrades/rarity/tooltips"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/TC4WandFocusContract.java",
+      "role": "dependency-free exact constants and radial geometry"
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/TC4WandFociFullClosureParity.java",
+      "role": "aggregate production-linked contract"
+    }
+  ],
+  "resources": {
+    "original_focus_item_resources": 30,
+    "radial_textures": [
+      "assets/thaumcraft/textures/misc/radial.png",
+      "assets/thaumcraft/textures/misc/radial2.png"
+    ],
+    "focus_pouch_gui": "assets/thaumcraft/textures/gui/gui_focuspouch.png"
+  },
+  "honest_status": {
+    "source_closed": true,
+    "resource_closed": true,
+    "build_verified": false,
+    "runtime_verified": false,
+    "jar_created": false
+  }
+}

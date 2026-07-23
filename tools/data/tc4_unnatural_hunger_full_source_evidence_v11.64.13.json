@@ -1,0 +1,108 @@
+{
+  "round": "11.64.13",
+  "mechanic": "Unnatural Hunger full closure",
+  "runtime_status": "NOT_VERIFIED",
+  "build_status": "NOT_OBTAINED",
+  "original_source_members": {
+    "/thaumcraft/common/lib/potions/PotionUnnaturalHunger.java": {
+      "member": "Thaumcraft4-1.7.10-master/thaumcraft/common/lib/potions/PotionUnnaturalHunger.java",
+      "sha256": "acb8ef4f30513fd75fd31faa95be25c7a43b4119ae0c972be7f6fe5649ba54eb"
+    },
+    "/thaumcraft/common/lib/events/EventHandlerEntity.java": {
+      "member": "Thaumcraft4-1.7.10-master/thaumcraft/common/lib/events/EventHandlerEntity.java",
+      "sha256": "9b309760dae8c7742ca610abd8683e8cb6b2755f06dbc5114ce674061d42ac4a"
+    },
+    "/thaumcraft/common/lib/WarpEvents.java": {
+      "member": "Thaumcraft4-1.7.10-master/thaumcraft/common/lib/WarpEvents.java",
+      "sha256": "882c28b02fe5acec111f4defcc4a8621fffa829f5b9fa5c6b104b312fe24c0ec"
+    },
+    "/thaumcraft/client/lib/ClientTickEventsFML.java": {
+      "member": "Thaumcraft4-1.7.10-master/thaumcraft/client/lib/ClientTickEventsFML.java",
+      "sha256": "f256adc4881f89ce319b8705053ca79398eb41a641b5532956e6f7d552184b14"
+    },
+    "/thaumcraft/client/lib/RenderEventHandler.java": {
+      "member": "Thaumcraft4-1.7.10-master/thaumcraft/client/lib/RenderEventHandler.java",
+      "sha256": "822e41a1ad439859ccda0438e8ac3df5a8985d9abb52bb8f9917ffb19eb47173"
+    },
+    "/thaumcraft/common/config/Config.java": {
+      "member": "Thaumcraft4-1.7.10-master/thaumcraft/common/config/Config.java",
+      "sha256": "442b0a9e5fd5b2c835964889958bf1f405185b2e587e664807dbe12a172de2b7"
+    }
+  },
+  "original_shader_assets": {
+    "post_hunger_json": {
+      "path": "reference/original_tc4_1710_assets/minecraft/shaders/post/hunger.json",
+      "sha256": "1275dc34b09bd878309e69255c2ccf27a308b2841744a95373df378476448983"
+    },
+    "program_json": {
+      "path": "reference/original_tc4_1710_assets/minecraft/shaders/program/color_convolve2.json",
+      "sha256": "1d5a0cde91b36c908474c6cb7eca1993d500c800f1ca120d0e52410f6811386b"
+    },
+    "fragment_shader": {
+      "path": "reference/original_tc4_1710_assets/minecraft/shaders/program/color_convolve2.fsh",
+      "sha256": "0022575bd7324dc85bd2b5ba124e5db52d1f58781fec15ca1813a350f163a947"
+    }
+  },
+  "ported_resources": {
+    "post_chain": {
+      "path": "src/main/resources/assets/thaumcraft/shaders/post/unnatural_hunger.json",
+      "sha256": "bef33d59c843c743f88eff965a292f51a0ad4227c90cded23535a0dd028caa67"
+    },
+    "potion_sheet": {
+      "path": "src/main/resources/assets/thaumcraft/textures/misc/potions.png",
+      "sha256": "f4dd8c7340660ca07e070e337daf5b98881eebb5170d6d80246b3afedfd505d6"
+    },
+    "effect_icon": {
+      "path": "src/main/resources/assets/thaumcraft/textures/mob_effect/unnatural_hunger.png",
+      "sha256": "3dfc43ce6995b91ba5815cbd7f936aa86007e11bc8b05218c62444f9eaa5ef2e",
+      "crop": [
+        126,
+        216,
+        144,
+        234
+      ]
+    }
+  },
+  "original_constants": {
+    "effect_color_hex": "446633",
+    "icon_index": [
+      7,
+      1
+    ],
+    "effectiveness": 0.25,
+    "exhaustion_per_level_per_tick": 0.025,
+    "event_durations_ticks": [
+      5000,
+      6000
+    ],
+    "amplifier_formula": "min(3, warp / 15)",
+    "food_duration_reduction_ticks": 600,
+    "food_amplifier_reduction": 1,
+    "initial_curatives": [
+      "minecraft:rotten_flesh",
+      "thaumcraft:tc4_brain"
+    ],
+    "replacement_curatives": [
+      "minecraft:rotten_flesh"
+    ],
+    "shader_color_scale": [
+      1.0,
+      0.8,
+      0.8
+    ],
+    "shader_saturation": 1.1,
+    "shader_gray": [
+      0.3,
+      0.59,
+      0.11
+    ]
+  },
+  "required_runtime_scenarios": [
+    "gametest.unnatural_hunger_curative_food_reduction",
+    "gametest.unnatural_hunger_full_mechanic_contract",
+    "client.unnatural_hunger_exact_post_chain",
+    "client.unnatural_hunger_post_chain_lifecycle",
+    "multiplayer.unnatural_hunger_effect_and_food_sync",
+    "resource.unnatural_hunger_icon_exact_crop"
+  ]
+}

@@ -1,0 +1,39 @@
+[1/18] python tools/tc4_116400_research_note_clear_guard.py
+TC4 v11.64.00 Research Note clear guard: PASS (122 GameTests; 450 manifest scenarios; atomic clear/refund parity)
+[2/18] python tools/research_note_clear_selftest.py
+TC4 v11.64.00 Research Note clear self-test: PASS
+[3/18] python tools/tc4_116399_research_note_graph_guard.py
+TC4 v11.63.99 Research Note graph guard: PASS (122 GameTests; 450 manifest scenarios; original empty-hex rule + atomic server edit)
+[4/18] python tools/research_note_graph_selftest.py
+TC4 v11.63.99 Research Note graph self-test: PASS
+[5/18] python tools/tc4_116398_research_mastery_combination_guard.py
+TC4 v11.63.98 Research Mastery combination guard: PASS (122 GameTests; 450 manifest scenarios; atomic production debit retained)
+[6/18] python tools/research_mastery_combination_selftest.py
+TC4 v11.63.98 combination parity self-test: PASS
+[7/18] python tools/tc4_116397_research_table_behavior_guard.py
+TC4 v11.63.97 Research Table behavior guard: PASS (122 GameTests; 450 manifest scenarios; real BE NBT/cadence coverage retained)
+[8/18] python tools/tc4_116396_research_efficiency_parity_guard.py
+TC4 v11.63.96 Research efficiency parity guard: PASS (122 GameTests; 450 manifest scenarios; Mastery ordering production-linked)
+[9/18] python tools/tc4_116395_thaumometer_parity_guard.py
+TC4 v11.63.95 Thaumometer parity guard: PASS (122 GameTests; 450 manifest scenarios; production-linked timing/target contracts)
+[10/18] python tools/tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (122 GameTests; 450 manifest scenarios; source-linked contracts retained)
+[11/18] python tools/tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[12/18] python tools/tc4_116282_research_workflow_parity_guard.py
+TC4 11.63.10 research workflow parity guard: PASS (25/25 checks)
+[13/18] python tools/tc4_116335_research_utility_aliases_guard.py
+TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+[14/18] python tools/java_syntax_guard.py
+Java syntax guard: OK
+[15/18] python tools/java_parse_guard_116400.py
+Targeted Java parse guard v11.64.00: PASS (7 changed Java files; pure contract compiled)
+[16/18] python tools/validate_json_resources.py
+JSON resource validation: OK (2049 files)
+[17/18] python tools/validate_runtime_manifest.py --manifest runtime_artifacts/runtime_test_manifest.template.json --version 11.64.00 --template
+runtime manifest: PASS (450 tests; template=True)
+[18/18] python tools/tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+FOCUSED STATIC CHECK SET v11.64.00: PASS (18/18)
+Note: the aggregate wrapper exceeded the outer execution wall-time after printing check 18; checks 17 and 18 were then executed separately and both returned exit code 0.

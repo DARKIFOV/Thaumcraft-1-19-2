@@ -1,0 +1,902 @@
+{
+  "version": "11.64.38",
+  "object": "Alchemical Centrifuge full lifecycle",
+  "reference": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/tiles/TileCentrifuge.java",
+      "sha256": "2107eea87b87f4462c530b2d3eab6c994dad09e65264926e8e9ee290b6f6f5b2",
+      "evidence": [
+        {
+          "expression": "func_74779_i(\"aspectIn\")",
+          "lines": [
+            36
+          ]
+        },
+        {
+          "expression": "func_74779_i(\"aspectOut\")",
+          "lines": [
+            37
+          ]
+        },
+        {
+          "expression": "func_74762_e(\"facing\")",
+          "lines": [
+            38
+          ]
+        },
+        {
+          "expression": "face == ForgeDirection.DOWN ? 64",
+          "lines": [
+            148
+          ]
+        },
+        {
+          "expression": "this.process = 39",
+          "lines": [
+            171,
+            232
+          ]
+        },
+        {
+          "expression": "++this.count % 5 == 0",
+          "lines": [
+            189
+          ]
+        },
+        {
+          "expression": "nextInt(2)",
+          "lines": [
+            210
+          ]
+        },
+        {
+          "expression": "ThaumcraftApiHelper.getConnectableTile",
+          "lines": [
+            217
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/blocks/BlockTube.java",
+      "sha256": "3b231254dd2c8741fe1c2c34f7e47236f0ebf612be1a9a40721a90d372e29ac3",
+      "evidence": [
+        {
+          "expression": "func_149711_c(0.5F)",
+          "lines": [
+            62
+          ]
+        },
+        {
+          "expression": "func_149752_b(5.0F)",
+          "lines": [
+            63
+          ]
+        },
+        {
+          "expression": "func_149672_a(Block.field_149777_j)",
+          "lines": [
+            64
+          ]
+        },
+        {
+          "expression": "func_149676_a(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F)",
+          "lines": [
+            165
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/models/ModelCentrifuge.java",
+      "sha256": "2fe7edfa2e7bb702508d767b36d22b548179020a6860f23cfb3b98c1ba797fa2",
+      "evidence": [
+        {
+          "expression": "Crossbar",
+          "lines": [
+            11,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            70
+          ]
+        },
+        {
+          "expression": "Dingus1",
+          "lines": [
+            12,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            71
+          ]
+        },
+        {
+          "expression": "Dingus2",
+          "lines": [
+            13,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            72
+          ]
+        },
+        {
+          "expression": "Core",
+          "lines": [
+            14,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            73,
+            87
+          ]
+        },
+        {
+          "expression": "Top",
+          "lines": [
+            15,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            64
+          ]
+        },
+        {
+          "expression": "Bottom",
+          "lines": [
+            16,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            65
+          ]
+        },
+        {
+          "expression": "renderBoxes",
+          "lines": [
+            62
+          ]
+        },
+        {
+          "expression": "renderSpinnyBit",
+          "lines": [
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/tile/TileCentrifugeRenderer.java",
+      "sha256": "4ec31413a6e6bc9ad8b44e0c1a54d24fc44bd3c58a06a641d8309a8a4c2b05e7",
+      "evidence": [
+        {
+          "expression": "textures/models/centrifuge.png",
+          "lines": [
+            31
+          ]
+        },
+        {
+          "expression": "renderBoxes",
+          "lines": [
+            36
+          ]
+        },
+        {
+          "expression": "GL11.glRotated(cf.rotation",
+          "lines": [
+            37
+          ]
+        },
+        {
+          "expression": "renderSpinnyBit",
+          "lines": [
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/client/renderers/block/BlockTubeRenderer.java",
+      "sha256": "a2ae57239beea71aa4b04e0f876c3e45b33aed4bad00d18e04ced483a701c187",
+      "evidence": [
+        {
+          "expression": "TileCentrifuge",
+          "lines": [
+            16,
+            60
+          ]
+        },
+        {
+          "expression": "renderTileEntityAt",
+          "lines": []
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigRecipes.java",
+      "sha256": "7a525af2ccca83cbe7c38ed7361b9a910c2829247738e8bb6c0bfa8be920cda3",
+      "evidence": [
+        {
+          "expression": "recipes.put(\"Centrifuge\"",
+          "lines": [
+            1719
+          ]
+        },
+        {
+          "expression": "new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9)",
+          "lines": [
+            196,
+            209,
+            1697,
+            1709,
+            1719,
+            1729
+          ]
+        },
+        {
+          "expression": "Aspect.WATER, 5",
+          "lines": [
+            209,
+            596,
+            628,
+            668,
+            680,
+            699,
+            1039,
+            1376,
+            1393,
+            1571,
+            1580,
+            1591,
+            1628,
+            1639,
+            1648,
+            1656,
+            1667,
+            1675,
+            1685,
+            1697,
+            1719,
+            1729,
+            1740
+          ]
+        },
+        {
+          "expression": "Aspect.ORDER, 5",
+          "lines": [
+            209,
+            680,
+            699,
+            801,
+            1276,
+            1419,
+            1429,
+            1571,
+            1614,
+            1628,
+            1648,
+            1685,
+            1697,
+            1719,
+            1729,
+            1740
+          ]
+        },
+        {
+          "expression": "Aspect.ENTROPY, 5",
+          "lines": [
+            1276,
+            1719
+          ]
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigResearch.java",
+      "sha256": "4dfd57f37f0b11de094e926041cd925ae51918b94fa682f543d35e3a3f242de6",
+      "evidence": [
+        {
+          "expression": "new ResearchItem(\"CENTRIFUGE\"",
+          "lines": [
+            1661
+          ]
+        },
+        {
+          "expression": "Aspect.ENTROPY, 3",
+          "lines": [
+            124,
+            167,
+            1038,
+            1330,
+            1611,
+            1661,
+            2287
+          ]
+        },
+        {
+          "expression": "Aspect.MAGIC, 3",
+          "lines": [
+            90,
+            100,
+            109,
+            124,
+            147,
+            156,
+            177,
+            244,
+            253,
+            264,
+            275,
+            286,
+            297,
+            308,
+            406,
+            418,
+            429,
+            440,
+            452,
+            463,
+            474,
+            502,
+            573,
+            687,
+            753,
+            787,
+            796,
+            812,
+            823,
+            834,
+            844,
+            878,
+            956,
+            1297,
+            1316,
+            1357,
+            1370,
+            1576,
+            1621,
+            1638,
+            1661,
+            1756,
+            1811,
+            1956,
+            2243,
+            2272,
+            2298,
+            2447
+          ]
+        },
+        {
+          "expression": "Aspect.EXCHANGE, 3",
+          "lines": [
+            216,
+            502,
+            1316,
+            1462,
+            1471,
+            1481,
+            1621,
+            1638,
+            1653,
+            1661,
+            1676,
+            1733,
+            1746,
+            1756,
+            1767,
+            1777,
+            1791,
+            1801,
+            1811,
+            1843,
+            1853,
+            1863,
+            1874,
+            1945,
+            2243,
+            2263,
+            2272,
+            2308,
+            2343,
+            2436
+          ]
+        },
+        {
+          "expression": "Aspect.CRAFT, 3",
+          "lines": [
+            729,
+            1085,
+            1297,
+            1316,
+            1661,
+            1676,
+            2287,
+            2308
+          ]
+        },
+        {
+          "expression": "setParents(new String[] { \"TUBEFILTER\" })",
+          "lines": [
+            1661
+          ]
+        },
+        {
+          "expression": "setConcealed()",
+          "lines": [
+            100,
+            124,
+            135,
+            147,
+            156,
+            167,
+            227,
+            253,
+            264,
+            275,
+            286,
+            297,
+            308,
+            398,
+            418,
+            429,
+            440,
+            452,
+            463,
+            474,
+            487,
+            502,
+            512,
+            523,
+            546,
+            573,
+            687,
+            697,
+            707,
+            719,
+            729,
+            742,
+            769,
+            796,
+            812,
+            823,
+            834,
+            844,
+            878,
+            889,
+            900,
+            946,
+            956,
+            971,
+            1038,
+            1051,
+            1063,
+            1074,
+            1085,
+            1096,
+            1146,
+            1223,
+            1230,
+            1236,
+            1242,
+            1297,
+            1316,
+            1330,
+            1390,
+            1399,
+            1410,
+            1423,
+            1436,
+            1449,
+            1462,
+            1471,
+            1481,
+            1493,
+            1506,
+            1519,
+            1540,
+            1611,
+            1621,
+            1638,
+            1653,
+            1661,
+            1676,
+            1709,
+            1756,
+            1767,
+            1777,
+            1791,
+            1801,
+            1811,
+            1832,
+            1843,
+            1853,
+            1863,
+            1874,
+            1887,
+            1899,
+            1913,
+            1923,
+            1933,
+            1945,
+            1956,
+            1968,
+            1977,
+            1986,
+            1995,
+            2004,
+            2013,
+            2026,
+            2263,
+            2343,
+            2394,
+            2447,
+            2460,
+            2476
+          ]
+        }
+      ]
+    }
+  ],
+  "production_bindings": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/alchemy/TC4AlchemicalCentrifugeParity.java",
+      "sha256": "74342c89b5ed7da939167bbac8841bf5d1e94dda3ea07871f3951fc6b7ec60b9",
+      "evidence": [
+        {
+          "expression": "CONTRACT_VERSION = \"11.64.38\"",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "expression": "INPUT_SUCTION = 64",
+          "lines": [
+            6
+          ]
+        },
+        {
+          "expression": "PROCESS_START = 39",
+          "lines": [
+            7
+          ]
+        },
+        {
+          "expression": "DRAW_INTERVAL_TICKS = 5",
+          "lines": [
+            8
+          ]
+        },
+        {
+          "expression": "MAX_ROTATION_SPEED = 20.0F",
+          "lines": [
+            11
+          ]
+        },
+        {
+          "expression": "shouldPlayPump",
+          "lines": [
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/blockentity/AlchemicalCentrifugeBlockEntity.java",
+      "sha256": "7674aeda31a70a73a343ef99f3d1af4e6cc8598fad4034200afdcc06f0090f89",
+      "evidence": [
+        {
+          "expression": "TC4AlchemicalCentrifugeParity.tickProcess",
+          "lines": [
+            45
+          ]
+        },
+        {
+          "expression": "drawEssentiaFromBelow",
+          "lines": [
+            43,
+            102
+          ]
+        },
+        {
+          "expression": "below instanceof EssentiaJarBlockEntity",
+          "lines": [
+            128
+          ]
+        },
+        {
+          "expression": "below instanceof AlembicBlockEntity",
+          "lines": [
+            139
+          ]
+        },
+        {
+          "expression": "below instanceof AlchemicalCentrifugeBlockEntity",
+          "lines": [
+            149
+          ]
+        },
+        {
+          "expression": "tag.putString(\"aspectIn\"",
+          "lines": [
+            188
+          ]
+        },
+        {
+          "expression": "tag.putInt(\"facing\"",
+          "lines": [
+            190
+          ]
+        },
+        {
+          "expression": "handleUpdateTag(CompoundTag tag)",
+          "lines": [
+            212
+          ]
+        },
+        {
+          "expression": "onDataPacket(Connection connection",
+          "lines": [
+            214
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/AlchemicalCentrifugeBlock.java",
+      "sha256": "1d33f16fa3d3db8a966eb12c5863c877212fe6e1cf96de95fd338530b3de7a18",
+      "evidence": [
+        {
+          "expression": "Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D)",
+          "lines": [
+            20
+          ]
+        },
+        {
+          "expression": "RenderShape.ENTITYBLOCK_ANIMATED",
+          "lines": [
+            28
+          ]
+        },
+        {
+          "expression": "AlchemicalCentrifugeBlockEntity::serverTick",
+          "lines": [
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/model/TC4CentrifugeModel.java",
+      "sha256": "645aed7499e76d35994cc66eec2186bc498189972e9a4dd112cb260b2e70ad1b",
+      "evidence": [
+        {
+          "expression": "LayerDefinition.create(mesh, 64, 32)",
+          "lines": [
+            57
+          ]
+        },
+        {
+          "expression": "renderBoxes",
+          "lines": [
+            60
+          ]
+        },
+        {
+          "expression": "renderSpinnyBit",
+          "lines": [
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/AlchemicalCentrifugeRenderer.java",
+      "sha256": "f722215e3b4195e7b30f578dbb3fe93fcc016b53b39ea2a429124d561e14ceb5",
+      "evidence": [
+        {
+          "expression": "textures/models/centrifuge.png",
+          "lines": [
+            19
+          ]
+        },
+        {
+          "expression": "model.renderBoxes",
+          "lines": [
+            32,
+            42
+          ]
+        },
+        {
+          "expression": "rotationDegrees(tile.rotation())",
+          "lines": [
+            33
+          ]
+        },
+        {
+          "expression": "model.renderSpinnyBit",
+          "lines": [
+            34,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/client/render/AlchemicalCentrifugeItemRenderer.java",
+      "sha256": "8ee003fc64d0450c0025378945979895fd026492ae5d41a612615c473d0f609c",
+      "evidence": [
+        {
+          "expression": "packedLight, packedOverlay, 0.0F",
+          "lines": [
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
+      "sha256": "a4c2290df96b2f367fa0fd956116f1f119b617874d1cf9059c1033bb15bfedf1",
+      "evidence": [
+        {
+          "expression": "alchemicalCentrifugeBlock(\"alchemical_centrifuge\"",
+          "lines": [
+            1262
+          ]
+        },
+        {
+          "expression": "strength(0.5F, 5.0F).sound(SoundType.METAL)",
+          "lines": [
+            1263
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/resources/data/thaumcraft/thaumcraft_arcane_workbench/tc4_centrifuge.json",
+      "sha256": "4dddc576a3a007019fec01f0a09359abde667be6cda76efc4834771c19f33892",
+      "evidence": [
+        {
+          "expression": "\"research\": \"CENTRIFUGE\"",
+          "lines": [
+            4
+          ]
+        },
+        {
+          "expression": "\"C\": \"thaumcraft:tc4_block_alchemical_construct\"",
+          "lines": [
+            26
+          ]
+        },
+        {
+          "expression": "\"AQUA\": 5",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "expression": "\"ORDO\": 5",
+          "lines": [
+            15
+          ]
+        },
+        {
+          "expression": "\"PERDITIO\": 5",
+          "lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/research/TC4ResearchRuntimeBridge.java",
+      "sha256": "332942edecc82e4ee7afe3af2353cb4a3f4d76ee2b0a877139f0f775dba7d833",
+      "evidence": [
+        {
+          "expression": "\"CENTRIFUGE\", \"Alchemical Centrifuge\"",
+          "lines": [
+            1801
+          ]
+        },
+        {
+          "expression": "\"ALCHEMY\", 10, 0, 2",
+          "lines": [
+            1802
+          ]
+        },
+        {
+          "expression": "new String[] {\"TUBEFILTER\"}",
+          "lines": [
+            1804
+          ]
+        },
+        {
+          "expression": "new String[] {\"Centrifuge\", \"TubeBuffer\"}",
+          "lines": [
+            1810
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java",
+      "sha256": "cb94408401c686326045d2335ecc321f92f54bbfec083900ee383428b31b38eb",
+      "evidence": [
+        {
+          "expression": "centrifugeOnlySplitsCompoundFromBelowWithRedstonePause",
+          "lines": [
+            2137
+          ]
+        },
+        {
+          "expression": "centrifugePersistsOnlyOriginalNbtAndResumesImmediately",
+          "lines": [
+            2165
+          ]
+        },
+        {
+          "expression": "centrifugePullsCompoundDirectlyFromJarBelow",
+          "lines": [
+            2188
+          ]
+        },
+        {
+          "expression": "centrifugePullsCompoundDirectlyFromAlembicBelow",
+          "lines": [
+            2204
+          ]
+        },
+        {
+          "expression": "stackedCentrifugesCanRecursivelySplitCompoundOutput",
+          "lines": [
+            2220
+          ]
+        },
+        {
+          "expression": "centrifugeShapeAndTransportFacesMatchOriginal",
+          "lines": [
+            2236
+          ]
+        }
+      ]
+    }
+  ],
+  "exact_resources": [
+    {
+      "original": "assets/thaumcraft/textures/models/centrifuge.png",
+      "port": "src/main/resources/assets/thaumcraft/textures/models/centrifuge.png",
+      "sha256": "780feabc1148f22f0d6d5521960ebb16a4fff46db87736667fbde7af2399f838",
+      "exact_match": true
+    }
+  ],
+  "verification": {
+    "focused_static_ci": "63/63 PASS (segmented execution)",
+    "targeted_parse": "8/8 PASS",
+    "java17_self_test": "PASS",
+    "gametest_methods": 286,
+    "runtime_manifest_scenarios": 850,
+    "json": "2189/2189 PASS",
+    "recipes": "258/258 STATICALLY MAPPED",
+    "build_verified": false,
+    "runtime_verified": false
+  }
+}

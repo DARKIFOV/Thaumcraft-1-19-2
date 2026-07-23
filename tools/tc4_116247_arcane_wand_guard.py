@@ -112,7 +112,7 @@ release_workflow = read(".github/workflows/release.yml")
 for workflow, label in ((build_workflow, "build workflow"), (release_workflow, "release workflow")):
     # Source archives are intentionally clean: CI must publish reports generated
     # during the current run instead of depending on committed historical reports.
-    if not re.search(r"reports/\*11\.62\.[0-9]+\*\.json", workflow):
+    if not re.search(r"reports/\*11\.[0-9]+\.[0-9]+\*\.json", workflow):
         ERRORS.append(f"{label}: missing current-version generated-report glob")
     if re.search(r"THAUMCRAFT_LEGACY_REBUILD_V11_62_[0-9]+_EXPERT_FULL_TECHNICAL_REPORT_R[0-9]+\.md", workflow):
         ERRORS.append(f"{label}: historical consolidated report must not be required by CI")

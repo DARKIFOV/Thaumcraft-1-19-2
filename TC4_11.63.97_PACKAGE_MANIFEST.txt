@@ -1,0 +1,43 @@
+Thaumcraft Legacy Rebuild Forge 1.19.2 — v11.63.97
+Release: RESEARCH_TABLE_BEHAVIOR_PARITY
+
+Production changes:
+- Added TC4ResearchTableBehaviorParity.
+- Source-linked ResearchTableBlockEntity post-increment recalc boundary.
+- Research Table recalc now always marks/synchronizes the BlockEntity after a firing pass.
+- Bonus-aspect NBT writes one record per positive aspect type, matching TC4.
+- Legacy duplicate bonus records normalize to one point per type on load.
+
+Behavioral GameTests added:
+- researchTableBonusNbtCollapsesDuplicateTypesLikeTc4
+- researchTableBonusConsumptionPersistsAcrossSaveReload
+- researchTableRecalcCounterUsesOriginalPostIncrementBoundary
+
+Counts:
+- 107 unique @GameTest methods
+- 435 unique runtime manifest scenarios
+- 2049 valid JSON resources
+- 258/258 original recipe registrations statically mapped
+- 18 separate smelting-bonus registrations
+
+Validation:
+- Focused static checks: 12/12 PASS (executed as individually bounded checks)
+- Targeted javac parse: PASS for four changed Java files; pure parity contracts compile
+- Gradle compile: NOT OBTAINED (Gradle distribution DNS failure; Java 21 available, Java 17 absent)
+- Forge GameTest runtime: NOT VERIFIED
+
+Primary changed files:
+- build.gradle
+- src/main/resources/META-INF/mods.toml
+- src/main/java/com/darkifov/thaumcraft/blockentity/ResearchTableBlockEntity.java
+- src/main/java/com/darkifov/thaumcraft/research/TC4ResearchTableBehaviorParity.java
+- src/main/java/com/darkifov/thaumcraft/gametest/TC4BlockEntityGameTests.java
+- runtime_artifacts/runtime_test_manifest.template.json
+- tools/tc4_116397_research_table_behavior_guard.py
+- tools/java_parse_guard_116397.py
+- tools/run_focused_static_ci_116397.py
+- tools/tc4_116396_research_efficiency_parity_guard.py (forward-compatible)
+- README.md
+- KNOWN_DEVIATIONS.md
+- TC4_PORT_STATUS_V3.md
+- TC4_11.63.97_RESEARCH_TABLE_BEHAVIOR_PARITY_PORT_REPORT_RU.md

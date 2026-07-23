@@ -20,7 +20,7 @@
     "C": "thaumcraft:ignis_shard"
   },
   "result": {
-    "item": "thaumcraft:tc4_golem_upgrade_fire",
+    "item": "thaumcraft:golem_upgrade_fire",
     "count": 1
   },
   "v11_62_22_strict_original": true

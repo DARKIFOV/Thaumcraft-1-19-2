@@ -1,0 +1,314 @@
+{
+  "version": "11.64.32",
+  "object": "Wand rods and caps / base casting wand system",
+  "baseline": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    {
+      "path": "thaumcraft/common/items/wands/ItemWandCasting.java",
+      "sha256": "4a216cdb1901eb96ce0f35cc2ce79de81c0fcb358bbc40209013184482536feb",
+      "evidence": [
+        {
+          "token": "this.field_77777_bU = 1",
+          "line": 58,
+          "text": "/*  58 */     this.field_77777_bU = 1;"
+        },
+        {
+          "token": "return EnumRarity.uncommon",
+          "line": 97,
+          "text": "/*  97 */     return EnumRarity.uncommon;"
+        },
+        {
+          "token": "ItemStack w1 = new ItemStack(this, 1, 0)",
+          "line": 103,
+          "text": "/* 103 */     ItemStack w1 = new ItemStack(this, 1, 0);"
+        },
+        {
+          "token": "ItemStack w2 = new ItemStack(this, 1, 9)",
+          "line": 104,
+          "text": "/* 104 */     ItemStack w2 = new ItemStack(this, 1, 9);"
+        },
+        {
+          "token": "ItemStack w3 = new ItemStack(this, 1, 54)",
+          "line": 105,
+          "text": "/* 105 */     ItemStack w3 = new ItemStack(this, 1, 54);"
+        },
+        {
+          "token": "par3List.add(sceptre)",
+          "line": 127,
+          "text": "/* 127 */     par3List.add(sceptre);"
+        },
+        {
+          "token": "item.Wand.name",
+          "line": 134,
+          "text": "/* 134 */     String name = StatCollector.func_74838_a(\"item.Wand.name\");"
+        },
+        {
+          "token": "getRod(stack).getCapacity() * (isSceptre(stack) ? 150 : 100)",
+          "line": 91,
+          "text": "/*  91 */     return getRod(stack).getCapacity() * (isSceptre(stack) ? 150 : 100);"
+        },
+        {
+          "token": "new AttributeModifier(field_111210_e, \"Weapon modifier\", 6.0D, 0)",
+          "line": 493,
+          "text": "/* 493 */       AttributeModifier am = new AttributeModifier(field_111210_e, \"Weapon modifier\", 6.0D, 0);"
+        },
+        {
+          "token": "stack.func_77983_a(\"rod\"",
+          "line": 485,
+          "text": "/* 485 */     stack.func_77983_a(\"rod\", new NBTTagString(rod.getTag()));"
+        },
+        {
+          "token": "stack.func_77983_a(\"cap\"",
+          "line": 515,
+          "text": "/* 515 */     stack.func_77983_a(\"cap\", new NBTTagString(cap.getTag()));"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/WandRodPrimalOnUpdate.java",
+      "sha256": "beba65810311b225569fb06588d7040343f88361ab5ad1541b920f6348fa500b",
+      "evidence": [
+        {
+          "token": "player.field_70173_aa % 200 == 0",
+          "line": 27,
+          "text": "/* 27 */       if ((player.field_70173_aa % 200 == 0) &&"
+        },
+        {
+          "token": "getMaxVis(itemstack) / 10",
+          "line": 28,
+          "text": "/* 28 */         (((ItemWandCasting)itemstack.func_77973_b()).getVis(itemstack, this.aspect) < ((ItemWandCasting)itemstack.func_77973_b()).getMaxVis(itemstack) / 10)) {"
+        },
+        {
+          "token": "addVis(itemstack, this.aspect, 1, true)",
+          "line": 29,
+          "text": "/* 29 */         ((ItemWandCasting)itemstack.func_77973_b()).addVis(itemstack, this.aspect, 1, true);"
+        },
+        {
+          "token": "player.field_70173_aa % 50 == 0",
+          "line": 33,
+          "text": "/* 33 */     else if (player.field_70173_aa % 50 == 0) {"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/ItemWandRod.java",
+      "sha256": "e6100e635a7c0e1a74dbcff3ebb72ca82bd2e8947698b97e4b75d3fac24ade13",
+      "evidence": [
+        {
+          "token": "par3List.add(new ItemStack(this, 1, 0))",
+          "line": 61,
+          "text": "/* 61 */     par3List.add(new ItemStack(this, 1, 0));"
+        },
+        {
+          "token": "par3List.add(new ItemStack(this, 1, 57))",
+          "line": 77,
+          "text": "/* 77 */     par3List.add(new ItemStack(this, 1, 57));"
+        },
+        {
+          "token": "par3List.add(new ItemStack(this, 1, 100))",
+          "line": 79,
+          "text": "/* 79 */     par3List.add(new ItemStack(this, 1, 100));"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/items/wands/ItemWandCap.java",
+      "sha256": "8cfca2293ced562071372b29bec0dfaf91123dab3701b172a5edb1fb464e0d3e",
+      "evidence": [
+        {
+          "token": "par3List.add(new ItemStack(this, 1, 0))",
+          "line": 52,
+          "text": "/* 52 */     par3List.add(new ItemStack(this, 1, 0));"
+        },
+        {
+          "token": "par3List.add(new ItemStack(this, 1, 8))",
+          "line": 64,
+          "text": "/* 64 */     par3List.add(new ItemStack(this, 1, 8));"
+        }
+      ]
+    },
+    {
+      "path": "thaumcraft/common/config/ConfigItems.java",
+      "sha256": "6aa459947dc2f28676531654dc16c85f9df55d3c1520af8f19bfb89ffbffcc90",
+      "evidence": [
+        {
+          "token": "new WandRod(\"wood\", 25, new ItemStack(Items.field_151055_y), 1)",
+          "line": 162,
+          "text": "/* 162 */     WAND_ROD_WOOD = new WandRod(\"wood\", 25, new ItemStack(Items.field_151055_y), 1);"
+        },
+        {
+          "token": "new WandRod(\"greatwood\", 50",
+          "line": 163,
+          "text": "/* 163 */     WAND_ROD_GREATWOOD = new WandRod(\"greatwood\", 50, new ItemStack(itemWandRod, 1, 0), 3);"
+        },
+        {
+          "token": "new WandRod(\"silverwood\", 100",
+          "line": 170,
+          "text": "/* 170 */     WAND_ROD_SILVERWOOD = new WandRod(\"silverwood\", 100, new ItemStack(itemWandRod, 1, 2), 9);"
+        },
+        {
+          "token": "new StaffRod(\"greatwood\", 125",
+          "line": 175,
+          "text": "/* 175 */     STAFF_ROD_GREATWOOD = new StaffRod(\"greatwood\", 125, new ItemStack(itemWandRod, 1, 50), 8);"
+        },
+        {
+          "token": "new StaffRod(\"primal\", 250",
+          "line": 184,
+          "text": "/* 184 */     STAFF_ROD_PRIMAL = new StaffRod(\"primal\", 250, new ItemStack(itemWandRod, 1, 100), 32, new WandRodPrimalOnUpdate());"
+        },
+        {
+          "token": "new WandCap(\"iron\", 1.1F",
+          "line": 157,
+          "text": "/* 157 */     WAND_CAP_IRON = new WandCap(\"iron\", 1.1F, new ItemStack(itemWandCap, 1, 0), 1);"
+        },
+        {
+          "token": "new WandCap(\"void\", 0.8F",
+          "line": 160,
+          "text": "/* 160 */     WAND_CAP_VOID = new WandCap(\"void\", 0.8F, new ItemStack(itemWandCap, 1, 7), 9);"
+        }
+      ]
+    }
+  ],
+  "production_contracts": [
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/TC4WandComponentMath.java",
+      "sha256": "14ecf51c887900664bdaf6d2cc5a86a9b5ee5d4731c674d298549fd2964e777f",
+      "evidence": [
+        {
+          "token": "CONTRACT_VERSION = \"11.64.32\"",
+          "line": 5,
+          "text": "public static final String CONTRACT_VERSION = \"11.64.32\";"
+        },
+        {
+          "token": "capacityCentivis",
+          "line": 15,
+          "text": "public static int capacityCentivis(int rodCapacity, boolean sceptre) {"
+        },
+        {
+          "token": "consumptionModifier",
+          "line": 20,
+          "text": "public static float consumptionModifier(float capModifier, boolean sceptre) {"
+        },
+        {
+          "token": "regenerationThresholdCentivis",
+          "line": 25,
+          "text": "public static int regenerationThresholdCentivis(int maximumCentivis) {"
+        },
+        {
+          "token": "regenerationDeltaCentivis",
+          "line": 29,
+          "text": "public static int regenerationDeltaCentivis(int displayedVis) {"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/WandComponentData.java",
+      "sha256": "4d760453e5a92bbf8cd1907394b8cc4481b40fbf3530091211640294dd6af0dd",
+      "evidence": [
+        {
+          "token": "normalizeOriginalTags",
+          "line": 52,
+          "text": "public static boolean normalizeOriginalTags(ItemStack stack) {"
+        },
+        {
+          "token": "root.remove(TAG_WAND)",
+          "line": 48,
+          "text": "root.remove(TAG_WAND);"
+        },
+        {
+          "token": "displayNameComponent",
+          "line": 139,
+          "text": "public Component displayNameComponent(ItemStack stack) {"
+        },
+        {
+          "token": "TC4WandComponentMath.capacityCentivis",
+          "line": 81,
+          "text": "return TC4WandComponentMath.capacityCentivis(rod.baseCapacity(), isSceptre(stack));"
+        },
+        {
+          "token": "TC4WandComponentMath.consumptionModifier",
+          "line": 85,
+          "text": "return TC4WandComponentMath.consumptionModifier(visCostModifier(aspect), isSceptre(stack));"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/wand/WandVariantRuntime.java",
+      "sha256": "12e2aa4767b57929b7b52bc6d4cc9998487ba7581ffa8f92daa90b8909f46128",
+      "evidence": [
+        {
+          "token": "ORIGINAL_CREATIVE_VARIANT_COUNT = 4",
+          "line": 17,
+          "text": "public static final int ORIGINAL_CREATIVE_VARIANT_COUNT = 4;"
+        },
+        {
+          "token": "WandRodType.WOOD, WandCapType.IRON",
+          "line": 23,
+          "text": "create(WandRodType.WOOD, WandCapType.IRON, false, true),"
+        },
+        {
+          "token": "WandRodType.GREATWOOD, WandCapType.GOLD",
+          "line": 24,
+          "text": "create(WandRodType.GREATWOOD, WandCapType.GOLD, false, true),"
+        },
+        {
+          "token": "WandRodType.SILVERWOOD, WandCapType.THAUMIUM",
+          "line": 25,
+          "text": "create(WandRodType.SILVERWOOD, WandCapType.THAUMIUM, false, true),"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/block/WandItem.java",
+      "sha256": "1b19c2bc2d1e7288b84f15ca671c5e67d52752787ef831fdf6e4605b32e6ca84",
+      "evidence": [
+        {
+          "token": "STAFF_ATTACK_DAMAGE = 6.0D",
+          "line": 69,
+          "text": "public static final double STAFF_ATTACK_DAMAGE = 6.0D;"
+        },
+        {
+          "token": "getAttributeModifiers(EquipmentSlot slot, ItemStack stack)",
+          "line": 599,
+          "text": "public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {"
+        },
+        {
+          "token": "WandComponentData.normalizeOriginalTags(stack)",
+          "line": 556,
+          "text": "WandComponentData.normalizeOriginalTags(stack);"
+        },
+        {
+          "token": "displayNameComponent(stack)",
+          "line": 595,
+          "text": "return WandComponentData.from(stack).displayNameComponent(stack);"
+        },
+        {
+          "token": "REGEN_AMOUNT_VIS",
+          "line": 582,
+          "text": "addVis(stack, candidates.get(level.random.nextInt(candidates.size())), WandRodType.REGEN_AMOUNT_VIS);"
+        }
+      ]
+    },
+    {
+      "path": "src/main/java/com/darkifov/thaumcraft/ThaumcraftMod.java",
+      "sha256": "d7531dde5d9c314f05b8c64ac5d193956d136e6dccb0abec33e2055d940444a6",
+      "evidence": [
+        {
+          "token": "stacksTo(1).rarity(Rarity.UNCOMMON)",
+          "line": 490,
+          "text": ".stacksTo(1).rarity(Rarity.UNCOMMON)));"
+        },
+        {
+          "token": "TC4WandComponentItem.activeCap",
+          "line": 776,
+          "text": "() -> TC4WandComponentItem.activeCap(new Item.Properties().tab(THAUMCRAFT_TAB), WandCapType.IRON));"
+        },
+        {
+          "token": "TC4WandComponentItem.rod(new Item.Properties(), WandRodType.WOOD)",
+          "line": 783,
+          "text": "() -> TC4WandComponentItem.rod(new Item.Properties(), WandRodType.WOOD));"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+TC4 v11.64.13 PACKAGE MANIFEST
+================================
+Package: Thaumcraft Legacy Rebuild Forge 1.19.2
+Mechanic: Unnatural Hunger full source/resource/static closure
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+Oracle: Thaumcraft 4.2.3.5
+
+Proof status:
+- Source/resource/static parity: CLOSED
+- Focused static CI: PASS 19/19 (split execution)
+- Final recheck: PASS 10/10 (split execution)
+- Gradle/Forge build: NOT OBTAINED
+- Forge runtime/GameTest/client/multiplayer: NOT VERIFIED
+
+Inventory:
+- Files in source package: 8901
+- Java files under src: 805
+- JSON resources: 2050
+- Unique GameTest methods: 146
+- Unique runtime manifest scenarios: 478
+- Recipe denominator: 258/258 STATICALLY MAPPED
+- Smelting-bonus registrations: 18 separate
+
+Excluded from ZIP:
+- build/
+- .gradle/
+- .git/
+- __pycache__/
+- *.class
+- *.pyc
+- output ZIP itself
+
+Key file SHA-256:
+b2356ed474a7ff417e986c9c44bbf45056c0f07af61db28383aebbe26911a75e  build.gradle
+136856834385139e57996a7fd825c9b5be85e3bcef24f24d9716cd8fdc0efe82  src/main/resources/META-INF/mods.toml
+a8e4ba97e6013ebbc060fdea7176999ed9f9660903ad2c942ec7c0520b2c7db5  src/main/java/com/darkifov/thaumcraft/warp/TC4UnnaturalHungerParity.java
+801baa3872a9926ef9203d53b7b826354455f9d710be704b31aa3ea11b17853a  src/main/java/com/darkifov/thaumcraft/client/UnnaturalHungerPostEffect.java
+bef33d59c843c743f88eff965a292f51a0ad4227c90cded23535a0dd028caa67  src/main/resources/assets/thaumcraft/shaders/post/unnatural_hunger.json
+3dfc43ce6995b91ba5815cbd7f936aa86007e11bc8b05218c62444f9eaa5ef2e  src/main/resources/assets/thaumcraft/textures/mob_effect/unnatural_hunger.png
+ec422ec27e559119d27572f9fa43208006fdcceaab4a44a200d95da4d5b3d70c  tools/tc4_116413_unnatural_hunger_full_closure_guard.py
+d15a3ca2861d8f4fe65afa81cd3c69da590699ceef8f77d7e0bac19e3d8e7fe6  tools/data/tc4_unnatural_hunger_full_source_evidence_v11.64.13.json
+5b43d655404e81b40185a95e1da4c46c42c869a3620263b02f019c9c7ff045ee  runtime_artifacts/runtime_test_manifest.template.json
+ec3192723bbd81df42a30903c74f534d23b23ca36007b8c8f6d222daeaf6c65b  TC4_11.64.13_UNNATURAL_HUNGER_FULL_CLOSURE_PARITY_PORT_REPORT_RU.md

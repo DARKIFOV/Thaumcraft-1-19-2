@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "thaumcraft:tc4_bauble_belt",
+    "thaumcraft:tc4_runic_girdle",
+    "thaumcraft:tc4_runic_girdle_kinetic",
+    "thaumcraft:focus_pouchbauble",
+    "thaumcraft:tc4_hovergirdle"
+  ]
+}

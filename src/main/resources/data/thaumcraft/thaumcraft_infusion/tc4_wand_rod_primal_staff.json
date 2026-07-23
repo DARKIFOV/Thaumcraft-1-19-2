@@ -3,7 +3,7 @@
   "tc4_source": "ConfigRecipes.addInfusionCraftingRecipe",
   "research": "ROD_primal_staff",
   "tc4_kind": "INFUSION",
-  "catalyst": "thaumcraft:tc4_wand_rod_silverwood",
+  "catalyst": "thaumcraft:silverwood_wand_core",
   "components": [
     "thaumcraft:tc4_charm",
     "thaumcraft:tc4_wand_rod_obsidian",
@@ -27,5 +27,6 @@
   "result": {
     "item": "thaumcraft:tc4_staff_rod_primal",
     "count": 1
-  }
+  },
+  "v11_63_49_exact_source": true
 }

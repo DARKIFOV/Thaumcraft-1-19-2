@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "thaumcraft:block/tc4_block_arcane_stone_slab"
+    },
+    "type=top": {
+      "model": "thaumcraft:block/tc4_block_arcane_stone_slab_top"
+    },
+    "type=double": {
+      "model": "thaumcraft:block/tc4_block_arcane_stone_slab_double"
+    }
+  }
+}

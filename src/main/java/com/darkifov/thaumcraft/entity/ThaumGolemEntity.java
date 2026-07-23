@@ -19,6 +19,7 @@ import com.darkifov.thaumcraft.golem.GolemDecorationType;
 import com.darkifov.thaumcraft.golem.GolemMarkerMode;
 import com.darkifov.thaumcraft.golem.GolemMaterial;
 import com.darkifov.thaumcraft.golem.GolemUpgradeType;
+import com.darkifov.thaumcraft.entity.projectile.GolemDartEntity;
 import com.darkifov.thaumcraft.golem.GolemOriginalRuntime;
 import com.darkifov.thaumcraft.golem.GolemBellMarkerRuntime;
 import com.darkifov.thaumcraft.golem.GolemTaskAIRuntime;
@@ -64,8 +65,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -157,7 +156,11 @@ public class ThaumGolemEntity extends PathfinderMob {
     /** TC4 essentia core carries a raw aspect/amount, not filled phials in ghost slots. */
     private Aspect carriedEssentia = null;
     private int carriedEssentiaAmount = 0;
-    private int fishingCooldown = 300;
+    private int fishingCooldown = 0;
+    private UUID fishingBobberUuid;
+    private BlockPos fishingTarget;
+    private float fishingBiteQuality;
+    private int fishingBobberResolveGrace;
     private int originalChestInteractTicks = 0;
     private String lastOriginalTask = "none";
     private ItemStack filterStack = ItemStack.EMPTY;
@@ -274,8 +277,14 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     public void setGolemProfile(GolemMaterial material, GolemCoreType coreType) {
+        GolemCoreType nextCore = coreType == null ? GolemCoreType.GATHER : coreType;
+        if (this.coreType == GolemCoreType.FISH && nextCore != GolemCoreType.FISH
+                && fishingBobberUuid != null && level != null && !level.isClientSide) {
+            clearFishingBobber(true);
+            fishingCooldown = 0;
+        }
         this.material = material == null ? GolemMaterial.WOOD : material;
-        this.coreType = coreType == null ? GolemCoreType.GATHER : coreType;
+        this.coreType = nextCore;
         this.originalUpgradeSlots = GolemOriginalRuntime.normalizeUpgradeSlots(originalUpgradeSlots, this.material, advanced);
         syncColorsLength();
         applyProfileAttributes();
@@ -295,7 +304,13 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     public void setCoreType(GolemCoreType coreType) {
-        this.coreType = coreType == null ? GolemCoreType.GATHER : coreType;
+        GolemCoreType nextCore = coreType == null ? GolemCoreType.GATHER : coreType;
+        if (this.coreType == GolemCoreType.FISH && nextCore != GolemCoreType.FISH
+                && fishingBobberUuid != null && level != null && !level.isClientSide) {
+            clearFishingBobber(true);
+            fishingCooldown = 0;
+        }
+        this.coreType = nextCore;
         syncColorsLength();
         applyProfileAttributes();
     }
@@ -453,6 +468,7 @@ public class ThaumGolemEntity extends PathfinderMob {
         carriedEssentiaAmount = Math.max(0, tag.getInt("EssentiaCarriedAmount"));
         if (carriedEssentiaAmount <= 0) carriedEssentia = null;
         fishingCooldown = tag.contains("FishingCooldown") ? Math.max(0, tag.getInt("FishingCooldown")) : 300;
+        clearFishingBobber(false);
         if (tag.contains(GolemOriginalRuntime.NBT_INVENTORY)) {
             ListTag stored = tag.getList(GolemOriginalRuntime.NBT_INVENTORY, 10);
             for (int i = 0; i < stored.size(); i++) {
@@ -753,8 +769,14 @@ public class ThaumGolemEntity extends PathfinderMob {
         if (rangedAttackCooldown > 0) {
             rangedAttackCooldown--;
         }
-        if (coreType == GolemCoreType.FISH && fishingCooldown > 0) {
-            fishingCooldown--;
+        if (coreType == GolemCoreType.FISH && !waiting && !pausedByGolemGui) {
+            if (fishingBobberUuid != null && fishingCooldown > 0) {
+                fishingCooldown--;
+            }
+            tickFishingLifecycle();
+        } else if (fishingBobberUuid != null) {
+            clearFishingBobber(true);
+            fishingCooldown = 0;
         }
 
         // EntityGolemBase regenerates one health after its material delay.
@@ -1655,7 +1677,7 @@ public class ThaumGolemEntity extends PathfinderMob {
             return true;
         }
 
-        Arrow dart = new Arrow(level, this);
+        GolemDartEntity dart = new GolemDartEntity(level, this);
         dart.setPos(getX(), getEyeY() - 0.1D, getZ());
         double dx = target.getX() - getX();
         double dz = target.getZ() - getZ();
@@ -1664,7 +1686,6 @@ public class ThaumGolemEntity extends PathfinderMob {
         float inaccuracy = 7.0F - getUpgradeAmount(GolemUpgradeType.WATER) * 1.75F;
         dart.shoot(dx, dy + horizontal * 0.2D, dz, 1.6F, Math.max(0.0F, inaccuracy));
         dart.setBaseDamage(getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.4D);
-        dart.pickup = AbstractArrow.Pickup.DISALLOWED;
         level.addFreshEntity(dart);
         level.playSound(null, blockPosition(), TC4Sounds.event("golemironshoot"),
                 net.minecraft.sounds.SoundSource.NEUTRAL, 0.5F,
@@ -1851,7 +1872,7 @@ public class ThaumGolemEntity extends PathfinderMob {
     }
 
     private void fishAtWaterMarker() {
-        if (!(level instanceof ServerLevel serverLevel)) return;
+        if (!(level instanceof ServerLevel serverLevel) || fishingBobberUuid != null) return;
         BlockPos water = findFishingWater();
         if (water == null) {
             patrolBetweenMarkers();
@@ -1862,24 +1883,97 @@ public class ThaumGolemEntity extends PathfinderMob {
                     GolemOriginalRuntime.movementSpeed(material, originalUpgradeSlots, decorationCode, advanced, isInWater()));
             return;
         }
-        if (fishingCooldown > 0) return;
+        GolemBobberEntity bobber = new GolemBobberEntity(serverLevel, this, water);
+        if (!serverLevel.addFreshEntity(bobber)) {
+            return;
+        }
+        fishingBobberUuid = bobber.getUUID();
+        fishingTarget = water.immutable();
+        fishingBiteQuality = fishingBiteQualityLikeTC4(water);
+        fishingCooldown = 300 + random.nextInt(200);
+        fishingBobberResolveGrace = 40;
+        playSound(net.minecraft.sounds.SoundEvents.ARROW_SHOOT, 0.5F,
+                0.4F / (random.nextFloat() * 0.4F + 0.8F));
+        level.broadcastEntityEvent(this, (byte) 7);
+        lastOriginalTask = "AIFish:bobber";
+    }
+
+    private void tickFishingLifecycle() {
+        if (!(level instanceof ServerLevel serverLevel) || fishingBobberUuid == null) return;
+        Entity entity = serverLevel.getEntity(fishingBobberUuid);
+        if (!(entity instanceof GolemBobberEntity bobber) || !bobber.isAlive()) {
+            if (fishingBobberResolveGrace-- > 0) return;
+            clearFishingBobber(false);
+            fishingCooldown = 0;
+            return;
+        }
+        fishingBobberResolveGrace = 20;
+        if (fishingCooldown <= 0) {
+            clearFishingBobber(true);
+            lastOriginalTask = "AIFish:timeout";
+            return;
+        }
+        getLookControl().setLookAt(bobber.getX(), bobber.getY(), bobber.getZ(), 30.0F, 30.0F);
+        lastOriginalTask = "AIFish:waiting";
+        float chance = fishingBiteQuality
+                + GolemOriginalRuntime.strength(material, originalUpgradeSlots) * 1.5E-4F;
+        if (random.nextFloat() < chance) {
+            completeFishingCatch(serverLevel, bobber);
+        }
+    }
+
+    private void completeFishingCatch(ServerLevel serverLevel, GolemBobberEntity bobber) {
+        BlockPos water = fishingTarget == null ? bobber.blockPosition() : fishingTarget;
         int catches = 1;
         int air = getUpgradeAmount(GolemUpgradeType.AIR);
         if (air > 0 && random.nextInt(10) < air) catches++;
         for (int i = 0; i < catches; i++) {
             ItemStack catchStack = rollFishingCatchLikeTC4(water);
             if (getUpgradeAmount(GolemUpgradeType.FIRE) > 0) catchStack = cookFishingCatch(catchStack);
-            ItemEntity entity = new ItemEntity(serverLevel, water.getX() + 0.5D, water.getY() + 1.0D, water.getZ() + 0.5D, catchStack);
-            double dx = getX() - entity.getX();
-            double dz = getZ() - entity.getZ();
-            entity.setDeltaMovement(dx * 0.1D, 0.25D, dz * 0.1D);
-            entity.setPickUpDelay(20);
-            if (getUpgradeAmount(GolemUpgradeType.FIRE) > 0) entity.setSecondsOnFire(2);
-            serverLevel.addFreshEntity(entity);
+            ItemEntity item = new ItemEntity(serverLevel,
+                    water.getX() + 0.5D, water.getY() + 1.0D, water.getZ() + 0.5D, catchStack);
+            double dx = getX() + random.nextFloat() - random.nextFloat() - item.getX();
+            double dy = getY() - water.getY() + 1.0D;
+            double dz = getZ() + random.nextFloat() - random.nextFloat() - item.getZ();
+            double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+            item.setDeltaMovement(dx * 0.1D, dy * 0.1D + Math.sqrt(distance) * 0.08D, dz * 0.1D);
+            item.setPickUpDelay(20);
+            if (getUpgradeAmount(GolemUpgradeType.FIRE) > 0) item.setSecondsOnFire(2);
+            serverLevel.addFreshEntity(item);
         }
-        fishingCooldown = 300 + random.nextInt(200);
+        bobber.splashAndDiscard();
+        clearFishingBobber(false);
+        fishingCooldown = 0;
         level.broadcastEntityEvent(this, (byte) 7);
-        lastOriginalTask = "AIFishing:catch";
+        lastOriginalTask = "AIFish:catch";
+    }
+
+    private void clearFishingBobber(boolean discard) {
+        if (discard && fishingBobberUuid != null && level instanceof ServerLevel serverLevel) {
+            Entity entity = serverLevel.getEntity(fishingBobberUuid);
+            if (entity instanceof GolemBobberEntity) entity.discard();
+        }
+        fishingBobberUuid = null;
+        fishingTarget = null;
+        fishingBiteQuality = 0.0F;
+        fishingBobberResolveGrace = 0;
+    }
+
+    private float fishingBiteQualityLikeTC4(BlockPos water) {
+        float quality = 0.0F;
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockPos neighbor = water.relative(direction);
+            if (!level.getFluidState(neighbor).is(FluidTags.WATER)
+                    || !level.getBlockState(neighbor.above()).isAir()) continue;
+            quality += 3.0E-5F;
+            if (level.canSeeSky(neighbor.above())) quality += 3.0E-5F;
+            for (int depth = 1; depth <= 3; depth++) {
+                if (level.getFluidState(neighbor.below(depth)).is(FluidTags.WATER)) {
+                    quality += 1.5E-5F;
+                }
+            }
+        }
+        return quality;
     }
 
     private BlockPos findFishingWater() {
@@ -1910,10 +2004,12 @@ public class ThaumGolemEntity extends PathfinderMob {
         if (roll < junkChance) {
             ItemStack[] junk = {
                     new ItemStack(Items.LEATHER_BOOTS), new ItemStack(Items.LEATHER),
-                    new ItemStack(Items.BONE), new ItemStack(Items.INK_SAC),
+                    new ItemStack(Items.BONE),
+                    net.minecraft.world.item.alchemy.PotionUtils.setPotion(
+                            new ItemStack(Items.POTION), net.minecraft.world.item.alchemy.Potions.WATER),
                     new ItemStack(Items.STRING), new ItemStack(Items.FISHING_ROD),
                     new ItemStack(Items.BOWL), new ItemStack(Items.STICK),
-                    new ItemStack(Items.TRIPWIRE_HOOK), new ItemStack(Items.LILY_PAD),
+                    new ItemStack(Items.INK_SAC, 10), new ItemStack(Items.TRIPWIRE_HOOK),
                     new ItemStack(Items.ROTTEN_FLESH)
             };
             int[] weights = {10, 10, 10, 10, 5, 2, 10, 5, 5, 10, 10};
@@ -1922,8 +2018,8 @@ public class ThaumGolemEntity extends PathfinderMob {
         roll -= junkChance;
         if (roll < treasureChance) {
             ItemStack[] treasure = {
-                    new ItemStack(Items.NAME_TAG), new ItemStack(Items.SADDLE),
-                    new ItemStack(Items.NAUTILUS_SHELL), new ItemStack(Items.BOW),
+                    new ItemStack(Items.LILY_PAD), new ItemStack(Items.NAME_TAG),
+                    new ItemStack(Items.SADDLE), new ItemStack(Items.BOW),
                     new ItemStack(Items.FISHING_ROD), new ItemStack(Items.ENCHANTED_BOOK)
             };
             int[] weights = {1, 1, 1, 1, 1, 1};
@@ -3014,6 +3110,9 @@ public class ThaumGolemEntity extends PathfinderMob {
             tag.putInt("EssentiaCarriedAmount", carriedEssentiaAmount);
         }
         tag.putInt("FishingCooldown", fishingCooldown);
+        if (fishingBobberUuid != null) tag.putUUID("FishingBobber", fishingBobberUuid);
+        if (fishingTarget != null) tag.putLong("FishingTarget", fishingTarget.asLong());
+        tag.putFloat("FishingBiteQuality", fishingBiteQuality);
         writeNullablePos(tag, "Input", inputPos);
         writeNullablePos(tag, "Output", outputPos);
         writeNullablePos(tag, "Guard", guardPos);
@@ -3126,7 +3225,12 @@ public class ThaumGolemEntity extends PathfinderMob {
         carriedEssentia = Aspect.byId(tag.getString("EssentiaCarried"));
         carriedEssentiaAmount = Math.max(0, tag.getInt("EssentiaCarriedAmount"));
         if (carriedEssentiaAmount <= 0) carriedEssentia = null;
-        fishingCooldown = tag.contains("FishingCooldown") ? Math.max(0, tag.getInt("FishingCooldown")) : 300;
+        fishingBobberUuid = tag.hasUUID("FishingBobber") ? tag.getUUID("FishingBobber") : null;
+        fishingCooldown = fishingBobberUuid != null && tag.contains("FishingCooldown")
+                ? Math.max(0, tag.getInt("FishingCooldown")) : 0;
+        fishingTarget = tag.contains("FishingTarget") ? BlockPos.of(tag.getLong("FishingTarget")) : null;
+        fishingBiteQuality = tag.getFloat("FishingBiteQuality");
+        fishingBobberResolveGrace = fishingBobberUuid == null ? 0 : 100;
         if (tag.contains(GolemOriginalRuntime.NBT_MARKERS)) {
             applyOriginalMarkerList(tag.getList(GolemOriginalRuntime.NBT_MARKERS, 10));
         }

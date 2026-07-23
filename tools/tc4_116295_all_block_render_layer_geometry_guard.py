@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guard for v11.62.96 all-block alpha/render-layer and core geometry repairs."""
+"""Guard for v11.63.10 all-block alpha/render-layer and core geometry repairs."""
 from __future__ import annotations
 import csv, json
 from pathlib import Path
@@ -10,8 +10,8 @@ checks=[]
 def add(name,ok,detail=''): checks.append((name,bool(ok),detail))
 def load(p): return json.loads(p.read_text())
 
-add('project version', "version = '11.62.96'" in (ROOT/'build.gradle').read_text())
-# Frozen inventory from the 11.62.96 exhaustive audit.
+add('project version', "version = '11.63.23'" in (ROOT/'build.gradle').read_text())
+# Frozen inventory from the 11.63.10 exhaustive audit.
 partial='''advanced_alchemical_furnace aer_crystal amber_bricks aqua_crystal arcane_crafting_terminal eldritch_portal essentia_conversion_monitor essentia_export_bus essentia_import_bus essentia_level_emitter essentia_storage_bus essentia_storage_monitor essentia_terminal extras_water_block flux_gas flux_goo golem_seal_collect_block ignis_crystal matrix_accelerator matrix_stabilizer nitor_light ordo_crystal perditio_crystal taint_fibres tc4_block_crystal_cluster terra_crystal thaumic_crafting_cpu thaumic_me_cable thaumic_me_controller tt_enchanter tt_repairer'''.split()
 cutout='''bellows extras_light_block fume_dissipator mnemonic_matrix tce_cactus tce_warded_glass tt_fire_air tt_fire_chaos tt_fire_earth tt_fire_order tt_fire_water tt_funnel tt_gaseous_light tt_gaseous_shadow tt_mob_magnet tt_nitor_gas tt_warp_gate vis_interface'''.split()
 add('49-model mismatch inventory',len(partial)+len(cutout)==49,f'{len(partial)} translucent + {len(cutout)} cutout')
@@ -44,14 +44,14 @@ portal_model=load(RES/'models/block/eldritch_portal.json')
 add('Portal renderer-only block', 'RenderShape.INVISIBLE' in portal_block and portal_model.get('elements')==[])
 add('Portal 16-frame original strip',all(t in portal_renderer for t in ['textures/misc/eldritch_portal.png','frame / 16.0F','(frame + 1) / 16.0F','LightTexture.FULL_BRIGHT','cameraOrientation()']))
 add('Portal BER registered',all(t in client for t in ['ELDRITCH_PORTAL_BLOCK_ENTITY','EldritchPortalRenderer::new']))
-add('Explicit runtime fallback layers',client.count('v11.62.96: explicit fallback layers')==1 and all(f'ThaumcraftMod.{c}.get()' in client for c in ['ADVANCED_ALCHEMICAL_FURNACE','AER_CRYSTAL','FLUX_GAS','FLUX_GOO','BELLOWS','ELDRITCH_PORTAL','VIS_INTERFACE']))
+add('Explicit runtime fallback layers',client.count('v11.63.10: explicit fallback layers')==1 and all(f'ThaumcraftMod.{c}.get()' in client for c in ['ADVANCED_ALCHEMICAL_FURNACE','AER_CRYSTAL','FLUX_GAS','FLUX_GOO','BELLOWS','ELDRITCH_PORTAL','VIS_INTERFACE']))
 
 problems=[{'name':n,'detail':d} for n,ok,d in checks if not ok]
-report={'version':'11.62.96','status':'PASS' if not problems else 'FAIL','checks':[{'name':n,'status':'PASS' if ok else 'FAIL','detail':d} for n,ok,d in checks],'problems':problems,'limitations':['Static source/resource contract only.','Runtime lighting, sorting, culling, animation and item transforms remain NOT TESTED.']}
+report={'version':'11.63.10','status':'PASS' if not problems else 'FAIL','checks':[{'name':n,'status':'PASS' if ok else 'FAIL','detail':d} for n,ok,d in checks],'problems':problems,'limitations':['Static source/resource contract only.','Runtime lighting, sorting, culling, animation and item transforms remain NOT TESTED.']}
 (ROOT/'reports').mkdir(exist_ok=True)
 out=ROOT/'reports/tc4_116295_all_block_render_layer_geometry_guard.json'
 out.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-print(f"v11.62.96 all-block render/geometry guard: {len(checks)-len(problems)}/{len(checks)} PASS")
+print(f"v11.63.10 all-block render/geometry guard: {len(checks)-len(problems)}/{len(checks)} PASS")
 if problems:
  for p in problems: print('FAIL:',p['name'],p['detail'])
 raise SystemExit(1 if problems else 0)

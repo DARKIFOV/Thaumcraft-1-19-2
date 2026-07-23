@@ -1,0 +1,24 @@
+Thaumcraft Legacy Rebuild v11.63.35 static validation
+
+Legacy regression suite (tools/run_full_static_ci_116333.py):
+  checks 1-26:  26 PASS, 0 FAIL
+  checks 27-52: 26 PASS, 0 FAIL
+  checks 53-70: 18 PASS, 0 FAIL
+  checks 71-97: 27 PASS, 0 FAIL
+  total:        97 PASS, 0 FAIL
+
+Additional stage guards:
+  tools/tc4_116334_primordial_pearl_guard.py: PASS
+  tools/tc4_116335_research_utility_aliases_guard.py: PASS
+
+General post-change checks:
+  tools/java_syntax_guard.py: PASS
+  tools/forge_1192_compile_api_guard.py: PASS
+  tools/forge_only_guard.py: PASS
+  tools/validate_json_resources.py: PASS
+  tools/research_table_guard.py: PASS
+  tools/research_table_open_guard.py: PASS
+
+Gradle/JAR:
+  NOT RUN / NO JAR CLAIMED. The sandbox cannot download the Gradle distribution
+  or Forge dependencies and has no compatible cached build environment.

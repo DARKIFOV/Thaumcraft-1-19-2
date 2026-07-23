@@ -1,0 +1,31 @@
+{
+  "version": "11.64.00",
+  "baseline": "Thaumcraft 4.2.3.5 for Minecraft 1.7.10",
+  "original_sources": [
+    {
+      "path": "thaumcraft/client/gui/GuiResearchTable.java",
+      "lines": "849-852",
+      "evidence": "Only an existing type-2 hex sends PacketAspectPlaceToServer with a null aspect, so empty hexes and anchors are not clearable."
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileResearchTable.java",
+      "lines": "143-145, 174-192",
+      "evidence": "The table requires usable ink, rolls Expertise/Mastery refund, writes an empty type-0 entry and consumes one ink for the accepted clear."
+    },
+    {
+      "path": "thaumcraft/common/tiles/TileResearchTable.java",
+      "lines": "149-150, 174-181",
+      "evidence": "RESEARCHER1 refunds below 0.25 and RESEARCHER2 below 0.50; creative mode is not an unconditional refund branch."
+    }
+  ],
+  "claims": {
+    "only_type_2_hex_is_clearable": true,
+    "accepted_clear_consumes_one_ink": true,
+    "expertise_refund_is_strictly_below_0_25": true,
+    "mastery_refund_is_strictly_below_0_50": true,
+    "creative_has_no_implicit_refund": true,
+    "port_clear_is_atomic_with_full_rollback": true,
+    "rejected_packet_does_not_sync": true
+  },
+  "runtime_status": "NOT_VERIFIED"
+}

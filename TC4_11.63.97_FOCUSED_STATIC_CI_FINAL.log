@@ -1,0 +1,26 @@
+[1/12] tc4_116397_research_table_behavior_guard.py
+TC4 v11.63.97 Research Table behavior guard: PASS (107 GameTests; 435 manifest scenarios; real BE NBT/cadence coverage)
+[2/12] tc4_116396_research_efficiency_parity_guard.py
+TC4 v11.63.96 Research efficiency parity guard: PASS (107 GameTests; 435 manifest scenarios; Mastery ordering production-linked)
+[3/12] tc4_116395_thaumometer_parity_guard.py
+TC4 v11.63.95 Thaumometer parity guard: PASS (107 GameTests; 435 manifest scenarios; production-linked timing/target contracts)
+[4/12] tc4_116394_parity_consolidation_guard.py
+TC4 v11.63.94 parity consolidation guard: PASS (107 GameTests; 435 manifest scenarios; source-linked contracts retained)
+[5/12] tc4_116394_source_inventory_guard.py
+Source inventory guard: PASS (entity 38, menu 21, item 39, network 38, blockentity 51 top-level Java files)
+Note: source-file counts are packaging inventory, not original TC4 runtime registration denominators.
+[6/12] tc4_116282_research_workflow_parity_guard.py
+TC4 11.63.10 research workflow parity guard: PASS (25/25 checks)
+[7/12] tc4_116335_research_utility_aliases_guard.py
+TC4 v11.63.35 research utility aliases and sanity HUD guard: PASS
+[8/12] java_syntax_guard.py
+Java syntax guard: OK
+[9/12] java_parse_guard_116397.py
+Targeted Java parse guard: PASS (4 changed Java files; pure contracts compiled)
+[10/12] validate_json_resources.py
+JSON resource validation: OK (2049 files)
+[11/12] validate_runtime_manifest.py
+runtime manifest: PASS (435 tests; template=True)
+[12/12] tc4_recipe_registration_denominator_guard.py
+TC4 recipe registration denominator guard: PASS (258/258 STATICALLY MAPPED; Arcane 104+5; smelting bonuses 18 separate; runtime NOT VERIFIED)
+FOCUSED STATIC CHECKS v11.63.97: PASS (12/12)

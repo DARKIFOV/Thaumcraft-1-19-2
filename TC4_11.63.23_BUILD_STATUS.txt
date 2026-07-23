@@ -1,0 +1,16 @@
+Thaumcraft Legacy Rebuild v11.63.23 — build status
+Date: 2026-07-18
+Target: Minecraft 1.19.2 / Forge 43.5.2 / Java 17
+
+Command:
+./gradlew compileJava --stacktrace --no-daemon
+
+Result: FAILED BEFORE JAVAC
+Exit code: 1
+Reason: Gradle Wrapper could not resolve services.gradle.org while downloading Gradle 7.5.1.
+Exception: java.net.UnknownHostException: services.gradle.org
+Available JVM: OpenJDK 21.0.10
+Required project toolchain: Java 17
+
+No JAR was produced. Static source/resource checks passed, but gameplay, rendering, networking, save/reload and dedicated-server behavior remain NOT_TESTED.
+See: TC4_11.63.23_LOCAL_GRADLE_BUILD_ATTEMPT.log

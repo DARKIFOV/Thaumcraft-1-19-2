@@ -1,0 +1,131 @@
+{
+  "round": "11.64.21",
+  "object": "Arcane Pressure Plate and its integrated iron/gold key access path",
+  "source_closure": "CLOSED",
+  "resource_closure": "CLOSED",
+  "build_status": "NOT_OBTAINED",
+  "runtime_status": "NOT_VERIFIED",
+  "original_sources": [
+    "thaumcraft/common/blocks/BlockWoodenDevice.java",
+    "thaumcraft/common/tiles/TileArcanePressurePlate.java",
+    "thaumcraft/common/tiles/TileOwned.java",
+    "thaumcraft/common/items/ItemKey.java",
+    "thaumcraft/common/items/wands/ItemWandCasting.java",
+    "thaumcraft/common/config/ConfigRecipes.java",
+    "thaumcraft/common/config/ConfigResearch.java"
+  ],
+  "production_bindings": [
+    "TC4ArcanePressurePlateParity -> ArcanePressurePlateBlockEntity.shouldTrigger/cycleSetting/mayBindKey",
+    "TC4ArcanePressurePlateParity -> ArcanePressurePlateBlock bounds/signals/tick interval",
+    "TC4ArcanePressurePlateParity -> ArcaneKeyItem location/type/matching/tooltip",
+    "WandItem.useOn -> ArcanePressurePlateBlock.removeWithOwnerWand",
+    "ThaumcraftMod registry -> warded hardness, resistance, no loot table and common BlockItem"
+  ],
+  "fixed_discrepancies": [
+    "Removed the non-original support survival requirement that destroyed floating plates",
+    "Restored exact legacy owner/access/setting NBT alongside UUID migration storage",
+    "Restored original key location/type NBT and coordinate-only matching",
+    "Restored bound-copy insertion/drop before blank-key consumption",
+    "Restored owner-only wand reclamation for the unpressed warded plate",
+    "Corrected the Arcane Pressure Plate T/D ingredient mapping",
+    "Corrected the Gold Key recipe result from iron keys to gold keys",
+    "Removed non-original uncommon rarity from the plate item and normal loot path",
+    "Restored the original any-NBT bound-key branch so malformed tagged keys cannot be silently rebound"
+  ],
+  "proof": {
+    "pure_java_self_test": "tools/java_contracts/TC4ArcanePressurePlateParitySelfTest.java",
+    "source_guard": "tools/tc4_116421_arcane_pressure_plate_full_closure_guard.py",
+    "gametests_added": 6,
+    "runtime_scenarios_added": 15
+  },
+  "build_attempt": {
+    "command": "./gradlew build --no-daemon --console=plain",
+    "exit_code": 1,
+    "java_runtime": "OpenJDK 21.0.10 (required target remains Java 17)",
+    "blocker": "UnknownHostException: services.gradle.org while downloading Gradle 7.5.1",
+    "log": "TC4_11.64.21_GRADLE_BUILD_ATTEMPT.log"
+  },
+  "source_anchors": [
+    {
+      "file": "thaumcraft/common/blocks/BlockWoodenDevice.java",
+      "lines": "52-55, 70-72, 159-200, 243-250, 291-304, 383-398, 455-460, 484-489, 562-655, 674-701",
+      "expressions": [
+        "tickRate() = 20",
+        "setting 0/1/2 entity filters",
+        "0.125 scan inset",
+        "0.25 scan height",
+        "pressed metadata 2/3",
+        "strong power only side 1",
+        "warded hardness -1",
+        "resistance 999"
+      ]
+    },
+    {
+      "file": "thaumcraft/common/tiles/TileArcanePressurePlate.java",
+      "lines": "11, 22-31",
+      "expressions": [
+        "byte setting",
+        "read/write setting"
+      ]
+    },
+    {
+      "file": "thaumcraft/common/tiles/TileOwned.java",
+      "lines": "13-16, 24-54, 57-66",
+      "expressions": [
+        "owner string",
+        "access list compounds",
+        "name entries",
+        "safeToRemove"
+      ]
+    },
+    {
+      "file": "thaumcraft/common/items/ItemKey.java",
+      "lines": "67-75, 80-170, 174-187",
+      "expressions": [
+        "any tag compound branch",
+        "location/type NBT",
+        "inventory insert before shrink",
+        "iron/gold access prefixes",
+        "x,z,y tooltip",
+        "uncommon rarity"
+      ]
+    },
+    {
+      "file": "thaumcraft/common/items/wands/ItemWandCasting.java",
+      "lines": "386-397",
+      "expressions": [
+        "owner warded plate safeToRemove",
+        "manual item entity",
+        "block event 2001"
+      ]
+    },
+    {
+      "file": "thaumcraft/common/config/ConfigRecipes.java",
+      "lines": "680, 699, 710",
+      "expressions": [
+        "IronKey result 2 meta 0",
+        "GoldKey result 2 meta 1",
+        "ArcanePressurePlate B/T/D mapping and vis costs"
+      ]
+    },
+    {
+      "file": "thaumcraft/common/config/ConfigResearch.java",
+      "lines": "1107",
+      "expressions": [
+        "WARDEDARCANA ARTIFICE -5,-4 complexity 2",
+        "TOOL 6 MIND 3 MECHANISM 3 ARMOR 3",
+        "THAUMIUM parent and recipe pages"
+      ]
+    }
+  ],
+  "validation": {
+    "focused_static_ci": "31/31 PASS",
+    "gametest_methods": "183 unique (source-defined; runtime not executed)",
+    "runtime_manifest": "594 unique scenarios",
+    "json": "2054/2054 PASS",
+    "recipe_denominator": "258/258 STATICALLY MAPPED",
+    "java_target_selftest": "javac --release 17 PASS under javac 21.0.10",
+    "final_recheck": "23/23 PASS",
+    "forge_runtime": "NOT VERIFIED"
+  }
+}

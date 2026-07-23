@@ -51,8 +51,8 @@ if worktable:
 # Restore the original ItemWandRenderer matrices; reject the HOTFIX1 invented offsets.
 wand_path = "src/main/java/com/darkifov/thaumcraft/client/render/WandItemRenderer.java"
 wand = require(wand_path,
-               "poseStack.translate(0.50D, 1.50D, 0.50D)",
-               "poseStack.scale(1.00F, 1.10F, 1.00F)",
+               "poseStack.translate(0.50D, 0.78D, 0.50D)",
+               "poseStack.scale(heldScale, heldScale * 1.05F, heldScale)",
                "rotationDegrees(180.0F)",
                "rotationDegrees(66.0F)")
 for token in ("MODEL_CENTER_Y", "0.11D", "-0.11D"):

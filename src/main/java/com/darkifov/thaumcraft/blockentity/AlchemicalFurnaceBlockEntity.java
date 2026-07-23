@@ -5,12 +5,17 @@ import com.darkifov.thaumcraft.AspectDatabase;
 import com.darkifov.thaumcraft.AspectList;
 import com.darkifov.thaumcraft.ThaumcraftMod;
 import com.darkifov.thaumcraft.block.BellowsBlock;
+import com.darkifov.thaumcraft.block.TC4ArcaneBellowsParity;
 import com.darkifov.thaumcraft.menu.AlchemicalFurnaceMenu;
 import com.darkifov.thaumcraft.aura.AuraVisRelayNetwork;
 import com.darkifov.thaumcraft.essentia.TC4DistillationRuntime;
+import com.darkifov.thaumcraft.alchemy.TC4AlchemicalFurnaceParity;
+import com.darkifov.thaumcraft.block.AlchemicalFurnaceBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -20,6 +25,7 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +33,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * TC4 TileAlchemyFurnace parity adapter.
@@ -37,16 +50,27 @@ import net.minecraftforge.registries.ForgeRegistries;
  * 500-vis capacity until its complete multiblock/aura controller is finalized.
  */
 public class AlchemicalFurnaceBlockEntity extends BlockEntity implements WorldlyContainer, net.minecraft.world.MenuProvider {
-    public static final int CAPACITY = 50;
+    public static final int CAPACITY = TC4AlchemicalFurnaceParity.FURNACE_CAPACITY;
     public static final int ADVANCED_CAPACITY = 500;
     public static final int ADVANCED_MAX_POWER = 500;
     public static final int ADVANCED_RECHARGE_CV = 50;
-    public static final int MAX_BELLOWS = 4;
+    public static final int MAX_BELLOWS = TC4ArcaneBellowsParity.MAX_GENERIC_ATTACHED_BELLOWS;
     public static final int SLOT_INPUT = 0;
     public static final int SLOT_FUEL = 1;
     private static final int[] NO_SLOTS = new int[0];
     private static final int[] INPUT_SLOT = new int[] {SLOT_INPUT};
     private static final int[] FUEL_SLOT = new int[] {SLOT_FUEL};
+    @SuppressWarnings("unchecked")
+    private LazyOptional<IItemHandler>[] sidedHandlers = createSidedHandlers();
+
+    @SuppressWarnings("unchecked")
+    private LazyOptional<IItemHandler>[] createSidedHandlers() {
+        LazyOptional<IItemHandler>[] handlers = new LazyOptional[Direction.values().length];
+        for (Direction direction : Direction.values()) {
+            handlers[direction.get3DDataValue()] = LazyOptional.of(() -> new SidedInvWrapper(this, direction));
+        }
+        return handlers;
+    }
 
     private final AspectList aspects = new AspectList();
     /** Compatibility buffer for worlds made by the pre-v11.62.23 direct-use furnace. */
@@ -282,7 +306,12 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
     }
 
     public int nextDistillationInterval() {
-        return speedBoost ? 20 : 40;
+        return TC4AlchemicalFurnaceParity.distillationInterval(speedBoost);
+    }
+
+    /** Original TileAlchemyFurnace uses its own persisted tile counter for the 40/20 tick distillation phase. */
+    public int distillationCounter() {
+        return counter;
     }
 
     private static int burnValue(ItemStack stack) {
@@ -291,7 +320,7 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
         }
         // TC4 EventHandlerWorld registers Alumentum as a 6400-tick fuel.
         if (isAlumentum(stack)) {
-            return 6400;
+            return TC4AlchemicalFurnaceParity.ALUMENTUM_BURN_TIME;
         }
         return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
     }
@@ -309,21 +338,17 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
             bellows = 0;
             return;
         }
-        int found = 0;
-        for (Direction direction : Direction.values()) {
-            BlockState state = level.getBlockState(worldPosition.relative(direction));
-            if (state.getBlock() instanceof BellowsBlock && BellowsBlock.facesTarget(state, direction.getOpposite())) {
-                found++;
-            }
-        }
-        bellows = Math.min(MAX_BELLOWS, found);
+        bellows = Math.min(MAX_BELLOWS,
+                BellowsBlock.countActiveBellows(level, worldPosition, Direction.values()));
     }
 
     private int calculateSmeltTime(int visSize) {
         if (bellows < 0) {
             refreshBellows();
         }
-        return Math.max(1, (int) (Math.max(1, visSize) * 10.0F * (1.0F - 0.125F * bellows)));
+        int exact = TC4AlchemicalFurnaceParity.smeltTime(visSize, bellows);
+        int legacyBridge = TC4ArcaneBellowsParity.alchemicalFurnaceSmeltTime(visSize, bellows);
+        return exact == legacyBridge ? exact : legacyBridge;
     }
 
     private AspectList inputAspects() {
@@ -456,35 +481,35 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
     }
 
     private void tickServer() {
+        boolean wasBurning = fuelTime > 0;
         counter++;
-        if (bellows < 0 || counter % 40 == 0) {
-            refreshBellows();
-        }
-        if (fuelTime > 0) {
-            fuelTime--;
-        }
+        if (fuelTime > 0) fuelTime--;
+        if (bellows < 0) refreshBellows();
+
+        // Original order: distil first, then acquire fuel, then advance cooking.
+        TC4DistillationRuntime.tickFurnaceToAlembics(level, worldPosition, this);
 
         if (!pendingAspects.isEmpty()) {
             if (fuelTime > 0) {
                 burnProgress++;
-                if (burnProgress >= burnDuration) {
-                    finishLegacyPending();
-                }
-            }
-            setChangedAndSync();
-            return;
-        }
-
-        consumeFuelIfNeeded();
-        if (fuelTime > 0 && canSmeltInput()) {
-            burnProgress++;
-            if (burnProgress >= burnDuration) {
-                finishItemSmelt();
+                if (burnProgress >= burnDuration) finishLegacyPending();
             }
         } else {
-            burnProgress = 0;
+            consumeFuelIfNeeded();
+            if (fuelTime > 0 && canSmeltInput()) {
+                burnProgress++;
+                if (burnProgress >= burnDuration) finishItemSmelt();
+            } else {
+                burnProgress = 0;
+            }
         }
+        updateLitState(wasBurning, fuelTime > 0);
         setChangedAndSync();
+    }
+
+    private void updateLitState(boolean wasBurning, boolean burning) {
+        if (level == null || wasBurning == burning || !getBlockState().hasProperty(AlchemicalFurnaceBlock.LIT)) return;
+        level.setBlock(worldPosition, getBlockState().setValue(AlchemicalFurnaceBlock.LIT, burning), Block.UPDATE_ALL);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, AlchemicalFurnaceBlockEntity furnace) {
@@ -493,7 +518,6 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
             return;
         }
         furnace.tickServer();
-        TC4DistillationRuntime.tickFurnaceToAlembics(level, pos, furnace);
     }
 
     public void setChangedAndSync() {
@@ -508,7 +532,7 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
     public Component getDisplayName() {
         return getBlockState().is(ThaumcraftMod.ADVANCED_ALCHEMICAL_FURNACE.get())
                 ? Component.translatable("block.thaumcraft.advanced_alchemical_furnace")
-                : Component.translatable("block.thaumcraft.alchemical_furnace");
+                : Component.translatable("container.alchemyfurnace");
     }
 
     @Override
@@ -521,11 +545,11 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> fuelTime;
-                    case 1 -> Math.max(1, currentFuelTime);
-                    case 2 -> burnProgress;
-                    case 3 -> Math.max(1, burnDuration);
-                    case 4 -> aspects.totalAmount();
+                    case 0 -> burnProgress;
+                    case 1 -> fuelTime;
+                    case 2 -> Math.max(1, currentFuelTime);
+                    case 3 -> aspects.totalAmount();
+                    case 4 -> Math.max(1, burnDuration);
                     default -> 0;
                 };
             }
@@ -533,10 +557,10 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> fuelTime = value;
-                    case 1 -> currentFuelTime = value;
-                    case 2 -> burnProgress = value;
-                    case 3 -> burnDuration = value;
+                    case 0 -> burnProgress = value;
+                    case 1 -> fuelTime = value;
+                    case 2 -> currentFuelTime = value;
+                    case 4 -> burnDuration = value;
                     default -> { }
                 }
             }
@@ -662,34 +686,68 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
         if (side == Direction.UP) {
             return false;
         }
-        return side == Direction.DOWN ? slot == SLOT_FUEL : slot == SLOT_INPUT;
+        return side == Direction.DOWN
+                ? slot == SLOT_FUEL && stack.is(Items.BUCKET)
+                : slot == SLOT_INPUT;
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.put("Aspects", aspects.save());
-        tag.put("PendingAspects", pendingAspects.save());
+        tag.putShort("BurnTime", (short) fuelTime);
+        tag.putShort("Vis", (short) aspects.totalAmount());
+        tag.putBoolean("speedBoost", speedBoost);
+        tag.putShort("CookTime", (short) burnProgress);
+
+        ListTag items = new ListTag();
         if (!input.isEmpty()) {
-            tag.put("Input", input.save(new CompoundTag()));
+            CompoundTag entry = input.save(new CompoundTag());
+            entry.putByte("Slot", (byte) SLOT_INPUT);
+            items.add(entry);
         }
         if (!fuel.isEmpty()) {
-            tag.put("Fuel", fuel.save(new CompoundTag()));
+            CompoundTag entry = fuel.save(new CompoundTag());
+            entry.putByte("Slot", (byte) SLOT_FUEL);
+            items.add(entry);
         }
-        tag.putInt("FuelTime", fuelTime);
-        tag.putInt("CurrentFuelTime", currentFuelTime);
-        tag.putInt("BurnProgress", burnProgress);
-        tag.putInt("BurnDuration", burnDuration);
-        tag.putInt("Bellows", bellows);
-        tag.putInt("Counter", counter);
-        tag.putBoolean("SpeedBoost", speedBoost);
-        tag.putInt("AdvancedHeat", advancedHeat);
-        tag.putInt("AdvancedEntropy", advancedEntropy);
-        tag.putInt("AdvancedWater", advancedWater);
-        tag.putInt("AdvancedProcessed", advancedProcessed);
-        tag.putInt("IgnisCreditCv", ignisCreditCv);
-        tag.putInt("PerditioCreditCv", perditioCreditCv);
-        tag.putInt("AquaCreditCv", aquaCreditCv);
+        tag.put("Items", items);
+        writeOriginalAspects(tag, aspects);
+
+        // Advanced-only controller state is outside TileAlchemyFurnace parity.
+        if (isAdvanced()) {
+            tag.putInt("AdvancedHeat", advancedHeat);
+            tag.putInt("AdvancedEntropy", advancedEntropy);
+            tag.putInt("AdvancedWater", advancedWater);
+            tag.putInt("AdvancedProcessed", advancedProcessed);
+            tag.putInt("IgnisCreditCv", ignisCreditCv);
+            tag.putInt("PerditioCreditCv", perditioCreditCv);
+            tag.putInt("AquaCreditCv", aquaCreditCv);
+        }
+    }
+
+    private static void writeOriginalAspects(CompoundTag tag, AspectList list) {
+        ListTag values = new ListTag();
+        for (java.util.Map.Entry<Aspect, Integer> entry : list.entries().entrySet()) {
+            if (entry.getValue() <= 0) continue;
+            CompoundTag value = new CompoundTag();
+            value.putString("key", entry.getKey().id());
+            value.putInt("amount", entry.getValue());
+            values.add(value);
+        }
+        tag.put("Aspects", values);
+    }
+
+    private static void readOriginalAspects(CompoundTag tag, AspectList list) {
+        if (tag.contains("Aspects", Tag.TAG_LIST)) {
+            for (Tag raw : tag.getList("Aspects", Tag.TAG_COMPOUND)) {
+                CompoundTag value = (CompoundTag) raw;
+                Aspect aspect = Aspect.byId(value.getString("key"));
+                int amount = Math.max(0, value.getInt("amount"));
+                if (aspect != null && amount > 0) list.add(aspect, amount);
+            }
+        } else if (tag.contains("Aspects", Tag.TAG_COMPOUND)) {
+            list.load(tag.getCompound("Aspects")); // migration from pre-11.64.37
+        }
     }
 
     @Override
@@ -697,21 +755,30 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
         super.load(tag);
         aspects.clear();
         pendingAspects.clear();
-        if (tag.contains("Aspects")) {
-            aspects.load(tag.getCompound("Aspects"));
+        readOriginalAspects(tag, aspects);
+
+        input = ItemStack.EMPTY;
+        fuel = ItemStack.EMPTY;
+        if (tag.contains("Items", Tag.TAG_LIST)) {
+            for (Tag raw : tag.getList("Items", Tag.TAG_COMPOUND)) {
+                CompoundTag entry = (CompoundTag) raw;
+                ItemStack stack = ItemStack.of(entry);
+                if (entry.getByte("Slot") == SLOT_INPUT) input = stack;
+                if (entry.getByte("Slot") == SLOT_FUEL) fuel = stack;
+            }
+        } else {
+            input = tag.contains("Input", Tag.TAG_COMPOUND) ? ItemStack.of(tag.getCompound("Input")) : ItemStack.EMPTY;
+            fuel = tag.contains("Fuel", Tag.TAG_COMPOUND) ? ItemStack.of(tag.getCompound("Fuel")) : ItemStack.EMPTY;
+            if (tag.contains("PendingAspects", Tag.TAG_COMPOUND)) pendingAspects.load(tag.getCompound("PendingAspects"));
         }
-        if (tag.contains("PendingAspects")) {
-            pendingAspects.load(tag.getCompound("PendingAspects"));
-        }
-        input = tag.contains("Input") ? ItemStack.of(tag.getCompound("Input")) : ItemStack.EMPTY;
-        fuel = tag.contains("Fuel") ? ItemStack.of(tag.getCompound("Fuel")) : ItemStack.EMPTY;
-        fuelTime = Math.max(0, tag.getInt("FuelTime"));
-        currentFuelTime = Math.max(0, tag.getInt("CurrentFuelTime"));
-        burnProgress = Math.max(0, tag.getInt("BurnProgress"));
-        burnDuration = Math.max(1, tag.getInt("BurnDuration"));
-        bellows = tag.contains("Bellows") ? tag.getInt("Bellows") : -1;
-        counter = Math.max(0, tag.getInt("Counter"));
-        speedBoost = tag.getBoolean("SpeedBoost");
+
+        fuelTime = Math.max(0, tag.contains("BurnTime") ? tag.getShort("BurnTime") : tag.getInt("FuelTime"));
+        currentFuelTime = Math.max(0, burnValue(fuel));
+        burnProgress = Math.max(0, tag.contains("CookTime") ? tag.getShort("CookTime") : tag.getInt("BurnProgress"));
+        burnDuration = Math.max(1, tag.contains("BurnDuration") ? tag.getInt("BurnDuration") : 100);
+        bellows = -1;
+        counter = 0;
+        speedBoost = tag.contains("speedBoost") ? tag.getBoolean("speedBoost") : tag.getBoolean("SpeedBoost");
         advancedHeat = Math.max(0, Math.min(ADVANCED_MAX_POWER, tag.getInt("AdvancedHeat")));
         advancedEntropy = Math.max(0, Math.min(ADVANCED_MAX_POWER, tag.getInt("AdvancedEntropy")));
         advancedWater = Math.max(0, Math.min(ADVANCED_MAX_POWER, tag.getInt("AdvancedWater")));
@@ -719,6 +786,27 @@ public class AlchemicalFurnaceBlockEntity extends BlockEntity implements Worldly
         ignisCreditCv = Math.max(0, tag.getInt("IgnisCreditCv"));
         perditioCreditCv = Math.max(0, tag.getInt("PerditioCreditCv"));
         aquaCreditCv = Math.max(0, tag.getInt("AquaCreditCv"));
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER && side != null) {
+            return sidedHandlers[side.get3DDataValue()].cast();
+        }
+        return super.getCapability(capability, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        for (LazyOptional<IItemHandler> handler : sidedHandlers) handler.invalidate();
+    }
+
+    @Override
+    public void reviveCaps() {
+        super.reviveCaps();
+        sidedHandlers = createSidedHandlers();
     }
 
     @Override

@@ -7,7 +7,7 @@
   "ingredients": [
     "minecraft:iron_ingot",
     "thaumcraft:tc4_brain",
-    "thaumcraft:tc4_amber"
+    "thaumcraft:amber"
   ],
   "aspects": {
     "IGNIS": 5,
@@ -21,7 +21,7 @@
   ],
   "key": {
     "I": "minecraft:iron_ingot",
-    "A": "thaumcraft:tc4_amber",
+    "A": "thaumcraft:amber",
     "B": "thaumcraft:tc4_brain"
   },
   "result": {

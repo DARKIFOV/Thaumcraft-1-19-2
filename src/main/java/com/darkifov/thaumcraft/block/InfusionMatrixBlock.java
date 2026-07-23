@@ -1,20 +1,14 @@
 package com.darkifov.thaumcraft.block;
 
 import com.darkifov.thaumcraft.ThaumcraftMod;
-import com.darkifov.thaumcraft.blockentity.ArcanePedestalBlockEntity;
 import com.darkifov.thaumcraft.blockentity.InfusionMatrixBlockEntity;
-import com.darkifov.thaumcraft.infusion.InfusionAltarStructure;
-import com.darkifov.thaumcraft.infusion.InfusionProcessHelper;
-import com.darkifov.thaumcraft.infusion.InfusionStructureReport;
-import net.minecraft.ChatFormatting;
+import com.darkifov.thaumcraft.infusion.TC4InfusionAltarFullClosureParity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -24,7 +18,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-
+/** Original TC4 runic matrix activation, destruction and visual shell. */
 public class InfusionMatrixBlock extends BaseEntityBlock {
     public InfusionMatrixBlock(Properties properties) {
         super(properties);
@@ -42,76 +36,41 @@ public class InfusionMatrixBlock extends BaseEntityBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide) {
-            return null;
-        }
-
-        return createTickerHelper(type, ThaumcraftMod.INFUSION_MATRIX_BLOCK_ENTITY.get(), InfusionMatrixBlockEntity::serverTick);
+        return createTickerHelper(type, ThaumcraftMod.INFUSION_MATRIX_BLOCK_ENTITY.get(),
+                level.isClientSide ? InfusionMatrixBlockEntity::clientTick : InfusionMatrixBlockEntity::serverTick);
     }
 
-    @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        boolean active = false;
-        boolean crafting = false;
-
-        if (level.getBlockEntity(pos) instanceof InfusionMatrixBlockEntity matrix) {
-            active = matrix.active();
-            crafting = matrix.crafting();
-        }
-
-        if (random.nextFloat() < (crafting ? 0.9F : (active ? 0.55F : 0.18F))) {
-            double x = pos.getX() + 0.5D + (random.nextDouble() - 0.5D) * (crafting ? 2.0D : 1.1D);
-            double y = pos.getY() + 0.5D + random.nextDouble() * 0.9D;
-            double z = pos.getZ() + 0.5D + (random.nextDouble() - 0.5D) * (crafting ? 2.0D : 1.1D);
-            level.addParticle(ParticleTypes.ENCHANT, x, y, z, 0.0D, crafting ? 0.06D : 0.02D, 0.0D);
-        }
-
-        if (active && random.nextFloat() < (crafting ? 0.45F : 0.12F)) {
-            level.addParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 0.85D, pos.getZ() + 0.5D, 0.0D, 0.02D, 0.0D);
-        }
-
-        if (crafting && random.nextFloat() < 0.25F) {
-            level.addParticle(ParticleTypes.WITCH, pos.getX() + 0.5D, pos.getY() + 0.55D, pos.getZ() + 0.5D, 0.0D, 0.01D, 0.0D);
-        }
-    }
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
                                  InteractionHand hand, BlockHitResult hit) {
-        ItemStack held = player.getItemInHand(hand);
-
+        if (hand != InteractionHand.MAIN_HAND) {
+            return InteractionResult.PASS;
+        }
+        ItemStack held = player.getMainHandItem();
+        if (!(held.getItem() instanceof WandItem)) {
+            return InteractionResult.PASS;
+        }
         if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-
         if (!(level.getBlockEntity(pos) instanceof InfusionMatrixBlockEntity matrix)) {
             return InteractionResult.PASS;
         }
+        return matrix.onWandRightClick(player) ? InteractionResult.CONSUME : InteractionResult.PASS;
+    }
 
-        if (held.isEmpty()) {
-            if (matrix.active()) {
-                player.displayClientMessage(matrix.statusComponent(), false);
-
-                if (player.isShiftKeyDown()) {
-                    matrix.cancelInfusion(player);
-                }
-
-                return InteractionResult.CONSUME;
-            }
-
-            ArcanePedestalBlockEntity catalystPedestal = InfusionProcessHelper.findCatalystPedestal(level, pos);
-            InfusionStructureReport report = InfusionAltarStructure.analyze(level, pos, catalystPedestal);
-            player.displayClientMessage(report.summary(), false);
-            player.displayClientMessage(Component.translatable("thaumcraft.infusion.start_hint").withStyle(ChatFormatting.GRAY), false);
-            return InteractionResult.CONSUME;
+    @Override
+    public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean moving) {
+        boolean explode = oldState.getBlock() != newState.getBlock()
+                && !level.isClientSide
+                && level.getBlockEntity(pos) instanceof InfusionMatrixBlockEntity matrix
+                && matrix.crafting();
+        super.onRemove(oldState, level, pos, newState, moving);
+        if (explode) {
+            level.explode(null, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+                    TC4InfusionAltarFullClosureParity.CRAFTING_BREAK_EXPLOSION_STRENGTH,
+                    Explosion.BlockInteraction.BREAK);
         }
-
-        if (!(held.getItem() instanceof WandItem)) {
-            player.displayClientMessage(Component.translatable("thaumcraft.infusion.inspect_hint").withStyle(ChatFormatting.LIGHT_PURPLE), false);
-            return InteractionResult.CONSUME;
-        }
-
-        matrix.onWandRightClick(player);
-        return InteractionResult.CONSUME;
     }
 }
